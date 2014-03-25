@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SPHipster/SPLog.h>
 #import "FootblAPI.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
@@ -21,6 +22,16 @@ static NSString * const kAPIAcceptVersion = @"1.0";
 static NSString * const kTestUserID = @"5331d9661ce75b040098824c";
 static NSString * const kTestUserPassword = @"123456";
 static NSString * const kTestUserToken = @"1e9468b8520e46e70a089d5742dcad6a5f430b71";
+
+static void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
+    SPLogVerbose(@"%@", responseObject);
+    if (success) success();
+}
+
+static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
+    SPLogError(@"\n%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
+    if (failure) failure(error);
+}
 
 #pragma mark - Class Methods
 
@@ -65,37 +76,37 @@ static NSString * const kTestUserToken = @"1e9468b8520e46e70a089d5742dcad6a5f430
 
 #pragma mark - Users
 
-- (void)createAccountWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
+- (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self sharedParameters];
     [parameters setObject:[NSString randomStringWithLength:20] forKey:@"password"];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) success();
+        requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) failure(error);
+        requestFailedWithBlock(operation, parameters, error, failure);
     }];
 }
 
-- (void)loginWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure {
+- (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self sharedParameters];
     [parameters setObject:kTestUserID forKey:@"_id"];
     [parameters setObject:kTestUserPassword forKey:@"password"];
     
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) success();
+        requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) failure(error);
+        requestFailedWithBlock(operation, parameters, error, failure);
     }];
 }
 
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(void (^)())success failure:(void (^)(NSError *error))failure {
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self sharedParameters];
     [parameters setObject:username forKey:@"username"];
     [parameters setObject:email forKey:@"email"];
     [parameters setObject:password forKey:@"password"];
     [self PUT:[@"users/" stringByAppendingPathComponent:kTestUserID] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) success();
+        requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (failure) failure(error);
+        requestFailedWithBlock(operation, parameters, error, failure);
     }];
 }
 

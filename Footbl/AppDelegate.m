@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
 
 #pragma mark AppDelegate
@@ -25,6 +26,19 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    switch (SPGetBuildType()) {
+        case SPBuildTypeDebug:
+            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            break;
+        case SPBuildTypeAdHoc:
+            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            break;
+        case SPBuildTypeAppStore:
+            kSPDebugLogLevel = SPDebugLogLevelNothing;
+            break;
+    }
+    
     return YES;
 }
 

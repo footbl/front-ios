@@ -48,3 +48,27 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// SPHipster
+#define COCOAPODS_POD_AVAILABLE_SPHipster
+#define COCOAPODS_VERSION_MAJOR_SPHipster 0
+#define COCOAPODS_VERSION_MINOR_SPHipster 2
+#define COCOAPODS_VERSION_PATCH_SPHipster 0
+
+// SPHipster/Categories
+#define COCOAPODS_POD_AVAILABLE_SPHipster_Categories
+#define COCOAPODS_VERSION_MAJOR_SPHipster_Categories 0
+#define COCOAPODS_VERSION_MINOR_SPHipster_Categories 2
+#define COCOAPODS_VERSION_PATCH_SPHipster_Categories 0
+
+// SPHipster/Core
+#define COCOAPODS_POD_AVAILABLE_SPHipster_Core
+#define COCOAPODS_VERSION_MAJOR_SPHipster_Core 0
+#define COCOAPODS_VERSION_MINOR_SPHipster_Core 2
+#define COCOAPODS_VERSION_PATCH_SPHipster_Core 0
+
+// SPHipster/Extras
+#define COCOAPODS_POD_AVAILABLE_SPHipster_Extras
+#define COCOAPODS_VERSION_MAJOR_SPHipster_Extras 0
+#define COCOAPODS_VERSION_MINOR_SPHipster_Extras 2
+#define COCOAPODS_VERSION_PATCH_SPHipster_Extras 0
+

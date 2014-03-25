@@ -1,0 +1,1 @@
+../../SPHipster/SPHipster/SPWindmillView.h

@@ -8,11 +8,14 @@
 
 #import "AFHTTPRequestOperationManager.h"
 
+typedef void (^FootblAPISuccessBlock)();
+typedef void (^FootblAPIFailureBlock)(NSError *error);
+
 @interface FootblAPI : AFHTTPRequestOperationManager
 
 + (instancetype)sharedAPI;
-- (void)createAccountWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
-- (void)loginWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure;
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(void (^)())success failure:(void (^)(NSError *error))failure;
+- (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 
 @end
