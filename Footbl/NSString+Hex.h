@@ -10,6 +10,6 @@
 
 @interface NSString (Hex)
 
-+ (NSString *)randomStringWithLength:(NSInteger)length;
++ (NSString *)randomHexStringWithLength:(NSInteger)length;
 
 @end

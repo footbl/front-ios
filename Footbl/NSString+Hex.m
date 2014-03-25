@@ -14,9 +14,9 @@
 
 #pragma mark - Class Methods
 
-+ (NSString *)randomStringWithLength:(NSInteger)length {
++ (NSString *)randomHexStringWithLength:(NSInteger)length {
     NSMutableString *hex = [@"" mutableCopy];
-    while ([hex length] < length) {
+    while (hex.length < length) {
         NSInteger baseInt = arc4random() % 16;
         [hex appendFormat:@"%X", baseInt];
     }

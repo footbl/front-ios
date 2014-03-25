@@ -63,7 +63,7 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
 
 - (NSMutableDictionary *)sharedParameters {
     float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
-    NSString *transactionIdentifier = [NSString randomStringWithLength:10];
+    NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
     
     NSMutableDictionary *parameters = [@{} mutableCopy];
     [parameters setObject:[NSString stringWithFormat:@"%.00f", unixTime] forKey:@"timestamp"];
@@ -78,7 +78,7 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
 
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self sharedParameters];
-    [parameters setObject:[NSString randomStringWithLength:20] forKey:@"password"];
+    [parameters setObject:[NSString randomHexStringWithLength:20] forKey:@"password"];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
