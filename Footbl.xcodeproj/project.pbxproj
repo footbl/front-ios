@@ -23,6 +23,9 @@
 		EDB1D48718E1F18B00E0C949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D48D18E1F18B00E0C949 /* InfoPlist.strings */; };
 		EDB1D49118E1F18B00E0C949 /* FootblTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D49018E1F18B00E0C949 /* FootblTests.m */; };
+		EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A418E1F43000E0C949 /* FootblAPI.m */; };
+		EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
+		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,12 @@
 		EDB1D48C18E1F18B00E0C949 /* FootblTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
 		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB1D49018E1F18B00E0C949 /* FootblTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootblTests.m; sourceTree = "<group>"; };
+		EDB1D4A318E1F43000E0C949 /* FootblAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAPI.h; sourceTree = "<group>"; };
+		EDB1D4A418E1F43000E0C949 /* FootblAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAPI.m; sourceTree = "<group>"; };
+		EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA1.h"; sourceTree = "<group>"; };
+		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
+		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
+		EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +172,10 @@
 		EDB1D49D18E1F3CC00E0C949 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				EDB1D4A918E209E500E0C949 /* NSString+Hex.h */,
+				EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */,
+				EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */,
+				EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -203,6 +216,8 @@
 		EDB1D4A218E1F3F300E0C949 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				EDB1D4A318E1F43000E0C949 /* FootblAPI.h */,
+				EDB1D4A418E1F43000E0C949 /* FootblAPI.m */,
 			);
 			name = APIs;
 			sourceTree = "<group>";
@@ -338,7 +353,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
+				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
+				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
+				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
