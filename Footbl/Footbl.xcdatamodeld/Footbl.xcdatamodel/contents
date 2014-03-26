@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Championship" representedClassName="Championship" parentEntity="FootblModel" syncable="YES">
+        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
+    </entity>
+    <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
+        <relationship name="match" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="comments" inverseEntity="Match" syncable="YES"/>
+    </entity>
+    <entity name="FootblModel" representedClassName="FootblModel" isAbstract="YES" syncable="YES">
+        <attribute name="rid" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Match" representedClassName="Match" parentEntity="FootblModel" syncable="YES">
+        <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
+    </entity>
+    <entity name="Team" representedClassName="Team" parentEntity="FootblModel" syncable="YES"/>
+    <elements>
+        <element name="Championship" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="Team" positionX="-36" positionY="9" width="128" height="43"/>
+        <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
+        <element name="Comment" positionX="0" positionY="63" width="128" height="58"/>
+    </elements>
 </model>

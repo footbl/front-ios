@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
+		ED9DC8D418E3270600DF458C /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
+		ED9DC8D518E3270600DF458C /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
+		ED9DC8D618E3270600DF458C /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
+		ED9DC8DE18E3271900DF458C /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
+		ED9DC8DF18E3271900DF458C /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
+		ED9DC8E018E3271900DF458C /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
+		ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E218E3285A00DF458C /* _FootblModel.m */; };
+		ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E518E3286900DF458C /* FootblModel.m */; };
+		ED9DC8E918E3330400DF458C /* _Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E818E3330400DF458C /* _Comment.m */; };
+		ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8EB18E3330D00DF458C /* Comment.m */; };
 		EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D46818E1F18B00E0C949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -41,6 +51,26 @@
 /* Begin PBXFileReference section */
 		367ED0AE31BD4C60B34A5B8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		ED9DC8CE18E3270600DF458C /* _Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Championship.h; path = Models/_Championship.h; sourceTree = "<group>"; };
+		ED9DC8CF18E3270600DF458C /* _Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Championship.m; path = Models/_Championship.m; sourceTree = "<group>"; };
+		ED9DC8D018E3270600DF458C /* _Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Match.h; path = Models/_Match.h; sourceTree = "<group>"; };
+		ED9DC8D118E3270600DF458C /* _Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Match.m; path = Models/_Match.m; sourceTree = "<group>"; };
+		ED9DC8D218E3270600DF458C /* _Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Team.h; path = Models/_Team.h; sourceTree = "<group>"; };
+		ED9DC8D318E3270600DF458C /* _Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Team.m; path = Models/_Team.m; sourceTree = "<group>"; };
+		ED9DC8D818E3271900DF458C /* Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Championship.h; path = Models/Championship.h; sourceTree = "<group>"; };
+		ED9DC8D918E3271900DF458C /* Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Championship.m; path = Models/Championship.m; sourceTree = "<group>"; };
+		ED9DC8DA18E3271900DF458C /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Match.h; path = Models/Match.h; sourceTree = "<group>"; };
+		ED9DC8DB18E3271900DF458C /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Match.m; path = Models/Match.m; sourceTree = "<group>"; };
+		ED9DC8DC18E3271900DF458C /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = Models/Team.h; sourceTree = "<group>"; };
+		ED9DC8DD18E3271900DF458C /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = Models/Team.m; sourceTree = "<group>"; };
+		ED9DC8E118E3285A00DF458C /* _FootblModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _FootblModel.h; path = Models/_FootblModel.h; sourceTree = "<group>"; };
+		ED9DC8E218E3285A00DF458C /* _FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _FootblModel.m; path = Models/_FootblModel.m; sourceTree = "<group>"; };
+		ED9DC8E418E3286900DF458C /* FootblModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootblModel.h; path = Models/FootblModel.h; sourceTree = "<group>"; };
+		ED9DC8E518E3286900DF458C /* FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootblModel.m; path = Models/FootblModel.m; sourceTree = "<group>"; };
+		ED9DC8E718E3330400DF458C /* _Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Comment.h; path = Models/_Comment.h; sourceTree = "<group>"; };
+		ED9DC8E818E3330400DF458C /* _Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Comment.m; path = Models/_Comment.m; sourceTree = "<group>"; };
+		ED9DC8EA18E3330D00DF458C /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = Models/Comment.h; sourceTree = "<group>"; };
+		ED9DC8EB18E3330D00DF458C /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = Models/Comment.m; sourceTree = "<group>"; };
 		EDB1D46218E1F18B00E0C949 /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -94,6 +124,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED9DC8CD18E326FA00DF458C /* Machine */ = {
+			isa = PBXGroup;
+			children = (
+				ED9DC8CE18E3270600DF458C /* _Championship.h */,
+				ED9DC8CF18E3270600DF458C /* _Championship.m */,
+				ED9DC8E718E3330400DF458C /* _Comment.h */,
+				ED9DC8E818E3330400DF458C /* _Comment.m */,
+				ED9DC8E118E3285A00DF458C /* _FootblModel.h */,
+				ED9DC8E218E3285A00DF458C /* _FootblModel.m */,
+				ED9DC8D018E3270600DF458C /* _Match.h */,
+				ED9DC8D118E3270600DF458C /* _Match.m */,
+				ED9DC8D218E3270600DF458C /* _Team.h */,
+				ED9DC8D318E3270600DF458C /* _Team.m */,
+			);
+			name = Machine;
+			sourceTree = "<group>";
+		};
 		EDB1D45918E1F18B00E0C949 = {
 			isa = PBXGroup;
 			children = (
@@ -208,7 +255,18 @@
 		EDB1D4A118E1F3EA00E0C949 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ED9DC8D818E3271900DF458C /* Championship.h */,
+				ED9DC8D918E3271900DF458C /* Championship.m */,
+				ED9DC8EA18E3330D00DF458C /* Comment.h */,
+				ED9DC8EB18E3330D00DF458C /* Comment.m */,
 				EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */,
+				ED9DC8E418E3286900DF458C /* FootblModel.h */,
+				ED9DC8E518E3286900DF458C /* FootblModel.m */,
+				ED9DC8CD18E326FA00DF458C /* Machine */,
+				ED9DC8DA18E3271900DF458C /* Match.h */,
+				ED9DC8DB18E3271900DF458C /* Match.m */,
+				ED9DC8DC18E3271900DF458C /* Team.h */,
+				ED9DC8DD18E3271900DF458C /* Team.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -352,12 +410,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
+				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
+				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
+				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
+				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
+				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
+				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
+				ED9DC8E918E3330400DF458C /* _Comment.m in Sources */,
 				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
+				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
+				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
