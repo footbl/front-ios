@@ -11,11 +11,25 @@
 typedef void (^FootblAPISuccessBlock)();
 typedef void (^FootblAPIFailureBlock)(NSError *error);
 
+extern void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success);
+extern void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure);
+
 @interface FootblAPI : AFHTTPRequestOperationManager
 
+@property (copy, nonatomic, readonly) NSString *userIdentifier;
+@property (copy, nonatomic, readonly) NSString *userEmail;
+@property (copy, nonatomic, readonly) NSString *userPassword;
+
 + (instancetype)sharedAPI;
+
+- (NSMutableDictionary *)generateDefaultParameters;
+// Users
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)ensureAuthenticationWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (BOOL)isAuthenticated;
+- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)logout;
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 
 @end

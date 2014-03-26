@@ -6,10 +6,19 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#import <FXKeychain/FXKeychain.h>
 #import <SPHipster/SPLog.h>
 #import "FootblAPI.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
+
+@interface FootblAPI ()
+
+@property (copy, nonatomic) NSString *userToken;
+@property (strong, nonatomic) NSDate *tokenExpirationDate;
+
+@end
 
 #pragma mark FootblAPI
 
@@ -19,16 +28,16 @@ static NSString * const kAPIBaseURLString = @"https://footbl-development.herokua
 static NSString * const kAPISignatureKey = @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
 static NSString * const kAPIAcceptVersion = @"1.0";
 
-static NSString * const kTestUserID = @"5331d9661ce75b040098824c";
-static NSString * const kTestUserPassword = @"123456";
-static NSString * const kTestUserToken = @"1e9468b8520e46e70a089d5742dcad6a5f430b71";
+static NSString * const kUserEmailKey = @"kUserEmailKey";
+static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
+static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 
-static void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
+void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
     SPLogVerbose(@"%@", responseObject);
     if (success) success();
 }
 
-static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
+void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
     SPLogError(@"\n%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
     if (failure) failure(error);
 }
@@ -45,6 +54,51 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
     return _sharedAPI;
 }
 
+#pragma mark - Getters/Setters
+
+@synthesize userEmail = _userEmail;
+@synthesize userIdentifier = _userIdentifier;
+@synthesize userPassword = _userPassword;
+
+- (NSString *)userEmail {
+    return [[FXKeychain defaultKeychain] objectForKey:kUserEmailKey];
+}
+
+- (NSString *)userIdentifier {
+    return [[FXKeychain defaultKeychain] objectForKey:kUserIdentifierKey];
+}
+
+- (NSString *)userPassword {
+    return [[FXKeychain defaultKeychain] objectForKey:kUserPasswordKey];
+}
+
+- (void)setUserEmail:(NSString *)userEmail {
+    _userEmail = userEmail;
+    [[FXKeychain defaultKeychain] setObject:userEmail forKey:kUserEmailKey];
+}
+
+- (void)setUserIdentifier:(NSString *)userIdentifier {
+    _userIdentifier = userIdentifier;
+    
+    [[FXKeychain defaultKeychain] setObject:userIdentifier forKey:kUserIdentifierKey];
+}
+
+- (void)setUserPassword:(NSString *)userPassword {
+    _userPassword = userPassword;
+    
+    if (userPassword) {
+        [[FXKeychain defaultKeychain] setObject:userPassword forKey:kUserPasswordKey];
+    } else {
+        [[FXKeychain defaultKeychain] removeObjectForKey:kUserPasswordKey];
+    }
+}
+
+- (void)setUserToken:(NSString *)userToken {
+    _userToken = userToken;
+    
+    [self setTokenExpirationDate:[[NSDate date] dateByAddingTimeInterval:60 * 55]]; // 55 minutes
+}
+
 #pragma mark - Instance Methods
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
@@ -53,6 +107,9 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
         self.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self.requestSerializer setValue:kAPIAcceptVersion forHTTPHeaderField:@"Accept-Version"];
+        
+        [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+        [[FXKeychain defaultKeychain] setObject:(__bridge id)(kSecAttrAccessibleAlways) forKey:(__bridge id)(kSecAttrAccessible)];
     }
     return self;
 }
@@ -61,7 +118,7 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
     return [[NSString stringWithFormat:@"%.00f%@%@", timestamp, transactionIdentifier, kAPISignatureKey] sha1];
 }
 
-- (NSMutableDictionary *)sharedParameters {
+- (NSMutableDictionary *)generateDefaultParameters {
     float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
     NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
     
@@ -69,45 +126,107 @@ static void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
     [parameters setObject:[NSString stringWithFormat:@"%.00f", unixTime] forKey:@"timestamp"];
     [parameters setObject:transactionIdentifier forKey:@"transactionId"];
     [parameters setObject:[self generateSignatureWithTimestamp:unixTime transaction:transactionIdentifier] forKey:@"signature"];
-    [parameters setObject:kTestUserToken forKey:@"token"];
+    if ([self isAuthenticated] && self.userToken.length > 0) {
+        [parameters setObject:self.userToken forKey:@"token"];
+    }
     
     return parameters;
 }
 
 #pragma mark - Users
 
+- (BOOL)isAnonymous {
+    return self.userIdentifier.length > 0;
+}
+
+- (BOOL)isAuthenticated {
+    return (self.userIdentifier.length > 0 || self.userEmail.length > 0) && self.userPassword.length > 0;
+}
+
+- (BOOL)isTokenValid {
+    return self.userToken.length > 0 && self.tokenExpirationDate && [[NSDate date] timeIntervalSinceDate:self.tokenExpirationDate] < 0;
+}
+
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSMutableDictionary *parameters = [self sharedParameters];
+    NSMutableDictionary *parameters = [self generateDefaultParameters];
     [parameters setObject:[NSString randomHexStringWithLength:20] forKey:@"password"];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.userIdentifier = [responseObject objectForKey:@"_id"];
+        self.userPassword = [parameters objectForKey:@"password"];
+        self.userEmail = nil;
         requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
+}
+
+- (void)ensureAuthenticationWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (!success) {
+        return;
+    }
+    
+    if ([self isTokenValid]) {
+        success();
+        return;
+    }
+    
+    if (self.tokenExpirationDate) {
+        SPLogVerbose(@"Authentication token expired");
+    }
+    
+    [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:success failure:^(NSError *error) {
+        if (failure) failure(error);
+    }];
+}
+
+- (void)loginWithEmail:(NSString *)email identifier:(NSString *)identifier password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    NSMutableDictionary *parameters = [self generateDefaultParameters];
+    if (email.length > 0) {
+        [parameters setObject:email forKey:@"email"];
+    } else {
+        [parameters setObject:identifier forKey:@"_id"];
+    }
+    [parameters setObject:password forKey:@"password"];
+    
+    [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.userToken = [responseObject objectForKey:@"token"];
+        requestSucceedWithBlock(responseObject, success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        requestFailedWithBlock(operation, parameters, error, failure);
+    }];
+}
+
+- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self loginWithEmail:email identifier:nil password:password success:^{
+        self.userEmail = email;
+        self.userIdentifier = nil;
+        self.userPassword = password;
+    } failure:failure];
 }
 
 - (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSMutableDictionary *parameters = [self sharedParameters];
-    [parameters setObject:kTestUserID forKey:@"_id"];
-    [parameters setObject:kTestUserPassword forKey:@"password"];
-    
-    [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        requestSucceedWithBlock(responseObject, success);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        requestFailedWithBlock(operation, parameters, error, failure);
-    }];
+    [self loginWithEmail:nil identifier:self.userIdentifier password:self.userPassword success:success failure:failure];
+}
+
+- (void)logout {
+    self.userIdentifier = nil;
+    self.userEmail = nil;
+    self.userPassword = nil;
+    self.userToken = nil;
 }
 
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSMutableDictionary *parameters = [self sharedParameters];
-    [parameters setObject:username forKey:@"username"];
-    [parameters setObject:email forKey:@"email"];
-    [parameters setObject:password forKey:@"password"];
-    [self PUT:[@"users/" stringByAppendingPathComponent:kTestUserID] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        requestSucceedWithBlock(responseObject, success);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        requestFailedWithBlock(operation, parameters, error, failure);
-    }];
+    [self ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [parameters setObject:username forKey:@"username"];
+        [parameters setObject:email forKey:@"email"];
+        [parameters setObject:password forKey:@"password"];
+        [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            requestSucceedWithBlock(responseObject, success);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
 }
 
 @end
