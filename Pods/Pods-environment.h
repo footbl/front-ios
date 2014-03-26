@@ -78,3 +78,9 @@
 #define COCOAPODS_VERSION_MINOR_SPHipster_Extras 2
 #define COCOAPODS_VERSION_PATCH_SPHipster_Extras 0
 
+// TransformerKit
+#define COCOAPODS_POD_AVAILABLE_TransformerKit
+#define COCOAPODS_VERSION_MAJOR_TransformerKit 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit 3
+#define COCOAPODS_VERSION_PATCH_TransformerKit 1
+
