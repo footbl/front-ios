@@ -8,6 +8,7 @@
 
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
+#import "ChampionshipsViewController.h"
 
 #pragma mark AppDelegate
 
@@ -41,6 +42,9 @@
             SPLog(@"App Store");
             break;
     }
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[ChampionshipsViewController new]];
+    self.window.rootViewController = navigationController;
 
     return YES;
 }

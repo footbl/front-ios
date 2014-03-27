@@ -25,9 +25,8 @@
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches", championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:nil enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
+            [self loadContent:responseObject inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
                 object.championship = championship;
-                SPLog(@"%@", object);
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [FootblBackgroundManagedObjectContext() deleteObjects:untouchedObjects];
             }];

@@ -36,6 +36,10 @@
 		EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A418E1F43000E0C949 /* FootblAPI.m */; };
 		EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
+		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
+		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
+		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
+		EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +99,14 @@
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
 		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
+		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
+		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
+		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
+		EDEFC64618E4884E006DD33D /* MatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesViewController.m; sourceTree = "<group>"; };
+		EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchTableViewCell.h; sourceTree = "<group>"; };
+		EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchTableViewCell.m; sourceTree = "<group>"; };
+		EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsViewController.h; sourceTree = "<group>"; };
+		EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +253,12 @@
 		EDB1D49F18E1F3D800E0C949 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */,
+				EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */,
+				EDEFC64518E4884E006DD33D /* MatchesViewController.h */,
+				EDEFC64618E4884E006DD33D /* MatchesViewController.m */,
+				EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */,
+				EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -248,6 +266,8 @@
 		EDB1D4A018E1F3E000E0C949 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */,
+				EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -418,8 +438,12 @@
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
+				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
+				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
 				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
+				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
+				EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */,
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
 				ED9DC8E918E3330400DF458C /* _Comment.m in Sources */,
 				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,

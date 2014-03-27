@@ -17,9 +17,10 @@
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache;
 + (NSMutableDictionary *)generateDefaultParameters;
-- (FootblAPI *)API;
-- (NSMutableDictionary *)generateDefaultParameters;
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock;
+- (FootblAPI *)API;
+- (instancetype)editableObject;
+- (NSMutableDictionary *)generateDefaultParameters;
 - (void)updateWithData:(NSDictionary *)data;
 
 @end

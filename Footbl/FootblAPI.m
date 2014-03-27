@@ -203,13 +203,21 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         return;
     }
     
-    if (self.tokenExpirationDate) {
+    if (self.tokenExpirationDate && [self isAuthenticated]) {
         SPLogVerbose(@"Authentication token expired");
     }
     
-    [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:success failure:^(NSError *error) {
-        if (failure) failure(error);
-    }];
+    void(^loginBlock)() = ^() {
+        [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:success failure:^(NSError *error) {
+            if (failure) failure(error);
+        }];
+    };
+    
+    if ([self isAuthenticated]) {
+        loginBlock();
+    } else {
+        [self createAccountWithSuccess:loginBlock failure:failure];
+    }
 }
 
 - (void)loginWithEmail:(NSString *)email identifier:(NSString *)identifier password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

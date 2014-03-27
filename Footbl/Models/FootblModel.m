@@ -61,7 +61,6 @@
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
     if (!cache) {
         NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [content valueForKeyPath:kAPIIdentifierKey]];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         
         NSError *error = nil;
@@ -86,6 +85,10 @@
 
 - (FootblAPI *)API {
     return [[self class] API];
+}
+
+- (instancetype)editableObject {
+    return (id)[FootblBackgroundManagedObjectContext() objectWithID:self.objectID];
 }
 
 - (NSMutableDictionary *)generateDefaultParameters {
