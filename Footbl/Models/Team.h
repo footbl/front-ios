@@ -10,4 +10,6 @@
 
 @interface Team : _Team
 
+- (void)updateWithData:(NSDictionary *)data;
+
 @end

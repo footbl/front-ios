@@ -9,6 +9,7 @@
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import <FXKeychain/FXKeychain.h>
 #import <SPHipster/SPLog.h>
+#import "AppDelegate.h"
 #import "FootblAPI.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
@@ -28,9 +29,20 @@ static NSString * const kAPIBaseURLString = @"https://footbl-development.herokua
 static NSString * const kAPISignatureKey = @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
 static NSString * const kAPIAcceptVersion = @"1.0";
 
+static NSString * const kConfigPageSize = @"kConfigPageSize";
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
+
+NSString * const kAPIIdentifierKey = @"_id";
+
+NSManagedObjectContext * FootblBackgroundManagedObjectContext() {
+    return [(AppDelegate *)[UIApplication sharedApplication].delegate backgroundManagedObjectContext];
+}
+
+NSManagedObjectContext * FootblManagedObjectContext() {
+    return [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
+}
 
 void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
     SPLogVerbose(@"%@", responseObject);
@@ -40,6 +52,16 @@ void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
 void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
     SPLogError(@"\n%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
     if (failure) failure(error);
+}
+
+void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
+    NSError *error = nil;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[error localizedFailureReason] userInfo:[NSDictionary dictionaryWithObject:error forKey:NSUnderlyingErrorKey]];
+        }
+    }
 }
 
 #pragma mark - Class Methods
@@ -86,11 +108,7 @@ void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *par
 - (void)setUserPassword:(NSString *)userPassword {
     _userPassword = userPassword;
     
-    if (userPassword) {
-        [[FXKeychain defaultKeychain] setObject:userPassword forKey:kUserPasswordKey];
-    } else {
-        [[FXKeychain defaultKeychain] removeObjectForKey:kUserPasswordKey];
-    }
+    [[FXKeychain defaultKeychain] setObject:userPassword forKey:kUserPasswordKey];
 }
 
 - (void)setUserToken:(NSString *)userToken {
@@ -133,10 +151,25 @@ void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *par
     return parameters;
 }
 
+#pragma mark - Config
+
+- (void)updateConfigWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [self GET:@"/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[NSUserDefaults standardUserDefaults] setObject:[responseObject objectForKey:@"pageSize"] forKey:kConfigPageSize];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            requestSucceedWithBlock(responseObject, success);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
 #pragma mark - Users
 
 - (BOOL)isAnonymous {
-    return self.userIdentifier.length > 0;
+    return self.userEmail.length == 0 && self.userIdentifier.length > 0;
 }
 
 - (BOOL)isAuthenticated {
@@ -190,6 +223,7 @@ void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *par
     
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.userToken = [responseObject objectForKey:@"token"];
+        self.userIdentifier = [responseObject objectForKey:@"_id"];
         requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
@@ -199,7 +233,6 @@ void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *par
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self loginWithEmail:email identifier:nil password:password success:^{
         self.userEmail = email;
-        self.userIdentifier = nil;
         self.userPassword = password;
     } failure:failure];
 }

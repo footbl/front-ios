@@ -30,13 +30,9 @@ extern const struct FootblModelFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* rid;
+@property (nonatomic, strong) NSString* rid;
 
 
-
-@property int64_t ridValue;
-- (int64_t)ridValue;
-- (void)setRidValue:(int64_t)value_;
 
 //- (BOOL)validateRid:(id*)value_ error:(NSError**)error_;
 
@@ -54,11 +50,8 @@ extern const struct FootblModelFetchedProperties {
 @interface _FootblModel (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSNumber*)primitiveRid;
-- (void)setPrimitiveRid:(NSNumber*)value;
-
-- (int64_t)primitiveRidValue;
-- (void)setPrimitiveRidValue:(int64_t)value_;
+- (NSString*)primitiveRid;
+- (void)setPrimitiveRid:(NSString*)value;
 
 
 

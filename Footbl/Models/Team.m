@@ -20,4 +20,9 @@
 
 #pragma mark - Instance Methods
 
+- (void)updateWithData:(NSDictionary *)data {
+    self.name = [data objectForKey:@"name"];
+    self.picture = [data objectForKey:@"picture"];
+}
+
 @end

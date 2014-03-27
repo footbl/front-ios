@@ -4,9 +4,14 @@
 #import "_Team.h"
 
 const struct TeamAttributes TeamAttributes = {
+	.name = @"name",
+	.picture = @"picture",
 };
 
 const struct TeamRelationships TeamRelationships = {
+	.championships = @"championships",
+	.guestMatches = @"guestMatches",
+	.hostMatches = @"hostMatches",
 };
 
 const struct TeamFetchedProperties TeamFetchedProperties = {
@@ -44,6 +49,59 @@ const struct TeamFetchedProperties TeamFetchedProperties = {
 
 
 
+
+@dynamic name;
+
+
+
+
+
+
+@dynamic picture;
+
+
+
+
+
+
+@dynamic championships;
+
+	
+- (NSMutableSet*)championshipsSet {
+	[self willAccessValueForKey:@"championships"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"championships"];
+  
+	[self didAccessValueForKey:@"championships"];
+	return result;
+}
+	
+
+@dynamic guestMatches;
+
+	
+- (NSMutableSet*)guestMatchesSet {
+	[self willAccessValueForKey:@"guestMatches"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"guestMatches"];
+  
+	[self didAccessValueForKey:@"guestMatches"];
+	return result;
+}
+	
+
+@dynamic hostMatches;
+
+	
+- (NSMutableSet*)hostMatchesSet {
+	[self willAccessValueForKey:@"hostMatches"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"hostMatches"];
+  
+	[self didAccessValueForKey:@"hostMatches"];
+	return result;
+}
+	
 
 
 

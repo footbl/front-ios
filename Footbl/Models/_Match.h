@@ -5,11 +5,20 @@
 #import "FootblModel.h"
 
 extern const struct MatchAttributes {
+	__unsafe_unretained NSString *date;
+	__unsafe_unretained NSString *finished;
+	__unsafe_unretained NSString *guestScore;
+	__unsafe_unretained NSString *hostScore;
+	__unsafe_unretained NSString *potDraw;
+	__unsafe_unretained NSString *potGuest;
+	__unsafe_unretained NSString *potHost;
 } MatchAttributes;
 
 extern const struct MatchRelationships {
 	__unsafe_unretained NSString *championship;
 	__unsafe_unretained NSString *comments;
+	__unsafe_unretained NSString *guest;
+	__unsafe_unretained NSString *host;
 } MatchRelationships;
 
 extern const struct MatchFetchedProperties {
@@ -17,6 +26,15 @@ extern const struct MatchFetchedProperties {
 
 @class Championship;
 @class Comment;
+@class Team;
+@class Team;
+
+
+
+
+
+
+
 
 
 @interface MatchID : NSManagedObjectID {}
@@ -27,6 +45,100 @@ extern const struct MatchFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MatchID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* date;
+
+
+
+//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* finished;
+
+
+
+@property BOOL finishedValue;
+- (BOOL)finishedValue;
+- (void)setFinishedValue:(BOOL)value_;
+
+//- (BOOL)validateFinished:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* guestScore;
+
+
+
+@property int16_t guestScoreValue;
+- (int16_t)guestScoreValue;
+- (void)setGuestScoreValue:(int16_t)value_;
+
+//- (BOOL)validateGuestScore:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* hostScore;
+
+
+
+@property int16_t hostScoreValue;
+- (int16_t)hostScoreValue;
+- (void)setHostScoreValue:(int16_t)value_;
+
+//- (BOOL)validateHostScore:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* potDraw;
+
+
+
+@property float potDrawValue;
+- (float)potDrawValue;
+- (void)setPotDrawValue:(float)value_;
+
+//- (BOOL)validatePotDraw:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* potGuest;
+
+
+
+@property float potGuestValue;
+- (float)potGuestValue;
+- (void)setPotGuestValue:(float)value_;
+
+//- (BOOL)validatePotGuest:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* potHost;
+
+
+
+@property BOOL potHostValue;
+- (BOOL)potHostValue;
+- (void)setPotHostValue:(BOOL)value_;
+
+//- (BOOL)validatePotHost:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -46,6 +158,20 @@ extern const struct MatchFetchedProperties {
 
 
 
+@property (nonatomic, strong) Team *guest;
+
+//- (BOOL)validateGuest:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) Team *host;
+
+//- (BOOL)validateHost:(id*)value_ error:(NSError**)error_;
+
+
+
+
 
 @end
 
@@ -61,6 +187,66 @@ extern const struct MatchFetchedProperties {
 @interface _Match (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSDate*)primitiveDate;
+- (void)setPrimitiveDate:(NSDate*)value;
+
+
+
+
+- (NSNumber*)primitiveFinished;
+- (void)setPrimitiveFinished:(NSNumber*)value;
+
+- (BOOL)primitiveFinishedValue;
+- (void)setPrimitiveFinishedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveGuestScore;
+- (void)setPrimitiveGuestScore:(NSNumber*)value;
+
+- (int16_t)primitiveGuestScoreValue;
+- (void)setPrimitiveGuestScoreValue:(int16_t)value_;
+
+
+
+
+- (NSNumber*)primitiveHostScore;
+- (void)setPrimitiveHostScore:(NSNumber*)value;
+
+- (int16_t)primitiveHostScoreValue;
+- (void)setPrimitiveHostScoreValue:(int16_t)value_;
+
+
+
+
+- (NSNumber*)primitivePotDraw;
+- (void)setPrimitivePotDraw:(NSNumber*)value;
+
+- (float)primitivePotDrawValue;
+- (void)setPrimitivePotDrawValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitivePotGuest;
+- (void)setPrimitivePotGuest:(NSNumber*)value;
+
+- (float)primitivePotGuestValue;
+- (void)setPrimitivePotGuestValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitivePotHost;
+- (void)setPrimitivePotHost:(NSNumber*)value;
+
+- (BOOL)primitivePotHostValue;
+- (void)setPrimitivePotHostValue:(BOOL)value_;
+
+
+
+
 
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
@@ -69,6 +255,16 @@ extern const struct MatchFetchedProperties {
 
 - (NSMutableSet*)primitiveComments;
 - (void)setPrimitiveComments:(NSMutableSet*)value;
+
+
+
+- (Team*)primitiveGuest;
+- (void)setPrimitiveGuest:(Team*)value;
+
+
+
+- (Team*)primitiveHost;
+- (void)setPrimitiveHost:(Team*)value;
 
 
 @end

@@ -5,16 +5,20 @@
 #import "FootblModel.h"
 
 extern const struct ChampionshipAttributes {
+	__unsafe_unretained NSString *name;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
+	__unsafe_unretained NSString *competitors;
 	__unsafe_unretained NSString *matches;
 } ChampionshipRelationships;
 
 extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
+@class Team;
 @class Match;
+
 
 
 @interface ChampionshipID : NSManagedObjectID {}
@@ -26,6 +30,23 @@ extern const struct ChampionshipFetchedProperties {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (ChampionshipID*)objectID;
 
+
+
+
+
+@property (nonatomic, strong) NSString* name;
+
+
+
+//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSSet *competitors;
+
+- (NSMutableSet*)competitorsSet;
 
 
 
@@ -42,6 +63,11 @@ extern const struct ChampionshipFetchedProperties {
 
 @interface _Championship (CoreDataGeneratedAccessors)
 
+- (void)addCompetitors:(NSSet*)value_;
+- (void)removeCompetitors:(NSSet*)value_;
+- (void)addCompetitorsObject:(Team*)value_;
+- (void)removeCompetitorsObject:(Team*)value_;
+
 - (void)addMatches:(NSSet*)value_;
 - (void)removeMatches:(NSSet*)value_;
 - (void)addMatchesObject:(Match*)value_;
@@ -50,6 +76,17 @@ extern const struct ChampionshipFetchedProperties {
 @end
 
 @interface _Championship (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveName;
+- (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+
+- (NSMutableSet*)primitiveCompetitors;
+- (void)setPrimitiveCompetitors:(NSMutableSet*)value;
 
 
 

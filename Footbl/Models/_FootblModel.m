@@ -39,11 +39,6 @@ const struct FootblModelFetchedProperties FootblModelFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"ridValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"rid"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 
 	return keyPaths;
 }
@@ -53,25 +48,6 @@ const struct FootblModelFetchedProperties FootblModelFetchedProperties = {
 
 @dynamic rid;
 
-
-
-- (int64_t)ridValue {
-	NSNumber *result = [self rid];
-	return [result longLongValue];
-}
-
-- (void)setRidValue:(int64_t)value_ {
-	[self setRid:[NSNumber numberWithLongLong:value_]];
-}
-
-- (int64_t)primitiveRidValue {
-	NSNumber *result = [self primitiveRid];
-	return [result longLongValue];
-}
-
-- (void)setPrimitiveRidValue:(int64_t)value_ {
-	[self setPrimitiveRid:[NSNumber numberWithLongLong:value_]];
-}
 
 
 

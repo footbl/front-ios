@@ -15,6 +15,7 @@
 
 #pragma mark - Getters/Setters
 
+@synthesize backgroundManagedObjectContext = _backgroundManagedObjectContext;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -27,18 +28,20 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    kSPDebugLogLevel = SPDebugLogLevelInfo;
+    
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
-            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            SPLog(@"Debug");
             break;
         case SPBuildTypeAdHoc:
-            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            SPLog(@"AdHoc");
             break;
         case SPBuildTypeAppStore:
-            kSPDebugLogLevel = SPDebugLogLevelNothing;
+            SPLog(@"App Store");
             break;
     }
-    
+
     return YES;
 }
 
@@ -65,6 +68,19 @@
     [self saveContext];
 }
 
+- (void)saveBackgroundContext {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.backgroundManagedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 - (void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
@@ -80,6 +96,34 @@
 
 #pragma mark - Core Data stack
 
+// Returns the background managed object context for the application.
+// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+- (NSManagedObjectContext *)backgroundManagedObjectContext {
+    if (_backgroundManagedObjectContext != nil) {
+        return _backgroundManagedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_backgroundManagedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        if (note.object != self.backgroundManagedObjectContext) {
+            return;
+        }
+        
+        SPLog(@"Merging context");
+        
+        [self.managedObjectContext performBlock:^{
+            [self.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
+        }];
+    }];
+    
+    return _backgroundManagedObjectContext;
+}
+
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext {
@@ -89,7 +133,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;

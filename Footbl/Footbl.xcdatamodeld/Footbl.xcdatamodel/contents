@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Championship" representedClassName="Championship" parentEntity="FootblModel" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="competitors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="championships" inverseEntity="Team" syncable="YES"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
         <relationship name="match" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="comments" inverseEntity="Match" syncable="YES"/>
     </entity>
     <entity name="FootblModel" representedClassName="FootblModel" isAbstract="YES" syncable="YES">
-        <attribute name="rid" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="rid" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="Match" representedClassName="Match" parentEntity="FootblModel" syncable="YES">
+        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="finished" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="guestScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="hostScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="potDraw" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="potGuest" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="potHost" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="guest" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="guestMatches" inverseEntity="Team" syncable="YES"/>
+        <relationship name="host" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="hostMatches" inverseEntity="Team" syncable="YES"/>
     </entity>
-    <entity name="Team" representedClassName="Team" parentEntity="FootblModel" syncable="YES"/>
+    <entity name="Team" representedClassName="Team" parentEntity="FootblModel" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="championships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Championship" inverseName="competitors" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="guestMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="guest" inverseEntity="Match" syncable="YES"/>
+        <relationship name="hostMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="host" inverseEntity="Match" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Championship" positionX="-63" positionY="-18" width="128" height="58"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="73"/>
-        <element name="Team" positionX="-36" positionY="9" width="128" height="43"/>
-        <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
+        <element name="Championship" positionX="-63" positionY="-18" width="128" height="88"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="58"/>
+        <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="210"/>
+        <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
     </elements>
 </model>

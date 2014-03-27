@@ -4,9 +4,11 @@
 #import "_Championship.h"
 
 const struct ChampionshipAttributes ChampionshipAttributes = {
+	.name = @"name",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
+	.competitors = @"competitors",
 	.matches = @"matches",
 };
 
@@ -45,6 +47,26 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+
+@dynamic name;
+
+
+
+
+
+
+@dynamic competitors;
+
+	
+- (NSMutableSet*)competitorsSet {
+	[self willAccessValueForKey:@"competitors"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"competitors"];
+  
+	[self didAccessValueForKey:@"competitors"];
+	return result;
+}
+	
 
 @dynamic matches;
 
