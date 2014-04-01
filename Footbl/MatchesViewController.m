@@ -7,15 +7,19 @@
 //
 
 #import "Championship.h"
+#import "FootblTabBarController.h"
 #import "Match.h"
 #import "MatchTableViewCell.h"
 #import "MatchesViewController.h"
 #import "Team.h"
 #import "TeamsViewController.h"
 
+static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
+
 @interface MatchesViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (assign, nonatomic) CGPoint tableViewOffset;
 
 @end
 
@@ -109,6 +113,28 @@
 
 #pragma mark - Delegates & Data sources
 
+#pragma mark - UIScrollView delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.tableViewOffset = scrollView.contentOffset;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
+    
+    CGFloat tabBarHeight = CGRectGetHeight(tabBarController.tabBar.frame);
+    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
+    CGFloat velocityY = [scrollView.panGestureRecognizer velocityInView:self.view].y;
+    CGFloat tabBarInsetTop = 20.f;
+    
+    BOOL isContentBehindTabBar = scrollView.contentSize.height - scrollView.contentOffset.y < viewHeight + tabBarInsetTop + tabBarHeight * 3;
+    if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar)) {
+        [tabBarController setTabBarHidden:YES animated:YES];
+    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar && !isContentBehindTabBar)) {
+        [tabBarController setTabBarHidden:NO animated:YES];
+    }
+}
+
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -145,10 +171,17 @@
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
+    CGRect tableViewFrame = self.tabBarController.view.frame;
+    tableViewFrame.size.height -= CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
+    
     self.tableView = tableViewController.tableView;
-    self.tableView.frame = self.view.bounds;
+    self.tableView.frame = tableViewFrame;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.rowHeight = 44;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view addSubview:self.tableView];
     
