@@ -35,7 +35,7 @@
         
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
