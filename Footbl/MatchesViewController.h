@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "SPTemplateViewController.h"
+#import "TemplateViewController.h"
 
 @class Championship;
 
-@interface MatchesViewController : SPTemplateViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MatchesViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) Championship *championship;
 @property (strong, nonatomic) UITableView *tableView;
