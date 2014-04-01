@@ -5,6 +5,8 @@
 #import "FootblModel.h"
 
 extern const struct CommentAttributes {
+	__unsafe_unretained NSString *date;
+	__unsafe_unretained NSString *message;
 } CommentAttributes;
 
 extern const struct CommentRelationships {
@@ -17,6 +19,8 @@ extern const struct CommentFetchedProperties {
 @class Match;
 
 
+
+
 @interface CommentID : NSManagedObjectID {}
 @end
 
@@ -25,6 +29,26 @@ extern const struct CommentFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (CommentID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* date;
+
+
+
+//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* message;
+
+
+
+//- (BOOL)validateMessage:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -45,6 +69,18 @@ extern const struct CommentFetchedProperties {
 @end
 
 @interface _Comment (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSDate*)primitiveDate;
+- (void)setPrimitiveDate:(NSDate*)value;
+
+
+
+
+- (NSString*)primitiveMessage;
+- (void)setPrimitiveMessage:(NSString*)value;
+
+
 
 
 

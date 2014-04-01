@@ -4,6 +4,8 @@
 #import "_Comment.h"
 
 const struct CommentAttributes CommentAttributes = {
+	.date = @"date",
+	.message = @"message",
 };
 
 const struct CommentRelationships CommentRelationships = {
@@ -42,6 +44,20 @@ const struct CommentFetchedProperties CommentFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic date;
+
+
+
+
+
+
+@dynamic message;
+
+
 
 
 
