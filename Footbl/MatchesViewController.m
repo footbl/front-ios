@@ -53,12 +53,6 @@
 
 #pragma mark - Instance Methods
 
-- (IBAction)teamsAction:(id)sender {
-    TeamsViewController *teamsViewController = [TeamsViewController new];
-    teamsViewController.championship = self.championship;
-    [self.navigationController pushViewController:teamsViewController animated:YES];
-}
-
 - (id)init {
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
@@ -143,8 +137,7 @@
 - (void)loadView {
     [super loadView];
     
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Teams", @"") style:UIBarButtonItemStylePlain target:self action:@selector(teamsAction:)];
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];

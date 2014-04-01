@@ -15,6 +15,7 @@
 		ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
+		ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
 		ED9DC8D418E3270600DF458C /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
 		ED9DC8D518E3270600DF458C /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED9DC8D618E3270600DF458C /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
@@ -76,6 +77,8 @@
 		ED81E83318EA724C00212D3C /* GroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTableViewCell.m; sourceTree = "<group>"; };
 		ED81E83818EA741A00212D3C /* TemplateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateTableViewCell.h; sourceTree = "<group>"; };
 		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
+		ED81E83B18EA769400212D3C /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
+		ED81E83C18EA769400212D3C /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
 		ED9DC8CE18E3270600DF458C /* _Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Championship.h; path = Models/_Championship.h; sourceTree = "<group>"; };
 		ED9DC8CF18E3270600DF458C /* _Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Championship.m; path = Models/_Championship.m; sourceTree = "<group>"; };
 		ED9DC8D018E3270600DF458C /* _Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Match.h; path = Models/_Match.h; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 				EDB1D4A218E1F3F300E0C949 /* APIs */,
 				EDB1D47618E1F18B00E0C949 /* AppDelegate.h */,
 				EDB1D47718E1F18B00E0C949 /* AppDelegate.m */,
+				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
+				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
 			);
 			name = Classes;
@@ -560,6 +565,7 @@
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
 				ED9DC8E918E3330400DF458C /* _Comment.m in Sources */,
 				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
+				ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */,
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,

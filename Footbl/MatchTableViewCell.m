@@ -18,6 +18,9 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.contentView.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
+        self.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }

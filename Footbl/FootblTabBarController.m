@@ -38,6 +38,8 @@
     FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[ProfileViewController new]];
     self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
     self.selectedIndex = 1;
+    self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
+    self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
 }
 
 - (void)viewDidLoad {

@@ -28,6 +28,8 @@
 
 - (void)loadView {
     [super loadView];
+    
+    self.navigationBar.barTintColor = [FootblAppearance colorForView:FootblColorNavigationBar];
 }
 
 - (void)viewDidLoad {

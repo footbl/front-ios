@@ -28,6 +28,8 @@
 
 - (void)loadView {
     [super loadView];
+    
+    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewBackground];
 }
 
 - (void)viewDidLoad {
