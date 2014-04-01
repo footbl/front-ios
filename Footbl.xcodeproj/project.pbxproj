@@ -14,6 +14,7 @@
 		ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
 		ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
+		ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED9DC8D418E3270600DF458C /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
 		ED9DC8D518E3270600DF458C /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED9DC8D618E3270600DF458C /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
@@ -73,6 +74,8 @@
 		ED81E82D18EA70C700212D3C /* FootblNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblNavigationController.m; sourceTree = "<group>"; };
 		ED81E83218EA724C00212D3C /* GroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableViewCell.h; sourceTree = "<group>"; };
 		ED81E83318EA724C00212D3C /* GroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTableViewCell.m; sourceTree = "<group>"; };
+		ED81E83818EA741A00212D3C /* TemplateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateTableViewCell.h; sourceTree = "<group>"; };
+		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
 		ED9DC8CE18E3270600DF458C /* _Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Championship.h; path = Models/_Championship.h; sourceTree = "<group>"; };
 		ED9DC8CF18E3270600DF458C /* _Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Championship.m; path = Models/_Championship.m; sourceTree = "<group>"; };
 		ED9DC8D018E3270600DF458C /* _Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Match.h; path = Models/_Match.h; sourceTree = "<group>"; };
@@ -212,6 +215,33 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
+		ED81E83518EA73F100212D3C /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E83218EA724C00212D3C /* GroupTableViewCell.h */,
+				ED81E83318EA724C00212D3C /* GroupTableViewCell.m */,
+			);
+			name = Groups;
+			sourceTree = "<group>";
+		};
+		ED81E83618EA73F600212D3C /* Matches */ = {
+			isa = PBXGroup;
+			children = (
+				EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */,
+				EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */,
+			);
+			name = Matches;
+			sourceTree = "<group>";
+		};
+		ED81E83718EA740E00212D3C /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E83818EA741A00212D3C /* TemplateTableViewCell.h */,
+				ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */,
+			);
+			name = Template;
+			sourceTree = "<group>";
+		};
 		ED9DC8CD18E326FA00DF458C /* Machine */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,10 +372,9 @@
 		EDB1D4A018E1F3E000E0C949 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				ED81E83218EA724C00212D3C /* GroupTableViewCell.h */,
-				ED81E83318EA724C00212D3C /* GroupTableViewCell.m */,
-				EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */,
-				EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */,
+				ED81E83518EA73F100212D3C /* Groups */,
+				ED81E83618EA73F600212D3C /* Matches */,
+				ED81E83718EA740E00212D3C /* Template */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -509,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
+				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,

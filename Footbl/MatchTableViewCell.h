@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TemplateTableViewCell.h"
 
-@interface MatchTableViewCell : UITableViewCell
+@interface MatchTableViewCell : TemplateTableViewCell
 
 @end
