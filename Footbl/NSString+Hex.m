@@ -18,7 +18,7 @@
     NSMutableString *hex = [@"" mutableCopy];
     while (hex.length < length) {
         NSInteger baseInt = arc4random() % 16;
-        [hex appendFormat:@"%X", baseInt];
+        [hex appendFormat:@"%lX", (long)baseInt];
     }
     return [NSString stringWithString:hex];
 }
