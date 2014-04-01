@@ -10,6 +10,4 @@
 
 @interface TemplateViewController : SPTemplateViewController
 
-- (void)loadTabBarItem;
-
 @end

@@ -22,10 +22,6 @@
 
 #pragma mark - Instance Methods
 
-- (void)loadTabBarItem {
-
-}
-
 #pragma mark - Delegates & Data sources
 
 #pragma mark - View Lifecycle
