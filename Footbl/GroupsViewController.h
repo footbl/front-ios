@@ -8,6 +8,9 @@
 
 #import "TemplateViewController.h"
 
-@interface GroupsViewController : TemplateViewController
+@interface GroupsViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end
