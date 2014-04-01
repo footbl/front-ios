@@ -53,6 +53,12 @@
 
 #pragma mark - Instance Methods
 
+- (IBAction)teamsAction:(id)sender {
+    TeamsViewController *teamsViewController = [TeamsViewController new];
+    teamsViewController.championship = self.championship;
+    [self.navigationController pushViewController:teamsViewController animated:YES];
+}
+
 - (id)init {
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
@@ -73,12 +79,6 @@
     }
     
     return self;
-}
-
-- (IBAction)teamsAction:(id)sender {
-    TeamsViewController *teamsViewController = [TeamsViewController new];
-    teamsViewController.championship = self.championship;
-    [self.navigationController pushViewController:teamsViewController animated:YES];
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
