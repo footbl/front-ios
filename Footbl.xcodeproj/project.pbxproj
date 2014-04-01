@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
+		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
+		ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
+		ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
+		ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
+		ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED9DC8D418E3270600DF458C /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
 		ED9DC8D518E3270600DF458C /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED9DC8D618E3270600DF458C /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
@@ -55,6 +60,16 @@
 /* Begin PBXFileReference section */
 		367ED0AE31BD4C60B34A5B8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		ED81E81A18EA687800212D3C /* FootblTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblTabBarController.h; sourceTree = "<group>"; };
+		ED81E81B18EA687800212D3C /* FootblTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblTabBarController.m; sourceTree = "<group>"; };
+		ED81E81D18EA6A3900212D3C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
+		ED81E81E18EA6A3900212D3C /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
+		ED81E82018EA6A7500212D3C /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		ED81E82118EA6A7500212D3C /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		ED81E82318EA6B1F00212D3C /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
+		ED81E82418EA6B1F00212D3C /* TemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateViewController.m; sourceTree = "<group>"; };
+		ED81E82C18EA70C700212D3C /* FootblNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblNavigationController.h; sourceTree = "<group>"; };
+		ED81E82D18EA70C700212D3C /* FootblNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblNavigationController.m; sourceTree = "<group>"; };
 		ED9DC8CE18E3270600DF458C /* _Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Championship.h; path = Models/_Championship.h; sourceTree = "<group>"; };
 		ED9DC8CF18E3270600DF458C /* _Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Championship.m; path = Models/_Championship.m; sourceTree = "<group>"; };
 		ED9DC8D018E3270600DF458C /* _Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Match.h; path = Models/_Match.h; sourceTree = "<group>"; };
@@ -136,6 +151,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED81E82618EA705E00212D3C /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E82318EA6B1F00212D3C /* TemplateViewController.h */,
+				ED81E82418EA6B1F00212D3C /* TemplateViewController.m */,
+			);
+			name = Template;
+			sourceTree = "<group>";
+		};
+		ED81E82718EA706700212D3C /* Prototype */ = {
+			isa = PBXGroup;
+			children = (
+				EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */,
+				EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */,
+				EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */,
+				EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */,
+			);
+			name = Prototype;
+			sourceTree = "<group>";
+		};
+		ED81E82818EA707800212D3C /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E82C18EA70C700212D3C /* FootblNavigationController.h */,
+				ED81E82D18EA70C700212D3C /* FootblNavigationController.m */,
+				ED81E81A18EA687800212D3C /* FootblTabBarController.h */,
+				ED81E81B18EA687800212D3C /* FootblTabBarController.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		ED81E82918EA708B00212D3C /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E81D18EA6A3900212D3C /* GroupsViewController.h */,
+				ED81E81E18EA6A3900212D3C /* GroupsViewController.m */,
+			);
+			name = Groups;
+			sourceTree = "<group>";
+		};
+		ED81E82A18EA708E00212D3C /* Matches */ = {
+			isa = PBXGroup;
+			children = (
+				EDEFC64518E4884E006DD33D /* MatchesViewController.h */,
+				EDEFC64618E4884E006DD33D /* MatchesViewController.m */,
+			);
+			name = Matches;
+			sourceTree = "<group>";
+		};
+		ED81E82B18EA709200212D3C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				ED81E82018EA6A7500212D3C /* ProfileViewController.h */,
+				ED81E82118EA6A7500212D3C /* ProfileViewController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		ED9DC8CD18E326FA00DF458C /* Machine */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,12 +326,12 @@
 		EDB1D49F18E1F3D800E0C949 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */,
-				EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */,
-				EDEFC64518E4884E006DD33D /* MatchesViewController.h */,
-				EDEFC64618E4884E006DD33D /* MatchesViewController.m */,
-				EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */,
-				EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */,
+				ED81E82918EA708B00212D3C /* Groups */,
+				ED81E82A18EA708E00212D3C /* Matches */,
+				ED81E82818EA707800212D3C /* Navigation */,
+				ED81E82B18EA709200212D3C /* Profile */,
+				ED81E82718EA706700212D3C /* Prototype */,
+				ED81E82618EA705E00212D3C /* Template */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -432,21 +505,26 @@
 			files = (
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
+				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
+				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
 				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
 				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
+				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
 				EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */,
+				ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */,
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
 				ED9DC8E918E3330400DF458C /* _Comment.m in Sources */,
 				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
+				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
-#import "ChampionshipsViewController.h"
+#import "FootblTabBarController.h"
 
 #pragma mark AppDelegate
 
@@ -43,8 +43,7 @@
             break;
     }
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[ChampionshipsViewController new]];
-    self.window.rootViewController = navigationController;
+    self.window.rootViewController = [FootblTabBarController new];
 
     return YES;
 }

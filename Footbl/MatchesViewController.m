@@ -45,7 +45,35 @@
     return _fetchedResultsController;
 }
 
+- (void)setChampionship:(Championship *)championship {
+    _championship = championship;
+    self.fetchedResultsController = nil;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Instance Methods
+
+- (id)init {
+    if (self) {
+        self.title = NSLocalizedString(@"Matches", @"");
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage new] tag:0];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+        fetchRequest.fetchLimit = 1;
+        NSError *error = nil;
+        NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        if (fetchResult.count > 0) {
+            self.championship = fetchResult.firstObject;
+        }
+    }
+    
+    return self;
+}
 
 - (IBAction)teamsAction:(id)sender {
     TeamsViewController *teamsViewController = [TeamsViewController new];
@@ -60,13 +88,29 @@
 }
 
 - (void)reloadData {
-    [Match updateFromChampionship:self.championship.editableObject success:^{
-        [self.refreshControl endRefreshing];
-    } failure:^(NSError *error) {
+    void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
         [alert show];
-    }];
+    };
+    
+    [Championship updateWithSuccess:^{
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+        fetchRequest.fetchLimit = 1;
+        NSError *error = nil;
+        NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        
+        self.championship = fetchResult.firstObject;
+        
+        [Match updateFromChampionship:self.championship.editableObject success:^{
+            [self.refreshControl endRefreshing];
+        } failure:failure];
+    } failure:failure];
 }
 
 #pragma mark - Delegates & Data sources
@@ -98,8 +142,6 @@
 
 - (void)loadView {
     [super loadView];
-    
-    self.title = self.championship.name;
     
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Teams", @"") style:UIBarButtonItemStylePlain target:self action:@selector(teamsAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
