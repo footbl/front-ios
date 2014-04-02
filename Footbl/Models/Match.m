@@ -136,13 +136,12 @@ extern MatchResult MatchResultFromString(NSString *result) {
             [parameters setObject:bid forKey:@"bid"];
             [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self.editableManagedObjectContext performBlock:^{
-                    SPLogVerbose(@"%@", responseObject);
                     self.bidResult = @(MatchResultFromString([responseObject objectForKey:@"result"]));
                     self.bidRid = [responseObject objectForKey:kAPIIdentifierKey];
                     self.bidReward = [responseObject objectForKey:@"reward"];
                     self.bidValue = bid;
                     SaveManagedObjectContext(self.editableManagedObjectContext);
-                    [self updateWithSuccess:success failure:failure];
+                    requestSucceedWithBlock(responseObject, success);
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, failure);
