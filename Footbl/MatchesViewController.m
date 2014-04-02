@@ -182,7 +182,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.rowHeight = 44;
+    self.tableView.rowHeight = 60;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view addSubview:self.tableView];
