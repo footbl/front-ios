@@ -135,9 +135,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     CGFloat tabBarInsetTop = 20.f;
     
     BOOL isContentBehindTabBar = scrollView.contentSize.height - scrollView.contentOffset.y < viewHeight + tabBarInsetTop + tabBarHeight * 3;
-    if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar)) {
+    if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar) && scrollView.contentOffset.y > 20) {
         [tabBarController setTabBarHidden:YES animated:YES];
-    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar && !isContentBehindTabBar)) {
+    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar && !isContentBehindTabBar) || scrollView.contentOffset.y < 20) {
         [tabBarController setTabBarHidden:NO animated:YES];
     }
 }
