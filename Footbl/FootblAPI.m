@@ -18,6 +18,7 @@
 
 @property (copy, nonatomic) NSString *userToken;
 @property (strong, nonatomic) NSDate *tokenExpirationDate;
+@property (strong, nonatomic) NSMutableDictionary *operationGroupingDictionary;
 
 @end
 
@@ -125,6 +126,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self.requestSerializer setValue:kAPIAcceptVersion forHTTPHeaderField:@"Accept-Version"];
+        self.operationGroupingDictionary = [NSMutableDictionary new];
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         [[FXKeychain defaultKeychain] setObject:(__bridge id)(kSecAttrAccessibleAlways) forKey:(__bridge id)(kSecAttrAccessible)];
@@ -149,6 +151,38 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     }
     
     return parameters;
+}
+
+- (void)groupOperationsWithSelector:(SEL)selector block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    NSString *key = NSStringFromSelector(selector);
+    NSMutableArray *queue = [self.operationGroupingDictionary objectForKey:key];
+    if (queue) {
+        if (failure) {
+            [queue addObject:@{@"success": success, @"failure" : failure}];
+        } else {
+            [queue addObject:@{@"success": success}];
+        }
+        return;
+    }
+    
+    [self.operationGroupingDictionary setObject:[NSMutableArray new] forKey:key];
+    
+    if (block) block();
+}
+
+- (void)finishGroupedOperationsWithSelector:(SEL)selector error:(NSError *)error {
+    NSString *key = NSStringFromSelector(selector);
+    NSMutableArray *queue = [self.operationGroupingDictionary objectForKey:key];
+    for (NSDictionary *queuedRequest in queue) {
+        if (error) {
+            FootblAPISuccessBlock block = [queuedRequest objectForKey:@"success"];
+            if (block) block();
+        } else {
+            FootblAPIFailureBlock block = [queuedRequest objectForKey:@"failure"];
+            if (block) block(error);
+        }
+    }
+    [self.operationGroupingDictionary removeObjectForKey:key];
 }
 
 #pragma mark - Config
@@ -207,17 +241,23 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         SPLogVerbose(@"Authentication token expired");
     }
     
-    void(^loginBlock)() = ^() {
-        [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:success failure:^(NSError *error) {
-            if (failure) failure(error);
-        }];
-    };
-    
-    if ([self isAuthenticated]) {
-        loginBlock();
-    } else {
-        [self createAccountWithSuccess:loginBlock failure:failure];
-    }
+    [self groupOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) block:^{
+        void(^loginBlock)() = ^() {
+            [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:^{
+                if (success) success();
+                [self finishGroupedOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) error:nil];
+            } failure:^(NSError *error) {
+                if (failure) failure(error);
+                [self finishGroupedOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) error:error];
+            }];
+        };
+        
+        if ([self isAuthenticated]) {
+            loginBlock();
+        } else {
+            [self createAccountWithSuccess:loginBlock failure:failure];
+        }
+    } success:success failure:failure];
 }
 
 - (void)loginWithEmail:(NSString *)email identifier:(NSString *)identifier password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
