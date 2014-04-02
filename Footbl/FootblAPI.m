@@ -294,6 +294,21 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     self.userEmail = nil;
     self.userPassword = nil;
     self.userToken = nil;
+    
+    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship"]) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+        NSError *error = nil;
+        NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        for (NSManagedObject *object in fetchResult) {
+            [FootblBackgroundManagedObjectContext() deleteObject:object];
+        }
+    }
+    SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
 }
 
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
