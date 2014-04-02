@@ -88,6 +88,9 @@
 }
 
 - (instancetype)editableObject {
+    if (self.managedObjectContext == FootblBackgroundManagedObjectContext()) {
+        return self;
+    }
     return (id)[FootblBackgroundManagedObjectContext() objectWithID:self.objectID];
 }
 
