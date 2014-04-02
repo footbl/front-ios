@@ -302,6 +302,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [parameters setObject:username forKey:@"username"];
         [parameters setObject:email forKey:@"email"];
         [parameters setObject:password forKey:@"password"];
+        [parameters setObject:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
+        [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
+        [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
         [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
