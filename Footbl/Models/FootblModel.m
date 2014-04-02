@@ -29,6 +29,10 @@
     
     NSError *error = nil;
     NSArray *fetchResult = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
     return fetchResult.firstObject;
 }
 
@@ -58,27 +62,35 @@
     return [[self API] generateDefaultParameters];
 }
 
-+ (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
-    if (!cache) {
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
++ (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
+    [self.editableManagedObjectContext performBlock:^{
+        NSSet *cache = specifiedCache;
+        if (!cache) {
+            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+            
+            NSError *error = nil;
+            NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+            cache = [NSSet setWithArray:fetchResult];
+        }
         
-        NSError *error = nil;
-        NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-        cache = [NSSet setWithArray:fetchResult];
-    }
-    
-    NSMutableSet *untouchedObjects = [cache mutableCopy];
-    for (NSDictionary *entry in content) {
-        FootblModel *object = [[self class] findOrCreateByIdentifier:[entry objectForKey:kAPIIdentifierKey] inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:cache];
-        [object updateWithData:entry];
-        if (objectBlock) objectBlock(object, entry);
-        [untouchedObjects removeObject:object];
-    }
-    
-    if (deleteBlock) deleteBlock(untouchedObjects);
-    
-    SaveManagedObjectContext(context);
+        NSMutableSet *untouchedObjects = [cache mutableCopy];
+        for (NSDictionary *entry in content) {
+            FootblModel *object = [[self class] findOrCreateByIdentifier:[entry objectForKey:kAPIIdentifierKey] inManagedObjectContext:self.editableManagedObjectContext usingCache:cache];
+            [object updateWithData:entry];
+            if (objectBlock) objectBlock(object, entry);
+            [untouchedObjects removeObject:object];
+        }
+        
+        if (deleteBlock) deleteBlock(untouchedObjects);
+        
+        SaveManagedObjectContext(context);
+    }];
+}
 
 + (NSManagedObjectContext *)editableManagedObjectContext {
     return FootblBackgroundManagedObjectContext();

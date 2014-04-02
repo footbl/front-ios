@@ -44,12 +44,14 @@
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
         [parameters setObject:[transformer transformedValue:[NSDate date]] forKey:@"date"];
         [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/comments", match.championship.rid, match.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            Comment *comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:FootblBackgroundManagedObjectContext()];
-            comment.match = match;
-            comment.rid = [responseObject objectForKey:kAPIIdentifierKey];
-            [comment updateWithData:responseObject];
-            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
-            requestSucceedWithBlock(responseObject, success);
+            [self.editableManagedObjectContext performBlock:^{
+                Comment *comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.editableManagedObjectContext];
+                comment.match = match;
+                comment.rid = [responseObject objectForKey:kAPIIdentifierKey];
+                [comment updateWithData:responseObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(responseObject, success);
+            }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];

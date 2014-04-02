@@ -50,9 +50,11 @@
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[@"championships/" stringByAppendingString:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableObject updateWithData:responseObject];
-            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
-            requestSucceedWithBlock(responseObject, success);
+            [self.editableManagedObjectContext performBlock:^{
+                [self.editableObject updateWithData:responseObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(responseObject, success);
+            }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];

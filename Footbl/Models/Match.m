@@ -62,7 +62,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"users/%@/bets", [[self API] userIdentifier]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [FootblBackgroundManagedObjectContext() performBlock:^{
+            [self.editableManagedObjectContext performBlock:^{
                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
                 fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:@"match"]];
@@ -83,9 +83,9 @@ extern MatchResult MatchResultFromString(NSString *result) {
                     match.bidResult = @(MatchResultFromString([entry objectForKey:@"result"]));
                     match.bidReward = [entry objectForKey:@"reward"];
                 }
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(responseObject, success);
             }];
-            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
-            requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -115,9 +115,11 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches/%@", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self updateWithData:responseObject];
-            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
-            requestSucceedWithBlock(responseObject, success);
+            [self.editableManagedObjectContext performBlock:^{
+                [self updateWithData:responseObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(responseObject, success);
+            }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -133,12 +135,15 @@ extern MatchResult MatchResultFromString(NSString *result) {
             [parameters setObject:MatchResultToString(result) forKey:@"result"];
             [parameters setObject:bid forKey:@"bid"];
             [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                self.bidResult = @(MatchResultFromString([responseObject objectForKey:@"result"]));
-                self.bidRid = [responseObject objectForKey:kAPIIdentifierKey];
-                self.bidReward = [responseObject objectForKey:@"reward"];
-                self.bidValue = bid;
-                SPLogVerbose(@"%@", responseObject);
-                [self updateWithSuccess:success failure:failure];
+                [self.editableManagedObjectContext performBlock:^{
+                    SPLogVerbose(@"%@", responseObject);
+                    self.bidResult = @(MatchResultFromString([responseObject objectForKey:@"result"]));
+                    self.bidRid = [responseObject objectForKey:kAPIIdentifierKey];
+                    self.bidReward = [responseObject objectForKey:@"reward"];
+                    self.bidValue = bid;
+                    SaveManagedObjectContext(self.editableManagedObjectContext);
+                    [self updateWithSuccess:success failure:failure];
+                }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
@@ -155,9 +160,11 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] DELETE:[NSString stringWithFormat:@"championships/%@/matches/%@/bets/%@", self.championship.rid, self.rid, self.bidRid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            self.bidRid = nil;
-            SaveManagedObjectContext(self.managedObjectContext);
-            requestSucceedWithBlock(responseObject, success);
+            [self.editableManagedObjectContext performBlock:^{
+                self.bidRid = nil;
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(responseObject, success);
+            }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
