@@ -175,11 +175,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     NSMutableArray *queue = [self.operationGroupingDictionary objectForKey:key];
     for (NSDictionary *queuedRequest in queue) {
         if (error) {
-            FootblAPISuccessBlock block = [queuedRequest objectForKey:@"success"];
-            if (block) block();
-        } else {
             FootblAPIFailureBlock block = [queuedRequest objectForKey:@"failure"];
             if (block) block(error);
+        } else {
+            FootblAPISuccessBlock block = [queuedRequest objectForKey:@"success"];
+            if (block) block();
         }
     }
     [self.operationGroupingDictionary removeObjectForKey:key];
