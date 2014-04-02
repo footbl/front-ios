@@ -5,6 +5,10 @@
 #import "FootblModel.h"
 
 extern const struct MatchAttributes {
+	__unsafe_unretained NSString *bidResult;
+	__unsafe_unretained NSString *bidReward;
+	__unsafe_unretained NSString *bidRid;
+	__unsafe_unretained NSString *bidValue;
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *guestScore;
@@ -37,6 +41,10 @@ extern const struct MatchFetchedProperties {
 
 
 
+
+
+
+
 @interface MatchID : NSManagedObjectID {}
 @end
 
@@ -45,6 +53,58 @@ extern const struct MatchFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MatchID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* bidResult;
+
+
+
+@property int16_t bidResultValue;
+- (int16_t)bidResultValue;
+- (void)setBidResultValue:(int16_t)value_;
+
+//- (BOOL)validateBidResult:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* bidReward;
+
+
+
+@property float bidRewardValue;
+- (float)bidRewardValue;
+- (void)setBidRewardValue:(float)value_;
+
+//- (BOOL)validateBidReward:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* bidRid;
+
+
+
+//- (BOOL)validateBidRid:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* bidValue;
+
+
+
+@property float bidValueValue;
+- (float)bidValueValue;
+- (void)setBidValueValue:(float)value_;
+
+//- (BOOL)validateBidValue:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -134,9 +194,9 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property BOOL potHostValue;
-- (BOOL)potHostValue;
-- (void)setPotHostValue:(BOOL)value_;
+@property float potHostValue;
+- (float)potHostValue;
+- (void)setPotHostValue:(float)value_;
 
 //- (BOOL)validatePotHost:(id*)value_ error:(NSError**)error_;
 
@@ -185,6 +245,39 @@ extern const struct MatchFetchedProperties {
 @end
 
 @interface _Match (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveBidResult;
+- (void)setPrimitiveBidResult:(NSNumber*)value;
+
+- (int16_t)primitiveBidResultValue;
+- (void)setPrimitiveBidResultValue:(int16_t)value_;
+
+
+
+
+- (NSNumber*)primitiveBidReward;
+- (void)setPrimitiveBidReward:(NSNumber*)value;
+
+- (float)primitiveBidRewardValue;
+- (void)setPrimitiveBidRewardValue:(float)value_;
+
+
+
+
+- (NSString*)primitiveBidRid;
+- (void)setPrimitiveBidRid:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveBidValue;
+- (void)setPrimitiveBidValue:(NSNumber*)value;
+
+- (float)primitiveBidValueValue;
+- (void)setPrimitiveBidValueValue:(float)value_;
+
+
 
 
 - (NSDate*)primitiveDate;
@@ -241,8 +334,8 @@ extern const struct MatchFetchedProperties {
 - (NSNumber*)primitivePotHost;
 - (void)setPrimitivePotHost:(NSNumber*)value;
 
-- (BOOL)primitivePotHostValue;
-- (void)setPrimitivePotHostValue:(BOOL)value_;
+- (float)primitivePotHostValue;
+- (void)setPrimitivePotHostValue:(float)value_;
 
 
 

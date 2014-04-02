@@ -11,6 +11,27 @@
 #import "Match.h"
 #import "Team.h"
 
+extern NSString * MatchResultToString(MatchResult result) {
+    switch (result) {
+        case MatchResultDraw:
+            return @"draw";
+        case MatchResultGuest:
+            return @"guest";
+        case MatchResultHost:
+            return @"host";
+    }
+}
+
+extern MatchResult MatchResultFromString(NSString *result) {
+    if ([result.lowercaseString isEqualToString:@"guest"]) {
+        return MatchResultGuest;
+    } else if ([result.lowercaseString isEqualToString:@"host"]) {
+        return MatchResultHost;
+    } else {
+        return MatchResultDraw;
+    }
+}
+
 @interface Match ()
 
 @end
@@ -33,6 +54,40 @@
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            requestFailedWithBlock(operation, parameters, error, failure); 
+        }];
+    } failure:failure];
+}
+
++ (void)updateBetsWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[NSString stringWithFormat:@"users/%@/bets", [[self API] userIdentifier]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [FootblBackgroundManagedObjectContext() performBlock:^{
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
+                fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:@"match"]];
+                NSError *error = nil;
+                NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+                if (error) {
+                    SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+                for (NSDictionary *entry in responseObject) {
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", [entry objectForKey:@"match"]];
+                    Match *match = [fetchResult filteredArrayUsingPredicate:predicate].firstObject;
+                    if (!match) {
+                        continue;
+                    }
+                    match.bidValue = [entry objectForKey:@"bid"];
+                    match.bidRid = [entry objectForKey:kAPIIdentifierKey];
+                    match.bidResult = @(MatchResultFromString([entry objectForKey:@"result"]));
+                    match.bidReward = [entry objectForKey:@"reward"];
+                }
+            }];
+            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+            requestSucceedWithBlock(responseObject, success);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
         }];
     } failure:failure];
 }
@@ -60,6 +115,48 @@
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches/%@", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self updateWithData:responseObject];
+            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+            requestSucceedWithBlock(responseObject, success);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
+- (void)updateBetWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self deleteBetWithSuccess:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+            [parameters setObject:[transformer transformedValue:[NSDate date]] forKey:@"date"];
+            [parameters setObject:MatchResultToString(result) forKey:@"result"];
+            [parameters setObject:bid forKey:@"bid"];
+            [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                self.bidResult = @(MatchResultFromString([responseObject objectForKey:@"result"]));
+                self.bidRid = [responseObject objectForKey:kAPIIdentifierKey];
+                self.bidReward = [responseObject objectForKey:@"reward"];
+                self.bidValue = bid;
+                SPLogVerbose(@"%@", responseObject);
+                [self updateWithSuccess:success failure:failure];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
+        } failure:failure];
+    } failure:failure];
+}
+
+- (void)deleteBetWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (!self.bidRid) {
+        if (success) success();
+        return;
+    }
+    
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] DELETE:[NSString stringWithFormat:@"championships/%@/matches/%@/bets/%@", self.championship.rid, self.rid, self.bidRid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.bidRid = nil;
+            SaveManagedObjectContext(self.managedObjectContext);
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
