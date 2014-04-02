@@ -25,10 +25,10 @@
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches/%@/comments", match.championship.rid, match.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:match.comments enumeratingObjectsWithBlock:^(Comment *comment, NSDictionary *contentEntry) {
+            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:match.comments enumeratingObjectsWithBlock:^(Comment *comment, NSDictionary *contentEntry) {
                 comment.match = match;
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [FootblBackgroundManagedObjectContext() deleteObjects:untouchedObjects];
+                [self.editableManagedObjectContext deleteObjects:untouchedObjects];
             }];
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

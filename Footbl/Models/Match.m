@@ -46,10 +46,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches", championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
+            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
                 object.championship = championship;
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [FootblBackgroundManagedObjectContext() deleteObjects:untouchedObjects];
+                [self.editableManagedObjectContext deleteObjects:untouchedObjects];
             }];
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -67,7 +67,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
                 fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:@"match"]];
                 NSError *error = nil;
-                NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+                NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
                 if (error) {
                     SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
                     abort();

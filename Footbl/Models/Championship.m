@@ -24,8 +24,8 @@
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:@"championships" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:FootblBackgroundManagedObjectContext() usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [FootblBackgroundManagedObjectContext() deleteObjects:untouchedObjects];
+            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
             }];
             requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -39,7 +39,7 @@
 - (void)updateWithData:(NSDictionary *)data {
     self.name = [data objectForKey:@"name"];
     
-    [Team loadContent:[data objectForKey:@"competitors"] inManagedObjectContext:self.managedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
+    [Team loadContent:[data objectForKey:@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
         [object addChampionshipsObject:self];
     } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
         [untouchedObjects makeObjectsPerformSelector:@selector(removeChampionshipsObject:) withObject:self];

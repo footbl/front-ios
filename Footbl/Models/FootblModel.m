@@ -79,6 +79,17 @@
     if (deleteBlock) deleteBlock(untouchedObjects);
     
     SaveManagedObjectContext(context);
+
++ (NSManagedObjectContext *)editableManagedObjectContext {
+    return FootblBackgroundManagedObjectContext();
+}
+
+#pragma mark - Getters/Setters
+
+@synthesize editableManagedObjectContext;
+
+- (NSManagedObjectContext *)editableManagedObjectContext {
+    return [[self class] editableManagedObjectContext];
 }
 
 #pragma mark - Instance Methods
@@ -88,10 +99,10 @@
 }
 
 - (instancetype)editableObject {
-    if (self.managedObjectContext == FootblBackgroundManagedObjectContext()) {
+    if (self.managedObjectContext == self.editableManagedObjectContext) {
         return self;
     }
-    return (id)[FootblBackgroundManagedObjectContext() objectWithID:self.objectID];
+    return (id)[self.editableManagedObjectContext objectWithID:self.objectID];
 }
 
 - (NSMutableDictionary *)generateDefaultParameters {

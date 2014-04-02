@@ -12,11 +12,14 @@
 
 @interface FootblModel : _FootblModel
 
+@property (strong, nonatomic, readonly) NSManagedObjectContext *editableManagedObjectContext;
+
 + (FootblAPI *)API;
 + (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache;
 + (NSMutableDictionary *)generateDefaultParameters;
++ (NSManagedObjectContext *)editableManagedObjectContext;
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock;
 - (FootblAPI *)API;
 - (instancetype)editableObject;
