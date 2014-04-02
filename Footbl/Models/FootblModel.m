@@ -62,6 +62,10 @@
     return [[self API] generateDefaultParameters];
 }
 
++ (NSManagedObjectContext *)editableManagedObjectContext {
+    return FootblBackgroundManagedObjectContext();
+}
+
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
     [self.editableManagedObjectContext performBlock:^{
         NSSet *cache = specifiedCache;
@@ -90,10 +94,6 @@
         
         SaveManagedObjectContext(context);
     }];
-}
-
-+ (NSManagedObjectContext *)editableManagedObjectContext {
-    return FootblBackgroundManagedObjectContext();
 }
 
 #pragma mark - Getters/Setters
