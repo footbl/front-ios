@@ -47,12 +47,14 @@ NSManagedObjectContext * FootblManagedObjectContext() {
 
 void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
     SPLogVerbose(@"%@", responseObject);
-    if (success) success();
+    if (success) dispatch_async(dispatch_get_main_queue(), success);
 }
 
 void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
     SPLogError(@"\n%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
-    if (failure) failure(error);
+    if (failure) dispatch_async(dispatch_get_main_queue(), ^{
+        failure(error);
+    });
 }
 
 void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
