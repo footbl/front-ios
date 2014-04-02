@@ -265,13 +265,13 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if (email.length > 0) {
         [parameters setObject:email forKey:@"email"];
     } else {
-        [parameters setObject:identifier forKey:@"_id"];
+        [parameters setObject:identifier forKey:kAPIIdentifierKey];
     }
     [parameters setObject:password forKey:@"password"];
     
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.userToken = [responseObject objectForKey:@"token"];
-        self.userIdentifier = [responseObject objectForKey:@"_id"];
+        self.userIdentifier = [responseObject objectForKey:kAPIIdentifierKey];
         requestSucceedWithBlock(responseObject, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
