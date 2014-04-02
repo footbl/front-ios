@@ -83,6 +83,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ x %@ %@", match.host.name, match.hostScore, match.guestScore, match.guest.name];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@ - %@", match.potHost, match.potDraw, match.potGuest];
+    if (match.bidRid.length > 0) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 - (void)reloadData {
@@ -158,6 +163,25 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (match.bidRid.length > 0 && match.bidResultValue == MatchResultDraw) {
+        [match.editableObject deleteBetWithSuccess:^{
+            [match.editableObject updateWithSuccess:nil failure:nil];
+        } failure:nil];
+    } else {
+        MatchResult result;
+        if (match.bidResultValue == MatchResultHost) {
+            result = MatchResultGuest;
+        } else if (match.bidResultValue == MatchResultGuest) {
+            result = MatchResultDraw;
+        } else {
+            result = MatchResultHost;
+        }
+        [match.editableObject updateBetWithBid:@10 result:result success:^{
+            [match.editableObject updateWithSuccess:nil failure:nil];
+        } failure:nil];
+    }
 }
 
 #pragma mark - View Lifecycle
