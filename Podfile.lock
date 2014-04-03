@@ -19,6 +19,9 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - FXKeychain (1.5)
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
   - SPHipster (0.2):
     - SPHipster/Categories
     - SPHipster/Core
@@ -33,12 +36,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - FXKeychain
+  - SDWebImage
   - SPHipster
   - TransformerKit
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   FXKeychain: 90cc7bf9ba005e4d099a113a194792e7983c5778
+  SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
   SPHipster: ed3b24c20d2bf1f164d14b996521eff5d4dc90c9
   TransformerKit: 612d3966b31e345f2abc8221fe6657379bb5d8b6
 
