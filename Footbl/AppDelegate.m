@@ -9,6 +9,7 @@
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
 #import "FootblTabBarController.h"
+#import "SDImageCache+ShippedCache.h"
 
 #pragma mark AppDelegate
 
@@ -24,12 +25,18 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    kSPDebugLogLevel = SPDebugLogLevelInfo;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    kSPDebugLogLevel = SPDebugLogLevelInfo;
+    NSError *error = nil;
+    [[SDImageCache sharedImageCache] importImagesFromPath:[[[NSBundle mainBundle] pathForResource:@"Cache" ofType:@""] stringByAppendingPathComponent:@"Images"] error:&error];
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
     
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:

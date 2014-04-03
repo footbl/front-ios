@@ -44,6 +44,8 @@
 		EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A418E1F43000E0C949 /* FootblAPI.m */; };
 		EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
+		EDBC848118EDE60B00CCC01A /* Cache in Resources */ = {isa = PBXBuildFile; fileRef = EDBC848018EDE60B00CCC01A /* Cache */; };
+		EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -123,6 +125,9 @@
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
 		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
+		EDBC848018EDE60B00CCC01A /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = SOURCE_ROOT; };
+		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
+		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
 		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
 		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
@@ -311,10 +316,11 @@
 		EDB1D46E18E1F18B00E0C949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EDBC848018EDE60B00CCC01A /* Cache */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl-Info.plist */,
+				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 				EDB1D47018E1F18B00E0C949 /* InfoPlist.strings */,
 				EDB1D47318E1F18B00E0C949 /* main.m */,
-				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 				EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */,
 				EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */,
 				EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */,
+				EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */,
+				EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -489,6 +497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDBC848118EDE60B00CCC01A /* Cache in Resources */,
 				EDB1D47218E1F18B00E0C949 /* InfoPlist.strings in Resources */,
 				EDB1D47D18E1F18B00E0C949 /* Images.xcassets in Resources */,
 			);
@@ -570,6 +579,7 @@
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
+				EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
