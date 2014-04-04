@@ -10,6 +10,7 @@ extern const struct ChampionshipAttributes {
 
 extern const struct ChampionshipRelationships {
 	__unsafe_unretained NSString *competitors;
+	__unsafe_unretained NSString *groups;
 	__unsafe_unretained NSString *matches;
 } ChampionshipRelationships;
 
@@ -17,6 +18,7 @@ extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
 @class Team;
+@class Group;
 @class Match;
 
 
@@ -51,6 +53,13 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *groups;
+
+- (NSMutableSet*)groupsSet;
+
+
+
+
 @property (nonatomic, strong) NSSet *matches;
 
 - (NSMutableSet*)matchesSet;
@@ -67,6 +76,11 @@ extern const struct ChampionshipFetchedProperties {
 - (void)removeCompetitors:(NSSet*)value_;
 - (void)addCompetitorsObject:(Team*)value_;
 - (void)removeCompetitorsObject:(Team*)value_;
+
+- (void)addGroups:(NSSet*)value_;
+- (void)removeGroups:(NSSet*)value_;
+- (void)addGroupsObject:(Group*)value_;
+- (void)removeGroupsObject:(Group*)value_;
 
 - (void)addMatches:(NSSet*)value_;
 - (void)removeMatches:(NSSet*)value_;
@@ -87,6 +101,11 @@ extern const struct ChampionshipFetchedProperties {
 
 - (NSMutableSet*)primitiveCompetitors;
 - (void)setPrimitiveCompetitors:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveGroups;
+- (void)setPrimitiveGroups:(NSMutableSet*)value;
 
 
 

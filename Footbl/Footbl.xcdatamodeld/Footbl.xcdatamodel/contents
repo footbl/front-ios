@@ -3,6 +3,7 @@
     <entity name="Championship" representedClassName="Championship" parentEntity="FootblModel" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="competitors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="championships" inverseEntity="Team" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="championships" inverseEntity="Group" syncable="YES"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
@@ -12,6 +13,11 @@
     </entity>
     <entity name="FootblModel" representedClassName="FootblModel" isAbstract="YES" syncable="YES">
         <attribute name="rid" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" parentEntity="FootblModel" syncable="YES">
+        <attribute name="freeToEdit" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="championships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Championship" inverseName="groups" inverseEntity="Championship" syncable="YES"/>
     </entity>
     <entity name="Match" representedClassName="Match" parentEntity="FootblModel" syncable="YES">
         <attribute name="bidResult" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -38,10 +44,11 @@
         <relationship name="hostMatches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="host" inverseEntity="Match" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Championship" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Championship" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="90"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="268"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
+        <element name="Group" positionX="-36" positionY="108" width="128" height="88"/>
     </elements>
 </model>

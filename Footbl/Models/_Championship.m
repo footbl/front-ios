@@ -9,6 +9,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
 	.competitors = @"competitors",
+	.groups = @"groups",
 	.matches = @"matches",
 };
 
@@ -64,6 +65,19 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"competitors"];
   
 	[self didAccessValueForKey:@"competitors"];
+	return result;
+}
+	
+
+@dynamic groups;
+
+	
+- (NSMutableSet*)groupsSet {
+	[self willAccessValueForKey:@"groups"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"groups"];
+  
+	[self didAccessValueForKey:@"groups"];
 	return result;
 }
 	

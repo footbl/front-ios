@@ -50,6 +50,8 @@
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
 		EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */; };
+		EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
+		EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +138,10 @@
 		EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchTableViewCell.m; sourceTree = "<group>"; };
 		EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsViewController.h; sourceTree = "<group>"; };
 		EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsViewController.m; sourceTree = "<group>"; };
+		EDEFFA0518EEF764003E12B7 /* _Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Group.h; path = Models/_Group.h; sourceTree = "<group>"; };
+		EDEFFA0618EEF764003E12B7 /* _Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Group.m; path = Models/_Group.m; sourceTree = "<group>"; };
+		EDEFFA0818EEF76C003E12B7 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Group.h; path = Models/Group.h; sourceTree = "<group>"; };
+		EDEFFA0918EEF76C003E12B7 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = Models/Group.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +265,8 @@
 				ED9DC8E818E3330400DF458C /* _Comment.m */,
 				ED9DC8E118E3285A00DF458C /* _FootblModel.h */,
 				ED9DC8E218E3285A00DF458C /* _FootblModel.m */,
+				EDEFFA0518EEF764003E12B7 /* _Group.h */,
+				EDEFFA0618EEF764003E12B7 /* _Group.m */,
 				ED9DC8D018E3270600DF458C /* _Match.h */,
 				ED9DC8D118E3270600DF458C /* _Match.m */,
 				ED9DC8D218E3270600DF458C /* _Team.h */,
@@ -402,6 +410,8 @@
 				EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */,
 				ED9DC8E418E3286900DF458C /* FootblModel.h */,
 				ED9DC8E518E3286900DF458C /* FootblModel.m */,
+				EDEFFA0818EEF76C003E12B7 /* Group.h */,
+				EDEFFA0918EEF76C003E12B7 /* Group.m */,
 				ED9DC8CD18E326FA00DF458C /* Machine */,
 				ED9DC8DA18E3271900DF458C /* Match.h */,
 				ED9DC8DB18E3271900DF458C /* Match.m */,
@@ -554,6 +564,7 @@
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
+				EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */,
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
@@ -578,6 +589,7 @@
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
+				EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
 				EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */,
 			);
