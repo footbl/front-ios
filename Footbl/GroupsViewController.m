@@ -7,8 +7,10 @@
 //
 
 #import "Championship.h"
+#import "Group.h"
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
+#import "NSString+Hex.h"
 
 @interface GroupsViewController ()
 
@@ -26,10 +28,8 @@
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        /*
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Group"];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
@@ -38,7 +38,6 @@
             SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
-        */
     }
     
     return _fetchedResultsController;
@@ -51,7 +50,18 @@
 }
 
 - (IBAction)newGroupAction:(id)sender {
-
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    fetchRequest.fetchLimit = 1;
+    NSError *error = nil;
+    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    if (fetchResult.firstObject) {
+        [Group createWithChampionship:fetchResult.firstObject name:[NSString stringWithFormat:@"Footbl #%@", [NSString randomHexStringWithLength:6]] success:nil failure:nil];
+    }
 }
 
 - (id)init {
@@ -64,12 +74,12 @@
 }
 
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [group valueForKey:@"name"];
+    Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = group.name;
 }
 
 - (void)reloadData {
-    [Championship updateWithSuccess:^{
+    [Group updateWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
@@ -97,10 +107,25 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [group.editableObject deleteWithSuccess:nil failure:nil];
+    }
+}
+
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Group *group = [[self.fetchedResultsController objectAtIndexPath:indexPath] editableObject];
+    group.name = [NSString stringWithFormat:@"Footbl #%@", [NSString randomHexStringWithLength:6]];
+    [group saveWithSuccess:nil failure:nil];
 }
 
 #pragma mark - View Lifecycle
