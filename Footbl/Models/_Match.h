@@ -16,6 +16,7 @@ extern const struct MatchAttributes {
 	__unsafe_unretained NSString *potDraw;
 	__unsafe_unretained NSString *potGuest;
 	__unsafe_unretained NSString *potHost;
+	__unsafe_unretained NSString *round;
 } MatchAttributes;
 
 extern const struct MatchRelationships {
@@ -32,6 +33,7 @@ extern const struct MatchFetchedProperties {
 @class Comment;
 @class Team;
 @class Team;
+
 
 
 
@@ -204,6 +206,20 @@ extern const struct MatchFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* round;
+
+
+
+@property int16_t roundValue;
+- (int16_t)roundValue;
+- (void)setRoundValue:(int16_t)value_;
+
+//- (BOOL)validateRound:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) Championship *championship;
 
 //- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
@@ -336,6 +352,15 @@ extern const struct MatchFetchedProperties {
 
 - (float)primitivePotHostValue;
 - (void)setPrimitivePotHostValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitiveRound;
+- (void)setPrimitiveRound:(NSNumber*)value;
+
+- (int16_t)primitiveRoundValue;
+- (void)setPrimitiveRoundValue:(int16_t)value_;
 
 
 

@@ -15,6 +15,7 @@ const struct MatchAttributes MatchAttributes = {
 	.potDraw = @"potDraw",
 	.potGuest = @"potGuest",
 	.potHost = @"potHost",
+	.round = @"round",
 };
 
 const struct MatchRelationships MatchRelationships = {
@@ -95,6 +96,11 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	}
 	if ([key isEqualToString:@"potHostValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"potHost"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"roundValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"round"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -347,6 +353,32 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 - (void)setPrimitivePotHostValue:(float)value_ {
 	[self setPrimitivePotHost:[NSNumber numberWithFloat:value_]];
+}
+
+
+
+
+
+@dynamic round;
+
+
+
+- (int16_t)roundValue {
+	NSNumber *result = [self round];
+	return [result shortValue];
+}
+
+- (void)setRoundValue:(int16_t)value_ {
+	[self setRound:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveRoundValue {
+	NSNumber *result = [self primitiveRound];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveRoundValue:(int16_t)value_ {
+	[self setPrimitiveRound:[NSNumber numberWithShort:value_]];
 }
 
 

@@ -106,6 +106,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.potDraw = [[data objectForKey:@"pot"] objectForKey:@"draw"];
     self.potGuest = [[data objectForKey:@"pot"] objectForKey:@"guest"];
     self.potHost = [[data objectForKey:@"pot"] objectForKey:@"host"];
+    self.round = [data objectForKey:@"round"];
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:[data objectForKey:@"date"]];

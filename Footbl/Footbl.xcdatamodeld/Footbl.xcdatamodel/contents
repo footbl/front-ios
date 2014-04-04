@@ -34,6 +34,7 @@
         <attribute name="potDraw" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="potGuest" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="potHost" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="round" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
         <relationship name="guest" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="guestMatches" inverseEntity="Team" syncable="YES"/>
@@ -61,7 +62,7 @@
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="268"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="283"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="118"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
