@@ -10,6 +10,7 @@
 #import "Championship.h"
 #import "Comment.h"
 #import "Match.h"
+#import "User.h"
 
 @interface Comment ()
 
@@ -64,6 +65,7 @@
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:[data objectForKey:@"date"]];
     self.message = [data objectForKey:@"message"];
+    self.user = [User findOrCreateByIdentifier:[data objectForKey:@"user"] inManagedObjectContext:self.managedObjectContext];
 }
 
 @end

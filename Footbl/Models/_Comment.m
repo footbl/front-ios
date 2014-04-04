@@ -10,6 +10,7 @@ const struct CommentAttributes CommentAttributes = {
 
 const struct CommentRelationships CommentRelationships = {
 	.match = @"match",
+	.user = @"user",
 };
 
 const struct CommentFetchedProperties CommentFetchedProperties = {
@@ -63,6 +64,10 @@ const struct CommentFetchedProperties CommentFetchedProperties = {
 
 
 @dynamic match;
+
+	
+
+@dynamic user;
 
 	
 

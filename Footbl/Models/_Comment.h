@@ -11,12 +11,14 @@ extern const struct CommentAttributes {
 
 extern const struct CommentRelationships {
 	__unsafe_unretained NSString *match;
+	__unsafe_unretained NSString *user;
 } CommentRelationships;
 
 extern const struct CommentFetchedProperties {
 } CommentFetchedProperties;
 
 @class Match;
+@class User;
 
 
 
@@ -61,6 +63,13 @@ extern const struct CommentFetchedProperties {
 
 
 
+@property (nonatomic, strong) User *user;
+
+//- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+
+
+
 
 @end
 
@@ -86,6 +95,11 @@ extern const struct CommentFetchedProperties {
 
 - (Match*)primitiveMatch;
 - (void)setPrimitiveMatch:(Match*)value;
+
+
+
+- (User*)primitiveUser;
+- (void)setPrimitiveUser:(User*)value;
 
 
 @end

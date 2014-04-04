@@ -19,8 +19,11 @@ extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContex
 
 extern NSString * const kAPIIdentifierKey;
 
+@class User;
+
 @interface FootblAPI : AFHTTPRequestOperationManager
 
+@property (strong, nonatomic) User *currentUser;
 @property (copy, nonatomic, readonly) NSString *userIdentifier;
 @property (copy, nonatomic, readonly) NSString *userEmail;
 @property (copy, nonatomic, readonly) NSString *userPassword;

@@ -10,6 +10,8 @@ const struct GroupAttributes GroupAttributes = {
 
 const struct GroupRelationships GroupRelationships = {
 	.championships = @"championships",
+	.members = @"members",
+	.owner = @"owner",
 };
 
 const struct GroupFetchedProperties GroupFetchedProperties = {
@@ -97,6 +99,23 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	[self didAccessValueForKey:@"championships"];
 	return result;
 }
+	
+
+@dynamic members;
+
+	
+- (NSMutableSet*)membersSet {
+	[self willAccessValueForKey:@"members"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"members"];
+  
+	[self didAccessValueForKey:@"members"];
+	return result;
+}
+	
+
+@dynamic owner;
+
 	
 
 

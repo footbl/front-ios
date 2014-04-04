@@ -13,6 +13,7 @@
 #import "FootblAPI.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
+#import "User.h"
 
 @interface FootblAPI ()
 
@@ -118,6 +119,18 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     _userToken = userToken;
     
     [self setTokenExpirationDate:[[NSDate date] dateByAddingTimeInterval:60 * 55]]; // 55 minutes
+}
+
+- (User *)currentUser {
+    if (_currentUser) {
+        return _currentUser;
+    }
+    
+    if (self.userIdentifier) {
+        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblManagedObjectContext()];
+    }
+    
+    return _currentUser;
 }
 
 #pragma mark - Instance Methods
@@ -296,8 +309,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     self.userEmail = nil;
     self.userPassword = nil;
     self.userToken = nil;
+    self.currentUser = nil;
     
-    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship"]) {
+    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"User", @"Membership"]) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         NSError *error = nil;

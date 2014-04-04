@@ -52,6 +52,10 @@
 		EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */; };
 		EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
 		EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
+		EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
+		EDEFFA1018EF30BA003E12B7 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
+		EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
+		EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +146,14 @@
 		EDEFFA0618EEF764003E12B7 /* _Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Group.m; path = Models/_Group.m; sourceTree = "<group>"; };
 		EDEFFA0818EEF76C003E12B7 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Group.h; path = Models/Group.h; sourceTree = "<group>"; };
 		EDEFFA0918EEF76C003E12B7 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = Models/Group.m; sourceTree = "<group>"; };
+		EDEFFA0B18EF30B4003E12B7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Models/User.h; sourceTree = "<group>"; };
+		EDEFFA0C18EF30B4003E12B7 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
+		EDEFFA0E18EF30BA003E12B7 /* _User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _User.h; path = Models/_User.h; sourceTree = "<group>"; };
+		EDEFFA0F18EF30BA003E12B7 /* _User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _User.m; path = Models/_User.m; sourceTree = "<group>"; };
+		EDEFFA1718EF3DB0003E12B7 /* _Membership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Membership.h; path = Models/_Membership.h; sourceTree = "<group>"; };
+		EDEFFA1818EF3DB0003E12B7 /* _Membership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Membership.m; path = Models/_Membership.m; sourceTree = "<group>"; };
+		EDEFFA1A18EF3DBD003E12B7 /* Membership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Membership.h; path = Models/Membership.h; sourceTree = "<group>"; };
+		EDEFFA1B18EF3DBD003E12B7 /* Membership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Membership.m; path = Models/Membership.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,8 +281,12 @@
 				EDEFFA0618EEF764003E12B7 /* _Group.m */,
 				ED9DC8D018E3270600DF458C /* _Match.h */,
 				ED9DC8D118E3270600DF458C /* _Match.m */,
+				EDEFFA1718EF3DB0003E12B7 /* _Membership.h */,
+				EDEFFA1818EF3DB0003E12B7 /* _Membership.m */,
 				ED9DC8D218E3270600DF458C /* _Team.h */,
 				ED9DC8D318E3270600DF458C /* _Team.m */,
+				EDEFFA0E18EF30BA003E12B7 /* _User.h */,
+				EDEFFA0F18EF30BA003E12B7 /* _User.m */,
 			);
 			name = Machine;
 			sourceTree = "<group>";
@@ -415,8 +431,12 @@
 				ED9DC8CD18E326FA00DF458C /* Machine */,
 				ED9DC8DA18E3271900DF458C /* Match.h */,
 				ED9DC8DB18E3271900DF458C /* Match.m */,
+				EDEFFA1A18EF3DBD003E12B7 /* Membership.h */,
+				EDEFFA1B18EF3DBD003E12B7 /* Membership.m */,
 				ED9DC8DC18E3271900DF458C /* Team.h */,
 				ED9DC8DD18E3271900DF458C /* Team.m */,
+				EDEFFA0B18EF30B4003E12B7 /* User.h */,
+				EDEFFA0C18EF30B4003E12B7 /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -561,6 +581,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDEFFA1018EF30BA003E12B7 /* _User.m in Sources */,
+				EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
@@ -573,6 +595,7 @@
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
+				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
 				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
@@ -588,6 +611,7 @@
 				ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */,
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
+				EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 				EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,

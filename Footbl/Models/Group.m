@@ -8,6 +8,8 @@
 
 #import "Championship.h"
 #import "Group.h"
+#import "Membership.h"
+#import "User.h"
 
 @interface Group ()
 
@@ -57,6 +59,10 @@
 - (void)updateWithData:(NSDictionary *)data {
     self.name = [data objectForKey:@"name"];
     self.freeToEdit = [data objectForKey:@"freeToEdit"];
+    self.owner = [User findOrCreateByIdentifier:[data objectForKey:@"owner"] inManagedObjectContext:self.managedObjectContext];
+    if ([[data objectForKey:@"owner"] isKindOfClass:[NSDictionary class]]) {
+        [self.owner updateWithData:[data objectForKey:@"owner"]];
+    }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
@@ -70,7 +76,6 @@
     self.championships = [NSSet setWithArray:fetchResult];
 }
 
-
 - (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
@@ -80,6 +85,22 @@
                 SaveManagedObjectContext(self.editableManagedObjectContext);
                 requestSucceedWithBlock(responseObject, success);
             }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
+- (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[NSString stringWithFormat:@"groups/%@/members", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
+                membership.group = self;
+            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [self.managedObjectContext deleteObjects:untouchedObjects];
+            }];
+            requestSucceedWithBlock(responseObject, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
