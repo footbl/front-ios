@@ -22,40 +22,46 @@
     return [FootblAPI sharedAPI];
 }
 
-+ (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid = %@", identifier];
-    fetchRequest.fetchLimit = 1;
-    
-    NSError *error = nil;
-    NSArray *fetchResult = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
++ (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache createIfNil:(BOOL)createIfNil {
+    if ([identifier isKindOfClass:[NSDictionary class]]) {
+        identifier = [(NSDictionary *)identifier objectForKey:kAPIIdentifierKey];
     }
-    return fetchResult.firstObject;
+    
+    FootblModel *object = nil;
+    if (cache) {
+        object = [cache filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", identifier]].anyObject;
+    } else {
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid = %@", identifier];
+        fetchRequest.fetchLimit = 1;
+        NSError *error = nil;
+        NSArray *fetchResult = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        if (error) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        object = fetchResult.firstObject;
+    }
+    
+    if (!createIfNil || object) {
+        return object;
+    }
+    
+    object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:managedObjectContext];
+    object.rid = identifier;
+    return object;
+}
+
++ (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    return [self findByIdentifier:identifier inManagedObjectContext:managedObjectContext usingCache:nil createIfNil:NO];
 }
 
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    FootblModel *object = [self findByIdentifier:identifier inManagedObjectContext:managedObjectContext];
-    if (object) {
-        return object;
-    }
-    
-    object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:managedObjectContext];
-    object.rid = identifier;
-    return object;
+    return [self findByIdentifier:identifier inManagedObjectContext:managedObjectContext usingCache:nil createIfNil:YES];
 }
 
 + (instancetype)findOrCreateByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache {
-    FootblModel *object = [cache filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", identifier]].anyObject;
-    if (object) {
-        return object;
-    }
-    
-    object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:managedObjectContext];
-    object.rid = identifier;
-    return object;
+    return [self findByIdentifier:identifier inManagedObjectContext:managedObjectContext usingCache:cache createIfNil:YES];
 }
 
 + (NSMutableDictionary *)generateDefaultParameters {
