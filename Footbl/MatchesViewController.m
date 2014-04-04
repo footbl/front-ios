@@ -109,12 +109,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
         }
         
         self.championship = fetchResult.firstObject;
-        
-        [Match updateFromChampionship:self.championship.editableObject success:^{
-            [Match updateBetsWithSuccess:^{
-                [self.refreshControl endRefreshing];
-            } failure:nil];
-        } failure:failure];
+        if (self.championship) {
+            [Match updateFromChampionship:self.championship.editableObject success:^{
+                [Match updateBetsWithSuccess:^{
+                    [self.refreshControl endRefreshing];
+                } failure:nil];
+            } failure:failure];
+        }
     } failure:failure];
 }
 
