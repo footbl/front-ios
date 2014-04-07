@@ -16,6 +16,9 @@
 		ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
+		ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
+		ED9D0AFF18F31B7C0061AE42 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
+		ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
 		ED9DC8D418E3270600DF458C /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
 		ED9DC8D518E3270600DF458C /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED9DC8D618E3270600DF458C /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
@@ -87,6 +90,12 @@
 		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
 		ED81E83B18EA769400212D3C /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
 		ED81E83C18EA769400212D3C /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
+		ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
+		ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		ED9D0B0018F31D8F0061AE42 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
+		ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		ED9DC8CE18E3270600DF458C /* _Championship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Championship.h; path = Models/_Championship.h; sourceTree = "<group>"; };
 		ED9DC8CF18E3270600DF458C /* _Championship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Championship.m; path = Models/_Championship.m; sourceTree = "<group>"; };
 		ED9DC8D018E3270600DF458C /* _Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Match.h; path = Models/_Match.h; sourceTree = "<group>"; };
@@ -268,6 +277,26 @@
 			name = Template;
 			sourceTree = "<group>";
 		};
+		ED9D0AF818F310BA0061AE42 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */,
+				ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		ED9D0AFC18F31B700061AE42 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				ED9D0B0018F31D8F0061AE42 /* AuthenticationViewController.h */,
+				ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */,
+				ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */,
+				ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		ED9DC8CD18E326FA00DF458C /* Machine */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,11 +426,13 @@
 			isa = PBXGroup;
 			children = (
 				ED81E82918EA708B00212D3C /* Groups */,
+				ED9D0AFC18F31B700061AE42 /* Login */,
 				ED81E82A18EA708E00212D3C /* Matches */,
 				ED81E82818EA707800212D3C /* Navigation */,
 				ED81E82B18EA709200212D3C /* Profile */,
 				ED81E82718EA706700212D3C /* Prototype */,
 				ED81E82618EA705E00212D3C /* Template */,
+				ED9D0AF818F310BA0061AE42 /* Tutorial */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -581,8 +612,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED9D0AFF18F31B7C0061AE42 /* LoginViewController.m in Sources */,
 				EDEFFA1018EF30BA003E12B7 /* _User.m in Sources */,
 				EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */,
+				ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
@@ -593,6 +626,7 @@
 				ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
+				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,

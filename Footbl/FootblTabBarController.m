@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "AuthenticationViewController.h"
+#import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
 #import "GroupsViewController.h"
 #import "MatchesViewController.h"
 #import "ProfileViewController.h"
+#import "TutorialViewController.h"
 
 @interface FootblTabBarController ()
 
@@ -57,11 +60,48 @@
 - (void)loadView {
     [super loadView];
     
-    FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[MatchesViewController new]];
-    FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[GroupsViewController new]];
-    FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[ProfileViewController new]];
-    self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
-    self.selectedIndex = 1;
+    void(^viewControllersSetupBlock)() = ^() {
+        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[MatchesViewController new]];
+        FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[GroupsViewController new]];
+        FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[ProfileViewController new]];
+        self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
+        self.selectedIndex = 1;
+    };
+    
+    void(^authenticationBlock)(UINavigationController *navigationController) = ^(UINavigationController *navigationController) {
+        if ([[FootblAPI sharedAPI] isAuthenticated]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            viewControllersSetupBlock();
+        } else {
+            if (!navigationController) {
+                navigationController = [FootblNavigationController new];
+                [self presentViewController:navigationController animated:NO completion:nil];
+            }
+            
+            AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
+            [navigationController pushViewController:authenticationViewController animated:YES];
+            authenticationViewController.completionBlock = ^{
+                viewControllersSetupBlock();
+                [self dismissViewControllerAnimated:YES completion:nil];
+            };
+        }
+    };
+    
+    self.viewControllers = @[[UIViewController new]];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if ([TutorialViewController shouldPresentTutorial]) {
+            TutorialViewController *tutorialViewController = [TutorialViewController new];
+            FootblNavigationController *tutorialNavigationController = [[FootblNavigationController alloc] initWithRootViewController:tutorialViewController];
+            [self presentViewController:tutorialNavigationController animated:NO completion:nil];
+            [tutorialViewController setCompletionBlock:^{
+                authenticationBlock(tutorialNavigationController);
+            }];
+        } else {
+            authenticationBlock(nil);
+        }
+    }];
+    
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
     self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
 }

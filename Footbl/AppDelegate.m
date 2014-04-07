@@ -8,7 +8,9 @@
 
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
+#import "FootblAPI.h"
 #import "FootblTabBarController.h"
+#import "TutorialViewController.h"
 #import "SDImageCache+ShippedCache.h"
 
 #pragma mark AppDelegate
@@ -26,6 +28,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     kSPDebugLogLevel = SPDebugLogLevelInfo;
+    
+    static NSString *kFirstRunKey = @"kFirstRunKey";
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey]) {
+        [[FootblAPI sharedAPI] logout];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPresentTutorialViewController];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstRunKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
