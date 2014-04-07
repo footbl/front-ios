@@ -124,7 +124,7 @@
             return;
         }
         
-        SPLog(@"Merging context");
+        SPLogVerbose(@"Merging context");
         
         [self.managedObjectContext performBlock:^{
             [self.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
