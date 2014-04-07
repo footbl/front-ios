@@ -13,7 +13,7 @@ typedef void (^FootblAPIFailureBlock)(NSError *error);
 
 extern NSManagedObjectContext * FootblBackgroundManagedObjectContext();
 extern NSManagedObjectContext * FootblManagedObjectContext();
-extern void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success);
+void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, FootblAPISuccessBlock success);
 extern void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure);
 extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext);
 

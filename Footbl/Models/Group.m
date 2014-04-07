@@ -28,7 +28,7 @@
             [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [self.editableManagedObjectContext deleteObjects:untouchedObjects];
             }];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -46,7 +46,7 @@
                 group.rid = [responseObject objectForKey:kAPIIdentifierKey];
                 [group updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -83,7 +83,7 @@
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -100,7 +100,7 @@
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [self.managedObjectContext deleteObjects:untouchedObjects];
             }];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -116,7 +116,7 @@
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -131,7 +131,7 @@
             [self.editableManagedObjectContext performBlock:^{
                 [self.editableManagedObjectContext deleteObject:self.editableObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);

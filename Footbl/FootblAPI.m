@@ -46,13 +46,15 @@ NSManagedObjectContext * FootblManagedObjectContext() {
     return [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
 }
 
-void requestSucceedWithBlock(id responseObject, FootblAPISuccessBlock success) {
-    SPLogVerbose(@"%@", responseObject);
+void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, FootblAPISuccessBlock success) {
+    if (kSPDebugLogLevel >= SPDebugLogLevelInfo) NSLog(@"%@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
+    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@", operation.responseObject);
     if (success) dispatch_async(dispatch_get_main_queue(), success);
 }
 
 void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
-    SPLogError(@"\n%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
+    if (kSPDebugLogLevel >= SPDebugLogLevelError) NSLog(@"Error: %@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
+    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
     if (failure) dispatch_async(dispatch_get_main_queue(), ^{
         failure(error);
     });
@@ -208,7 +210,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [self GET:@"/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [[NSUserDefaults standardUserDefaults] setObject:[responseObject objectForKey:@"pageSize"] forKey:kConfigPageSize];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -236,7 +238,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         self.userIdentifier = [responseObject objectForKey:@"_id"];
         self.userPassword = [parameters objectForKey:@"password"];
         self.userEmail = nil;
-        requestSucceedWithBlock(responseObject, success);
+        requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
@@ -287,7 +289,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.userToken = [responseObject objectForKey:@"token"];
         self.userIdentifier = [responseObject objectForKey:kAPIIdentifierKey];
-        requestSucceedWithBlock(responseObject, success);
+        requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
@@ -337,7 +339,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
         [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
         [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];

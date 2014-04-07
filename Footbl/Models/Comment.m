@@ -31,7 +31,7 @@
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [self.editableManagedObjectContext deleteObjects:untouchedObjects];
             }];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -51,7 +51,7 @@
                 comment.rid = [responseObject objectForKey:kAPIIdentifierKey];
                 [comment updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);

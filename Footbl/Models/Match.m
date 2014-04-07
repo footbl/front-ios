@@ -51,7 +51,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [self.editableManagedObjectContext deleteObjects:untouchedObjects];
             }];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
            requestFailedWithBlock(operation, parameters, error, failure); 
         }];
@@ -84,7 +84,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
                     match.bidReward = [entry objectForKey:@"reward"];
                 }
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -119,7 +119,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -142,7 +142,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
                     self.bidReward = [responseObject objectForKey:@"reward"];
                     self.bidValue = bid;
                     SaveManagedObjectContext(self.editableManagedObjectContext);
-                    requestSucceedWithBlock(responseObject, success);
+                    requestSucceedWithBlock(operation, parameters, success);
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, failure);
@@ -163,7 +163,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
             [self.editableManagedObjectContext performBlock:^{
                 self.bidRid = nil;
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);

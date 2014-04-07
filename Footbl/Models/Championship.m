@@ -27,7 +27,7 @@
             [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
             }];
-            requestSucceedWithBlock(responseObject, success);
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
@@ -53,7 +53,7 @@
             [self.editableManagedObjectContext performBlock:^{
                 [self.editableObject updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(responseObject, success);
+                requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
