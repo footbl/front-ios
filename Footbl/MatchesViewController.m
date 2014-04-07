@@ -61,19 +61,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage new] tag:0];
-        
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-        fetchRequest.fetchLimit = 1;
-        NSError *error = nil;
-        NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-        if (error) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-        if (fetchResult.count > 0) {
-            self.championship = fetchResult.firstObject;
-        }
+        [self fetchChampionship];
     }
     
     return self;
@@ -90,6 +78,19 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     }
 }
 
+- (void)fetchChampionship {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    fetchRequest.fetchLimit = 1;
+    NSError *error = nil;
+    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    self.championship = fetchResult.firstObject;
+}
+
 - (void)reloadData {
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
@@ -98,17 +99,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     };
     
     [Championship updateWithSuccess:^{
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-        fetchRequest.fetchLimit = 1;
-        NSError *error = nil;
-        NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-        if (error) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-        
-        self.championship = fetchResult.firstObject;
+        [self fetchChampionship];
         if (self.championship) {
             [Match updateFromChampionship:self.championship.editableObject success:^{
                 [Match updateBetsWithSuccess:^{
@@ -201,6 +192,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     CGRect tableViewFrame = self.tabBarController.view.frame;
     tableViewFrame.size.height -= CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted)) {
+            [self.refreshControl beginRefreshing];
+            [self reloadData];
+        }
+    }];
+    
     self.tableView = tableViewController.tableView;
     self.tableView.frame = tableViewFrame;
     self.tableView.delegate = self;
@@ -223,6 +221,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
