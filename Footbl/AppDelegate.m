@@ -88,6 +88,14 @@
     [self saveContext];
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    SPLog(@"APNS: %@", deviceToken);
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+}
+
 - (void)saveBackgroundContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.backgroundManagedObjectContext;

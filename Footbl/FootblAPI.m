@@ -48,7 +48,7 @@ NSManagedObjectContext * FootblManagedObjectContext() {
 
 void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, FootblAPISuccessBlock success) {
     if (kSPDebugLogLevel >= SPDebugLogLevelInfo) NSLog(@"%@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
-    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@", operation.responseObject);
+    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@\n\n%@", parameters, [operation responseObject]);
     if (success) dispatch_async(dispatch_get_main_queue(), success);
 }
 
@@ -289,6 +289,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.userToken = [responseObject objectForKey:@"token"];
         self.userIdentifier = [responseObject objectForKey:kAPIIdentifierKey];
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
         requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
