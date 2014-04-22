@@ -106,6 +106,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
                     [self.refreshControl endRefreshing];
                 } failure:nil];
             } failure:failure];
+        } else {
+            [self.refreshControl endRefreshing];
         }
     } failure:failure];
 }
