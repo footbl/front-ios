@@ -530,6 +530,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "made@sampa";
 				TargetAttributes = {
+					EDB1D46118E1F18B00E0C949 = {
+						DevelopmentTeam = 8Y8458KNAN;
+					};
 					EDB1D48118E1F18B00E0C949 = {
 						TestTargetID = EDB1D46118E1F18B00E0C949;
 					};
@@ -767,10 +770,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "41A4A2CB-58CA-4454-932F-3227B3DD6D2F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -781,10 +787,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "74F113FD-9CD6-49DD-9789-A7BFB77D8118";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
