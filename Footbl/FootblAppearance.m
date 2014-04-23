@@ -18,14 +18,17 @@
     switch (footblView) {
         case FootblColorCellBackground:
         case FootblColorNavigationBar:
-        case FootblColorTabBar:
         case FootblColorViewBackground:
             return [UIColor whiteColor];
         case FootblColorCellMatchBackground:
         case FootblColorViewMatchBackground:
             return [UIColor colorWithRed:0.94 green:0.96 blue:0.95 alpha:1];
+        case FootblColorTabBar:
+            return [UIColor colorWithWhite:1.00 alpha:0.98];
         case FootblColorTabBarTint:
-            return [UIColor colorWithRed:0.09 green:0.58 blue:0.29 alpha:1];
+            return [UIColor ftVerdeGramadoColor];
+        case FootblColorTabBarSeparator:
+            return [UIColor colorWithRed:228/255.f green:228/255.f blue:228/255.f alpha:1.0];
     }
 }
 
@@ -39,5 +42,17 @@
 }
 
 #pragma mark - Instance Methods
+
+@end
+
+#pragma mark UIColor (FootblColor)
+
+@implementation UIColor (FootblColor)
+
+#pragma mark - Class Methods
+
++ (UIColor *)ftVerdeGramadoColor {
+    return [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72/255.f alpha:1];
+}
 
 @end

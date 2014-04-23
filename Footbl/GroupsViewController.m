@@ -67,7 +67,7 @@
 - (id)init {
     if (self) {
         self.title = NSLocalizedString(@"Groups", @"");
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage new] tag:0];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_groups_inactive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_groups_active"]];
     }
     
     return self;

@@ -60,7 +60,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
 - (id)init {
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage new] tag:0];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_matches_active"]];
         [self fetchChampionship];
     }
     

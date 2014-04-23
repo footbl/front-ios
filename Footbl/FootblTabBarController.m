@@ -17,6 +17,8 @@
 
 @interface FootblTabBarController ()
 
+@property (strong, nonatomic) UIView *tabBarSeparatorView;
+
 @end
 
 #pragma mark FootblTabBarController
@@ -50,6 +52,10 @@
         CGRect viewControllerFrame = self.selectedViewController.view.frame;
         viewControllerFrame.size.height = tabBarFrame.origin.y;
         self.tabBar.frame = tabBarFrame;
+        
+        CGRect separatorFrame = self.tabBarSeparatorView.frame;
+        separatorFrame.origin.y = CGRectGetMinY(tabBarFrame) - 0.5;
+        self.tabBarSeparatorView.frame = separatorFrame;
     }];
 }
 
@@ -104,6 +110,11 @@
     
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
     self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    
+    self.tabBarSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.tabBar.frame) - 0.5, CGRectGetWidth(self.tabBar.frame), 0.5)];
+    self.tabBarSeparatorView.backgroundColor = [UIColor colorWithRed:228/255.f green:228/255.f blue:228/255.f alpha:1.0];
+    self.tabBarSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.view addSubview:self.tabBarSeparatorView];
 }
 
 - (void)viewDidLoad {

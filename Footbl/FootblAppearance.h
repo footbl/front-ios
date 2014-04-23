@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, FootblView) {
     FootblColorCellBackground,
     FootblColorCellMatchBackground,
     FootblColorTabBar,
+    FootblColorTabBarSeparator,
     FootblColorTabBarTint,
     FootblColorNavigationBar
 };
@@ -27,5 +28,11 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
 
 + (UIColor *)colorForView:(FootblView)footblView;
 + (CGFloat)speedForAnimation:(FootblAnimation)animation;
+
+@end
+
+@interface UIColor (FootblColor)
+
++ (UIColor *)ftVerdeGramadoColor;
 
 @end
