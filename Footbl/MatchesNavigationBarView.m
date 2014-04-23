@@ -84,20 +84,14 @@
         self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(242, 58, 72, 14)];
         self.profitTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Profit", @"") attributes:titleAttributes];
         [self addSubview:self.profitTitleLabel];
+        
+        for (NSNumber *offsetX in @[@77.5, @242]) {
+            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(offsetX.floatValue, 27, 0.5, 29)];
+            separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+            [self addSubview:separatorView];
+        }
     }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    
-    UIBezierPath *separator = [UIBezierPath bezierPathWithRect:CGRectMake(77.5, 27, 0.5, 29)];
-    [[FootblAppearance colorForView:FootblColorNavigationBarSeparator] setFill];
-    [separator fill];
-    
-    separator = [UIBezierPath bezierPathWithRect:CGRectMake(242, 27, 0.5, 29)];
-    [[FootblAppearance colorForView:FootblColorNavigationBarSeparator] setFill];
-    [separator fill];
 }
 
 - (void)setTitleHidden:(BOOL)titleHidden animated:(BOOL)animated {
