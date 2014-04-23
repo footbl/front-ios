@@ -289,7 +289,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.userToken = [responseObject objectForKey:@"token"];
         self.userIdentifier = [responseObject objectForKey:kAPIIdentifierKey];
+#if !TARGET_IPHONE_SIMULATOR
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+#endif
         requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
