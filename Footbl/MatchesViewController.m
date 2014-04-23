@@ -10,6 +10,7 @@
 #import "FootblTabBarController.h"
 #import "Match.h"
 #import "MatchTableViewCell.h"
+#import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "Team.h"
 #import "TeamsViewController.h"
@@ -20,6 +21,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) CGPoint tableViewOffset;
+@property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
 
 @end
 
@@ -131,8 +133,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     BOOL isContentBehindTabBar = scrollView.contentSize.height - scrollView.contentOffset.y < viewHeight + tabBarInsetTop + tabBarHeight * 3;
     if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar) && scrollView.contentOffset.y > 20) {
         [tabBarController setTabBarHidden:YES animated:YES];
+        [self.navigationBarTitleView setTitleHidden:YES animated:YES];
     } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar && !isContentBehindTabBar) || scrollView.contentOffset.y < 20) {
         [tabBarController setTabBarHidden:NO animated:YES];
+        [self.navigationBarTitleView setTitleHidden:NO animated:YES];
     }
 }
 
@@ -185,14 +189,20 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
+    self.navigationController.navigationBarHidden = YES;
+    
+    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+    self.navigationBarTitleView.walletValueLabel.text = @"$79";
+    self.navigationBarTitleView.stakeValueLabel.text = @"21";
+    self.navigationBarTitleView.returnValueLabel.text = @"25";
+    self.navigationBarTitleView.profitValueLabel.text = @"4";
+    [self.view addSubview:self.navigationBarTitleView];
+    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
-    
-    CGRect tableViewFrame = self.tabBarController.view.frame;
-    tableViewFrame.size.height -= CGRectGetHeight(self.navigationController.navigationBar.frame) + CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted)) {
@@ -202,15 +212,17 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     }];
     
     self.tableView = tableViewController.tableView;
-    self.tableView.frame = tableViewFrame;
+    self.tableView.frame = self.view.frame;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.rowHeight = 60;
+    self.tableView.rowHeight = 380;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-    [self.view addSubview:self.tableView];
+    [self.view insertSubview:self.tableView belowSubview:self.navigationBarTitleView];
     
     [self reloadData];
 }

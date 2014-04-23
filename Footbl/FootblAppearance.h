@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
     FootblAnimationTabBar
 };
 
+extern NSString * const kFontNameMedium;
+
 @interface FootblAppearance : NSObject
 
 + (UIColor *)colorForView:(FootblView)footblView;
@@ -34,6 +36,9 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
 
 @interface UIColor (FootblColor)
 
-+ (UIColor *)ftVerdeGramadoColor;
++ (UIColor *)ftGreenGrassColor;
++ (UIColor *)ftGreenMoneyColor;
++ (UIColor *)ftRedStakeColor;
++ (UIColor *)ftBlueReturnColor;
 
 @end
