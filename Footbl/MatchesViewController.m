@@ -104,9 +104,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
         [self fetchChampionship];
         if (self.championship) {
             [Match updateFromChampionship:self.championship.editableObject success:^{
-                [Match updateBetsWithSuccess:^{
-                    [self.refreshControl endRefreshing];
-                } failure:nil];
+                [self.refreshControl endRefreshing];
             } failure:failure];
         } else {
             [self.refreshControl endRefreshing];
