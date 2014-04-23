@@ -112,7 +112,7 @@
     self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     
     self.tabBarSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.tabBar.frame) - 0.5, CGRectGetWidth(self.tabBar.frame), 0.5)];
-    self.tabBarSeparatorView.backgroundColor = [UIColor colorWithRed:228/255.f green:228/255.f blue:228/255.f alpha:1.0];
+    self.tabBarSeparatorView.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarSeparator];
     self.tabBarSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.tabBarSeparatorView];
 }
