@@ -15,7 +15,7 @@
 #import "Team.h"
 #import "TeamsViewController.h"
 
-static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
+static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 @interface MatchesViewController ()
 
@@ -132,7 +132,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 200.f;
     if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar) && scrollView.contentOffset.y > 20) {
         [tabBarController setTabBarHidden:YES animated:YES];
         [self.navigationBarTitleView setTitleHidden:YES animated:YES];
-    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar && !isContentBehindTabBar) || scrollView.contentOffset.y < 20) {
+    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar * 2.5 && !isContentBehindTabBar) || scrollView.contentOffset.y < 20) {
         [tabBarController setTabBarHidden:NO animated:YES];
         [self.navigationBarTitleView setTitleHidden:NO animated:YES];
     }
