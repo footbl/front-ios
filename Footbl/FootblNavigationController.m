@@ -30,6 +30,11 @@
     [super loadView];
     
     self.navigationBar.barTintColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.navigationBar.frame), CGRectGetWidth(self.navigationBar.frame), 0.5)];
+    separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+    separatorView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self.navigationBar addSubview:separatorView];
 }
 
 - (void)viewDidLoad {

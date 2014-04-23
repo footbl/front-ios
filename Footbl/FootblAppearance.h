@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, FootblView) {
     FootblColorTabBar,
     FootblColorTabBarSeparator,
     FootblColorTabBarTint,
-    FootblColorNavigationBar
+    FootblColorNavigationBar,
+    FootblColorNavigationBarSeparator
 };
 
 typedef NS_ENUM(NSInteger, FootblAnimation) {
