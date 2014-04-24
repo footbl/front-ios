@@ -30,6 +30,7 @@
 		ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E518E3286900DF458C /* FootblModel.m */; };
 		ED9DC8E918E3330400DF458C /* _Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E818E3330400DF458C /* _Comment.m */; };
 		ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8EB18E3330D00DF458C /* Comment.m */; };
+		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D46818E1F18B00E0C949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -119,6 +120,7 @@
 		ED9DC8E818E3330400DF458C /* _Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Comment.m; path = Models/_Comment.m; sourceTree = "<group>"; };
 		ED9DC8EA18E3330D00DF458C /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = Models/Comment.h; sourceTree = "<group>"; };
 		ED9DC8EB18E3330D00DF458C /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = Models/Comment.m; sourceTree = "<group>"; };
+		ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		EDB1D46218E1F18B00E0C949 /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -177,6 +179,7 @@
 				EDB1D46C18E1F18B00E0C949 /* CoreData.framework in Frameworks */,
 				EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */,
 				EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */,
+				ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */,
 				4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +351,7 @@
 		EDB1D46418E1F18B00E0C949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */,
 				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
 				EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */,
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
@@ -500,6 +504,7 @@
 				EDB1D46018E1F18B00E0C949 /* Resources */,
 				3599099D53CB45E594284DB3 /* Copy Pods Resources */,
 				ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */,
+				ED9F078E1909B42D00C8AC71 /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -642,6 +647,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
+		};
+		ED9F078E1909B42D00C8AC71 /* Run Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Crashlytics";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -808,6 +827,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
@@ -825,6 +848,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";

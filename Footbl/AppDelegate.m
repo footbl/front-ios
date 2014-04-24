@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <Crashlytics/Crashlytics.h>
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
 #import "FootblAPI.h"
@@ -30,6 +31,8 @@
     kSPDebugLogLevel = SPDebugLogLevelInfo;
     
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
+    
+    [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
