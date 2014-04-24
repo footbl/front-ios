@@ -17,6 +17,7 @@
 #import "TeamsViewController.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
+static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
 
 @interface MatchesViewController ()
 
@@ -97,6 +98,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (void)fetchChampionship {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid = %@", kChampionshipID];
     fetchRequest.fetchLimit = 1;
     NSError *error = nil;
     NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
