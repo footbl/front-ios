@@ -29,13 +29,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     kSPDebugLogLevel = SPDebugLogLevelInfo;
     
+    SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
+    
+    static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] isEqualToString:SPGetApplicationVersion()]) {
+        SPLog(@"Application updated from v%@ to v%@", [[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey], SPGetApplicationVersion());
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFirstRunKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey]) {
         [[FootblAPI sharedAPI] logout];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPresentTutorialViewController];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstRunKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:SPGetApplicationVersion() forKey:kVersionKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
