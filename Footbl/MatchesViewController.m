@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "Championship.h"
 #import "FootblTabBarController.h"
 #import "Match.h"
@@ -71,13 +72,26 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ x %@ %@", match.host.name, match.hostScore, match.guestScore, match.guest.name];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@ - %@", match.potHost, match.potDraw, match.potGuest];
-    if (match.bidRid.length > 0) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    cell.hostNameLabel.text = match.host.name;
+    cell.hostPotLabel.text = match.potHost.stringValue;
+    [cell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
+    cell.drawPotLabel.text = match.potDraw.stringValue;
+    cell.guestNameLabel.text = match.guest.name;
+    [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
+    cell.guestPotLabel.text = match.potGuest.stringValue;
+    
+#ifdef DEBUG
+    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
+    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_FCB%402x.png"]];
+    cell.hostPotLabel.text = @"1.21";
+    cell.drawPotLabel.text = @"8.32";
+    cell.guestPotLabel.text = @"18.03";
+    cell.stakeValueLabel.text = @"21";
+    cell.returnValueLabel.text = @"25";
+    cell.profitValueLabel.text = @"4";
+    [cell setStakesCount:@143 commentsCount:@48];
+    [cell setDateText:@"Thu 06/12 5pm"];
+#endif
 }
 
 - (void)fetchChampionship {
@@ -219,6 +233,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 15)];
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view insertSubview:self.tableView belowSubview:self.navigationBarTitleView];
     

@@ -8,6 +8,8 @@
 
 #import "FootblAppearance.h"
 
+NSString * const kFontNameBlack = @"Avenir-Black";
+NSString * const kFontNameLight = @"Avenir-Light";
 NSString * const kFontNameMedium = @"Avenir-Medium";
 
 #pragma mark FootblAppearance
@@ -21,9 +23,13 @@ NSString * const kFontNameMedium = @"Avenir-Medium";
         case FootblColorCellBackground:
         case FootblColorViewBackground:
             return [UIColor whiteColor];
+        case FootblColorCellSeparator:
+            return [UIColor colorWithRed:2.0/255.f green:2.0/255.f blue:2.0/255.f alpha:0.15];
+        case FootblColorCellMatchPot:
+            return [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:0.70];
         case FootblColorCellMatchBackground:
         case FootblColorViewMatchBackground:
-            return [UIColor colorWithRed:0.94 green:0.96 blue:0.95 alpha:1.00];
+            return [UIColor colorWithRed:239/255.f green:244/255.f blue:240/255.f alpha:1.00];
         case FootblColorNavigationBar:
             return [UIColor colorWithWhite:1.00 alpha:0.80];
         case FootblColorTabBar:
@@ -69,6 +75,10 @@ NSString * const kFontNameMedium = @"Avenir-Medium";
 
 + (UIColor *)ftBlueReturnColor {
     return [UIColor colorWithRed:89./255.f green:186/255.f blue:235/255.f alpha:1.00];
+}
+
++ (UIColor *)ftSubtitleColor {
+    return [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
 }
 
 @end
