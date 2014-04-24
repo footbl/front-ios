@@ -36,10 +36,9 @@
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
+    
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] isEqualToString:SPGetApplicationVersion()]) {
         SPLog(@"Application updated from v%@ to v%@", [[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey], SPGetApplicationVersion());
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFirstRunKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey]) {
