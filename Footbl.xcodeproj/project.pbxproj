@@ -493,11 +493,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDB1D49418E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
+				ED9F078C1909AD3A00C8AC71 /* Set Info.plist values */,
 				04C577D5C001442296EE2258 /* Check Pods Manifest.lock */,
 				EDB1D45E18E1F18B00E0C949 /* Sources */,
 				EDB1D45F18E1F18B00E0C949 /* Frameworks */,
 				EDB1D46018E1F18B00E0C949 /* Resources */,
 				3599099D53CB45E594284DB3 /* Copy Pods Resources */,
+				ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */,
 			);
 			buildRules = (
 			);
@@ -612,6 +614,34 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		ED9F078C1909AD3A00C8AC71 /* Set Info.plist values */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Info.plist values";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%h - %s (%an)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME} ß\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
+		};
+		ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove temporary Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
