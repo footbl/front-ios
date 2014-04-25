@@ -47,14 +47,14 @@ NSManagedObjectContext * FootblManagedObjectContext() {
 }
 
 void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, FootblAPISuccessBlock success) {
-    if (kSPDebugLogLevel >= SPDebugLogLevelInfo) NSLog(@"%@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
-    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@\n\n%@", parameters, [operation responseObject]);
+    SPLog(@"%@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
+    SPLogVerbose(@"%@\n\n%@", parameters, [operation responseObject]);
     if (success) dispatch_async(dispatch_get_main_queue(), success);
 }
 
 void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
-    if (kSPDebugLogLevel >= SPDebugLogLevelError) NSLog(@"Error: %@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
-    if (kSPDebugLogLevel >= SPDebugLogLevelVerbose) NSLog(@"%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
+    SPLogError(@"Error: %@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
+    SPLogVerbose(@"%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
     if (failure) dispatch_async(dispatch_get_main_queue(), ^{
         failure(error);
     });
