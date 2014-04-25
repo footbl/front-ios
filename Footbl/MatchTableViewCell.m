@@ -19,7 +19,7 @@
     if (self) {
         // Initialization code
         self.contentView.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
+        self.backgroundColor = self.contentView.backgroundColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, CGRectGetWidth(self.contentView.frame), 20)];
@@ -27,6 +27,7 @@
         self.dateLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
         self.dateLabel.textColor = [UIColor colorWithRed:57/255.f green:73/255.f blue:61/255.f alpha:0.80];
         self.dateLabel.textAlignment = NSTextAlignmentCenter;
+        self.dateLabel.backgroundColor = self.contentView.backgroundColor;
         [self.contentView addSubview:self.dateLabel];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, CGRectGetMidY(self.dateLabel.frame), CGRectGetWidth(self.contentView.frame) - 24, 0.5)];
@@ -154,11 +155,16 @@
         paragraphStyle.alignment = NSTextAlignmentCenter;
         attributes = @{NSFontAttributeName : self.dateLabel.font,
                        NSForegroundColorAttributeName : self.dateLabel.textColor,
-                       NSParagraphStyleAttributeName : paragraphStyle,
-                       NSBackgroundColorAttributeName : [FootblAppearance colorForView:FootblColorViewMatchBackground]};
+                       NSParagraphStyleAttributeName : paragraphStyle};
     });
     
-    self.dateLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t%@\t", dateText] attributes:attributes];
+    self.dateLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", dateText] attributes:attributes];
+    CGSize size = [dateText boundingRectWithSize:CGSizeMake(INT_MAX, INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:[NSStringDrawingContext new]].size;
+    CGRect frame = self.dateLabel.frame;
+    frame.size.width = roundf(size.width) + 30;
+    CGPoint center = self.dateLabel.center;
+    self.dateLabel.frame = frame;
+    self.dateLabel.center = center;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
