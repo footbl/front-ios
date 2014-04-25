@@ -7,6 +7,7 @@
 //
 
 #import <SPHipster/SPHipster.h>
+#import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsViewController.h"
 
@@ -49,6 +50,10 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                             kSettingsDataSourceActionKey : @YES,
                                                             kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"",
                                                                                               kSettingsDataSourceItemsKey : commits}]},
+                                                          @{kSettingsDataSourceTitleKey : @"Logs",
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceActionKey : @YES,
+                                                            kSettingsDataSourceSelectorKey : NSStringFromSelector(@selector(openLogs:))},
                                                           @{kSettingsDataSourceTitleKey : @"Version",
                                                             kSettingsDataSourceValueKey : SPGetApplicationVersion()}]}];
     }
@@ -59,6 +64,10 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)openChangelog:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kChangelogUrlString]];
+}
+
+- (void)openLogs:(id)sender {
+    [self.navigationController pushViewController:[LogsViewController new] animated:YES];
 }
 
 #pragma mark - Delegates & Data sources
