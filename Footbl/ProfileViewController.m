@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "SettingsViewController.h"
 
 @interface ProfileViewController ()
 
@@ -31,12 +32,18 @@
     return self;
 }
 
+- (IBAction)settingsAction:(id)sender {
+    [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - View Lifecycle
 
 - (void)loadView {
     [super loadView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
 }
 
 - (void)viewDidLoad {
