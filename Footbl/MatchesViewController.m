@@ -81,6 +81,17 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     cell.guestPotLabel.text = match.potGuest.stringValue;
     
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    formatter.AMSymbol = @"am";
+    formatter.PMSymbol = @"pm";
+    formatter.dateFormat = [@"EEEE, " stringByAppendingString:formatter.dateFormat];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
+    [cell setDateText:[formatter stringFromDate:match.date]];
+    
 #ifdef DEBUG
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_FCB%402x.png"]];
@@ -91,7 +102,6 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     cell.returnValueLabel.text = @"25";
     cell.profitValueLabel.text = @"4";
     [cell setStakesCount:@143 commentsCount:@48];
-    [cell setDateText:@"Thu 06/12 5pm"];
 #endif
 }
 
