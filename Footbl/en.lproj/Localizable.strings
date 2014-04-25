@@ -16,9 +16,6 @@
 /* Draw */
 "Draw" = "Draw";
 
-/* Ex.: EEEE, MM/dd ha */
-"Match date format" = "EEEE, MM/dd ha";
-
 /* Error */
 "Error" = "Error";
 
@@ -66,6 +63,9 @@
 
 /* Tutorial */
 "Tutorial" = "Tutorial";
+
+/* Logs */
+"Logs" = "Logs";
 
 /* Wallet */
 "Wallet" = "Wallet";
