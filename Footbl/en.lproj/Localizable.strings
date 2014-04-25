@@ -1,0 +1,72 @@
+/* Localizable.strings
+  Footbl
+
+  Created by Fernando Saragoça on 4/25/14.
+  Copyright (c) 2014 made@sampa. All rights reserved. */
+
+/* {number of stakes} stakes and {number of comments} comments */
+"%i stakes and %i comments" = "%1$i stakes and %2$i comments";
+
+/* Championships */
+"Championships" = "Championships";
+
+/* Close tutorial */
+"Close tutorial" = "Close tutorial";
+
+/* Draw */
+"Draw" = "Draw";
+
+/* Ex.: EEEE, MM/dd ha */
+"Match date format" = "EEEE, MM/dd ha";
+
+/* Error */
+"Error" = "Error";
+
+/* Find Friends */
+"Find Friends" = "Find Friends";
+
+/* Groups */
+"Groups" = "Groups";
+
+/* Log in with Facebook */
+"Log in with Facebook" = "Log in with Facebook";
+
+/* Matches */
+"Matches" = "Matches";
+
+/* New Group */
+"New Group" = "New Group";
+
+/* OK */
+"OK" = "OK";
+
+/* Profile */
+"Profile" = "Profile";
+
+/* Profit */
+"Profit" = "Profit";
+
+/* Settings */
+"Settings" = "Settings";
+
+/* Sign up */
+"Sign up" = "Sign up";
+
+/* Skip login */
+"Skip login" = "Skip login";
+
+/* Stake */
+"Stake" = "Stake";
+
+/* Teams */
+"Teams" = "Teams";
+
+/* To return */
+"To return" = "To return";
+
+/* Tutorial */
+"Tutorial" = "Tutorial";
+
+/* Wallet */
+"Wallet" = "Wallet";
+
