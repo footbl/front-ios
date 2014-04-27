@@ -92,7 +92,7 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
     [cell setDateText:[formatter stringFromDate:match.date]];
     
-#ifdef DEBUG
+    // Just for testing
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_FCB%402x.png"]];
     cell.hostPotLabel.text = @"1.21";
@@ -102,7 +102,6 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     cell.returnValueLabel.text = @"25";
     cell.profitValueLabel.text = @"4";
     [cell setStakesCount:@143 commentsCount:@48];
-#endif
 }
 
 - (void)fetchChampionship {
