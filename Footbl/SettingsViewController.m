@@ -56,23 +56,23 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         }
         
         _dataSource = @[@{kSettingsDataSourceTitleKey : SPGetApplicationName(),
-                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"Build type",
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Build type", @""),
                                                             kSettingsDataSourceValueKey : NSStringFromBuildType(SPGetBuildType()),
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)},
-                                                          @{kSettingsDataSourceTitleKey : @"Changelog",
-                                                            kSettingsDataSourceValueKey : @"HockeyApp",
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
-                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openChangelog:))},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Changelog", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
+                                                            kSettingsDataSourceExtraKey : NSLocalizedString(@"Changelog text", @"")},
                                                           @{kSettingsDataSourceTitleKey : @"Commit history",
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
                                                             kSettingsDataSourceExtraKey : commitText},
-                                                          @{kSettingsDataSourceTitleKey : @"Logs",
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logs", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeMore),
-                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
+                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logs", @""),
                                                                                               kSettingsDataSourceItemsKey : logs}]},
-                                                          @{kSettingsDataSourceTitleKey : @"Version",
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Version", @""),
                                                             kSettingsDataSourceValueKey : SPGetApplicationVersion(),
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)}]}];
     }
@@ -80,10 +80,6 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 #pragma mark - Instance Methods
-
-- (void)openChangelog:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kChangelogUrlString]];
-}
 
 - (void)openLogs:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];

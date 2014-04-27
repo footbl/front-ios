@@ -70,3 +70,15 @@
 /* Wallet */
 "Wallet" = "Wallet";
 
+/* Changelog text */
+"Changelog text" = "# Footbl 1.0 (#86)\n\t\n\tPrimeira versão de testes, limitada e possivelmente instável. O único botão em funcionamento na tela de login é “Skip login”.\n\n### Changelog #86\n\n- Autenticação com o servidor (usuário **anônimo** por enquanto);\n- Estruturação da navegação;\n- Fluxo inicial de visualização do tutorial, criação de nova conta e visualização de partidas;\n\t- Tutorial e tela de criação de conta são apenas mockups;\n\t- Não é possível criar/visualizar apostas e comentários;\n\t- Não é possível visualizar tela de detalhes da partida;\n- Ícone do aplicativo e ícones da *tab bar*;\n- Tela de ajustes dentro de perfil com informações sobre essa versão e visualização dos logs;\n\t- Em casos de *crash* (fechamento inesperado do aplicativo), encaminhar log para fernando@madeatsampa.com;\n\n---";
+
+/* Build type */
+"Build type" = "Build type";
+
+/* Changelog */
+"Changelog" = "Changelog";
+
+/* Version */
+"Version" = "Version";
+
