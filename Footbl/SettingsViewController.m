@@ -55,8 +55,23 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
             [logs insertObject:@{kSettingsDataSourceTitleKey : logFile, kSettingsDataSourceTypeKey : @(SettingsTypeAction), kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openLogs:))} atIndex:0];
         }
         
+        NSMutableArray *acknowledgements = [NSMutableArray new];
+        NSArray *pods = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Pods-acknowledgements" ofType:@"plist"]][@"PreferenceSpecifiers"];
+        for (NSInteger i = 0; i < [pods count] - 1; i++) {
+            if (i == 0) {
+                continue;
+            }
+            
+            [acknowledgements addObject:@{kSettingsDataSourceTitleKey : pods[i][@"Title"], kSettingsDataSourceExtraKey : pods[i][@"FooterText"], kSettingsDataSourceTypeKey : @(SettingsTypeInfo)}];
+        }
+        
         _dataSource = @[@{kSettingsDataSourceTitleKey : SPGetApplicationName(),
-                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Build type", @""),
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Acknowledgements", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeMore),
+                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Acknowledgements", @""),
+                                                                                              kSettingsDataSourceItemsKey : acknowledgements}]},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Build type", @""),
                                                             kSettingsDataSourceValueKey : NSStringFromBuildType(SPGetBuildType()),
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)},
                                                           @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Changelog", @""),
