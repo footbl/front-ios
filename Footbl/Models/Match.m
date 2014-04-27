@@ -73,15 +73,15 @@ extern MatchResult MatchResultFromString(NSString *result) {
                     abort();
                 }
                 for (NSDictionary *entry in responseObject) {
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", [entry objectForKey:@"match"]];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", entry[@"match"]];
                     Match *match = [fetchResult filteredArrayUsingPredicate:predicate].firstObject;
                     if (!match) {
                         continue;
                     }
-                    match.bidValue = [entry objectForKey:@"bid"];
-                    match.bidRid = [entry objectForKey:kAPIIdentifierKey];
-                    match.bidResult = @(MatchResultFromString([entry objectForKey:@"result"]));
-                    match.bidReward = [entry objectForKey:@"reward"];
+                    match.bidValue = entry[@"bid"];
+                    match.bidRid = entry[kAPIIdentifierKey];
+                    match.bidResult = @(MatchResultFromString(entry[@"result"]));
+                    match.bidReward = entry[@"reward"];
                 }
                 SaveManagedObjectContext(self.editableManagedObjectContext);
                 requestSucceedWithBlock(operation, parameters, success);
@@ -95,21 +95,21 @@ extern MatchResult MatchResultFromString(NSString *result) {
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
-    self.guest = [Team findOrCreateByIdentifier:[[data objectForKey:@"guest"] objectForKey:kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-    [self.guest updateWithData:[data objectForKey:@"guest"]];
-    self.host = [Team findOrCreateByIdentifier:[[data objectForKey:@"host"] objectForKey:kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-    [self.host updateWithData:[data objectForKey:@"host"]];
+    self.guest = [Team findOrCreateByIdentifier:data[@"guest"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    [self.guest updateWithData:data[@"guest"]];
+    self.host = [Team findOrCreateByIdentifier:data[@"host"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    [self.host updateWithData:data[@"host"]];
     
-    self.finished = [data objectForKey:@"finished"];
-    self.hostScore = [[data objectForKey:@"result"] objectForKey:@"host"];
-    self.guestScore = [[data objectForKey:@"result"] objectForKey:@"guest"];
-    self.potDraw = [[data objectForKey:@"pot"] objectForKey:@"draw"];
-    self.potGuest = [[data objectForKey:@"pot"] objectForKey:@"guest"];
-    self.potHost = [[data objectForKey:@"pot"] objectForKey:@"host"];
-    self.round = [data objectForKey:@"round"];
+    self.finished = data[@"finished"];
+    self.hostScore = data[@"result"][@"host"];
+    self.guestScore = data[@"result"][@"guest"];
+    self.potDraw = data[@"pot"][@"draw"];
+    self.potGuest = data[@"pot"][@"guest"];
+    self.potHost = data[@"pot"][@"host"];
+    self.round = data[@"round"];
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-    self.date = [transformer reverseTransformedValue:[data objectForKey:@"date"]];
+    self.date = [transformer reverseTransformedValue:data[@"date"]];
 }
 
 - (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -132,14 +132,14 @@ extern MatchResult MatchResultFromString(NSString *result) {
         [[self API] ensureAuthenticationWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
             NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-            [parameters setObject:[transformer transformedValue:[NSDate date]] forKey:@"date"];
-            [parameters setObject:MatchResultToString(result) forKey:@"result"];
-            [parameters setObject:bid forKey:@"bid"];
+            parameters[@"date"] = [transformer transformedValue:[NSDate date]];
+            parameters[@"result"] = MatchResultToString(result);
+            parameters[@"bid"] = bid;
             [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self.editableManagedObjectContext performBlock:^{
-                    self.bidResult = @(MatchResultFromString([responseObject objectForKey:@"result"]));
-                    self.bidRid = [responseObject objectForKey:kAPIIdentifierKey];
-                    self.bidReward = [responseObject objectForKey:@"reward"];
+                    self.bidResult = @(MatchResultFromString(responseObject[@"result"]));
+                    self.bidRid = responseObject[kAPIIdentifierKey];
+                    self.bidReward = responseObject[@"reward"];
                     self.bidValue = bid;
                     SaveManagedObjectContext(self.editableManagedObjectContext);
                     requestSucceedWithBlock(operation, parameters, success);

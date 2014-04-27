@@ -38,12 +38,12 @@
 + (void)createWithChampionship:(Championship *)championship name:(NSString *)name success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [parameters setObject:name forKey:@"name"];
-        [parameters setObject:championship.rid forKey:@"championship"];
+        parameters[@"name"] = name;
+        parameters[@"championship"] = championship.rid;
         [[self API] POST:@"groups" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.editableManagedObjectContext];
-                group.rid = [responseObject objectForKey:kAPIIdentifierKey];
+                group.rid = responseObject[kAPIIdentifierKey];
                 [group updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
                 requestSucceedWithBlock(operation, parameters, success);
@@ -57,18 +57,18 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
-    self.name = [data objectForKey:@"name"];
-    self.freeToEdit = [data objectForKey:@"freeToEdit"];
-    self.owner = [User findOrCreateByIdentifier:[data objectForKey:@"owner"] inManagedObjectContext:self.managedObjectContext];
-    if ([[data objectForKey:@"owner"] isKindOfClass:[NSDictionary class]]) {
-        [self.owner updateWithData:[data objectForKey:@"owner"]];
+    self.name = data[@"name"];
+    self.freeToEdit = data[@"freeToEdit"];
+    self.owner = [User findOrCreateByIdentifier:data[@"owner"] inManagedObjectContext:self.managedObjectContext];
+    if ([data[@"owner"] isKindOfClass:[NSDictionary class]]) {
+        [self.owner updateWithData:data[@"owner"]];
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-    NSString *championshipRid = [data objectForKey:@"championship"];
+    NSString *championshipRid = data[@"championship"];
     if ([championshipRid isKindOfClass:[NSDictionary  class]]) {
-        championshipRid = [[data objectForKey:@"championship"] objectForKey:kAPIIdentifierKey];
+        championshipRid = data[@"championship"][kAPIIdentifierKey];
     }
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", @[championshipRid]];
     NSError *error = nil;
@@ -110,8 +110,8 @@
 - (void)saveWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [parameters setObject:self.name forKey:@"name"];
-        [parameters setObject:self.freeToEdit forKey:@"freeToEdit"];
+        parameters[@"name"] = self.name;
+        parameters[@"freeToEdit"] = self.freeToEdit;
         [[self API] PUT:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];

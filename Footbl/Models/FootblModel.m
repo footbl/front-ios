@@ -24,7 +24,7 @@
 
 + (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache createIfNil:(BOOL)createIfNil {
     if ([identifier isKindOfClass:[NSDictionary class]]) {
-        identifier = [(NSDictionary *)identifier objectForKey:kAPIIdentifierKey];
+        identifier = ((NSDictionary *)identifier)[kAPIIdentifierKey];
     }
     
     FootblModel *object = nil;
@@ -90,7 +90,7 @@
         
         NSMutableSet *untouchedObjects = [cache mutableCopy];
         for (NSDictionary *entry in content) {
-            FootblModel *object = [[self class] findOrCreateByIdentifier:[entry objectForKey:kAPIIdentifierKey] inManagedObjectContext:self.editableManagedObjectContext usingCache:cache];
+            FootblModel *object = [[self class] findOrCreateByIdentifier:entry[kAPIIdentifierKey] inManagedObjectContext:self.editableManagedObjectContext usingCache:cache];
             [object updateWithData:entry];
             if (objectBlock) objectBlock(object, entry);
             [untouchedObjects removeObject:object];

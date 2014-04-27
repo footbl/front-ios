@@ -97,7 +97,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
     return [sectionInfo numberOfObjects];
 }
 

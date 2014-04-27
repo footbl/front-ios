@@ -41,14 +41,14 @@
 + (void)createCommentInMatch:(Match *)match withMessage:(NSString *)message success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [parameters setObject:message forKey:@"message"];
+        parameters[@"message"] = message;
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-        [parameters setObject:[transformer transformedValue:[NSDate date]] forKey:@"date"];
+        parameters[@"date"] = [transformer transformedValue:[NSDate date]];
         [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/comments", match.championship.rid, match.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 Comment *comment = [NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:self.editableManagedObjectContext];
                 comment.match = match;
-                comment.rid = [responseObject objectForKey:kAPIIdentifierKey];
+                comment.rid = responseObject[kAPIIdentifierKey];
                 [comment updateWithData:responseObject];
                 SaveManagedObjectContext(self.editableManagedObjectContext);
                 requestSucceedWithBlock(operation, parameters, success);
@@ -63,9 +63,9 @@
 
 - (void)updateWithData:(NSDictionary *)data {
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-    self.date = [transformer reverseTransformedValue:[data objectForKey:@"date"]];
-    self.message = [data objectForKey:@"message"];
-    self.user = [User findOrCreateByIdentifier:[data objectForKey:@"user"] inManagedObjectContext:self.managedObjectContext];
+    self.date = [transformer reverseTransformedValue:data[@"date"]];
+    self.message = data[@"message"];
+    self.user = [User findOrCreateByIdentifier:data[@"user"] inManagedObjectContext:self.managedObjectContext];
 }
 
 @end

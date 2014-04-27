@@ -41,7 +41,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 - (NSArray *)dataSource {
     if (!_dataSource) {
         NSMutableString *commitText = [NSMutableString new];
-        for (NSString *commit in [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
+        for (NSString *commit in [[[NSBundle mainBundle] infoDictionary][@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
             [commitText appendFormat:@"- %@\n\n", commit];
         }
         

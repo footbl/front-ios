@@ -37,9 +37,9 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
-    self.name = [data objectForKey:@"name"];
+    self.name = data[@"name"];
     
-    [Team loadContent:[data objectForKey:@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
+    [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
         [object addChampionshipsObject:self];
     } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
         [untouchedObjects makeObjectsPerformSelector:@selector(removeChampionshipsObject:) withObject:self];

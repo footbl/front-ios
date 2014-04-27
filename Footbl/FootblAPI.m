@@ -65,7 +65,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[error localizedFailureReason] userInfo:[NSDictionary dictionaryWithObject:error forKey:NSUnderlyingErrorKey]];
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[error localizedFailureReason] userInfo:@{NSUnderlyingErrorKey: error}];
         }
     }
 }
@@ -89,32 +89,32 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 @synthesize userPassword = _userPassword;
 
 - (NSString *)userEmail {
-    return [[FXKeychain defaultKeychain] objectForKey:kUserEmailKey];
+    return [FXKeychain defaultKeychain][kUserEmailKey];
 }
 
 - (NSString *)userIdentifier {
-    return [[FXKeychain defaultKeychain] objectForKey:kUserIdentifierKey];
+    return [FXKeychain defaultKeychain][kUserIdentifierKey];
 }
 
 - (NSString *)userPassword {
-    return [[FXKeychain defaultKeychain] objectForKey:kUserPasswordKey];
+    return [FXKeychain defaultKeychain][kUserPasswordKey];
 }
 
 - (void)setUserEmail:(NSString *)userEmail {
     _userEmail = userEmail;
-    [[FXKeychain defaultKeychain] setObject:userEmail forKey:kUserEmailKey];
+    [FXKeychain defaultKeychain][kUserEmailKey] = userEmail;
 }
 
 - (void)setUserIdentifier:(NSString *)userIdentifier {
     _userIdentifier = userIdentifier;
     
-    [[FXKeychain defaultKeychain] setObject:userIdentifier forKey:kUserIdentifierKey];
+    [FXKeychain defaultKeychain][kUserIdentifierKey] = userIdentifier;
 }
 
 - (void)setUserPassword:(NSString *)userPassword {
     _userPassword = userPassword;
     
-    [[FXKeychain defaultKeychain] setObject:userPassword forKey:kUserPasswordKey];
+    [FXKeychain defaultKeychain][kUserPasswordKey] = userPassword;
 }
 
 - (void)setUserToken:(NSString *)userToken {
@@ -146,7 +146,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         self.operationGroupingDictionary = [NSMutableDictionary new];
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-        [[FXKeychain defaultKeychain] setObject:(__bridge id)(kSecAttrAccessibleAlways) forKey:(__bridge id)(kSecAttrAccessible)];
+        [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
     }
     return self;
 }
@@ -160,11 +160,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
     
     NSMutableDictionary *parameters = [@{} mutableCopy];
-    [parameters setObject:[NSString stringWithFormat:@"%.00f", unixTime] forKey:@"timestamp"];
-    [parameters setObject:transactionIdentifier forKey:@"transactionId"];
-    [parameters setObject:[self generateSignatureWithTimestamp:unixTime transaction:transactionIdentifier] forKey:@"signature"];
+    parameters[@"timestamp"] = [NSString stringWithFormat:@"%.00f", unixTime];
+    parameters[@"transactionId"] = transactionIdentifier;
+    parameters[@"signature"] = [self generateSignatureWithTimestamp:unixTime transaction:transactionIdentifier];
     if ([self isAuthenticated] && self.userToken.length > 0) {
-        [parameters setObject:self.userToken forKey:@"token"];
+        parameters[@"token"] = self.userToken;
     }
     
     return parameters;
@@ -172,7 +172,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (void)groupOperationsWithSelector:(SEL)selector block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSString *key = NSStringFromSelector(selector);
-    NSMutableArray *queue = [self.operationGroupingDictionary objectForKey:key];
+    NSMutableArray *queue = (self.operationGroupingDictionary)[key];
     if (queue) {
         if (failure) {
             [queue addObject:@{@"success": success, @"failure" : failure}];
@@ -182,20 +182,20 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         return;
     }
     
-    [self.operationGroupingDictionary setObject:[NSMutableArray new] forKey:key];
+    (self.operationGroupingDictionary)[key] = [NSMutableArray new];
     
     if (block) block();
 }
 
 - (void)finishGroupedOperationsWithSelector:(SEL)selector error:(NSError *)error {
     NSString *key = NSStringFromSelector(selector);
-    NSMutableArray *queue = [self.operationGroupingDictionary objectForKey:key];
+    NSMutableArray *queue = (self.operationGroupingDictionary)[key];
     for (NSDictionary *queuedRequest in queue) {
         if (error) {
-            FootblAPIFailureBlock block = [queuedRequest objectForKey:@"failure"];
+            FootblAPIFailureBlock block = queuedRequest[@"failure"];
             if (block) block(error);
         } else {
-            FootblAPISuccessBlock block = [queuedRequest objectForKey:@"success"];
+            FootblAPISuccessBlock block = queuedRequest[@"success"];
             if (block) block();
         }
     }
@@ -208,7 +208,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [self GET:@"/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[NSUserDefaults standardUserDefaults] setObject:[responseObject objectForKey:@"pageSize"] forKey:kConfigPageSize];
+            [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"pageSize"] forKey:kConfigPageSize];
             [[NSUserDefaults standardUserDefaults] synchronize];
             requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -233,10 +233,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self generateDefaultParameters];
-    [parameters setObject:[NSString randomHexStringWithLength:20] forKey:@"password"];
+    parameters[@"password"] = [NSString randomHexStringWithLength:20];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.userIdentifier = [responseObject objectForKey:@"_id"];
-        self.userPassword = [parameters objectForKey:@"password"];
+        self.userIdentifier = responseObject[@"_id"];
+        self.userPassword = parameters[@"password"];
         self.userEmail = nil;
         requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -280,15 +280,15 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 - (void)loginWithEmail:(NSString *)email identifier:(NSString *)identifier password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSMutableDictionary *parameters = [self generateDefaultParameters];
     if (email.length > 0) {
-        [parameters setObject:email forKey:@"email"];
+        parameters[@"email"] = email;
     } else {
-        [parameters setObject:identifier forKey:kAPIIdentifierKey];
+        parameters[kAPIIdentifierKey] = identifier;
     }
-    [parameters setObject:password forKey:@"password"];
+    parameters[@"password"] = password;
     
     [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.userToken = [responseObject objectForKey:@"token"];
-        self.userIdentifier = [responseObject objectForKey:kAPIIdentifierKey];
+        self.userToken = responseObject[@"token"];
+        self.userIdentifier = responseObject[kAPIIdentifierKey];
 #if !TARGET_IPHONE_SIMULATOR
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 #endif
@@ -335,10 +335,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [parameters setObject:username forKey:@"username"];
-        [parameters setObject:email forKey:@"email"];
-        [parameters setObject:password forKey:@"password"];
-        [parameters setObject:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
+        parameters[@"username"] = username;
+        parameters[@"email"] = email;
+        parameters[@"password"] = password;
+        parameters[@"language"] = [NSLocale preferredLanguages][0];
         [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
         [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
         [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

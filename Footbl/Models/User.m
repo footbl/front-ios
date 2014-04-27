@@ -25,7 +25,7 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
-    self.verified = [data objectForKey:@"verified"];
+    self.verified = data[@"verified"];
 }
 
 @end

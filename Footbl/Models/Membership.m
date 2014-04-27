@@ -21,12 +21,12 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
-    if ([[data objectForKey:@"ranking"] isKindOfClass:[NSNull class]]) {
+    if ([data[@"ranking"] isKindOfClass:[NSNull class]]) {
         self.ranking = @(0);
     } else {
-        self.ranking = [data objectForKey:@"ranking"];
+        self.ranking = data[@"ranking"];
     }
-    self.user = [User findOrCreateByIdentifier:[data objectForKey:@"user"] inManagedObjectContext:self.managedObjectContext];
+    self.user = [User findOrCreateByIdentifier:data[@"user"] inManagedObjectContext:self.managedObjectContext];
 }
 
 @end
