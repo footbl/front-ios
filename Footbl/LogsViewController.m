@@ -24,7 +24,7 @@
 #pragma mark - Instance Methods
 
 - (IBAction)shareAction:(id)sender {
-    NSString *text = [[NSString alloc] initWithContentsOfFile:SPLogFilePath() encoding:NSUTF8StringEncoding error:nil];
+    NSString *text = [[NSString alloc] initWithContentsOfFile:self.text encoding:NSUTF8StringEncoding error:nil];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[text] applicationActivities:@[]];
     activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFacebook, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
     [self presentViewController:activityViewController animated:YES completion:nil];
@@ -36,13 +36,7 @@
 
 - (void)loadView {
     [super loadView];
-    
-    self.title = NSLocalizedString(@"Logs", @"");
-    
-    self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
-    self.textView.text = [[NSString alloc] initWithContentsOfFile:SPLogFilePath() encoding:NSUTF8StringEncoding error:nil];
-    [self.view addSubview:self.textView];
-    
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
 }
 

@@ -28,8 +28,21 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    kSPDebugLogLevel = SPDebugLogLevelInfo;
-    
+    switch (SPGetBuildType()) {
+        case SPBuildTypeDebug:
+            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            break;
+        case SPBuildTypeAdHoc:
+            kSPDebugLogLevel = SPDebugLogLevelInfo;
+            SPLogSwitchToLocalFiles();
+            break;
+        case SPBuildTypeAppStore:
+            kSPDebugLogLevel = SPDebugLogLevelError;
+            break;
+        default:
+            break;
+    }
+
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
     
     [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];

@@ -6,10 +6,8 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "TemplateViewController.h"
+#import "SettingsTextViewController.h"
 
-@interface LogsViewController : TemplateViewController
-
-@property (strong, nonatomic) UITextView *textView;
+@interface LogsViewController : SettingsTextViewController
 
 @end

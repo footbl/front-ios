@@ -11,6 +11,7 @@
 		ED19A402190A222900946490 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
 		ED19A405190ACF8700946490 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
 		ED19A40A190AF85800946490 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
+		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
@@ -84,6 +85,8 @@
 		ED19A406190ACF8700946490 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED19A408190AF85800946490 /* LogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
 		ED19A409190AF85800946490 /* LogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
+		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
+		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
@@ -348,15 +351,17 @@
 			name = Machine;
 			sourceTree = "<group>";
 		};
-		ED9F07911909C04700C8AC71 /* SettingsViewController */ = {
+		ED9F07911909C04700C8AC71 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				ED19A408190AF85800946490 /* LogsViewController.h */,
 				ED19A409190AF85800946490 /* LogsViewController.m */,
 				ED9F07921909C05900C8AC71 /* SettingsViewController.h */,
 				ED9F07931909C05900C8AC71 /* SettingsViewController.m */,
+				ED493D2C190DB40000A7869B /* SettingsTextViewController.h */,
+				ED493D2D190DB40000A7869B /* SettingsTextViewController.m */,
 			);
-			name = SettingsViewController;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		EDB1D45918E1F18B00E0C949 = {
@@ -472,7 +477,7 @@
 				ED81E82818EA707800212D3C /* Navigation */,
 				ED81E82B18EA709200212D3C /* Profile */,
 				ED81E82718EA706700212D3C /* Prototype */,
-				ED9F07911909C04700C8AC71 /* SettingsViewController */,
+				ED9F07911909C04700C8AC71 /* Settings */,
 				ED81E82618EA705E00212D3C /* Template */,
 				ED9D0AF818F310BA0061AE42 /* Tutorial */,
 			);
@@ -667,7 +672,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%h - %s (%an)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME} ß\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
+			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME} ß\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
 		};
 		ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -720,6 +725,7 @@
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
+				ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,

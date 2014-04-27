@@ -9,7 +9,15 @@
 #import <SPHipster/SPHipster.h>
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
+#import "SettingsTextViewController.h"
 #import "SettingsViewController.h"
+
+typedef NS_ENUM(NSInteger, SettingsType) {
+    SettingsTypeTinyInfo,
+    SettingsTypeInfo,
+    SettingsTypeAction,
+    SettingsTypeMore
+};
 
 @interface SettingsViewController ()
 
@@ -21,9 +29,9 @@
 
 NSString * const kSettingsDataSourceTitleKey = @"kSettingsDataSourceTitleKey";
 NSString * const kSettingsDataSourceValueKey = @"kSettingsDataSourceValueKey";
-NSString * const kSettingsDataSourceActionKey = @"kSettingsDataSourceActionKey";
 NSString * const kSettingsDataSourceItemsKey = @"kSettingsDataSourceItemsKey";
-NSString * const kSettingsDataSourceSelectorKey = @"kSettingsDataSourceSelectorKey";
+NSString * const kSettingsDataSourceExtraKey = @"kSettingsDataSourceExtraKey";
+NSString * const kSettingsDataSourceTypeKey = @"kSettingsDataSourceTypeKey";
 NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b4328d609707f1f9eb28b90c61b6";
 
 #pragma mark - Class Methods
@@ -32,30 +40,41 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        NSMutableArray *commits = [NSMutableArray new];
+        NSMutableString *commitText = [NSMutableString new];
         for (NSString *commit in [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
-            NSString *text = [[commit componentsSeparatedByString:@" - "].lastObject componentsSeparatedByString:@"("].firstObject;
-            [commits addObject:@{kSettingsDataSourceTitleKey : text, kSettingsDataSourceValueKey : @""}];
+            [commitText appendFormat:@"- %@\n\n", commit];
+        }
+        
+        NSMutableArray *logs = [NSMutableArray new];
+        NSString *logsFolder = SPLogFilePath();
+        for (NSString *logFile in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsFolder error:nil]) {
+            if ([logFile.lowercaseString rangeOfString:@"ds_store"].location != NSNotFound) {
+                continue;
+            }
+            
+            [logs insertObject:@{kSettingsDataSourceTitleKey : logFile, kSettingsDataSourceTypeKey : @(SettingsTypeAction), kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openLogs:))} atIndex:0];
         }
         
         _dataSource = @[@{kSettingsDataSourceTitleKey : SPGetApplicationName(),
                           kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"Build type",
-                                                            kSettingsDataSourceValueKey : NSStringFromBuildType(SPGetBuildType())},
+                                                            kSettingsDataSourceValueKey : NSStringFromBuildType(SPGetBuildType()),
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)},
                                                           @{kSettingsDataSourceTitleKey : @"Changelog",
                                                             kSettingsDataSourceValueKey : @"HockeyApp",
-                                                            kSettingsDataSourceActionKey : @YES,
-                                                            kSettingsDataSourceSelectorKey : NSStringFromSelector(@selector(openChangelog:))},
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openChangelog:))},
                                                           @{kSettingsDataSourceTitleKey : @"Commit history",
                                                             kSettingsDataSourceValueKey : @"",
-                                                            kSettingsDataSourceActionKey : @YES,
-                                                            kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"",
-                                                                                              kSettingsDataSourceItemsKey : commits}]},
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
+                                                            kSettingsDataSourceExtraKey : commitText},
                                                           @{kSettingsDataSourceTitleKey : @"Logs",
                                                             kSettingsDataSourceValueKey : @"",
-                                                            kSettingsDataSourceActionKey : @YES,
-                                                            kSettingsDataSourceSelectorKey : NSStringFromSelector(@selector(openLogs:))},
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeMore),
+                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
+                                                                                              kSettingsDataSourceItemsKey : logs}]},
                                                           @{kSettingsDataSourceTitleKey : @"Version",
-                                                            kSettingsDataSourceValueKey : SPGetApplicationVersion()}]}];
+                                                            kSettingsDataSourceValueKey : SPGetApplicationVersion(),
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)}]}];
     }
     return _dataSource;
 }
@@ -67,7 +86,13 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)openLogs:(id)sender {
-    [self.navigationController pushViewController:[LogsViewController new] animated:YES];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    LogsViewController *textViewController = [LogsViewController new];
+    textViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
+    NSString *text = [[NSString alloc] initWithContentsOfFile:[SPLogFilePath() stringByAppendingPathComponent:textViewController.title] encoding:NSUTF8StringEncoding error:nil];
+    text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
+    textViewController.text = text;
+    [self.navigationController pushViewController:textViewController animated:YES];
 }
 
 #pragma mark - Delegates & Data sources
@@ -87,37 +112,62 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     cell.textLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceValueKey];
-    if ([self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceActionKey] boolValue]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] boolValue]) {
+        case SettingsTypeMore:
+        case SettingsTypeInfo:
+        case SettingsTypeAction:
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        default:
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
     }
+    
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.dataSource[section][kSettingsDataSourceTitleKey];
+    NSString *title = self.dataSource[section][kSettingsDataSourceTitleKey];
+    if ([title isEqualToString:self.title]) {
+        return @"";
+    } else {
+        return title;
+    }
 }
 
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceActionKey] boolValue]) {
-        SettingsViewController *settingsViewController = [SettingsViewController new];
-        settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
-        if (self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceSelectorKey]) {
-            SEL selector = NSSelectorFromString(self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceSelectorKey]);
+    switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] integerValue]) {
+        case SettingsTypeMore: {
+            SettingsViewController *settingsViewController = [SettingsViewController new];
+            settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
+            settingsViewController.dataSource = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey];
+            [self.navigationController pushViewController:settingsViewController animated:YES];
+            break;
+        }
+        case SettingsTypeInfo: {
+            SettingsTextViewController *textViewController = [SettingsTextViewController new];
+            textViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
+            textViewController.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey];
+            [self.navigationController pushViewController:textViewController animated:YES];
+            break;
+        }
+        case SettingsTypeAction: {
+            SettingsViewController *settingsViewController = [SettingsViewController new];
+            settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
+            SEL selector = NSSelectorFromString(self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey]);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:selector withObject:[tableView cellForRowAtIndexPath:indexPath]];
 #pragma clang diagnostic pop
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        } else {
-            settingsViewController.dataSource = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceItemsKey];
-            [self.navigationController pushViewController:settingsViewController animated:YES];
+            break;
         }
-    } else {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        default:
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            break;
     }
 }
 
