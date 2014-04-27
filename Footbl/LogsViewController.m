@@ -24,8 +24,7 @@
 #pragma mark - Instance Methods
 
 - (IBAction)shareAction:(id)sender {
-    NSString *text = [[NSString alloc] initWithContentsOfFile:self.text encoding:NSUTF8StringEncoding error:nil];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[text] applicationActivities:@[]];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.text] applicationActivities:@[]];
     activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFacebook, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToWeibo, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
