@@ -120,10 +120,24 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
 }
 
 - (void)reloadWallet {
-    self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.funds.stringValue];
-    self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.stake.stringValue;
-    self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
-    self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
+    NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
+    
+    if (self.championship.wallet) {
+        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+            for (UILabel *label in labels) {
+                label.alpha = 1;
+            }
+        }];
+        self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.funds.stringValue];
+        self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.stake.stringValue;
+        self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
+        self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
+    } else {
+        for (UILabel *label in labels) {
+            label.text = @"";
+            label.alpha = 0;
+        }
+    }
 }
 
 - (void)reloadData {
