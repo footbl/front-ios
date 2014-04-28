@@ -21,6 +21,8 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
+    [super updateWithData:data];
+    
     if ([data[@"ranking"] isKindOfClass:[NSNull class]]) {
         self.ranking = @(0);
     } else {

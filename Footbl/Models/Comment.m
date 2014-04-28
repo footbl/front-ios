@@ -22,6 +22,11 @@
 
 #pragma mark - Class Methods
 
++ (NSString *)resourcePath {
+    SPLogError(@"Comment resource path should not be used.");
+    return @"championships/%@/matches";
+}
+
 + (void)updateFromMatch:(Match *)match success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
@@ -62,6 +67,8 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
+    [super updateWithData:data];
+    
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
     self.message = data[@"message"];

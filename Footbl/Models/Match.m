@@ -42,6 +42,11 @@ extern MatchResult MatchResultFromString(NSString *result) {
 
 #pragma mark - Class Methods
 
++ (NSString *)resourcePath {
+    SPLogError(@"Match resource path should not be used.");
+    return @"championships/%@/matches";
+}
+
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
@@ -94,7 +99,13 @@ extern MatchResult MatchResultFromString(NSString *result) {
 
 #pragma mark - Instance Methods
 
+- (NSString *)resourcePath {
+    return [NSString stringWithFormat:@"championships/%@/matches", self.championship.rid];
+}
+
 - (void)updateWithData:(NSDictionary *)data {
+    [super updateWithData:data];
+    
     self.guest = [Team findOrCreateByIdentifier:data[@"guest"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
     [self.guest updateWithData:data[@"guest"]];
     self.host = [Team findOrCreateByIdentifier:data[@"host"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
@@ -110,21 +121,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
-}
-
-- (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches/%@", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                [self updateWithData:responseObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
 }
 
 - (void)updateBetWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

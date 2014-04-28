@@ -22,6 +22,10 @@
     return [FootblAPI sharedAPI];
 }
 
++ (NSString *)resourcePath {
+    return @"";
+}
+
 + (instancetype)findByIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext usingCache:(NSSet *)cache createIfNil:(BOOL)createIfNil {
     if ([identifier isKindOfClass:[NSDictionary class]]) {
         identifier = ((NSDictionary *)identifier)[kAPIIdentifierKey];
@@ -102,6 +106,38 @@
     }];
 }
 
++ (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[[self class] resourcePath] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+                requestSucceedWithBlock(operation, parameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
++ (void)createWithParameters:(NSDictionary *)parameters success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *mutableParameters = [parameters mutableCopy];
+        [mutableParameters addEntriesFromDictionary:[self generateDefaultParameters]];
+        [[self API] POST:[[self class] resourcePath] parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.editableManagedObjectContext performBlock:^{
+                FootblModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:self.editableManagedObjectContext];
+                object.rid = responseObject[kAPIIdentifierKey];
+                [object updateWithData:responseObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(operation, mutableParameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, mutableParameters, error, failure);
+        }];
+    } failure:failure];
+}
+
 #pragma mark - Getters/Setters
 
 @synthesize editableManagedObjectContext;
@@ -116,6 +152,10 @@
     return [[self class] API];
 }
 
+- (NSString *)resourcePath {
+    return [[self class] resourcePath];
+}
+
 - (instancetype)editableObject {
     if (self.managedObjectContext == self.editableManagedObjectContext) {
         return self;
@@ -128,7 +168,22 @@
 }
 
 - (void)updateWithData:(NSDictionary *)data {
-    
+    self.rid = data[kAPIIdentifierKey];
+}
+
+- (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.editableManagedObjectContext performBlock:^{
+                [self.editableObject updateWithData:responseObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(operation, parameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
 }
 
 @end

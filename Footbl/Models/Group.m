@@ -21,18 +21,8 @@
 
 #pragma mark - Class Methods
 
-+ (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:@"groups" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [self.editableManagedObjectContext deleteObjects:untouchedObjects];
-            }];
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
++ (NSString *)resourcePath {
+    return @"groups";
 }
 
 + (void)createWithChampionship:(Championship *)championship name:(NSString *)name success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -57,6 +47,8 @@
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
+    [super updateWithData:data];
+    
     self.name = data[@"name"];
     self.freeToEdit = data[@"freeToEdit"];
     self.owner = [User findOrCreateByIdentifier:data[@"owner"] inManagedObjectContext:self.managedObjectContext];
@@ -74,21 +66,6 @@
     NSError *error = nil;
     NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
     self.championships = [NSSet setWithArray:fetchResult];
-}
-
-- (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                [self updateWithData:responseObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
