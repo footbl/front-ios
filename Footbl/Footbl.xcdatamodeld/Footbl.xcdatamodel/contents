@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Championship" representedClassName="Championship" parentEntity="FootblModel" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="competitors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="championships" inverseEntity="Team" syncable="YES"/>
         <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="championships" inverseEntity="Group" syncable="YES"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="championship" inverseEntity="Wallet" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
         <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
@@ -58,14 +59,22 @@
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
     </entity>
+    <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
+        <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="profit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Championship" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Championship" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="283"/>
-        <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="118"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="283"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="88"/>
+        <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
+        <element name="Wallet" positionX="-36" positionY="117" width="128" height="118"/>
     </elements>
 </model>

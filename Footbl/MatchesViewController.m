@@ -15,6 +15,7 @@
 #import "MatchesViewController.h"
 #import "Team.h"
 #import "TeamsViewController.h"
+#import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
@@ -118,6 +119,13 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     self.championship = fetchResult.firstObject;
 }
 
+- (void)reloadWallet {
+    self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.funds.stringValue];
+    self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.stake.stringValue;
+    self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
+    self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
+}
+
 - (void)reloadData {
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
@@ -128,8 +136,14 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     [Championship updateWithSuccess:^{
         [self fetchChampionship];
         if (self.championship) {
-            [Match updateFromChampionship:self.championship.editableObject success:^{
-                [self.refreshControl endRefreshing];
+            [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
+               [Wallet updateWithSuccess:^{
+                   [self reloadWallet];
+                   
+                   [Match updateFromChampionship:self.championship.editableObject success:^{
+                       [self.refreshControl endRefreshing];
+                   } failure:failure];
+               } failure:failure];
             } failure:failure];
         } else {
             [self.refreshControl endRefreshing];
@@ -215,10 +229,6 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     self.navigationController.navigationBarHidden = YES;
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
-    self.navigationBarTitleView.walletValueLabel.text = @"$79";
-    self.navigationBarTitleView.stakeValueLabel.text = @"21";
-    self.navigationBarTitleView.returnValueLabel.text = @"25";
-    self.navigationBarTitleView.profitValueLabel.text = @"4";
     [self.view addSubview:self.navigationBarTitleView];
     
     self.refreshControl = [UIRefreshControl new];
@@ -248,6 +258,7 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view insertSubview:self.tableView belowSubview:self.navigationBarTitleView];
     
+    [self reloadWallet];
     [self reloadData];
 }
 
