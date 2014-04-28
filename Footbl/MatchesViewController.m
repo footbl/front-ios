@@ -135,7 +135,7 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
             [cell setDateText:NSLocalizedString(@"Now", @"")];
             break;
         default:
-            cell.layout = MatchTableViewCellLayoutHost;
+            cell.layout = MatchTableViewCellLayoutNoBet;
             cell.liveLabel.text = @"";
             cell.stateLayout = MatchTableViewCellStateLayoutDone;
             break;
