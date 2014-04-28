@@ -17,10 +17,21 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
     MatchTableViewCellLayoutGuest
 };
 
+typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
+    MatchTableViewCellStateLayoutWaiting,
+    MatchTableViewCellStateLayoutLive,
+    MatchTableViewCellStateLayoutDone
+};
+
 @interface MatchTableViewCell : TemplateTableViewCell
 
 @property (assign, nonatomic) MatchTableViewCellLayout layout;
+@property (assign, nonatomic) MatchTableViewCellStateLayout stateLayout;
 @property (strong, nonatomic) UIView *cardContentView;
+
+// Live
+@property (strong, nonatomic) UIView *liveHeaderView;
+@property (strong, nonatomic) UILabel *liveLabel;
 // Date
 @property (strong, nonatomic) UILabel *dateLabel;
 // Bet
@@ -31,6 +42,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
 @property (strong, nonatomic) UILabel *profitTitleLabel;
 @property (strong, nonatomic) UILabel *profitValueLabel;
 // Host
+@property (strong, nonatomic) UILabel *hostScoreLabel;
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
 @property (strong, nonatomic) TeamImageView *hostImageView;
@@ -39,6 +51,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
 @property (strong, nonatomic) UILabel *drawPotLabel;
 @property (strong, nonatomic) UILabel *versusLabel;
 // Guest
+@property (strong, nonatomic) UILabel *guestScoreLabel;
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
 @property (strong, nonatomic) TeamImageView *guestImageView;

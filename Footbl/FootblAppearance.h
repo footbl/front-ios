@@ -41,6 +41,7 @@ extern NSString * const kFontNameMedium;
 @interface UIColor (FootblColor)
 
 + (UIColor *)ftGreenGrassColor;
++ (UIColor *)ftGreenLiveColor;
 + (UIColor *)ftGreenMoneyColor;
 + (UIColor *)ftRedStakeColor;
 + (UIColor *)ftBlueReturnColor;

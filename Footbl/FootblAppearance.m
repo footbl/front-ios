@@ -65,6 +65,10 @@ NSString * const kFontNameMedium = @"Avenir-Medium";
     return [UIColor colorWithRed:0.0/255.f green:169/255.f blue:72./255.f alpha:1.00];
 }
 
++ (UIColor *)ftGreenLiveColor {
+    return [UIColor colorWithRed:50./255.f green:214/255.f blue:120/255.f alpha:1.00];
+}
+
 + (UIColor *)ftGreenMoneyColor {
     return [UIColor colorWithRed:43./255.f green:202/255.f blue:114/255.f alpha:1.00];
 }

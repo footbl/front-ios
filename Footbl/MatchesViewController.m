@@ -104,7 +104,30 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     cell.returnValueLabel.text = @"25";
     cell.profitValueLabel.text = @"4";
     [cell setStakesCount:@143 commentsCount:@48];
-    cell.layout = MatchTableViewCellLayoutHost;
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.layout = MatchTableViewCellLayoutHost;
+            cell.liveLabel.text = @"";
+            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            break;
+        case 1:
+            cell.layout = MatchTableViewCellLayoutDraw;
+            cell.liveLabel.text = @"";
+            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            break;
+        case 2:
+            cell.layout = MatchTableViewCellLayoutGuest;
+            cell.liveLabel.text = @"Ao vivo - 87'";
+            cell.stateLayout = MatchTableViewCellStateLayoutLive;
+            [cell setDateText:NSLocalizedString(@"Now", @"")];
+            break;
+        default:
+            cell.layout = MatchTableViewCellLayoutHost;
+            cell.liveLabel.text = @"";
+            cell.stateLayout = MatchTableViewCellStateLayoutDone;
+            break;
+    }
 }
 
 - (void)fetchChampionship {
@@ -212,6 +235,19 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
 
 #pragma mark - UITableView delegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0:
+            return 380;
+        case 1:
+            return 380;
+        case 2:
+            return 433;
+        default:
+            return 406;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -266,7 +302,7 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.rowHeight = 380;
+    self.tableView.estimatedRowHeight = 380;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);

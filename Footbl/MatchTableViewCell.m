@@ -8,10 +8,14 @@
 
 #import "MatchTableViewCell.h"
 #import "TeamImageView.h"
+#import "UIView+Frame.h"
 
 #pragma mark MatchTableViewCell
 
 @implementation MatchTableViewCell
+
+static NSInteger kFirstSeparatorTag = 5138;
+static NSInteger kSecondSeparatorTag = 5139;
 
 #pragma mark - Getters/Setters
 
@@ -71,6 +75,130 @@
     }
 }
 
+- (void)setStateLayout:(MatchTableViewCellStateLayout)stateLayout {
+    _stateLayout = stateLayout;
+    
+    switch (self.stateLayout) {
+        case MatchTableViewCellStateLayoutWaiting:
+            self.cardContentView.frameHeight = 319;
+            self.liveHeaderView.alpha = 0;
+            self.cardContentView.layer.borderWidth = 0;
+            
+            [self setFirstSeparatorPosition:62];
+            [self setSecondSeparatorPosition:256];
+            
+            // Bets
+            self.stakeValueLabel.frameY = 12;
+            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.stakeTitleLabel.frameY = 36;
+            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            
+            // Teams & Pots
+            self.hostScoreLabel.alpha = 0;
+            self.guestScoreLabel.alpha = 0;
+            
+            self.hostPotLabel.frameY = 99;
+            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
+            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
+            
+            self.hostNameLabel.frameY = 80;
+            self.drawLabel.frameY = self.hostNameLabel.frameY;
+            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
+            
+            // Images
+            self.versusLabel.frameY = 130;
+            self.hostImageView.frameY = self.versusLabel.frameY;
+            self.guestImageView.frameY = self.versusLabel.frameY;
+            
+            // Footer
+            self.footerLabel.frameY = 256;
+            break;
+        case MatchTableViewCellStateLayoutLive:
+            self.cardContentView.frameHeight = 372;
+            self.cardContentView.layer.borderWidth = 1;
+            self.liveHeaderView.alpha = 1;
+            
+            CGFloat increment = 23;
+            [self setFirstSeparatorPosition:62 + increment];
+            [self setSecondSeparatorPosition:256 + increment + increment + 7];
+            
+            // Bets
+            self.stakeValueLabel.frameY = 12 + increment;
+            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.stakeTitleLabel.frameY = 36 + increment;
+            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            
+            // Teams & Pots
+            self.hostScoreLabel.alpha = 1;
+            self.guestScoreLabel.alpha = 1;
+            self.hostScoreLabel.frameY = 101;
+            self.guestScoreLabel.frameY = self.hostScoreLabel.frameY;
+            
+            increment += 30;
+            
+            self.hostPotLabel.frameY = 99 + increment;
+            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
+            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
+            
+            self.hostNameLabel.frameY = 80 + increment;
+            self.drawLabel.frameY = self.hostNameLabel.frameY;
+            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
+            
+            // Images
+            self.versusLabel.frameY = 130 + increment;
+            self.hostImageView.frameY = self.versusLabel.frameY;
+            self.guestImageView.frameY = self.versusLabel.frameY;
+            
+            // Footer
+            self.footerLabel.frameY = 256 + increment;
+            break;
+        case MatchTableViewCellStateLayoutDone: {
+            self.cardContentView.frameHeight = 345;
+            self.liveHeaderView.alpha = 0;
+            self.cardContentView.layer.borderWidth = 0;
+            
+            CGFloat increment = 30;
+            [self setFirstSeparatorPosition:62];
+            [self setSecondSeparatorPosition:256 + increment];
+            
+            // Bets
+            self.stakeValueLabel.frameY = 12;
+            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
+            self.stakeTitleLabel.frameY = 36;
+            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            
+            // Teams & Pots
+            self.hostScoreLabel.alpha = 1;
+            self.guestScoreLabel.alpha = 1;
+            self.hostScoreLabel.frameY = 77;
+            self.guestScoreLabel.frameY = self.hostScoreLabel.frameY;
+            
+            self.hostPotLabel.frameY = 103 + increment;
+            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
+            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
+            
+            self.hostNameLabel.frameY = 82 + increment;
+            self.drawLabel.frameY = self.hostNameLabel.frameY;
+            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
+            
+            // Images
+            self.versusLabel.frameY = 136 + increment;
+            self.hostImageView.frameY = self.versusLabel.frameY;
+            self.guestImageView.frameY = self.versusLabel.frameY;
+            
+            // Footer
+            self.footerLabel.frameY = 256 + increment;
+            break;
+        }
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -82,6 +210,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.layout = MatchTableViewCellLayoutNoBet;
+        self.stateLayout = MatchTableViewCellStateLayoutWaiting;
         
         self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, CGRectGetWidth(self.contentView.frame), 20)];
         self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -92,7 +221,7 @@
         [self.contentView addSubview:self.dateLabel];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, CGRectGetMidY(self.dateLabel.frame), CGRectGetWidth(self.contentView.frame) - 24, 0.5)];
-        line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator] ;
+        line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
         
         self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 35, 300, 319)];
@@ -102,13 +231,31 @@
         self.cardContentView.layer.shadowOpacity = 0.2;
         self.cardContentView.layer.shadowOffset = CGSizeMake(0, 0.5);
         self.cardContentView.layer.shadowRadius = 1;
+        self.cardContentView.layer.borderColor = [UIColor ftGreenLiveColor].CGColor;
+        self.cardContentView.layer.borderWidth = 0;
         [self.contentView addSubview:self.cardContentView];
         
-        for (NSNumber *offsetY in @[@62, @256]) {
+        UIView *headerContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 40)];
+        headerContentView.layer.cornerRadius = self.cardContentView.layer.cornerRadius;
+        headerContentView.clipsToBounds = YES;
+        [self.cardContentView addSubview:headerContentView];
+        
+        self.liveHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 27)];
+        self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
+        [headerContentView addSubview:self.liveHeaderView];
+        
+        self.liveLabel = [[UILabel alloc] initWithFrame:self.liveHeaderView.bounds];
+        self.liveLabel.textAlignment = NSTextAlignmentCenter;
+        self.liveLabel.textColor = [UIColor whiteColor];
+        self.liveLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
+        [self.liveHeaderView addSubview:self.liveLabel];
+        
+        [@[@62, @256] enumerateObjectsUsingBlock:^(NSNumber *offsetY, NSUInteger idx, BOOL *stop) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, CGRectGetWidth(self.cardContentView.frame), 0.5)];
             separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+            separatorView.tag = (idx == 0 ? kFirstSeparatorTag : kSecondSeparatorTag);
             [self.cardContentView addSubview:separatorView];
-        }
+        }];
         
         UILabel * (^label)(CGRect frame, UIColor *color) = ^(CGRect frame, UIColor *color) {
             UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -164,6 +311,14 @@
         self.drawPotLabel = potLabel(CGRectMake(113, 99, 74, 18));
         self.guestPotLabel = potLabel(CGRectMake(197, 99, 86, 18));
         
+        self.hostScoreLabel = label(CGRectMake(12, 101, 96, 24), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
+        self.hostScoreLabel.font = [UIFont fontWithName:kFontNameLight size:30];
+        self.hostScoreLabel.text = @"4";
+        
+        self.guestScoreLabel = label(CGRectMake(192, 101, 96, 24), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
+        self.guestScoreLabel.font = [UIFont fontWithName:kFontNameLight size:30];
+        self.guestScoreLabel.text = @"1";
+        
         self.hostNameLabel = label(CGRectMake(17, 80, 86, 18), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
         self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:16];
         [self.cardContentView addSubview:self.hostNameLabel];
@@ -190,6 +345,14 @@
         self.footerLabel = potLabel(CGRectMake(0, 256, 300, 63));
     }
     return self;
+}
+
+- (void)setFirstSeparatorPosition:(CGFloat)position {
+    [self.cardContentView viewWithTag:kFirstSeparatorTag].frameY = position;
+}
+
+- (void)setSecondSeparatorPosition:(CGFloat)position {
+    [self.cardContentView viewWithTag:kSecondSeparatorTag].frameY = position;
 }
 
 - (void)setStakesCount:(NSNumber *)stakesCount commentsCount:(NSNumber *)commentsCount {
