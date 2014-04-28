@@ -15,6 +15,7 @@
 #import "MatchesViewController.h"
 #import "Team.h"
 #import "TeamsViewController.h"
+#import "TeamImageView.h"
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
@@ -103,6 +104,7 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     cell.returnValueLabel.text = @"25";
     cell.profitValueLabel.text = @"4";
     [cell setStakesCount:@143 commentsCount:@48];
+    cell.layout = MatchTableViewCellLayoutHost;
 }
 
 - (void)fetchChampionship {

@@ -7,10 +7,69 @@
 //
 
 #import "MatchTableViewCell.h"
+#import "TeamImageView.h"
 
 #pragma mark MatchTableViewCell
 
 @implementation MatchTableViewCell
+
+#pragma mark - Getters/Setters
+
+- (void)setLayout:(MatchTableViewCellLayout)layout {
+    _layout = layout;
+    
+    self.hostImageView.tintColor = [UIColor clearColor];
+    self.hostImageView.alpha = 1;
+    self.hostNameLabel.alpha = 1;
+    self.hostPotLabel.alpha = 1;
+    
+    self.drawLabel.alpha = 1;
+    self.drawPotLabel.alpha = 1;
+    self.versusLabel.alpha = 1;
+    
+    self.guestImageView.tintColor = [UIColor clearColor];
+    self.guestImageView.alpha = 1;
+    self.guestNameLabel.alpha = 1;
+    self.guestPotLabel.alpha = 1;
+    
+    static CGFloat kDisabledAlpha = 0.4;
+    
+    switch (self.layout) {
+        case MatchTableViewCellLayoutNoBet:
+            break;
+        case MatchTableViewCellLayoutHost:
+            self.drawLabel.alpha = kDisabledAlpha;
+            self.drawPotLabel.alpha = kDisabledAlpha;
+            self.versusLabel.alpha = kDisabledAlpha;
+            
+            self.guestImageView.tintColor = [UIColor grayColor];
+            self.guestImageView.alpha = kDisabledAlpha;
+            self.guestNameLabel.alpha = kDisabledAlpha;
+            self.guestPotLabel.alpha = kDisabledAlpha;
+            break;
+        case MatchTableViewCellLayoutDraw:
+            self.hostImageView.tintColor = [UIColor grayColor];
+            self.hostImageView.alpha = kDisabledAlpha;
+            self.hostNameLabel.alpha = kDisabledAlpha;
+            self.hostPotLabel.alpha = kDisabledAlpha;
+            
+            self.guestImageView.tintColor = [UIColor grayColor];
+            self.guestImageView.alpha = kDisabledAlpha;
+            self.guestNameLabel.alpha = kDisabledAlpha;
+            self.guestPotLabel.alpha = kDisabledAlpha;
+            break;
+        case MatchTableViewCellLayoutGuest:
+            self.hostImageView.tintColor = [UIColor grayColor];
+            self.hostImageView.alpha = kDisabledAlpha;
+            self.hostNameLabel.alpha = kDisabledAlpha;
+            self.hostPotLabel.alpha = kDisabledAlpha;
+            
+            self.drawLabel.alpha = kDisabledAlpha;
+            self.drawPotLabel.alpha = kDisabledAlpha;
+            self.versusLabel.alpha = kDisabledAlpha;
+            break;
+    }
+}
 
 #pragma mark - Instance Methods
 
@@ -21,6 +80,8 @@
         self.contentView.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
         self.backgroundColor = self.contentView.backgroundColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        self.layout = MatchTableViewCellLayoutNoBet;
         
         self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, CGRectGetWidth(self.contentView.frame), 20)];
         self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -83,8 +144,8 @@
             return subtitleLabel;
         };
         
-        UIImageView * (^teamImageView)(CGRect frame) = ^(CGRect frame) {
-            UIImageView *teamImageView = [[UIImageView alloc] initWithFrame:frame];
+        TeamImageView * (^teamImageView)(CGRect frame) = ^(CGRect frame) {
+            TeamImageView *teamImageView = [[TeamImageView alloc] initWithFrame:frame];
             teamImageView.contentMode = UIViewContentModeScaleAspectFit;
             [self.cardContentView addSubview:teamImageView];
             return teamImageView;
@@ -107,10 +168,10 @@
         self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:16];
         [self.cardContentView addSubview:self.hostNameLabel];
         
-        UILabel *drawLabel = label(CGRectMake(113, 80, 74, 18), self.hostNameLabel.textColor);
-        drawLabel.font = self.hostNameLabel.font;
-        drawLabel.text = NSLocalizedString(@"Draw", @"");
-        [self.cardContentView addSubview:drawLabel];
+        self.drawLabel = label(CGRectMake(113, 80, 74, 18), self.hostNameLabel.textColor);
+        self.drawLabel.font = self.hostNameLabel.font;
+        self.drawLabel.text = NSLocalizedString(@"Draw", @"");
+        [self.cardContentView addSubview:self.drawLabel];
         
         self.guestNameLabel = label(CGRectMake(197, 80, 86, 18), self.hostNameLabel.textColor);
         self.guestNameLabel.font = self.hostNameLabel.font;
@@ -119,10 +180,11 @@
         // Images
         self.hostImageView = teamImageView(CGRectMake(12, 130, 96, 96));
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
+        self.guestImageView.tintColor = [UIColor grayColor];
         
-        UILabel *versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
-        versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];
-        versusLabel.text = @"X";
+        self.versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
+        self.versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];
+        self.versusLabel.text = @"X";
         
         // Footer
         self.footerLabel = potLabel(CGRectMake(0, 256, 300, 63));

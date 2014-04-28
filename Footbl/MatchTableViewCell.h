@@ -8,8 +8,18 @@
 
 #import "TemplateTableViewCell.h"
 
+@class TeamImageView;
+
+typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
+    MatchTableViewCellLayoutNoBet,
+    MatchTableViewCellLayoutHost,
+    MatchTableViewCellLayoutDraw,
+    MatchTableViewCellLayoutGuest
+};
+
 @interface MatchTableViewCell : TemplateTableViewCell
 
+@property (assign, nonatomic) MatchTableViewCellLayout layout;
 @property (strong, nonatomic) UIView *cardContentView;
 // Date
 @property (strong, nonatomic) UILabel *dateLabel;
@@ -23,13 +33,15 @@
 // Host
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
-@property (strong, nonatomic) UIImageView *hostImageView;
+@property (strong, nonatomic) TeamImageView *hostImageView;
 // Draw
+@property (strong, nonatomic) UILabel *drawLabel;
 @property (strong, nonatomic) UILabel *drawPotLabel;
+@property (strong, nonatomic) UILabel *versusLabel;
 // Guest
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
-@property (strong, nonatomic) UIImageView *guestImageView;
+@property (strong, nonatomic) TeamImageView *guestImageView;
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 
