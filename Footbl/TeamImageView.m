@@ -62,6 +62,8 @@
 
 @implementation UIImage (TintColor)
 
+#pragma mark - Instace Methods
+
 - (UIImage *)imageWithTintColor:(UIColor *)tintColor {
     CGRect frame = CGRectMake(0.f, 0.f, self.size.width, self.size.height);
     UIGraphicsBeginImageContext(frame.size);
