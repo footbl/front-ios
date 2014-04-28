@@ -103,7 +103,7 @@ static NSInteger kSecondSeparatorTag = 5139;
             self.drawPotLabel.frameY = self.hostPotLabel.frameY;
             self.guestPotLabel.frameY = self.hostPotLabel.frameY;
             
-            self.hostNameLabel.frameY = 80;
+            self.hostNameLabel.frameY = 75;
             self.drawLabel.frameY = self.hostNameLabel.frameY;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
@@ -144,7 +144,7 @@ static NSInteger kSecondSeparatorTag = 5139;
             self.drawPotLabel.frameY = self.hostPotLabel.frameY;
             self.guestPotLabel.frameY = self.hostPotLabel.frameY;
             
-            self.hostNameLabel.frameY = 80 + increment;
+            self.hostNameLabel.frameY = 75 + increment;
             self.drawLabel.frameY = self.hostNameLabel.frameY;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
@@ -183,7 +183,7 @@ static NSInteger kSecondSeparatorTag = 5139;
             self.drawPotLabel.frameY = self.hostPotLabel.frameY;
             self.guestPotLabel.frameY = self.hostPotLabel.frameY;
             
-            self.hostNameLabel.frameY = 82 + increment;
+            self.hostNameLabel.frameY = 77 + increment;
             self.drawLabel.frameY = self.hostNameLabel.frameY;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
@@ -319,16 +319,16 @@ static NSInteger kSecondSeparatorTag = 5139;
         self.guestScoreLabel.font = [UIFont fontWithName:kFontNameLight size:30];
         self.guestScoreLabel.text = @"1";
         
-        self.hostNameLabel = label(CGRectMake(17, 80, 86, 18), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
-        self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:16];
+        self.hostNameLabel = label(CGRectMake(17, 75, 86, 28), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
+        self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:self.defaultTeamNameFontSize];
         [self.cardContentView addSubview:self.hostNameLabel];
         
-        self.drawLabel = label(CGRectMake(113, 80, 74, 18), self.hostNameLabel.textColor);
+        self.drawLabel = label(CGRectMake(113, 75, 74, 28), self.hostNameLabel.textColor);
         self.drawLabel.font = self.hostNameLabel.font;
         self.drawLabel.text = NSLocalizedString(@"Draw", @"");
         [self.cardContentView addSubview:self.drawLabel];
         
-        self.guestNameLabel = label(CGRectMake(197, 80, 86, 18), self.hostNameLabel.textColor);
+        self.guestNameLabel = label(CGRectMake(197, 75, 86, 28), self.hostNameLabel.textColor);
         self.guestNameLabel.font = self.hostNameLabel.font;
         [self.cardContentView addSubview:self.guestNameLabel];
         
@@ -345,6 +345,10 @@ static NSInteger kSecondSeparatorTag = 5139;
         self.footerLabel = potLabel(CGRectMake(0, 256, 300, 63));
     }
     return self;
+}
+
+- (CGFloat)defaultTeamNameFontSize {
+    return 16.0;
 }
 
 - (void)setFirstSeparatorPosition:(CGFloat)position {

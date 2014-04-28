@@ -16,6 +16,7 @@
 #import "Team.h"
 #import "TeamsViewController.h"
 #import "TeamImageView.h"
+#import "UILabel+MaxFontSize.h"
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
@@ -82,6 +83,17 @@ static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
     cell.guestNameLabel.text = match.guest.name;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     cell.guestPotLabel.text = match.potGuest.stringValue;
+    
+    // Auto-decrease font size to fit bounds
+    cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
+    cell.guestNameLabel.font = [UIFont fontWithName:cell.guestNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
+    cell.drawLabel.font = [UIFont fontWithName:cell.drawLabel.font.fontName size:cell.defaultTeamNameFontSize];
+    CGFloat maxHostNameSize = cell.hostNameLabel.maxFontSizeToFitBounds;
+    CGFloat maxGuestNameSize = cell.guestNameLabel.maxFontSizeToFitBounds;
+    CGFloat maxFontSize = MIN(maxHostNameSize, maxGuestNameSize);
+    cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:maxFontSize];
+    cell.guestNameLabel.font = [UIFont fontWithName:cell.guestNameLabel.font.fontName size:maxFontSize];
+    cell.drawLabel.font = [UIFont fontWithName:cell.drawLabel.font.fontName size:maxFontSize];
     
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateStyle = NSDateFormatterShortStyle;

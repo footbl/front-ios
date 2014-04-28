@@ -58,6 +58,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 
+- (CGFloat)defaultTeamNameFontSize;
 - (void)setStakesCount:(NSNumber *)stakesCount commentsCount:(NSNumber *)commentsCount;
 - (void)setDateText:(NSString *)dateText;
 
