@@ -64,7 +64,7 @@
         <attribute name="profit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
     </entity>
     <elements>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="120"/>
