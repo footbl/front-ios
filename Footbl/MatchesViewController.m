@@ -20,7 +20,7 @@
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
-static NSString *kChampionshipID = @"53592de5fe0f7902003668a9";
+static NSString *kChampionshipID = @"535fc0be5508bc0200f59bbd";
 
 @interface MatchesViewController ()
 
