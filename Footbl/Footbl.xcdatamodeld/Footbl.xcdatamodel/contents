@@ -60,6 +60,7 @@
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
     </entity>
     <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
+        <attribute name="active" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
         <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="profit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
@@ -75,6 +76,6 @@
         <element name="Membership" positionX="-18" positionY="126" width="128" height="88"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
-        <element name="Wallet" positionX="-36" positionY="117" width="128" height="118"/>
+        <element name="Wallet" positionX="-36" positionY="117" width="128" height="133"/>
     </elements>
 </model>

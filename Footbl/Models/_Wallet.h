@@ -5,6 +5,7 @@
 #import "FootblModel.h"
 
 extern const struct WalletAttributes {
+	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *profit;
 	__unsafe_unretained NSString *stake;
@@ -25,6 +26,7 @@ extern const struct WalletFetchedProperties {
 
 
 
+
 @interface WalletID : NSManagedObjectID {}
 @end
 
@@ -33,6 +35,20 @@ extern const struct WalletFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (WalletID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* active;
+
+
+
+@property BOOL activeValue;
+- (BOOL)activeValue;
+- (void)setActiveValue:(BOOL)value_;
+
+//- (BOOL)validateActive:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -109,6 +125,15 @@ extern const struct WalletFetchedProperties {
 @end
 
 @interface _Wallet (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveActive;
+- (void)setPrimitiveActive:(NSNumber*)value;
+
+- (BOOL)primitiveActiveValue;
+- (void)setPrimitiveActiveValue:(BOOL)value_;
+
+
 
 
 - (NSNumber*)primitiveFunds;

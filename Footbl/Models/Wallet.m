@@ -48,6 +48,7 @@
     [super updateWithData:data];
     
     self.championship = [Championship findByIdentifier:data[@"championship"] inManagedObjectContext:self.managedObjectContext];
+    self.active = data[@"active"];
     self.funds = data[@"funds"];
     self.stake = data[@"stake"];
     self.toReturn = data[@"toReturn"];

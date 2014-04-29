@@ -4,6 +4,7 @@
 #import "_Wallet.h"
 
 const struct WalletAttributes WalletAttributes = {
+	.active = @"active",
 	.funds = @"funds",
 	.profit = @"profit",
 	.stake = @"stake",
@@ -43,6 +44,11 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"activeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"active"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"fundsValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -66,6 +72,32 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic active;
+
+
+
+- (BOOL)activeValue {
+	NSNumber *result = [self active];
+	return [result boolValue];
+}
+
+- (void)setActiveValue:(BOOL)value_ {
+	[self setActive:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveActiveValue {
+	NSNumber *result = [self primitiveActive];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveActiveValue:(BOOL)value_ {
+	[self setPrimitiveActive:[NSNumber numberWithBool:value_]];
+}
+
 
 
 
