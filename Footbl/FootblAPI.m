@@ -315,7 +315,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     self.userToken = nil;
     self.currentUser = nil;
     
-    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"User", @"Membership"]) {
+    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"Bet", @"Wallet", @"User", @"Membership"]) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         NSError *error = nil;
