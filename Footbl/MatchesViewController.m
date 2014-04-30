@@ -301,6 +301,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     tableViewController.refreshControl = self.refreshControl;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self reloadWallet];
         if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted)) {
             [self.refreshControl beginRefreshing];
             [self reloadData];
