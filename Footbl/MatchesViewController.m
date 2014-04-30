@@ -183,20 +183,14 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         [alert show];
     };
     
-    [Championship updateWithSuccess:^{
+    [Wallet updateWithSuccess:^{
         [self fetchChampionship];
         if (self.championship) {
-            [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
-               [Wallet updateWithSuccess:^{
-                   [self reloadWallet];
-                   
-                   [Match updateFromChampionship:self.championship.editableObject success:^{
-                       [self.refreshControl endRefreshing];
-                   } failure:failure];
-               } failure:failure];
+            [Match updateFromChampionship:self.championship.editableObject success:^{
+                [Match updateBetsFromChampionship:self.championship success:^{
+                    [self.refreshControl endRefreshing];
+                } failure:failure];
             } failure:failure];
-        } else {
-            [self.refreshControl endRefreshing];
         }
     } failure:failure];
 }
@@ -265,7 +259,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (match.bidRid.length > 0 && match.bidResultValue == MatchResultDraw) {
         [match.editableObject deleteBetWithSuccess:^{
-            [match.editableObject updateWithSuccess:nil failure:nil];
+            [match.editableObject updateWithSuccess:^{
+                [match.championship.wallet updateWithSuccess:nil failure:nil];
+            } failure:nil];
         } failure:nil];
     } else {
         MatchResult result;
@@ -277,7 +273,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
             result = MatchResultHost;
         }
         [match.editableObject updateBetWithBid:@10 result:result success:^{
-            [match.editableObject updateWithSuccess:nil failure:nil];
+            [match.editableObject updateWithSuccess:^{
+                [match.championship.wallet updateWithSuccess:nil failure:nil];
+            } failure:nil];
         } failure:nil];
     }
 }

@@ -47,7 +47,9 @@
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.championship = [Championship findByIdentifier:data[@"championship"] inManagedObjectContext:self.managedObjectContext];
+    self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    [self.championship updateWithData:data[@"championship"]];
+    
     self.active = data[@"active"];
     self.funds = data[@"funds"];
     self.stake = data[@"stake"];
