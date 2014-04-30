@@ -16,61 +16,64 @@
 
 static NSInteger kFirstSeparatorTag = 5138;
 static NSInteger kSecondSeparatorTag = 5139;
+static CGFloat kDisabledAlpha = 0.4;
 
 #pragma mark - Getters/Setters
 
 - (void)setLayout:(MatchTableViewCellLayout)layout {
     _layout = layout;
     
-    self.hostImageView.tintColor = [UIColor clearColor];
-    self.hostImageView.alpha = 1;
-    self.hostNameLabel.alpha = 1;
-    self.hostPotLabel.alpha = 1;
+    if (!self.hostNameLabel) {
+        return;
+    }
     
-    self.drawLabel.alpha = 1;
-    self.drawPotLabel.alpha = 1;
-    self.versusLabel.alpha = 1;
-    
-    self.guestImageView.tintColor = [UIColor clearColor];
-    self.guestImageView.alpha = 1;
-    self.guestNameLabel.alpha = 1;
-    self.guestPotLabel.alpha = 1;
-    
-    static CGFloat kDisabledAlpha = 0.4;
+    void(^setAlphaToViews)(NSArray *views, CGFloat alpha) = ^(NSArray *views, CGFloat alpha) {
+        [views enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+            if (view.alpha != alpha) {
+                view.alpha = alpha;
+            }
+        }];
+    };
+    void(^setAlphaToHost)(CGFloat alpha) = ^(CGFloat alpha) {
+        setAlphaToViews(@[self.hostNameLabel, self.hostPotLabel], alpha);
+        if (alpha == kDisabledAlpha) {
+            self.hostImageView.alpha = 0;
+        } else {
+            self.hostImageView.alpha = 1;
+        }
+    };
+    void(^setAlphaToDraw)(CGFloat alpha) = ^(CGFloat alpha) {
+        setAlphaToViews(@[self.drawLabel, self.drawPotLabel, self.versusLabel], alpha);
+    };
+    void(^setAlphaToGuest)(CGFloat alpha) = ^(CGFloat alpha) {
+        setAlphaToViews(@[self.guestNameLabel, self.guestPotLabel], alpha);
+        if (alpha == kDisabledAlpha) {
+            self.guestImageView.alpha = 0;
+        } else {
+            self.guestImageView.alpha = 1;
+        }
+    };
     
     switch (self.layout) {
         case MatchTableViewCellLayoutNoBet:
+            setAlphaToHost(1);
+            setAlphaToDraw(1);
+            setAlphaToGuest(1);
             break;
         case MatchTableViewCellLayoutHost:
-            self.drawLabel.alpha = kDisabledAlpha;
-            self.drawPotLabel.alpha = kDisabledAlpha;
-            self.versusLabel.alpha = kDisabledAlpha;
-            
-            self.guestImageView.tintColor = [UIColor grayColor];
-            self.guestImageView.alpha = kDisabledAlpha;
-            self.guestNameLabel.alpha = kDisabledAlpha;
-            self.guestPotLabel.alpha = kDisabledAlpha;
+            setAlphaToHost(1);
+            setAlphaToDraw(kDisabledAlpha);
+            setAlphaToGuest(kDisabledAlpha);
             break;
         case MatchTableViewCellLayoutDraw:
-            self.hostImageView.tintColor = [UIColor grayColor];
-            self.hostImageView.alpha = kDisabledAlpha;
-            self.hostNameLabel.alpha = kDisabledAlpha;
-            self.hostPotLabel.alpha = kDisabledAlpha;
-            
-            self.guestImageView.tintColor = [UIColor grayColor];
-            self.guestImageView.alpha = kDisabledAlpha;
-            self.guestNameLabel.alpha = kDisabledAlpha;
-            self.guestPotLabel.alpha = kDisabledAlpha;
+            setAlphaToHost(kDisabledAlpha);
+            setAlphaToDraw(1);
+            setAlphaToGuest(kDisabledAlpha);
             break;
         case MatchTableViewCellLayoutGuest:
-            self.hostImageView.tintColor = [UIColor grayColor];
-            self.hostImageView.alpha = kDisabledAlpha;
-            self.hostNameLabel.alpha = kDisabledAlpha;
-            self.hostPotLabel.alpha = kDisabledAlpha;
-            
-            self.drawLabel.alpha = kDisabledAlpha;
-            self.drawPotLabel.alpha = kDisabledAlpha;
-            self.versusLabel.alpha = kDisabledAlpha;
+            setAlphaToHost(kDisabledAlpha);
+            setAlphaToDraw(kDisabledAlpha);
+            setAlphaToGuest(1);
             break;
     }
 }
@@ -333,9 +336,14 @@ static NSInteger kSecondSeparatorTag = 5139;
         [self.cardContentView addSubview:self.guestNameLabel];
         
         // Images
+        self.hostDisabledImageView = teamImageView(CGRectMake(12, 130, 96, 96));
+        self.hostDisabledImageView.tintColor = [UIColor grayColor];
+        self.hostDisabledImageView.alpha = kDisabledAlpha;
         self.hostImageView = teamImageView(CGRectMake(12, 130, 96, 96));
+        self.guestDisabledImageView = teamImageView(CGRectMake(192, 130, 96, 96));
+        self.guestDisabledImageView.tintColor = [UIColor grayColor];
+        self.guestDisabledImageView.alpha = kDisabledAlpha;
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
-        self.guestImageView.tintColor = [UIColor grayColor];
         
         self.versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
         self.versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];

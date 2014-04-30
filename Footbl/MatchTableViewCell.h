@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
 @property (strong, nonatomic) TeamImageView *hostImageView;
+@property (strong, nonatomic) TeamImageView *hostDisabledImageView;
 // Draw
 @property (strong, nonatomic) UILabel *drawLabel;
 @property (strong, nonatomic) UILabel *drawPotLabel;
@@ -55,6 +56,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
 @property (strong, nonatomic) TeamImageView *guestImageView;
+@property (strong, nonatomic) TeamImageView *guestDisabledImageView;
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 
