@@ -113,7 +113,9 @@ static CGFloat kDisabledAlpha = 0.4;
             // Images
             self.versusLabel.frameY = 130;
             self.hostImageView.frameY = self.versusLabel.frameY;
+            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
+            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
             self.footerLabel.frameY = 256;
@@ -154,7 +156,9 @@ static CGFloat kDisabledAlpha = 0.4;
             // Images
             self.versusLabel.frameY = 130 + increment;
             self.hostImageView.frameY = self.versusLabel.frameY;
+            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
+            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
             self.footerLabel.frameY = 256 + increment;
@@ -193,7 +197,9 @@ static CGFloat kDisabledAlpha = 0.4;
             // Images
             self.versusLabel.frameY = 136 + increment;
             self.hostImageView.frameY = self.versusLabel.frameY;
+            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
+            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
             self.footerLabel.frameY = 256 + increment;
