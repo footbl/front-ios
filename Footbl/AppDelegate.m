@@ -30,7 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
-            kSPDebugLogLevel = SPDebugLogLevelVerbose;
+            kSPDebugLogLevel = SPDebugLogLevelInfo;
             break;
         case SPBuildTypeAdHoc:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
