@@ -9,6 +9,7 @@ extern const struct MatchAttributes {
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *guestScore;
 	__unsafe_unretained NSString *hostScore;
+	__unsafe_unretained NSString *localUpdatedAt;
 	__unsafe_unretained NSString *potDraw;
 	__unsafe_unretained NSString *potGuest;
 	__unsafe_unretained NSString *potHost;
@@ -31,6 +32,7 @@ extern const struct MatchFetchedProperties {
 @class Comment;
 @class Team;
 @class Team;
+
 
 
 
@@ -101,6 +103,16 @@ extern const struct MatchFetchedProperties {
 - (void)setHostScoreValue:(int16_t)value_;
 
 //- (BOOL)validateHostScore:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* localUpdatedAt;
+
+
+
+//- (BOOL)validateLocalUpdatedAt:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -241,6 +253,12 @@ extern const struct MatchFetchedProperties {
 
 - (int16_t)primitiveHostScoreValue;
 - (void)setPrimitiveHostScoreValue:(int16_t)value_;
+
+
+
+
+- (NSDate*)primitiveLocalUpdatedAt;
+- (void)setPrimitiveLocalUpdatedAt:(NSDate*)value;
 
 
 

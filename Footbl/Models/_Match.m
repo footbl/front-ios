@@ -8,6 +8,7 @@ const struct MatchAttributes MatchAttributes = {
 	.finished = @"finished",
 	.guestScore = @"guestScore",
 	.hostScore = @"hostScore",
+	.localUpdatedAt = @"localUpdatedAt",
 	.potDraw = @"potDraw",
 	.potGuest = @"potGuest",
 	.potHost = @"potHost",
@@ -173,6 +174,13 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 - (void)setPrimitiveHostScoreValue:(int16_t)value_ {
 	[self setPrimitiveHostScore:[NSNumber numberWithShort:value_]];
 }
+
+
+
+
+
+@dynamic localUpdatedAt;
+
 
 
 
