@@ -64,40 +64,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
     } failure:failure];
 }
 
-+ (void)updateBetsFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"wallets/%@/bets", championship.wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
-                fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:[NSString stringWithFormat:@"match.%@", kAPIIdentifierKey]]];
-                NSError *error = nil;
-                NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
-                if (error) {
-                    SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-                    abort();
-                }
-                for (NSDictionary *entry in responseObject) {
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", entry[@"match"][kAPIIdentifierKey]];
-                    Match *match = [fetchResult filteredArrayUsingPredicate:predicate].firstObject;
-                    if (!match) {
-                        continue;
-                    }
-                    match.bidValue = entry[@"bid"];
-                    match.bidRid = entry[kAPIIdentifierKey];
-                    match.bidResult = @(MatchResultFromString(entry[@"result"]));
-                    match.bidReward = entry[@"reward"];
-                }
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
-}
-
 #pragma mark - Instance Methods
 
 - (NSString *)resourcePath {
@@ -122,50 +88,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
-}
-
-- (void)updateBetWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [self deleteBetWithSuccess:^{
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateDefaultParameters];
-            NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-            parameters[@"date"] = [transformer transformedValue:[NSDate date]];
-            parameters[@"result"] = MatchResultToString(result);
-            parameters[@"bid"] = bid;
-            [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.championship.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self.editableManagedObjectContext performBlock:^{
-                    self.bidResult = @(MatchResultFromString(responseObject[@"result"]));
-                    self.bidRid = responseObject[kAPIIdentifierKey];
-                    self.bidReward = responseObject[@"reward"];
-                    self.bidValue = bid;
-                    SaveManagedObjectContext(self.editableManagedObjectContext);
-                    requestSucceedWithBlock(operation, parameters, success);
-                }];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                requestFailedWithBlock(operation, parameters, error, failure);
-            }];
-        } failure:failure];
-    } failure:failure];
-}
-
-- (void)deleteBetWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    if (!self.bidRid) {
-        if (success) success();
-        return;
-    }
-    
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] DELETE:[NSString stringWithFormat:@"championships/%@/matches/%@/bets/%@", self.championship.rid, self.rid, self.bidRid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                self.bidRid = nil;
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
 }
 
 @end

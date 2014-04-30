@@ -4,10 +4,6 @@
 #import "_Match.h"
 
 const struct MatchAttributes MatchAttributes = {
-	.bidResult = @"bidResult",
-	.bidReward = @"bidReward",
-	.bidRid = @"bidRid",
-	.bidValue = @"bidValue",
 	.date = @"date",
 	.finished = @"finished",
 	.guestScore = @"guestScore",
@@ -19,6 +15,7 @@ const struct MatchAttributes MatchAttributes = {
 };
 
 const struct MatchRelationships MatchRelationships = {
+	.bet = @"bet",
 	.championship = @"championship",
 	.comments = @"comments",
 	.guest = @"guest",
@@ -54,21 +51,6 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"bidResultValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"bidResult"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"bidRewardValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"bidReward"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"bidValueValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"bidValue"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"finishedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"finished"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -107,91 +89,6 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic bidResult;
-
-
-
-- (int16_t)bidResultValue {
-	NSNumber *result = [self bidResult];
-	return [result shortValue];
-}
-
-- (void)setBidResultValue:(int16_t)value_ {
-	[self setBidResult:[NSNumber numberWithShort:value_]];
-}
-
-- (int16_t)primitiveBidResultValue {
-	NSNumber *result = [self primitiveBidResult];
-	return [result shortValue];
-}
-
-- (void)setPrimitiveBidResultValue:(int16_t)value_ {
-	[self setPrimitiveBidResult:[NSNumber numberWithShort:value_]];
-}
-
-
-
-
-
-@dynamic bidReward;
-
-
-
-- (float)bidRewardValue {
-	NSNumber *result = [self bidReward];
-	return [result floatValue];
-}
-
-- (void)setBidRewardValue:(float)value_ {
-	[self setBidReward:[NSNumber numberWithFloat:value_]];
-}
-
-- (float)primitiveBidRewardValue {
-	NSNumber *result = [self primitiveBidReward];
-	return [result floatValue];
-}
-
-- (void)setPrimitiveBidRewardValue:(float)value_ {
-	[self setPrimitiveBidReward:[NSNumber numberWithFloat:value_]];
-}
-
-
-
-
-
-@dynamic bidRid;
-
-
-
-
-
-
-@dynamic bidValue;
-
-
-
-- (float)bidValueValue {
-	NSNumber *result = [self bidValue];
-	return [result floatValue];
-}
-
-- (void)setBidValueValue:(float)value_ {
-	[self setBidValue:[NSNumber numberWithFloat:value_]];
-}
-
-- (float)primitiveBidValueValue {
-	NSNumber *result = [self primitiveBidValue];
-	return [result floatValue];
-}
-
-- (void)setPrimitiveBidValueValue:(float)value_ {
-	[self setPrimitiveBidValue:[NSNumber numberWithFloat:value_]];
-}
-
 
 
 
@@ -384,6 +281,10 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 
 
+
+@dynamic bet;
+
+	
 
 @dynamic championship;
 

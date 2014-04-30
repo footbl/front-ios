@@ -60,6 +60,8 @@
 		EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A418E1F43000E0C949 /* FootblAPI.m */; };
 		EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
+		EDB639BC1910776300D7B041 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
+		EDB639BF1910776C00D7B041 /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
 		EDBC848118EDE60B00CCC01A /* Cache in Resources */ = {isa = PBXBuildFile; fileRef = EDBC848018EDE60B00CCC01A /* Cache */; };
 		EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
@@ -176,6 +178,10 @@
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
 		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
+		EDB639BA1910776300D7B041 /* _Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Bet.h; path = Models/_Bet.h; sourceTree = "<group>"; };
+		EDB639BB1910776300D7B041 /* _Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Bet.m; path = Models/_Bet.m; sourceTree = "<group>"; };
+		EDB639BD1910776C00D7B041 /* Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bet.h; path = Models/Bet.h; sourceTree = "<group>"; };
+		EDB639BE1910776C00D7B041 /* Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bet.m; path = Models/Bet.m; sourceTree = "<group>"; };
 		EDBC848018EDE60B00CCC01A /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = SOURCE_ROOT; };
 		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
 		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
@@ -348,6 +354,8 @@
 		ED9DC8CD18E326FA00DF458C /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				EDB639BA1910776300D7B041 /* _Bet.h */,
+				EDB639BB1910776300D7B041 /* _Bet.m */,
 				ED9DC8CE18E3270600DF458C /* _Championship.h */,
 				ED9DC8CF18E3270600DF458C /* _Championship.m */,
 				ED9DC8E718E3330400DF458C /* _Comment.h */,
@@ -524,6 +532,8 @@
 		EDB1D4A118E1F3EA00E0C949 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EDB639BD1910776C00D7B041 /* Bet.h */,
+				EDB639BE1910776C00D7B041 /* Bet.m */,
 				ED9DC8D818E3271900DF458C /* Championship.h */,
 				ED9DC8D918E3271900DF458C /* Championship.m */,
 				ED9DC8EA18E3330D00DF458C /* Comment.h */,
@@ -755,10 +765,12 @@
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
+				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,
 				ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
+				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,

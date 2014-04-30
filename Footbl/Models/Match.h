@@ -9,9 +9,9 @@
 #import "_Match.h"
 
 typedef NS_ENUM(NSInteger, MatchResult) {
-    MatchResultDraw = 0,
-    MatchResultHost = 1,
-    MatchResultGuest = 2
+    MatchResultDraw = 1,
+    MatchResultHost = 2,
+    MatchResultGuest = 3
 };
 
 extern NSString * MatchResultToString(MatchResult result);
@@ -22,8 +22,5 @@ extern MatchResult MatchResultFromString(NSString *result);
 @interface Match : _Match
 
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-+ (void)updateBetsFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)updateBetWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)deleteBetWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 
 @end

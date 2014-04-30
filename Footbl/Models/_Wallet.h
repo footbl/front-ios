@@ -13,12 +13,14 @@ extern const struct WalletAttributes {
 } WalletAttributes;
 
 extern const struct WalletRelationships {
+	__unsafe_unretained NSString *bets;
 	__unsafe_unretained NSString *championship;
 } WalletRelationships;
 
 extern const struct WalletFetchedProperties {
 } WalletFetchedProperties;
 
+@class Bet;
 @class Championship;
 
 
@@ -110,6 +112,13 @@ extern const struct WalletFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *bets;
+
+- (NSMutableSet*)betsSet;
+
+
+
+
 @property (nonatomic, strong) Championship *championship;
 
 //- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
@@ -121,6 +130,11 @@ extern const struct WalletFetchedProperties {
 @end
 
 @interface _Wallet (CoreDataGeneratedAccessors)
+
+- (void)addBets:(NSSet*)value_;
+- (void)removeBets:(NSSet*)value_;
+- (void)addBetsObject:(Bet*)value_;
+- (void)removeBetsObject:(Bet*)value_;
 
 @end
 
@@ -170,6 +184,11 @@ extern const struct WalletFetchedProperties {
 - (void)setPrimitiveToReturnValue:(int64_t)value_;
 
 
+
+
+
+- (NSMutableSet*)primitiveBets;
+- (void)setPrimitiveBets:(NSMutableSet*)value;
 
 
 

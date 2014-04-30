@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Bet.h"
 #import "Championship.h"
 #import "FootblTabBarController.h"
 #import "Match.h"
@@ -105,36 +106,54 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
     [cell setDateText:[formatter stringFromDate:match.date]];
     
+    switch ((MatchResult)match.bet.resultValue) {
+        case MatchResultHost:
+            cell.layout = MatchTableViewCellLayoutHost;
+            break;
+        case MatchResultGuest:
+            cell.layout = MatchTableViewCellLayoutGuest;
+            break;
+        case MatchResultDraw:
+            cell.layout = MatchTableViewCellLayoutDraw;
+            break;
+        default:
+            cell.layout = MatchTableViewCellLayoutNoBet;
+            break;
+    }
+    
+    if (match.bet) {
+        cell.stakeValueLabel.text = match.bet.value.stringValue;
+        cell.returnValueLabel.text = @"-";
+        cell.profitValueLabel.text = @"-";
+    } else {
+        cell.stakeValueLabel.text = @"-";
+        cell.returnValueLabel.text = @"-";
+        cell.profitValueLabel.text = @"-";
+    }
+    
     // Just for testing
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_FCB%402x.png"]];
     cell.hostPotLabel.text = @"1.21";
     cell.drawPotLabel.text = @"8.32";
     cell.guestPotLabel.text = @"18.03";
-    cell.stakeValueLabel.text = @"21";
-    cell.returnValueLabel.text = @"25";
-    cell.profitValueLabel.text = @"4";
     [cell setStakesCount:@143 commentsCount:@48];
     
     switch (indexPath.row) {
         case 0:
-            cell.layout = MatchTableViewCellLayoutHost;
             cell.liveLabel.text = @"";
             cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             break;
         case 1:
-            cell.layout = MatchTableViewCellLayoutDraw;
             cell.liveLabel.text = @"";
             cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             break;
         case 2:
-            cell.layout = MatchTableViewCellLayoutGuest;
             cell.liveLabel.text = @"Ao vivo - 87'";
             cell.stateLayout = MatchTableViewCellStateLayoutLive;
             [cell setDateText:NSLocalizedString(@"Now", @"")];
             break;
         default:
-            cell.layout = MatchTableViewCellLayoutNoBet;
             cell.liveLabel.text = @"";
             cell.stateLayout = MatchTableViewCellStateLayoutDone;
             break;
@@ -186,11 +205,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [Wallet updateWithSuccess:^{
         [self fetchChampionship];
         if (self.championship) {
-            [Match updateFromChampionship:self.championship.editableObject success:^{
-                [Match updateBetsFromChampionship:self.championship success:^{
-                    [self.refreshControl endRefreshing];
+            [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
+                [Match updateFromChampionship:self.championship.editableObject success:^{
+                    [Bet updateWithWallet:self.championship.wallet.editableObject success:^{
+                        [self.refreshControl endRefreshing];
+                    } failure:failure];
                 } failure:failure];
-            } failure:failure];
+            } failure:nil];
         }
     } failure:failure];
 }
@@ -257,26 +278,35 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (match.bidRid.length > 0 && match.bidResultValue == MatchResultDraw) {
-        [match.editableObject deleteBetWithSuccess:^{
-            [match.editableObject updateWithSuccess:^{
+    if (match.bet && match.bet.resultValue == MatchResultDraw) {
+        [match.bet.editableObject deleteWithSuccess:^{
+            [match updateWithSuccess:^{
                 [match.championship.wallet updateWithSuccess:nil failure:nil];
             } failure:nil];
         } failure:nil];
     } else {
         MatchResult result;
-        if (match.bidResultValue == MatchResultHost) {
+        if (match.bet.resultValue == MatchResultHost) {
             result = MatchResultGuest;
-        } else if (match.bidResultValue == MatchResultGuest) {
+        } else if (match.bet.resultValue == MatchResultGuest) {
             result = MatchResultDraw;
         } else {
             result = MatchResultHost;
         }
-        [match.editableObject updateBetWithBid:@10 result:result success:^{
-            [match.editableObject updateWithSuccess:^{
-                [match.championship.wallet updateWithSuccess:nil failure:nil];
+        
+        if (match.bet) {
+            [match.bet updateWithBid:@10 result:result success:^{
+                [match updateWithSuccess:^{
+                    [match.championship.wallet updateWithSuccess:nil failure:nil];
+                } failure:nil];
             } failure:nil];
-        } failure:nil];
+        } else {
+            [Bet createWithMatch:match.editableObject bid:@10 result:result success:^{
+                [match updateWithSuccess:^{
+                    [match.championship.wallet updateWithSuccess:nil failure:nil];
+                } failure:nil];
+            } failure:nil];
+        }
     }
 }
 

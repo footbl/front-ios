@@ -5,10 +5,6 @@
 #import "FootblModel.h"
 
 extern const struct MatchAttributes {
-	__unsafe_unretained NSString *bidResult;
-	__unsafe_unretained NSString *bidReward;
-	__unsafe_unretained NSString *bidRid;
-	__unsafe_unretained NSString *bidValue;
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *guestScore;
@@ -20,6 +16,7 @@ extern const struct MatchAttributes {
 } MatchAttributes;
 
 extern const struct MatchRelationships {
+	__unsafe_unretained NSString *bet;
 	__unsafe_unretained NSString *championship;
 	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *guest;
@@ -29,14 +26,11 @@ extern const struct MatchRelationships {
 extern const struct MatchFetchedProperties {
 } MatchFetchedProperties;
 
+@class Bet;
 @class Championship;
 @class Comment;
 @class Team;
 @class Team;
-
-
-
-
 
 
 
@@ -55,58 +49,6 @@ extern const struct MatchFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MatchID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* bidResult;
-
-
-
-@property int16_t bidResultValue;
-- (int16_t)bidResultValue;
-- (void)setBidResultValue:(int16_t)value_;
-
-//- (BOOL)validateBidResult:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* bidReward;
-
-
-
-@property float bidRewardValue;
-- (float)bidRewardValue;
-- (void)setBidRewardValue:(float)value_;
-
-//- (BOOL)validateBidReward:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSString* bidRid;
-
-
-
-//- (BOOL)validateBidRid:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* bidValue;
-
-
-
-@property float bidValueValue;
-- (float)bidValueValue;
-- (void)setBidValueValue:(float)value_;
-
-//- (BOOL)validateBidValue:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -220,6 +162,13 @@ extern const struct MatchFetchedProperties {
 
 
 
+@property (nonatomic, strong) Bet *bet;
+
+//- (BOOL)validateBet:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) Championship *championship;
 
 //- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
@@ -261,39 +210,6 @@ extern const struct MatchFetchedProperties {
 @end
 
 @interface _Match (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSNumber*)primitiveBidResult;
-- (void)setPrimitiveBidResult:(NSNumber*)value;
-
-- (int16_t)primitiveBidResultValue;
-- (void)setPrimitiveBidResultValue:(int16_t)value_;
-
-
-
-
-- (NSNumber*)primitiveBidReward;
-- (void)setPrimitiveBidReward:(NSNumber*)value;
-
-- (float)primitiveBidRewardValue;
-- (void)setPrimitiveBidRewardValue:(float)value_;
-
-
-
-
-- (NSString*)primitiveBidRid;
-- (void)setPrimitiveBidRid:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveBidValue;
-- (void)setPrimitiveBidValue:(NSNumber*)value;
-
-- (float)primitiveBidValueValue;
-- (void)setPrimitiveBidValueValue:(float)value_;
-
-
 
 
 - (NSDate*)primitiveDate;
@@ -363,6 +279,11 @@ extern const struct MatchFetchedProperties {
 - (void)setPrimitiveRoundValue:(int16_t)value_;
 
 
+
+
+
+- (Bet*)primitiveBet;
+- (void)setPrimitiveBet:(Bet*)value;
 
 
 
