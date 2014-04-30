@@ -20,7 +20,6 @@
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
-static NSString *kChampionshipID = @"535fc0be5508bc0200f59bbd";
 
 @interface MatchesViewController ()
 
@@ -145,8 +144,8 @@ static NSString *kChampionshipID = @"535fc0be5508bc0200f59bbd";
 - (void)fetchChampionship {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid = %@", kChampionshipID];
     fetchRequest.fetchLimit = 1;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.active = %@", @YES];
     NSError *error = nil;
     NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
     if (error) {
