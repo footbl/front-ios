@@ -49,12 +49,14 @@
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
+    BOOL newRelease = NO;
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] isEqualToString:SPGetApplicationVersion()]) {
         SPLog(@"Application updated from v%@ to v%@", [[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey], SPGetApplicationVersion());
+        newRelease = SPGetBuildType() != SPBuildTypeDebug;
     }
     
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey] || newRelease) {
         [[FootblAPI sharedAPI] logout];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPresentTutorialViewController];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstRunKey];
