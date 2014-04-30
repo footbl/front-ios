@@ -27,6 +27,13 @@
 }
 
 + (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
+        [match.editableObject setBetTemporaryResult:0 value:nil];
+        if (failure) failure(error);
+    };
+    
+    [match.editableObject setBetTemporaryResult:result value:bid];
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
@@ -39,13 +46,14 @@
                 bet.match = match;
                 bet.wallet = match.championship.wallet;
                 [bet updateWithData:responseObject];
+                [match setBetTemporaryResult:0 value:nil];
                 requestSucceedWithBlock(operation, parameters, nil);
                 [match.championship.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            requestFailedWithBlock(operation, parameters, error, customFailureBlock);
         }];
-    } failure:failure];
+    } failure:customFailureBlock];
 }
 
 + (void)updateWithWallet:(Wallet *)wallet success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -71,6 +79,13 @@
 }
 
 - (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
+        [self.match.editableObject setBetTemporaryResult:0 value:nil];
+        if (failure) failure(error);
+    };
+    
+    [self.match.editableObject setBetTemporaryResult:result value:bid];
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
@@ -80,14 +95,15 @@
         [[self API] PUT:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
+                [self.match.editableObject setBetTemporaryResult:0 value:nil];
                 self.match.editableObject.localUpdatedAt = [NSDate date];
                 requestSucceedWithBlock(operation, parameters, nil);
                 [self.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            requestFailedWithBlock(operation, parameters, error, customFailureBlock);
         }];
-    } failure:failure];
+    } failure:customFailureBlock];
 }
 
 - (void)updateWithData:(NSDictionary *)data {
@@ -102,18 +118,26 @@
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
+        [self.match.editableObject setBetTemporaryResult:0 value:nil];
+        if (failure) failure(error);
+    };
+    
+    [self.match.editableObject setBetTemporaryResult:0 value:@0];
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] DELETE:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self.editableManagedObjectContext deleteObject:self];
+                [self.match.editableObject setBetTemporaryResult:0 value:nil];
                 requestSucceedWithBlock(operation, parameters, nil);
                 [self.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            requestFailedWithBlock(operation, parameters, error, customFailureBlock);
         }];
-    } failure:failure];
+    } failure:customFailureBlock];
 }
 
 @end
