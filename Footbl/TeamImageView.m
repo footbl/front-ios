@@ -52,6 +52,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.tintColor = [UIColor clearColor];
     }
     return self;
 }
@@ -88,7 +89,7 @@
     
     
     // Set the fill color
-    CGContextSetFillColorWithColor(context, [UIColor grayColor].CGColor);
+    CGContextSetFillColorWithColor(context, tintColor.CGColor);
     UIRectFillUsingBlendMode(frame, kCGBlendModeColor);
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
