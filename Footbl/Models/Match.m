@@ -10,6 +10,7 @@
 #import "Championship.h"
 #import "Match.h"
 #import "Team.h"
+#import "Wallet.h"
 
 extern NSString * MatchResultToString(MatchResult result) {
     switch (result) {
@@ -63,14 +64,14 @@ extern MatchResult MatchResultFromString(NSString *result) {
     } failure:failure];
 }
 
-+ (void)updateBetsWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
++ (void)updateBetsFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"users/%@/bets", [[self API] userIdentifier]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[self API] GET:[NSString stringWithFormat:@"wallets/%@/bets", championship.wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
                 fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:@"match"]];
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", [responseObject valueForKeyPath:[NSString stringWithFormat:@"match.%@", kAPIIdentifierKey]]];
                 NSError *error = nil;
                 NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
                 if (error) {
@@ -78,7 +79,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
                     abort();
                 }
                 for (NSDictionary *entry in responseObject) {
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", entry[@"match"]];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rid = %@", entry[@"match"][kAPIIdentifierKey]];
                     Match *match = [fetchResult filteredArrayUsingPredicate:predicate].firstObject;
                     if (!match) {
                         continue;

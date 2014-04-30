@@ -22,7 +22,7 @@ extern MatchResult MatchResultFromString(NSString *result);
 @interface Match : _Match
 
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-+ (void)updateBetsWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
++ (void)updateBetsFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)updateBetWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)deleteBetWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 
