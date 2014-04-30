@@ -159,15 +159,14 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
     NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
     
-    NSMutableDictionary *parameters = [@{} mutableCopy];
-    parameters[@"timestamp"] = [NSString stringWithFormat:@"%.00f", unixTime];
-    parameters[@"transactionId"] = transactionIdentifier;
-    parameters[@"signature"] = [self generateSignatureWithTimestamp:unixTime transaction:transactionIdentifier];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"%.00f", unixTime] forHTTPHeaderField:@"auth-timestamp"];
+    [self.requestSerializer setValue:transactionIdentifier forHTTPHeaderField:@"auth-transactionId"];
+    [self.requestSerializer setValue:[self generateSignatureWithTimestamp:unixTime transaction:transactionIdentifier] forHTTPHeaderField:@"auth-signature"];
     if ([self isAuthenticated] && self.userToken.length > 0) {
-        parameters[@"token"] = self.userToken;
+        [self.requestSerializer setValue:self.userToken forHTTPHeaderField:@"auth-token"];
     }
     
-    return parameters;
+    return [@{} mutableCopy];
 }
 
 - (void)groupOperationsWithSelector:(SEL)selector block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
