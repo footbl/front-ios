@@ -406,8 +406,11 @@ static CGFloat kDisabledAlpha = 0.4;
     CGRect frame = self.dateLabel.frame;
     frame.size.width = roundf(size.width) + 30;
     CGPoint center = self.dateLabel.center;
-    self.dateLabel.frame = frame;
-    self.dateLabel.center = center;
+    
+    [UIView performWithoutAnimation:^{
+        self.dateLabel.frame = frame;
+        self.dateLabel.center = center;
+    }];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
