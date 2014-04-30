@@ -39,8 +39,8 @@
                 bet.match = match;
                 bet.wallet = match.championship.wallet;
                 [bet updateWithData:responseObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
+                requestSucceedWithBlock(operation, parameters, nil);
+                [match.championship.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -80,8 +80,9 @@
         [[self API] PUT:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
+                self.match.editableObject.localUpdatedAt = [NSDate date];
+                requestSucceedWithBlock(operation, parameters, nil);
+                [self.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -106,8 +107,8 @@
         [[self API] DELETE:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self.editableManagedObjectContext deleteObject:self];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
+                requestSucceedWithBlock(operation, parameters, nil);
+                [self.wallet updateWithSuccess:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);

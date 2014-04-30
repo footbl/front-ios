@@ -279,11 +279,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (match.bet && match.bet.resultValue == MatchResultDraw) {
-        [match.bet.editableObject deleteWithSuccess:^{
-            [match updateWithSuccess:^{
-                [match.championship.wallet updateWithSuccess:nil failure:nil];
-            } failure:nil];
-        } failure:nil];
+        [match.bet.editableObject deleteWithSuccess:nil failure:nil];
     } else {
         MatchResult result;
         if (match.bet.resultValue == MatchResultHost) {
@@ -295,17 +291,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         }
         
         if (match.bet) {
-            [match.bet updateWithBid:@10 result:result success:^{
-                [match updateWithSuccess:^{
-                    [match.championship.wallet updateWithSuccess:nil failure:nil];
-                } failure:nil];
-            } failure:nil];
+            [match.bet.editableObject updateWithBid:@10 result:result success:nil failure:nil];
         } else {
-            [Bet createWithMatch:match.editableObject bid:@10 result:result success:^{
-                [match updateWithSuccess:^{
-                    [match.championship.wallet updateWithSuccess:nil failure:nil];
-                } failure:nil];
-            } failure:nil];
+            [Bet createWithMatch:match.editableObject bid:@10 result:result success:nil failure:nil];
         }
     }
 }
