@@ -159,20 +159,16 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     switch (indexPath.row) {
         case 0:
             cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            cell.stateLayout = MatchTableViewCellStateLayoutDone;
             break;
         case 1:
-            cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
-            break;
-        case 2:
             cell.liveLabel.text = @"Ao vivo - 87'";
             cell.stateLayout = MatchTableViewCellStateLayoutLive;
             [cell setDateText:NSLocalizedString(@"Now", @"")];
             break;
         default:
             cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutDone;
+            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             break;
     }
 }
@@ -281,13 +277,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
-            return 380;
+            return 406;
         case 1:
-            return 380;
-        case 2:
             return 433;
         default:
-            return 406;
+            return 380;
     }
 }
 
