@@ -361,7 +361,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.estimatedRowHeight = 380;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
