@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
 extern NSString * const kFontNameBlack;
 extern NSString * const kFontNameLight;
 extern NSString * const kFontNameMedium;
+extern NSString * const kFontNameSystemLight;
 
 @interface FootblAppearance : NSObject
 
