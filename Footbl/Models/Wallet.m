@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "Bet.h"
 #import "Championship.h"
+#import "Match.h"
 #import "Wallet.h"
 
 @interface Wallet ()
@@ -16,6 +18,8 @@
 #pragma mark Wallet
 
 @implementation Wallet
+
+@synthesize pendingMatchesToSyncBet = _pendingMatchesToSyncBet;
 
 #pragma mark - Class Methods
 
@@ -42,7 +46,36 @@
     [self createWithParameters:@{@"championship": championship.rid} success:success failure:failure];    
 }
 
+#pragma mark - Getters/Setters
+
+- (NSMutableArray *)pendingMatchesToSyncBet {
+    if (!_pendingMatchesToSyncBet) {
+        _pendingMatchesToSyncBet = [NSMutableArray new];
+    }
+    return _pendingMatchesToSyncBet;
+}
+
 #pragma mark - Instance Methods
+
+- (NSNumber *)localFunds {
+    NSInteger funds = self.funds.integerValue;
+    for (Match *match in self.pendingMatchesToSyncBet) {
+        funds += match.bet.valueValue;
+        funds -= match.tempBetValue.integerValue;
+    }
+    
+    return @(funds);
+}
+
+- (NSNumber *)localStake {
+    NSInteger stake = self.stake.integerValue;
+    for (Match *match in self.pendingMatchesToSyncBet) {
+        stake -= match.bet.valueValue;
+        stake += match.tempBetValue.integerValue;
+    }
+    
+    return @(stake);
+}
 
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];

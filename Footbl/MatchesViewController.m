@@ -109,7 +109,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [cell setDateText:[formatter stringFromDate:match.date]];
     
     MatchResult result = (MatchResult)match.bet.resultValue;
-    if (match.isBetSyncing) {
+    if (match.tempBetValue) {
         result = match.tempBetResult;
     }
     
@@ -128,7 +128,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
             break;
     }
     
-    if (match.isBetSyncing) {
+    if (match.tempBetValue) {
         if (match.tempBetValue.integerValue == 0) {
             cell.stakeValueLabel.text = @"-";
         } else {
@@ -145,6 +145,78 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         cell.returnValueLabel.text = @"-";
         cell.profitValueLabel.text = @"-";
     }
+    
+    cell.selectionBlock = ^(NSInteger index){
+        if (match.isBetSyncing) {
+            return;
+        }
+        
+        NSInteger currentBet = match.bet.valueValue;
+        MatchResult result = (MatchResult)match.bet.result.integerValue;
+        if (match.tempBetValue) {
+            currentBet = match.tempBetValue.integerValue;
+            result = match.tempBetResult;
+        }
+        
+        switch (index) {
+            case 0: // Host
+                if (result == MatchResultHost) {
+                    currentBet ++;
+                } else if (currentBet == 0) {
+                    currentBet = 1;
+                    result = MatchResultHost;
+                } else {
+                    currentBet --;
+                }
+                break;
+            case 1: // Draw
+                if (result == MatchResultDraw) {
+                    currentBet ++;
+                } else if (currentBet == 0) {
+                    currentBet = 1;
+                    result = MatchResultDraw;
+                } else {
+                    currentBet --;
+                }
+                break;
+            case 2: // Guest
+                if (result == MatchResultGuest) {
+                    currentBet ++;
+                } else if (currentBet == 0) {
+                    currentBet = 1;
+                    result = MatchResultGuest;
+                } else {
+                    currentBet --;
+                }
+                break;
+        }
+        if (currentBet == 0) {
+            result = 0;
+        }
+        match.tempBetValue = @(currentBet);
+        match.tempBetResult = result;
+        
+        FootblAPIFailureBlock failure = ^(NSError *error) {
+            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            } completion:nil];
+            [self reloadWallet];
+        };
+        
+        if (result == 0) {
+            [match.bet.editableObject deleteWithSuccess:nil failure:failure];
+        } else if (match.bet) {
+            [match.bet.editableObject updateWithBid:@(currentBet) result:result success:nil failure:failure];
+        } else {
+            [Bet createWithMatch:match.editableObject bid:@(currentBet) result:result success:nil failure:failure];
+        }
+        
+        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+            [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        }];
+        
+        [self reloadWallet];
+    };
     
     // Just for testing
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
@@ -196,8 +268,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.funds.stringValue];
-        self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.stake.stringValue;
+        self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.localFunds.stringValue];
+        self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.localStake.stringValue;
         self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
         self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
     } else {
@@ -287,40 +359,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (match.isBetSyncing) {
-        return;
-    }
-    
-    FootblAPIFailureBlock failure = ^(NSError *error) {
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-        } completion:nil];
-    };
-    
-    if (match.bet && match.bet.resultValue == MatchResultDraw) {
-        [match.bet.editableObject deleteWithSuccess:nil failure:failure];
-    } else {
-        MatchResult result;
-        if (match.bet.resultValue == MatchResultHost) {
-            result = MatchResultGuest;
-        } else if (match.bet.resultValue == MatchResultGuest) {
-            result = MatchResultDraw;
-        } else {
-            result = MatchResultHost;
-        }
-        
-        if (match.bet) {
-            [match.bet.editableObject updateWithBid:@10 result:result success:nil failure:failure];
-        } else {
-            [Bet createWithMatch:match.editableObject bid:@10 result:result success:nil failure:failure];
-        }
-    }
-    
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
-       [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-    }];
 }
 
 #pragma mark - View Lifecycle

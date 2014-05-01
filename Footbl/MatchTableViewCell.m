@@ -303,6 +303,7 @@ static CGFloat kDisabledAlpha = 0.4;
         TeamImageView * (^teamImageView)(CGRect frame) = ^(CGRect frame) {
             TeamImageView *teamImageView = [[TeamImageView alloc] initWithFrame:frame];
             teamImageView.contentMode = UIViewContentModeScaleAspectFit;
+            teamImageView.userInteractionEnabled = YES;
             [self.cardContentView addSubview:teamImageView];
             return teamImageView;
         };
@@ -345,20 +346,40 @@ static CGFloat kDisabledAlpha = 0.4;
         self.hostDisabledImageView = teamImageView(CGRectMake(12, 130, 96, 96));
         self.hostDisabledImageView.tintColor = [UIColor grayColor];
         self.hostDisabledImageView.alpha = kDisabledAlpha;
+        [self.hostDisabledImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         self.hostImageView = teamImageView(CGRectMake(12, 130, 96, 96));
+        [self.hostImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         self.guestDisabledImageView = teamImageView(CGRectMake(192, 130, 96, 96));
         self.guestDisabledImageView.tintColor = [UIColor grayColor];
         self.guestDisabledImageView.alpha = kDisabledAlpha;
+        [self.guestDisabledImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
+        [self.guestImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         self.versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
         self.versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];
         self.versusLabel.text = @"X";
+        self.versusLabel.userInteractionEnabled = YES;
+        [self.versusLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         // Footer
         self.footerLabel = potLabel(CGRectMake(0, 256, 300, 63));
     }
     return self;
+}
+
+- (void)gestureRecognizerHandler:(UIGestureRecognizer *)gestureRecognizer {
+    if (!self.selectionBlock) {
+        return;
+    }
+    
+    if (gestureRecognizer.view == self.hostImageView || gestureRecognizer.view == self.hostDisabledImageView) {
+        self.selectionBlock(0);
+    } else if (gestureRecognizer.view == self.guestImageView || gestureRecognizer.view == self.guestDisabledImageView) {
+        self.selectionBlock(2);
+    } else if (gestureRecognizer.view == self.versusLabel) {
+        self.selectionBlock(1);
+    }
 }
 
 - (CGFloat)defaultTeamNameFontSize {

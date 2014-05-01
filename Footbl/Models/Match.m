@@ -44,6 +44,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 @synthesize betSyncing = _betSyncing;
 @synthesize tempBetResult = _tempBetResult;
 @synthesize tempBetValue = _tempBetValue;
+@synthesize betBlockKey = _betBlockKey;
 
 #pragma mark - Class Methods
 
@@ -70,13 +71,34 @@ extern MatchResult MatchResultFromString(NSString *result) {
 
 #pragma mark - Instance Methods
 
+- (void)setBetBlockKey:(NSUInteger)betBlockKey {
+    _betBlockKey = betBlockKey;
+    
+    if (self.managedObjectContext != FootblManagedObjectContext()) {
+        [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetBlockKey:betBlockKey];
+    }
+}
+
+- (void)setBetSyncing:(BOOL)betSyncing {
+    _betSyncing = betSyncing;
+    
+    if (self.managedObjectContext != FootblManagedObjectContext()) {
+        [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetSyncing:betSyncing];
+    }
+}
+
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value {
     if (self.managedObjectContext != FootblManagedObjectContext()) {
         [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetTemporaryResult:result value:value];
     }
-    self.betSyncing = value ? YES : NO;
     self.tempBetResult = result;
     self.tempBetValue = value;
+    
+    if (value && ![self.championship.wallet.pendingMatchesToSyncBet containsObject:self]) {
+        [self.championship.wallet.pendingMatchesToSyncBet addObject:self];
+    } else if (!value) {
+        [self.championship.wallet.pendingMatchesToSyncBet removeObject:self];
+    }
 }
 
 - (NSString *)resourcePath {

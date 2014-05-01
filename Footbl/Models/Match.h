@@ -24,6 +24,7 @@ extern MatchResult MatchResultFromString(NSString *result);
 @property (assign, nonatomic, getter = isBetSyncing) BOOL betSyncing;
 @property (strong, nonatomic) NSNumber *tempBetValue;
 @property (assign, nonatomic) MatchResult tempBetResult;
+@property (assign, nonatomic) NSUInteger betBlockKey;
 
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value;
