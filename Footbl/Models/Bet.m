@@ -114,7 +114,12 @@
     self.match = [Match findByIdentifier:data[@"match"] inManagedObjectContext:self.managedObjectContext];
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
-    self.reward = data[@"reward"];
+    @try {
+        self.reward = data[@"reward"];
+    }
+    @catch (NSException *exception) {
+        self.reward = @0;
+    }
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
