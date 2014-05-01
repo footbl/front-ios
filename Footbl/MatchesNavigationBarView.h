@@ -11,6 +11,7 @@
 @interface MatchesNavigationBarView : UIView
 
 @property (strong, nonatomic) UIView *separatorView;
+@property (strong, nonatomic) UIButton *moneyButton;
 @property (strong, nonatomic) UILabel *walletTitleLabel;
 @property (strong, nonatomic) UILabel *walletValueLabel;
 @property (strong, nonatomic) UILabel *stakeTitleLabel;

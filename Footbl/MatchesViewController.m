@@ -270,7 +270,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = [@"$" stringByAppendingString:self.championship.wallet.localFunds.stringValue];
+        self.navigationBarTitleView.walletValueLabel.text = self.championship.wallet.localFunds.stringValue;
         self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.localStake.stringValue;
         self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
         self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;

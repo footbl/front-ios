@@ -39,13 +39,20 @@
                                                   NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                                   NSKernAttributeName : @(-0.15)} mutableCopy];
         
-        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(3, 30, 72, 25)];
+        self.moneyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 102, CGRectGetHeight(self.frame))];
+        [self.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
+        [self.moneyButton setImageEdgeInsets:UIEdgeInsetsMake(4, 0, 0, 62)];
+        self.moneyButton.enabled = NO;
+        self.moneyButton.adjustsImageWhenDisabled = NO;
+        [self addSubview:self.moneyButton];
+        
+        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 30, 42, 25)];
         self.walletValueLabel.textColor = [UIColor ftGreenMoneyColor];
         self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
         self.walletValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.walletValueLabel];
         
-        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 58 , 72, 14)];
+        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 58 , 72, 14)];
         self.walletTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wallet", @"") attributes:titleAttributes];
         [self addSubview:self.walletTitleLabel];
         
