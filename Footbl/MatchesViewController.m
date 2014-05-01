@@ -197,6 +197,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         match.tempBetResult = result;
         
         FootblAPIFailureBlock failure = ^(NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+            [alert show];
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             } completion:nil];
