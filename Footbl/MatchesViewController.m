@@ -349,6 +349,12 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         }
     }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        self.championship = nil;
+        [self reloadWallet];
+        [self reloadData];
+    }];
+    
     self.tableView = tableViewController.tableView;
     self.tableView.frame = self.view.frame;
     self.tableView.delegate = self;

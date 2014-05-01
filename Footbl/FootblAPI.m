@@ -37,6 +37,7 @@ static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 
 NSString * const kAPIIdentifierKey = @"_id";
+NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
 
 NSManagedObjectContext * FootblBackgroundManagedObjectContext() {
     return [(AppDelegate *)[UIApplication sharedApplication].delegate backgroundManagedObjectContext];
@@ -234,10 +235,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     NSMutableDictionary *parameters = [self generateDefaultParameters];
     parameters[@"password"] = [NSString randomHexStringWithLength:20];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.userIdentifier = responseObject[@"_id"];
+        self.userIdentifier = responseObject[kAPIIdentifierKey];
         self.userPassword = parameters[@"password"];
         self.userEmail = nil;
         requestSucceedWithBlock(operation, parameters, success);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
@@ -315,20 +317,26 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     self.userToken = nil;
     self.currentUser = nil;
     
-    for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"Bet", @"Wallet", @"User", @"Membership"]) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        NSError *error = nil;
-        NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-        if (error) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+    [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-timestamp"];
+    [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-transactionId"];
+    [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-signature"];
+    
+    [FootblBackgroundManagedObjectContext() performBlock:^{
+        for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"Bet", @"Wallet", @"User", @"Membership"]) {
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
+            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+            NSError *error = nil;
+            NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+            for (NSManagedObject *object in fetchResult) {
+                [FootblBackgroundManagedObjectContext() deleteObject:object];
+            }
         }
-        for (NSManagedObject *object in fetchResult) {
-            [FootblBackgroundManagedObjectContext() deleteObject:object];
-        }
-    }
-    SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+        SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+    }];
 }
 
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

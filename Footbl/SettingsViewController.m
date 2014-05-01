@@ -7,6 +7,8 @@
 //
 
 #import <SPHipster/SPHipster.h>
+#import "AuthenticationViewController.h"
+#import "FootblAPI.h"
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
@@ -82,6 +84,10 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
                                                             kSettingsDataSourceExtraKey : commitText},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logout", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(logoutAction:))},
                                                           @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logs", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeMore),
@@ -95,6 +101,18 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 #pragma mark - Instance Methods
+
+- (void)logoutAction:(id)sender {
+    AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:authenticationViewController];
+    [self presentViewController:navigationController animated:YES completion:^{
+        [[FootblAPI sharedAPI] logout];
+    }];
+    authenticationViewController.completionBlock = ^{
+        [navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    };
+}
 
 - (void)openLogs:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];

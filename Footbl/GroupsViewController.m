@@ -158,6 +158,10 @@
     [self.view addSubview:self.tableView];
     
     [self reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self reloadData];
+    }];
 }
 
 - (void)viewDidLoad {

@@ -18,6 +18,7 @@ extern void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictiona
 extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext);
 
 extern NSString * const kAPIIdentifierKey;
+extern NSString * const kFootblAPINotificationAuthenticationChanged;
 
 @class User;
 

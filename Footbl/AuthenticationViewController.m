@@ -35,6 +35,11 @@
 }
 
 - (IBAction)skipLoginAction:(id)sender {
+    if ([[FootblAPI sharedAPI] isAuthenticated]) {
+        if (self.completionBlock) self.completionBlock();
+        return;
+    }
+    
     [[FootblAPI sharedAPI] createAccountWithSuccess:^{
         if (self.completionBlock) self.completionBlock();
     } failure:^(NSError *error) {
