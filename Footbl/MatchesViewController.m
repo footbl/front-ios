@@ -77,14 +77,30 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.hostNameLabel.text = match.host.name;
-    cell.hostPotLabel.text = match.potHost.stringValue;
+    cell.hostPotLabel.text = @"0";
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
     [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
-    cell.drawPotLabel.text = match.potDraw.stringValue;
+    cell.drawPotLabel.text = @"0";
     cell.guestNameLabel.text = match.guest.name;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
-    cell.guestPotLabel.text = match.potGuest.stringValue;
+    cell.guestPotLabel.text = @"0";
+    
+    CGFloat potTotal = match.potHostValue + match.potGuestValue + match.potDrawValue;
+    
+    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+    numberFormatter.maximumFractionDigits = 2;
+    numberFormatter.minimumFractionDigits = 0;
+    
+    if (match.potHostValue > 0) {
+        cell.hostPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potHostValue)];
+    }
+    if (match.potDrawValue > 0) {
+        cell.drawPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potDrawValue)];
+    }
+    if (match.potGuestValue > 0) {
+        cell.guestPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potGuestValue)];
+    }
     
     // Auto-decrease font size to fit bounds
     cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
@@ -225,9 +241,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-    cell.hostPotLabel.text = @"1.21";
-    cell.drawPotLabel.text = @"8.32";
-    cell.guestPotLabel.text = @"18.03";
     [cell setStakesCount:@143 commentsCount:@48];
     
     switch (indexPath.row) {
