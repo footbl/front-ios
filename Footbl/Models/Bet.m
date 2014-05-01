@@ -156,6 +156,7 @@ static CGFloat kBetSyncWaitTime = 2;
         if (failure) failure(error);
     };
     
+    Match *match = self.match.editableObject;
     [self.match.editableObject setBetTemporaryResult:0 value:@0];
     
     if (self.match.betBlockKey) {
@@ -172,8 +173,8 @@ static CGFloat kBetSyncWaitTime = 2;
                     [self.editableManagedObjectContext deleteObject:self];
                     requestSucceedWithBlock(operation, parameters, nil);
                     [self.match.championship.wallet updateWithSuccess:^{
-                        self.match.editableObject.betSyncing = NO;
-                        [self.match.editableObject setBetTemporaryResult:0 value:nil];
+                        [match setBetTemporaryResult:0 value:nil];
+                        match.betSyncing = NO;
                     } failure:failure];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
