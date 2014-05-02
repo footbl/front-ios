@@ -61,7 +61,9 @@ static CGFloat kBetSyncWaitTime = 2;
                     [match.championship.wallet updateWithSuccess:^{
                         match.editableObject.betSyncing = NO;
                         [match setBetTemporaryResult:0 value:nil];
+                        if (success) success();
                     } failure:failure];
+                    [match updateWithSuccess:nil failure:nil];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, customFailureBlock);
@@ -123,7 +125,9 @@ static CGFloat kBetSyncWaitTime = 2;
                     [self.match.championship.wallet updateWithSuccess:^{
                         self.match.editableObject.betSyncing = NO;
                         [self.match.editableObject setBetTemporaryResult:0 value:nil];
+                        if (success) success();
                     } failure:failure];
+                    [self.match updateWithSuccess:nil failure:nil];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, customFailureBlock);
@@ -171,10 +175,12 @@ static CGFloat kBetSyncWaitTime = 2;
                 [self.editableManagedObjectContext performBlock:^{
                     [self.editableManagedObjectContext deleteObject:self];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    [self.match.championship.wallet updateWithSuccess:^{
+                    [match.championship.wallet updateWithSuccess:^{
                         [match setBetTemporaryResult:0 value:nil];
                         match.betSyncing = NO;
+                        if (success) success();
                     } failure:failure];
+                    [match updateWithSuccess:nil failure:nil];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, customFailureBlock);
