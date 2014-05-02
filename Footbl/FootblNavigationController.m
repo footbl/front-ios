@@ -31,10 +31,11 @@
     
     self.navigationBar.barTintColor = [FootblAppearance colorForView:FootblColorNavigationBar];
     
-    NSDictionary *titleAttributes = @{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16],
+    NSDictionary *titleAttributes = @{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17],
                                       NSForegroundColorAttributeName : [UIColor ftGreenGrassColor]};
     [UINavigationBar appearanceWhenContainedIn:[self class], nil].titleTextAttributes = titleAttributes;
     [UINavigationBar appearanceWhenContainedIn:[self class], nil].tintColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.7];
+    [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:17]} forState:UIControlStateNormal];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.navigationBar.frame), CGRectGetWidth(self.navigationBar.frame), 0.5)];
     separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];

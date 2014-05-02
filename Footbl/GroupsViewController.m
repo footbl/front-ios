@@ -61,8 +61,10 @@
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    if (fetchResult.firstObject) {
-        [Group createWithChampionship:fetchResult.firstObject name:[NSString stringWithFormat:@"Footbl #%@", [NSString randomHexStringWithLength:6]] success:nil failure:nil];
+    
+    Championship *championship = fetchResult.firstObject;
+    if (championship) {
+        [Group createWithChampionship:fetchResult.firstObject name:[NSString stringWithFormat:@"%@ (%@)", championship.name, [NSString randomHexStringWithLength:6]] success:nil failure:nil];
     }
 }
 
@@ -141,16 +143,8 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    [editButton setTitleColor:[[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.7] forState:UIControlStateNormal];
-    [editButton setTitleColor:[[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
-    [editButton setTitle:NSLocalizedString(@"Edit", @"") forState:UIControlStateNormal];
-    editButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
-    [editButton sizeToFit];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];;
-    
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
