@@ -9,7 +9,7 @@ const struct GroupAttributes GroupAttributes = {
 };
 
 const struct GroupRelationships GroupRelationships = {
-	.championships = @"championships",
+	.championship = @"championship",
 	.members = @"members",
 	.owner = @"owner",
 };
@@ -88,17 +88,8 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 
 
-@dynamic championships;
+@dynamic championship;
 
-	
-- (NSMutableSet*)championshipsSet {
-	[self willAccessValueForKey:@"championships"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"championships"];
-  
-	[self didAccessValueForKey:@"championships"];
-	return result;
-}
 	
 
 @dynamic members;

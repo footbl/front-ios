@@ -10,7 +10,7 @@ extern const struct GroupAttributes {
 } GroupAttributes;
 
 extern const struct GroupRelationships {
-	__unsafe_unretained NSString *championships;
+	__unsafe_unretained NSString *championship;
 	__unsafe_unretained NSString *members;
 	__unsafe_unretained NSString *owner;
 } GroupRelationships;
@@ -62,9 +62,9 @@ extern const struct GroupFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *championships;
+@property (nonatomic, strong) Championship *championship;
 
-- (NSMutableSet*)championshipsSet;
+//- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -87,11 +87,6 @@ extern const struct GroupFetchedProperties {
 @end
 
 @interface _Group (CoreDataGeneratedAccessors)
-
-- (void)addChampionships:(NSSet*)value_;
-- (void)removeChampionships:(NSSet*)value_;
-- (void)addChampionshipsObject:(Championship*)value_;
-- (void)removeChampionshipsObject:(Championship*)value_;
 
 - (void)addMembers:(NSSet*)value_;
 - (void)removeMembers:(NSSet*)value_;
@@ -119,8 +114,8 @@ extern const struct GroupFetchedProperties {
 
 
 
-- (NSMutableSet*)primitiveChampionships;
-- (void)setPrimitiveChampionships:(NSMutableSet*)value;
+- (Championship*)primitiveChampionship;
+- (void)setPrimitiveChampionship:(Championship*)value;
 
 
 

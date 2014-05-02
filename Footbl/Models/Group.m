@@ -56,16 +56,11 @@
         [self.owner updateWithData:data[@"owner"]];
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     NSString *championshipRid = data[@"championship"];
     if ([championshipRid isKindOfClass:[NSDictionary  class]]) {
         championshipRid = data[@"championship"][kAPIIdentifierKey];
     }
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"rid IN %@", @[championshipRid]];
-    NSError *error = nil;
-    NSArray *fetchResult = [self.editableManagedObjectContext executeFetchRequest:fetchRequest error:&error];
-    self.championships = [NSSet setWithArray:fetchResult];
+    self.championship = [Championship findByIdentifier:championshipRid inManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

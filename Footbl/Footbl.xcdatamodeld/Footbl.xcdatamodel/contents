@@ -12,7 +12,7 @@
     <entity name="Championship" representedClassName="Championship" parentEntity="FootblModel" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="competitors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="championships" inverseEntity="Team" syncable="YES"/>
-        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="championships" inverseEntity="Group" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="championship" inverseEntity="Group" syncable="YES"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="championship" inverseEntity="Wallet" syncable="YES"/>
     </entity>
@@ -28,7 +28,7 @@
     <entity name="Group" representedClassName="Group" parentEntity="FootblModel" syncable="YES">
         <attribute name="freeToEdit" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="championships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Championship" inverseName="groups" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="groups" inverseEntity="Championship" syncable="YES"/>
         <relationship name="members" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Membership" inverseName="group" inverseEntity="Membership" syncable="YES"/>
         <relationship name="owner" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="ownedGroups" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -76,15 +76,15 @@
         <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Bet" positionX="-36" positionY="117" width="128" height="148"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
-        <element name="Group" positionX="-36" positionY="108" width="128" height="118"/>
+        <element name="Group" positionX="-36" positionY="108" width="128" height="120"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="253"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="88"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="118"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="148"/>
-        <element name="Bet" positionX="-36" positionY="117" width="128" height="148"/>
     </elements>
 </model>
