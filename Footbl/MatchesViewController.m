@@ -298,8 +298,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (void)reloadData {
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+            [alert show];
+        }
     };
     
     [Wallet updateWithSuccess:^{
@@ -311,7 +313,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
                         [self.refreshControl endRefreshing];
                     } failure:failure];
                 } failure:failure];
-            } failure:nil];
+            } failure:failure];
+        } else {
+            [self.refreshControl endRefreshing];
         }
     } failure:failure];
 }

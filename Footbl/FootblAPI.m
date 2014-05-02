@@ -55,7 +55,7 @@ void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *pa
 
 void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure) {
     SPLogError(@"Error: %@ %@", operation.request.HTTPMethod, [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject ? [operation.request.URL.absoluteString componentsSeparatedByString:@"?"].firstObject : operation.request.URL);
-    SPLogVerbose(@"%@\n\n%@\n\n%@", parameters, error, [operation responseString]);
+    SPLog(@"Error: %@\n\n%@\n\n%@", parameters, error, [operation responseString]);
     if (failure) dispatch_async(dispatch_get_main_queue(), ^{
         failure(error);
     });
