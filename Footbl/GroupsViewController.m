@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "Championship.h"
 #import "Group.h"
 #import "GroupsViewController.h"
@@ -45,7 +46,7 @@
 
 #pragma mark - Instance Methods
 
-- (IBAction)findFriendsAction:(id)sender {
+- (IBAction)editAction:(id)sender {
     
 }
 
@@ -76,7 +77,15 @@
 
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = group.name;
+    cell.nameLabel.text = group.name;
+    cell.championshipLabel.text = group.championship.name;
+    [cell setIndicatorHidden:!group.isNewValue animated:NO];
+    
+    // Just for testing
+    cell.nameLabel.text = @"FIFA World Cup";
+    cell.championshipLabel.text = @"FIFA World Cup (everyone)";
+    cell.roundsLabel.text = @"7 rounds to end";
+    [cell.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
 }
 
 - (void)reloadData {
@@ -122,11 +131,7 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    Group *group = [[self.fetchedResultsController objectAtIndexPath:indexPath] editableObject];
-    group.name = [NSString stringWithFormat:@"Footbl #%@", [NSString randomHexStringWithLength:6]];
-    [group saveWithSuccess:nil failure:nil];
 }
 
 #pragma mark - View Lifecycle
@@ -134,10 +139,17 @@
 - (void)loadView {
     [super loadView];
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Find Friends", @"") style:UIBarButtonItemStylePlain target:self action:@selector(findFriendsAction:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"New Group", @"") style:UIBarButtonItemStylePlain target:self action:@selector(newGroupAction:)];
+    UIButton *editButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    [editButton setTitleColor:[[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.7] forState:UIControlStateNormal];
+    [editButton setTitleColor:[[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+    [editButton setTitle:NSLocalizedString(@"Edit", @"") forState:UIControlStateNormal];
+    editButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
+    [editButton sizeToFit];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:editButton];;
+    
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     self.refreshControl = [UIRefreshControl new];
@@ -152,7 +164,7 @@
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.rowHeight = 44;
+    self.tableView.rowHeight = 96;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.tableView registerClass:[GroupTableViewCell class] forCellReuseIdentifier:@"GroupCell"];
     [self.view addSubview:self.tableView];
@@ -167,6 +179,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.tableView.indexPathForSelectedRow) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
     FootblAnimationTabBar
 };
 
+extern NSString * const kFontNameAvenirNextDemiBold;
 extern NSString * const kFontNameBlack;
 extern NSString * const kFontNameLight;
 extern NSString * const kFontNameMedium;

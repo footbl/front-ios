@@ -6,6 +6,7 @@
 
 extern const struct GroupAttributes {
 	__unsafe_unretained NSString *freeToEdit;
+	__unsafe_unretained NSString *isNew;
 	__unsafe_unretained NSString *name;
 } GroupAttributes;
 
@@ -21,6 +22,7 @@ extern const struct GroupFetchedProperties {
 @class Championship;
 @class Membership;
 @class User;
+
 
 
 
@@ -47,6 +49,20 @@ extern const struct GroupFetchedProperties {
 - (void)setFreeToEditValue:(BOOL)value_;
 
 //- (BOOL)validateFreeToEdit:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* isNew;
+
+
+
+@property BOOL isNewValue;
+- (BOOL)isNewValue;
+- (void)setIsNewValue:(BOOL)value_;
+
+//- (BOOL)validateIsNew:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -103,6 +119,15 @@ extern const struct GroupFetchedProperties {
 
 - (BOOL)primitiveFreeToEditValue;
 - (void)setPrimitiveFreeToEditValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveIsNew;
+- (void)setPrimitiveIsNew:(NSNumber*)value;
+
+- (BOOL)primitiveIsNewValue;
+- (void)setPrimitiveIsNewValue:(BOOL)value_;
 
 
 

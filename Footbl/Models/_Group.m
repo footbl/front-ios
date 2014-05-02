@@ -5,6 +5,7 @@
 
 const struct GroupAttributes GroupAttributes = {
 	.freeToEdit = @"freeToEdit",
+	.isNew = @"isNew",
 	.name = @"name",
 };
 
@@ -48,6 +49,11 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"isNewValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isNew"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -75,6 +81,32 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 - (void)setPrimitiveFreeToEditValue:(BOOL)value_ {
 	[self setPrimitiveFreeToEdit:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic isNew;
+
+
+
+- (BOOL)isNewValue {
+	NSNumber *result = [self isNew];
+	return [result boolValue];
+}
+
+- (void)setIsNewValue:(BOOL)value_ {
+	[self setIsNew:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsNewValue {
+	NSNumber *result = [self primitiveIsNew];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsNewValue:(BOOL)value_ {
+	[self setPrimitiveIsNew:[NSNumber numberWithBool:value_]];
 }
 
 
