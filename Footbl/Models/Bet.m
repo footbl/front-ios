@@ -141,10 +141,9 @@ static CGFloat kBetSyncWaitTime = 2;
     self.match = [Match findByIdentifier:data[@"match"] inManagedObjectContext:self.managedObjectContext];
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
-    @try {
+    if ([data[@"reward"] isKindOfClass:[NSNumber class]]) {
         self.reward = data[@"reward"];
-    }
-    @catch (NSException *exception) {
+    } else {
         self.reward = @0;
     }
 }
