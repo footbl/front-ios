@@ -9,6 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Championship.h"
 #import "Group.h"
+#import "GroupDetailViewController.h"
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
 #import "NSString+Hex.h"
@@ -84,7 +85,6 @@
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
     
     // Just for testing
-    cell.nameLabel.text = @"FIFA World Cup";
     cell.championshipLabel.text = @"FIFA World Cup (everyone)";
     cell.roundsLabel.text = @"7 rounds to end";
     [cell.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
@@ -133,7 +133,9 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    GroupDetailViewController *groupDetailViewController = [GroupDetailViewController new];
+    groupDetailViewController.group = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.navigationController pushViewController:groupDetailViewController animated:YES];
 }
 
 #pragma mark - View Lifecycle
