@@ -56,11 +56,13 @@
         [self.owner updateWithData:data[@"owner"]];
     }
     
-    NSString *championshipRid = data[@"championship"];
-    if ([championshipRid isKindOfClass:[NSDictionary  class]]) {
-        championshipRid = data[@"championship"][kAPIIdentifierKey];
+    NSString *championship = data[@"championship"];
+    if ([championship isKindOfClass:[NSDictionary class]]) {
+        self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+        [self.championship updateWithData:data[@"championship"]];
+    } else {
+        self.championship = [Championship findByIdentifier:championship inManagedObjectContext:self.managedObjectContext];
     }
-    self.championship = [Championship findByIdentifier:championshipRid inManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
