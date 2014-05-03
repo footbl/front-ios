@@ -77,18 +77,6 @@
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     
-    switch (SPGetBuildType()) {
-        case SPBuildTypeDebug:
-            SPLog(@"Debug");
-            break;
-        case SPBuildTypeAdHoc:
-            SPLog(@"AdHoc");
-            break;
-        case SPBuildTypeAppStore:
-            SPLog(@"App Store");
-            break;
-    }
-    
     self.window.rootViewController = [FootblTabBarController new];
 
     return YES;
