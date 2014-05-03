@@ -30,6 +30,12 @@
     [super updateWithData:data];
     
     self.name = data[@"name"];
+    self.country = data[@"country"];
+    if ([data[@"year"] isKindOfClass:[NSNumber class]]) {
+        self.year = data[@"year"];
+    } else {
+        self.year = nil;
+    }
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
         [object addChampionshipsObject:self];

@@ -4,7 +4,9 @@
 #import "_Championship.h"
 
 const struct ChampionshipAttributes ChampionshipAttributes = {
+	.country = @"country",
 	.name = @"name",
+	.year = @"year",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
@@ -43,6 +45,11 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"yearValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"year"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -50,8 +57,41 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic country;
+
+
+
+
+
+
 @dynamic name;
 
+
+
+
+
+
+@dynamic year;
+
+
+
+- (int16_t)yearValue {
+	NSNumber *result = [self year];
+	return [result shortValue];
+}
+
+- (void)setYearValue:(int16_t)value_ {
+	[self setYear:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveYearValue {
+	NSNumber *result = [self primitiveYear];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveYearValue:(int16_t)value_ {
+	[self setPrimitiveYear:[NSNumber numberWithShort:value_]];
+}
 
 
 

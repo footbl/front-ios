@@ -5,7 +5,9 @@
 #import "FootblModel.h"
 
 extern const struct ChampionshipAttributes {
+	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *year;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
@@ -25,6 +27,8 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+
+
 @interface ChampionshipID : NSManagedObjectID {}
 @end
 
@@ -38,11 +42,35 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* country;
+
+
+
+//- (BOOL)validateCountry:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* name;
 
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* year;
+
+
+
+@property int16_t yearValue;
+- (int16_t)yearValue;
+- (void)setYearValue:(int16_t)value_;
+
+//- (BOOL)validateYear:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -101,8 +129,23 @@ extern const struct ChampionshipFetchedProperties {
 @interface _Championship (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSString*)primitiveCountry;
+- (void)setPrimitiveCountry:(NSString*)value;
+
+
+
+
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveYear;
+- (void)setPrimitiveYear:(NSNumber*)value;
+
+- (int16_t)primitiveYearValue;
+- (void)setPrimitiveYearValue:(int16_t)value_;
 
 
 
