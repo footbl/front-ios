@@ -8,9 +8,10 @@
 
 #import "TemplateViewController.h"
 
-@interface GroupChampionshipsViewController : TemplateViewController
+@interface GroupChampionshipsViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (copy, nonatomic) NSString *groupName;
 
 @end

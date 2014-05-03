@@ -16,6 +16,7 @@
 		ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
 		ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
+		ED2D1C6119158B2700F1BC81 /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
 		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
@@ -110,6 +111,8 @@
 		ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipsViewController.m; sourceTree = "<group>"; };
 		ED2D1C5A191588D100F1BC81 /* GroupAddMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMembersViewController.h; sourceTree = "<group>"; };
 		ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMembersViewController.m; sourceTree = "<group>"; };
+		ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipTableViewCell.h; sourceTree = "<group>"; };
+		ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
@@ -356,6 +359,8 @@
 		ED81E83518EA73F100212D3C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
+				ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */,
+				ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */,
 				ED81E83218EA724C00212D3C /* GroupTableViewCell.h */,
 				ED81E83318EA724C00212D3C /* GroupTableViewCell.m */,
 			);
@@ -809,6 +814,7 @@
 				ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */,
 				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
+				ED2D1C6119158B2700F1BC81 /* GroupChampionshipTableViewCell.m in Sources */,
 				EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */,
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
