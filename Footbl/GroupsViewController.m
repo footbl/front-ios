@@ -85,7 +85,6 @@
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
     
     // Just for testing
-    cell.championshipLabel.text = @"FIFA World Cup (everyone)";
     cell.roundsLabel.text = @"7 rounds to end";
     [cell.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
 }
