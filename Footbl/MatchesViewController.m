@@ -241,7 +241,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     if (match.elapsed) {
         cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
         cell.stateLayout = MatchTableViewCellStateLayoutLive;
-    } else if (match.hostScore) {
+    } else if (match.finishedValue) {
         cell.liveLabel.text = @"";
         cell.stateLayout = MatchTableViewCellStateLayoutDone;
     } else {
