@@ -25,6 +25,11 @@
 
 #pragma mark - Instance Methods
 
+- (IBAction)leaveGroupAction:(id)sender {
+    [self.group.editableObject deleteWithSuccess:nil failure:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)updateGroupName {
     if (![self.nameTextField.text isEqualToString:self.group.name] && [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
         self.group.editableObject.name = self.nameTextField.text;
@@ -42,9 +47,16 @@
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
     NSString *championshipName = self.group.championship.name;
+    if (!championshipName) {
+        championshipName = @"";
+    }
     NSString *location = self.group.championship.country;
     if (self.group.championship.year) {
         location = [location stringByAppendingFormat:@", %@", self.group.championship.year.stringValue];
+    }
+    
+    if (!location) {
+        location = @"";
     }
     
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -135,6 +147,7 @@
     [self.leaveGroupButton setTitleColor:[UIColor colorWithRed:216/255.f green:80./255.f blue:80./255.f alpha:1.00] forState:UIControlStateNormal];
     [self.leaveGroupButton setTitleColor:[[self.leaveGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
     self.leaveGroupButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
+    [self.leaveGroupButton addTarget:self action:@selector(leaveGroupAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.leaveGroupButton];
     
     [self reloadData];
