@@ -6,6 +6,7 @@
 
 extern const struct MatchAttributes {
 	__unsafe_unretained NSString *date;
+	__unsafe_unretained NSString *elapsed;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *guestScore;
 	__unsafe_unretained NSString *hostScore;
@@ -43,6 +44,7 @@ extern const struct MatchFetchedProperties {
 
 
 
+
 @interface MatchID : NSManagedObjectID {}
 @end
 
@@ -61,6 +63,20 @@ extern const struct MatchFetchedProperties {
 
 
 //- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* elapsed;
+
+
+
+@property int16_t elapsedValue;
+- (int16_t)elapsedValue;
+- (void)setElapsedValue:(int16_t)value_;
+
+//- (BOOL)validateElapsed:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -226,6 +242,15 @@ extern const struct MatchFetchedProperties {
 
 - (NSDate*)primitiveDate;
 - (void)setPrimitiveDate:(NSDate*)value;
+
+
+
+
+- (NSNumber*)primitiveElapsed;
+- (void)setPrimitiveElapsed:(NSNumber*)value;
+
+- (int16_t)primitiveElapsedValue;
+- (void)setPrimitiveElapsedValue:(int16_t)value_;
 
 
 

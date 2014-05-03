@@ -5,6 +5,7 @@
 
 const struct MatchAttributes MatchAttributes = {
 	.date = @"date",
+	.elapsed = @"elapsed",
 	.finished = @"finished",
 	.guestScore = @"guestScore",
 	.hostScore = @"hostScore",
@@ -52,6 +53,11 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"elapsedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"elapsed"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"finishedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"finished"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -96,6 +102,32 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 @dynamic date;
 
+
+
+
+
+
+@dynamic elapsed;
+
+
+
+- (int16_t)elapsedValue {
+	NSNumber *result = [self elapsed];
+	return [result shortValue];
+}
+
+- (void)setElapsedValue:(int16_t)value_ {
+	[self setElapsed:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveElapsedValue {
+	NSNumber *result = [self primitiveElapsed];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveElapsedValue:(int16_t)value_ {
+	[self setPrimitiveElapsed:[NSNumber numberWithShort:value_]];
+}
 
 
 

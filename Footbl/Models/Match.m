@@ -121,6 +121,12 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.potHost = data[@"pot"][@"host"];
     self.round = data[@"round"];
     
+    if ([data[@"elapsed"] isKindOfClass:[NSNumber class]]) {
+        self.elapsed = data[@"elapsed"];
+    } else {
+        self.elapsed = nil;
+    }
+    
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
 }

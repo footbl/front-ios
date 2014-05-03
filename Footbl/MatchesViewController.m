@@ -85,6 +85,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     cell.guestPotLabel.text = @"0";
+    cell.hostScoreLabel.text = match.hostScore.stringValue;
+    cell.guestScoreLabel.text = match.guestScore.stringValue;
     
     CGFloat potTotal = match.potHostValue + match.potGuestValue + match.potDrawValue;
     
@@ -236,28 +238,23 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         [self reloadWallet];
     };
     
+    if (match.elapsed) {
+        cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
+        cell.stateLayout = MatchTableViewCellStateLayoutLive;
+    } else if (match.hostScore) {
+        cell.liveLabel.text = @"";
+        cell.stateLayout = MatchTableViewCellStateLayoutDone;
+    } else {
+        cell.liveLabel.text = @"";
+        cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+    }
+    
     // Just for testing
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
     [cell setStakesCount:@143 commentsCount:@48];
-    
-    switch (indexPath.row) {
-        case 0:
-            cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutDone;
-            break;
-        case 1:
-            cell.liveLabel.text = @"Ao vivo - 87'";
-            cell.stateLayout = MatchTableViewCellStateLayoutLive;
-            [cell setDateText:NSLocalizedString(@"Now", @"")];
-            break;
-        default:
-            cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
-            break;
-    }
 }
 
 - (void)fetchChampionship {
@@ -366,13 +363,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 #pragma mark - UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.row) {
-        case 0:
-            return 406;
-        case 1:
-            return 433;
-        default:
-            return 380;
+    Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (match.elapsed) {
+        return 433;
+    } else if (match.hostScore) {
+        return 406;
+    } else {
+        return 380;
     }
 }
 
