@@ -12,6 +12,8 @@
 #import "GroupDetailViewController.h"
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
+#import "FootblNavigationController.h"
+#import "NewGroupViewController.h"
 #import "NSString+Hex.h"
 
 @interface GroupsViewController ()
@@ -53,21 +55,7 @@
 }
 
 - (IBAction)newGroupAction:(id)sender {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-    fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.active = %@", @YES];
-    NSError *error = nil;
-    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    Championship *championship = fetchResult.firstObject;
-    if (championship) {
-        [Group createWithChampionship:fetchResult.firstObject name:[NSString stringWithFormat:@"%@ (%@)", championship.name, [NSString randomHexStringWithLength:6]] success:nil failure:nil];
-    }
+    [self presentViewController:[[FootblNavigationController alloc] initWithRootViewController:[NewGroupViewController new]] animated:YES completion:nil];
 }
 
 - (id)init {

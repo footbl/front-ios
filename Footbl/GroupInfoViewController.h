@@ -6,16 +6,13 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "TemplateViewController.h"
+#import "GroupInfoBaseViewController.h"
 
 @class Group;
 
-@interface GroupInfoViewController : TemplateViewController <UITextFieldDelegate>
+@interface GroupInfoViewController : GroupInfoBaseViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) Group *group;
-@property (strong, nonatomic) UITextField *nameTextField;
-@property (strong, nonatomic) UILabel *nameSizeLimitLabel;
-@property (strong, nonatomic) UIImageView *groupImageView;
 @property (strong, nonatomic) UILabel *championshipLabel;
 @property (strong, nonatomic) UIButton *leaveGroupButton;
 
