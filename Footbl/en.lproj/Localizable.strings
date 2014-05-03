@@ -110,7 +110,7 @@
 "%i rounds to end" = "%i rounds to end";
 
 /* 1 round to end */
-"1 round to end" = "1 round to end";
+"1 round to end" = "Last round";
 
 /* Championship finished */
 "Championship finished" = "Championship finished";
@@ -120,4 +120,21 @@
 
 /* 1 character left */
 "1 character left" = "1 character left";
+
+"NOTIFICATION_ GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
+
+"NOTIFICATION_ROUND_END" = "Notification round end";
+
+"NOTIFICATION_LEAGUE_END" = "Notification league end";
+
+/* Add photo */
+"Add photo" = "Add photo";
+
+/* Insert group name */
+"Insert group name" = "Insert group name";
+
+/* Next */
+"Next" = "Next";
+
+"NOTIFICATION_ROUND_START" = "Notification round start";
 
