@@ -41,7 +41,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
