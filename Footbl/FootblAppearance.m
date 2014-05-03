@@ -9,6 +9,7 @@
 #import "FootblAppearance.h"
 
 NSString * const kFontNameAvenirNextDemiBold = @"AvenirNext-DemiBold";
+NSString * const kFontNameAvenirNextRegular = @"AvenirNext-Regular";
 NSString * const kFontNameBlack = @"Avenir-Black";
 NSString * const kFontNameLight = @"Avenir-Light";
 NSString * const kFontNameMedium = @"Avenir-Medium";

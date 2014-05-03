@@ -115,3 +115,9 @@
 /* Championship finished */
 "Championship finished" = "Championship finished";
 
+/* {number of characters} characters left */
+"%i characters left" = "%i characters left";
+
+/* 1 character left */
+"1 character left" = "1 character left";
+

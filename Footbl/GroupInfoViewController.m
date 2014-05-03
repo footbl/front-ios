@@ -10,6 +10,8 @@
 #import "Championship.h"
 #import "Group.h"
 #import "GroupInfoViewController.h"
+#import "UIView+Frame.h"
+#import "UIView+Shake.h"
 
 @interface GroupInfoViewController ()
 
@@ -18,6 +20,8 @@
 #pragma mark GroupInfoViewController
 
 @implementation GroupInfoViewController
+
+static NSInteger kMaxGroupNameSize = 20;
 
 #pragma mark - Class Methods
 
@@ -76,9 +80,60 @@
     [self.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
 }
 
+- (void)updateLimitTextForLength:(NSInteger)length {
+    if (length == 1) {
+        self.nameSizeLimitLabel.text = NSLocalizedString(@"1 character left", @"");
+    } else {
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%i characters left", @"{number of characters} characters left"), length];
+    }
+}
+
 #pragma mark - Delegates & Data sources
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self updateLimitTextForLength:kMaxGroupNameSize - self.nameTextField.text.length];
+    
+    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        self.nameSizeLimitLabel.alpha = 1.0;
+        self.nameTextField.frameY = 123;
+    }];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSInteger size = kMaxGroupNameSize - [self.nameTextField.text stringByReplacingCharactersInRange:range withString:string].length;
+    if (size < 0) {
+        UIColor *originalColor = [UIColor colorWithRed:184/255.f green:191/255.f blue:186/255.f alpha:1.00];
+        [self.nameSizeLimitLabel shake];
+
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.1f;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionFade;
+        [self.nameSizeLimitLabel.layer addAnimation:transition forKey:nil];
+        self.nameSizeLimitLabel.textColor = [self.leaveGroupButton titleColorForState:UIControlStateNormal];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CATransition *transition = [CATransition animation];
+            transition.duration = 0.2f;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionFade;
+            [self.nameSizeLimitLabel.layer addAnimation:transition forKey:nil];
+            self.nameSizeLimitLabel.textColor = originalColor;
+        });
+
+        return NO;
+    }
+    
+    [self updateLimitTextForLength:size];
+    
+    return YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        self.nameSizeLimitLabel.alpha = 0;
+        self.nameTextField.frameY = 125;
+    }];
+    
     [textField resignFirstResponder];
     [self updateGroupName];
 }
@@ -123,6 +178,15 @@
     self.nameTextField.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
     self.nameTextField.delegate = self;
     [self.view addSubview:self.nameTextField];
+    
+    CGRect limitFrame = titleFrame;
+    limitFrame.origin.y += 25;
+    self.nameSizeLimitLabel = [[UILabel alloc] initWithFrame:limitFrame];
+    self.nameSizeLimitLabel.textAlignment = NSTextAlignmentCenter;
+    self.nameSizeLimitLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:12];
+    self.nameSizeLimitLabel.textColor = [UIColor colorWithRed:184/255.f green:191/255.f blue:186/255.f alpha:1.00];
+    self.nameSizeLimitLabel.alpha = 0;
+    [self.view addSubview:self.nameSizeLimitLabel];
 
     self.groupImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
     self.groupImageView.center = CGPointMake(CGRectGetMidX(titleView.frame), CGRectGetMinY(titleView.frame));
