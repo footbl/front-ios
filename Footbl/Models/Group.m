@@ -81,6 +81,13 @@
 
 - (void)saveWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
+        NSString *oldName = self.name.copy;
+        NSNumber *oldFreeToEdit = self.freeToEdit.copy;
+        
+        [self.editableManagedObjectContext performBlock:^{
+            SaveManagedObjectContext(self.editableManagedObjectContext);
+        }];
+        
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"name"] = self.name;
         parameters[@"freeToEdit"] = self.freeToEdit;
@@ -91,6 +98,10 @@
                 requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self.editableManagedObjectContext performBlock:^{
+                self.name = oldName;
+                self.freeToEdit = oldFreeToEdit;
+            }];
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
     } failure:failure];
