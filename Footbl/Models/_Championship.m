@@ -5,7 +5,9 @@
 
 const struct ChampionshipAttributes ChampionshipAttributes = {
 	.country = @"country",
+	.currentRound = @"currentRound",
 	.name = @"name",
+	.rounds = @"rounds",
 	.year = @"year",
 };
 
@@ -45,6 +47,16 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"currentRoundValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"currentRound"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"roundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"yearValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"year"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -64,8 +76,60 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic currentRound;
+
+
+
+- (int16_t)currentRoundValue {
+	NSNumber *result = [self currentRound];
+	return [result shortValue];
+}
+
+- (void)setCurrentRoundValue:(int16_t)value_ {
+	[self setCurrentRound:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveCurrentRoundValue {
+	NSNumber *result = [self primitiveCurrentRound];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveCurrentRoundValue:(int16_t)value_ {
+	[self setPrimitiveCurrentRound:[NSNumber numberWithShort:value_]];
+}
+
+
+
+
+
 @dynamic name;
 
+
+
+
+
+
+@dynamic rounds;
+
+
+
+- (int16_t)roundsValue {
+	NSNumber *result = [self rounds];
+	return [result shortValue];
+}
+
+- (void)setRoundsValue:(int16_t)value_ {
+	[self setRounds:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveRoundsValue {
+	NSNumber *result = [self primitiveRounds];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveRoundsValue:(int16_t)value_ {
+	[self setPrimitiveRounds:[NSNumber numberWithShort:value_]];
+}
 
 
 

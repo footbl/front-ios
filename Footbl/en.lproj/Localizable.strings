@@ -91,3 +91,27 @@
 /* Or */
 "Or" = "Or";
 
+/* Group Info */
+"Group Info" = "Group Info";
+
+/* Group */
+"Group" = "Group";
+
+/* Leave group */
+"Leave group" = "Leave group";
+
+/* Live - {time elapsed}' */
+"Live - %i'" = "Live - %i'";
+
+/* Logout */
+"Logout" = "Logout";
+
+/* {number of rounds} rounds to end */
+"%i rounds to end" = "%i rounds to end";
+
+/* 1 round to end */
+"1 round to end" = "1 round to end";
+
+/* Championship finished */
+"Championship finished" = "Championship finished";
+

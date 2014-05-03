@@ -84,9 +84,19 @@
     cell.nameLabel.text = group.name;
     cell.championshipLabel.text = group.championship.name;
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
+    switch (group.championship.pendingRounds.integerValue) {
+        case 0:
+            cell.roundsLabel.text = NSLocalizedString(@"Championship finished", @"");
+            break;
+        case 1:
+            cell.roundsLabel.text = NSLocalizedString(@"1 round to end", @"1 round to end");
+            break;
+        default:
+            cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%i rounds to end", @"{number of rounds} rounds to end"), group.championship.pendingRounds.integerValue];
+            break;
+    }
     
     // Just for testing
-    cell.roundsLabel.text = @"7 rounds to end";
     [cell.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
 }
 

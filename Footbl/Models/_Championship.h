@@ -6,7 +6,9 @@
 
 extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *country;
+	__unsafe_unretained NSString *currentRound;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *rounds;
 	__unsafe_unretained NSString *year;
 } ChampionshipAttributes;
 
@@ -24,6 +26,8 @@ extern const struct ChampionshipFetchedProperties {
 @class Group;
 @class Match;
 @class Wallet;
+
+
 
 
 
@@ -52,11 +56,39 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* currentRound;
+
+
+
+@property int16_t currentRoundValue;
+- (int16_t)currentRoundValue;
+- (void)setCurrentRoundValue:(int16_t)value_;
+
+//- (BOOL)validateCurrentRound:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* name;
 
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* rounds;
+
+
+
+@property int16_t roundsValue;
+- (int16_t)roundsValue;
+- (void)setRoundsValue:(int16_t)value_;
+
+//- (BOOL)validateRounds:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -135,8 +167,26 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+- (NSNumber*)primitiveCurrentRound;
+- (void)setPrimitiveCurrentRound:(NSNumber*)value;
+
+- (int16_t)primitiveCurrentRoundValue;
+- (void)setPrimitiveCurrentRoundValue:(int16_t)value_;
+
+
+
+
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveRounds;
+- (void)setPrimitiveRounds:(NSNumber*)value;
+
+- (int16_t)primitiveRoundsValue;
+- (void)setPrimitiveRoundsValue:(int16_t)value_;
 
 
 

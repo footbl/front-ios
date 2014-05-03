@@ -26,6 +26,10 @@
 
 #pragma mark - Instance Methods
 
+- (NSNumber *)pendingRounds {
+    return @(self.roundsValue - (self.currentRoundValue - 1));
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
@@ -36,6 +40,8 @@
     } else {
         self.year = nil;
     }
+    self.currentRound = data[@"currentRound"];
+    self.rounds = data[@"rounds"];
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
         [object addChampionshipsObject:self];

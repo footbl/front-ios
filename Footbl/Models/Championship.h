@@ -10,4 +10,6 @@
 
 @interface Championship : _Championship
 
+- (NSNumber *)pendingRounds;
+
 @end
