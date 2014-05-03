@@ -109,6 +109,11 @@
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
+        [self.editableManagedObjectContext performBlock:^{
+            self.editableObject.removed = @YES;
+            SaveManagedObjectContext(self.editableManagedObjectContext);
+        }];
+        
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] DELETE:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
@@ -117,6 +122,10 @@
                 requestSucceedWithBlock(operation, parameters, success);
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self.editableManagedObjectContext performBlock:^{
+                self.editableObject.removed = @NO;
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+            }];
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
     } failure:failure];

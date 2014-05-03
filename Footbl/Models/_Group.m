@@ -7,6 +7,7 @@ const struct GroupAttributes GroupAttributes = {
 	.freeToEdit = @"freeToEdit",
 	.isNew = @"isNew",
 	.name = @"name",
+	.removed = @"removed",
 };
 
 const struct GroupRelationships GroupRelationships = {
@@ -51,6 +52,11 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	}
 	if ([key isEqualToString:@"isNewValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isNew"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"removedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"removed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -115,6 +121,32 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 @dynamic name;
 
+
+
+
+
+
+@dynamic removed;
+
+
+
+- (BOOL)removedValue {
+	NSNumber *result = [self removed];
+	return [result boolValue];
+}
+
+- (void)setRemovedValue:(BOOL)value_ {
+	[self setRemoved:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveRemovedValue {
+	NSNumber *result = [self primitiveRemoved];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveRemovedValue:(BOOL)value_ {
+	[self setPrimitiveRemoved:[NSNumber numberWithBool:value_]];
+}
 
 
 
