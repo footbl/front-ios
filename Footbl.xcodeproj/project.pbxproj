@@ -14,6 +14,8 @@
 		ED2D1C4D1915614200F1BC81 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
 		ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
 		ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
+		ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
+		ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
 		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
@@ -104,6 +106,10 @@
 		ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGroupViewController.m; sourceTree = "<group>"; };
 		ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoBaseViewController.h; sourceTree = "<group>"; };
 		ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoBaseViewController.m; sourceTree = "<group>"; };
+		ED2D1C571915848100F1BC81 /* GroupChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipsViewController.h; sourceTree = "<group>"; };
+		ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipsViewController.m; sourceTree = "<group>"; };
+		ED2D1C5A191588D100F1BC81 /* GroupAddMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMembersViewController.h; sourceTree = "<group>"; };
+		ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMembersViewController.m; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
@@ -259,6 +265,34 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		ED2D1C5D19158A7300F1BC81 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				ED2D1C5A191588D100F1BC81 /* GroupAddMembersViewController.h */,
+				ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */,
+				ED2D1C571915848100F1BC81 /* GroupChampionshipsViewController.h */,
+				ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */,
+				ED2D1C4E191566DC00F1BC81 /* NewGroupViewController.h */,
+				ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */,
+			);
+			name = Create;
+			sourceTree = "<group>";
+		};
+		ED2D1C5E19158A8A00F1BC81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EDC5F52119142241005757EB /* GroupDetailViewController.h */,
+				EDC5F52219142241005757EB /* GroupDetailViewController.m */,
+				ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */,
+				ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */,
+				EDC5F52419143F83005757EB /* GroupInfoViewController.h */,
+				EDC5F52519143F83005757EB /* GroupInfoViewController.m */,
+				ED81E81D18EA6A3900212D3C /* GroupsViewController.h */,
+				ED81E81E18EA6A3900212D3C /* GroupsViewController.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		ED81E82618EA705E00212D3C /* Template */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,16 +327,8 @@
 		ED81E82918EA708B00212D3C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				EDC5F52119142241005757EB /* GroupDetailViewController.h */,
-				EDC5F52219142241005757EB /* GroupDetailViewController.m */,
-				ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */,
-				ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */,
-				EDC5F52419143F83005757EB /* GroupInfoViewController.h */,
-				EDC5F52519143F83005757EB /* GroupInfoViewController.m */,
-				ED81E81D18EA6A3900212D3C /* GroupsViewController.h */,
-				ED81E81E18EA6A3900212D3C /* GroupsViewController.m */,
-				ED2D1C4E191566DC00F1BC81 /* NewGroupViewController.h */,
-				ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */,
+				ED2D1C5D19158A7300F1BC81 /* Create */,
+				ED2D1C5E19158A8A00F1BC81 /* View */,
 			);
 			name = Groups;
 			sourceTree = "<group>";
@@ -792,6 +818,7 @@
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
+				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,
 				EDC5F52619143F83005757EB /* GroupInfoViewController.m in Sources */,
 				ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */,
@@ -799,6 +826,7 @@
 				ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
+				ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */,
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
