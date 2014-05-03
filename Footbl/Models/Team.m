@@ -20,11 +20,20 @@
 
 #pragma mark - Instance Methods
 
+- (NSString *)displayName {
+    if (self.acronym && self.acronym.length > 0) {
+        return self.acronym;
+    }
+    
+    return self.name;
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
     self.name = data[@"name"];
     self.picture = data[@"picture"];
+    self.acronym = data[@"acronym"];
 }
 
 @end

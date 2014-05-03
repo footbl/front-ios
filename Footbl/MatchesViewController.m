@@ -76,12 +76,12 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.hostNameLabel.text = match.host.name;
+    cell.hostNameLabel.text = match.host.displayName;
     cell.hostPotLabel.text = @"0";
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
     [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
     cell.drawPotLabel.text = @"0";
-    cell.guestNameLabel.text = match.guest.name;
+    cell.guestNameLabel.text = match.guest.displayName;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     cell.guestPotLabel.text = @"0";

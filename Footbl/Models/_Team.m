@@ -4,6 +4,7 @@
 #import "_Team.h"
 
 const struct TeamAttributes TeamAttributes = {
+	.acronym = @"acronym",
 	.name = @"name",
 	.picture = @"picture",
 };
@@ -46,6 +47,13 @@ const struct TeamFetchedProperties TeamFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic acronym;
+
+
 
 
 

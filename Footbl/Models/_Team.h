@@ -5,6 +5,7 @@
 #import "FootblModel.h"
 
 extern const struct TeamAttributes {
+	__unsafe_unretained NSString *acronym;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 } TeamAttributes;
@@ -25,6 +26,7 @@ extern const struct TeamFetchedProperties {
 
 
 
+
 @interface TeamID : NSManagedObjectID {}
 @end
 
@@ -33,6 +35,16 @@ extern const struct TeamFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (TeamID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* acronym;
+
+
+
+//- (BOOL)validateAcronym:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -102,6 +114,12 @@ extern const struct TeamFetchedProperties {
 @end
 
 @interface _Team (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveAcronym;
+- (void)setPrimitiveAcronym:(NSString*)value;
+
+
 
 
 - (NSString*)primitiveName;

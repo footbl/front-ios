@@ -10,6 +10,7 @@
 
 @interface Team : _Team
 
+- (NSString *)displayName;
 - (void)updateWithData:(NSDictionary *)data;
 
 @end
