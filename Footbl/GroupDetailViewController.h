@@ -13,5 +13,6 @@
 @interface GroupDetailViewController : TemplateViewController
 
 @property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) UIButton *rightNavigationBarButton;
 
 @end
