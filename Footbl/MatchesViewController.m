@@ -165,7 +165,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     }
     
     cell.selectionBlock = ^(NSInteger index){
-        if (match.isBetSyncing) {
+        if (match.isBetSyncing || match.finishedValue || match.elapsed) {
             return;
         }
         
