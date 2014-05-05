@@ -48,6 +48,7 @@
 		ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8EB18E3330D00DF458C /* Comment.m */; };
 		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
+		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
 		EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D46818E1F18B00E0C949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -174,6 +175,8 @@
 		ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		ED9F07921909C05900C8AC71 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ED9F07931909C05900C8AC71 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
+		EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMemberTableViewCell.m; sourceTree = "<group>"; };
 		EDB1D46218E1F18B00E0C949 /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -359,6 +362,8 @@
 		ED81E83518EA73F100212D3C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
+				EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */,
+				EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */,
 				ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */,
 				ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */,
 				ED81E83218EA724C00212D3C /* GroupTableViewCell.h */,
@@ -813,6 +818,7 @@
 				EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */,
 				ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */,
 				ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */,
+				EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */,
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
 				ED2D1C6119158B2700F1BC81 /* GroupChampionshipTableViewCell.m in Sources */,
 				EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */,

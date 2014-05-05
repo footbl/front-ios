@@ -10,9 +10,12 @@
 
 @class Championship;
 
-@interface GroupAddMembersViewController : TemplateViewController
+@interface GroupAddMembersViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) Championship *championship;
 @property (copy, nonatomic) NSString *groupName;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 
 @end
