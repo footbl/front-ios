@@ -10,3 +10,6 @@ pod 'TransformerKit'
 
 # Security
 pod 'FXKeychain'
+
+# Utilities
+pod 'APAddressBook'
