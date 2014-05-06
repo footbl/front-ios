@@ -10,4 +10,6 @@
 
 @interface LoginViewController : TemplateViewController
 
+@property (strong, nonatomic) UIImageView *backgroundImageView;
+
 @end

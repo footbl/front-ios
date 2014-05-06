@@ -29,9 +29,16 @@
     
 }
 
-- (IBAction)signupAction:(id)sender {
-    LoginViewController *loginViewController = [LoginViewController new];
-    [self.navigationController pushViewController:loginViewController animated:YES];
+- (IBAction)signupAction:(UIButton *)sender {
+    UIColor *normalColor = [sender titleColorForState:UIControlStateNormal];
+    [sender setTitleColor:[sender titleColorForState:UIControlStateHighlighted] forState:UIControlStateNormal];
+    
+    [self setSubviewsHidden:YES animated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        LoginViewController *loginViewController = [LoginViewController new];
+        [self.navigationController pushViewController:loginViewController animated:NO];
+        [sender setTitleColor:normalColor forState:UIControlStateNormal];
+    });
 }
 
 - (IBAction)skipLoginAction:(id)sender {
@@ -48,6 +55,16 @@
     }];
 }
 
+- (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
+    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+        for (UIView *view in self.view.subviews) {
+            if (view != self.backgroundImageView) {
+                view.alpha = !hidden;
+            }
+        }
+    }];
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - View Lifecycle
@@ -57,10 +74,10 @@
     
     self.navigationController.viewControllers = @[self];
     
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundImageView.image = [UIImage imageNamed:@"signup_bg"];
-    backgroundImageView.contentMode = UIViewContentModeTop;
-    [self.view addSubview:backgroundImageView];
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.backgroundImageView.image = [UIImage imageNamed:@"signup_bg"];
+    self.backgroundImageView.contentMode = UIViewContentModeTop;
+    [self.view addSubview:self.backgroundImageView];
     
     UIButton *signupButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 210, CGRectGetWidth(self.view.bounds), 52)];
     [signupButton setTitle:NSLocalizedString(@"Sign up", @"") forState:UIControlStateNormal];
@@ -112,11 +129,7 @@
     [skipLoginButton addTarget:self action:@selector(skipLoginAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:skipLoginButton];
     
-    for (UIView *view in self.view.subviews) {
-        if (view != backgroundImageView) {
-            view.alpha = 0;
-        }
-    }
+    [self setSubviewsHidden:YES animated:NO];
 }
 
 - (void)viewDidLoad {
@@ -133,11 +146,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        for (UIView *view in self.view.subviews) {
-            view.alpha = 1;
-        }
-    } completion:nil];
+    [self setSubviewsHidden:NO animated:YES];
 }
 
 - (BOOL)prefersStatusBarHidden {

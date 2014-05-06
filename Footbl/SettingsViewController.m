@@ -9,6 +9,7 @@
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
+#import "FootblNavigationController.h"
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
@@ -104,7 +105,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)logoutAction:(id)sender {
     AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:authenticationViewController];
+    FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
     [self presentViewController:navigationController animated:YES completion:^{
         [[FootblAPI sharedAPI] logout];
     }];
