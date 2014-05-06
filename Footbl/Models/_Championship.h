@@ -7,9 +7,9 @@
 extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *currentRound;
+	__unsafe_unretained NSString *edition;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *rounds;
-	__unsafe_unretained NSString *year;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
@@ -70,6 +70,20 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* edition;
+
+
+
+@property int16_t editionValue;
+- (int16_t)editionValue;
+- (void)setEditionValue:(int16_t)value_;
+
+//- (BOOL)validateEdition:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* name;
 
 
@@ -89,20 +103,6 @@ extern const struct ChampionshipFetchedProperties {
 - (void)setRoundsValue:(int16_t)value_;
 
 //- (BOOL)validateRounds:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* year;
-
-
-
-@property int16_t yearValue;
-- (int16_t)yearValue;
-- (void)setYearValue:(int16_t)value_;
-
-//- (BOOL)validateYear:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -176,6 +176,15 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+- (NSNumber*)primitiveEdition;
+- (void)setPrimitiveEdition:(NSNumber*)value;
+
+- (int16_t)primitiveEditionValue;
+- (void)setPrimitiveEditionValue:(int16_t)value_;
+
+
+
+
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
 
@@ -187,15 +196,6 @@ extern const struct ChampionshipFetchedProperties {
 
 - (int16_t)primitiveRoundsValue;
 - (void)setPrimitiveRoundsValue:(int16_t)value_;
-
-
-
-
-- (NSNumber*)primitiveYear;
-- (void)setPrimitiveYear:(NSNumber*)value;
-
-- (int16_t)primitiveYearValue;
-- (void)setPrimitiveYearValue:(int16_t)value_;
 
 
 

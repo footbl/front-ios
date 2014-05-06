@@ -53,8 +53,8 @@
         championshipName = @"";
     }
     NSString *location = self.group.championship.country;
-    if (self.group.championship.year) {
-        location = [location stringByAppendingFormat:@", %@", self.group.championship.year.stringValue];
+    if (self.group.championship.edition) {
+        location = [location stringByAppendingFormat:@", %@", self.group.championship.edition.stringValue];
     }
     
     if (!location) {

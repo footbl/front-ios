@@ -35,10 +35,10 @@
     
     self.name = data[@"name"];
     self.country = data[@"country"];
-    if ([data[@"year"] isKindOfClass:[NSNumber class]]) {
-        self.year = data[@"year"];
+    if ([data[@"edition"] isKindOfClass:[NSNumber class]]) {
+        self.edition = data[@"edition"];
     } else {
-        self.year = nil;
+        self.edition = nil;
     }
     self.currentRound = data[@"currentRound"];
     self.rounds = data[@"rounds"];

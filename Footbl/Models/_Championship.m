@@ -6,9 +6,9 @@
 const struct ChampionshipAttributes ChampionshipAttributes = {
 	.country = @"country",
 	.currentRound = @"currentRound",
+	.edition = @"edition",
 	.name = @"name",
 	.rounds = @"rounds",
-	.year = @"year",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
@@ -52,13 +52,13 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"roundsValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
+	if ([key isEqualToString:@"editionValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"edition"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"yearValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"year"];
+	if ([key isEqualToString:@"roundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -102,6 +102,32 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic edition;
+
+
+
+- (int16_t)editionValue {
+	NSNumber *result = [self edition];
+	return [result shortValue];
+}
+
+- (void)setEditionValue:(int16_t)value_ {
+	[self setEdition:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveEditionValue {
+	NSNumber *result = [self primitiveEdition];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveEditionValue:(int16_t)value_ {
+	[self setPrimitiveEdition:[NSNumber numberWithShort:value_]];
+}
+
+
+
+
+
 @dynamic name;
 
 
@@ -129,32 +155,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 - (void)setPrimitiveRoundsValue:(int16_t)value_ {
 	[self setPrimitiveRounds:[NSNumber numberWithShort:value_]];
-}
-
-
-
-
-
-@dynamic year;
-
-
-
-- (int16_t)yearValue {
-	NSNumber *result = [self year];
-	return [result shortValue];
-}
-
-- (void)setYearValue:(int16_t)value_ {
-	[self setYear:[NSNumber numberWithShort:value_]];
-}
-
-- (int16_t)primitiveYearValue {
-	NSNumber *result = [self primitiveYear];
-	return [result shortValue];
-}
-
-- (void)setPrimitiveYearValue:(int16_t)value_ {
-	[self setPrimitiveYear:[NSNumber numberWithShort:value_]];
 }
 
 
