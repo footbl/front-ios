@@ -7,6 +7,7 @@
 //
 
 #import <Crashlytics/Crashlytics.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
 #import "FootblAPI.h"
@@ -111,6 +112,10 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 - (void)saveBackgroundContext {

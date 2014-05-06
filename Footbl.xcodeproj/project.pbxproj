@@ -49,6 +49,7 @@
 		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
+		EDAE5BC31917E9B500DFB8D3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */; };
 		EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D46818E1F18B00E0C949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -177,6 +178,7 @@
 		ED9F07931909C05900C8AC71 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
 		EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMemberTableViewCell.m; sourceTree = "<group>"; };
+		EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		EDB1D46218E1F18B00E0C949 /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -245,6 +247,7 @@
 				EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */,
 				ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */,
 				4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */,
+				EDAE5BC31917E9B500DFB8D3 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,13 +476,14 @@
 		EDB1D46418E1F18B00E0C949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */,
-				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
-				EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */,
-				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
 				EDB1D46B18E1F18B00E0C949 /* CoreData.framework */,
-				EDB1D48318E1F18B00E0C949 /* XCTest.framework */,
+				EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */,
+				ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */,
+				EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */,
+				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
 				367ED0AE31BD4C60B34A5B8E /* libPods.a */,
+				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
+				EDB1D48318E1F18B00E0C949 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
