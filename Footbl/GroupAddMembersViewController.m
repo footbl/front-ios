@@ -8,6 +8,9 @@
 
 #import <APAddressBook/APAddressBook.h>
 #import <APAddressBook/APContact.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/SPHipster.h>
 #import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupAddMemberTableViewCell.h"
@@ -16,6 +19,7 @@
 
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) NSArray *addressBookDataSource;
+@property (strong, nonatomic) NSArray *facebookDataSource;
 @property (strong, nonatomic) NSArray *footblDataSource;
 @property (strong, nonatomic) NSMutableSet *selectedMembers;
 
@@ -51,6 +55,31 @@
     return _addressBookDataSource;
 }
 
+- (NSArray *)facebookDataSource {
+    if (!_facebookDataSource) {
+        _facebookDataSource = @[];
+
+        NSString *graphPath = @"me/taggable_friends?fields=name,picture.type(normal)";
+        if ([FBSession activeSession].isOpen) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            [self getFBFriends:graphPath];
+        } else {
+            [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                if (error) {
+                    SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+                    [alertView show];
+                } else {
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+                    [self getFBFriends:graphPath];
+                }
+            }];
+        }
+    }
+    
+    return _facebookDataSource;
+}
+
 - (NSArray *)footblDataSource {
     if (!_footblDataSource) {
         _footblDataSource = @[@{@"name" : @"Carlo Dapuzzo", @"username" : @"dapuzzo"},
@@ -76,7 +105,7 @@
                 _dataSource = self.addressBookDataSource;
                 break;
             default:
-                _dataSource = @[];
+                _dataSource = self.facebookDataSource;
                 break;
         }
     }
@@ -88,11 +117,32 @@
 
 - (IBAction)segmentedControlAction:(id)sender {
     self.dataSource = nil;
+    if (self.searchBar.text.length > 0) {
+        [self searchBar:self.searchBar textDidChange:self.searchBar.text];
+    }
     [self.searchBar resignFirstResponder];
     [self.tableView reloadData];
 }
 
+- (void)getFBFriends:(NSString *)graphPath {
+    FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession graphPath:graphPath];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        self.facebookDataSource = [[self.facebookDataSource arrayByAddingObjectsFromArray:result[@"data"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+        self.dataSource = nil;
+        [self.tableView reloadData];
+        
+        if (result[@"paging"][@"next"]) {
+            NSString *nextPath = [@"me" stringByAppendingPathComponent:[result[@"paging"][@"next"] lastPathComponent]];
+            [self getFBFriends:nextPath];
+        } else {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
+    }];
+}
+
 - (void)configureCell:(GroupAddMemberTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    [cell restoreFrames];
+    
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
             cell.usernameLabel.text = self.dataSource[indexPath.row][@"username"];
@@ -110,6 +160,18 @@
             }
             break;
         }
+        case 2:
+            cell.usernameLabel.text = self.dataSource[indexPath.row][@"name"];
+            CGRect usernameFrame = cell.usernameLabel.frame;
+            usernameFrame.origin.y += 8;
+            cell.usernameLabel.frame = usernameFrame;
+            cell.nameLabel.text = @"";
+            if ([self.dataSource[indexPath.row][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+                [cell restoreProfileImagePlaceholder];
+            } else {
+                [cell.profileImageView setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+            }
+            break;
         default:
             break;
     }
@@ -165,6 +227,9 @@
                 break;
             case 1:
                 self.dataSource = [self.addressBookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"firstName CONTAINS[cd] %@ OR lastName CONTAINS[cd] %@ OR compositeName CONTAINS[cd] %@", text, text, text]];
+                break;
+            case 2:
+                self.dataSource = [self.facebookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", text]];
                 break;
             default:
                 break;

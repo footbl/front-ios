@@ -54,8 +54,19 @@
     return self;
 }
 
+- (void)restoreFrames {
+    self.usernameLabel.frame = CGRectMake(75, 14, 185, 22);
+    CGRect nameFrame = self.usernameLabel.frame;
+    nameFrame.origin.y += 19;
+    self.nameLabel.frame = nameFrame;
+}
+
 - (void)restoreProfileImagePlaceholder {
-    self.profileImageView.image = [UIImage imageNamed:@"avatarless_user"];
+    self.profileImageView.image = self.placeholderImage;
+}
+
+- (UIImage *)placeholderImage {
+    return [UIImage imageNamed:@"avatarless_user"];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

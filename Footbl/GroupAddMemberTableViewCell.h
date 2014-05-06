@@ -16,5 +16,7 @@
 @property (strong, nonatomic) UIButton *selectionButton;
 
 - (void)restoreProfileImagePlaceholder;
+- (UIImage *)placeholderImage;
+- (void)restoreFrames;
 
 @end
