@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <FacebookSDK/FacebookSDK.h>
+#import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
 #import "LoginViewController.h"
@@ -27,7 +29,31 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
+    self.view.userInteractionEnabled = NO;
     
+    [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (error) {
+            SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+            [alertView show];
+            self.view.userInteractionEnabled = YES;
+        } else {
+            [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                [self setSubviewsHidden:YES animated:YES];
+                if (result) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        SignupViewController *signupViewController = [SignupViewController new];
+                        signupViewController.email = result[@"email"];
+                        signupViewController.password = result[@"id"];
+                        signupViewController.passwordConfirmation = result[@"id"];
+                        signupViewController.completionBlock = self.completionBlock;
+                        [self.navigationController pushViewController:signupViewController animated:NO];
+                    });
+                }
+                self.view.userInteractionEnabled = YES;
+            }];
+        }
+    }];
 }
 
 - (IBAction)loginAction:(UIButton *)sender {
