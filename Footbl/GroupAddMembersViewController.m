@@ -22,6 +22,9 @@
 @property (strong, nonatomic) NSArray *facebookDataSource;
 @property (strong, nonatomic) NSArray *footblDataSource;
 @property (strong, nonatomic) NSMutableSet *selectedMembers;
+@property (strong, nonatomic) NSMutableSet *footblSelectedMembers;
+@property (strong, nonatomic) NSMutableSet *facebookSelectedMembers;
+@property (strong, nonatomic) NSMutableSet *addressBookSelectedMembers;
 
 @end
 
@@ -59,7 +62,7 @@
     if (!_facebookDataSource) {
         _facebookDataSource = @[];
 
-        NSString *graphPath = @"me/taggable_friends?fields=name,picture.type(normal)";
+        NSString *graphPath = @"me/invitable_friends?fields=name,picture.type(normal)";
         if ([FBSession activeSession].isOpen) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             [self getFBFriends:graphPath];
@@ -182,6 +185,17 @@
 }
 
 - (IBAction)createAction:(id)sender {
+    NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
+    [[self.facebookSelectedMembers.allObjects valueForKeyPath:@"id"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        fbParamsDictionary[[NSString stringWithFormat:@"to[%i]", idx]] = obj;
+    }];
+    
+    [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook group invitation message", @"") title:NSLocalizedString(@"Facebook group invitation title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+        if (error) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }];
+    
     [Group createWithChampionship:self.championship name:self.groupName success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -208,10 +222,32 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.selectedMembers addObject:self.dataSource[indexPath.row]];
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0:
+            [self.footblSelectedMembers addObject:self.dataSource[indexPath.row]];
+            break;
+        case 1:
+            [self.addressBookSelectedMembers addObject:self.dataSource[indexPath.row]];
+            break;
+        case 2:
+            [self.facebookSelectedMembers addObject:self.dataSource[indexPath.row]];
+            break;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0:
+            [self.footblSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            break;
+        case 1:
+            [self.addressBookSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            break;
+        case 2:
+            [self.facebookSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            break;
+    }
 }
 
 #pragma mark - UISearchBar delegate
@@ -254,6 +290,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Create", @"") style:UIBarButtonItemStylePlain target:self action:@selector(createAction:)];
     
     self.selectedMembers = [NSMutableSet new];
+    self.addressBookSelectedMembers = [NSMutableSet new];
+    self.footblSelectedMembers = [NSMutableSet new];
+    self.facebookSelectedMembers = [NSMutableSet new];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
