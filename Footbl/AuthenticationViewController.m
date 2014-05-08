@@ -9,6 +9,7 @@
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
 #import "LoginViewController.h"
+#import "SignupViewController.h"
 #import "UIView+Frame.h"
 
 @interface AuthenticationViewController ()
@@ -29,14 +30,28 @@
     
 }
 
-- (IBAction)signupAction:(UIButton *)sender {
+- (IBAction)loginAction:(UIButton *)sender {
     UIColor *normalColor = [sender titleColorForState:UIControlStateNormal];
     [sender setTitleColor:[sender titleColorForState:UIControlStateHighlighted] forState:UIControlStateNormal];
     
     [self setSubviewsHidden:YES animated:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         LoginViewController *loginViewController = [LoginViewController new];
+        loginViewController.completionBlock = self.completionBlock;
         [self.navigationController pushViewController:loginViewController animated:NO];
+        [sender setTitleColor:normalColor forState:UIControlStateNormal];
+    });
+}
+
+- (IBAction)signupAction:(UIButton *)sender {
+    UIColor *normalColor = [sender titleColorForState:UIControlStateNormal];
+    [sender setTitleColor:[sender titleColorForState:UIControlStateHighlighted] forState:UIControlStateNormal];
+    
+    [self setSubviewsHidden:YES animated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        SignupViewController *signupViewController = [SignupViewController new];
+        signupViewController.completionBlock = self.completionBlock;
+        [self.navigationController pushViewController:signupViewController animated:NO];
         [sender setTitleColor:normalColor forState:UIControlStateNormal];
     });
 }
@@ -121,13 +136,21 @@
     [facebookButton addTarget:self action:@selector(facebookAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:facebookButton];
     
-    UIButton *skipLoginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 62, CGRectGetWidth(self.view.bounds), 52)];
+    UIButton *skipLoginButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds) / 2, CGRectGetHeight(self.view.bounds) - 62, CGRectGetWidth(self.view.bounds) / 2, 52)];
     [skipLoginButton setTitle:NSLocalizedString(@"Skip for now", @"") forState:UIControlStateNormal];
     [skipLoginButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
     [skipLoginButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     skipLoginButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [skipLoginButton addTarget:self action:@selector(skipLoginAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:skipLoginButton];
+    
+    UIButton *signinButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 62, CGRectGetWidth(self.view.bounds) / 2, 52)];
+    [signinButton setTitle:NSLocalizedString(@"Sign in", @"") forState:UIControlStateNormal];
+    [signinButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.8] forState:UIControlStateNormal];
+    [signinButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    signinButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [signinButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:signinButton];
     
     [self setSubviewsHidden:YES animated:NO];
 }

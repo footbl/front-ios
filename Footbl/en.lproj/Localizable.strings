@@ -159,3 +159,36 @@
 /* Type a friend's name */
 "Type a friend's name" = "Type a friend's name";
 
+/* Continue */
+"Continue" = "Continue";
+
+/* Sign up text: email */
+"Sign up text: email" = "Hello!\nPlease insert your email.";
+
+/* Sign up text: password confirmation */
+"Sign up text: password confirmation" = "Thanks!\nPlease confirm your password.";
+
+/* Sign up text: password */
+"Sign up text: password" = "Awesome!\nPlease type a password.";
+
+/* Sign up text: username */
+"Sign up text: username" = "Almost done!\nPlease insert your username.";
+
+/* Sign up text: email hint */
+"Sign up text: email hint" = "This doesn't appear to be an email address...are you sure about that?";
+
+/* Sign up text: password confirmation hint */
+"Sign up text: password confirmation hint" = "Passwords don't match...weird!";
+
+/* Sign up text: password hint */
+"Sign up text: password hint" = "Make sure it's at least 6 characters.";
+
+/* Login text: welcome back */
+"Login text: welcome back" = "Welcome back!\n";
+
+/* Sign in */
+"Sign in" = "Sign in";
+
+/* No comment provided by engineer. */
+"Sign up text: username hint" = "Sign up text: username hint";
+

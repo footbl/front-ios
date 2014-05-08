@@ -303,6 +303,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self loginWithEmail:email identifier:nil password:password success:^{
         self.userEmail = email;
         self.userPassword = password;
+        if (success) success();
     } failure:failure];
 }
 

@@ -33,6 +33,7 @@ extern NSString * const kFontNameBlack;
 extern NSString * const kFontNameLight;
 extern NSString * const kFontNameMedium;
 extern NSString * const kFontNameSystemLight;
+extern NSString * const kFontNameSystemMedium;
 
 @interface FootblAppearance : NSObject
 

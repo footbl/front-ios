@@ -14,6 +14,7 @@ NSString * const kFontNameBlack = @"Avenir-Black";
 NSString * const kFontNameLight = @"Avenir-Light";
 NSString * const kFontNameMedium = @"Avenir-Medium";
 NSString * const kFontNameSystemLight = @"HelveticaNeue-Light";
+NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 
 #pragma mark FootblAppearance
 

@@ -50,6 +50,9 @@
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
 		EDAE5BC31917E9B500DFB8D3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */; };
+		EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
+		EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
+		EDAF0EA3191BC7E3005218FB /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
 		EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D46818E1F18B00E0C949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -179,6 +182,12 @@
 		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
 		EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMemberTableViewCell.m; sourceTree = "<group>"; };
 		EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		EDAF0E9B191AB8FE005218FB /* NSString+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Validations.h"; sourceTree = "<group>"; };
+		EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Validations.m"; sourceTree = "<group>"; };
+		EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Shake.h"; sourceTree = "<group>"; };
+		EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Shake.m"; sourceTree = "<group>"; };
+		EDAF0EA1191BC7E3005218FB /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		EDAF0EA2191BC7E3005218FB /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		EDB1D46218E1F18B00E0C949 /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -409,6 +418,8 @@
 				ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */,
 				ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */,
 				ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */,
+				EDAF0EA1191BC7E3005218FB /* SignupViewController.h */,
+				EDAF0EA2191BC7E3005218FB /* SignupViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -540,10 +551,14 @@
 				EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */,
 				EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */,
 				EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */,
+				EDAF0E9B191AB8FE005218FB /* NSString+Validations.h */,
+				EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */,
 				EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */,
 				EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */,
 				ED493D3E190EF49900A7869B /* UILabel+MaxFontSize.h */,
 				ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */,
+				EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */,
+				EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */,
 				ED493D3B190EDF1300A7869B /* UIView+Frame.h */,
 				ED493D3C190EDF1300A7869B /* UIView+Frame.m */,
 				ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */,
@@ -835,6 +850,7 @@
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
+				EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,
 				EDC5F52619143F83005757EB /* GroupInfoViewController.m in Sources */,
 				ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */,
@@ -842,6 +858,7 @@
 				ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
+				EDAF0EA3191BC7E3005218FB /* SignupViewController.m in Sources */,
 				ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */,
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
@@ -853,6 +870,7 @@
 				ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
+				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
 				ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */,
 				EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */,
