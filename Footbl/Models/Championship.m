@@ -27,6 +27,10 @@
 #pragma mark - Instance Methods
 
 - (NSNumber *)pendingRounds {
+    if (!self.activeValue) {
+        return @0;
+    }
+    
     return @(self.roundsValue - (self.currentRoundValue - 1));
 }
 
@@ -40,7 +44,9 @@
     } else {
         self.edition = nil;
     }
+    self.active = data[@"active"];
     self.currentRound = data[@"currentRound"];
+    self.roundFinished = data[@"roundFinished"];
     self.rounds = data[@"rounds"];
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {

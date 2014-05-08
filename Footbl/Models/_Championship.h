@@ -5,10 +5,12 @@
 #import "FootblModel.h"
 
 extern const struct ChampionshipAttributes {
+	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *currentRound;
 	__unsafe_unretained NSString *edition;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *roundFinished;
 	__unsafe_unretained NSString *rounds;
 } ChampionshipAttributes;
 
@@ -33,6 +35,8 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+
+
 @interface ChampionshipID : NSManagedObjectID {}
 @end
 
@@ -41,6 +45,20 @@ extern const struct ChampionshipFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (ChampionshipID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* active;
+
+
+
+@property BOOL activeValue;
+- (BOOL)activeValue;
+- (void)setActiveValue:(BOOL)value_;
+
+//- (BOOL)validateActive:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -60,9 +78,9 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property int16_t currentRoundValue;
-- (int16_t)currentRoundValue;
-- (void)setCurrentRoundValue:(int16_t)value_;
+@property int64_t currentRoundValue;
+- (int64_t)currentRoundValue;
+- (void)setCurrentRoundValue:(int64_t)value_;
 
 //- (BOOL)validateCurrentRound:(id*)value_ error:(NSError**)error_;
 
@@ -74,9 +92,9 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property int16_t editionValue;
-- (int16_t)editionValue;
-- (void)setEditionValue:(int16_t)value_;
+@property int64_t editionValue;
+- (int64_t)editionValue;
+- (void)setEditionValue:(int64_t)value_;
 
 //- (BOOL)validateEdition:(id*)value_ error:(NSError**)error_;
 
@@ -94,13 +112,27 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* roundFinished;
+
+
+
+@property BOOL roundFinishedValue;
+- (BOOL)roundFinishedValue;
+- (void)setRoundFinishedValue:(BOOL)value_;
+
+//- (BOOL)validateRoundFinished:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* rounds;
 
 
 
-@property int16_t roundsValue;
-- (int16_t)roundsValue;
-- (void)setRoundsValue:(int16_t)value_;
+@property int64_t roundsValue;
+- (int64_t)roundsValue;
+- (void)setRoundsValue:(int64_t)value_;
 
 //- (BOOL)validateRounds:(id*)value_ error:(NSError**)error_;
 
@@ -161,6 +193,15 @@ extern const struct ChampionshipFetchedProperties {
 @interface _Championship (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSNumber*)primitiveActive;
+- (void)setPrimitiveActive:(NSNumber*)value;
+
+- (BOOL)primitiveActiveValue;
+- (void)setPrimitiveActiveValue:(BOOL)value_;
+
+
+
+
 - (NSString*)primitiveCountry;
 - (void)setPrimitiveCountry:(NSString*)value;
 
@@ -170,8 +211,8 @@ extern const struct ChampionshipFetchedProperties {
 - (NSNumber*)primitiveCurrentRound;
 - (void)setPrimitiveCurrentRound:(NSNumber*)value;
 
-- (int16_t)primitiveCurrentRoundValue;
-- (void)setPrimitiveCurrentRoundValue:(int16_t)value_;
+- (int64_t)primitiveCurrentRoundValue;
+- (void)setPrimitiveCurrentRoundValue:(int64_t)value_;
 
 
 
@@ -179,8 +220,8 @@ extern const struct ChampionshipFetchedProperties {
 - (NSNumber*)primitiveEdition;
 - (void)setPrimitiveEdition:(NSNumber*)value;
 
-- (int16_t)primitiveEditionValue;
-- (void)setPrimitiveEditionValue:(int16_t)value_;
+- (int64_t)primitiveEditionValue;
+- (void)setPrimitiveEditionValue:(int64_t)value_;
 
 
 
@@ -191,11 +232,20 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+- (NSNumber*)primitiveRoundFinished;
+- (void)setPrimitiveRoundFinished:(NSNumber*)value;
+
+- (BOOL)primitiveRoundFinishedValue;
+- (void)setPrimitiveRoundFinishedValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitiveRounds;
 - (void)setPrimitiveRounds:(NSNumber*)value;
 
-- (int16_t)primitiveRoundsValue;
-- (void)setPrimitiveRoundsValue:(int16_t)value_;
+- (int64_t)primitiveRoundsValue;
+- (void)setPrimitiveRoundsValue:(int64_t)value_;
 
 
 

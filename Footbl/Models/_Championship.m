@@ -4,10 +4,12 @@
 #import "_Championship.h"
 
 const struct ChampionshipAttributes ChampionshipAttributes = {
+	.active = @"active",
 	.country = @"country",
 	.currentRound = @"currentRound",
 	.edition = @"edition",
 	.name = @"name",
+	.roundFinished = @"roundFinished",
 	.rounds = @"rounds",
 };
 
@@ -47,6 +49,11 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"activeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"active"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"currentRoundValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"currentRound"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -54,6 +61,11 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	}
 	if ([key isEqualToString:@"editionValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"edition"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"roundFinishedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"roundFinished"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -69,6 +81,32 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic active;
+
+
+
+- (BOOL)activeValue {
+	NSNumber *result = [self active];
+	return [result boolValue];
+}
+
+- (void)setActiveValue:(BOOL)value_ {
+	[self setActive:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveActiveValue {
+	NSNumber *result = [self primitiveActive];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveActiveValue:(BOOL)value_ {
+	[self setPrimitiveActive:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic country;
 
 
@@ -80,22 +118,22 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
-- (int16_t)currentRoundValue {
+- (int64_t)currentRoundValue {
 	NSNumber *result = [self currentRound];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setCurrentRoundValue:(int16_t)value_ {
-	[self setCurrentRound:[NSNumber numberWithShort:value_]];
+- (void)setCurrentRoundValue:(int64_t)value_ {
+	[self setCurrentRound:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int16_t)primitiveCurrentRoundValue {
+- (int64_t)primitiveCurrentRoundValue {
 	NSNumber *result = [self primitiveCurrentRound];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setPrimitiveCurrentRoundValue:(int16_t)value_ {
-	[self setPrimitiveCurrentRound:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveCurrentRoundValue:(int64_t)value_ {
+	[self setPrimitiveCurrentRound:[NSNumber numberWithLongLong:value_]];
 }
 
 
@@ -106,22 +144,22 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
-- (int16_t)editionValue {
+- (int64_t)editionValue {
 	NSNumber *result = [self edition];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setEditionValue:(int16_t)value_ {
-	[self setEdition:[NSNumber numberWithShort:value_]];
+- (void)setEditionValue:(int64_t)value_ {
+	[self setEdition:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int16_t)primitiveEditionValue {
+- (int64_t)primitiveEditionValue {
 	NSNumber *result = [self primitiveEdition];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setPrimitiveEditionValue:(int16_t)value_ {
-	[self setPrimitiveEdition:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveEditionValue:(int64_t)value_ {
+	[self setPrimitiveEdition:[NSNumber numberWithLongLong:value_]];
 }
 
 
@@ -135,26 +173,52 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic roundFinished;
+
+
+
+- (BOOL)roundFinishedValue {
+	NSNumber *result = [self roundFinished];
+	return [result boolValue];
+}
+
+- (void)setRoundFinishedValue:(BOOL)value_ {
+	[self setRoundFinished:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveRoundFinishedValue {
+	NSNumber *result = [self primitiveRoundFinished];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveRoundFinishedValue:(BOOL)value_ {
+	[self setPrimitiveRoundFinished:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic rounds;
 
 
 
-- (int16_t)roundsValue {
+- (int64_t)roundsValue {
 	NSNumber *result = [self rounds];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setRoundsValue:(int16_t)value_ {
-	[self setRounds:[NSNumber numberWithShort:value_]];
+- (void)setRoundsValue:(int64_t)value_ {
+	[self setRounds:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int16_t)primitiveRoundsValue {
+- (int64_t)primitiveRoundsValue {
 	NSNumber *result = [self primitiveRounds];
-	return [result shortValue];
+	return [result longLongValue];
 }
 
-- (void)setPrimitiveRoundsValue:(int16_t)value_ {
-	[self setPrimitiveRounds:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveRoundsValue:(int64_t)value_ {
+	[self setPrimitiveRounds:[NSNumber numberWithLongLong:value_]];
 }
 
 
