@@ -98,6 +98,31 @@
     }];
 }
 
+- (void)setFooterViewVisible:(BOOL)visible {
+    if (visible) {
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
+        UIButton *button = [[UIButton alloc] initWithFrame:footerView.frame];
+        button.backgroundColor = self.view.backgroundColor;
+        [button setImage:[UIImage imageNamed:@"groups_createnewgroup"] forState:UIControlStateNormal];
+        button.titleLabel.numberOfLines = 0;
+        
+        NSMutableAttributedString *buttonTitle = [NSMutableAttributedString new];
+        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button title", @"") attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16], NSForegroundColorAttributeName : [UIColor colorWithRed:137/255.f green:148/255.f blue:140/255.f alpha:1.00]}]];
+        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button subtitle", @"")attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:14], NSForegroundColorAttributeName : [UIColor colorWithRed:161/255.f green:170/255.f blue:163/255.f alpha:1.00]}]];
+        
+        [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
+        
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
+        [button addTarget:self action:@selector(newGroupAction:) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:button];
+        self.tableView.tableFooterView = footerView;
+    } else {
+        self.tableView.tableFooterView = nil;
+    }
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UITableView data source
@@ -157,11 +182,13 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 96;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.tableView registerClass:[GroupTableViewCell class] forCellReuseIdentifier:@"GroupCell"];
     [self.view addSubview:self.tableView];
+    
+    [self setFooterViewVisible:YES];
     
     [self reloadData];
     

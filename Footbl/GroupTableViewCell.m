@@ -58,6 +58,11 @@
         self.roundsLabel.textAlignment = self.championshipLabel.textAlignment;
         self.roundsLabel.textColor = self.championshipLabel.textColor;
         [self.contentView addSubview:self.roundsLabel];
+        
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 95.5, CGRectGetWidth(self.contentView.frame) - 15, 0.5)];
+        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:separatorView];
     }
     return self;
 }

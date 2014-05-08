@@ -4,11 +4,17 @@
   Created by Fernando Saragoça on 4/25/14.
   Copyright (c) 2014 made@sampa. All rights reserved. */
 
+/* Create your group button title */
+"Create your group button title" = "Create your own group";
+
 /* {number of stakes} stakes and {number of comments} comments */
 "%i stakes and %i comments" = "%1$i stakes and %2$i comments";
 
 /* Championships */
 "Championships" = "Championships";
+
+/* Create your group button subtitle */
+"Create your group button subtitle" = "Choose a league, bet against friends and prove who's the best!";
 
 /* Close tutorial */
 "Close tutorial" = "Close tutorial";
