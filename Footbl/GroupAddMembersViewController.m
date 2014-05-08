@@ -185,16 +185,18 @@
 }
 
 - (IBAction)createAction:(id)sender {
-    NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
-    [[self.facebookSelectedMembers.allObjects valueForKeyPath:@"id"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        fbParamsDictionary[[NSString stringWithFormat:@"to[%i]", idx]] = obj;
-    }];
-    
-    [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook group invitation message", @"") title:NSLocalizedString(@"Facebook group invitation title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-        if (error) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }];
+    if (self.facebookSelectedMembers.count > 0) {
+        NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
+        [[self.facebookSelectedMembers.allObjects valueForKeyPath:@"id"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            fbParamsDictionary[[NSString stringWithFormat:@"to[%lu]", (unsigned long)idx]] = obj;
+        }];
+        
+        [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook group invitation message", @"") title:NSLocalizedString(@"Facebook group invitation title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            }
+        }];
+    }
     
     [Group createWithChampionship:self.championship name:self.groupName success:nil failure:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
