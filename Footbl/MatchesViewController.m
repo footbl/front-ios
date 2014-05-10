@@ -365,11 +365,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (match.elapsed) {
-        return 433;
+        return 383;
     } else if (match.hostScore) {
-        return 406;
+        return 356;
     } else {
-        return 380;
+        return 330;
     }
 }
 

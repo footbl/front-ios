@@ -83,12 +83,12 @@ static CGFloat kDisabledAlpha = 0.4;
     
     switch (self.stateLayout) {
         case MatchTableViewCellStateLayoutWaiting:
-            self.cardContentView.frameHeight = 319;
+            self.cardContentView.frameHeight = 289;
             self.liveHeaderView.alpha = 0;
             self.cardContentView.layer.borderWidth = 0;
             
             [self setFirstSeparatorPosition:62];
-            [self setSecondSeparatorPosition:256];
+            [self setSecondSeparatorPosition:236];
             
             // Bets
             self.stakeValueLabel.frameY = 12;
@@ -111,23 +111,23 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
             // Images
-            self.versusLabel.frameY = 130;
+            self.versusLabel.frameY = 125;
             self.hostImageView.frameY = self.versusLabel.frameY;
             self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 256;
+            self.footerLabel.frameY = 236;
             break;
         case MatchTableViewCellStateLayoutLive:
-            self.cardContentView.frameHeight = 372;
+            self.cardContentView.frameHeight = 342;
             self.cardContentView.layer.borderWidth = 1;
             self.liveHeaderView.alpha = 1;
             
             CGFloat increment = 23;
             [self setFirstSeparatorPosition:62 + increment];
-            [self setSecondSeparatorPosition:256 + increment + increment + 7];
+            [self setSecondSeparatorPosition:236 + increment + increment + 7];
             
             // Bets
             self.stakeValueLabel.frameY = 12 + increment;
@@ -154,23 +154,23 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
             // Images
-            self.versusLabel.frameY = 130 + increment;
+            self.versusLabel.frameY = 125 + increment;
             self.hostImageView.frameY = self.versusLabel.frameY;
             self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 256 + increment;
+            self.footerLabel.frameY = 236 + increment;
             break;
         case MatchTableViewCellStateLayoutDone: {
-            self.cardContentView.frameHeight = 345;
+            self.cardContentView.frameHeight = 315;
             self.liveHeaderView.alpha = 0;
             self.cardContentView.layer.borderWidth = 0;
             
             CGFloat increment = 30;
             [self setFirstSeparatorPosition:62];
-            [self setSecondSeparatorPosition:256 + increment];
+            [self setSecondSeparatorPosition:236 + increment];
             
             // Bets
             self.stakeValueLabel.frameY = 12;
@@ -195,14 +195,14 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestNameLabel.frameY = self.hostNameLabel.frameY;
             
             // Images
-            self.versusLabel.frameY = 136 + increment;
+            self.versusLabel.frameY = 131 + increment;
             self.hostImageView.frameY = self.versusLabel.frameY;
             self.hostDisabledImageView.frameY = self.versusLabel.frameY;
             self.guestImageView.frameY = self.versusLabel.frameY;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 256 + increment;
+            self.footerLabel.frameY = 236 + increment;
             break;
         }
     }
@@ -363,7 +363,7 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.versusLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         // Footer
-        self.footerLabel = potLabel(CGRectMake(0, 256, 300, 63));
+        self.footerLabel = potLabel(CGRectMake(0, 256, 300, 53));
     }
     return self;
 }
