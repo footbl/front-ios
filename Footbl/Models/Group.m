@@ -84,19 +84,36 @@
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"groups/%@/members", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
-                membership.group = self;
-            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [self.managedObjectContext deleteObjects:untouchedObjects];
+    if (self.defaultChampionship) {
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            [[self API] GET:[NSString stringWithFormat:@"championships/%@/ranking", self.defaultChampionship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                SPLog(@"%@", responseObject);
+                [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
+                    membership.group = self;
+                } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                    [self.managedObjectContext deleteObjects:untouchedObjects];
+                }];
+                requestSucceedWithBlock(operation, parameters, success);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
             }];
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
+        } failure:failure];
+    } else {
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            [[self API] GET:[NSString stringWithFormat:@"groups/%@/members", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
+                    membership.group = self;
+                } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                    [self.managedObjectContext deleteObjects:untouchedObjects];
+                }];
+                requestSucceedWithBlock(operation, parameters, success);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
+        } failure:failure];
+    }
 }
 
 - (void)saveWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

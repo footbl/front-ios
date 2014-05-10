@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, FootblAnimation) {
 };
 
 extern NSString * const kFontNameAvenirNextDemiBold;
+extern NSString * const kFontNameAvenirNextMedium;
 extern NSString * const kFontNameAvenirNextRegular;
 extern NSString * const kFontNameBlack;
 extern NSString * const kFontNameLight;

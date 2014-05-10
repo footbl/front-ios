@@ -28,7 +28,10 @@
     } else {
         self.ranking = data[@"ranking"];
     }
-    self.user = [User findOrCreateByIdentifier:data[@"user"] inManagedObjectContext:self.managedObjectContext];
+    self.funds = data[@"funds"];
+    
+    self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    [self.user updateWithData:data[@"user"]];
 }
 
 @end

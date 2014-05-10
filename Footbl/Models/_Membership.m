@@ -4,6 +4,7 @@
 #import "_Membership.h"
 
 const struct MembershipAttributes MembershipAttributes = {
+	.funds = @"funds",
 	.ranking = @"ranking",
 };
 
@@ -41,6 +42,11 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"fundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"rankingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"ranking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -49,6 +55,32 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic funds;
+
+
+
+- (int64_t)fundsValue {
+	NSNumber *result = [self funds];
+	return [result longLongValue];
+}
+
+- (void)setFundsValue:(int64_t)value_ {
+	[self setFunds:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveFundsValue {
+	NSNumber *result = [self primitiveFunds];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveFundsValue:(int64_t)value_ {
+	[self setPrimitiveFunds:[NSNumber numberWithLongLong:value_]];
+}
+
 
 
 

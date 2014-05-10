@@ -60,6 +60,7 @@
         <relationship name="host" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="hostMatches" inverseEntity="Team" syncable="YES"/>
     </entity>
     <entity name="Membership" representedClassName="Membership" parentEntity="FootblModel" syncable="YES">
+        <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="group" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
         <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="memberships" inverseEntity="User" syncable="YES"/>
@@ -94,7 +95,7 @@
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="163"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
-        <element name="Membership" positionX="-18" positionY="126" width="128" height="88"/>
+        <element name="Membership" positionX="-18" positionY="126" width="128" height="105"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="103"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="148"/>

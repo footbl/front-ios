@@ -5,6 +5,7 @@
 #import "FootblModel.h"
 
 extern const struct MembershipAttributes {
+	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
 
@@ -21,6 +22,7 @@ extern const struct MembershipFetchedProperties {
 
 
 
+
 @interface MembershipID : NSManagedObjectID {}
 @end
 
@@ -29,6 +31,20 @@ extern const struct MembershipFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MembershipID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* funds;
+
+
+
+@property int64_t fundsValue;
+- (int64_t)fundsValue;
+- (void)setFundsValue:(int64_t)value_;
+
+//- (BOOL)validateFunds:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -70,6 +86,15 @@ extern const struct MembershipFetchedProperties {
 @end
 
 @interface _Membership (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveFunds;
+- (void)setPrimitiveFunds:(NSNumber*)value;
+
+- (int64_t)primitiveFundsValue;
+- (void)setPrimitiveFundsValue:(int64_t)value_;
+
+
 
 
 - (NSNumber*)primitiveRanking;
