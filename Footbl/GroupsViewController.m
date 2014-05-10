@@ -70,7 +70,6 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = group.name;
-    cell.championshipLabel.text = group.championship.name;
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
     switch (group.championship.pendingRounds.integerValue) {
         case 0:
@@ -82,6 +81,12 @@
         default:
             cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%i rounds to end", @"{number of rounds} rounds to end"), group.championship.pendingRounds.integerValue];
             break;
+    }
+    
+    if (group.defaultChampionship) {
+        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.defaultChampionship.country, group.defaultChampionship.edition.stringValue];
+    } else {
+        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.name, group.championship.edition.stringValue];
     }
     
     // Just for testing

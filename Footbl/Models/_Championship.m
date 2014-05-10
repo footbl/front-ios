@@ -15,6 +15,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
 	.competitors = @"competitors",
+	.defaultGroup = @"defaultGroup",
 	.groups = @"groups",
 	.matches = @"matches",
 	.wallet = @"wallet",
@@ -236,6 +237,10 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	[self didAccessValueForKey:@"competitors"];
 	return result;
 }
+	
+
+@dynamic defaultGroup;
+
 	
 
 @dynamic groups;

@@ -44,6 +44,24 @@
     } failure:failure];
 }
 
++ (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[[self class] resourcePath] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [untouchedObjects enumerateObjectsUsingBlock:^(Group *group, BOOL *stop) {
+                    if (!group.defaultChampionship) {
+                        [[self editableManagedObjectContext] deleteObject:group];
+                    }
+                }];
+                requestSucceedWithBlock(operation, parameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
@@ -115,6 +133,11 @@
             self.editableObject.removed = @YES;
             SaveManagedObjectContext(self.editableManagedObjectContext);
         }];
+        
+        if (self.defaultChampionship) {
+            if (success) success();
+            return;
+        }
         
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] DELETE:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

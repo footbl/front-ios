@@ -46,6 +46,7 @@
 
 - (void)reloadData {
     self.nameTextField.text = self.group.name;
+    self.nameTextField.userInteractionEnabled = self.group.freeToEditValue;
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
     NSString *championshipName = self.group.championship.name;

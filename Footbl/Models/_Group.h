@@ -13,6 +13,7 @@ extern const struct GroupAttributes {
 
 extern const struct GroupRelationships {
 	__unsafe_unretained NSString *championship;
+	__unsafe_unretained NSString *defaultChampionship;
 	__unsafe_unretained NSString *members;
 	__unsafe_unretained NSString *owner;
 } GroupRelationships;
@@ -20,6 +21,7 @@ extern const struct GroupRelationships {
 extern const struct GroupFetchedProperties {
 } GroupFetchedProperties;
 
+@class Championship;
 @class Championship;
 @class Membership;
 @class User;
@@ -101,6 +103,13 @@ extern const struct GroupFetchedProperties {
 
 
 
+@property (nonatomic, strong) Championship *defaultChampionship;
+
+//- (BOOL)validateDefaultChampionship:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) NSSet *members;
 
 - (NSMutableSet*)membersSet;
@@ -166,6 +175,11 @@ extern const struct GroupFetchedProperties {
 
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
+
+
+
+- (Championship*)primitiveDefaultChampionship;
+- (void)setPrimitiveDefaultChampionship:(Championship*)value;
 
 
 

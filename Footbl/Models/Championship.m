@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Championship.h"
+#import "Group.h"
 #import "Team.h"
 
 @interface Championship ()
@@ -48,6 +49,16 @@
     self.currentRound = data[@"currentRound"];
     self.roundFinished = data[@"roundFinished"];
     self.rounds = data[@"rounds"];
+    
+    if (self.activeValue) {
+        self.defaultGroup = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
+        self.defaultGroup.championship = self;
+        self.defaultGroup.name = self.name;
+        self.defaultGroup.freeToEdit = @NO;
+        self.defaultGroup.owner = nil;
+    } else if (self.defaultGroup) {
+        [self.managedObjectContext deleteObject:self.defaultGroup];
+    }
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
         [object addChampionshipsObject:self];

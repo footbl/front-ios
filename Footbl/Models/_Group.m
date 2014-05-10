@@ -12,6 +12,7 @@ const struct GroupAttributes GroupAttributes = {
 
 const struct GroupRelationships GroupRelationships = {
 	.championship = @"championship",
+	.defaultChampionship = @"defaultChampionship",
 	.members = @"members",
 	.owner = @"owner",
 };
@@ -153,6 +154,10 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 
 @dynamic championship;
+
+	
+
+@dynamic defaultChampionship;
 
 	
 
