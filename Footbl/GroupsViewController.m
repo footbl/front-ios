@@ -198,7 +198,9 @@
     [self reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadData];
+        if ([FootblAPI sharedAPI].isAuthenticated) {
+            [self reloadData];
+        }
     }];
 }
 

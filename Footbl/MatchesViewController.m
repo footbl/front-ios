@@ -397,7 +397,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadWallet];
-        if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted)) {
+        if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted) && [FootblAPI sharedAPI].isAuthenticated) {
             [self.refreshControl beginRefreshing];
             [self reloadData];
         }
@@ -406,7 +406,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.championship = nil;
         [self reloadWallet];
-        [self reloadData];
+        if ([FootblAPI sharedAPI].isAuthenticated) {
+            [self reloadData];
+        }
     }];
     
     self.tableView = tableViewController.tableView;
