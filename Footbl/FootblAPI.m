@@ -40,6 +40,10 @@ static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 NSString * const kAPIIdentifierKey = @"_id";
 NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
 
+NSString * generateFacebookPasswordWithUserId(NSString *userId) {
+    return [[NSString stringWithFormat:@"%@%@", userId, kAPISignatureKey] sha1];
+}
+
 NSManagedObjectContext * FootblBackgroundManagedObjectContext() {
     return [(AppDelegate *)[UIApplication sharedApplication].delegate backgroundManagedObjectContext];
 }
@@ -357,13 +361,16 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     }];
 }
 
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"username"] = username;
         parameters[@"email"] = email;
         parameters[@"password"] = password;
         parameters[@"language"] = [NSLocale preferredLanguages][0];
+        if (fbId) {
+            parameters[@"facebookId"] = fbId;
+        }
         [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
         [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
         [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

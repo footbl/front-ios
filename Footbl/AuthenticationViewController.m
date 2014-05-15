@@ -29,28 +29,42 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
-    self.view.userInteractionEnabled = NO;
-    
     [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (error) {
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
             [alertView show];
-            self.view.userInteractionEnabled = YES;
         } else {
+            self.view.userInteractionEnabled = NO;
+            [self setSubviewsHidden:YES animated:YES];
+            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+                self.activityIndicatorView.alpha = 1;
+                [self.activityIndicatorView startAnimating];
+            }];
             [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                [self setSubviewsHidden:YES animated:YES];
                 if (result) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[FootblAPI sharedAPI] loginWithEmail:result[@"email"] password:generateFacebookPasswordWithUserId(result[@"id"]) success:^{
+                        self.view.userInteractionEnabled = YES;
+                        if (self.completionBlock) self.completionBlock();
+                    } failure:^(NSError *error) {
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];
-                        signupViewController.password = result[@"id"];
-                        signupViewController.passwordConfirmation = result[@"id"];
+                        signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
+                        signupViewController.passwordConfirmation = signupViewController.password;
                         signupViewController.completionBlock = self.completionBlock;
+                        signupViewController.fbId = result[@"id"];
                         [self.navigationController pushViewController:signupViewController animated:NO];
-                    });
+                        self.view.userInteractionEnabled = YES;
+                    }];
+                } else {
+                    self.view.userInteractionEnabled = YES;
+                    [self setSubviewsHidden:NO animated:YES];
+                    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+                        self.activityIndicatorView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [self.activityIndicatorView stopAnimating];
+                    }];
                 }
-                self.view.userInteractionEnabled = YES;
             }];
         }
     }];
@@ -99,7 +113,7 @@
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
     [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
         for (UIView *view in self.view.subviews) {
-            if (view != self.backgroundImageView) {
+            if (view != self.backgroundImageView && view != self.activityIndicatorView) {
                 view.alpha = !hidden;
             }
         }
@@ -178,6 +192,12 @@
     [signinButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signinButton];
     
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(orLabel.frame));
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.alpha = 0;
+    [self.view addSubview:self.activityIndicatorView];
+    
     [self setSubviewsHidden:YES animated:NO];
 }
 
@@ -196,6 +216,13 @@
     [super viewDidAppear:animated];
     
     [self setSubviewsHidden:NO animated:YES];
+    self.activityIndicatorView.alpha = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.activityIndicatorView stopAnimating];
 }
 
 - (BOOL)prefersStatusBarHidden {

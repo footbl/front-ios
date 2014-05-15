@@ -12,5 +12,6 @@
 
 @property (copy, nonatomic) void (^completionBlock)();
 @property (strong, nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @end

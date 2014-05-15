@@ -14,6 +14,7 @@ typedef void (^FootblAPIFailureBlock)(NSError *error);
 
 extern NSManagedObjectContext * FootblBackgroundManagedObjectContext();
 extern NSManagedObjectContext * FootblManagedObjectContext();
+extern NSString * generateFacebookPasswordWithUserId(NSString *userId);
 void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, FootblAPISuccessBlock success);
 extern void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure);
 extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext);
@@ -46,6 +47,6 @@ extern NSString * const kFootblAPINotificationAuthenticationChanged;
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)logout;
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 
 @end

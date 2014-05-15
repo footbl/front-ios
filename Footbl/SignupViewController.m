@@ -55,7 +55,7 @@
     [self.textField resignFirstResponder];
     
     [[FootblAPI sharedAPI] createAccountWithSuccess:^{
-        [[FootblAPI sharedAPI] updateAccountWithUsername:self.username email:self.email password:self.password success:^{
+        [[FootblAPI sharedAPI] updateAccountWithUsername:self.username email:self.email password:self.password fbId:self.fbId success:^{
             if (self.completionBlock) self.completionBlock();
         } failure:failureBlock];
     } failure:failureBlock];

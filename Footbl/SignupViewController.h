@@ -19,5 +19,6 @@
 @property (copy, nonatomic) NSString *password;
 @property (copy, nonatomic) NSString *passwordConfirmation;
 @property (copy, nonatomic) NSString *username;
+@property (copy, nonatomic) NSString *fbId;
 
 @end
