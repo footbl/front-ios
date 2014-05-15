@@ -62,6 +62,8 @@
     [super updateWithData:data];
     
     self.verified = data[@"verified"];
+    self.email = data[@"email"];
+    self.username = data[@"username"];
 }
 
 @end

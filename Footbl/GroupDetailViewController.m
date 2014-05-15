@@ -77,7 +77,7 @@
         cell.rankingLabel.text = @"#1";
     }
     
-    cell.usernameLabel.text = membership.user.rid;
+    cell.usernameLabel.text = membership.user.username;
     
     if (membership.funds) {
         cell.walletLabel.text = membership.funds.stringValue;
@@ -86,7 +86,6 @@
     }
     
     // Just for testing
-    cell.usernameLabel.text = @"fsaragoca";
     cell.nameLabel.text = @"Fernando Saragoça";
 }
 

@@ -4,6 +4,8 @@
 #import "_User.h"
 
 const struct UserAttributes UserAttributes = {
+	.email = @"email",
+	.username = @"username",
 	.verified = @"verified",
 };
 
@@ -50,6 +52,20 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic email;
+
+
+
+
+
+
+@dynamic username;
+
+
 
 
 

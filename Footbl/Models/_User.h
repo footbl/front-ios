@@ -5,6 +5,8 @@
 #import "FootblModel.h"
 
 extern const struct UserAttributes {
+	__unsafe_unretained NSString *email;
+	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *verified;
 } UserAttributes;
 
@@ -23,6 +25,8 @@ extern const struct UserFetchedProperties {
 
 
 
+
+
 @interface UserID : NSManagedObjectID {}
 @end
 
@@ -31,6 +35,26 @@ extern const struct UserFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (UserID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* email;
+
+
+
+//- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* username;
+
+
+
+//- (BOOL)validateUsername:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -94,6 +118,18 @@ extern const struct UserFetchedProperties {
 @end
 
 @interface _User (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveEmail;
+- (void)setPrimitiveEmail:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveUsername;
+- (void)setPrimitiveUsername:(NSString*)value;
+
+
 
 
 - (NSNumber*)primitiveVerified;
