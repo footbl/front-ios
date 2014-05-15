@@ -159,6 +159,7 @@
             if (contact.thumbnail) {
                 cell.profileImageView.image = contact.thumbnail;
             } else {
+                [cell.profileImageView cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             }
             break;
@@ -170,6 +171,7 @@
             cell.usernameLabel.frame = usernameFrame;
             cell.nameLabel.text = @"";
             if ([self.dataSource[indexPath.row][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+                [cell.profileImageView cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             } else {
                 [cell.profileImageView setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
