@@ -11,5 +11,6 @@
 @interface User : _User
 
 + (instancetype)currentUser;
++ (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
 
 @end

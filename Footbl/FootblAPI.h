@@ -9,6 +9,7 @@
 #import "AFHTTPRequestOperationManager.h"
 
 typedef void (^FootblAPISuccessBlock)();
+typedef void (^FootblAPISuccessWithResponseBlock)(NSArray *response);
 typedef void (^FootblAPIFailureBlock)(NSError *error);
 
 extern NSManagedObjectContext * FootblBackgroundManagedObjectContext();
@@ -28,10 +29,14 @@ extern NSString * const kFootblAPINotificationAuthenticationChanged;
 @property (copy, nonatomic, readonly) NSString *userIdentifier;
 @property (copy, nonatomic, readonly) NSString *userEmail;
 @property (copy, nonatomic, readonly) NSString *userPassword;
+@property (assign, nonatomic, readonly) NSInteger responseLimit;
 
 + (instancetype)sharedAPI;
++ (void)performOperationWithoutGrouping:(void (^)())block;
 
 - (NSMutableDictionary *)generateDefaultParameters;
+- (void)groupOperationsWithKey:(id)key block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)finishGroupedOperationsWithKey:(id)key error:(NSError *)error;
 // Config
 - (void)updateConfigWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 // Users

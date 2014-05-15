@@ -72,8 +72,36 @@
     return [[self API] generateDefaultParameters];
 }
 
++ (NSMutableDictionary *)generateParametersWithPage:(NSInteger)page {
+    NSMutableDictionary *parameters = [self generateDefaultParameters];
+    parameters[@"page"] = @(page);
+    return parameters;
+}
+
 + (NSManagedObjectContext *)editableManagedObjectContext {
     return FootblBackgroundManagedObjectContext();
+}
+
++ (NSMutableDictionary *)pagingDictionary {
+    static NSMutableDictionary *pagingDictionary;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        pagingDictionary = [NSMutableDictionary new];
+    });
+    return pagingDictionary;
+}
+
++ (NSMutableDictionary *)resultDictionary {
+    static NSMutableDictionary *resultDictionary;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        resultDictionary = [NSMutableDictionary new];
+    });
+    return resultDictionary;
+}
+
++ (NSInteger)responseLimit {
+    return [FootblAPI sharedAPI].responseLimit;
 }
 
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
@@ -107,17 +135,34 @@
 }
 
 + (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[[self class] resourcePath] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
-                requestSucceedWithBlock(operation, parameters, success);
+    NSString *key = [NSString stringWithFormat:@"%@%@", NSStringFromClass([self class]), API_DICTIONARY_KEY];
+    [[self API] groupOperationsWithKey:key block:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[self API] GET:[[self class] resourcePath] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                API_APPEND_RESULT(responseObject, key);
+                if ([responseObject count] == [self responseLimit]) {
+                    API_APPEND_PAGE(key);
+                    [FootblAPI performOperationWithoutGrouping:^{
+                       [self updateWithSuccess:success failure:failure];
+                    }];
+                } else {
+                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+                        requestSucceedWithBlock(operation, parameters, success);
+                    }];
+                    requestSucceedWithBlock(operation, parameters, nil);
+                    if (success) success();
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    API_RESET_KEY(key);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+                [[self API] finishGroupedOperationsWithKey:key error:error];
+                API_RESET_KEY(key);
             }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
+        } failure:failure];
+    } success:success failure:failure];
 }
 
 + (void)createWithParameters:(NSDictionary *)parameters success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -165,6 +210,14 @@
 
 - (NSMutableDictionary *)generateDefaultParameters {
     return [[self class] generateDefaultParameters];
+}
+
+- (NSMutableDictionary *)generateParametersWithPage:(NSInteger)page {
+    return [[self class] generateParametersWithPage:page];
+}
+
+- (NSInteger)responseLimit {
+    return [[self class] responseLimit];
 }
 
 - (void)updateWithData:(NSDictionary *)data {

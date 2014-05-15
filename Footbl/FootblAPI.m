@@ -20,6 +20,7 @@
 @property (copy, nonatomic) NSString *userToken;
 @property (strong, nonatomic) NSDate *tokenExpirationDate;
 @property (strong, nonatomic) NSMutableDictionary *operationGroupingDictionary;
+@property (assign, nonatomic) BOOL shouldGroup;
 
 @end
 
@@ -83,6 +84,12 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     return _sharedAPI;
 }
 
++ (void)performOperationWithoutGrouping:(void (^)())block {
+    [FootblAPI sharedAPI].shouldGroup = NO;
+    if (block) block();
+    [FootblAPI sharedAPI].shouldGroup = YES;
+}
+
 #pragma mark - Getters/Setters
 
 @synthesize userEmail = _userEmail;
@@ -136,6 +143,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     return _currentUser;
 }
 
+- (NSInteger)responseLimit {
+    return 20;
+}
+
 #pragma mark - Instance Methods
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
@@ -145,6 +156,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [self.requestSerializer setValue:kAPIAcceptVersion forHTTPHeaderField:@"Accept-Version"];
         self.operationGroupingDictionary = [NSMutableDictionary new];
+        self.shouldGroup = YES;
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
@@ -170,14 +182,19 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     return [@{} mutableCopy];
 }
 
-- (void)groupOperationsWithSelector:(SEL)selector block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSString *key = NSStringFromSelector(selector);
-    NSMutableArray *queue = (self.operationGroupingDictionary)[key];
+- (void)groupOperationsWithKey:(id)key block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (!self.shouldGroup) {
+        if (block) block();
+        return;
+    }
+    NSMutableArray *queue = self.operationGroupingDictionary[key];
     if (queue) {
-        if (failure) {
+        if (success && failure) {
             [queue addObject:@{@"success": success, @"failure" : failure}];
-        } else {
+        } else if (success) {
             [queue addObject:@{@"success": success}];
+        } else if (failure) {
+            [queue addObject:@{@"failure": failure}];
         }
         return;
     }
@@ -187,8 +204,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if (block) block();
 }
 
-- (void)finishGroupedOperationsWithSelector:(SEL)selector error:(NSError *)error {
-    NSString *key = NSStringFromSelector(selector);
+- (void)finishGroupedOperationsWithKey:(id)key error:(NSError *)error {
     NSMutableArray *queue = (self.operationGroupingDictionary)[key];
     for (NSDictionary *queuedRequest in queue) {
         if (error) {
@@ -259,14 +275,15 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         SPLogVerbose(@"Authentication token expired");
     }
     
-    [self groupOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) block:^{
+    NSString *key = NSStringFromSelector(@selector(ensureAuthenticationWithSuccess:failure:));
+    [self groupOperationsWithKey:key block:^{
         void(^loginBlock)() = ^() {
             [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword success:^{
                 if (success) success();
-                [self finishGroupedOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) error:nil];
+                [self finishGroupedOperationsWithKey:key error:nil];
             } failure:^(NSError *error) {
                 if (failure) failure(error);
-                [self finishGroupedOperationsWithSelector:@selector(ensureAuthenticationWithSuccess:failure:) error:error];
+                [self finishGroupedOperationsWithKey:key error:error];
             }];
         };
         

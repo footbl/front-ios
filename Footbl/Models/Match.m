@@ -54,19 +54,34 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches", championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
-                object.championship = championship;
-            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [self.editableManagedObjectContext deleteObjects:untouchedObjects];
+    NSString *key = [NSString stringWithFormat:@"%@%@", championship.rid, API_DICTIONARY_KEY];
+    [[self API] groupOperationsWithKey:key block:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches", championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                API_APPEND_RESULT(responseObject, key);
+                if ([[operation responseObject] count] == [self responseLimit]) {
+                    API_APPEND_PAGE(key);
+                    [FootblAPI performOperationWithoutGrouping:^{
+                       [self updateFromChampionship:championship success:success failure:failure];
+                    }];
+                } else {
+                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
+                        object.championship = championship;
+                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [self.editableManagedObjectContext deleteObjects:untouchedObjects];
+                    }];
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    requestSucceedWithBlock(operation, parameters, success);
+                    API_RESET_KEY(key);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [[self API] finishGroupedOperationsWithKey:key error:error];
+                requestFailedWithBlock(operation, parameters, error, failure);
+                API_RESET_KEY(key);
             }];
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           requestFailedWithBlock(operation, parameters, error, failure); 
-        }];
-    } failure:failure];
+        } failure:failure];
+    } success:success failure:failure];
 }
 
 #pragma mark - Instance Methods

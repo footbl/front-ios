@@ -74,19 +74,34 @@ static CGFloat kBetSyncWaitTime = 2;
 }
 
 + (void)updateWithWallet:(Wallet *)wallet success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"wallets/%@/bets", wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self loadContent:responseObject inManagedObjectContext:self.editableManagedObjectContext usingCache:wallet.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *contentEntry) {
-                bet.wallet = wallet;
-            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [self.editableManagedObjectContext deleteObjects:untouchedObjects];
+    NSString *key = [NSString stringWithFormat:@"%@%@", wallet.rid, API_DICTIONARY_KEY];
+    [[self API] groupOperationsWithKey:key block:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[self API] GET:[NSString stringWithFormat:@"wallets/%@/bets", wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                API_APPEND_RESULT(responseObject, key);
+                if ([[operation responseObject] count] == [self responseLimit]) {
+                    API_APPEND_PAGE(key);
+                    [FootblAPI performOperationWithoutGrouping:^{
+                       [self updateWithWallet:wallet success:success failure:failure];
+                    }];
+                } else {
+                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:wallet.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *contentEntry) {
+                        bet.wallet = wallet;
+                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [self.editableManagedObjectContext deleteObjects:untouchedObjects];
+                    }];
+                    requestSucceedWithBlock(operation, parameters, success);
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    API_RESET_KEY(key);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+                [[self API] finishGroupedOperationsWithKey:key error:error];
+                API_RESET_KEY(key);
             }];
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
-    } failure:failure];
+        } failure:failure];
+    } success:success failure:failure];
 }
 
 #pragma mark - Instance Methods
