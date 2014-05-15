@@ -11,6 +11,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
+#import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupAddMemberTableViewCell.h"
@@ -38,6 +39,8 @@
 
 - (NSArray *)addressBookDataSource {
     if (!_addressBookDataSource) {
+        _addressBookDataSource = @[];
+        
         APAddressBook *addressBook = [APAddressBook new];
         addressBook.fieldsMask = APContactFieldEmails | APContactFieldFirstName | APContactFieldLastName | APContactFieldThumbnail | APContactFieldCompositeName;
         addressBook.filterBlock = ^BOOL(APContact *contact) {
@@ -51,8 +54,8 @@
                 [self searchBar:self.searchBar textDidChange:self.searchBar.text];
             }
             [self.tableView reloadData];
+            [self reloadFootblFriends];
         }];
-        _addressBookDataSource = @[];
     }
     
     return _addressBookDataSource;
@@ -61,23 +64,21 @@
 - (NSArray *)facebookDataSource {
     if (!_facebookDataSource) {
         _facebookDataSource = @[];
-
-        NSString *graphPath = @"me/invitable_friends?fields=name,picture.type(normal)";
-        if ([FBSession activeSession].isOpen) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-            [self getFBFriends:graphPath];
-        } else {
-            [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        
+        [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
                 if (error) {
                     SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
                     [alertView show];
                 } else {
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-                    [self getFBFriends:graphPath];
+                    self.facebookDataSource = friends;
+                    self.dataSource = nil;
+                    [self.tableView reloadData];
+                    [self reloadFootblFriends];
                 }
             }];
-        }
+        }];
     }
     
     return _facebookDataSource;
@@ -85,10 +86,13 @@
 
 - (NSArray *)footblDataSource {
     if (!_footblDataSource) {
-        _footblDataSource = @[@{@"name" : @"Carlo Dapuzzo", @"username" : @"dapuzzo"},
-                              @{@"name" : @"Fernando Saragoça", @"username" : @"fsaragoca"},
-                              @{@"name" : @"Marcel Muller", @"username" : @"grigio"},
-                              @{@"name" : @"Rafael Erthal", @"username" : @"erthal"}];
+        _footblDataSource = @[];
+        
+        [[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+            self.footblDataSource = friends;
+            self.dataSource = nil;
+            [self.tableView reloadData];
+        }];
     }
     
     return _footblDataSource;
@@ -125,22 +129,6 @@
     }
     [self.searchBar resignFirstResponder];
     [self.tableView reloadData];
-}
-
-- (void)getFBFriends:(NSString *)graphPath {
-    FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession graphPath:graphPath];
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        self.facebookDataSource = [[self.facebookDataSource arrayByAddingObjectsFromArray:result[@"data"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-        self.dataSource = nil;
-        [self.tableView reloadData];
-        
-        if (result[@"paging"][@"next"]) {
-            NSString *nextPath = [@"me" stringByAppendingPathComponent:[result[@"paging"][@"next"] lastPathComponent]];
-            [self getFBFriends:nextPath];
-        } else {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        }
-    }];
 }
 
 - (void)configureCell:(GroupAddMemberTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -200,8 +188,24 @@
         }];
     }
     
-    [Group createWithChampionship:self.championship name:self.groupName success:nil failure:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    self.view.window.userInteractionEnabled = NO;
+    
+    [Group createWithChampionship:self.championship name:self.groupName members:self.footblSelectedMembers.allObjects success:^{
+       [self dismissViewControllerAnimated:YES completion:nil];
+        self.view.window.userInteractionEnabled = YES;
+    } failure:^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+        self.view.window.userInteractionEnabled = YES;
+    }];
+}
+
+- (void)reloadFootblFriends {
+    [[FriendsHelper sharedInstance] reloadFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+        self.footblDataSource = friends;
+        self.dataSource = nil;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Delegates & Data sources
@@ -292,7 +296,7 @@
     self.title = NSLocalizedString(@"Add members", @"");
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Create", @"") style:UIBarButtonItemStylePlain target:self action:@selector(createAction:)];
-    
+        
     self.selectedMembers = [NSMutableSet new];
     self.addressBookSelectedMembers = [NSMutableSet new];
     self.footblSelectedMembers = [NSMutableSet new];
@@ -323,7 +327,7 @@
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @""), NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
     self.segmentedControl.frame = CGRectMake(15, 9, 290, 29);
     self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
-    self.segmentedControl.selectedSegmentIndex = 1;
+    self.segmentedControl.selectedSegmentIndex = 0;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
     [headerView addSubview:self.segmentedControl];
     

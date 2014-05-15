@@ -7,6 +7,7 @@
 //
 
 #import "Championship.h"
+#import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupChampionshipsViewController.h"
 #import "NewGroupViewController.h"
@@ -67,6 +68,8 @@
 	// Do any additional setup after loading the view.
     
     [self.nameTextField becomeFirstResponder];
+    
+    [[FriendsHelper sharedInstance] reloadFriendsWithCompletionBlock:nil];
 }
 
 - (void)didReceiveMemoryWarning {

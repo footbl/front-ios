@@ -25,7 +25,7 @@
     return @"groups";
 }
 
-+ (void)createWithChampionship:(Championship *)championship name:(NSString *)name success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
++ (void)createWithChampionship:(Championship *)championship name:(NSString *)name members:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"name"] = name;
@@ -35,8 +35,9 @@
                 Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.editableManagedObjectContext];
                 group.rid = responseObject[kAPIIdentifierKey];
                 [group updateWithData:responseObject];
+                requestSucceedWithBlock(operation, parameters, nil);
                 SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
+                [group addMembers:members success:success failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);
@@ -96,6 +97,33 @@
     } else {
         self.championship = [Championship findByIdentifier:championship inManagedObjectContext:self.managedObjectContext];
     }
+}
+
+- (void)addMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        __block NSMutableArray *pendingMembers = [members mutableCopy];
+        __block NSError *operationError = nil;
+        [members enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            parameters[@"user"] = user[kAPIIdentifierKey];
+            [[self API] POST:[NSString stringWithFormat:@"groups/%@/members", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [pendingMembers removeObject:user];
+                if (pendingMembers.count == 0) {
+                    if (operationError) {
+                        requestFailedWithBlock(operation, parameters, operationError, failure);
+                    } else {
+                        requestSucceedWithBlock(operation, parameters, success);
+                    }
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                operationError = error;
+                [pendingMembers removeObject:user];
+                if (pendingMembers.count == 0) {
+                    requestFailedWithBlock(operation, parameters, error, failure);
+                }
+            }];
+        }];
+    } failure:failure];
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

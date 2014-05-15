@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "AppDelegate.h"
+#import "FriendsHelper.h"
 #import "FootblAPI.h"
 #import "FootblTabBarController.h"
 #import "TutorialViewController.h"
@@ -79,7 +80,26 @@
     }
     
     self.window.rootViewController = [FootblTabBarController new];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            } else {
+                SPLogVerbose(@"%lu invitable friends", (unsigned long)friends.count);
+            }
+        }];
+        [[FriendsHelper sharedInstance] reloadFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            } else {
+                SPLogVerbose(@"%lu friends", (unsigned long)friends.count);
+            }
+        }];
+    }];
+    
+    [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:NO completionHandler:nil];
+    
     return YES;
 }
 
