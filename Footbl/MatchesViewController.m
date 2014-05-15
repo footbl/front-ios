@@ -38,6 +38,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 #pragma mark - Getters/Setters
 
+@synthesize championship = _championship;
+
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
@@ -54,6 +56,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     }
     
     return _fetchedResultsController;
+}
+
+- (Championship *)championship {
+    if (!_championship) {
+        [self fetchChampionship];
+    }
+    return _championship;
 }
 
 - (void)setChampionship:(Championship *)championship {

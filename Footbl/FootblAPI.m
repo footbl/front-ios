@@ -315,6 +315,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 #endif
         requestSucceedWithBlock(operation, parameters, success);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
@@ -359,6 +362,8 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         }
         SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
 }
 
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
