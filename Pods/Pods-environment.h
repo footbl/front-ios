@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_APAddressBook 0
 #define COCOAPODS_VERSION_PATCH_APAddressBook 7
 
+// Cloudinary
+#define COCOAPODS_POD_AVAILABLE_Cloudinary
+#define COCOAPODS_VERSION_MAJOR_Cloudinary 1
+#define COCOAPODS_VERSION_MINOR_Cloudinary 0
+#define COCOAPODS_VERSION_PATCH_Cloudinary 11
+
 // FXKeychain
 #define COCOAPODS_POD_AVAILABLE_FXKeychain
 #define COCOAPODS_VERSION_MAJOR_FXKeychain 1

@@ -19,6 +19,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - APAddressBook (0.0.7)
+  - Cloudinary (1.0.11)
   - FXKeychain (1.5)
   - SDWebImage (3.6):
     - SDWebImage/Core
@@ -37,6 +38,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - APAddressBook
+  - Cloudinary
   - FXKeychain
   - SDWebImage
   - SPHipster
@@ -45,6 +47,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   APAddressBook: e2c59420af3539ae21e4124e8346349e47ca7a81
+  Cloudinary: 130ad6895fd1e1ac0c63475d58e7440c33708a98
   FXKeychain: 90cc7bf9ba005e4d099a113a194792e7983c5778
   SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183

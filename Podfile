@@ -13,3 +13,4 @@ pod 'FXKeychain'
 
 # Utilities
 pod 'APAddressBook'
+pod 'Cloudinary'
