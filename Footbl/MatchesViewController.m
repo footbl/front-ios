@@ -415,9 +415,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.championship = nil;
         [self reloadWallet];
-        if ([FootblAPI sharedAPI].isAuthenticated) {
-            [self reloadData];
-        }
+        [self reloadData];
     }];
     
     self.tableView = tableViewController.tableView;
