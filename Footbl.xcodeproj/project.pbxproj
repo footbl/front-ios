@@ -11,6 +11,7 @@
 		ED19A402190A222900946490 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
 		ED19A405190ACF8700946490 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
 		ED19A40A190AF85800946490 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
+		ED1E913919253F1200BDE434 /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED2D1C4D1915614200F1BC81 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
 		ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
 		ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
@@ -108,6 +109,8 @@
 		ED19A406190ACF8700946490 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED19A408190AF85800946490 /* LogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
 		ED19A409190AF85800946490 /* LogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
+		ED1E913719253F1200BDE434 /* ImportImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportImageHelper.h; sourceTree = "<group>"; };
+		ED1E913819253F1200BDE434 /* ImportImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportImageHelper.m; sourceTree = "<group>"; };
 		ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
 		ED2D1C4E191566DC00F1BC81 /* NewGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGroupViewController.h; sourceTree = "<group>"; };
@@ -581,10 +584,12 @@
 				EDB1D4A218E1F3F300E0C949 /* APIs */,
 				EDB1D47618E1F18B00E0C949 /* AppDelegate.h */,
 				EDB1D47718E1F18B00E0C949 /* AppDelegate.m */,
-				EDD6711C19229E2400985174 /* FriendsHelper.h */,
-				EDD6711D19229E2400985174 /* FriendsHelper.m */,
 				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
 				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
+				EDD6711C19229E2400985174 /* FriendsHelper.h */,
+				EDD6711D19229E2400985174 /* FriendsHelper.m */,
+				ED1E913719253F1200BDE434 /* ImportImageHelper.h */,
+				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
 				ED493D38190ED2BF00A7869B /* TeamImageView.m */,
@@ -902,6 +907,7 @@
 				EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
 				EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */,
+				ED1E913919253F1200BDE434 /* ImportImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
