@@ -18,6 +18,10 @@
 
 #pragma mark - Class Methods
 
++ (NSString *)resourcePath {
+    return @"users";
+}
+
 + (instancetype)currentUser {
     return [[self API] currentUser];
 }
