@@ -5,6 +5,7 @@
 
 const struct GroupAttributes GroupAttributes = {
 	.freeToEdit = @"freeToEdit",
+	.isDefault = @"isDefault",
 	.isNew = @"isNew",
 	.name = @"name",
 	.removed = @"removed",
@@ -12,7 +13,6 @@ const struct GroupAttributes GroupAttributes = {
 
 const struct GroupRelationships GroupRelationships = {
 	.championship = @"championship",
-	.defaultChampionship = @"defaultChampionship",
 	.members = @"members",
 	.owner = @"owner",
 };
@@ -48,6 +48,11 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	
 	if ([key isEqualToString:@"freeToEditValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"freeToEdit"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isDefaultValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isDefault"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -88,6 +93,32 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 - (void)setPrimitiveFreeToEditValue:(BOOL)value_ {
 	[self setPrimitiveFreeToEdit:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic isDefault;
+
+
+
+- (BOOL)isDefaultValue {
+	NSNumber *result = [self isDefault];
+	return [result boolValue];
+}
+
+- (void)setIsDefaultValue:(BOOL)value_ {
+	[self setIsDefault:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsDefaultValue {
+	NSNumber *result = [self primitiveIsDefault];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsDefaultValue:(BOOL)value_ {
+	[self setPrimitiveIsDefault:[NSNumber numberWithBool:value_]];
 }
 
 
@@ -154,10 +185,6 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 
 @dynamic championship;
-
-	
-
-@dynamic defaultChampionship;
 
 	
 

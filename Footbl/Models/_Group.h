@@ -6,6 +6,7 @@
 
 extern const struct GroupAttributes {
 	__unsafe_unretained NSString *freeToEdit;
+	__unsafe_unretained NSString *isDefault;
 	__unsafe_unretained NSString *isNew;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *removed;
@@ -13,7 +14,6 @@ extern const struct GroupAttributes {
 
 extern const struct GroupRelationships {
 	__unsafe_unretained NSString *championship;
-	__unsafe_unretained NSString *defaultChampionship;
 	__unsafe_unretained NSString *members;
 	__unsafe_unretained NSString *owner;
 } GroupRelationships;
@@ -22,9 +22,9 @@ extern const struct GroupFetchedProperties {
 } GroupFetchedProperties;
 
 @class Championship;
-@class Championship;
 @class Membership;
 @class User;
+
 
 
 
@@ -53,6 +53,20 @@ extern const struct GroupFetchedProperties {
 - (void)setFreeToEditValue:(BOOL)value_;
 
 //- (BOOL)validateFreeToEdit:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* isDefault;
+
+
+
+@property BOOL isDefaultValue;
+- (BOOL)isDefaultValue;
+- (void)setIsDefaultValue:(BOOL)value_;
+
+//- (BOOL)validateIsDefault:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -103,13 +117,6 @@ extern const struct GroupFetchedProperties {
 
 
 
-@property (nonatomic, strong) Championship *defaultChampionship;
-
-//- (BOOL)validateDefaultChampionship:(id*)value_ error:(NSError**)error_;
-
-
-
-
 @property (nonatomic, strong) NSSet *members;
 
 - (NSMutableSet*)membersSet;
@@ -148,6 +155,15 @@ extern const struct GroupFetchedProperties {
 
 
 
+- (NSNumber*)primitiveIsDefault;
+- (void)setPrimitiveIsDefault:(NSNumber*)value;
+
+- (BOOL)primitiveIsDefaultValue;
+- (void)setPrimitiveIsDefaultValue:(BOOL)value_;
+
+
+
+
 - (NSNumber*)primitiveIsNew;
 - (void)setPrimitiveIsNew:(NSNumber*)value;
 
@@ -175,11 +191,6 @@ extern const struct GroupFetchedProperties {
 
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
-
-
-
-- (Championship*)primitiveDefaultChampionship;
-- (void)setPrimitiveDefaultChampionship:(Championship*)value;
 
 
 

@@ -51,13 +51,12 @@
     self.rounds = data[@"rounds"];
     
     if (self.activeValue) {
-        if (!self.defaultGroup) {
-            self.defaultGroup = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
-        }
-        self.defaultGroup.championship = self;
-        self.defaultGroup.name = self.name;
-        self.defaultGroup.freeToEdit = @NO;
-        self.defaultGroup.owner = nil;
+        Group *group = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
+        group.championship = self;
+        group.name = self.name;
+        group.freeToEdit = @NO;
+        group.owner = nil;
+        group.isDefault = @YES;
     }
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {

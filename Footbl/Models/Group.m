@@ -60,7 +60,7 @@
                 } else {
                     [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                         [untouchedObjects enumerateObjectsUsingBlock:^(Group *group, BOOL *stop) {
-                            if (!group.defaultChampionship) {
+                            if (!group.isDefaultValue) {
                                 [[self editableManagedObjectContext] deleteObject:group];
                             }
                         }];
@@ -127,10 +127,10 @@
 }
 
 - (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    if (self.defaultChampionship) {
+    if (self.isDefaultValue) {
         [[self API] ensureAuthenticationWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
-            [[self API] GET:[NSString stringWithFormat:@"championships/%@/ranking", self.defaultChampionship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[self API] GET:[NSString stringWithFormat:@"championships/%@/ranking", self.championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 SPLog(@"%@", responseObject);
                 [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
                     membership.group = self;
@@ -194,7 +194,7 @@
             SaveManagedObjectContext(self.editableManagedObjectContext);
         }];
         
-        if (self.defaultChampionship) {
+        if (self.isDefaultValue) {
             if (success) success();
             return;
         }

@@ -83,8 +83,8 @@
             break;
     }
     
-    if (group.defaultChampionship) {
-        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.defaultChampionship.country, group.defaultChampionship.edition.stringValue];
+    if (group.isDefaultValue) {
+        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.country, group.championship.edition.stringValue];
     } else {
         cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.name, group.championship.edition.stringValue];
     }

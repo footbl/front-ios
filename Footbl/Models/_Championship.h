@@ -16,7 +16,6 @@ extern const struct ChampionshipAttributes {
 
 extern const struct ChampionshipRelationships {
 	__unsafe_unretained NSString *competitors;
-	__unsafe_unretained NSString *defaultGroup;
 	__unsafe_unretained NSString *groups;
 	__unsafe_unretained NSString *matches;
 	__unsafe_unretained NSString *wallet;
@@ -26,7 +25,6 @@ extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
 @class Team;
-@class Group;
 @class Group;
 @class Match;
 @class Wallet;
@@ -149,13 +147,6 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) Group *defaultGroup;
-
-//- (BOOL)validateDefaultGroup:(id*)value_ error:(NSError**)error_;
-
-
-
-
 @property (nonatomic, strong) NSSet *groups;
 
 - (NSMutableSet*)groupsSet;
@@ -262,11 +253,6 @@ extern const struct ChampionshipFetchedProperties {
 
 - (NSMutableSet*)primitiveCompetitors;
 - (void)setPrimitiveCompetitors:(NSMutableSet*)value;
-
-
-
-- (Group*)primitiveDefaultGroup;
-- (void)setPrimitiveDefaultGroup:(Group*)value;
 
 
 
