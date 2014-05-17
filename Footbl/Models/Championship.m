@@ -58,8 +58,6 @@
         self.defaultGroup.name = self.name;
         self.defaultGroup.freeToEdit = @NO;
         self.defaultGroup.owner = nil;
-    } else if (self.defaultGroup) {
-        [self.managedObjectContext deleteObject:self.defaultGroup];
     }
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
