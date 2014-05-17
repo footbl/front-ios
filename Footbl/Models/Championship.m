@@ -51,7 +51,9 @@
     self.rounds = data[@"rounds"];
     
     if (self.activeValue) {
-        self.defaultGroup = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
+        if (!self.defaultGroup) {
+            self.defaultGroup = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
+        }
         self.defaultGroup.championship = self;
         self.defaultGroup.name = self.name;
         self.defaultGroup.freeToEdit = @NO;
