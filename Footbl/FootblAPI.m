@@ -147,7 +147,8 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     }
     
     if (self.userIdentifier) {
-        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblManagedObjectContext()];
+        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+        SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
     }
     
     return _currentUser;
