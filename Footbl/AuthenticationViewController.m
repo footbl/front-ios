@@ -10,6 +10,7 @@
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
+#import "ImportImageHelper.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
 #import "UIView+Frame.h"
@@ -52,6 +53,11 @@
                         signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
                         signupViewController.passwordConfirmation = signupViewController.password;
                         signupViewController.completionBlock = self.completionBlock;
+                        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+                            if (image) {
+                                signupViewController.profileImage = image;
+                            }
+                        }];
                         signupViewController.fbId = result[@"id"];
                         [self.navigationController pushViewController:signupViewController animated:NO];
                         self.view.userInteractionEnabled = YES;

@@ -47,7 +47,7 @@ extern NSString * const kFootblAPINotificationAuthenticationChanged;
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)logout;
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId profileImage:(UIImage *)image success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)uploadImage:(UIImage *)image withCompletionBlock:(void (^)(NSString *response, NSError *error))completionBlock;
 
 @end

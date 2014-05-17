@@ -384,24 +384,37 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
 }
 
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [self ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        parameters[@"username"] = username;
-        parameters[@"email"] = email;
-        parameters[@"password"] = password;
-        parameters[@"language"] = [NSLocale preferredLanguages][0];
-        if (fbId) {
-            parameters[@"facebookId"] = fbId;
-        }
-        [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
-        [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
-        [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId profileImage:(UIImage *)profileImage success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
+        [self ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            parameters[@"username"] = username;
+            parameters[@"email"] = email;
+            parameters[@"password"] = password;
+            parameters[@"language"] = [NSLocale preferredLanguages][0];
+            if (picturePath) {
+                parameters[@"picture"] = picturePath;
+            }
+            if (fbId) {
+                parameters[@"facebookId"] = fbId;
+            }
+            [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
+            [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
+            [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                requestSucceedWithBlock(operation, parameters, success);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
+        } failure:failure];
+    };
+    
+    if (profileImage) {
+        [self uploadImage:profileImage withCompletionBlock:^(NSString *response, NSError *error) {
+            requestBlock(response);
         }];
-    } failure:failure];
+    } else {
+        requestBlock(nil);
+    }
 }
 
 @end
