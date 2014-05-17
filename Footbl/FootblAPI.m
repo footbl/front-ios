@@ -364,6 +364,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-timestamp"];
     [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-transactionId"];
     [self.requestSerializer setValue:nil forHTTPHeaderField:@"auth-signature"];
+    [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+    
+    [[FBSession activeSession] closeAndClearTokenInformation];
     
     [FootblBackgroundManagedObjectContext() performBlock:^{
         for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"Bet", @"Wallet", @"User", @"Membership"]) {
