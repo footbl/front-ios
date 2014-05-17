@@ -7,6 +7,7 @@
 //
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#import <Cloudinary/Cloudinary.h>
 #import <FXKeychain/FXKeychain.h>
 #import <SPHipster/SPLog.h>
 #import "AppDelegate.h"
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSDate *tokenExpirationDate;
 @property (strong, nonatomic) NSMutableDictionary *operationGroupingDictionary;
 @property (assign, nonatomic) BOOL shouldGroup;
+@property (strong, nonatomic) CLCloudinary *cloudinary;
 
 @end
 
@@ -36,6 +38,10 @@ static NSString * const kConfigPageSize = @"kConfigPageSize";
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
+
+static NSString * const kCloudinaryCloudName = @"he5zfntay";
+static NSString * const kCloudinaryApiKey = @"854175976174894";
+static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 
 NSString * const kAPIIdentifierKey = @"_id";
 NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
@@ -164,6 +170,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
+        
+        self.cloudinary = [CLCloudinary new];
+        self.cloudinary.config[@"cloud_name"] = kCloudinaryCloudName;
+        self.cloudinary.config[@"api_key"] = kCloudinaryApiKey;
+        self.cloudinary.config[@"api_secret"] = kCloudinaryApiSecret;
     }
     return self;
 }
@@ -220,6 +231,13 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         }
     }
     [self.operationGroupingDictionary removeObjectForKey:key];
+}
+
+- (void)uploadImage:(UIImage *)image withCompletionBlock:(void (^)(NSString *response, NSError *error))completionBlock {
+    CLUploader *uploader = [[CLUploader alloc] init:self.cloudinary delegate:nil];
+    [uploader upload:UIImageJPEGRepresentation(image, 1.0) options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
+        if (completionBlock) completionBlock(successResult[@"url"], nil);
+    } andProgress:nil];
 }
 
 #pragma mark - Config
