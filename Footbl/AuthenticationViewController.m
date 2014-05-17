@@ -44,7 +44,7 @@
             }];
             [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (result) {
-                    [[FootblAPI sharedAPI] loginWithEmail:result[@"email"] password:generateFacebookPasswordWithUserId(result[@"id"]) success:^{
+                    [[FootblAPI sharedAPI] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^{
                         self.view.userInteractionEnabled = YES;
                         if (self.completionBlock) self.completionBlock();
                     } failure:^(NSError *error) {
