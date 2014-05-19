@@ -87,6 +87,7 @@
     [super updateWithData:data];
     
     self.name = data[@"name"];
+    self.picture = data[@"picture"];
     self.freeToEdit = data[@"freeToEdit"];
     self.owner = [User findOrCreateByIdentifier:data[@"owner"] inManagedObjectContext:self.managedObjectContext];
     if ([data[@"owner"] isKindOfClass:[NSDictionary class]]) {

@@ -47,6 +47,7 @@
 - (void)reloadData {
     self.nameTextField.text = self.group.name;
     self.nameTextField.userInteractionEnabled = self.group.freeToEditValue;
+    [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
     NSString *championshipName = self.group.championship.displayName;
@@ -74,9 +75,6 @@
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:location attributes:championshipTextAttributes]];
     
     self.championshipLabel.attributedText = attributedString;
-    
-    // Just for testing
-    [self.groupImageButton setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"] forState:UIControlStateNormal];
 }
 
 #pragma mark - Delegates & Data sources

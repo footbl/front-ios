@@ -65,6 +65,7 @@
     self.currentRound = data[@"currentRound"];
     self.roundFinished = data[@"roundFinished"];
     self.rounds = data[@"rounds"];
+    self.picture = data[@"picture"];
     
     if (self.activeValue) {
         Group *group = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
@@ -73,6 +74,7 @@
         group.freeToEdit = @NO;
         group.owner = nil;
         group.isDefault = @YES;
+        group.picture = self.picture;
     }
     
     [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {

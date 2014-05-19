@@ -8,6 +8,7 @@ const struct GroupAttributes GroupAttributes = {
 	.isDefault = @"isDefault",
 	.isNew = @"isNew",
 	.name = @"name",
+	.picture = @"picture",
 	.removed = @"removed",
 };
 
@@ -152,6 +153,13 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 
 @dynamic name;
+
+
+
+
+
+
+@dynamic picture;
 
 
 

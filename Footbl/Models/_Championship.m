@@ -9,6 +9,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 	.currentRound = @"currentRound",
 	.edition = @"edition",
 	.name = @"name",
+	.picture = @"picture",
 	.roundFinished = @"roundFinished",
 	.rounds = @"rounds",
 };
@@ -167,6 +168,13 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 @dynamic name;
+
+
+
+
+
+
+@dynamic picture;
 
 
 

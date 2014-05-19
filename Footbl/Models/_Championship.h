@@ -10,6 +10,7 @@ extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *currentRound;
 	__unsafe_unretained NSString *edition;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *roundFinished;
 	__unsafe_unretained NSString *rounds;
 } ChampionshipAttributes;
@@ -28,6 +29,7 @@ extern const struct ChampionshipFetchedProperties {
 @class Group;
 @class Match;
 @class Wallet;
+
 
 
 
@@ -107,6 +109,16 @@ extern const struct ChampionshipFetchedProperties {
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* picture;
+
+
+
+//- (BOOL)validatePicture:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -228,6 +240,12 @@ extern const struct ChampionshipFetchedProperties {
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSString*)primitivePicture;
+- (void)setPrimitivePicture:(NSString*)value;
 
 
 

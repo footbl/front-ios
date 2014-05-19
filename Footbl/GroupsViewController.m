@@ -70,6 +70,7 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = group.name;
+    [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture]];
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
     switch (group.championship.pendingRounds.integerValue) {
         case 0:
@@ -88,9 +89,6 @@
     } else {
         cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.displayName, group.championship.edition.stringValue];
     }
-    
-    // Just for testing
-    [cell.groupImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
 }
 
 - (void)reloadData {

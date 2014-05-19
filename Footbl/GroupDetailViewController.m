@@ -60,7 +60,7 @@
 
 - (void)reloadData {
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"] forState:UIControlStateNormal];
+    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
     [self.group.editableObject updateMembersWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
@@ -127,7 +127,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"] forState:UIControlStateNormal];
+        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
     }];
     
     self.refreshControl = [UIRefreshControl new];
