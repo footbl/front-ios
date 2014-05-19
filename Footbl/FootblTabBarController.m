@@ -108,12 +108,6 @@
         }
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if (self.viewControllers.count > 1) {
-            self.selectedViewController = self.viewControllers[1];
-        }
-    }];
-    
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
     self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     

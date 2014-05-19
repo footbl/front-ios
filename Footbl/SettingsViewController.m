@@ -108,10 +108,12 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
     [self presentViewController:navigationController animated:YES completion:^{
         [[FootblAPI sharedAPI] logout];
+        UITabBarController *tabBarController = self.navigationController.tabBarController;
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        tabBarController.selectedIndex = 1;
     }];
     authenticationViewController.completionBlock = ^{
         [navigationController dismissViewControllerAnimated:YES completion:nil];
-        [self.navigationController popToRootViewControllerAnimated:NO];
     };
 }
 
