@@ -13,6 +13,7 @@
 #import "FriendsHelper.h"
 #import "FootblAPI.h"
 #import "FootblTabBarController.h"
+#import "ImportImageHelper.h"
 #import "TutorialViewController.h"
 #import "SDImageCache+ShippedCache.h"
 
@@ -96,6 +97,7 @@
                 SPLogVerbose(@"%lu friends", (unsigned long)friends.count);
             }
         }];
+        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:nil];
     }];
     
     [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:NO completionHandler:nil];
