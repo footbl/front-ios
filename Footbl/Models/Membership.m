@@ -24,11 +24,15 @@
     [super updateWithData:data];
     
     if ([data[@"ranking"] isKindOfClass:[NSNull class]]) {
-        self.ranking = @(0);
+        self.ranking = nil;
     } else {
         self.ranking = data[@"ranking"];
     }
-    self.funds = data[@"funds"];
+    if ([data[@"ranking"] isKindOfClass:[NSNull class]]) {
+        self.funds = nil;
+    } else {
+        self.funds = data[@"funds"];
+    }
     
     self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
     [self.user updateWithData:data[@"user"]];
