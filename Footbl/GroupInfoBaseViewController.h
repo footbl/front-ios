@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UIButton *groupImageButton;
 
 - (void)shakeLimitLabel;
+- (IBAction)selectImageAction:(id)sender;
 
 @end

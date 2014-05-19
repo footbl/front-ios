@@ -190,7 +190,7 @@
     
     self.view.window.userInteractionEnabled = NO;
     
-    [Group createWithChampionship:self.championship name:self.groupName members:self.footblSelectedMembers.allObjects success:^{
+    [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:^{
        [self dismissViewControllerAnimated:YES completion:nil];
         self.view.window.userInteractionEnabled = YES;
     } failure:^(NSError *error) {

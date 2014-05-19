@@ -10,6 +10,7 @@
 #import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupChampionshipsViewController.h"
+#import "ImportImageHelper.h"
 #import "NewGroupViewController.h"
 #import "UIView+Shake.h"
 
@@ -27,6 +28,16 @@
 
 #pragma mark - Instance Methods
 
+- (IBAction)selectImageAction:(id)sender {
+    [self.nameTextField resignFirstResponder];
+    [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary)] completionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [self.groupImageButton setImage:image forState:UIControlStateNormal];
+        }
+        [self.nameTextField becomeFirstResponder];
+    }];
+}
+
 - (IBAction)dismissAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -39,6 +50,7 @@
     
     GroupChampionshipsViewController *championshipsViewController = [GroupChampionshipsViewController new];
     championshipsViewController.groupName = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    championshipsViewController.groupImage = [self.groupImageButton imageForState:UIControlStateNormal];
     [self.navigationController pushViewController:championshipsViewController animated:YES];
 }
 

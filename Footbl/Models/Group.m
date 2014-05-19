@@ -25,24 +25,37 @@
     return @"groups";
 }
 
-+ (void)createWithChampionship:(Championship *)championship name:(NSString *)name members:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        parameters[@"name"] = name;
-        parameters[@"championship"] = championship.rid;
-        [[self API] POST:@"groups" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.editableManagedObjectContext];
-                group.rid = responseObject[kAPIIdentifierKey];
-                [group updateWithData:responseObject];
-                requestSucceedWithBlock(operation, parameters, nil);
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                [group addMembers:members success:success failure:failure];
++ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            parameters[@"name"] = name;
+            parameters[@"championship"] = championship.rid;
+            if (picturePath) {
+                parameters[@"picture"] = picturePath;
+            }
+            [[self API] POST:@"groups" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self.editableManagedObjectContext performBlock:^{
+                    Group *group = [NSEntityDescription insertNewObjectForEntityForName:@"Group" inManagedObjectContext:self.editableManagedObjectContext];
+                    group.rid = responseObject[kAPIIdentifierKey];
+                    [group updateWithData:responseObject];
+                    requestSucceedWithBlock(operation, parameters, nil);
+                    SaveManagedObjectContext(self.editableManagedObjectContext);
+                    [group addMembers:members success:success failure:failure];
+                }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
             }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+        } failure:failure];
+    };
+    
+    if (image) {
+        [[self API] uploadImage:image withCompletionBlock:^(NSString *response, NSError *error) {
+            requestBlock(response);
         }];
-    } failure:failure];
+    } else {
+        requestBlock(championship.picture);
+    }
 }
 
 + (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

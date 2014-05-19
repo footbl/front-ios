@@ -7,6 +7,7 @@
 //
 
 #import "GroupInfoBaseViewController.h"
+#import "ImportImageHelper.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 
@@ -25,6 +26,18 @@
 #pragma mark - Getters/Setters
 
 #pragma mark - Instance Methods
+
+- (IBAction)selectImageAction:(id)sender {
+    BOOL keyboardIsFirstResponder = self.nameTextField.isFirstResponder;
+    [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary)] completionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [self.groupImageButton setImage:image forState:UIControlStateNormal];
+        }
+        if (keyboardIsFirstResponder) {
+            [self.nameTextField becomeFirstResponder];
+        }
+    }];
+}
 
 - (void)updateLimitTextForLength:(NSInteger)length {
     switch (length) {
@@ -151,6 +164,7 @@
     [self.groupImageButton setTitle:NSLocalizedString(@"Add photo", @"") forState:UIControlStateNormal];
     [self.groupImageButton setTitleColor:[UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00] forState:UIControlStateNormal];
     [self.groupImageButton setTitleColor:[[self.groupImageButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.20] forState:UIControlStateHighlighted];
+    [self.groupImageButton addTarget:self action:@selector(selectImageAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.groupImageButton];
     
     UIView *groupImageButtonBorder = [[UIView alloc] initWithFrame:self.groupImageButton.frame];

@@ -96,6 +96,7 @@
         GroupAddMembersViewController *addMembersViewController = [GroupAddMembersViewController new];
         addMembersViewController.championship = championship;
         addMembersViewController.groupName = self.groupName;
+        addMembersViewController.groupImage = self.groupImage;
         [self.navigationController pushViewController:addMembersViewController animated:YES];
         tableView.userInteractionEnabled = YES;
     });

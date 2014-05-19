@@ -13,5 +13,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (copy, nonatomic) NSString *groupName;
+@property (strong, nonatomic) UIImage *groupImage;
 
 @end
