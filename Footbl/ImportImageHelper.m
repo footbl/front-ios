@@ -10,6 +10,14 @@
 #import <SDWebImage/SDWebImageManager.h>
 #import "ImportImageHelper.h"
 
+@interface ImportImageHelper () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+
+@property (copy, nonatomic) void (^cameraCompletionBlock)(UIImage *image, NSError *error);
+
+- (UIViewController *)rootViewController;
+
+@end
+
 #pragma mark ImportImageHelper
 
 @implementation ImportImageHelper
@@ -27,6 +35,17 @@
 
 #pragma mark - Instance Methods
 
+- (UIViewController *)rootViewController {
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (rootViewController.presentedViewController) {
+        rootViewController = rootViewController.presentedViewController;
+    }
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        rootViewController = [(UINavigationController *)rootViewController viewControllers].lastObject;
+    }
+    return rootViewController;
+}
+
 - (void)importImageFromFacebookWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (error) {
@@ -43,6 +62,97 @@
             if (completionBlock) completionBlock(image, nil);
         }];
     }];
+}
+
+- (void)importFromGalleryWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
+    self.cameraCompletionBlock = completionBlock;
+    
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.delegate = self;
+    
+    
+    [self.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)importFromCameraWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
+    self.cameraCompletionBlock = completionBlock;
+    
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePickerController.showsCameraControls = YES;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.delegate = self;
+
+    [self.rootViewController presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)importImageFromSources:(NSArray *)sources completionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
+    if (sources.count == 1 || (sources.count == 2 && [sources containsObject:@(ImportImageHelperSourceCamera)] && ![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])) {
+        ImportImageHelperSource source = [sources.firstObject integerValue];
+        if (source == ImportImageHelperSourceCamera) {
+            source = [sources.lastObject integerValue];
+        }
+        switch (source) {
+            case ImportImageHelperSourceCamera:
+                [self importFromCameraWithCompletionBlock:completionBlock];
+                return;
+            case ImportImageHelperSourceFacebook:
+                [self importImageFromFacebookWithCompletionBlock:completionBlock];
+                return;
+            case ImportImageHelperSourceLibrary:
+                [self importFromGalleryWithCompletionBlock:completionBlock];
+                return;
+        }
+    }
+    
+    self.cameraCompletionBlock = completionBlock;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    if ([sources containsObject:@(ImportImageHelperSourceCamera)] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Take photo", @"")];
+    }
+    if ([sources containsObject:@(ImportImageHelperSourceLibrary)]) {
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Import from Library", @"")];
+    }
+    if ([sources containsObject:@(ImportImageHelperSourceFacebook)]) {
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Import from Facebook", @"")];
+    }
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+    [actionSheet setCancelButtonIndex:actionSheet.numberOfButtons - 1];
+    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+}
+
+#pragma mark - Delegate
+
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Take photo", @"")]) {
+        [self importFromCameraWithCompletionBlock:self.cameraCompletionBlock];
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Import from Library", @"")]) {
+        [self importFromGalleryWithCompletionBlock:self.cameraCompletionBlock];
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Import from Facebook", @"")]) {
+        [self importImageFromFacebookWithCompletionBlock:self.cameraCompletionBlock];
+    } else {
+        self.cameraCompletionBlock(nil, nil);
+    }
+}
+
+#pragma mark - UIImagePickerController delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    if (self.cameraCompletionBlock) self.cameraCompletionBlock(info[UIImagePickerControllerEditedImage], nil);
+    self.cameraCompletionBlock = nil;
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    if (self.cameraCompletionBlock) self.cameraCompletionBlock(nil, nil);
+    self.cameraCompletionBlock = nil;
 }
 
 @end
