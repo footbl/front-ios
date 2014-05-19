@@ -45,7 +45,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = championship.name;
+    cell.textLabel.text = championship.displayName;
 }
 
 - (void)reloadData {
