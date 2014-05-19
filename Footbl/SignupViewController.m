@@ -91,6 +91,13 @@
         } else {
             invalidInputBlock();
         }
+    } else if (!self.name) {
+        if (self.textField.text.isValidName) {
+            self.name = [self.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            switchInputBlock();
+        } else {
+            invalidInputBlock();
+        }
     } else if (!self.password) {
         if (self.textField.text.isValidPassword) {
             self.password = self.textField.text;
@@ -105,7 +112,7 @@
         } else {
             invalidInputBlock();
         }
-    } else if (!self.username) {
+    } else {
         if (self.textField.text.isValidUsername) {
             self.username = self.textField.text;
             [self signupAction:self.textField];
@@ -132,6 +139,8 @@
 - (void)showHint {
     if (!self.email) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: email hint", @"");
+    } else if (!self.name) {
+        self.hintLabel.text = NSLocalizedString(@"Sign up text: name hint", @"");
     } else if (!self.password) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: password hint", @"");
     } else if (!self.passwordConfirmation) {
@@ -160,6 +169,15 @@
         self.textField.keyboardType = UIKeyboardTypeEmailAddress;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.textField.returnKeyType = UIReturnKeyNext;
+        self.textField.enablesReturnKeyAutomatically = YES;
+    } else if (!self.name) {
+        text = NSLocalizedString(@"Sign up text: name", @"");
+        
+        self.textField.secureTextEntry = NO;
+        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         self.textField.returnKeyType = UIReturnKeyNext;
         self.textField.enablesReturnKeyAutomatically = YES;
     } else if (!self.password) {

@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UILabel *informationLabel;
 @property (strong, nonatomic) UILabel *hintLabel;
 @property (copy, nonatomic) NSString *email;
+@property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *password;
 @property (copy, nonatomic) NSString *passwordConfirmation;
 @property (copy, nonatomic) NSString *username;

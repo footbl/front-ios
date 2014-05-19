@@ -12,6 +12,7 @@
 
 - (BOOL)isEmail;
 - (BOOL)isEmpty;
+- (BOOL)isValidName;
 - (BOOL)isValidPassword;
 - (BOOL)isValidUsername;
 

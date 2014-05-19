@@ -50,6 +50,7 @@
                     } failure:^(NSError *error) {
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];
+                        signupViewController.name = result[@"name"];
                         signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
                         signupViewController.passwordConfirmation = signupViewController.password;
                         signupViewController.completionBlock = self.completionBlock;

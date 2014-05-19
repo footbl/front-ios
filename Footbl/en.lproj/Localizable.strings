@@ -207,3 +207,9 @@
 /* FootblAPI error: unknown error */
 "FootblAPI error: unknown error" = "Unknown error, please check your connection and try again.";
 
+/* Sign up text: name hint */
+"Sign up text: name hint" = "This doens't look like a name to me...";
+
+/* Sign up text: name */
+"Sign up text: name" = "Nice!\nWhat's your name?";
+

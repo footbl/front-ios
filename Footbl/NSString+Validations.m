@@ -21,6 +21,10 @@
     return numberOfMatches > 0;
 }
 
+- (BOOL)isValidName {
+    return self.length > 4 && [self rangeOfString:@" "].location != NSNotFound;
+}
+
 - (BOOL)isEmpty {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0;
 }
