@@ -68,6 +68,9 @@
     self.verified = data[@"verified"];
     self.email = data[@"email"];
     self.username = data[@"username"];
+    self.name = data[@"name"];
+    self.about = data[@"about"];
+    self.picture = data[@"picture"];
 }
 
 @end

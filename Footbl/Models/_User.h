@@ -5,7 +5,10 @@
 #import "FootblModel.h"
 
 extern const struct UserAttributes {
+	__unsafe_unretained NSString *about;
 	__unsafe_unretained NSString *email;
+	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *verified;
 } UserAttributes;
@@ -27,6 +30,9 @@ extern const struct UserFetchedProperties {
 
 
 
+
+
+
 @interface UserID : NSManagedObjectID {}
 @end
 
@@ -40,11 +46,41 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* about;
+
+
+
+//- (BOOL)validateAbout:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* email;
 
 
 
 //- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* name;
+
+
+
+//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* picture;
+
+
+
+//- (BOOL)validatePicture:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -120,8 +156,26 @@ extern const struct UserFetchedProperties {
 @interface _User (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSString*)primitiveAbout;
+- (void)setPrimitiveAbout:(NSString*)value;
+
+
+
+
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveName;
+- (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSString*)primitivePicture;
+- (void)setPrimitivePicture:(NSString*)value;
 
 
 
