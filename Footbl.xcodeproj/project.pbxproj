@@ -223,6 +223,9 @@
 		EDB639BB1910776300D7B041 /* _Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Bet.m; path = Models/_Bet.m; sourceTree = "<group>"; };
 		EDB639BD1910776C00D7B041 /* Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bet.h; path = Models/Bet.h; sourceTree = "<group>"; };
 		EDB639BE1910776C00D7B041 /* Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bet.m; path = Models/Bet.m; sourceTree = "<group>"; };
+		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EDB9C6E7192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EDB9C6E8192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDBC848018EDE60B00CCC01A /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = SOURCE_ROOT; };
 		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
 		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
@@ -728,6 +731,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				pt,
 			);
 			mainGroup = EDB1D45918E1F18B00E0C949;
 			productRefGroup = EDB1D46318E1F18B00E0C949 /* Products */;
@@ -934,6 +938,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				ED19A406190ACF8700946490 /* en */,
+				EDB9C6E7192A8181002A913D /* pt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -942,6 +947,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EDB1D47118E1F18B00E0C949 /* en */,
+				EDB9C6E6192A8181002A913D /* pt */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -950,6 +956,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EDB1D48E18E1F18B00E0C949 /* en */,
+				EDB9C6E8192A8181002A913D /* pt */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

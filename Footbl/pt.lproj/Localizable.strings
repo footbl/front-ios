@@ -5,67 +5,67 @@
   Copyright (c) 2014 made@sampa. All rights reserved. */
 
 /* Create your group button title */
-"Create your group button title" = "Create your own group";
+"Create your group button title" = "Crie o seu próprio grupo";
 
 /* {number of stakes} stakes and {number of comments} comments */
-"%i stakes and %i comments" = "%1$i stakes and %2$i comments";
+"%i stakes and %i comments" = "%1$i apostas e %2$i comentários";
 
 /* Championships */
-"Championships" = "Championships";
+"Championships" = "Campeonatos";
 
 /* Create your group button subtitle */
-"Create your group button subtitle" = "Choose a league, bet against friends and prove who's the best!";
+"Create your group button subtitle" = "Escolha uma liga, aposte com os seus amigos e prove quem é o melhor!";
 
 /* Close tutorial */
-"Close tutorial" = "Close tutorial";
+"Close tutorial" = "Fechar tutorial";
 
 /* Draw */
-"Draw" = "Draw";
+"Draw" = "Empate";
 
 /* Error */
-"Error" = "Error";
+"Error" = "Erro";
 
 /* Find Friends */
-"Find Friends" = "Find Friends";
+"Find Friends" = "Buscar Amigos";
 
 /* Groups */
-"Groups" = "Groups";
+"Groups" = "Grupos";
 
 /* Log in with Facebook */
-"Log in with Facebook" = "Log in with Facebook";
+"Log in with Facebook" = "Entrar com Facebook";
 
 /* Matches */
-"Matches" = "Matches";
+"Matches" = "Partidas";
 
 /* New Group */
-"New Group" = "New Group";
+"New Group" = "Novo grupo";
 
 /* OK */
 "OK" = "OK";
 
 /* Profile */
-"Profile" = "Profile";
+"Profile" = "Perfil";
 
 /* Profit */
-"Profit" = "Profit";
+"Profit" = "Lucro";
 
 /* Settings */
-"Settings" = "Settings";
+"Settings" = "Ajustes";
 
 /* Sign up */
-"Sign up" = "Sign up";
+"Sign up" = "Criar uma conta";
 
 /* Skip for now */
-"Skip for now" = "Skip for now";
+"Skip for now" = "Pular";
 
 /* Stake */
-"Stake" = "Stake";
+"Stake" = "Aposta";
 
 /* Teams */
-"Teams" = "Teams";
+"Teams" = "Times";
 
 /* To return */
-"To return" = "To return";
+"To return" = "Retorno";
 
 /* Tutorial */
 "Tutorial" = "Tutorial";
@@ -74,7 +74,7 @@
 "Logs" = "Logs";
 
 /* Wallet */
-"Wallet" = "Wallet";
+"Wallet" = "Carteira";
 
 /* Changelog text */
 "Changelog text" = "# Footbl 1.0 (#192)\n\n### Changelog #147 -> #192 (10/05)\n\n- Login:\n\t- Login com Facebook;\n\t- Login com usuário e senha;\n\t- Pendente: selecionar foto do usuário e texto *about me*;\n- Grupos:\n\t- Visualização de grupos;\n\t- Criação de grupos (ainda não é possível adicionar pessoas em um grupo);\n\t- Listagem de grupos globais;\n\t- Apagar / sair de um grupo;\n\t- Editar grupo;\n- Partidas:\n\t- Visualização de tempo da partida;\n\t- Diminuição do tamanho do card da partida;\n\t- Não é mais possível apostar em partidas finalizadas ou em andamento;\n\t- Melhorias na exibição dos nomes dos times (uso de acrônimos);\n\n### Changelog #145 -> #147 (01/05)\n\n- Correção de crash ao fazer login;\n\n### Changelog #131 -> #145 (01/05)\n\n- Design da tela inicial de autenticação;\n\t- A única opção para autenticação continua sendo *Skip for now*;\n- Opção de *logout* na área de configurações (*Profile* -> *Settings*);\n- Correção de crash ao alterar uma aposta;\n- Correção de bug ao efetuar uma aposta (tabela “andava” sozinha em algumas situações);\n- Apostas:\n\t- Possibilidade de selecionar opção de aposta: time da casa, empate ou visitante;\n\t- Ainda não é possível “segurar” para aumentar aposta, o aumento deve ser feito de *tap* em *tap*;\n\t- Ainda não existem validações de aposta, ou seja, se a partida já aconteceu ou se existem fundos na carteira;\n\t- Para diminuir a aposta em um time, selecione empate ou o time visitante;\n\t- A sincronização da opção de aposta é efetuada 2 segundos após o valor da aposta permanecer inalterado. Durante a sincronização (comunicação aplicativo <=> servidor) não é possível mudar a aposta daquela partida.\n\t- Ao escolher o valor da aposta é feita uma simulação nos fundos da carteira. Depois de sincronizar a aposta com o servidor, a carteira e a partida (*pots*) também são sincronizados;\n- Adicionada a “moeda Footbl” na carteira (barra de navegação);\n\n### Changelog #109 -> #131 (29/04)\n\n- Nova estratégia de assinatura de *requests* entre aplicativo <-> servidor;\n- Novo campeonato: Copa do Mundo;\n- Atualização dos exemplos de teste de layout;\n- Apostas:\n\t- Primeira versão com suporte a apostas;\n\t- Para apostar, basta selecionar uma partida;\n\t- Ainda não é possível selecionar o valor da aposta nem o time em que a aposta será feita;\n\t- Para trocar o time da aposta, selecione a partida novamente;\n- Grupos:\n\t- Criação de grupos;\n\t- Ainda não é possível escolher nenhuma informação do grupo nem convidar usuários;\n- Melhorias de estabilidade e performance na comunicação aplicativo <-> servidor;\n\n### Changelog #90 -> #109 (28/04)\n\n- Downgrade do *deployment target* de iOS 7.1 para iOS 7.0;\n- Distinção entre time com aposta (o conteúdo além do time fica em tons de cinza, visualizar três primeiras partidas);\n\t- Ainda **não é possível** fazer apostas;\n- Design das partidas ao vivo (terceira partida da lista);\n- Design das partidas terminadas (quarta partida em diante);\n- Sincronização da carteira com o servidor;\n- Adicionada imagem de abertura do aplicativo;\n- Correção de crash ao compartilhar arquivo de log;\n- Edição de textos na área de ajustes desativada;\n- Correções de performance ao sincronizar campeonatos e partidas com servidor;\n\n### Changelog #90 (27/04)\n\n- Autenticação com o servidor (usuário **anônimo** por enquanto);\n- Sincronização de partidas com servidor;\n- Estruturação da navegação;\n- Fluxo inicial de visualização do tutorial, criação de nova conta e visualização de partidas;\n\t- Tutorial e tela de criação de conta são apenas mockups;\n\t- Não é possível criar/visualizar apostas e comentários;\n\t- Não é possível visualizar tela de detalhes da partida;\n- Ícone do aplicativo e ícones da *tab bar*;\n- Tela de ajustes dentro de perfil com informações sobre essa versão e visualização dos logs;\n\t- Em casos de *crash* (fechamento inesperado do aplicativo), encaminhar log para fernando@madeatsampa.com;";
@@ -86,72 +86,66 @@
 "Changelog" = "Changelog";
 
 /* Version */
-"Version" = "Version";
+"Version" = "Versão";
 
 /* Acknowledgements */
-"Acknowledgements" = "Acknowledgements";
+"Acknowledgements" = "Sobre";
 
 /* Now */
-"Now" = "Now";
+"Now" = "Agora";
 
 /* Or */
-"Or" = "Or";
+"Or" = "Ou";
 
 /* Group Info */
-"Group Info" = "Group Info";
+"Group Info" = "Info do Grupo";
 
 /* Group */
-"Group" = "Group";
+"Group" = "Grupo";
 
 /* Leave group */
-"Leave group" = "Leave group";
+"Leave group" = "Sair do grupo";
 
 /* Live - {time elapsed}' */
-"Live - %i'" = "Live - %i'";
+"Live - %i'" = "Ao vivo - %i'";
 
 /* Logout */
 "Logout" = "Logout";
 
 /* {number of rounds} rounds to end */
-"%i rounds to end" = "%i rounds to end";
+"%i rounds to end" = "%i rodadas para terminar";
 
 /* 1 round to end */
-"1 round to end" = "Last round";
+"1 round to end" = "Última rodada";
 
 /* Championship finished */
-"Championship finished" = "Championship finished";
+"Championship finished" = "Campeonato encerrado";
 
 /* {number of characters} characters left */
-"%i characters left" = "%i characters left";
+"%i characters left" = "%i caracteres restantes";
 
 /* 1 character left */
-"1 character left" = "1 character left";
+"1 character left" = "1 caracter restante";
 
-"NOTIFICATION_ GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
-
-"NOTIFICATION_ROUND_END" = "Notification round end";
-
-"NOTIFICATION_LEAGUE_END" = "Notification league end";
+"NOTIFICATION_ GROUP_ADDED" = "%@ adicionou você no grupo %@ (%@).";
 
 /* Add photo */
-"Add photo" = "Add photo";
+"Add photo" = "Adic.\nfoto";
 
 /* Insert group name */
-"Insert group name" = "Insert group name";
+"Insert group name" = "Digite o nome do grupo";
 
 /* Next */
-"Next" = "Next";
-
-"NOTIFICATION_ROUND_START" = "Notification round start";
+"Next" = "Continuar";
 
 /* Add members */
-"Add members" = "Add members";
+"Add members" = "Adic. amigos";
 
 /* Contacts */
-"Contacts" = "Contacts";
+"Contacts" = "Contatos";
 
 /* Create */
-"Create" = "Create";
+"Create" = "Criar";
 
 /* Facebook */
 "Facebook" = "Facebook";
@@ -160,56 +154,50 @@
 "Footbl" = "Footbl";
 
 /* Select league */
-"Select league" = "Select league";
+"Select league" = "Selecione a liga";
 
 /* Type a friend's name */
-"Type a friend's name" = "Type a friend's name";
+"Type a friend's name" = "Digite o nome do seu amigo";
 
 /* Continue */
-"Continue" = "Continue";
+"Continue" = "Continuar";
 
 /* Sign up text: email */
-"Sign up text: email" = "Hello!\nPlease insert your email.";
+"Sign up text: email" = "Olá!\nPor favor insira seu email.";
 
 /* Sign up text: password confirmation */
-"Sign up text: password confirmation" = "Thanks!\nPlease confirm your password.";
+"Sign up text: password confirmation" = "Obrigado!\nAgora é só confirmar aquela senha.";
 
 /* Sign up text: password */
-"Sign up text: password" = "Awesome!\nPlease type a password.";
+"Sign up text: password" = "Prazer em conhecê-lo!\nAgora digite uma senha.";
 
 /* Sign up text: username */
-"Sign up text: username" = "Almost done!\nPlease insert your username.";
+"Sign up text: username" = "Quase pronto!\nQual o nome de usuário?";
 
 /* Sign up text: email hint */
-"Sign up text: email hint" = "This doesn't appear to be an email address...are you sure about that?";
+"Sign up text: email hint" = "Isso não parece ser um email...tem certeza?";
 
 /* Sign up text: password confirmation hint */
-"Sign up text: password confirmation hint" = "Passwords don't match...weird!";
+"Sign up text: password confirmation hint" = "As senhas não estão batendo...";
 
 /* Sign up text: password hint */
-"Sign up text: password hint" = "Make sure it's at least 6 characters.";
+"Sign up text: password hint" = "A senha precisa ter pelo menos 6 caracteres.";
 
 /* Login text: welcome back */
-"Login text: welcome back" = "Welcome back!\n";
+"Login text: welcome back" = "Seja bem vindo!\n";
 
 /* Sign in */
-"Sign in" = "Sign in";
+"Sign in" = "Login";
 
 /* Sign up text: username hint */
 "Sign up text: username hint" = " ";
 
-/* Facebook group invitation message */
-"Facebook group invitation message" = "Facebook group invitation message";
-
-/* Facebook group invitation title */
-"Facebook group invitation title" = "Facebook group invitation title";
-
 /* FootblAPI error: unknown error */
-"FootblAPI error: unknown error" = "Unknown error, please check your connection and try again.";
+"FootblAPI error: unknown error" = "Erro desconhecido, por favor verifique a sua conexão e tente novamente.";
 
 /* Sign up text: name hint */
-"Sign up text: name hint" = "This doens't look like a name to me...";
+"Sign up text: name hint" = "Isso não parece um nome pra mim...";
 
 /* Sign up text: name */
-"Sign up text: name" = "Nice!\nWhat's your name?";
+"Sign up text: name" = "Legal!\nQual o seu nome?";
 
