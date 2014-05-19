@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIButton+WebCache.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "Championship.h"
 #import "Group.h"
 #import "GroupDetailViewController.h"
@@ -33,7 +34,7 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@", self.group];
         fetchRequest.includesSubentities = YES;
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
@@ -71,13 +72,14 @@
 
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (membership.ranking) {
+    if (membership.hasRankingValue) {
         cell.rankingLabel.text = [@"#" stringByAppendingString:membership.ranking.stringValue];
     } else {
-        cell.rankingLabel.text = @"#1";
+        cell.rankingLabel.text = [@"#" stringByAppendingString:@(indexPath.row + 1).stringValue];
     }
     
     cell.usernameLabel.text = membership.user.username;
+    cell.nameLabel.text = membership.user.name;
     
     if (membership.funds) {
         cell.walletLabel.text = membership.funds.stringValue;
@@ -85,8 +87,7 @@
         cell.walletLabel.text = @"";
     }
     
-    // Just for testing
-    cell.nameLabel.text = @"Fernando Saragoça";
+    [cell.profileImageView setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
 }
 
 #pragma mark - Delegates & Data sources

@@ -144,7 +144,7 @@
                         }];
                     } else {
                         NSMutableArray *realMembers = [NSMutableArray new];
-                        for (NSDictionary *member in responseObject) {
+                        for (NSDictionary *member in API_RESULT(key)) {
                             if ([member[@"ranking"] isKindOfClass:[NSNumber class]]) {
                                 [realMembers addObject:member];
                             }
@@ -179,7 +179,7 @@
                             [self updateMembersWithSuccess:success failure:failure];
                         }];
                     } else {
-                        [Membership loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
+                        [Membership loadContent:API_RESULT(key) inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
                             membership.group = self;
                         } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                             [self.managedObjectContext deleteObjects:untouchedObjects];

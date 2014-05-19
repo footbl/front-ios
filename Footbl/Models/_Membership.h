@@ -6,6 +6,7 @@
 
 extern const struct MembershipAttributes {
 	__unsafe_unretained NSString *funds;
+	__unsafe_unretained NSString *hasRanking;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
 
@@ -19,6 +20,7 @@ extern const struct MembershipFetchedProperties {
 
 @class Group;
 @class User;
+
 
 
 
@@ -45,6 +47,20 @@ extern const struct MembershipFetchedProperties {
 - (void)setFundsValue:(int64_t)value_;
 
 //- (BOOL)validateFunds:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* hasRanking;
+
+
+
+@property BOOL hasRankingValue;
+- (BOOL)hasRankingValue;
+- (void)setHasRankingValue:(BOOL)value_;
+
+//- (BOOL)validateHasRanking:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -93,6 +109,15 @@ extern const struct MembershipFetchedProperties {
 
 - (int64_t)primitiveFundsValue;
 - (void)setPrimitiveFundsValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveHasRanking;
+- (void)setPrimitiveHasRanking:(NSNumber*)value;
+
+- (BOOL)primitiveHasRankingValue;
+- (void)setPrimitiveHasRankingValue:(BOOL)value_;
 
 
 

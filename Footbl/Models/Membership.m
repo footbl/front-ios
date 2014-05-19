@@ -28,11 +28,13 @@
     } else {
         self.ranking = data[@"ranking"];
     }
-    if ([data[@"ranking"] isKindOfClass:[NSNull class]]) {
+    if (data[@"funds"] && [data[@"funds"] isKindOfClass:[NSNull class]]) {
         self.funds = nil;
     } else {
         self.funds = data[@"funds"];
     }
+    
+    self.hasRanking = @(self.ranking != nil);
     
     self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
     [self.user updateWithData:data[@"user"]];

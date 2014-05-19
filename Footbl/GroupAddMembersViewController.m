@@ -138,7 +138,7 @@
         case 0:
             cell.usernameLabel.text = self.dataSource[indexPath.row][@"username"];
             cell.nameLabel.text = self.dataSource[indexPath.row][@"name"];
-            [cell restoreProfileImagePlaceholder];
+            [cell.profileImageView setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"]] placeholderImage:cell.placeholderImage];
             break;
         case 1: {
             APContact *contact = self.dataSource[indexPath.row];
