@@ -59,7 +59,7 @@
                                 signupViewController.profileImage = image;
                             }
                         }];
-                        signupViewController.fbId = result[@"id"];
+                        signupViewController.fbToken = [FBSession activeSession].accessTokenData.accessToken;
                         [self.navigationController pushViewController:signupViewController animated:NO];
                         self.view.userInteractionEnabled = YES;
                     }];

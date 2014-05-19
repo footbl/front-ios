@@ -185,10 +185,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (FootblAuthenticationType)authenticationType {
     FBSessionState currentFbState = [FBSession activeSession].state;
-    if ((self.userIdentifier.length > 0 || self.userEmail.length > 0) && self.userPassword.length > 0) {
-        return FootblAuthenticationTypeEmailPassword;
-    } else if (currentFbState != FBSessionStateClosed && currentFbState != FBSessionStateClosedLoginFailed && [[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] boolValue]) {
+    if (currentFbState != FBSessionStateClosed && currentFbState != FBSessionStateClosedLoginFailed && [[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] boolValue]) {
         return FootblAuthenticationTypeFacebook;
+    } else if ((self.userIdentifier.length > 0 || self.userEmail.length > 0) && self.userPassword.length > 0) {
+        return FootblAuthenticationTypeEmailPassword;
     } else if (self.userEmail.length == 0 && self.userIdentifier.length > 0) {
         return FootblAuthenticationTypeAnonymous;
     }
@@ -289,6 +289,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 }
 
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (self.authenticationType == FootblAuthenticationTypeAnonymous) {
+        if (success) success();
+    }
+    
     NSMutableDictionary *parameters = [self generateDefaultParameters];
     parameters[@"password"] = [NSString randomHexStringWithLength:20];
     [self POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -322,39 +326,46 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     
     NSString *key = NSStringFromSelector(@selector(ensureAuthenticationWithSuccess:failure:));
     [self groupOperationsWithKey:key block:^{
-        void(^loginBlock)() = ^() {
-            [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword fbToken:[FBSession activeSession].accessTokenData.accessToken success:^{
-                SPLog(@"Login succeed");
+        void(^loginBlock)(BOOL useFacebook) = ^(BOOL useFacebook) {
+            [self loginWithEmail:self.userEmail identifier:self.userIdentifier password:self.userPassword fbToken:useFacebook ? [FBSession activeSession].accessTokenData.accessToken : nil success:^{
                 [self finishGroupedOperationsWithKey:key error:nil];
             } failure:^(NSError *error) {
-                SPLog(@"Login failed: %@", error);
                 [self finishGroupedOperationsWithKey:key error:error];
             }];
         };
         
-        if (self.isAuthenticated && (self.authenticationType != FootblAuthenticationTypeFacebook || [FBSession activeSession].accessTokenData.accessToken.length > 0)) {
-            loginBlock();
+        void(^failureBlock)(NSError *error) = ^(NSError *error) {
+            NSMutableArray *queue = self.operationGroupingDictionary[key];
+            for (NSDictionary *queuedRequest in queue) {
+                FootblAPIFailureBlock block = queuedRequest[@"failure"];
+                if (block) block(error);
+            }
+            [self.operationGroupingDictionary removeObjectForKey:key];
+        };
+        
+        if (self.isAuthenticated && (self.authenticationType != FootblAuthenticationTypeFacebook || (([FBSession activeSession].accessTokenData.accessToken.length > 0) && [[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] boolValue]))) {
+            loginBlock(self.authenticationType == FootblAuthenticationTypeFacebook);
         } else {
             __block BOOL facebookHandled = NO;
             switch (self.authenticationType) {
                 case FootblAuthenticationTypeAnonymous:
                 case FootblAuthenticationTypeEmailPassword:
-                    loginBlock();
+                    loginBlock(NO);
                     break;
                 case FootblAuthenticationTypeFacebook: {
                     [self authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
                         if ([FBSession activeSession].accessTokenData.accessToken.length > 0 && !facebookHandled) {
-                            loginBlock();
+                            loginBlock(YES);
                             facebookHandled = YES;
                         } else if (error && !facebookHandled) {
-                            if (failure) failure(error);
+                            [self finishGroupedOperationsWithKey:key error:error];
                             facebookHandled = YES;
                         }
                     }];
                     break;
                 }
                 default:
-                    failure(nil);
+                    failureBlock(nil);
                     break;
             }
         }
@@ -366,6 +377,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if (fbToken.length > 0) {
         [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
     } else if (password.length > 0 && (email.length > 0 || identifier.length > 0)) {
+        [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
         if (email.length > 0) {
             parameters[@"email"] = email;
         } else {
@@ -469,25 +481,40 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
 }
 
-- (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId profileImage:(UIImage *)profileImage success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+- (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
-        [self ensureAuthenticationWithSuccess:^{
+        [[User currentUser] updateWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
-            parameters[@"username"] = username;
-            parameters[@"email"] = email;
+            [parameters addEntriesFromDictionary:[[User currentUser] dictionaryRepresentation]];
+            if (username) {
+                parameters[@"username"] = username;
+            }
+            if (email) {
+                parameters[@"email"] = email;
+            }
             parameters[@"password"] = password;
             parameters[@"language"] = [NSLocale preferredLanguages][0];
+            parameters[@"name"] = name;
+            parameters[@"about"] = @"About me";
             if (picturePath) {
                 parameters[@"picture"] = picturePath;
             }
-            if (fbId) {
-                parameters[@"facebookId"] = fbId;
+            if (fbToken) {
+                [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
             }
-            [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
-            [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
+            parameters[@"locale"] = [[NSLocale currentLocale] identifier];
+            parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
+            
             [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (fbToken.length > 0) {
+                    [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
+                } else {
+                    [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
+                }
+                [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
                 requestSucceedWithBlock(operation, parameters, success);
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
         } failure:failure];
