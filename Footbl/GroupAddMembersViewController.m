@@ -65,7 +65,7 @@
     if (!_facebookDataSource) {
         _facebookDataSource = @[];
         
-        [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
             [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
                 if (error) {
                     SPLogError(@"Facebook error %@, %@", error, [error userInfo]);

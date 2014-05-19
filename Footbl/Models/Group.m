@@ -74,7 +74,10 @@
                 [[self API] finishGroupedOperationsWithKey:key error:error];
                 API_RESET_KEY(key);
             }];
-        } failure:failure];
+        } failure:^(NSError *error) {
+            [[self API] finishGroupedOperationsWithKey:key error:error];
+            if (failure) failure(error);
+        }];
     } success:success failure:failure];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 typedef void (^FootblAPISuccessBlock)();
 typedef void (^FootblAPISuccessWithResponseBlock)(NSArray *response);
@@ -22,6 +23,14 @@ extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContex
 extern NSString * const kAPIIdentifierKey;
 extern NSString * const kFootblAPINotificationAuthenticationChanged;
 
+typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
+    FootblAuthenticationTypeNone = 0,
+    FootblAuthenticationTypeAnonymous = 1,
+    FootblAuthenticationTypeFacebook = 2,
+    FootblAuthenticationTypeEmailPassword = 3
+};
+
+@class FBSession;
 @class User;
 
 @interface FootblAPI : AFHTTPRequestOperationManager
@@ -36,6 +45,7 @@ extern NSString * const kFootblAPINotificationAuthenticationChanged;
 + (void)performOperationWithoutGrouping:(void (^)())block;
 
 - (NSMutableDictionary *)generateDefaultParameters;
+- (FootblAuthenticationType)authenticationType;
 - (void)groupOperationsWithKey:(id)key block:(dispatch_block_t)block success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)finishGroupedOperationsWithKey:(id)key error:(NSError *)error;
 // Config
@@ -45,7 +55,8 @@ extern NSString * const kFootblAPINotificationAuthenticationChanged;
 - (void)ensureAuthenticationWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (BOOL)isAuthenticated;
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)loginWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)loginWithFacebookToken:(NSString *)facebookToken success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)authenticateFacebookWithCompletion:(void (^)(FBSession *session, FBSessionState status, NSError *error))completionBlock;
 - (void)logout;
 - (void)updateAccountWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password fbId:(NSString *)fbId profileImage:(UIImage *)image success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)uploadImage:(UIImage *)image withCompletionBlock:(void (^)(NSString *response, NSError *error))completionBlock;

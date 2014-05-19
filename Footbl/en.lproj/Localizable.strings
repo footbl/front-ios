@@ -195,7 +195,7 @@
 /* Sign in */
 "Sign in" = "Sign in";
 
-/* No comment provided by engineer. */
+/* Sign up text: username hint */
 "Sign up text: username hint" = "Sign up text: username hint";
 
 /* Facebook group invitation message */
@@ -203,4 +203,7 @@
 
 /* Facebook group invitation title */
 "Facebook group invitation title" = "Facebook group invitation title";
+
+/* FootblAPI error: unknown error */
+"FootblAPI error: unknown error" = "Unknown error, please check your connection and try again.";
 

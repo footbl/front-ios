@@ -91,16 +91,18 @@ static CGFloat kBetSyncWaitTime = 2;
                     } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                         [self.editableManagedObjectContext deleteObjects:untouchedObjects];
                     }];
-                    requestSucceedWithBlock(operation, parameters, success);
+                    requestSucceedWithBlock(operation, parameters, nil);
                     [[self API] finishGroupedOperationsWithKey:key error:nil];
                     API_RESET_KEY(key);
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                requestFailedWithBlock(operation, parameters, error, failure);
+                requestFailedWithBlock(operation, parameters, error, nil);
                 [[self API] finishGroupedOperationsWithKey:key error:error];
                 API_RESET_KEY(key);
             }];
-        } failure:failure];
+        } failure:^(NSError *error) {
+            [[self API] finishGroupedOperationsWithKey:key error:error];
+        }];
     } success:success failure:failure];
 }
 

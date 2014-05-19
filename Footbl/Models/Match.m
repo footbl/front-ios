@@ -80,7 +80,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
                 requestFailedWithBlock(operation, parameters, error, failure);
                 API_RESET_KEY(key);
             }];
-        } failure:failure];
+        } failure:^(NSError *error) {
+            [[self API] finishGroupedOperationsWithKey:key error:error];
+            if (failure) failure(error);
+        }];
     } success:success failure:failure];
 }
 
