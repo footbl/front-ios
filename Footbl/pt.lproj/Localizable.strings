@@ -14,7 +14,7 @@
 "Championships" = "Campeonatos";
 
 /* Create your group button subtitle */
-"Create your group button subtitle" = "Escolha uma liga, aposte com os seus amigos e prove quem é o melhor!";
+"Create your group button subtitle" = "Aposte com os seus amigos e veja quem é o melhor!";
 
 /* Close tutorial */
 "Close tutorial" = "Fechar tutorial";
@@ -200,4 +200,22 @@
 
 /* Sign up text: name */
 "Sign up text: name" = "Legal!\nQual o seu nome?";
+
+/* Championship: World Cup */
+"Championship: World Cup" = "Copa do Mundo";
+
+/* Cancel */
+"Cancel" = "Cancelar";
+
+/* Import from Facebook */
+"Import from Facebook" = "Importar do Facebook";
+
+/* Import from Library */
+"Import from Library" = "Escolher existente";
+
+/* Take photo */
+"Take photo" = "Tirar foto";
+
+/* Country: International */
+"Country: International" = "Internacional";
 

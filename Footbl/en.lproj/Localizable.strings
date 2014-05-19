@@ -213,3 +213,21 @@
 /* Sign up text: name */
 "Sign up text: name" = "Nice!\nWhat's your name?";
 
+/* Championship: World Cup */
+"Championship: World Cup" = "World Cup";
+
+/* Cancel */
+"Cancel" = "Cancel";
+
+/* Import from Facebook */
+"Import from Facebook" = "Import from Facebook";
+
+/* Import from Library */
+"Import from Library" = "Import from Library";
+
+/* Take photo */
+"Take photo" = "Take photo";
+
+/* Country: International */
+"Country: International" = "International";
+
