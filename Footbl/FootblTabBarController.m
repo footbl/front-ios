@@ -75,7 +75,7 @@
     };
     
     void(^authenticationBlock)(UINavigationController *navigationController) = ^(UINavigationController *navigationController) {
-        if ([[FootblAPI sharedAPI] isAuthenticated]) {
+        if ([FootblAPI sharedAPI].isAuthenticated) {
             [self dismissViewControllerAnimated:YES completion:nil];
             viewControllersSetupBlock();
         } else {
