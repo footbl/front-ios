@@ -227,6 +227,9 @@
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"name"] = self.name;
         parameters[@"freeToEdit"] = self.freeToEdit;
+        if (self.picture) {
+            parameters[@"picture"] = self.picture;
+        }
         [[self API] PUT:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.editableManagedObjectContext performBlock:^{
                 [self updateWithData:responseObject];
@@ -241,6 +244,39 @@
             requestFailedWithBlock(operation, parameters, error, failure);
         }];
     } failure:failure];
+}
+
+- (void)uploadImage:(UIImage *)image success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
+        [[self API] ensureAuthenticationWithSuccess:^{
+            self.picture = picturePath;
+            
+            [self.editableManagedObjectContext performBlock:^{
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+            }];
+            
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            parameters[@"name"] = self.name;
+            parameters[@"freeToEdit"] = self.freeToEdit;
+            parameters[@"picture"] = self.picture;
+            [[self API] PUT:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self.editableManagedObjectContext performBlock:^{
+                    [self updateWithData:responseObject];
+                    SaveManagedObjectContext(self.editableManagedObjectContext);
+                    requestSucceedWithBlock(operation, parameters, success);
+                }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
+        } failure:failure];
+    };
+    [[self API] uploadImage:image withCompletionBlock:^(NSString *response, NSError *error) {
+        if (error) {
+            if (failure) failure(error);
+        } else {
+            requestBlock(response);
+        }
+    }];
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

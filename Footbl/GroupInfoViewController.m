@@ -10,8 +10,10 @@
 #import "Championship.h"
 #import "Group.h"
 #import "GroupInfoViewController.h"
+#import "ImportImageHelper.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
+#import "User.h"
 
 @interface GroupInfoViewController ()
 
@@ -26,6 +28,20 @@
 #pragma mark - Getters/Setters
 
 #pragma mark - Instance Methods
+
+- (IBAction)selectImageAction:(id)sender {
+    BOOL keyboardIsFirstResponder = self.nameTextField.isFirstResponder;
+    [self.nameTextField resignFirstResponder];
+    [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary)] completionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [self.groupImageButton setImage:image forState:UIControlStateNormal];
+            [self.group uploadImage:image success:nil failure:nil];
+        }
+        if (keyboardIsFirstResponder) {
+            [self.nameTextField becomeFirstResponder];
+        }
+    }];
+}
 
 - (IBAction)leaveGroupAction:(id)sender {
     [self.group.editableObject deleteWithSuccess:nil failure:nil];
@@ -46,7 +62,7 @@
 
 - (void)reloadData {
     self.nameTextField.text = self.group.name;
-    self.nameTextField.userInteractionEnabled = self.group.freeToEditValue;
+    self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
     [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];

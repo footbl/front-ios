@@ -152,6 +152,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.navigationItem.title = self.group.name;
+    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

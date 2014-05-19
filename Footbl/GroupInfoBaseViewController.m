@@ -29,6 +29,7 @@
 
 - (IBAction)selectImageAction:(id)sender {
     BOOL keyboardIsFirstResponder = self.nameTextField.isFirstResponder;
+    [self.nameTextField resignFirstResponder];
     [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary)] completionBlock:^(UIImage *image, NSError *error) {
         if (image) {
             [self.groupImageButton setImage:image forState:UIControlStateNormal];
