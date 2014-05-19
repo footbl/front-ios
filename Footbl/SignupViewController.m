@@ -69,8 +69,10 @@
             self.textField.alpha = 0;
             self.hintLabel.alpha = 0;
         } completion:^(BOOL finished) {
-            [self reloadTextField];
             self.textField.text = @"";
+            [self reloadTextField];
+            [self.textField resignFirstResponder];
+            [self.textField becomeFirstResponder];
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
                 self.informationLabel.alpha = 1;
                 self.textField.alpha = 1;
@@ -177,7 +179,7 @@
         self.textField.secureTextEntry = NO;
         self.textField.keyboardType = UIKeyboardTypeAlphabet;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+        self.textField.autocorrectionType = UITextAutocorrectionTypeYes;
         self.textField.returnKeyType = UIReturnKeyNext;
         self.textField.enablesReturnKeyAutomatically = YES;
     } else if (!self.password) {
@@ -202,7 +204,7 @@
         text = NSLocalizedString(@"Sign up text: username", @"");
         
         self.textField.secureTextEntry = NO;
-        self.textField.keyboardType = UIKeyboardTypeDefault;
+        self.textField.keyboardType = UIKeyboardTypeAlphabet;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.returnKeyType = UIReturnKeyDone;
