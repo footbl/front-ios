@@ -49,11 +49,11 @@
     self.nameTextField.userInteractionEnabled = self.group.freeToEditValue;
     
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
-    NSString *championshipName = self.group.championship.name;
+    NSString *championshipName = self.group.championship.displayName;
     if (!championshipName) {
         championshipName = @"";
     }
-    NSString *location = self.group.championship.country;
+    NSString *location = self.group.championship.displayCountry;
     if (self.group.championship.edition) {
         location = [location stringByAppendingFormat:@", %@", self.group.championship.edition.stringValue];
     }

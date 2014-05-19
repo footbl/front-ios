@@ -35,6 +35,22 @@
     return @(self.roundsValue - (self.currentRoundValue - 1));
 }
 
+- (NSString *)displayCountry {
+    NSString *string = [NSString stringWithFormat:@"Country: %@", self.country];
+    if ([NSLocalizedString(string, @"") isEqualToString:string]) {
+        return self.country;
+    }
+    return NSLocalizedString(string, @"");
+}
+
+- (NSString *)displayName {
+    NSString *string = [NSString stringWithFormat:@"Championship: %@", self.name];
+    if ([NSLocalizedString(string, @"") isEqualToString:string]) {
+        return self.name;
+    }
+    return NSLocalizedString(string, @"");
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     

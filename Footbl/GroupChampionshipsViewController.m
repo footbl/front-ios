@@ -49,8 +49,8 @@
 
 - (void)configureCell:(GroupChampionshipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = championship.name;
-    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.country stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
+    cell.nameLabel.text = championship.displayName;
+    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.displayCountry stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
     
     // Just for testing
     [cell.championshipImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Fifa%20World%20Cup%20Logo.png"]];
