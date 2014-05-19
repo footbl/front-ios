@@ -12,5 +12,6 @@
 
 + (instancetype)currentUser;
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
+- (NSDictionary *)dictionaryRepresentation;
 
 @end

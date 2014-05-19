@@ -73,4 +73,24 @@
     self.picture = data[@"picture"];
 }
 
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dictionary = [NSMutableDictionary new];
+    if (self.email) {
+        dictionary[@"email"] = self.email;
+    }
+    if (self.username) {
+        dictionary[@"username"] = self.username;
+    }
+    if (self.name) {
+        dictionary[@"name"] = self.name;
+    }
+    if (self.picture) {
+        dictionary[@"picture"] = self.picture;
+    }
+    if (self.about) {
+        dictionary[@"about"] = self.about;
+    }
+    return dictionary;
+}
+
 @end
