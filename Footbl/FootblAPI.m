@@ -239,7 +239,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 }
 
 - (void)finishGroupedOperationsWithKey:(id)key error:(NSError *)error {
-    NSMutableArray *queue = (self.operationGroupingDictionary)[key];
+    NSMutableArray *queue = self.operationGroupingDictionary[key];
     for (NSDictionary *queuedRequest in queue) {
         if (error) {
             FootblAPIFailureBlock block = queuedRequest[@"failure"];
