@@ -589,10 +589,7 @@
 				EDB1D47718E1F18B00E0C949 /* AppDelegate.m */,
 				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
 				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
-				EDD6711C19229E2400985174 /* FriendsHelper.h */,
-				EDD6711D19229E2400985174 /* FriendsHelper.m */,
-				ED1E913719253F1200BDE434 /* ImportImageHelper.h */,
-				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
+				EDB9C6E9192A88F6002A913D /* Helpers */,
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
 				ED493D38190ED2BF00A7869B /* TeamImageView.m */,
@@ -663,6 +660,17 @@
 				EDB1D4A418E1F43000E0C949 /* FootblAPI.m */,
 			);
 			name = APIs;
+			sourceTree = "<group>";
+		};
+		EDB9C6E9192A88F6002A913D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EDD6711C19229E2400985174 /* FriendsHelper.h */,
+				EDD6711D19229E2400985174 /* FriendsHelper.m */,
+				ED1E913719253F1200BDE434 /* ImportImageHelper.h */,
+				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
