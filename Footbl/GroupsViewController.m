@@ -175,7 +175,9 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
+    /*
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction:)];
+    */
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
     
     self.refreshControl = [UIRefreshControl new];
