@@ -43,6 +43,8 @@
 - (void)loadView {
     [super loadView];
     
+    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
 }
 
