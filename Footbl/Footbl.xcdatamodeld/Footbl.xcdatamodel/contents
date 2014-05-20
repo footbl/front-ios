@@ -77,6 +77,7 @@
     </entity>
     <entity name="User" representedClassName="User" parentEntity="FootblModel" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
@@ -104,7 +105,7 @@
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="180"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="195"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="148"/>
     </elements>
 </model>

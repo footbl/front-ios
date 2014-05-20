@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <TransformerKit/TransformerKit.h>
 #import "User.h"
 
 @interface User ()
@@ -71,6 +72,8 @@
     self.name = data[@"name"];
     self.about = data[@"about"];
     self.picture = data[@"picture"];
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+    self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
 }
 
 - (NSDictionary *)dictionaryRepresentation {

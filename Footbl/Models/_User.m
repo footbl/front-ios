@@ -5,6 +5,7 @@
 
 const struct UserAttributes UserAttributes = {
 	.about = @"about",
+	.createdAt = @"createdAt",
 	.email = @"email",
 	.name = @"name",
 	.picture = @"picture",
@@ -60,6 +61,13 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 @dynamic about;
+
+
+
+
+
+
+@dynamic createdAt;
 
 
 

@@ -6,6 +6,7 @@
 
 extern const struct UserAttributes {
 	__unsafe_unretained NSString *about;
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
@@ -33,6 +34,7 @@ extern const struct UserFetchedProperties {
 
 
 
+
 @interface UserID : NSManagedObjectID {}
 @end
 
@@ -51,6 +53,16 @@ extern const struct UserFetchedProperties {
 
 
 //- (BOOL)validateAbout:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -158,6 +170,12 @@ extern const struct UserFetchedProperties {
 
 - (NSString*)primitiveAbout;
 - (void)setPrimitiveAbout:(NSString*)value;
+
+
+
+
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
 
 
 
