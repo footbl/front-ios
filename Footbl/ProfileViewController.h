@@ -8,6 +8,8 @@
 
 #import "TemplateViewController.h"
 
-@interface ProfileViewController : TemplateViewController
+@interface ProfileViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) UITableView *tableView;
 
 @end

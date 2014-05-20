@@ -18,6 +18,10 @@
 		ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
 		ED2D1C6119158B2700F1BC81 /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
+		ED324328192BBD5700F54D57 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
+		ED32432B192BCD8000F54D57 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
+		ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
+		ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
 		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
@@ -123,6 +127,14 @@
 		ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMembersViewController.m; sourceTree = "<group>"; };
 		ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipTableViewCell.h; sourceTree = "<group>"; };
 		ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipTableViewCell.m; sourceTree = "<group>"; };
+		ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
+		ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewCell.m; sourceTree = "<group>"; };
+		ED324329192BCD8000F54D57 /* WalletTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletTableViewCell.h; sourceTree = "<group>"; };
+		ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletTableViewCell.m; sourceTree = "<group>"; };
+		ED32432C192BDC8D00F54D57 /* WalletHighestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHighestTableViewCell.h; sourceTree = "<group>"; };
+		ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHighestTableViewCell.m; sourceTree = "<group>"; };
+		ED32432F192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileChampionshipTableViewCell.h; sourceTree = "<group>"; };
+		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
@@ -321,6 +333,21 @@
 				ED81E81E18EA6A3900212D3C /* GroupsViewController.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		ED324325192BBD0D00F54D57 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				ED32432F192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.h */,
+				ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */,
+				ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */,
+				ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */,
+				ED32432C192BDC8D00F54D57 /* WalletHighestTableViewCell.h */,
+				ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */,
+				ED324329192BCD8000F54D57 /* WalletTableViewCell.h */,
+				ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		ED81E82618EA705E00212D3C /* Template */ = {
@@ -618,6 +645,7 @@
 			children = (
 				ED81E83518EA73F100212D3C /* Groups */,
 				ED81E83618EA73F600212D3C /* Matches */,
+				ED324325192BBD0D00F54D57 /* Profile */,
 				ED19A3FF190A221B00946490 /* Settings */,
 				ED81E83718EA740E00212D3C /* Template */,
 			);
@@ -858,6 +886,7 @@
 				ED9D0AFF18F31B7C0061AE42 /* LoginViewController.m in Sources */,
 				EDEFFA1018EF30BA003E12B7 /* _User.m in Sources */,
 				EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */,
+				ED324328192BBD5700F54D57 /* ProfileTableViewCell.m in Sources */,
 				ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				ED493D36190DCAF100A7869B /* Wallet.m in Sources */,
@@ -887,15 +916,18 @@
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDAF0EA3191BC7E3005218FB /* SignupViewController.m in Sources */,
+				ED32432B192BCD8000F54D57 /* WalletTableViewCell.m in Sources */,
 				ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */,
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
+				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
 				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
 				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
 				ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */,
+				ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */,
 				ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,

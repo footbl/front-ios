@@ -219,3 +219,15 @@
 /* Country: International */
 "Country: International" = "Internacional";
 
+/* Since {month format} {year format} */
+"'Since' MMMM YYYY" = "'Desde' MMMM 'de' YYYY ";
+
+/* Betting in 1 league */
+"Betting in 1 league" = "participando de 1 liga";
+
+/* Betting in {number of leagues} leagues */
+"Betting in %i leagues" = "participando de %i ligas";
+
+/* Country: BR */
+"Country: BR" = "Brasil";
+
