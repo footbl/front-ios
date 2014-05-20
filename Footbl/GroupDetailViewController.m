@@ -60,7 +60,7 @@
 
 - (void)reloadData {
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
+    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [self.group.editableObject updateMembersWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
@@ -127,7 +127,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
+        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }];
     
     self.refreshControl = [UIRefreshControl new];
@@ -154,7 +154,7 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
+    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

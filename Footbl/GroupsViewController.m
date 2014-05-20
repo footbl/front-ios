@@ -70,7 +70,7 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = group.name;
-    [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture]];
+    [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [cell setIndicatorHidden:!group.isNewValue animated:NO];
     switch (group.championship.pendingRounds.integerValue) {
         case 0:
