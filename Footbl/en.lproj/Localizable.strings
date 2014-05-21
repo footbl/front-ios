@@ -196,7 +196,7 @@
 "Sign in" = "Sign in";
 
 /* Sign up text: username hint */
-"Sign up text: username hint" = " ";
+"Sign up text: username hint" = "Too short! Just a few more characters...";
 
 /* Facebook group invitation message */
 "Facebook group invitation message" = "Facebook group invitation message";

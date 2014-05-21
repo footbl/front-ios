@@ -190,7 +190,7 @@
 "Sign in" = "Login";
 
 /* Sign up text: username hint */
-"Sign up text: username hint" = " ";
+"Sign up text: username hint" = "Muito pequeno, digite um pouco mais :)";
 
 /* FootblAPI error: unknown error */
 "FootblAPI error: unknown error" = "Erro desconhecido, por favor verifique a sua conexão e tente novamente.";

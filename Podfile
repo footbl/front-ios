@@ -2,6 +2,7 @@ platform :ios, '7.0'
 
 # madeatsampa
 pod 'SPHipster'
+pod 'SPNotifier'
 
 # Networking
 pod 'AFNetworking', '~> 2.0'

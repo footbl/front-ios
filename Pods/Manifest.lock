@@ -33,6 +33,8 @@ PODS:
   - SPHipster/Core (0.3)
   - SPHipster/Extras (0.3):
     - SPHipster/Core
+  - SPNotifier (0.2.1):
+    - AFNetworking (~> 2.0)
   - TransformerKit (0.3.1)
 
 DEPENDENCIES:
@@ -42,15 +44,17 @@ DEPENDENCIES:
   - FXKeychain
   - SDWebImage
   - SPHipster
+  - SPNotifier
   - TransformerKit
 
 SPEC CHECKSUMS:
-  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
-  APAddressBook: e2c59420af3539ae21e4124e8346349e47ca7a81
-  Cloudinary: 130ad6895fd1e1ac0c63475d58e7440c33708a98
-  FXKeychain: 90cc7bf9ba005e4d099a113a194792e7983c5778
-  SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
+  AFNetworking: 8dde8c8a6597ad95dac332a593c27e541bc87371
+  APAddressBook: 68f34e35b5a037caca73e101c49b33c9eba224a9
+  Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
+  FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183
-  TransformerKit: 612d3966b31e345f2abc8221fe6657379bb5d8b6
+  SPNotifier: 23f1975c68c449ec81433a167dda3dbe429d8f85
+  TransformerKit: 06b091aea93e66436d35abe7b9e12fb144acad29
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
