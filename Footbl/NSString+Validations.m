@@ -34,7 +34,7 @@
 }
 
 - (BOOL)isValidUsername {
-    return YES;
+    return self.length > 4;
 }
 
 @end
