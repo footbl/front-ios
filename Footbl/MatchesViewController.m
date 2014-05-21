@@ -27,6 +27,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) CGPoint tableViewOffset;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
+@property (assign, nonatomic) NSInteger numberOfMatches;
 
 @end
 
@@ -301,6 +302,15 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     }
 }
 
+- (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
+    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].firstObject;
+    if (!match) {
+        match = self.fetchedResultsController.fetchedObjects.lastObject;
+    }
+    
+    [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:match] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+}
+
 - (void)reloadData {
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
@@ -310,6 +320,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         }
     };
     
+    self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
     [Wallet updateWithSuccess:^{
         [self fetchChampionship];
         if (self.championship) {
@@ -327,6 +338,17 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 }
 
 #pragma mark - Delegates & Data sources
+
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super controllerDidChangeContent:controller];
+    
+    if (self.numberOfMatches == 0 && controller.fetchedObjects.count > 0) {
+        self.numberOfMatches = controller.fetchedObjects.count;
+        [self scrollToFirstActiveMatchAnimated:NO];
+    }
+}
 
 #pragma mark - UIScrollView delegate
 
@@ -393,6 +415,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     
     self.navigationController.navigationBarHidden = YES;
     
+    self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
+    
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
     [self.view addSubview:self.navigationBarTitleView];
     
@@ -431,6 +455,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     
     [self reloadWallet];
     [self reloadData];
+    
+    [self scrollToFirstActiveMatchAnimated:NO];
 }
 
 - (void)viewDidLoad {
