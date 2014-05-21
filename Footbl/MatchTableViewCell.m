@@ -118,7 +118,9 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 236;
+            self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + 26);
+            self.shareButton.frameY = 236;
+            self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
             break;
         case MatchTableViewCellStateLayoutLive:
         case MatchTableViewCellStateLayoutDone:
@@ -158,16 +160,40 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 236 + increment + 2;
+            self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + increment + 2 + 26);
+            self.footerLabel.backgroundColor = [UIColor clearColor];
+            self.shareButton.frameY = 236 + increment + 2;
             break;
     }
     
     if (self.stateLayout == MatchTableViewCellStateLayoutLive) {
         self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
+        self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     } else if (self.stateLayout == MatchTableViewCellStateLayoutDone) {
         self.liveHeaderView.backgroundColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1];
     }
     self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
+    
+    [UIView performWithoutAnimation:^{
+        CGPoint footerLabelCenter = self.footerLabel.center;
+        [self.footerLabel sizeToFit];
+        if ((self.footerLabel.frameWidth + 20) < 45) {
+            self.footerLabel.frameWidth = 45;
+        } else {
+            self.footerLabel.frameWidth += 20;
+        }
+        self.footerLabel.frameHeight += 5;
+        self.footerLabel.layer.cornerRadius = self.footerLabel.frameHeight / 2;
+        self.footerLabel.center = footerLabelCenter;
+        
+        if (self.footerLabel.text.length == 0 && (self.stateLayout == MatchTableViewCellStateLayoutDone || self.stateLayout == MatchTableViewCellStateLayoutLive)) {
+            self.footerLabel.hidden = YES;
+            self.shareButton.frame = CGRectMake(0, self.shareButton.frameY, self.cardContentView.frameWidth, self.shareButton.frameHeight);
+        } else {
+            self.footerLabel.hidden = NO;
+            self.shareButton.frame = CGRectMake(13, self.shareButton.frameY, 86, self.shareButton.frameHeight);
+        }
+    }];
 }
 
 #pragma mark - Instance Methods
@@ -329,6 +355,15 @@ static CGFloat kDisabledAlpha = 0.4;
         
         // Footer
         self.footerLabel = potLabel(CGRectMake(0, 256, 300, 53));
+        self.footerLabel.font = [UIFont fontWithName:self.footerLabel.font.fontName size:18];
+        self.footerLabel.clipsToBounds = YES;
+        
+        self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 256, 86, 55)];
+        [self.shareButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [self.shareButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        [self.shareButton setTitle:NSLocalizedString(@"Share", @"") forState:UIControlStateNormal];
+        self.shareButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
+        [self.cardContentView addSubview:self.shareButton];
     }
     return self;
 }
@@ -357,23 +392,6 @@ static CGFloat kDisabledAlpha = 0.4;
 
 - (void)setSecondSeparatorPosition:(CGFloat)position {
     [self.cardContentView viewWithTag:kSecondSeparatorTag].frameY = position;
-}
-
-- (void)setStakesCount:(NSNumber *)stakesCount commentsCount:(NSNumber *)commentsCount {
-    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"%i stakes and %i comments", @"{number of stakes} stakes and {number of comments} comments"), stakesCount.integerValue, commentsCount.integerValue];
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    NSMutableDictionary *attributes = [@{NSForegroundColorAttributeName : [FootblAppearance colorForView:FootblColorCellMatchPot],
-                                         NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:15],
-                                         NSParagraphStyleAttributeName : paragraphStyle} mutableCopy];
-    
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-    attributes[NSForegroundColorAttributeName] = [attributes[NSForegroundColorAttributeName] colorWithAlphaComponent:1.00];
-    [attributedString setAttributes:attributes range:[text rangeOfString:[NSString stringWithFormat:@"%li", stakesCount.unsignedLongValue]]];
-    [attributedString setAttributes:attributes range:[text rangeOfString:[NSString stringWithFormat:@"%li", commentsCount.unsignedLongValue]]];
-    
-    self.footerLabel.attributedText = attributedString;
 }
 
 - (void)setDateText:(NSString *)dateText {

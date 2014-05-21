@@ -248,6 +248,18 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         [self reloadWallet];
     };
     
+    if (match.jackpot.integerValue > 0) {
+        cell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.stringValue];
+    } else {
+        cell.footerLabel.text = @"";
+    }
+    
+    // Just for testing
+    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
+    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
+    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+    
     if (match.elapsed) {
         cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
         cell.stateLayout = MatchTableViewCellStateLayoutLive;
@@ -258,13 +270,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         cell.liveLabel.text = @"";
         cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
     }
-    
-    // Just for testing
-    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-    [cell setStakesCount:@143 commentsCount:@48];
 }
 
 - (void)fetchChampionship {

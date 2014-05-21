@@ -220,6 +220,18 @@
             matchCell.returnValueLabel.text = @"-";
             matchCell.profitValueLabel.text = @"-";
             
+            if (match.jackpot.integerValue > 0) {
+                matchCell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.stringValue];
+            } else {
+                matchCell.footerLabel.text = @"";
+            }
+            
+            // Just for testing
+            [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
+            [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
+            [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+            [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+            
             if (match.elapsed) {
                 matchCell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
                 matchCell.stateLayout = MatchTableViewCellStateLayoutLive;
@@ -230,13 +242,6 @@
                 matchCell.liveLabel.text = @"";
                 matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             }
-            
-            // Just for testing
-            [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-            [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-            [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-            [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-            [matchCell setStakesCount:@143 commentsCount:@48];
             
             break;
         }

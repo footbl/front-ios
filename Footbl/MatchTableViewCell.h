@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (assign, nonatomic) MatchTableViewCellLayout layout;
 @property (assign, nonatomic) MatchTableViewCellStateLayout stateLayout;
 @property (copy, nonatomic) void (^selectionBlock)(NSInteger index);
+@property (copy, nonatomic) void (^shareBlock)();
 @property (strong, nonatomic) UIView *cardContentView;
 
 // Live
@@ -60,9 +61,9 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (strong, nonatomic) TeamImageView *guestDisabledImageView;
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
+@property (strong, nonatomic) UIButton *shareButton;
 
 - (CGFloat)defaultTeamNameFontSize;
-- (void)setStakesCount:(NSNumber *)stakesCount commentsCount:(NSNumber *)commentsCount;
 - (void)setDateText:(NSString *)dateText;
 
 @end
