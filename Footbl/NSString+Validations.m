@@ -22,7 +22,7 @@
 }
 
 - (BOOL)isValidName {
-    return self.length > 4 && [self rangeOfString:@" "].location != NSNotFound;
+    return self.length > 4;
 }
 
 - (BOOL)isEmpty {
