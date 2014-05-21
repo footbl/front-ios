@@ -492,9 +492,13 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             if (email) {
                 parameters[@"email"] = email;
             }
-            parameters[@"password"] = password;
+            if (password) {
+                parameters[@"password"] = password;
+            }
             parameters[@"language"] = [NSLocale preferredLanguages][0];
-            parameters[@"name"] = name;
+            if (name) {
+                parameters[@"name"] = name;
+            }
             parameters[@"about"] = @"About me";
             if (picturePath) {
                 parameters[@"picture"] = picturePath;
