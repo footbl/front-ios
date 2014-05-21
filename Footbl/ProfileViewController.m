@@ -11,6 +11,7 @@
 #import "Championship.h"
 #import "FootblAPI.h"
 #import "Match.h"
+#import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
@@ -242,6 +243,10 @@
                 matchCell.liveLabel.text = @"";
                 matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             }
+            
+            matchCell.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
+                [match shareUsingMatchCell:matchBlockCell viewController:self];
+            };
             
             break;
         }

@@ -22,6 +22,7 @@
 		ED32432B192BCD8000F54D57 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
 		ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
+		ED324334192D396500F54D57 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
 		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
@@ -135,6 +136,8 @@
 		ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHighestTableViewCell.m; sourceTree = "<group>"; };
 		ED32432F192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileChampionshipTableViewCell.h; sourceTree = "<group>"; };
 		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
+		ED324332192D396500F54D57 /* Match+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Match+Sharing.h"; sourceTree = "<group>"; };
+		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
@@ -588,6 +591,8 @@
 		EDB1D49D18E1F3CC00E0C949 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				ED324332192D396500F54D57 /* Match+Sharing.h */,
+				ED324333192D396500F54D57 /* Match+Sharing.m */,
 				EDB1D4A918E209E500E0C949 /* NSString+Hex.h */,
 				EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */,
 				EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */,
@@ -907,6 +912,7 @@
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
+				ED324334192D396500F54D57 /* Match+Sharing.m in Sources */,
 				EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,
 				EDC5F52619143F83005757EB /* GroupInfoViewController.m in Sources */,

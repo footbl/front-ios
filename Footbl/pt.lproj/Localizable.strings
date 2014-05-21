@@ -240,3 +240,30 @@
 /* Share */
 "Share" = "Compartilhar";
 
+/* {home team} {away team} {bet value} {bet profit} */
+"Share match: finished with bet (draw)" = "Terminou a partida!";
+
+/* {bet team} {against team} {bet value} {bet profit} */
+"Share match: finished with bet" = "Terminou a partida!";
+
+/* {home team} {away team} */
+"Share match: finished without bet" = " ";
+
+/* {home team} {away team} {bet value} */
+"Share match: live with bet (draw)" = "Vai dar empate, certeza!";
+
+/* {bet team} {against team} {bet value} */
+"Share match: live with bet" = "Vai %1$@!";
+
+/* {home team} {away team} */
+"Share match: live without bet" = " ";
+
+/* {home team} {away team} {bet value} */
+"Share match: waiting with bet (draw)" = "Vai dar empate, certeza!";
+
+/* {bet team} {against team} {bet value} */
+"Share match: waiting with bet" = "Vai dar %1$@!";
+
+/* {home team} {away team} */
+"Share match: waiting without bet" = "Quem vocês acham que vai ganhar? %1$@ ou %2$@";
+

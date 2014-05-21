@@ -363,9 +363,31 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.shareButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         [self.shareButton setTitle:NSLocalizedString(@"Share", @"") forState:UIControlStateNormal];
         self.shareButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
+        [self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.cardContentView addSubview:self.shareButton];
     }
     return self;
+}
+
+- (IBAction)shareAction:(id)sender {
+    if (self.shareBlock) self.shareBlock(self);
+}
+
+- (UIImage *)imageRepresentation {
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth + 10, self.cardContentView.frameHeight + 10)];
+    CGPoint cardCenter = self.cardContentView.center;
+    [tempView addSubview:self.cardContentView];
+    self.cardContentView.center = tempView.center;
+    
+    UIGraphicsBeginImageContextWithOptions(tempView.frame.size, NO, 2.0);
+    [tempView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self.contentView addSubview:self.cardContentView];
+    self.cardContentView.center = cardCenter;
+    
+    return image;
 }
 
 - (void)gestureRecognizerHandler:(UIGestureRecognizer *)gestureRecognizer {

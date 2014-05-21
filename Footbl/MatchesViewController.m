@@ -11,6 +11,7 @@
 #import "Championship.h"
 #import "FootblTabBarController.h"
 #import "Match.h"
+#import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
@@ -270,6 +271,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         cell.liveLabel.text = @"";
         cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
     }
+    
+    cell.shareBlock = ^(MatchTableViewCell *matchCell) {
+        [match shareUsingMatchCell:matchCell viewController:self];
+    };
 }
 
 - (void)fetchChampionship {
