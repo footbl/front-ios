@@ -143,6 +143,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.potGuest = data[@"pot"][@"guest"];
     self.potHost = data[@"pot"][@"host"];
     self.round = data[@"round"];
+    self.jackpot = data[@"jackpot"];
     
     if ([data[@"elapsed"] isKindOfClass:[NSNumber class]]) {
         self.elapsed = data[@"elapsed"];

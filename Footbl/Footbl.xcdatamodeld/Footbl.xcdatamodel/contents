@@ -49,6 +49,7 @@
         <attribute name="finished" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="guestScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="hostScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="jackpot" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="localUpdatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="potDraw" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="potGuest" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
@@ -102,7 +103,7 @@
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="178"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="285"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="195"/>

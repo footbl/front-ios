@@ -9,6 +9,7 @@ const struct MatchAttributes MatchAttributes = {
 	.finished = @"finished",
 	.guestScore = @"guestScore",
 	.hostScore = @"hostScore",
+	.jackpot = @"jackpot",
 	.localUpdatedAt = @"localUpdatedAt",
 	.potDraw = @"potDraw",
 	.potGuest = @"potGuest",
@@ -70,6 +71,11 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	}
 	if ([key isEqualToString:@"hostScoreValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"hostScore"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"jackpotValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"jackpot"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -205,6 +211,32 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 - (void)setPrimitiveHostScoreValue:(int16_t)value_ {
 	[self setPrimitiveHostScore:[NSNumber numberWithShort:value_]];
+}
+
+
+
+
+
+@dynamic jackpot;
+
+
+
+- (float)jackpotValue {
+	NSNumber *result = [self jackpot];
+	return [result floatValue];
+}
+
+- (void)setJackpotValue:(float)value_ {
+	[self setJackpot:[NSNumber numberWithFloat:value_]];
+}
+
+- (float)primitiveJackpotValue {
+	NSNumber *result = [self primitiveJackpot];
+	return [result floatValue];
+}
+
+- (void)setPrimitiveJackpotValue:(float)value_ {
+	[self setPrimitiveJackpot:[NSNumber numberWithFloat:value_]];
 }
 
 
