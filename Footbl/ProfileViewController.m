@@ -35,6 +35,14 @@
 
 #pragma mark - Getters/Setters
 
+- (User *)user {
+    if (!_user) {
+        _user = [User currentUser];
+    }
+    
+    return _user;
+}
+
 #pragma mark - Instance Methods
 
 - (id)init {
@@ -68,7 +76,7 @@
     self.totalWallet = [fetchResult valueForKeyPath:@"@sum.funds"];
     self.championships = [[fetchResult valueForKeyPath:@"championship"] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
     
-    [[User currentUser] updateWithSuccess:^{
+    [self.user updateWithSuccess:^{
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     } failure:failure];
@@ -80,17 +88,14 @@
             switch (indexPath.row) {
                 case 0: {
                     ProfileTableViewCell *profileCell = (ProfileTableViewCell *)cell;
-                    User *user = [User currentUser];
-                    profileCell.nameLabel.text = user.name;
-                    profileCell.usernameLabel.text = user.username;
-                    profileCell.verified = user.verifiedValue;
-                    [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:profileCell.placeholderImage];
+                    profileCell.nameLabel.text = self.user.name;
+                    profileCell.usernameLabel.text = self.user.username;
+                    profileCell.verified = self.user.verifiedValue;
+                    [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];
                     formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
-                    profileCell.dateLabel.text = [formatter stringFromDate:user.createdAt];
-                    
-                    profileCell.verified = YES;
+                    profileCell.dateLabel.text = [formatter stringFromDate:self.user.createdAt];
                     break;
                 }
                 case 1: {
@@ -136,7 +141,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 1 && self.championships.count > 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
-        view.backgroundColor = self.tableView.backgroundColor;
+        view.backgroundColor = [UIColor clearColor];
         
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 9.5, CGRectGetWidth(view.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
