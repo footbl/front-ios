@@ -9,6 +9,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
+#import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
 #import "FriendsHelper.h"
 #import "FootblAPI.h"
@@ -49,6 +50,9 @@
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
     
     [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
+    
+    [SPNotifier setToken:@"MtdSF5SsLWBLnhkjZa1nWF3ZXwg4ybGnuRzxi2sy"];
+    [SPNotifier handleNotification:launchOptions];
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
@@ -121,6 +125,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [SPNotifier resetBadge];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -129,11 +134,28 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    BOOL isAnonymous = [FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous;
+    NSArray *tags = @[isAnonymous ? @"Anonymous" : @"Authenticated"];
+    switch (SPGetBuildType()) {
+        case SPBuildTypeDebug:
+        case SPBuildTypeAdHoc:
+            [SPNotifier registerDeviceToken:deviceToken alias:[[UIDevice currentDevice] name] tags:tags success:nil failure:nil];
+            break;
+        case SPBuildTypeAppStore:
+            [SPNotifier registerDeviceToken:deviceToken alias:nil tags:tags success:nil failure:nil];
+            break;
+        default:
+            break;
+    }
     SPLog(@"APNS: %@", deviceToken);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [SPNotifier handleNotification:userInfo];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
