@@ -52,7 +52,11 @@
     NSMutableAttributedString *attributedText = [NSMutableAttributedString new];
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:[formatter stringFromDate:date] attributes:attributes]];
     attributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
-    [attributedText setAttributes:attributes range:[attributedText.string rangeOfString:highestValue.stringValue]];
+    NSRange range = [attributedText.string rangeOfString:[@"$" stringByAppendingString:highestValue.stringValue]];
+    if (range.location == NSNotFound) {
+        range = [attributedText.string rangeOfString:highestValue.stringValue];
+    }
+    [attributedText setAttributes:attributes range:range];
     self.walletLabel.attributedText = attributedText;
 }
 
