@@ -76,12 +76,6 @@
         group.isDefault = @YES;
         group.picture = self.picture;
     }
-    
-    [Team loadContent:data[@"competitors"] inManagedObjectContext:self.editableManagedObjectContext usingCache:self.competitors enumeratingObjectsWithBlock:^(Team *object, NSDictionary *contentEntry) {
-        [object addChampionshipsObject:self];
-    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-        [untouchedObjects makeObjectsPerformSelector:@selector(removeChampionshipsObject:) withObject:self];
-    }];
 }
 
 @end
