@@ -251,7 +251,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
         cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
         cell.stateLayout = MatchTableViewCellStateLayoutLive;
     } else if (match.finishedValue) {
-        cell.liveLabel.text = @"";
+        cell.liveLabel.text = NSLocalizedString(@"Final", @"");
         cell.stateLayout = MatchTableViewCellStateLayoutDone;
     } else {
         cell.liveLabel.text = @"";
@@ -373,12 +373,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (match.elapsed) {
-        return 383;
-    } else if (match.hostScore) {
-        return 356;
+    if (match.elapsed || match.finishedValue) {
+        return 363;
     } else {
-        return 330;
+        return 340;
     }
 }
 

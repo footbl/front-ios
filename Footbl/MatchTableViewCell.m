@@ -121,13 +121,14 @@ static CGFloat kDisabledAlpha = 0.4;
             self.footerLabel.frameY = 236;
             break;
         case MatchTableViewCellStateLayoutLive:
-            self.cardContentView.frameHeight = 342;
+        case MatchTableViewCellStateLayoutDone:
+            self.cardContentView.frameHeight = 312;
             self.cardContentView.layer.borderWidth = 1;
             self.liveHeaderView.alpha = 1;
             
             CGFloat increment = 23;
             [self setFirstSeparatorPosition:62 + increment];
-            [self setSecondSeparatorPosition:236 + increment + increment + 7];
+            [self setSecondSeparatorPosition:236 + increment + 7];
             
             // Bets
             self.stakeValueLabel.frameY = 12 + increment;
@@ -140,10 +141,6 @@ static CGFloat kDisabledAlpha = 0.4;
             // Teams & Pots
             self.hostScoreLabel.alpha = 1;
             self.guestScoreLabel.alpha = 1;
-            self.hostScoreLabel.frameY = 101;
-            self.guestScoreLabel.frameY = self.hostScoreLabel.frameY;
-            
-            increment += 30;
             
             self.hostPotLabel.frameY = 99 + increment;
             self.drawPotLabel.frameY = self.hostPotLabel.frameY;
@@ -161,51 +158,16 @@ static CGFloat kDisabledAlpha = 0.4;
             self.guestDisabledImageView.frameY = self.versusLabel.frameY;
             
             // Footer
-            self.footerLabel.frameY = 236 + increment;
+            self.footerLabel.frameY = 236 + increment + 2;
             break;
-        case MatchTableViewCellStateLayoutDone: {
-            self.cardContentView.frameHeight = 315;
-            self.liveHeaderView.alpha = 0;
-            self.cardContentView.layer.borderWidth = 0;
-            
-            CGFloat increment = 30;
-            [self setFirstSeparatorPosition:62];
-            [self setSecondSeparatorPosition:236 + increment];
-            
-            // Bets
-            self.stakeValueLabel.frameY = 12;
-            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.stakeTitleLabel.frameY = 36;
-            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
-            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
-            
-            // Teams & Pots
-            self.hostScoreLabel.alpha = 1;
-            self.guestScoreLabel.alpha = 1;
-            self.hostScoreLabel.frameY = 77;
-            self.guestScoreLabel.frameY = self.hostScoreLabel.frameY;
-            
-            self.hostPotLabel.frameY = 103 + increment;
-            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
-            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
-            
-            self.hostNameLabel.frameY = 77 + increment;
-            self.drawLabel.frameY = self.hostNameLabel.frameY;
-            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
-            
-            // Images
-            self.versusLabel.frameY = 131 + increment;
-            self.hostImageView.frameY = self.versusLabel.frameY;
-            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
-            self.guestImageView.frameY = self.versusLabel.frameY;
-            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
-            
-            // Footer
-            self.footerLabel.frameY = 236 + increment;
-            break;
-        }
     }
+    
+    if (self.stateLayout == MatchTableViewCellStateLayoutLive) {
+        self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
+    } else if (self.stateLayout == MatchTableViewCellStateLayoutDone) {
+        self.liveHeaderView.backgroundColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1];
+    }
+    self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
 }
 
 #pragma mark - Instance Methods
@@ -221,7 +183,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.layout = MatchTableViewCellLayoutNoBet;
         self.stateLayout = MatchTableViewCellStateLayoutWaiting;
         
-        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 1, CGRectGetWidth(self.contentView.frame), 20)];
+        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.frame), 20)];
         self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.dateLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
         self.dateLabel.textColor = [UIColor colorWithRed:57/255.f green:73/255.f blue:61/255.f alpha:0.80];
@@ -233,7 +195,7 @@ static CGFloat kDisabledAlpha = 0.4;
         line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
         
-        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 35, 300, 319)];
+        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, 300, 319)];
         self.cardContentView.backgroundColor = [UIColor whiteColor];
         self.cardContentView.layer.cornerRadius = 4;
         self.cardContentView.layer.shadowColor = [[FootblAppearance colorForView:FootblColorCellSeparator] colorWithAlphaComponent:1.0].CGColor;
@@ -250,14 +212,25 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.cardContentView addSubview:headerContentView];
         
         self.liveHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 27)];
-        self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
         [headerContentView addSubview:self.liveHeaderView];
+        
+        self.hostScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
+        self.hostScoreLabel.textAlignment = NSTextAlignmentCenter;
+        self.hostScoreLabel.textColor = [UIColor whiteColor];
+        self.hostScoreLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
+        [self.liveHeaderView addSubview:self.hostScoreLabel];
         
         self.liveLabel = [[UILabel alloc] initWithFrame:self.liveHeaderView.bounds];
         self.liveLabel.textAlignment = NSTextAlignmentCenter;
         self.liveLabel.textColor = [UIColor whiteColor];
-        self.liveLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
+        self.liveLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
         [self.liveHeaderView addSubview:self.liveLabel];
+        
+        self.guestScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(197, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
+        self.guestScoreLabel.textAlignment = NSTextAlignmentCenter;
+        self.guestScoreLabel.textColor = [UIColor whiteColor];
+        self.guestScoreLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
+        [self.liveHeaderView addSubview:self.guestScoreLabel];
         
         [@[@62, @256] enumerateObjectsUsingBlock:^(NSNumber *offsetY, NSUInteger idx, BOOL *stop) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, CGRectGetWidth(self.cardContentView.frame), 0.5)];
@@ -320,14 +293,6 @@ static CGFloat kDisabledAlpha = 0.4;
         self.hostPotLabel = potLabel(CGRectMake(17, 99, 86, 18));
         self.drawPotLabel = potLabel(CGRectMake(113, 99, 74, 18));
         self.guestPotLabel = potLabel(CGRectMake(197, 99, 86, 18));
-        
-        self.hostScoreLabel = label(CGRectMake(12, 101, 96, 24), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
-        self.hostScoreLabel.font = [UIFont fontWithName:kFontNameLight size:30];
-        self.hostScoreLabel.text = @"4";
-        
-        self.guestScoreLabel = label(CGRectMake(192, 101, 96, 24), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
-        self.guestScoreLabel.font = [UIFont fontWithName:kFontNameLight size:30];
-        self.guestScoreLabel.text = @"1";
         
         self.hostNameLabel = label(CGRectMake(17, 75, 86, 28), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
         self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:self.defaultTeamNameFontSize];
