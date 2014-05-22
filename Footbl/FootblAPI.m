@@ -533,8 +533,6 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (fbToken.length > 0) {
                     [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
-                } else {
-                    [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
                 }
                 [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
                 requestSucceedWithBlock(operation, parameters, success);
