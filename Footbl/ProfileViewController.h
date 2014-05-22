@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) User *user;
+@property (assign, nonatomic) BOOL shouldShowSettings;
 
 @end

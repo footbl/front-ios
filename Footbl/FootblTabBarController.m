@@ -69,7 +69,10 @@
     void(^viewControllersSetupBlock)() = ^() {
         FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[MatchesViewController new]];
         FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[GroupsViewController new]];
-        FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[ProfileViewController new]];
+        
+        ProfileViewController *profileViewController = [ProfileViewController new];
+        FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:profileViewController];
+        profileViewController.shouldShowSettings = YES;
         self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
         self.selectedIndex = 1;
     };

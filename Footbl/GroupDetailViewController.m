@@ -16,6 +16,7 @@
 #import "Membership.h"
 #import "NSNumber+Formatter.h"
 #import "NSString+Hex.h"
+#import "ProfileViewController.h"
 #import "User.h"
 
 @interface GroupDetailViewController ()
@@ -112,6 +113,15 @@
     return cell;
 }
 
+#pragma mark - UITableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    ProfileViewController *profileViewController = [ProfileViewController new];
+    profileViewController.user = membership.user;
+    [self.navigationController pushViewController:profileViewController animated:YES];
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
@@ -158,6 +168,10 @@
     
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    
+    if (self.tableView.indexPathForSelectedRow) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

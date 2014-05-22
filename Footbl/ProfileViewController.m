@@ -31,7 +31,7 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *totalWallet;
 @property (strong, nonatomic) NSNumber *numberOfWallets;
-@property (strong, nonatomic) NSArray *championships;
+@property (strong, nonatomic) NSArray *wallets;
 @property (strong, nonatomic) NSArray *bets;
 
 @end
@@ -52,6 +52,15 @@
     return _user;
 }
 
+- (void)setShouldShowSettings:(BOOL)shouldShowSettings {
+    _shouldShowSettings = shouldShowSettings;
+    if (self.shouldShowSettings) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (id)init {
@@ -67,10 +76,26 @@
     [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
 }
 
+- (void)reloadContent {
+    self.numberOfWallets = @(self.user.wallets.count);
+    self.totalWallet = [self.user.wallets valueForKeyPath:@"@sum.funds"];
+    self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.rid IN %@", [self.wallets valueForKeyPath:@"rid"]];
+    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:nil];
+    self.bets = fetchResult;
+
+    [self.tableView reloadData];
+}
+
 - (void)reloadData {
     [super reloadData];
+    [self reloadContent];
     
     void(^failure)(NSError *error) = ^(NSError *error) {
+        [self reloadContent];
         [self.refreshControl endRefreshing];
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
@@ -78,25 +103,31 @@
         }
     };
     
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Wallet"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"active = %@", @YES];
-    NSError *error = nil;
-    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-    self.numberOfWallets = @(fetchResult.count);
-    self.totalWallet = [fetchResult valueForKeyPath:@"@sum.funds"];
-    self.championships = [[fetchResult valueForKeyPath:@"championship"] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
-    
-    fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:YES]];
-    fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-    self.bets = fetchResult;
-    
-    [self.tableView reloadData];
-    
-    [self.user updateWithSuccess:^{
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
+    [Wallet updateWithUser:self.user.editableObject success:^{
+        [self reloadContent];
+        __block NSError *error;
+        __block NSInteger completedRequests = 0;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.wallets enumerateObjectsUsingBlock:^(Wallet *wallet, NSUInteger idx, BOOL *stop) {
+                [Bet updateWithWallet:wallet.editableObject success:^{
+                    completedRequests ++;
+                    if (completedRequests == self.wallets.count) {
+                        if (error) {
+                            failure(error);
+                        } else {
+                            [self reloadContent];
+                            [self.refreshControl endRefreshing];
+                        }
+                    }
+                } failure:^(NSError *newError) {
+                    completedRequests ++;
+                    error = newError;
+                    if (completedRequests == self.wallets.count) {
+                        if (failure) failure(error);
+                    }
+                }];
+            }];
+        });
     } failure:failure];
 }
 
@@ -139,11 +170,16 @@
             break;
         case 1: {
             ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
-            Championship *championship = self.championships[indexPath.row];
+            Wallet *wallet = self.wallets[indexPath.row];
+            Championship *championship = wallet.championship;
             [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
             championshipCell.nameLabel.text = championship.name;
             championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
-            championshipCell.rankingLabel.text = [@39944 rankingStringValue];
+            if (wallet.ranking) {
+                championshipCell.rankingLabel.text = wallet.ranking.rankingStringValue;
+            } else {
+                championshipCell.rankingLabel.text = @"";
+            }
 #warning Add ranking text
             break;
         }
@@ -200,7 +236,7 @@
             formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
             [matchCell setDateText:[formatter stringFromDate:match.date]];
             
-            MatchResult result = (MatchResult)match.bet.resultValue;
+            MatchResult result = (MatchResult)[match betForUser:self.user].resultValue;
             if (match.tempBetValue) {
                 result = match.tempBetResult;
             }
@@ -220,7 +256,7 @@
                     break;
             }
             
-            matchCell.stakeValueLabel.text = match.bet.value.stringValue;
+            matchCell.stakeValueLabel.text = [match betForUser:self.user].value.stringValue;
             matchCell.returnValueLabel.text = @"-";
             matchCell.profitValueLabel.text = @"-";
             
@@ -247,6 +283,8 @@
                 matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
             }
             
+            matchCell.shareButton.hidden = !self.user.isMe;
+            
             matchCell.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
                 [match shareUsingMatchCell:matchBlockCell viewController:self];
             };
@@ -263,7 +301,7 @@
 #pragma mark - UITableView data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1 && self.championships.count > 0) {
+    if (section == 1 && self.wallets.count > 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
         view.backgroundColor = [UIColor clearColor];
         
@@ -283,7 +321,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1 && self.championships.count > 0) {
+    if (section == 1 && self.wallets.count > 0) {
         return 10;
     } else if (section == 2 && self.bets.count > 0) {
         return 7;
@@ -301,7 +339,7 @@
         case 0:
             return 3;
         case 1:
-            return self.championships.count;
+            return self.wallets.count;
         case 2:
             return self.bets.count;
         default:
@@ -386,15 +424,16 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if (!self.refreshControl.isRefreshing && [FootblAPI sharedAPI].isAuthenticated) {
-            [self reloadData];
-        }
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self reloadContent];
+        [self performSelector:@selector(reloadContent) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(reloadContent) withObject:nil afterDelay:1];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -408,6 +447,7 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 5)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];

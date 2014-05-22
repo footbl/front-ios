@@ -17,7 +17,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
         self.contentView.backgroundColor = self.backgroundColor;
         
