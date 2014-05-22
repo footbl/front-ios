@@ -55,6 +55,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     [Wallet updateWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {

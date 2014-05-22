@@ -92,6 +92,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     [Group updateWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {

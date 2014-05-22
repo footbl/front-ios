@@ -49,6 +49,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     [Championship updateWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {

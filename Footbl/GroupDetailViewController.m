@@ -59,6 +59,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [self.group.editableObject updateMembersWithSuccess:^{

@@ -10,4 +10,7 @@
 
 @interface TemplateViewController : SPTemplateViewController
 
+- (void)reloadData;
+- (NSTimeInterval)updateInterval;
+
 @end

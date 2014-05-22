@@ -322,6 +322,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         if (error) {
@@ -345,6 +347,15 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
             [self.refreshControl endRefreshing];
         }
     } failure:failure];
+}
+
+- (NSTimeInterval)updateInterval {
+    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].firstObject;
+    if (match && (match.elapsed || [match.date timeIntervalSinceDate:[NSDate date]] < UPDATE_INTERVAL)) {
+        return 60;
+    }
+    
+    return [super updateInterval];
 }
 
 #pragma mark - Delegates & Data sources

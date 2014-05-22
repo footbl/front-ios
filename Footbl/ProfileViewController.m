@@ -67,6 +67,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         if (error) {

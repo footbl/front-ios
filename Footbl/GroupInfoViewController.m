@@ -61,6 +61,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     self.nameTextField.text = self.group.name;
     self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
     [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
