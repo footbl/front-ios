@@ -270,6 +270,12 @@
 /* Cannot update wallet due to wallet balance */
 "Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para $100 quando ela está com menos de $20";
 
+/* Unit for 1000 (kilo) */
+"k" = "k";
+
+/* Unit for 1000000 (mega) */
+"M" = "M";
+
 /* Ops */
 "Ops" = "Ops";
 

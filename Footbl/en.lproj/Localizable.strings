@@ -282,6 +282,12 @@
 /* Cannot update wallet due to wallet balance */
 "Cannot update wallet due to wallet balance" = "You can only recharge your League Wallet back to $100 when your balance is < $20";
 
+/* Unit for 1000 (kilo) */
+"k" = "k";
+
+/* Unit for 1000000 (mega) */
+"M" = "M";
+
 /* Ops */
 "Ops" = "Ops";
 
