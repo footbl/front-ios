@@ -175,24 +175,26 @@
 }
 
 - (IBAction)createAction:(id)sender {
-    if (self.facebookSelectedMembers.count > 0) {
-        NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
-        [[self.facebookSelectedMembers.allObjects valueForKeyPath:@"id"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            fbParamsDictionary[[NSString stringWithFormat:@"to[%lu]", (unsigned long)idx]] = obj;
-        }];
-        
-        [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook group invitation message", @"") title:NSLocalizedString(@"Facebook group invitation title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-            if (error) {
-                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            }
-        }];
-    }
-    
     self.view.window.userInteractionEnabled = NO;
     
     [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:^{
-       [self dismissViewControllerAnimated:YES completion:nil];
-        self.view.window.userInteractionEnabled = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+            self.view.window.userInteractionEnabled = YES;
+            
+            if (self.facebookSelectedMembers.count > 0) {
+                NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
+                [[self.facebookSelectedMembers.allObjects valueForKeyPath:@"id"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    fbParamsDictionary[[NSString stringWithFormat:@"to[%lu]", (unsigned long)idx]] = obj;
+                }];
+                
+                [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook group invitation message", @"") title:NSLocalizedString(@"Facebook group invitation title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                    if (error) {
+                        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                    }
+                }];
+            }
+        });
     } failure:^(NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
         [alert show];
