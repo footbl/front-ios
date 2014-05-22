@@ -9,6 +9,7 @@ extern const struct BetAttributes {
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *result;
 	__unsafe_unretained NSString *reward;
+	__unsafe_unretained NSString *toReturn;
 	__unsafe_unretained NSString *value;
 } BetAttributes;
 
@@ -22,6 +23,7 @@ extern const struct BetFetchedProperties {
 
 @class Match;
 @class Wallet;
+
 
 
 
@@ -94,6 +96,20 @@ extern const struct BetFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* toReturn;
+
+
+
+@property int64_t toReturnValue;
+- (int64_t)toReturnValue;
+- (void)setToReturnValue:(int64_t)value_;
+
+//- (BOOL)validateToReturn:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* value;
 
 
@@ -161,6 +177,15 @@ extern const struct BetFetchedProperties {
 
 - (float)primitiveRewardValue;
 - (void)setPrimitiveRewardValue:(float)value_;
+
+
+
+
+- (NSNumber*)primitiveToReturn;
+- (void)setPrimitiveToReturn:(NSNumber*)value;
+
+- (int64_t)primitiveToReturnValue;
+- (void)setPrimitiveToReturnValue:(int64_t)value_;
 
 
 

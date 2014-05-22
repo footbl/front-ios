@@ -8,6 +8,7 @@ const struct BetAttributes BetAttributes = {
 	.finished = @"finished",
 	.result = @"result",
 	.reward = @"reward",
+	.toReturn = @"toReturn",
 	.value = @"value",
 };
 
@@ -57,6 +58,11 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	}
 	if ([key isEqualToString:@"rewardValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"reward"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"toReturnValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"toReturn"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -151,6 +157,32 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 - (void)setPrimitiveRewardValue:(float)value_ {
 	[self setPrimitiveReward:[NSNumber numberWithFloat:value_]];
+}
+
+
+
+
+
+@dynamic toReturn;
+
+
+
+- (int64_t)toReturnValue {
+	NSNumber *result = [self toReturn];
+	return [result longLongValue];
+}
+
+- (void)setToReturnValue:(int64_t)value_ {
+	[self setToReturn:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveToReturnValue {
+	NSNumber *result = [self primitiveToReturn];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveToReturnValue:(int64_t)value_ {
+	[self setPrimitiveToReturn:[NSNumber numberWithLongLong:value_]];
 }
 
 

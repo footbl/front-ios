@@ -169,6 +169,11 @@ static CGFloat kBetSyncWaitTime = 2;
     } else {
         self.reward = @0;
     }
+    if ([data[@"toReturn"] isKindOfClass:[NSNumber class]]) {
+        self.toReturn = data[@"toReturn"];
+    } else {
+        self.toReturn = @0;
+    }
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

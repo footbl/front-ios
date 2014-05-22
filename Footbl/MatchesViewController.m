@@ -102,19 +102,22 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     cell.guestScoreLabel.text = match.guestScore.stringValue;
     
     CGFloat potTotal = match.potHostValue + match.potGuestValue + match.potDrawValue;
+    NSNumber *potHost = @(potTotal / match.potHostValue);
+    NSNumber *potDraw = @(potTotal / match.potDrawValue);
+    NSNumber *potGuest = @(potTotal / match.potGuestValue);
     
     NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
     numberFormatter.maximumFractionDigits = 2;
     numberFormatter.minimumFractionDigits = 0;
     
     if (match.potHostValue > 0) {
-        cell.hostPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potHostValue)];
+        cell.hostPotLabel.text = [numberFormatter stringFromNumber:potHost];
     }
     if (match.potDrawValue > 0) {
-        cell.drawPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potDrawValue)];
+        cell.drawPotLabel.text = [numberFormatter stringFromNumber:potDraw];
     }
     if (match.potGuestValue > 0) {
-        cell.guestPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potGuestValue)];
+        cell.guestPotLabel.text = [numberFormatter stringFromNumber:potGuest];
     }
     
     // Auto-decrease font size to fit bounds
@@ -162,15 +165,26 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     if (match.tempBetValue) {
         if (match.tempBetValue.integerValue == 0) {
             cell.stakeValueLabel.text = @"-";
+            cell.returnValueLabel.text = @"-";
         } else {
             cell.stakeValueLabel.text = match.tempBetValue.stringValue;
+            if (match.tempBetResult == MatchResultHost) {
+                cell.returnValueLabel.text = @((int)(potHost.floatValue * match.tempBetValue.floatValue)).stringValue;
+            } else if (match.tempBetResult == MatchResultGuest) {
+                cell.returnValueLabel.text = @((int)(potGuest.floatValue * match.tempBetValue.floatValue)).stringValue;
+            } else {
+                cell.returnValueLabel.text = @((int)(potDraw.floatValue * match.tempBetValue.floatValue)).stringValue;
+            }
         }
-        cell.returnValueLabel.text = @"-";
         cell.profitValueLabel.text = @"-";
     } else if (match.bet) {
         cell.stakeValueLabel.text = match.bet.value.stringValue;
-        cell.returnValueLabel.text = @"-";
-        cell.profitValueLabel.text = @"-";
+        cell.returnValueLabel.text = match.bet.toReturn.stringValue;
+        if (match.finishedValue) {
+            cell.profitValueLabel.text = match.bet.reward.stringValue;
+        } else {
+            cell.profitValueLabel.text = @"-";
+        }
     } else {
         cell.stakeValueLabel.text = @"-";
         cell.returnValueLabel.text = @"-";

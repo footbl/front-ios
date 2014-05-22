@@ -5,6 +5,7 @@
         <attribute name="finished" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="result" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="reward" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="bet" inverseEntity="Match" syncable="YES"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="bets" inverseEntity="Wallet" syncable="YES"/>
@@ -100,7 +101,7 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="wallets" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Bet" positionX="-36" positionY="117" width="128" height="148"/>
+        <element name="Bet" positionX="-36" positionY="117" width="128" height="165"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
