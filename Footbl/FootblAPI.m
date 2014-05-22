@@ -528,7 +528,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             }
             parameters[@"locale"] = [[NSLocale currentLocale] identifier];
             parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
-            parameters[@"apnsToken"] = self.pushNotificationToken;
+            if (self.pushNotificationToken.length > 0) {
+                parameters[@"apnsToken"] = self.pushNotificationToken;
+            }
             
             [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (fbToken.length > 0) {
