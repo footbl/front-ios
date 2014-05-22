@@ -160,8 +160,12 @@ static CGFloat kBetSyncWaitTime = 2;
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
-    self.match = [Match findByIdentifier:data[@"match"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-    [self.match updateWithData:data[@"match"]];
+    if ([data[@"match"] isKindOfClass:[NSDictionary class]]) {
+        self.match = [Match findByIdentifier:data[@"match"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+        [self.match updateWithData:data[@"match"]];
+    } else {
+        self.match = [Match findByIdentifier:data[@"match"] inManagedObjectContext:self.managedObjectContext];
+    }
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
     if ([data[@"reward"] isKindOfClass:[NSNumber class]]) {
