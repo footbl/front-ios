@@ -123,6 +123,14 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem.enabled = self.emailTextField.text.isEmail && self.passwordTextField.text.isValidPassword;
+    });
+    
+    return YES;
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
@@ -130,6 +138,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Continue", @"") style:UIBarButtonItemStylePlain target:self action:@selector(loginAction:)];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     self.title = NSLocalizedString(@"Sign in", @"");
     
