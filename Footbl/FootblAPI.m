@@ -454,17 +454,36 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     
     NSString *key = NSStringFromSelector(@selector(authenticateFacebookWithCompletion:));
     [self groupOperationsWithKey:key block:^{
-       [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-               [[FBSession activeSession] requestNewReadPermissions:FB_READ_PERMISSIONS completionHandler:^(FBSession *session, NSError *error) {
-                   if (error) {
-                       [self finishGroupedOperationsWithKey:key error:error];
-                   } else {
-                       [self finishGroupedOperationsWithKey:key error:nil];
-                   }
-               }];
-           });
-       }];
+        void(^handoverLoginOption)() = ^() {
+            [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                if (error) {
+                    [self finishGroupedOperationsWithKey:key error:error];
+                } else {
+                    [self finishGroupedOperationsWithKey:key error:nil];
+                }
+            }];
+        };
+        
+        @try {
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (status == FBSessionStateClosedLoginFailed) {
+                        handoverLoginOption();
+                    } else {
+                        [[FBSession activeSession] requestNewReadPermissions:FB_READ_PERMISSIONS completionHandler:^(FBSession *session, NSError *error) {
+                            if (error) {
+                                [self finishGroupedOperationsWithKey:key error:error];
+                            } else {
+                                [self finishGroupedOperationsWithKey:key error:nil];
+                            }
+                        }];
+                    }
+                });
+            }];
+        }
+        @catch (NSException *exception) {
+            handoverLoginOption();
+        }
     } success:^{
         if (completionBlock) completionBlock([FBSession activeSession], [FBSession activeSession].state, nil);
     } failure:^(NSError *error) {
