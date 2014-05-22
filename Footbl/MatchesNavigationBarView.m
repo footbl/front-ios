@@ -46,9 +46,9 @@
         self.moneyButton.adjustsImageWhenDisabled = NO;
         [self addSubview:self.moneyButton];
         
-        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 30, 42, 25)];
+        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 25, 42, 35)];
         self.walletValueLabel.textColor = [UIColor ftGreenMoneyColor];
-        self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
+        self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.walletValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.walletValueLabel];
         
@@ -58,9 +58,9 @@
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
         
-        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 30, 72, 25)];
+        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 25, 72, 35)];
         self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
-        self.stakeValueLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
+        self.stakeValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.stakeValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.stakeValueLabel];
         
@@ -70,9 +70,9 @@
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftBlueReturnColor];
         
-        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 30, 72, 25)];
+        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 25, 72, 35)];
         self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
-        self.returnValueLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
+        self.returnValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.returnValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.returnValueLabel];
         
@@ -82,9 +82,9 @@
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
         
-        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(242, 30, 72, 25)];
+        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(242, 25, 72, 35)];
         self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
-        self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:24];
+        self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.profitValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.profitValueLabel];
         
@@ -99,6 +99,10 @@
         }
     }
     return self;
+}
+
+- (CGFloat)defaultValueFontSize {
+    return 24.f;
 }
 
 - (void)setTitleHidden:(BOOL)titleHidden animated:(BOOL)animated {

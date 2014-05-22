@@ -13,6 +13,7 @@
 #import "Match.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
+#import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
@@ -142,7 +143,7 @@
             [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
             championshipCell.nameLabel.text = championship.name;
             championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
-            championshipCell.rankingLabel.text = @"#39,944";
+            championshipCell.rankingLabel.text = [@39944 rankingStringValue];
 #warning Add ranking text
             break;
         }
@@ -224,7 +225,7 @@
             matchCell.profitValueLabel.text = @"-";
             
             if (match.jackpot.integerValue > 0) {
-                matchCell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.stringValue];
+                matchCell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.shortStringValue];
             } else {
                 matchCell.footerLabel.text = @"";
             }

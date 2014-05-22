@@ -15,6 +15,7 @@
 #import "MatchTableViewCell.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
+#import "NSNumber+Formatter.h"
 #import "Team.h"
 #import "TeamsViewController.h"
 #import "TeamImageView.h"
@@ -250,7 +251,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     };
     
     if (match.jackpot.integerValue > 0) {
-        cell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.stringValue];
+        cell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.shortStringValue];
     } else {
         cell.footerLabel.text = @"";
     }
@@ -300,7 +301,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = self.championship.wallet.localFunds.stringValue;
+        self.navigationBarTitleView.walletValueLabel.text = self.championship.wallet.localFunds.shortStringValue;
         self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.localStake.stringValue;
         self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
         self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
@@ -310,6 +311,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
             label.alpha = 0;
         }
     }
+    
+    CGFloat fontSize = MIN(self.navigationBarTitleView.walletValueLabel.maxFontSizeToFitBounds, self.navigationBarTitleView.defaultValueFontSize);
+    UIFont *font = [UIFont fontWithName:self.navigationBarTitleView.walletValueLabel.font.fontName size:fontSize];
+    [labels makeObjectsPerformSelector:@selector(setFont:) withObject:font];
 }
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {

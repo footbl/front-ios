@@ -14,6 +14,7 @@
 #import "GroupInfoViewController.h"
 #import "GroupMembershipTableViewCell.h"
 #import "Membership.h"
+#import "NSNumber+Formatter.h"
 #import "NSString+Hex.h"
 #import "User.h"
 
@@ -75,9 +76,9 @@
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (membership.hasRankingValue) {
-        cell.rankingLabel.text = [@"#" stringByAppendingString:membership.ranking.stringValue];
+        cell.rankingLabel.text = membership.ranking.rankingStringValue;
     } else {
-        cell.rankingLabel.text = [@"#" stringByAppendingString:@(indexPath.row + 1).stringValue];
+        cell.rankingLabel.text = @(indexPath.row + 1).rankingStringValue;
     }
     
     cell.usernameLabel.text = membership.user.username;

@@ -23,5 +23,6 @@
 @property (assign, nonatomic, getter = isTitleHidden) BOOL titleHidden;
 
 - (void)setTitleHidden:(BOOL)titleHidden animated:(BOOL)animated;
+- (CGFloat)defaultValueFontSize;
 
 @end
