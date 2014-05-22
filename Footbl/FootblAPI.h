@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
 @property (copy, nonatomic, readonly) NSString *userIdentifier;
 @property (copy, nonatomic, readonly) NSString *userEmail;
 @property (copy, nonatomic, readonly) NSString *userPassword;
+@property (copy, nonatomic) NSString *pushNotificationToken;
 @property (assign, nonatomic, readonly) NSInteger responseLimit;
 
 + (instancetype)sharedAPI;

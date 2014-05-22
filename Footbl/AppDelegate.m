@@ -147,7 +147,10 @@
         default:
             break;
     }
-    SPLog(@"APNS: %@", deviceToken);
+    
+    [FootblAPI sharedAPI].pushNotificationToken = deviceToken.description;
+
+    SPLogVerbose(@"APNS: %@", [FootblAPI sharedAPI].pushNotificationToken);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

@@ -41,6 +41,7 @@ static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
+static NSString * const kUserNotificationTokenKey = @"kUserNotificationTokenKey";
 
 static NSString * const kCloudinaryCloudName = @"he5zfntay";
 static NSString * const kCloudinaryApiKey = @"854175976174894";
@@ -108,6 +109,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 @synthesize userEmail = _userEmail;
 @synthesize userIdentifier = _userIdentifier;
 @synthesize userPassword = _userPassword;
+@synthesize pushNotificationToken = _pushNotificationToken;
 
 - (NSString *)userEmail {
     return [FXKeychain defaultKeychain][kUserEmailKey];
@@ -159,6 +161,24 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (NSInteger)responseLimit {
     return 20;
+}
+
+- (NSString *)pushNotificationToken {
+    if (!_pushNotificationToken) {
+        _pushNotificationToken = [FXKeychain defaultKeychain][kUserNotificationTokenKey];
+    }
+    
+    return [[[_pushNotificationToken uppercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
+}
+
+- (void)setPushNotificationToken:(NSString *)pushNotificationToken {
+    _pushNotificationToken = pushNotificationToken;
+    
+    [FXKeychain defaultKeychain][kUserNotificationTokenKey] = self.pushNotificationToken;
+    
+    [[User currentUser] updateWithSuccess:^{
+        [self updateAccountWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:nil success:nil failure:nil];
+    } failure:nil];
 }
 
 #pragma mark - Instance Methods
@@ -508,6 +528,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             }
             parameters[@"locale"] = [[NSLocale currentLocale] identifier];
             parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
+            parameters[@"apnsToken"] = self.pushNotificationToken;
             
             [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (fbToken.length > 0) {
