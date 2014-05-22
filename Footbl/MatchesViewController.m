@@ -90,18 +90,15 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.hostNameLabel.text = match.host.displayName;
-    cell.hostPotLabel.text = @"0";
     [cell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
     [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
-    cell.drawPotLabel.text = @"0";
     cell.guestNameLabel.text = match.guest.displayName;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
-    cell.guestPotLabel.text = @"0";
     cell.hostScoreLabel.text = match.hostScore.stringValue;
     cell.guestScoreLabel.text = match.guestScore.stringValue;
     
-    CGFloat potTotal = match.potHostValue + match.potGuestValue + match.potDrawValue;
+    CGFloat potTotal = MAX(1, match.jackpotValue);
     NSNumber *potHost = @(potTotal / match.potHostValue);
     NSNumber *potDraw = @(potTotal / match.potDrawValue);
     NSNumber *potGuest = @(potTotal / match.potGuestValue);
@@ -110,15 +107,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     numberFormatter.maximumFractionDigits = 2;
     numberFormatter.minimumFractionDigits = 0;
     
-    if (match.potHostValue > 0) {
-        cell.hostPotLabel.text = [numberFormatter stringFromNumber:potHost];
-    }
-    if (match.potDrawValue > 0) {
-        cell.drawPotLabel.text = [numberFormatter stringFromNumber:potDraw];
-    }
-    if (match.potGuestValue > 0) {
-        cell.guestPotLabel.text = [numberFormatter stringFromNumber:potGuest];
-    }
+    cell.hostPotLabel.text = [numberFormatter stringFromNumber:potHost];
+    cell.drawPotLabel.text = [numberFormatter stringFromNumber:potDraw];
+    cell.guestPotLabel.text = [numberFormatter stringFromNumber:potGuest];
     
     // Auto-decrease font size to fit bounds
     cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:cell.defaultTeamNameFontSize];

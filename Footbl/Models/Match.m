@@ -145,6 +145,18 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.round = data[@"round"];
     self.jackpot = data[@"jackpot"];
     
+    if (self.potHostValue == 0) {
+        self.potHost = @1;
+    }
+    
+    if (self.potGuestValue == 0) {
+        self.potGuest = @1;
+    }
+    
+    if (self.potDrawValue == 0) {
+        self.potDraw = @1;
+    }
+    
     if ([data[@"elapsed"] isKindOfClass:[NSNumber class]]) {
         self.elapsed = data[@"elapsed"];
     } else {
