@@ -19,7 +19,7 @@ extern const struct ChampionshipRelationships {
 	__unsafe_unretained NSString *competitors;
 	__unsafe_unretained NSString *groups;
 	__unsafe_unretained NSString *matches;
-	__unsafe_unretained NSString *wallet;
+	__unsafe_unretained NSString *wallets;
 } ChampionshipRelationships;
 
 extern const struct ChampionshipFetchedProperties {
@@ -173,9 +173,9 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) Wallet *wallet;
+@property (nonatomic, strong) NSSet *wallets;
 
-//- (BOOL)validateWallet:(id*)value_ error:(NSError**)error_;
+- (NSMutableSet*)walletsSet;
 
 
 
@@ -199,6 +199,11 @@ extern const struct ChampionshipFetchedProperties {
 - (void)removeMatches:(NSSet*)value_;
 - (void)addMatchesObject:(Match*)value_;
 - (void)removeMatchesObject:(Match*)value_;
+
+- (void)addWallets:(NSSet*)value_;
+- (void)removeWallets:(NSSet*)value_;
+- (void)addWalletsObject:(Wallet*)value_;
+- (void)removeWalletsObject:(Wallet*)value_;
 
 @end
 
@@ -284,8 +289,8 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-- (Wallet*)primitiveWallet;
-- (void)setPrimitiveWallet:(Wallet*)value;
+- (NSMutableSet*)primitiveWallets;
+- (void)setPrimitiveWallets:(NSMutableSet*)value;
 
 
 @end

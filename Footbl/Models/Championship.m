@@ -10,6 +10,7 @@
 #import "Championship.h"
 #import "Group.h"
 #import "Team.h"
+#import "User.h"
 
 @interface Championship ()
 
@@ -49,6 +50,10 @@
         return self.name;
     }
     return NSLocalizedString(string, @"");
+}
+
+- (Wallet *)myWallet {
+    return [self.wallets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", [User currentUser].rid]].anyObject;
 }
 
 - (void)updateWithData:(NSDictionary *)data {

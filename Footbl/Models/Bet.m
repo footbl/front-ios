@@ -56,10 +56,10 @@ static CGFloat kBetSyncWaitTime = 2;
                 [self.editableManagedObjectContext performBlock:^{
                     Bet *bet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.editableManagedObjectContext];
                     bet.match = match;
-                    bet.wallet = match.championship.wallet;
+                    bet.wallet = match.championship.myWallet;
                     [bet updateWithData:responseObject];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    [match.championship.wallet updateWithSuccess:^{
+                    [match.championship.myWallet updateWithSuccess:^{
                         match.editableObject.betSyncing = NO;
                         [match setBetTemporaryResult:0 value:nil];
                         if (success) success();
@@ -140,7 +140,7 @@ static CGFloat kBetSyncWaitTime = 2;
                     [self updateWithData:responseObject];
                     self.match.editableObject.localUpdatedAt = [NSDate date];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    [self.match.championship.wallet updateWithSuccess:^{
+                    [self.match.championship.myWallet updateWithSuccess:^{
                         self.match.editableObject.betSyncing = NO;
                         [self.match.editableObject setBetTemporaryResult:0 value:nil];
                         if (success) success();
@@ -203,7 +203,7 @@ static CGFloat kBetSyncWaitTime = 2;
                 [self.editableManagedObjectContext performBlock:^{
                     [self.editableManagedObjectContext deleteObject:self];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    [match.championship.wallet updateWithSuccess:^{
+                    [match.championship.myWallet updateWithSuccess:^{
                         [match setBetTemporaryResult:0 value:nil];
                         match.betSyncing = NO;
                         if (success) success();

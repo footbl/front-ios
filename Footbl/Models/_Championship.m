@@ -18,7 +18,7 @@ const struct ChampionshipRelationships ChampionshipRelationships = {
 	.competitors = @"competitors",
 	.groups = @"groups",
 	.matches = @"matches",
-	.wallet = @"wallet",
+	.wallets = @"wallets",
 };
 
 const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
@@ -272,8 +272,17 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 }
 	
 
-@dynamic wallet;
+@dynamic wallets;
 
+	
+- (NSMutableSet*)walletsSet {
+	[self willAccessValueForKey:@"wallets"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"wallets"];
+  
+	[self didAccessValueForKey:@"wallets"];
+	return result;
+}
 	
 
 

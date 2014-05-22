@@ -8,10 +8,13 @@
 
 #import "_Championship.h"
 
+@class Wallet;
+
 @interface Championship : _Championship
 
 - (NSNumber *)pendingRounds;
 - (NSString *)displayName;
 - (NSString *)displayCountry;
+- (Wallet *)myWallet;
 
 @end

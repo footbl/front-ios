@@ -89,13 +89,13 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-    if (self.championship.wallet.localFunds.integerValue + self.championship.wallet.localStake.integerValue > kWalletMaximumFundsToAllowBet) {
+    if (self.championship.myWallet.localFunds.integerValue + self.championship.myWallet.localStake.integerValue > kWalletMaximumFundsToAllowBet) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show]; 
         return;
     }
     
-    [self.championship.wallet rechargeWithSuccess:^{
+    [self.championship.myWallet rechargeWithSuccess:^{
         [self reloadWallet];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
@@ -307,7 +307,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.active = %@", @YES];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY wallets.user.rid = %@ AND ANY wallets.active = %@", [User currentUser].rid, @YES];
     NSError *error = nil;
     NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
     if (error) {
@@ -320,16 +320,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)reloadWallet {
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
     
-    if (self.championship.wallet) {
+    if (self.championship.myWallet) {
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = self.championship.wallet.localFunds.shortStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = self.championship.wallet.localStake.stringValue;
-        self.navigationBarTitleView.returnValueLabel.text = self.championship.wallet.toReturn.stringValue;
-        self.navigationBarTitleView.profitValueLabel.text = self.championship.wallet.profit.stringValue;
+        self.navigationBarTitleView.walletValueLabel.text = self.championship.myWallet.localFunds.shortStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = self.championship.myWallet.localStake.stringValue;
+        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturn.stringValue;
+        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profit.stringValue;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
@@ -337,7 +337,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         }
     }
     
-    if (self.championship.wallet.localFunds.integerValue + self.championship.wallet.localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
+    if (self.championship.myWallet.localFunds.integerValue + self.championship.myWallet.localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
         UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
         if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
             [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
@@ -377,7 +377,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         if (self.championship) {
             [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
                 [Match updateFromChampionship:self.championship.editableObject success:^{
-                    [Bet updateWithWallet:self.championship.wallet.editableObject success:^{
+                    [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
                         [self.refreshControl endRefreshing];
                     } failure:failure];
                 } failure:failure];

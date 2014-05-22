@@ -21,8 +21,8 @@
         <attribute name="rounds" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="competitors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Team" inverseName="championships" inverseEntity="Team" syncable="YES"/>
         <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="championship" inverseEntity="Group" syncable="YES"/>
-        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
-        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="championship" inverseEntity="Wallet" syncable="YES"/>
+        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
+        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="championship" inverseEntity="Wallet" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
         <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
@@ -41,7 +41,7 @@
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="groups" inverseEntity="Championship" syncable="YES"/>
-        <relationship name="members" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Membership" inverseName="group" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="group" inverseEntity="Membership" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="ownedGroups" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Match" representedClassName="Match" parentEntity="FootblModel" syncable="YES">
@@ -58,7 +58,7 @@
         <attribute name="round" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="bet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bet" inverseName="match" inverseEntity="Bet" syncable="YES"/>
         <relationship name="championship" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
         <relationship name="guest" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="guestMatches" inverseEntity="Team" syncable="YES"/>
         <relationship name="host" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="hostMatches" inverseEntity="Team" syncable="YES"/>
     </entity>
@@ -85,8 +85,8 @@
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="verified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
-        <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="user" inverseEntity="Wallet" syncable="YES"/>
     </entity>
@@ -94,10 +94,11 @@
         <attribute name="active" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
         <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="profit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="wallet" inverseEntity="Bet" syncable="YES"/>
-        <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallets" inverseEntity="Championship" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="wallets" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
@@ -105,11 +106,11 @@
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="Comment" positionX="0" positionY="63" width="128" height="103"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
-        <element name="Group" positionX="-36" positionY="108" width="128" height="178"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="285"/>
+        <element name="Group" positionX="-36" positionY="108" width="128" height="180"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="283"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="210"/>
-        <element name="Wallet" positionX="-36" positionY="117" width="128" height="163"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="208"/>
+        <element name="Wallet" positionX="-36" positionY="117" width="128" height="178"/>
     </elements>
 </model>

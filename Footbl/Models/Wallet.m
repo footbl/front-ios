@@ -32,13 +32,13 @@
 }
 
 + (void)ensureWalletWithChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    if (championship.wallet) {
+    if (championship.myWallet) {
         if (success) success();
         return;
     }
     
     [self updateWithSuccess:^{
-        if (championship.wallet) {
+        if (championship.myWallet) {
             if (success) success();
         } else {
             [self createWithChampionship:championship success:success failure:failure];
@@ -124,12 +124,15 @@
     
     self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
     [self.championship updateWithData:data[@"championship"]];
+    self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    [self.user updateWithData:data[@"user"]];
     
     self.active = data[@"active"];
     self.funds = data[@"funds"];
     self.stake = data[@"stake"];
     self.toReturn = data[@"toReturn"];
     self.profit = @(MAX(0, self.toReturn.integerValue - self.stake.integerValue));
+    self.ranking = nil;
 }
 
 - (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

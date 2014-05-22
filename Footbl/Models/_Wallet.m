@@ -7,6 +7,7 @@ const struct WalletAttributes WalletAttributes = {
 	.active = @"active",
 	.funds = @"funds",
 	.profit = @"profit",
+	.ranking = @"ranking",
 	.stake = @"stake",
 	.toReturn = @"toReturn",
 };
@@ -58,6 +59,11 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 	}
 	if ([key isEqualToString:@"profitValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"profit"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"rankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"ranking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -150,6 +156,32 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 - (void)setPrimitiveProfitValue:(int64_t)value_ {
 	[self setPrimitiveProfit:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic ranking;
+
+
+
+- (int64_t)rankingValue {
+	NSNumber *result = [self ranking];
+	return [result longLongValue];
+}
+
+- (void)setRankingValue:(int64_t)value_ {
+	[self setRanking:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveRankingValue {
+	NSNumber *result = [self primitiveRanking];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveRankingValue:(int64_t)value_ {
+	[self setPrimitiveRanking:[NSNumber numberWithLongLong:value_]];
 }
 
 

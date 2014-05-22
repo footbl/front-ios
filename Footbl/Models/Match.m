@@ -112,10 +112,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.tempBetResult = result;
     self.tempBetValue = value;
     
-    if (value && ![self.championship.wallet.pendingMatchesToSyncBet containsObject:self]) {
-        [self.championship.wallet.pendingMatchesToSyncBet addObject:self];
+    if (value && ![self.championship.myWallet.pendingMatchesToSyncBet containsObject:self]) {
+        [self.championship.myWallet.pendingMatchesToSyncBet addObject:self];
     } else if (!value) {
-        [self.championship.wallet.pendingMatchesToSyncBet removeObject:self];
+        [self.championship.myWallet.pendingMatchesToSyncBet removeObject:self];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import <TransformerKit/TransformerKit.h>
 #import "User.h"
+#import "Wallet.h"
 
 @interface User ()
 
@@ -74,6 +75,10 @@
     self.picture = data[@"picture"];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
+}
+
+- (BOOL)isMe {
+    return [User currentUser] && [[User currentUser].rid isEqualToString:self.rid];
 }
 
 - (NSDictionary *)dictionaryRepresentation {
