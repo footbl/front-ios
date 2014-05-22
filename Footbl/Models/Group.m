@@ -117,6 +117,11 @@
 }
 
 - (void)addMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (members.count == 0) {
+        if (success) success();
+        return;
+    }
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         __block NSMutableArray *pendingMembers = [members mutableCopy];
         __block NSError *operationError = nil;
