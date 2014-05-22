@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <CargoBay/CargoBay.h>
+#import <RMStore/RMStore.h>
 #import "Bet.h"
 #import "Championship.h"
 #import "Match.h"
@@ -128,6 +130,39 @@
     self.stake = data[@"stake"];
     self.toReturn = data[@"toReturn"];
     self.profit = @(MAX(0, self.toReturn.integerValue - self.stake.integerValue));
+}
+
+- (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[@"com.madeatsampa.Footbl.recharge"]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
+        SKProduct *product = products.firstObject;
+        if (product) {
+            [[RMStore defaultStore] addPayment:product.productIdentifier success:^(SKPaymentTransaction *transaction) {
+                [[CargoBay sharedManager] verifyTransaction:transaction password:nil success:^(NSDictionary *receipt) {
+                    [[self API] ensureAuthenticationWithSuccess:^{
+                        NSMutableDictionary *parameters = [self generateDefaultParameters];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                        parameters[@"receipt"] = CBBase64EncodedStringFromData(transaction.transactionReceipt);
+#pragma clang diagnostic pop
+                        [[self API] POST:[NSString stringWithFormat:@"users/%@/wallets/%@/recharge", self.user.rid, self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            [self updateWithData:responseObject];
+                            requestSucceedWithBlock(operation, parameters, success);
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                            requestFailedWithBlock(operation, parameters, error, failure);
+                        }];
+                    } failure:failure];
+                } failure:^(NSError *error) {
+                    if (failure) failure(error);
+                }];
+            } failure:^(SKPaymentTransaction *transaction, NSError *error) {
+                if (failure) failure(error);
+            }];
+        } else {
+            if (failure) failure(nil);
+        }
+    } failure:^(NSError *error) {
+        if (failure) failure(error);
+    }];
 }
 
 @end

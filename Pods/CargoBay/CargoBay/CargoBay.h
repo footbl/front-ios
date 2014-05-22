@@ -211,8 +211,8 @@
  */
 extern NSString * const kCargoBaySandboxReceiptVerificationURLString;
 extern NSString * const kCargoBayProductionReceiptVerificationURLString;
-
 extern NSString * const CargoBayErrorDomain;
+extern NSString * CBBase64EncodedStringFromData(NSData *data);
 
 typedef NS_ENUM(NSInteger, CargoBayStatusCode) {
     CargoBayStatusOK = 0,

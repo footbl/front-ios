@@ -42,7 +42,6 @@
         self.moneyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 102, CGRectGetHeight(self.frame))];
         [self.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
         [self.moneyButton setImageEdgeInsets:UIEdgeInsetsMake(4, 0, 0, 62)];
-        self.moneyButton.enabled = NO;
         self.moneyButton.adjustsImageWhenDisabled = NO;
         [self addSubview:self.moneyButton];
         

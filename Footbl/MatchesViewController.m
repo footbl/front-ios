@@ -24,6 +24,7 @@
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
+static CGFloat kWalletMaximumFundsToAllowBet = 20;
 
 @interface MatchesViewController ()
 
@@ -85,6 +86,22 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     }
     
     return self;
+}
+
+- (IBAction)rechargeWalletAction:(id)sender {
+    if (self.championship.wallet.localFunds.integerValue + self.championship.wallet.localStake.integerValue > kWalletMaximumFundsToAllowBet) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+        [alert show]; 
+        return;
+    }
+    
+    [self.championship.wallet rechargeWithSuccess:^{
+        [self reloadWallet];
+    } failure:^(NSError *error) {
+        SPLogError(@"%@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+    }];
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -258,8 +275,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     
     if (match.jackpot.integerValue > 0) {
         cell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.shortStringValue];
+        cell.footerLabel.hidden = NO;
     } else {
-        cell.footerLabel.text = @"";
+        cell.footerLabel.text = @"$0";
+        cell.footerLabel.hidden = YES;
     }
     
     // Just for testing
@@ -316,6 +335,15 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
             label.text = @"";
             label.alpha = 0;
         }
+    }
+    
+    if (self.championship.wallet.localFunds.integerValue + self.championship.wallet.localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
+        UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
+        if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
+            [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
+        }
+    } else {
+        [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
     }
     
     CGFloat fontSize = MIN(self.navigationBarTitleView.walletValueLabel.maxFontSizeToFitBounds, self.navigationBarTitleView.defaultValueFontSize);
@@ -450,6 +478,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+    [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navigationBarTitleView];
     
     self.refreshControl = [UIRefreshControl new];

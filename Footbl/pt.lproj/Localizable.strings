@@ -267,3 +267,9 @@
 /* {home team} {away team} */
 "Share match: waiting without bet" = "Quem vocês acham que vai ganhar? %1$@ ou %2$@";
 
+/* Cannot update wallet due to wallet balance */
+"Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para $100 quando ela está com menos de $20";
+
+/* Ops */
+"Ops" = "Ops";
+

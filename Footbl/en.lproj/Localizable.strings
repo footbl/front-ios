@@ -279,3 +279,9 @@
 /* {home team} {away team} */
 "Share match: waiting without bet" = "Which team should I bet? %1$@ or %2$@?";
 
+/* Cannot update wallet due to wallet balance */
+"Cannot update wallet due to wallet balance" = "You can only recharge your League Wallet back to $100 when your balance is < $20";
+
+/* Ops */
+"Ops" = "Ops";
+
