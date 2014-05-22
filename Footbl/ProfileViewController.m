@@ -77,6 +77,16 @@
 }
 
 - (void)reloadContent {
+    if (![FootblAPI sharedAPI].isAuthenticated) {
+        self.user = nil;
+        self.numberOfWallets = @0;
+        self.totalWallet = @100;
+        self.wallets = @[];
+        self.bets = @[];
+        [self.tableView reloadData];
+        return;
+    }
+    
     self.numberOfWallets = @(self.user.wallets.count);
     self.totalWallet = [self.user.wallets valueForKeyPath:@"@sum.funds"];
     self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
