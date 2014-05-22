@@ -279,3 +279,9 @@
 /* Ops */
 "Ops" = "Ops";
 
+/* Email placeholder */
+"Email placeholder" = "Email";
+
+/* Password placeholder */
+"Password placeholder" = "Senha";
+

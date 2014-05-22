@@ -163,6 +163,7 @@
     self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailTextField.returnKeyType = UIReturnKeyNext;
     self.emailTextField.enablesReturnKeyAutomatically = YES;
+    self.emailTextField.placeholder = NSLocalizedString(@"Email placeholder", @"");
     [self.view addSubview:self.emailTextField];
     
     self.emailIconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"signup_user_icon_off"]];
@@ -184,6 +185,7 @@
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.returnKeyType = UIReturnKeyDone;
     self.passwordTextField.enablesReturnKeyAutomatically = YES;
+    self.passwordTextField.placeholder = NSLocalizedString(@"Password placeholder", @"");
     [self.view addSubview:self.passwordTextField];
     
     self.passwordIconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"register_pass_icon_off"]];
