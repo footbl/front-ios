@@ -17,7 +17,9 @@ typedef NS_ENUM(NSInteger, MatchResult) {
 extern NSString * MatchResultToString(MatchResult result);
 extern MatchResult MatchResultFromString(NSString *result);
 
+@class Bet;
 @class Championship;
+@class User;
 
 @interface Match : _Match
 
@@ -28,5 +30,7 @@ extern MatchResult MatchResultFromString(NSString *result);
 
 + (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value;
+- (Bet *)myBet;
+- (Bet *)betForUser:(User *)user;
 
 @end

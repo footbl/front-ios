@@ -10,6 +10,7 @@
 #import "Championship.h"
 #import "Match.h"
 #import "Team.h"
+#import "User.h"
 #import "Wallet.h"
 
 extern NSString * MatchResultToString(MatchResult result) {
@@ -88,6 +89,15 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 #pragma mark - Instance Methods
+
+- (Bet *)myBet {
+    return [self betForUser:[User currentUser]];
+}
+
+
+- (Bet *)betForUser:(User *)user {
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"wallet.user.rid = %@", user.rid]].anyObject;
+}
 
 - (void)setBetBlockKey:(NSUInteger)betBlockKey {
     _betBlockKey = betBlockKey;

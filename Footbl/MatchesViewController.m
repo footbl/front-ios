@@ -150,7 +150,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
     [cell setDateText:[formatter stringFromDate:match.date]];
     
-    MatchResult result = (MatchResult)match.bet.resultValue;
+    __block Bet *bet = [match myBet];
+    MatchResult result = (MatchResult)bet.resultValue;
     if (match.tempBetValue) {
         result = match.tempBetResult;
     }
@@ -185,11 +186,11 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             }
         }
         cell.profitValueLabel.text = @"-";
-    } else if (match.bet) {
-        cell.stakeValueLabel.text = match.bet.value.stringValue;
-        cell.returnValueLabel.text = match.bet.toReturn.stringValue;
+    } else if (bet) {
+        cell.stakeValueLabel.text = bet.value.stringValue;
+        cell.returnValueLabel.text = bet.toReturn.stringValue;
         if (match.finishedValue) {
-            cell.profitValueLabel.text = match.bet.reward.stringValue;
+            cell.profitValueLabel.text = bet.reward.stringValue;
         } else {
             cell.profitValueLabel.text = @"-";
         }
@@ -204,8 +205,10 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             return;
         }
         
-        NSInteger currentBet = match.bet.valueValue;
-        MatchResult result = (MatchResult)match.bet.result.integerValue;
+        bet = [match myBet];
+        
+        NSInteger currentBet = bet.valueValue;
+        MatchResult result = (MatchResult)bet.result.integerValue;
         if (match.tempBetValue) {
             currentBet = match.tempBetValue.integerValue;
             result = match.tempBetResult;
@@ -259,9 +262,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         };
         
         if (result == 0) {
-            [match.bet.editableObject deleteWithSuccess:nil failure:failure];
-        } else if (match.bet) {
-            [match.bet.editableObject updateWithBid:@(currentBet) result:result success:nil failure:failure];
+            [bet.editableObject deleteWithSuccess:nil failure:failure];
+        } else if (bet) {
+            [bet.editableObject updateWithBid:@(currentBet) result:result success:nil failure:failure];
         } else {
             [Bet createWithMatch:match.editableObject bid:@(currentBet) result:result success:nil failure:failure];
         }

@@ -102,7 +102,7 @@
 - (NSNumber *)localFunds {
     NSInteger funds = self.funds.integerValue;
     for (Match *match in self.pendingMatchesToSyncBet) {
-        funds += match.bet.valueValue;
+        funds += match.myBet.valueValue;
         funds -= match.tempBetValue.integerValue;
     }
     
@@ -112,7 +112,7 @@
 - (NSNumber *)localStake {
     NSInteger stake = self.stake.integerValue;
     for (Match *match in self.pendingMatchesToSyncBet) {
-        stake -= match.bet.valueValue;
+        stake -= match.myBet.valueValue;
         stake += match.tempBetValue.integerValue;
     }
     

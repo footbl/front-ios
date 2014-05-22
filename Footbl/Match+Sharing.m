@@ -21,9 +21,9 @@
     UIImage *screenshot = cell.imageRepresentation;
     
     NSString *text = @"";
-    BOOL hasBet = self.bet || self.tempBetValue;
-    NSNumber *value = self.bet.value;
-    MatchResult result = (MatchResult)self.bet.resultValue;
+    BOOL hasBet = self.myBet || self.tempBetValue;
+    NSNumber *value = self.myBet.value;
+    MatchResult result = (MatchResult)self.myBet.resultValue;
     if (self.tempBetValue) {
         result = self.tempBetResult;
         value = self.tempBetValue;
@@ -72,9 +72,9 @@
         case MatchTableViewCellStateLayoutDone:
             if (hasBet) {
                 if (team) {
-                    text = [NSString stringWithFormat:NSLocalizedString(@"Share match: finished with bet", @"{bet team} {against team} {bet value} {bet profit}"), team.displayName, againstTeam.displayName, value.stringValue, self.bet.reward.stringValue];
+                    text = [NSString stringWithFormat:NSLocalizedString(@"Share match: finished with bet", @"{bet team} {against team} {bet value} {bet profit}"), team.displayName, againstTeam.displayName, value.stringValue, self.myBet.reward.stringValue];
                 } else {
-                    text = [NSString stringWithFormat:NSLocalizedString(@"Share match: finished with bet (draw)", @"{home team} {away team} {bet value} {bet profit}"), self.host.displayName, self.guest.displayName, value.stringValue, self.bet.reward.stringValue];
+                    text = [NSString stringWithFormat:NSLocalizedString(@"Share match: finished with bet (draw)", @"{home team} {away team} {bet value} {bet profit}"), self.host.displayName, self.guest.displayName, value.stringValue, self.myBet.reward.stringValue];
                 }
             } else {
                 text = [NSString stringWithFormat:NSLocalizedString(@"Share match: finished without bet", @"{home team} {away team}"), self.host.displayName, self.guest.displayName];
