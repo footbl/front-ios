@@ -11,6 +11,7 @@
 #import "GroupAddMembersViewController.h"
 #import "GroupChampionshipsViewController.h"
 #import "GroupChampionshipTableViewCell.h"
+#import "User.h"
 #import "Wallet.h"
 
 @interface GroupChampionshipsViewController ()
@@ -57,7 +58,7 @@
 - (void)reloadData {
     [super reloadData];
     
-    [Wallet updateWithSuccess:^{
+    [Wallet updateWithUser:[User currentUser] success:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];

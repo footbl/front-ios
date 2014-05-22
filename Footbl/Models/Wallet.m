@@ -9,6 +9,7 @@
 #import "Bet.h"
 #import "Championship.h"
 #import "Match.h"
+#import "User.h"
 #import "Wallet.h"
 
 @interface Wallet ()
@@ -24,7 +25,8 @@
 #pragma mark - Class Methods
 
 + (NSString *)resourcePath {
-    return @"wallets";
+    SPLogError(@"Wallet resource path should not be used.");
+    return @"users/%@/wallets";
 }
 
 + (void)ensureWalletWithChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -46,6 +48,40 @@
     [self createWithParameters:@{@"championship": championship.rid} success:success failure:failure];    
 }
 
++ (void)updateWithUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    NSString *key = [NSString stringWithFormat:@"%@%@", user.rid, API_DICTIONARY_KEY];
+    [[self API] groupOperationsWithKey:key block:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[self API] GET:[NSString stringWithFormat:@"users/%@/wallets", user.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                API_APPEND_RESULT(responseObject, key);
+                if ([[operation responseObject] count] == [self responseLimit]) {
+                    API_APPEND_PAGE(key);
+                    [FootblAPI performOperationWithoutGrouping:^{
+                        [self updateWithUser:user success:success failure:failure];
+                    }];
+                } else {
+                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:user.wallets enumeratingObjectsWithBlock:^(Wallet *object, NSDictionary *contentEntry) {
+                        object.user = user;
+                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [self.editableManagedObjectContext deleteObjects:untouchedObjects];
+                    }];
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    requestSucceedWithBlock(operation, parameters, success);
+                    API_RESET_KEY(key);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [[self API] finishGroupedOperationsWithKey:key error:error];
+                requestFailedWithBlock(operation, parameters, error, failure);
+                API_RESET_KEY(key);
+            }];
+        } failure:^(NSError *error) {
+            [[self API] finishGroupedOperationsWithKey:key error:error];
+            if (failure) failure(error);
+        }];
+    } success:success failure:failure];
+}
+
 #pragma mark - Getters/Setters
 
 - (NSMutableArray *)pendingMatchesToSyncBet {
@@ -56,6 +92,10 @@
 }
 
 #pragma mark - Instance Methods
+
+- (NSString *)resourcePath {
+    return [NSString stringWithFormat:@"users/%@/wallets", self.user.rid];
+}
 
 - (NSNumber *)localFunds {
     NSInteger funds = self.funds.integerValue;

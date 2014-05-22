@@ -87,6 +87,7 @@
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
+        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="user" inverseEntity="Wallet" syncable="YES"/>
     </entity>
     <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
@@ -96,6 +97,7 @@
         <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="wallet" inverseEntity="Bet" syncable="YES"/>
         <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="wallet" inverseEntity="Championship" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="wallets" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
         <element name="Bet" positionX="-36" positionY="117" width="128" height="148"/>
@@ -106,7 +108,7 @@
         <element name="Match" positionX="-54" positionY="-9" width="128" height="285"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="195"/>
-        <element name="Wallet" positionX="-36" positionY="117" width="128" height="148"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="210"/>
+        <element name="Wallet" positionX="-36" positionY="117" width="128" height="163"/>
     </elements>
 </model>

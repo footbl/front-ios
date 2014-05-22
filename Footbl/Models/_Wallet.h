@@ -15,6 +15,7 @@ extern const struct WalletAttributes {
 extern const struct WalletRelationships {
 	__unsafe_unretained NSString *bets;
 	__unsafe_unretained NSString *championship;
+	__unsafe_unretained NSString *user;
 } WalletRelationships;
 
 extern const struct WalletFetchedProperties {
@@ -22,6 +23,7 @@ extern const struct WalletFetchedProperties {
 
 @class Bet;
 @class Championship;
+@class User;
 
 
 
@@ -126,6 +128,13 @@ extern const struct WalletFetchedProperties {
 
 
 
+@property (nonatomic, strong) User *user;
+
+//- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+
+
+
 
 @end
 
@@ -194,6 +203,11 @@ extern const struct WalletFetchedProperties {
 
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
+
+
+
+- (User*)primitiveUser;
+- (void)setPrimitiveUser:(User*)value;
 
 
 @end

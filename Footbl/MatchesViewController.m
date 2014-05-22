@@ -20,6 +20,7 @@
 #import "TeamsViewController.h"
 #import "TeamImageView.h"
 #import "UILabel+MaxFontSize.h"
+#import "User.h"
 #import "Wallet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
@@ -338,7 +339,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
     };
     
     self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
-    [Wallet updateWithSuccess:^{
+    [Wallet updateWithUser:[User currentUser] success:^{
         [self fetchChampionship];
         if (self.championship) {
             [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{

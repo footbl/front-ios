@@ -14,6 +14,7 @@ const struct WalletAttributes WalletAttributes = {
 const struct WalletRelationships WalletRelationships = {
 	.bets = @"bets",
 	.championship = @"championship",
+	.user = @"user",
 };
 
 const struct WalletFetchedProperties WalletFetchedProperties = {
@@ -221,6 +222,10 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 	
 
 @dynamic championship;
+
+	
+
+@dynamic user;
 
 	
 

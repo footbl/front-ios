@@ -10,6 +10,7 @@
 #import <TransformerKit/TransformerKit.h>
 #import "Bet.h"
 #import "Championship.h"
+#import "User.h"
 #import "Wallet.h"
 
 @interface Bet ()
@@ -78,7 +79,7 @@ static CGFloat kBetSyncWaitTime = 2;
     [[self API] groupOperationsWithKey:key block:^{
         [[self API] ensureAuthenticationWithSuccess:^{
             NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
-            [[self API] GET:[NSString stringWithFormat:@"wallets/%@/bets", wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[self API] GET:[NSString stringWithFormat:@"users/%@/wallets/%@/bets", wallet.user.rid, wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 API_APPEND_RESULT(responseObject, key);
                 if ([[operation responseObject] count] == [self responseLimit]) {
                     API_APPEND_PAGE(key);
