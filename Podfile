@@ -14,4 +14,6 @@ pod 'FXKeychain'
 
 # Utilities
 pod 'APAddressBook'
+pod 'CargoBay'
 pod 'Cloudinary'
+pod 'RMStore'
