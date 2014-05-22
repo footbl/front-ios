@@ -377,17 +377,22 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
     [Wallet updateWithUser:[User currentUser] success:^{
         [self fetchChampionship];
-        if (self.championship) {
-            [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
-                [Match updateFromChampionship:self.championship.editableObject success:^{
-                    [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
-                        [self.refreshControl endRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.championship ? 0.1 : 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!self.championship) {
+                [self fetchChampionship];
+            }
+            if (self.championship) {
+                [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
+                    [Match updateFromChampionship:self.championship.editableObject success:^{
+                        [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
+                            [self.refreshControl endRefreshing];
+                        } failure:failure];
                     } failure:failure];
                 } failure:failure];
-            } failure:failure];
-        } else {
-            [self.refreshControl endRefreshing];
-        }
+            } else {
+                [self.refreshControl endRefreshing];
+            }
+        });
     } failure:failure];
 }
 
