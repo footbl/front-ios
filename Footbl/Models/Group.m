@@ -153,39 +153,30 @@
     [[self API] groupOperationsWithKey:key block:^{
         if (self.isDefaultValue) {
             [[self API] ensureAuthenticationWithSuccess:^{
-                NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+                NSMutableDictionary *parameters = [self generateDefaultParameters];
                 [[self API] GET:[NSString stringWithFormat:@"championships/%@/ranking", self.championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    API_APPEND_RESULT(responseObject, key);
-                    if ([[operation responseObject] count] == [self responseLimit]) {
-                        API_APPEND_PAGE(key);
-                        [FootblAPI performOperationWithoutGrouping:^{
-                            [self updateMembersWithSuccess:success failure:failure];
-                        }];
-                    } else {
-                        NSMutableArray *realMembers = [NSMutableArray new];
-                        for (NSDictionary *member in API_RESULT(key)) {
-                            if ([member[@"ranking"] isKindOfClass:[NSNumber class]]) {
+                    NSMutableArray *realMembers = [NSMutableArray new];
+                    for (NSDictionary *member in responseObject) {
+                        if ([member[@"rounds"] count] > 0) {
+                            NSDictionary *lastRound = [member[@"rounds"] lastObject];
+                            if ([lastRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
                                 [realMembers addObject:member];
                             }
                         }
-                        SPLogVerbose(@"%@", realMembers);
-                        [Membership loadContent:realMembers inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
-                            membership.group = self;
-                        } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                            [self.managedObjectContext deleteObjects:untouchedObjects];
-                        }];
-                        [[self API] finishGroupedOperationsWithKey:key error:nil];
-                        requestSucceedWithBlock(operation, parameters, nil);
-                        API_RESET_KEY(key);
                     }
+                    [Membership loadContent:realMembers inManagedObjectContext:self.managedObjectContext usingCache:self.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *contentEntry) {
+                        membership.group = self;
+                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [self.managedObjectContext deleteObjects:untouchedObjects];
+                    }];
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    requestSucceedWithBlock(operation, parameters, nil);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [[self API] finishGroupedOperationsWithKey:key error:error];
                     requestFailedWithBlock(operation, parameters, error, nil);
-                    API_RESET_KEY(key);
                 }];
             } failure:^(NSError *error) {
                 [[self API] finishGroupedOperationsWithKey:key error:error];
-                API_RESET_KEY(key);
             }];
         } else {
             [[self API] ensureAuthenticationWithSuccess:^{
