@@ -7,6 +7,7 @@ const struct UserAttributes UserAttributes = {
 	.about = @"about",
 	.createdAt = @"createdAt",
 	.email = @"email",
+	.featured = @"featured",
 	.name = @"name",
 	.picture = @"picture",
 	.username = @"username",
@@ -51,6 +52,11 @@ const struct UserFetchedProperties UserFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"featuredValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"featured"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"verifiedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"verified"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -79,6 +85,32 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 @dynamic email;
 
+
+
+
+
+
+@dynamic featured;
+
+
+
+- (BOOL)featuredValue {
+	NSNumber *result = [self featured];
+	return [result boolValue];
+}
+
+- (void)setFeaturedValue:(BOOL)value_ {
+	[self setFeatured:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveFeaturedValue {
+	NSNumber *result = [self primitiveFeatured];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveFeaturedValue:(BOOL)value_ {
+	[self setPrimitiveFeatured:[NSNumber numberWithBool:value_]];
+}
 
 
 

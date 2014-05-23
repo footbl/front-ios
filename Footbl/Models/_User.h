@@ -8,6 +8,7 @@ extern const struct UserAttributes {
 	__unsafe_unretained NSString *about;
 	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *email;
+	__unsafe_unretained NSString *featured;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *username;
@@ -32,6 +33,7 @@ extern const struct UserFetchedProperties {
 @class User;
 @class User;
 @class Wallet;
+
 
 
 
@@ -79,6 +81,20 @@ extern const struct UserFetchedProperties {
 
 
 //- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* featured;
+
+
+
+@property BOOL featuredValue;
+- (BOOL)featuredValue;
+- (void)setFeaturedValue:(BOOL)value_;
+
+//- (BOOL)validateFeatured:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -224,6 +240,15 @@ extern const struct UserFetchedProperties {
 
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveFeatured;
+- (void)setPrimitiveFeatured:(NSNumber*)value;
+
+- (BOOL)primitiveFeaturedValue;
+- (void)setPrimitiveFeaturedValue:(BOOL)value_;
 
 
 
