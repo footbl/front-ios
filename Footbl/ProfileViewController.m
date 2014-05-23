@@ -9,6 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Bet.h"
 #import "Championship.h"
+#import "FavoritesViewController.h"
 #import "FootblAPI.h"
 #import "Match.h"
 #import "Match+Sharing.h"
@@ -61,6 +62,15 @@
     }
 }
 
+- (void)setShouldShowFavorites:(BOOL)shouldShowFavorites {
+    _shouldShowFavorites = shouldShowFavorites;
+    if (self.shouldShowFavorites) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (id)init {
@@ -70,6 +80,13 @@
     }
     
     return self;
+}
+
+- (IBAction)favoritesAction:(id)sender {
+    FavoritesViewController *favoritesViewController = [FavoritesViewController new];
+    favoritesViewController.shouldShowFeatured = self.user.isMe;
+    favoritesViewController.user = self.user;
+    [self.navigationController pushViewController:favoritesViewController animated:YES];
 }
 
 - (IBAction)settingsAction:(id)sender {

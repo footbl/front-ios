@@ -83,6 +83,9 @@
 		EDB98298192D5FFC00697783 /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
 		EDBC848118EDE60B00CCC01A /* Cache in Resources */ = {isa = PBXBuildFile; fileRef = EDBC848018EDE60B00CCC01A /* Cache */; };
 		EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
+		EDBD2C99192F10CA002C763D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
+		EDBD2C9C192F149C002C763D /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
+		EDBD2C9F192F19B9002C763D /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		EDC5F52619143F83005757EB /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
 		EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
@@ -247,6 +250,12 @@
 		EDBC848018EDE60B00CCC01A /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = SOURCE_ROOT; };
 		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
 		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
+		EDBD2C97192F10CA002C763D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		EDBD2C98192F10CA002C763D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		EDBD2C9A192F149C002C763D /* FavoriteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteTableViewCell.h; sourceTree = "<group>"; };
+		EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteTableViewCell.m; sourceTree = "<group>"; };
+		EDBD2C9D192F19B9002C763D /* FeaturedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedViewController.h; sourceTree = "<group>"; };
+		EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedViewController.m; sourceTree = "<group>"; };
 		EDC5F52119142241005757EB /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
 		EDC5F52219142241005757EB /* GroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailViewController.m; sourceTree = "<group>"; };
 		EDC5F52419143F83005757EB /* GroupInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoViewController.h; sourceTree = "<group>"; };
@@ -344,6 +353,8 @@
 		ED324325192BBD0D00F54D57 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EDBD2C9A192F149C002C763D /* FavoriteTableViewCell.h */,
+				EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */,
 				ED32432F192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.h */,
 				ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */,
 				ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */,
@@ -410,6 +421,10 @@
 		ED81E82B18EA709200212D3C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EDBD2C97192F10CA002C763D /* FavoritesViewController.h */,
+				EDBD2C98192F10CA002C763D /* FavoritesViewController.m */,
+				EDBD2C9D192F19B9002C763D /* FeaturedViewController.h */,
+				EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */,
 				ED81E82018EA6A7500212D3C /* ProfileViewController.h */,
 				ED81E82118EA6A7500212D3C /* ProfileViewController.m */,
 			);
@@ -907,9 +922,11 @@
 				ED9DC8DE18E3271900DF458C /* Championship.m in Sources */,
 				ED2D1C6119158B2700F1BC81 /* GroupChampionshipTableViewCell.m in Sources */,
 				EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */,
+				EDBD2C99192F10CA002C763D /* FavoritesViewController.m in Sources */,
 				EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */,
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
+				EDBD2C9F192F19B9002C763D /* FeaturedViewController.m in Sources */,
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
 				ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
@@ -917,6 +934,7 @@
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
+				EDBD2C9C192F149C002C763D /* FavoriteTableViewCell.m in Sources */,
 				ED324334192D396500F54D57 /* Match+Sharing.m in Sources */,
 				EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,
