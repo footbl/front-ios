@@ -37,7 +37,7 @@
         return;
     }
     
-    [self updateWithSuccess:^{
+    [self updateWithUser:[User currentUser].editableObject success:^{
         if (championship.myWallet) {
             if (success) success();
         } else {
