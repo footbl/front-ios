@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
 - (void)loginWithFacebookToken:(NSString *)facebookToken success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)authenticateFacebookWithCompletion:(void (^)(FBSession *session, FBSessionState status, NSError *error))completionBlock;
 - (void)logout;
-- (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)uploadImage:(UIImage *)image withCompletionBlock:(void (^)(NSString *response, NSError *error))completionBlock;
 
 @end

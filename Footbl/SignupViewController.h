@@ -21,6 +21,7 @@
 @property (copy, nonatomic) NSString *passwordConfirmation;
 @property (copy, nonatomic) NSString *username;
 @property (copy, nonatomic) NSString *fbToken;
+@property (copy, nonatomic) NSString *aboutMe;
 @property (strong, nonatomic) UIImage *profileImage;
 
 @end

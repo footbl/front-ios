@@ -177,7 +177,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [FXKeychain defaultKeychain][kUserNotificationTokenKey] = self.pushNotificationToken;
     
     [[User currentUser] updateWithSuccess:^{
-        [self updateAccountWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:nil success:nil failure:nil];
+        [self updateAccountWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:nil about:nil success:nil failure:nil];
     } failure:nil];
 }
 
@@ -524,36 +524,22 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
 }
 
-- (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+- (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
         [[User currentUser] updateWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
             [parameters addEntriesFromDictionary:[[User currentUser] dictionaryRepresentation]];
-            if (username) {
-                parameters[@"username"] = username;
-            }
-            if (email) {
-                parameters[@"email"] = email;
-            }
-            if (password) {
-                parameters[@"password"] = password;
-            }
+            if (username) parameters[@"username"] = username;
+            if (email) parameters[@"email"] = email;
+            if (password) parameters[@"password"] = password;
+            if (name) parameters[@"name"] = name;
+            if (about) parameters[@"about"] = about;
+            if (picturePath) parameters[@"picture"] = picturePath;
+            if (self.pushNotificationToken.length > 0) parameters[@"apnsToken"] = self.pushNotificationToken;
+            if (fbToken) [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
             parameters[@"language"] = [NSLocale preferredLanguages][0];
-            if (name) {
-                parameters[@"name"] = name;
-            }
-            parameters[@"about"] = @"About me";
-            if (picturePath) {
-                parameters[@"picture"] = picturePath;
-            }
-            if (fbToken) {
-                [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
-            }
             parameters[@"locale"] = [[NSLocale currentLocale] identifier];
             parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
-            if (self.pushNotificationToken.length > 0) {
-                parameters[@"apnsToken"] = self.pushNotificationToken;
-            }
             
             [self PUT:[@"users/" stringByAppendingPathComponent:self.userIdentifier] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (fbToken.length > 0) {
