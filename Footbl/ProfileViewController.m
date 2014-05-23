@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *totalWallet;
 @property (strong, nonatomic) NSNumber *numberOfWallets;
+@property (strong, nonatomic) NSNumber *maxWallet;
 @property (strong, nonatomic) NSArray *wallets;
 @property (strong, nonatomic) NSArray *bets;
 
@@ -97,7 +98,8 @@
     if (![FootblAPI sharedAPI].isAuthenticated) {
         self.user = nil;
         self.numberOfWallets = @0;
-        self.totalWallet = @100;
+        self.totalWallet = @0;
+        self.maxWallet = @0;
         self.wallets = @[];
         self.bets = @[];
         [self.tableView reloadData];
@@ -106,6 +108,7 @@
     
     self.numberOfWallets = @(self.user.wallets.count);
     self.totalWallet = [self.user.wallets valueForKeyPath:@"@sum.funds"];
+    self.maxWallet = [self.user.wallets valueForKeyPath:@"@max.maxFunds"];
     self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
@@ -192,9 +195,9 @@
                     break;
                 }
                 case 2: {
-#warning Add highest value
+#warning Add highest value & Date
                     WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
-                    [walletCell setHighestValue:self.totalWallet withDate:[NSDate date]];
+                    [walletCell setHighestValue:self.maxWallet withDate:[NSDate date]];
                 }
                 default:
                     break;
@@ -212,7 +215,6 @@
             } else {
                 championshipCell.rankingLabel.text = @"";
             }
-#warning Add ranking text
             break;
         }
         case 2: {

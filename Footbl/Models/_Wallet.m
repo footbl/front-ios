@@ -6,6 +6,8 @@
 const struct WalletAttributes WalletAttributes = {
 	.active = @"active",
 	.funds = @"funds",
+	.lastRounds = @"lastRounds",
+	.maxFunds = @"maxFunds",
 	.profit = @"profit",
 	.ranking = @"ranking",
 	.stake = @"stake",
@@ -54,6 +56,11 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 	}
 	if ([key isEqualToString:@"fundsValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"maxFundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"maxFunds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -130,6 +137,39 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 - (void)setPrimitiveFundsValue:(int64_t)value_ {
 	[self setPrimitiveFunds:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic lastRounds;
+
+
+
+
+
+
+@dynamic maxFunds;
+
+
+
+- (int64_t)maxFundsValue {
+	NSNumber *result = [self maxFunds];
+	return [result longLongValue];
+}
+
+- (void)setMaxFundsValue:(int64_t)value_ {
+	[self setMaxFunds:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveMaxFundsValue {
+	NSNumber *result = [self primitiveMaxFunds];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveMaxFundsValue:(int64_t)value_ {
+	[self setPrimitiveMaxFunds:[NSNumber numberWithLongLong:value_]];
 }
 
 

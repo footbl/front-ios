@@ -7,6 +7,8 @@
 extern const struct WalletAttributes {
 	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *funds;
+	__unsafe_unretained NSString *lastRounds;
+	__unsafe_unretained NSString *maxFunds;
 	__unsafe_unretained NSString *profit;
 	__unsafe_unretained NSString *ranking;
 	__unsafe_unretained NSString *stake;
@@ -27,6 +29,8 @@ extern const struct WalletFetchedProperties {
 @class User;
 
 
+
+@class NSObject;
 
 
 
@@ -69,6 +73,30 @@ extern const struct WalletFetchedProperties {
 - (void)setFundsValue:(int64_t)value_;
 
 //- (BOOL)validateFunds:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) id lastRounds;
+
+
+
+//- (BOOL)validateLastRounds:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* maxFunds;
+
+
+
+@property int64_t maxFundsValue;
+- (int64_t)maxFundsValue;
+- (void)setMaxFundsValue:(int64_t)value_;
+
+//- (BOOL)validateMaxFunds:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -180,6 +208,21 @@ extern const struct WalletFetchedProperties {
 
 - (int64_t)primitiveFundsValue;
 - (void)setPrimitiveFundsValue:(int64_t)value_;
+
+
+
+
+- (id)primitiveLastRounds;
+- (void)setPrimitiveLastRounds:(id)value;
+
+
+
+
+- (NSNumber*)primitiveMaxFunds;
+- (void)setPrimitiveMaxFunds:(NSNumber*)value;
+
+- (int64_t)primitiveMaxFundsValue;
+- (void)setPrimitiveMaxFundsValue:(int64_t)value_;
 
 
 

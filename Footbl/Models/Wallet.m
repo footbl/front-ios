@@ -132,7 +132,24 @@
     self.stake = data[@"stake"];
     self.toReturn = data[@"toReturn"];
     self.profit = @(MAX(0, self.toReturn.integerValue - self.stake.integerValue));
-    self.ranking = nil;
+    
+    NSArray *rounds = data[@"rounds"];
+    NSMutableArray *lastRounds = [NSMutableArray new];
+    for (NSInteger i = 1; i <= 12 && i < rounds.count; i++) {
+        NSDictionary *currentRound = rounds[rounds.count - i];
+        if ([currentRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
+            [lastRounds addObject:@{@"ranking" : currentRound[@"ranking"], @"funds" : currentRound[@"funds"]}];
+        } else {
+            [lastRounds addObject:@{@"funds" : currentRound[@"funds"]}];
+        }
+    }
+    self.maxFunds = [rounds valueForKeyPath:@"@max.funds"];
+    if (!self.maxFunds) {
+        self.maxFunds = self.funds;
+    }
+    
+    self.ranking = lastRounds.firstObject[@"ranking"];
+    self.lastRounds = lastRounds;
 }
 
 - (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
