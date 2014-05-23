@@ -86,21 +86,38 @@
 }
 
 - (void)updateStarredUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[self class] loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.starredUsers enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
-                if (![self.starredUsers containsObject:user]) {
-                    [self addStarredUsersObject:user];
+    NSString *key = API_DICTIONARY_KEY;
+    [[self API] groupOperationsWithKey:key block:^{
+        [[self API] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[self API] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                API_APPEND_RESULT(responseObject, key);
+                if ([responseObject count] == [self responseLimit]) {
+                    API_APPEND_PAGE(key);
+                    [FootblAPI performOperationWithoutGrouping:^{
+                        [self updateStarredUsersWithSuccess:success failure:failure];
+                    }];
+                } else {
+                    [[self class] loadContent:API_RESULT(key) inManagedObjectContext:self.managedObjectContext usingCache:self.starredUsers enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
+                        if (![self.starredUsers containsObject:user]) {
+                            [self addStarredUsersObject:user];
+                        }
+                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                        [self removeStarredUsers:untouchedObjects];
+                    }];
+                    requestSucceedWithBlock(operation, parameters, nil);
+                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    API_RESET_KEY(key);
                 }
-            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                [self removeStarredUsers:untouchedObjects];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                requestFailedWithBlock(operation, parameters, error, nil);
+                [[self API] finishGroupedOperationsWithKey:key error:error];
+                API_RESET_KEY(key);
             }];
-            requestSucceedWithBlock(operation, parameters, success);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+        } failure:^(NSError *error) {
+            [[self API] finishGroupedOperationsWithKey:key error:error];
         }];
-    } failure:failure];
+    } success:success failure:failure];
 }
 
 - (void)unstarUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
