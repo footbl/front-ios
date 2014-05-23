@@ -172,7 +172,7 @@
 "Sign up text: password" = "Prazer em conhecê-lo!\nAgora digite uma senha.";
 
 /* Sign up text: username */
-"Sign up text: username" = "Quase pronto!\nQual o nome de usuário?";
+"Sign up text: username" = "Quase pronto!\nQual o seu @usuário?";
 
 /* Sign up text: email hint */
 "Sign up text: email hint" = "Isso não parece ser um email...tem certeza?";
@@ -293,4 +293,10 @@
 
 /* Featured users */
 "Featured users" = "Usuários em destaque";
+
+/* Sign up text: about hint */
+"Sign up text: about hint" = " ";
+
+/* Sign up text: about */
+"Sign up text: about" = "Por último...\nEscreva uma bio (ou não)";
 
