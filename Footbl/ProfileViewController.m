@@ -175,6 +175,7 @@
                     profileCell.usernameLabel.text = self.user.username;
                     profileCell.verified = self.user.verifiedValue;
                     profileCell.starImageView.hidden = self.user.isMe;
+                    profileCell.aboutText = self.user.about;
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];

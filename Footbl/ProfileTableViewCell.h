@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UILabel *dateLabel;
 @property (strong, nonatomic) UIImageView *starImageView;
 @property (assign, nonatomic, getter = isVerified) BOOL verified;
+@property (copy, nonatomic) NSString *aboutText;
 
 - (UIImage *)placeholderImage;
 
