@@ -90,7 +90,9 @@
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         [[self API] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [[self class] loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.starredUsers enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
-                [self addStarredUsersObject:user];
+                if (![self.starredUsers containsObject:user]) {
+                    [self addStarredUsersObject:user];
+                }
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [self removeStarredUsers:untouchedObjects];
             }];
@@ -102,33 +104,43 @@
 }
 
 - (void)unstarUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self.editableManagedObjectContext performBlock:^{
+        [self removeStarredUsersObject:user.editableObject];
+        SaveManagedObjectContext(self.editableManagedObjectContext);
+    }];
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"user"] = user.rid;
         [[self API] DELETE:[NSString stringWithFormat:@"users/%@/starred/%@", self.rid, user.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                [self removeStarredUsersObject:user.editableObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            [self.editableManagedObjectContext performBlock:^{
+                [self addStarredUsersObject:user.editableObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
         }];
     } failure:failure];
 }
 
 - (void)starUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self.editableManagedObjectContext performBlock:^{
+        [self addStarredUsersObject:user.editableObject];
+        SaveManagedObjectContext(self.editableManagedObjectContext);
+    }];
+    
     [[self API] ensureAuthenticationWithSuccess:^{
         NSMutableDictionary *parameters = [self generateDefaultParameters];
         parameters[@"user"] = user.rid;
         [[self API] POST:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                [self addStarredUsersObject:user.editableObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
-            }];
+            requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            [self.editableManagedObjectContext performBlock:^{
+                [self removeStarredUsersObject:user.editableObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestFailedWithBlock(operation, parameters, error, failure);
+            }];
         }];
     } failure:failure];
 }
