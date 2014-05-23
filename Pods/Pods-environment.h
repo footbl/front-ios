@@ -126,6 +126,12 @@
 #define COCOAPODS_VERSION_MINOR_SPNotifier 2
 #define COCOAPODS_VERSION_PATCH_SPNotifier 1
 
+// StyledPageControl
+#define COCOAPODS_POD_AVAILABLE_StyledPageControl
+#define COCOAPODS_VERSION_MAJOR_StyledPageControl 1
+#define COCOAPODS_VERSION_MINOR_StyledPageControl 0
+#define COCOAPODS_VERSION_PATCH_StyledPageControl 0
+
 // TransformerKit
 #define COCOAPODS_POD_AVAILABLE_TransformerKit
 #define COCOAPODS_VERSION_MAJOR_TransformerKit 0

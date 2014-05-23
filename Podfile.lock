@@ -40,6 +40,7 @@ PODS:
     - SPHipster/Core
   - SPNotifier (0.2.1):
     - AFNetworking (~> 2.0)
+  - StyledPageControl (1.0)
   - TransformerKit (0.3.1)
 
 DEPENDENCIES:
@@ -52,6 +53,7 @@ DEPENDENCIES:
   - SDWebImage
   - SPHipster
   - SPNotifier
+  - StyledPageControl
   - TransformerKit
 
 SPEC CHECKSUMS:
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183
   SPNotifier: 23f1975c68c449ec81433a167dda3dbe429d8f85
+  StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
   TransformerKit: 06b091aea93e66436d35abe7b9e12fb144acad29
 
 COCOAPODS: 0.33.1
