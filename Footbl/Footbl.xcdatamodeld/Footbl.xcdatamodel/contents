@@ -88,6 +88,8 @@
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
+        <relationship name="starredByUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredUsers" inverseEntity="User" syncable="YES"/>
+        <relationship name="starredUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredByUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="user" inverseEntity="Wallet" syncable="YES"/>
     </entity>
     <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
@@ -110,7 +112,7 @@
         <element name="Match" positionX="-54" positionY="-9" width="128" height="285"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="210"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="238"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="180"/>
     </elements>
 </model>

@@ -81,6 +81,58 @@
     return [User currentUser] && [[User currentUser].rid isEqualToString:self.rid];
 }
 
+- (BOOL)isStarredByUser:(User *)user {
+    return [self.starredByUsers filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", user.rid]].count > 0;
+}
+
+- (void)updateStarredUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        [[self API] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[self class] loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:self.starredUsers enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
+                [self addStarredUsersObject:user];
+            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [self removeStarredUsers:untouchedObjects];
+            }];
+            requestSucceedWithBlock(operation, parameters, success);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
+- (void)unstarUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        parameters[@"user"] = user.rid;
+        [[self API] DELETE:[NSString stringWithFormat:@"users/%@/starred/%@", self.rid, user.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.editableManagedObjectContext performBlock:^{
+                [self removeStarredUsersObject:user.editableObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(operation, parameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
+- (void)starUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        parameters[@"user"] = user.rid;
+        [[self API] POST:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.editableManagedObjectContext performBlock:^{
+                [self addStarredUsersObject:user.editableObject];
+                SaveManagedObjectContext(self.editableManagedObjectContext);
+                requestSucceedWithBlock(operation, parameters, success);
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dictionary = [NSMutableDictionary new];
     if (self.email) {
