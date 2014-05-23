@@ -15,6 +15,7 @@
 #import "FootblNavigationController.h"
 #import "NewGroupViewController.h"
 #import "NSString+Hex.h"
+#import "User.h"
 
 @interface GroupsViewController ()
 
@@ -94,15 +95,19 @@
 - (void)reloadData {
     [super reloadData];
     
-    [Group updateWithSuccess:^{
-        [self.refreshControl endRefreshing];
-    } failure:^(NSError *error) {
+    void(^failureBlock)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
             [alert show];
         }
-    }];
+    };
+    
+    [Group updateWithSuccess:^{
+        [[User currentUser] updateStarredUsersWithSuccess:^{
+            [self.refreshControl endRefreshing];
+        } failure:failureBlock];
+    } failure:failureBlock];
 }
 
 - (void)setFooterViewVisible:(BOOL)visible {

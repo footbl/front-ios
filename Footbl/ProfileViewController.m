@@ -98,6 +98,10 @@
     self.bets = fetchResult;
 
     [self.tableView reloadData];
+    
+    if (!self.user.isMe && [self.user isStarredByUser:[User currentUser]]) {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 - (void)reloadData {
@@ -150,6 +154,7 @@
                     profileCell.nameLabel.text = self.user.name;
                     profileCell.usernameLabel.text = self.user.username;
                     profileCell.verified = self.user.verifiedValue;
+                    profileCell.starImageView.hidden = self.user.isMe;
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];
@@ -424,7 +429,33 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.user.isMe) {
+        return;
+    }
+    
+    void(^failureBlock)(NSError *error) = ^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+    };
+    
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [[User currentUser] starUser:self.user success:nil failure:failureBlock];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.user.isMe) {
+        return;
+    }
+    
+    void(^failureBlock)(NSError *error) = ^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+    };
+    
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [[User currentUser] unstarUser:self.user success:nil failure:failureBlock];
+    }
 }
 
 #pragma mark - View Lifecycle
@@ -433,6 +464,8 @@
     [super loadView];
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    
+    [[User currentUser] updateStarredUsersWithSuccess:nil failure:nil];
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
@@ -457,6 +490,7 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView.allowsMultipleSelection = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 5)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
