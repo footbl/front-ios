@@ -114,13 +114,16 @@
         } else {
             invalidInputBlock();
         }
-    } else {
+    } else if (!self.username) {
         if (self.textField.text.isValidUsername) {
             self.username = self.textField.text;
-            [self signupAction:self.textField];
+            switchInputBlock();
         } else {
             invalidInputBlock();
         }
+    } else {
+        self.aboutMe = self.textField.text;
+        [self signupAction:self.textField];
     }
 }
 
@@ -149,6 +152,8 @@
         self.hintLabel.text = NSLocalizedString(@"Sign up text: password confirmation hint", @"");
     } else if (!self.username) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: username hint", @"");
+    } else if (!self.aboutMe) {
+        self.hintLabel.text = NSLocalizedString(@"Sign up text: about hint", @"");
     }
     
     CGRect frame = self.hintLabel.frame;
@@ -207,11 +212,20 @@
         self.textField.keyboardType = UIKeyboardTypeAlphabet;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.textField.returnKeyType = UIReturnKeyDone;
+        self.textField.returnKeyType = UIReturnKeyNext;
         self.textField.enablesReturnKeyAutomatically = YES;
+    } else if (!self.aboutMe) {
+        text = NSLocalizedString(@"Sign up text: about", @"");
+        
+        self.textField.secureTextEntry = NO;
+        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+        self.textField.returnKeyType = UIReturnKeyDone;
+        self.textField.enablesReturnKeyAutomatically = NO;
     }
     
-    if (text) {
+    if (text && [text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
         NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
         if ([text rangeOfString:@"\n"].location != NSNotFound) {
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[text componentsSeparatedByString:@"\n"].firstObject attributes:[self informationTitleTextAttributes]]];
