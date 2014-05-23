@@ -42,7 +42,8 @@
                 self.activityIndicatorView.alpha = 1;
                 [self.activityIndicatorView startAnimating];
             }];
-            [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+            
+            [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (result) {
                     [[FootblAPI sharedAPI] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^{
                         self.view.userInteractionEnabled = YES;
@@ -54,11 +55,13 @@
                         signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
                         signupViewController.passwordConfirmation = signupViewController.password;
                         signupViewController.completionBlock = self.completionBlock;
-                        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
-                            if (image) {
-                                signupViewController.profileImage = image;
-                            }
-                        }];
+                        if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+                            [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+                                if (image) {
+                                    signupViewController.profileImage = image;
+                                }
+                            }];
+                        }
                         signupViewController.fbToken = [FBSession activeSession].accessTokenData.accessToken;
                         [self.navigationController pushViewController:signupViewController animated:NO];
                         self.view.userInteractionEnabled = YES;
