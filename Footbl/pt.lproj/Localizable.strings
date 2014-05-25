@@ -301,11 +301,20 @@
 "Sign up text: about" = "Por último...\nEscreva uma bio (ou não)";
 
 /* Choose from my albums */
-"Choose from my albums" = "Escolher da biblioteca de fotos";
+"Choose from my albums" = "Biblioteca de fotos";
 
 /* Sign up text: profile */
 "Sign up text: profile" = "Hora de tirar uma selfie...\nOu escolher uma foto legal!";
 
 /* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Não é possível tirar fotos com o seu iDevice.";
+
+/* No */
+"No" = "Não";
+
+/* Yes */
+"Yes" = "Sim";
+
+/* You entered your email as %@ */
+"You entered your email as %@" = "%@";
 

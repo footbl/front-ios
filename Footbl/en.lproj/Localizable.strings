@@ -321,3 +321,15 @@
 /* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Camera is not available on your device, sorry!";
 
+/* No comment provided by engineer. */
+"Is this correct?" = "Is this correct?";
+
+/* No */
+"No" = "No";
+
+/* Yes */
+"Yes" = "Yes";
+
+/* You entered your email as %@ */
+"You entered your email as %@" = "You entered your email as %@";
+

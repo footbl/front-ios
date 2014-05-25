@@ -13,9 +13,10 @@
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
 
-@interface SignupViewController ()
+@interface SignupViewController () <UIAlertViewDelegate>
 
 @property (assign, nonatomic) BOOL statusBarVisible;
+@property (assign, nonatomic, getter = isEmailConfirmed) BOOL emailConfirmed;
 @property (strong, nonatomic) UIButton *profileImageButton;
 @property (strong, nonatomic) UIView *textFieldBackground;
 @property (strong, nonatomic) UIView *importProfileImageOptionsView;
@@ -105,8 +106,15 @@
     
     if (!self.email) {
         if (self.textField.text.isEmail) {
-            self.email = [self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-            switchInputBlock(YES);
+            NSString *email = [self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if (self.isEmailConfirmed) {
+                self.email = [self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+                switchInputBlock(YES);
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Is this correct?", @"") message:[NSString stringWithFormat:NSLocalizedString(@"You entered your email as %@", @""), email] delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"") otherButtonTitles:NSLocalizedString(@"Yes", @""), nil];
+                [alert show];
+                return;
+            }
         } else {
             invalidInputBlock();
         }
@@ -120,13 +128,6 @@
     } else if (!self.password) {
         if (self.textField.text.isValidPassword) {
             self.password = self.textField.text;
-            switchInputBlock(YES);
-        } else {
-            invalidInputBlock();
-        }
-    } else if (!self.passwordConfirmation) {
-        if ([self.textField.text isEqualToString:self.password]) {
-            self.passwordConfirmation = self.textField.text;
             switchInputBlock(YES);
         } else {
             invalidInputBlock();
@@ -200,8 +201,6 @@
         self.hintLabel.text = NSLocalizedString(@"Sign up text: name hint", @"");
     } else if (!self.password) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: password hint", @"");
-    } else if (!self.passwordConfirmation) {
-        self.hintLabel.text = NSLocalizedString(@"Sign up text: password confirmation hint", @"");
     } else if (!self.username) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: username hint", @"");
     } else if (!self.aboutMe) {
@@ -247,16 +246,7 @@
     } else if (!self.password) {
         text = NSLocalizedString(@"Sign up text: password", @"");
         
-        self.textField.secureTextEntry = YES;
-        self.textField.keyboardType = UIKeyboardTypeDefault;
-        self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.textField.returnKeyType = UIReturnKeyNext;
-        self.textField.enablesReturnKeyAutomatically = YES;
-    } else if (!self.passwordConfirmation) {
-        text = NSLocalizedString(@"Sign up text: password confirmation", @"");
-        
-        self.textField.secureTextEntry = YES;
+        self.textField.secureTextEntry = NO;
         self.textField.keyboardType = UIKeyboardTypeDefault;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -331,6 +321,15 @@
 }
 
 #pragma mark - Delegates & Data sources
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    BOOL confirmed = (buttonIndex == 1);
+    self.emailConfirmed = confirmed;
+    
+    [self continueAction:alertView];
+}
 
 #pragma mark - UITextField delegate
 
