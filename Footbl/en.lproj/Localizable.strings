@@ -312,3 +312,12 @@
 /* Sign up text: about */
 "Sign up text: about" = "Who are you?\nDescribe yourself! (or not)";
 
+/* Choose from my albums */
+"Choose from my albums" = "Choose from my albums";
+
+/* Sign up text: profile */
+"Sign up text: profile" = "It's time to selfie.\nOr choose a nice pic!";
+
+/* Camera is not available on your device, sorry! */
+"Camera is not available on your device, sorry!" = "Camera is not available on your device, sorry!";
+

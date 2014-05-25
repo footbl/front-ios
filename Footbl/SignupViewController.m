@@ -7,13 +7,18 @@
 //
 
 #import "FootblAPI.h"
+#import "ImportImageHelper.h"
 #import "NSString+Validations.h"
 #import "SignupViewController.h"
 #import "UILabel+Shake.h"
+#import "UIView+Frame.h"
 
 @interface SignupViewController ()
 
 @property (assign, nonatomic) BOOL statusBarVisible;
+@property (strong, nonatomic) UIButton *profileImageButton;
+@property (strong, nonatomic) UIView *textFieldBackground;
+@property (strong, nonatomic) UIView *importProfileImageOptionsView;
 
 @end
 
@@ -62,21 +67,33 @@
 }
 
 - (IBAction)continueAction:(id)sender {
-    void(^switchInputBlock)() = ^() {
+    void(^switchInputBlock)(BOOL shouldShowKeyboard) = ^(BOOL shouldShowKeyboard) {
         self.hintLabel.text = @"";
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             self.informationLabel.alpha = 0;
             self.textField.alpha = 0;
             self.hintLabel.alpha = 0;
+            if (shouldShowKeyboard) {
+                self.profileImageButton.alpha = 0;
+            } else {
+                self.textFieldBackground.alpha = 0;
+            }
         } completion:^(BOOL finished) {
             self.textField.text = @"";
             [self reloadTextField];
             [self.textField resignFirstResponder];
-            [self.textField becomeFirstResponder];
+            if (shouldShowKeyboard) {
+                [self.textField becomeFirstResponder];
+            }
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
                 self.informationLabel.alpha = 1;
                 self.textField.alpha = 1;
                 self.hintLabel.alpha = 1;
+                if (shouldShowKeyboard) {
+                    self.textFieldBackground.alpha = 1;
+                } else {
+                    self.profileImageButton.alpha = 1;
+                }
             }];
         }];
     };
@@ -89,42 +106,77 @@
     if (!self.email) {
         if (self.textField.text.isEmail) {
             self.email = [self.textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-            switchInputBlock();
+            switchInputBlock(YES);
         } else {
             invalidInputBlock();
         }
     } else if (!self.name) {
         if (self.textField.text.isValidName) {
             self.name = [self.textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            switchInputBlock();
+            switchInputBlock(YES);
         } else {
             invalidInputBlock();
         }
     } else if (!self.password) {
         if (self.textField.text.isValidPassword) {
             self.password = self.textField.text;
-            switchInputBlock();
+            switchInputBlock(YES);
         } else {
             invalidInputBlock();
         }
     } else if (!self.passwordConfirmation) {
         if ([self.textField.text isEqualToString:self.password]) {
             self.passwordConfirmation = self.textField.text;
-            switchInputBlock();
+            switchInputBlock(YES);
         } else {
             invalidInputBlock();
         }
     } else if (!self.username) {
         if (self.textField.text.isValidUsername) {
             self.username = self.textField.text;
-            switchInputBlock();
+            switchInputBlock(YES);
         } else {
             invalidInputBlock();
         }
-    } else {
+    } else if (!self.aboutMe) {
         self.aboutMe = self.textField.text;
-        [self signupAction:self.textField];
+        if (self.profileImage) {
+            [self signupAction:sender];
+        } else {
+            switchInputBlock(NO);
+        }
+    } else {
+        [self signupAction:sender];
     }
+}
+
+- (IBAction)importFromFacebookAction:(id)sender {
+    [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+            if (image) {
+                [self.profileImageButton setImage:image forState:UIControlStateNormal];
+                self.profileImage = image;
+            }
+        }];
+    }];
+}
+
+- (IBAction)importFromPhotoLibraryAction:(id)sender {
+    [[ImportImageHelper sharedInstance] importFromGalleryWithCompletionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [self.profileImageButton setImage:image forState:UIControlStateNormal];
+            self.profileImage = image;
+        }
+    }];
+}
+
+- (IBAction)importFromCameraAction:(id)sender {
+    [[ImportImageHelper sharedInstance] importFromCameraWithCompletionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [self.profileImageButton setImage:image forState:UIControlStateNormal];
+            self.profileImage = image;
+        }
+    }];
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
@@ -154,6 +206,8 @@
         self.hintLabel.text = NSLocalizedString(@"Sign up text: username hint", @"");
     } else if (!self.aboutMe) {
         self.hintLabel.text = NSLocalizedString(@"Sign up text: about hint", @"");
+    } else if (!self.profileImage) {
+        self.hintLabel.text = @"";
     }
     
     CGRect frame = self.hintLabel.frame;
@@ -169,6 +223,9 @@
 
 - (void)reloadTextField {
     NSString *text;
+    
+    self.importProfileImageOptionsView.hidden = YES;
+    
     if (!self.email) {
         text = NSLocalizedString(@"Sign up text: email", @"");
         
@@ -223,6 +280,13 @@
         self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         self.textField.returnKeyType = UIReturnKeyDone;
         self.textField.enablesReturnKeyAutomatically = NO;
+    } else if (!self.profileImage) {
+        text = NSLocalizedString(@"Sign up text: profile", @"");
+        
+        self.importProfileImageOptionsView.hidden = NO;
+        self.importProfileImageOptionsView.frameY = self.view.frameHeight - self.importProfileImageOptionsView.frameHeight;
+        self.informationLabel.frameY = CGRectGetMaxY(self.profileImageButton.frame) - 5;
+        [self.textField resignFirstResponder];
     }
     
     if (text && [text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
@@ -320,10 +384,10 @@
     self.textField.delegate = self;
     [self.view addSubview:self.textField];
     
-    UIView *textFieldBackground = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.textField.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.textField.frame))];
-    textFieldBackground.backgroundColor = [UIColor whiteColor];
-    textFieldBackground.alpha = 0;
-    [self.view insertSubview:textFieldBackground belowSubview:self.textField];
+    self.textFieldBackground = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.textField.frame), CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.textField.frame))];
+    self.textFieldBackground.backgroundColor = [UIColor whiteColor];
+    self.textFieldBackground.alpha = 0;
+    [self.view insertSubview:self.textFieldBackground belowSubview:self.textField];
     
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.textField.frame), CGRectGetWidth(self.view.bounds) - 40, 0)];
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
@@ -333,6 +397,37 @@
     self.hintLabel.alpha = 0;
     self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.hintLabel];
+
+    self.importProfileImageOptionsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 216, self.view.frameWidth, 216)];
+    self.importProfileImageOptionsView.backgroundColor = [UIColor colorWithRed:0.92 green:0.97 blue:0.91 alpha:1];
+    self.importProfileImageOptionsView.hidden = YES;
+    [self.view addSubview:self.importProfileImageOptionsView];
+    
+    UIButton *albunsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.importProfileImageOptionsView.frameWidth, self.importProfileImageOptionsView.frameHeight / 2)];
+    albunsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    albunsButton.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    albunsButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
+    [albunsButton setTitle:NSLocalizedString(@"Choose from my albums", @"") forState:UIControlStateNormal];
+    [albunsButton setImage:[UIImage imageNamed:@"signup_icon_importlibrary"] forState:UIControlStateNormal];
+    [albunsButton setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
+    [albunsButton setTitleColor:[UIColor colorWithRed:0.04 green:0.35 blue:0.16 alpha:1] forState:UIControlStateHighlighted];
+    [albunsButton addTarget:self action:@selector(importFromPhotoLibraryAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.importProfileImageOptionsView addSubview:albunsButton];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(albunsButton.frame) - 0.5, albunsButton.frameWidth - 38, 1)];
+    separatorView.backgroundColor = [UIColor colorWithRed:0.74 green:0.9 blue:0.78 alpha:1];
+    [self.importProfileImageOptionsView addSubview:separatorView];
+    
+    UIButton *facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(albunsButton.frame), albunsButton.frameWidth, albunsButton.frameHeight)];
+    facebookButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    facebookButton.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    facebookButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
+    [facebookButton setTitle:NSLocalizedString(@"Import from Facebook", @"") forState:UIControlStateNormal];
+    [facebookButton setImage:[UIImage imageNamed:@"signup_icon_importfb"] forState:UIControlStateNormal];
+    [facebookButton setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
+    [facebookButton setTitleColor:[UIColor colorWithRed:0.04 green:0.35 blue:0.16 alpha:1] forState:UIControlStateHighlighted];
+    [facebookButton addTarget:self action:@selector(importFromFacebookAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.importProfileImageOptionsView addSubview:facebookButton];
     
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
         signupImageView.alpha = 1;
@@ -342,7 +437,7 @@
         [self setNeedsStatusBarAppearanceUpdate];
         
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
-            textFieldBackground.alpha = 1;
+            self.textFieldBackground.alpha = 1;
             self.textField.alpha = 1;
             self.hintLabel.alpha = 1;
             self.informationLabel.alpha = 1;
@@ -351,16 +446,23 @@
         }];
     }];
     
+    self.profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(85, 97, 150, 150)];
+    self.profileImageButton.alpha = 0;
+    self.profileImageButton.backgroundColor = [UIColor whiteColor];
+    self.profileImageButton.layer.cornerRadius = self.profileImageButton.frameHeight / 2;
+    self.profileImageButton.clipsToBounds = YES;
+    self.profileImageButton.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.profileImageButton setImage:[UIImage imageNamed:@"signup_icon_photo"] forState:UIControlStateNormal];
+    [self.profileImageButton addTarget:self action:@selector(importFromCameraAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.profileImageButton];
+    
     [self reloadTextField];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
