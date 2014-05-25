@@ -47,13 +47,18 @@
 }
 
 - (void)importImageFromFacebookWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
-    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [[FBRequest requestForGraphPath:@"me?fields=picture.type(large)"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (error) {
             if (completionBlock) completionBlock(nil, error);
             return;
         }
         
-        NSString *picturePath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", result[@"id"]];
+        if ([result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+            if (completionBlock) completionBlock(nil, nil);
+            return;
+        }
+        
+        NSString *picturePath = result[@"picture"][@"data"][@"url"];
         [SDWebImageManager.sharedManager downloadWithURL:[NSURL URLWithString:picturePath] options:SDWebImageCacheMemoryOnly | SDWebImageHighPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
             if (error) {
                 if (completionBlock) completionBlock(nil, error);
@@ -77,6 +82,13 @@
 }
 
 - (void)importFromCameraWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Camera is not available on your device, sorry!", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+        if (completionBlock) completionBlock(nil, nil);
+        return;
+    }
+    
     self.cameraCompletionBlock = completionBlock;
     
     UIImagePickerController *imagePickerController = [UIImagePickerController new];
