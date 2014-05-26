@@ -289,7 +289,7 @@
 "Featured users" = "Usuários em destaque";
 
 /* Sign up text: about hint */
-"Sign up text: about hint" = " ";
+"Sign up text: about hint" = "Escreva menos de 70 caracteres por favor :)";
 
 /* Sign up text: about */
 "Sign up text: about" = "Por último...\nEscreva uma bio (ou não)";
@@ -377,4 +377,10 @@
 
 /* Change password text: old password hint */
 "Change password text: old password hint" = "As senhas não estão batendo...";
+
+/* About me */
+"About me" = "Sobre você";
+
+/* Name */
+"Name" = "Nome";
 

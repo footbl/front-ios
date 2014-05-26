@@ -15,5 +15,6 @@
 - (BOOL)isValidName;
 - (BOOL)isValidPassword;
 - (BOOL)isValidUsername;
+- (BOOL)isValidAboutMe;
 
 @end

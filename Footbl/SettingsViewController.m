@@ -12,6 +12,7 @@
 #import "ChangePasswordViewController.h"
 #import "FootblAPI.h"
 #import "FootblNavigationController.h"
+#import "EditProfileViewController.h"
 #import "ImportImageHelper.h"
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
@@ -177,7 +178,9 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)updateAccountAction:(id)sender {
-
+    EditProfileViewController *editProfileViewController = [EditProfileViewController new];
+    FootblNavigationController *navigationViewController = [[FootblNavigationController alloc] initWithRootViewController:editProfileViewController];
+    [self presentViewController:navigationViewController animated:YES completion:nil];
 }
 
 - (void)updateProfilePictureAction:(id)sender {

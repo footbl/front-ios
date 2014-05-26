@@ -19,3 +19,9 @@
 - (void)shakeAndChangeColor;
 
 @end
+
+@interface UITextView (Shake)
+
+- (void)shakeAndChangeColor;
+
+@end
