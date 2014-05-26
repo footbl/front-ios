@@ -90,6 +90,7 @@
 		EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		EDC5F52619143F83005757EB /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
 		EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
+		EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -265,6 +266,8 @@
 		EDC5F52519143F83005757EB /* GroupInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoViewController.m; sourceTree = "<group>"; };
 		EDD6711C19229E2400985174 /* FriendsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsHelper.h; sourceTree = "<group>"; };
 		EDD6711D19229E2400985174 /* FriendsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsHelper.m; sourceTree = "<group>"; };
+		EDDCF221193395D30090D06D /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		EDDCF222193395D30090D06D /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
 		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
@@ -481,6 +484,8 @@
 			children = (
 				ED9D0B0018F31D8F0061AE42 /* AuthenticationViewController.h */,
 				ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */,
+				EDDCF221193395D30090D06D /* ChangePasswordViewController.h */,
+				EDDCF222193395D30090D06D /* ChangePasswordViewController.m */,
 				ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */,
 				ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */,
 				EDAF0EA1191BC7E3005218FB /* SignupViewController.h */,
@@ -954,6 +959,7 @@
 				ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */,
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
+				EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,

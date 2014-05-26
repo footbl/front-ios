@@ -366,3 +366,15 @@
 /* Update profile picture */
 "Update profile picture" = "Trocar foto do perfil";
 
+/* Change password text: insert new password */
+"Change password text: insert new password" = "\nInsira a sua nova senha.";
+
+/* Change password text: insert old password */
+"Change password text: insert old password" = "\nInsira a sua senha antiga.";
+
+/* Change password text: new password hint */
+"Change password text: new password hint" = "A senha precisa ter pelo menos 6 caracteres.";
+
+/* Change password text: old password hint */
+"Change password text: old password hint" = "As senhas não estão batendo...";
+

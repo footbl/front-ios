@@ -9,6 +9,7 @@
 @import MessageUI;
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
+#import "ChangePasswordViewController.h"
 #import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "ImportImageHelper.h"
@@ -164,7 +165,15 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)changePasswordAction:(id)sender {
-    
+    ChangePasswordViewController *changePasswordViewController = [ChangePasswordViewController new];
+    if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeFacebook) {
+        changePasswordViewController.oldPassword = @"";
+    }
+    changePasswordViewController.completionBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
+    FootblNavigationController *navigationViewController = [[FootblNavigationController alloc] initWithRootViewController:changePasswordViewController];
+    [self presentViewController:navigationViewController animated:YES completion:nil];
 }
 
 - (void)updateAccountAction:(id)sender {
