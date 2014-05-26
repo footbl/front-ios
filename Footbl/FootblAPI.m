@@ -549,7 +549,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
                     self.userPassword = password;
                 }
                 [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
-                requestSucceedWithBlock(operation, parameters, success);
+                [FootblBackgroundManagedObjectContext() performBlock:^{
+                    [[User currentUser].editableObject updateWithData:responseObject];
+                    SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+                    requestSucceedWithBlock(operation, parameters, success);
+                }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
                 requestFailedWithBlock(operation, parameters, error, failure);
