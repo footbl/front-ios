@@ -70,9 +70,6 @@
 /* Tutorial */
 "Tutorial" = "Tutorial";
 
-/* Logs */
-"Logs" = "Logs";
-
 /* Wallet */
 "Wallet" = "Carteira";
 
@@ -87,9 +84,6 @@
 
 /* Version */
 "Version" = "Versão";
-
-/* Acknowledgements */
-"Acknowledgements" = "Sobre";
 
 /* Now */
 "Now" = "Agora";
@@ -309,6 +303,9 @@
 /* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Não é possível tirar fotos com o seu iDevice.";
 
+/* Is this correct? */
+"Is this correct?" = "Está tudo certo?";
+
 /* No */
 "No" = "Não";
 
@@ -317,4 +314,55 @@
 
 /* You entered your email as %@ */
 "You entered your email as %@" = "%@";
+
+/* About */
+"About" = "Sobre";
+
+/* Can't send email message */
+"Can't send email message" = "Para que seja possível enviar um email, por favor configure uma conta no seu aparelho (Ajustes -> Mail, Contatos, Calendários)";
+
+/* Can't send email title */
+"Can't send email title" = "Nenhuma conta de email configurada";
+
+/* My Account */
+"My Account" = "Minha conta";
+
+/* Sharing text */
+"Sharing text" = "Já conhecem esse aplicativo?";
+
+/* Sharing URL */
+"Sharing URL" = "https://itunes.apple.com/br/app/footbl/id881307076?ls=1&mt=8";
+
+/* {application name} {application version} {system version} {device model} {user identifier} */
+"Support email body" = "\n\n\nAs informações abaixo serão utilizadas para tornar o suporte mais efetivo e resolver o seu problema o mais rápido possível.\nAplicativo: %@ v%@\nSistema: %@ (%@)\nUsuário: %@";
+
+/* No comment provided by engineer. */
+"Support email recipient" = "footbl@madeatsampa.com";
+
+/* {application name} */
+"Support email subject" = "Suporte - %@";
+
+/* Support */
+"Support" = "Suporte";
+
+/* Review on App Store */
+"Review on App Store" = "Avalie na App Store";
+
+/* Tell a friend */
+"Tell a friend" = "Compartilhe com os amigos";
+
+/* Licenses */
+"Licenses" = "Licenças";
+
+/* Change password */
+"Change password" = "Trocar senha";
+
+/* Delete account */
+"Delete account" = "Apagar conta";
+
+/* Edit profile */
+"Edit profile" = "Editar perfil";
+
+/* Update profile picture */
+"Update profile picture" = "Trocar foto do perfil";
 

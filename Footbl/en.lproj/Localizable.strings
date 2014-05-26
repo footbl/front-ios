@@ -70,9 +70,6 @@
 /* Tutorial */
 "Tutorial" = "Tutorial";
 
-/* Logs */
-"Logs" = "Logs";
-
 /* Wallet */
 "Wallet" = "Wallet";
 
@@ -87,9 +84,6 @@
 
 /* Version */
 "Version" = "Version";
-
-/* Acknowledgements */
-"Acknowledgements" = "Acknowledgements";
 
 /* Now */
 "Now" = "Now";
@@ -321,7 +315,7 @@
 /* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Camera is not available on your device, sorry!";
 
-/* No comment provided by engineer. */
+/* Is this correct? */
 "Is this correct?" = "Is this correct?";
 
 /* No */
@@ -332,4 +326,55 @@
 
 /* You entered your email as %@ */
 "You entered your email as %@" = "You entered your email as %@";
+
+/* About */
+"About" = "About";
+
+/* Can't send email message */
+"Can't send email message" = "To be able to send an email, please set up an account (Settings -> Mail, Contacts, Calendars)";
+
+/* Can't send email title */
+"Can't send email title" = "No email account set up";
+
+/* My Account */
+"My Account" = "My account";
+
+/* Sharing text */
+"Sharing text" = "Checkout this awesome app!";
+
+/* Sharing URL */
+"Sharing URL" = "https://itunes.apple.com/us/app/footbl/id881307076?ls=1&mt=8";
+
+/* {application name} {application version} {system version} {device model} {user identifier} */
+"Support email body" = "\n\n\nThe information below will be used to make the support more effective and solve your problem ASAP.\nApp: %@ v%@\nSystem: %@ (%@)\nUser: %@";
+
+/* No comment provided by engineer. */
+"Support email recipient" = "footbl@madeatsampa.com";
+
+/* {application name} */
+"Support email subject" = "Support - %@";
+
+/* Support */
+"Support" = "Support";
+
+/* Review on App Store */
+"Review on App Store" = "Review on App Store";
+
+/* Tell a friend */
+"Tell a friend" = "Tell a friend";
+
+/* Licenses */
+"Licenses" = "Licenses";
+
+/* Change password */
+"Change password" = "Change password";
+
+/* Delete account */
+"Delete account" = "Delete account";
+
+/* Edit profile */
+"Edit profile" = "Edit profile";
+
+/* Update profile picture */
+"Update profile picture" = "Update profile picture";
 
