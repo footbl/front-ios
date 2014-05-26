@@ -10,6 +10,7 @@
 #import "Bet.h"
 #import "Championship.h"
 #import "FootblTabBarController.h"
+#import "LoadingHelper.h"
 #import "Match.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
@@ -366,15 +367,23 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)reloadData {
     [super reloadData];
     
+    NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
+    
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
+        if (matches == 0) {
+            [[LoadingHelper sharedInstance] hideHud];
+        }
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
             [alert show];
         }
     };
     
-    self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
+    self.numberOfMatches = matches;
+    if (matches == 0) {
+        [[LoadingHelper sharedInstance] showHud];
+    }
     [Wallet updateWithUser:[User currentUser] success:^{
         [self fetchChampionship];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.championship ? 0.1 : 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -386,6 +395,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                     [Match updateFromChampionship:self.championship.editableObject success:^{
                         [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
                             [self.refreshControl endRefreshing];
+                            if (matches == 0) {
+                                [[LoadingHelper sharedInstance] hideHud];
+                            }
                         } failure:failure];
                     } failure:failure];
                 } failure:failure];
