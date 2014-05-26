@@ -15,6 +15,7 @@
 #import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupAddMemberTableViewCell.h"
+#import "LoadingHelper.h"
 
 @interface GroupAddMembersViewController ()
 
@@ -177,10 +178,12 @@
 - (IBAction)createAction:(id)sender {
     self.view.window.userInteractionEnabled = NO;
     
+    [[LoadingHelper sharedInstance] showHud];
     [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
             self.view.window.userInteractionEnabled = YES;
+            [[LoadingHelper sharedInstance] hideHud];
             
             if (self.facebookSelectedMembers.count > 0) {
                 NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
@@ -199,6 +202,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
         [alert show];
         self.view.window.userInteractionEnabled = YES;
+        [[LoadingHelper sharedInstance] hideHud];
     }];
 }
 

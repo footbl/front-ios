@@ -23,6 +23,7 @@ PODS:
     - AFNetworking (~> 2.1)
   - Cloudinary (1.0.11)
   - FXKeychain (1.5)
+  - MBProgressHUD (0.8)
   - RMStore (0.5):
     - RMStore/Core
   - RMStore/Core (0.5)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - CargoBay
   - Cloudinary
   - FXKeychain
+  - MBProgressHUD
   - RMStore
   - SDWebImage
   - SPHipster
@@ -62,6 +64,7 @@ SPEC CHECKSUMS:
   CargoBay: 186add8173f99bd8f0379cc1da9c7c6bd1bef82b
   Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
   FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   RMStore: 6df6d5d71ebadbeede7963f7dd83f9c5a52acbbf
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183

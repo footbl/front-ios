@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
+		ED115ED81932B5FD00F5A722 /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
 		ED19A402190A222900946490 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
 		ED19A405190ACF8700946490 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
 		ED19A40A190AF85800946490 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
@@ -113,6 +114,8 @@
 
 /* Begin PBXFileReference section */
 		367ED0AE31BD4C60B34A5B8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
+		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
 		ED19A400190A222900946490 /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
 		ED19A401190A222900946490 /* SettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewCell.m; sourceTree = "<group>"; };
 		ED19A406190ACF8700946490 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 				EDD6711D19229E2400985174 /* FriendsHelper.m */,
 				ED1E913719253F1200BDE434 /* ImportImageHelper.h */,
 				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
+				ED115ED61932B5FD00F5A722 /* LoadingHelper.h */,
+				ED115ED71932B5FD00F5A722 /* LoadingHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -978,6 +983,7 @@
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
+				ED115ED81932B5FD00F5A722 /* LoadingHelper.m in Sources */,
 				EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
 				EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */,

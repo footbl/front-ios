@@ -8,6 +8,7 @@
 
 #import "FootblAPI.h"
 #import "ImportImageHelper.h"
+#import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "SignupViewController.h"
 #import "UILabel+Shake.h"
@@ -49,6 +50,7 @@
 
 - (IBAction)signupAction:(id)sender {
     FootblAPIFailureBlock failureBlock = ^(NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
         if (error) {
             self.view.userInteractionEnabled = YES;
             [self.textField becomeFirstResponder];
@@ -60,8 +62,11 @@
     self.view.userInteractionEnabled = NO;
     [self.textField resignFirstResponder];
     
+    [[LoadingHelper sharedInstance] showHud];
+    
     [[FootblAPI sharedAPI] createAccountWithSuccess:^{
         [[FootblAPI sharedAPI] updateAccountWithUsername:self.username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^{
+            [[LoadingHelper sharedInstance] hideHud];
             if (self.completionBlock) self.completionBlock();
         } failure:failureBlock];
     } failure:failureBlock];
