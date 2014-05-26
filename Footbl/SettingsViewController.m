@@ -6,23 +6,27 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+@import MessageUI;
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
 #import "FootblNavigationController.h"
+#import "ImportImageHelper.h"
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
 #import "SettingsViewController.h"
+#import "User.h"
 
 typedef NS_ENUM(NSInteger, SettingsType) {
     SettingsTypeTinyInfo,
     SettingsTypeInfo,
     SettingsTypeAction,
+    SettingsTypeActionDestructive,
     SettingsTypeMore
 };
 
-@interface SettingsViewController ()
+@interface SettingsViewController () <MFMailComposeViewControllerDelegate>
 
 @end
 
@@ -43,65 +47,161 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        NSMutableString *commitText = [NSMutableString new];
-        for (NSString *commit in [[[NSBundle mainBundle] infoDictionary][@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
-            [commitText appendFormat:@"- %@\n\n", commit];
-        }
-        
-        NSMutableArray *logs = [NSMutableArray new];
-        NSString *logsFolder = SPLogFilePath();
-        for (NSString *logFile in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsFolder error:nil]) {
-            if ([logFile.lowercaseString rangeOfString:@"ds_store"].location != NSNotFound) {
-                continue;
-            }
-            
-            [logs insertObject:@{kSettingsDataSourceTitleKey : logFile, kSettingsDataSourceTypeKey : @(SettingsTypeAction), kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openLogs:))} atIndex:0];
-        }
-        
-        NSMutableArray *acknowledgements = [NSMutableArray new];
+        NSMutableArray *licenses = [NSMutableArray new];
         NSArray *pods = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Pods-acknowledgements" ofType:@"plist"]][@"PreferenceSpecifiers"];
         for (NSInteger i = 0; i < [pods count] - 1; i++) {
             if (i == 0) {
                 continue;
             }
             
-            [acknowledgements addObject:@{kSettingsDataSourceTitleKey : pods[i][@"Title"], kSettingsDataSourceExtraKey : pods[i][@"FooterText"], kSettingsDataSourceTypeKey : @(SettingsTypeInfo)}];
+            [licenses addObject:@{kSettingsDataSourceTitleKey : pods[i][@"Title"], kSettingsDataSourceExtraKey : pods[i][@"FooterText"], kSettingsDataSourceTypeKey : @(SettingsTypeInfo)}];
         }
         
-        _dataSource = @[@{kSettingsDataSourceTitleKey : SPGetApplicationName(),
-                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Acknowledgements", @""),
+        NSArray *aboutDataSource = @[@{kSettingsDataSourceTitleKey : @"",
+                                       kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Licenses", @""),
+                                                                         kSettingsDataSourceValueKey : @"",
+                                                                         kSettingsDataSourceTypeKey : @(SettingsTypeMore),
+                                                                         kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Licenses", @""),
+                                                                                                           kSettingsDataSourceItemsKey : licenses}]},
+                                                                       @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Version", @""),
+                                                                         kSettingsDataSourceValueKey : SPGetApplicationVersion(),
+                                                                         kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)}
+                                                                       ]}];
+        
+        NSArray *accountDataSource = @[@{kSettingsDataSourceTitleKey : @"",
+                                         kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Edit profile", @""),
+                                                                           kSettingsDataSourceValueKey : @"",
+                                                                           kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                                           kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(updateAccountAction:))},
+                                                                         @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Update profile picture", @""),
+                                                                           kSettingsDataSourceValueKey : @"",
+                                                                           kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                                           kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(updateProfilePictureAction:))},
+                                                                         @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Change password", @""),
+                                                                           kSettingsDataSourceValueKey : @"",
+                                                                           kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                                           kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(changePasswordAction:))}
+                                                                         ]},
+                                       @{kSettingsDataSourceTitleKey : @"",
+                                         kSettingsDataSourceItemsKey : @[]},
+                                       @{kSettingsDataSourceTitleKey : @"",
+                                         kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Delete account", @""),
+                                                                           kSettingsDataSourceValueKey : @"",
+                                                                           kSettingsDataSourceTypeKey : @(SettingsTypeActionDestructive),
+                                                                           kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(deleteAccountAction:))}]}
+                                       ];
+        
+        _dataSource = @[@{kSettingsDataSourceTitleKey : @"",
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"My Account", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeMore),
-                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Acknowledgements", @""),
-                                                                                              kSettingsDataSourceItemsKey : acknowledgements}]},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Build type", @""),
-                                                            kSettingsDataSourceValueKey : NSStringFromBuildType(SPGetBuildType()),
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Changelog", @""),
-                                                            kSettingsDataSourceValueKey : @"",
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
-                                                            kSettingsDataSourceExtraKey : NSLocalizedString(@"Changelog text", @"")},
-                                                          @{kSettingsDataSourceTitleKey : @"Commit history",
-                                                            kSettingsDataSourceValueKey : @"",
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
-                                                            kSettingsDataSourceExtraKey : commitText},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logout", @""),
+                                                            kSettingsDataSourceExtraKey : accountDataSource}
+                                                          ]},
+                        @{kSettingsDataSourceTitleKey : @"",
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Tell a friend", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeAction),
-                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(logoutAction:))},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logs", @""),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(shareAction:))}
+                                                          ]},
+                        @{kSettingsDataSourceTitleKey : @"",
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"About", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeMore),
-                                                            kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logs", @""),
-                                                                                              kSettingsDataSourceItemsKey : logs}]},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Version", @""),
-                                                            kSettingsDataSourceValueKey : SPGetApplicationVersion(),
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeTinyInfo)}]}];
+                                                            kSettingsDataSourceExtraKey : aboutDataSource},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Review on App Store", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(appStoreReviewAction:))},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Support", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(supportAction:))}
+                                                          ]},
+                        @{kSettingsDataSourceTitleKey : @"",
+                          kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logout", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeActionDestructive),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(logoutAction:))}
+                                                          ]}];
+        
+        if (SPGetBuildType() != SPBuildTypeAppStore) {
+            NSMutableString *commitText = [NSMutableString new];
+            for (NSString *commit in [[[NSBundle mainBundle] infoDictionary][@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
+                [commitText appendFormat:@"- %@\n\n", commit];
+            }
+            
+            NSMutableArray *logs = [NSMutableArray new];
+            NSString *logsFolder = SPLogFilePath();
+            for (NSString *logFile in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsFolder error:nil]) {
+                if ([logFile.lowercaseString rangeOfString:@"ds_store"].location != NSNotFound) {
+                    continue;
+                }
+                
+                [logs insertObject:@{kSettingsDataSourceTitleKey : logFile, kSettingsDataSourceTypeKey : @(SettingsTypeAction), kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openLogs:))} atIndex:0];
+            }
+            
+            _dataSource = [_dataSource arrayByAddingObject:@{kSettingsDataSourceTitleKey : @"",
+                                                             kSettingsDataSourceItemsKey : @[]}];
+            _dataSource = [_dataSource arrayByAddingObject:@{kSettingsDataSourceTitleKey : @"",
+                                                             kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"Commit history",
+                                                                                               kSettingsDataSourceValueKey : @"",
+                                                                                               kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
+                                                                                               kSettingsDataSourceExtraKey : commitText},
+                                                                                             @{kSettingsDataSourceTitleKey : @"Logs",
+                                                                                               kSettingsDataSourceValueKey : @"",
+                                                                                               kSettingsDataSourceTypeKey : @(SettingsTypeMore),
+                                                                                               kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
+                                                                                                                                 kSettingsDataSourceItemsKey : logs}]}]}];
+        }
     }
     return _dataSource;
 }
 
 #pragma mark - Instance Methods
+
+- (void)appStoreReviewAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:NSLocalizedString(@"Sharing URL", @"")]];
+}
+
+- (void)changePasswordAction:(id)sender {
+    
+}
+
+- (void)updateAccountAction:(id)sender {
+
+}
+
+- (void)updateProfilePictureAction:(id)sender {
+    [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary), @(ImportImageHelperSourceFacebook)] completionBlock:^(UIImage *image, NSError *error) {
+        if (image) {
+            [[FootblAPI sharedAPI] updateAccountWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:image about:nil success:nil failure:nil];
+        }
+    }];
+}
+
+- (void)deleteAccountAction:(id)sender {
+    
+}
+
+- (void)shareAction:(id)sender {
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:NSLocalizedString(@"Sharing URL", @"")], NSLocalizedString(@"Sharing text", @"")] applicationActivities:nil];
+    activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
+- (void)supportAction:(id)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *picker = [MFMailComposeViewController new];
+        [picker setMailComposeDelegate:self];
+        [picker setToRecipients:@[NSLocalizedString(@"Support email recipient", @"")]];
+        [picker setSubject:[NSString stringWithFormat:NSLocalizedString(@"Support email subject", @"{application name}"), SPGetApplicationName()]];
+        [picker setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"Support email body", @"{application name} {application version} {system version} {device model} {user identifier}"), SPGetApplicationName(), SPGetApplicationVersion(), [[UIDevice currentDevice] systemVersion], [[UIDevice currentDevice] model], [User currentUser].rid] isHTML:NO];
+        [self presentViewController:picker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Can't send email title", @"Can't send email title") message:NSLocalizedString(@"Can't send email message", @"Can't send email message") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
+        [alert show];
+    }
+}
 
 - (void)logoutAction:(id)sender {
     AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
@@ -129,6 +229,12 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 #pragma mark - Delegates & Data sources
 
+#pragma mark - MFMailComposeViewController delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -141,15 +247,24 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingsCell" forIndexPath:indexPath];
-    cell.textLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
-    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.infoLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
+    cell.infoLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceValueKey];
+    cell.infoLabel.textAlignment = NSTextAlignmentLeft;
+    cell.infoLabel.textColor = [UIColor blackColor];
+    cell.infoLabel.font = [UIFont systemFontOfSize:17];
     
-    switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] boolValue]) {
+    switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] integerValue]) {
         case SettingsTypeMore:
         case SettingsTypeInfo:
         case SettingsTypeAction:
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        case SettingsTypeActionDestructive:
+            cell.infoLabel.textAlignment = NSTextAlignmentCenter;
+            cell.infoLabel.textColor = [UIColor colorWithRed:216/255.f green:80./255.f blue:80./255.f alpha:1.00];
+            cell.infoLabel.font = [UIFont boldSystemFontOfSize:17];
+            cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         default:
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -186,7 +301,8 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
             [self.navigationController pushViewController:textViewController animated:YES];
             break;
         }
-        case SettingsTypeAction: {
+        case SettingsTypeAction:
+        case SettingsTypeActionDestructive: {
             SettingsViewController *settingsViewController = [SettingsViewController new];
             settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
             SEL selector = NSSelectorFromString(self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey]);
@@ -212,13 +328,13 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         self.title = NSLocalizedString(@"Settings", @"Settings");
     }
     
-    if (self.dataSource.count == 1 && [self.dataSource[0][kSettingsDataSourceTitleKey] length] == 0) {
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    } else {
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    }
+    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.tableView.separatorColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
     [self.tableView registerClass:[SettingsTableViewCell class] forCellReuseIdentifier:@"SettingsCell"];
     [self.view addSubview:self.tableView];
 }

@@ -13,4 +13,6 @@
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) UITableView *tableView;
 
+- (void)updateProfilePictureAction:(id)sender;
+
 @end

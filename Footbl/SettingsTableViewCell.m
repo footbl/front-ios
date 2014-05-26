@@ -18,6 +18,11 @@
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = self.backgroundColor;
+        
+        self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, CGRectGetWidth(self.contentView.frame) - 30, CGRectGetHeight(self.contentView.frame))];
+        [self.contentView addSubview:self.infoLabel];
     }
     return self;
 }

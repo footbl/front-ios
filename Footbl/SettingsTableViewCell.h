@@ -10,4 +10,6 @@
 
 @interface SettingsTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *infoLabel;
+
 @end
