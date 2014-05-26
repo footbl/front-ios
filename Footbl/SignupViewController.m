@@ -145,11 +145,15 @@
             invalidInputBlock();
         }
     } else if (!self.aboutMe) {
-        self.aboutMe = self.textField.text;
-        if (self.profileImage) {
-            [self signupAction:sender];
+        if (self.textField.text.isValidAboutMe) {
+            self.aboutMe = self.textField.text;
+            if (self.profileImage) {
+                [self signupAction:sender];
+            } else {
+                switchInputBlock(NO);
+            }
         } else {
-            switchInputBlock(NO);
+            invalidInputBlock();
         }
     } else {
         [self signupAction:sender];
@@ -333,7 +337,9 @@
     BOOL confirmed = (buttonIndex == 1);
     self.emailConfirmed = confirmed;
     
-    [self continueAction:alertView];
+    if (confirmed) {
+        [self continueAction:alertView];
+    }
 }
 
 #pragma mark - UITextField delegate
