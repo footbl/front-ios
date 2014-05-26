@@ -47,6 +47,18 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 #pragma mark - Instance Methods
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            if (![[FootblAPI sharedAPI] isAuthenticated]) {
+                [self.cache removeAllObjects];
+            }
+        }];
+    }
+    return self;
+}
+
 #pragma mark Footbl
 
 - (void)reloadFriendsWithCompletionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
@@ -58,7 +70,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                 [emails addObjectsFromArray:userEmails];
             }
             if ([FootblAPI sharedAPI].isAuthenticated) {
-                [User searchUsingEmails:emails usernames:nil ids:nil fbIds:nil success:^(NSArray *response) {
+                [User searchUsingEmails:emails usernames:nil ids:nil fbIds:[fbFriends valueForKeyPath:@"id"] success:^(NSArray *response) {
                     NSMutableArray *users = [NSMutableArray new];
                     [response enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
                         if (![user[kAPIIdentifierKey] isEqualToString:[User currentUser].rid]) {
