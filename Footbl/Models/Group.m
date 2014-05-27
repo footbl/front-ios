@@ -287,20 +287,46 @@
             return;
         }
         
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
-        [[self API] DELETE:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.editableManagedObjectContext performBlock:^{
-                [self.editableManagedObjectContext deleteObject:self.editableObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-                requestSucceedWithBlock(operation, parameters, success);
+        if (self.owner.isMe) {
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            [[self API] DELETE:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [self.editableManagedObjectContext performBlock:^{
+                    [self.editableManagedObjectContext deleteObject:self.editableObject];
+                    SaveManagedObjectContext(self.editableManagedObjectContext);
+                    requestSucceedWithBlock(operation, parameters, success);
+                }];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self.editableManagedObjectContext performBlock:^{
+                    self.editableObject.removed = @NO;
+                    SaveManagedObjectContext(self.editableManagedObjectContext);
+                }];
+                requestFailedWithBlock(operation, parameters, error, failure);
             }];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.editableManagedObjectContext performBlock:^{
-                self.editableObject.removed = @NO;
-                SaveManagedObjectContext(self.editableManagedObjectContext);
-            }];
-            requestFailedWithBlock(operation, parameters, error, failure);
-        }];
+        } else {
+            [self updateMembersWithSuccess:^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    Membership *membership = [self.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", [User currentUser].rid]].anyObject;
+                    if (!membership) {
+                        if (success) success();
+                        return;
+                    }
+                    NSMutableDictionary *parameters = [self generateDefaultParameters];
+                    [[self API] DELETE:[NSString stringWithFormat:@"groups/%@/members/%@", self.rid, membership.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [self.editableManagedObjectContext performBlock:^{
+                            [self.editableManagedObjectContext deleteObject:self.editableObject];
+                            SaveManagedObjectContext(self.editableManagedObjectContext);
+                            requestSucceedWithBlock(operation, parameters, success);
+                        }];
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        [self.editableManagedObjectContext performBlock:^{
+                            self.editableObject.removed = @NO;
+                            SaveManagedObjectContext(self.editableManagedObjectContext);
+                        }];
+                        requestFailedWithBlock(operation, parameters, error, failure);
+                    }];
+                });
+            } failure:failure];
+        }
     } failure:failure];
 }
 
