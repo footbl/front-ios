@@ -439,6 +439,32 @@ static CGFloat kDisabledAlpha = 0.4;
     }];
 }
 
+- (void)setFooterText:(NSString *)footerText {
+    static NSDictionary *attributes;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        attributes = @{NSFontAttributeName : self.footerLabel.font,
+                       NSForegroundColorAttributeName : self.footerLabel.textColor,
+                       NSParagraphStyleAttributeName : paragraphStyle};
+    });
+    
+    static NSDictionary *moneySignAttributes;
+    static dispatch_once_t onceSecondToken;
+    dispatch_once(&onceSecondToken, ^{
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        moneySignAttributes = @{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextRegular size:17],
+                       NSForegroundColorAttributeName : self.footerLabel.textColor,
+                       NSParagraphStyleAttributeName : paragraphStyle};
+    });
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:footerText attributes:attributes];
+    [attributedString setAttributes:moneySignAttributes range:[footerText rangeOfString:NSLocalizedString(@"$", @"")]];
+    self.footerLabel.attributedText = attributedString;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

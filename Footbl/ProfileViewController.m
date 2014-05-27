@@ -302,7 +302,7 @@
             matchCell.profitValueLabel.text = @"-";
             
             if (match.jackpot.integerValue > 0) {
-                matchCell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.shortStringValue];
+                matchCell.footerLabel.text = [NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue];
             } else {
                 matchCell.footerLabel.text = @"";
             }

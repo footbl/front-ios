@@ -238,7 +238,7 @@
 "Country: BR" = "Brazil";
 
 /* Highest: {highest funds} in {month format} {year format} */
-"'Highest: %@ in' MMMM YYYY" = "'Highest: $%@ in' MMMM YYYY";
+"'Highest: %@ in' MMMM YYYY" = "'Highest: ฿%@ in' MMMM YYYY";
 
 /* Final */
 "Final" = "Final";
@@ -407,6 +407,9 @@
 
 /* Anyone can add members */
 "Anyone can add members" = "Anyone can add members";
+
+/* $ */
+"$" = "฿";
 
 /* Close */
 "Close" = "Close";

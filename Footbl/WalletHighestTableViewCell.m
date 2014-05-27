@@ -52,7 +52,7 @@
     NSMutableAttributedString *attributedText = [NSMutableAttributedString new];
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:[formatter stringFromDate:date] attributes:attributes]];
     attributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
-    NSRange range = [attributedText.string rangeOfString:[@"$" stringByAppendingString:highestValue.stringValue]];
+    NSRange range = [attributedText.string rangeOfString:[NSLocalizedString(@"$", @"") stringByAppendingString:highestValue.stringValue]];
     if (range.location == NSNotFound) {
         range = [attributedText.string rangeOfString:highestValue.stringValue];
     }

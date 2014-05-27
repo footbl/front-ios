@@ -65,6 +65,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 
 - (CGFloat)defaultTeamNameFontSize;
 - (void)setDateText:(NSString *)dateText;
+- (void)setFooterText:(NSString *)footerText;
 - (UIImage *)imageRepresentation;
 
 @end

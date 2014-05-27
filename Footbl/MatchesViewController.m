@@ -278,10 +278,10 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     };
     
     if (match.jackpot.integerValue > 0) {
-        cell.footerLabel.text = [@"$" stringByAppendingString:match.jackpot.shortStringValue];
+        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
         cell.footerLabel.hidden = NO;
     } else {
-        cell.footerLabel.text = @"$0";
+        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:@"0"]];
         cell.footerLabel.hidden = YES;
     }
     
