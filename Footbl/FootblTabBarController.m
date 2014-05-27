@@ -112,6 +112,20 @@
         }
     }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if (![FootblAPI sharedAPI].isAuthenticated) {
+            AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
+            FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
+            [self presentViewController:navigationController animated:YES completion:^{
+                [(UINavigationController *)self.selectedViewController popToRootViewControllerAnimated:NO];
+                self.selectedIndex = 1;
+            }];
+            authenticationViewController.completionBlock = ^{
+                [navigationController dismissViewControllerAnimated:YES completion:nil];
+            };
+        }
+    }];
+    
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
     self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     
