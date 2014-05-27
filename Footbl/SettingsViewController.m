@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, SettingsType) {
     SettingsTypeMore
 };
 
-@interface SettingsViewController () <MFMailComposeViewControllerDelegate>
+@interface SettingsViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -197,7 +197,8 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)deleteAccountAction:(id)sender {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Sorry to see you go!", @"") message:NSLocalizedString(@"Are you sure you want to delete your account?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"Delete Now", @""), nil];
+    [alert show];
 }
 
 - (void)shareAction:(id)sender {
@@ -256,6 +257,16 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 #pragma mark - Delegates & Data sources
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [[User currentUser] deleteWithSuccess:^{
+            [self logoutAction:nil];
+        } failure:[ErrorHandler failureBlock]];
+    }
+}
 
 #pragma mark - MFMailComposeViewController delegate
 

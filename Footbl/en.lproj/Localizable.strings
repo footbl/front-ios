@@ -420,3 +420,12 @@
 /* View tutorial */
 "View tutorial" = "View tutorial";
 
+/* Delete account confirmation message */
+"Are you sure you want to delete your account?" = "Are you sure you want to delete your account?";
+
+/* Delete account confirmation button */
+"Delete Now" = "Delete Now";
+
+/* Delete account confirmation title */
+"Sorry to see you go!" = "Sorry to see you go!";
+

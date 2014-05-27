@@ -182,4 +182,14 @@
     return dictionary;
 }
 
+- (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    NSMutableDictionary *parameters = [self generateDefaultParameters];
+    [[self API] DELETE:[NSString stringWithFormat:@"users/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[FootblAPI sharedAPI] logout];
+        requestSucceedWithBlock(operation, parameters, success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        requestFailedWithBlock(operation, parameters, error, failure);
+    }];
+}
+
 @end

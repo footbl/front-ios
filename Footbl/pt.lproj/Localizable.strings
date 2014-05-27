@@ -408,3 +408,12 @@
 /* View tutorial */
 "View tutorial" = "Ver tutorial";
 
+/* Delete account confirmation message */
+"Are you sure you want to delete your account?" = "Tem certeza que deseja apagar a sua conta?";
+
+/* Delete account confirmation button */
+"Delete Now" = "Sim";
+
+/* Delete account confirmation title */
+"Sorry to see you go!" = "É triste ver você ir embora!";
+
