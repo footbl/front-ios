@@ -132,7 +132,7 @@
     self.title = NSLocalizedString(@"Group", @"");
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.title style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    self.rightNavigationBarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 29, 29)];
+    self.rightNavigationBarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
     self.rightNavigationBarButton.layer.cornerRadius = CGRectGetWidth(self.rightNavigationBarButton.frame) / 2;
     self.rightNavigationBarButton.clipsToBounds = YES;
     [self.rightNavigationBarButton addTarget:self action:@selector(groupInfoAction:) forControlEvents:UIControlEventTouchUpInside];
