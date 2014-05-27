@@ -38,6 +38,8 @@
 
 #pragma mark - Getters/Setters
 
+@synthesize dataSource = _dataSource;
+
 - (NSArray *)addressBookDataSource {
     if (!_addressBookDataSource) {
         _addressBookDataSource = @[];
@@ -45,7 +47,16 @@
         APAddressBook *addressBook = [APAddressBook new];
         addressBook.fieldsMask = APContactFieldEmails | APContactFieldFirstName | APContactFieldLastName | APContactFieldThumbnail | APContactFieldCompositeName;
         addressBook.filterBlock = ^BOOL(APContact *contact) {
-            return contact.emails.count > 0;
+            if (contact.emails.count == 0) {
+                return NO;
+            }
+            
+            if (self.group) {
+                if ([[self.group.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.email IN %@", contact.emails]] count] > 0) {
+                    return NO;
+                }
+            }
+            return YES;
         };
         addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
@@ -107,13 +118,13 @@
     if (!_dataSource) {
         switch (self.segmentedControl.selectedSegmentIndex) {
             case 0:
-                _dataSource = self.footblDataSource;
+                self.dataSource = self.footblDataSource;
                 break;
             case 1:
-                _dataSource = self.addressBookDataSource;
+                self.dataSource = self.addressBookDataSource;
                 break;
             default:
-                _dataSource = self.facebookDataSource;
+                self.dataSource = self.facebookDataSource;
                 break;
         }
     }
@@ -121,7 +132,30 @@
     return _dataSource;
 }
 
+- (void)setDataSource:(NSArray *)dataSource {
+    if (!self.group) {
+        _dataSource = dataSource;
+        return;
+    }
+    
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0:
+            _dataSource = [dataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (_id IN %@)", [[self.group.members valueForKeyPath:@"user"] valueForKeyPath:@"rid"]]];
+            break;
+        case 1:
+            _dataSource = dataSource;
+            break;
+        default:
+            _dataSource = dataSource;
+            break;
+    }
+}
+
 #pragma mark - Instance Methods
+
+- (IBAction)cancelAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (IBAction)segmentedControlAction:(id)sender {
     self.dataSource = nil;
@@ -178,8 +212,14 @@
 - (IBAction)createAction:(id)sender {
     self.view.window.userInteractionEnabled = NO;
     
-    [[LoadingHelper sharedInstance] showHud];
-    [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:^{
+    FootblAPIFailureBlock failureBlock = ^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+        self.view.window.userInteractionEnabled = YES;
+        [[LoadingHelper sharedInstance] hideHud];
+    };
+    
+    void(^successBlock)() = ^() {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
             self.view.window.userInteractionEnabled = YES;
@@ -198,12 +238,18 @@
                 }];
             }
         });
-    } failure:^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
-        self.view.window.userInteractionEnabled = YES;
-        [[LoadingHelper sharedInstance] hideHud];
-    }];
+    };
+    
+    [[LoadingHelper sharedInstance] showHud];
+    if (self.group) {
+        [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^{
+            [self.group.editableObject updateMembersWithSuccess:successBlock failure:^(NSError *error) {
+                successBlock();
+            }];
+        } failure:failureBlock];
+    } else {
+        [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:successBlock failure:failureBlock];
+    }
 }
 
 - (void)reloadFootblFriends {
@@ -351,6 +397,11 @@
             textField.textColor = [UIColor colorWithRed:0.56 green:0.56 blue:0.58 alpha:1];
             textField.backgroundColor = [UIColor whiteColor];
         }
+    }
+    
+    if (self.group) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(createAction:)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
     }
 }
 

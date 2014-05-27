@@ -9,6 +9,7 @@
 #import "TemplateViewController.h"
 
 @class Championship;
+@class Group;
 
 @interface GroupAddMembersViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -18,5 +19,6 @@
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) UIImage *groupImage;
+@property (strong, nonatomic) Group *group;
 
 @end
