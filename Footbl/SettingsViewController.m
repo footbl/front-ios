@@ -18,6 +18,7 @@
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
 #import "SettingsViewController.h"
+#import "TutorialViewController.h"
 #import "User.h"
 
 typedef NS_ENUM(NSInteger, SettingsType) {
@@ -117,7 +118,11 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                           @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Support", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeAction),
-                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(supportAction:))}
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(supportAction:))},
+                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"View tutorial", @""),
+                                                            kSettingsDataSourceValueKey : @"",
+                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(viewTutorialAction:))}
                                                           ]},
                         @{kSettingsDataSourceTitleKey : @"",
                           kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Logout", @""),
@@ -237,6 +242,17 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
     textViewController.text = text;
     [self.navigationController pushViewController:textViewController animated:YES];
+}
+
+- (void)viewTutorialAction:(id)sender {
+    TutorialViewController *tutorialViewController = [TutorialViewController new];
+    FootblNavigationController *tutorialNavigationController = [[FootblNavigationController alloc] initWithRootViewController:tutorialViewController];
+    [self presentViewController:tutorialNavigationController animated:YES completion:^{
+       [tutorialViewController.getStartedButton setTitle:NSLocalizedString(@"Close", @"") forState:UIControlStateNormal]; 
+    }];
+    [tutorialViewController setCompletionBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 #pragma mark - Delegates & Data sources

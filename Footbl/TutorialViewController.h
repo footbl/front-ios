@@ -10,9 +10,15 @@
 
 extern NSString * kPresentTutorialViewController;
 
-@interface TutorialViewController : TemplateViewController
+@class StyledPageControl;
+
+@interface TutorialViewController : TemplateViewController <UIScrollViewDelegate>
 
 @property (copy, nonatomic) void (^completionBlock)();
+@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) StyledPageControl *pageControl;
+@property (strong, nonatomic) UIButton *nextButton;
+@property (strong, nonatomic) UIButton *getStartedButton;
 
 + (BOOL)shouldPresentTutorial;
 
