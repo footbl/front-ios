@@ -18,7 +18,6 @@
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
 #import "Team.h"
-#import "TeamsViewController.h"
 #import "TeamImageView.h"
 #import "UILabel+MaxFontSize.h"
 #import "User.h"

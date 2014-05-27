@@ -99,10 +99,8 @@
 		EDDCF23F1934EDA60090D06D /* tutorial_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2411934EDA60090D06D /* tutorial_4@2x.png */; };
 		EDDCF2421934EDB50090D06D /* tutorial_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2441934EDB50090D06D /* tutorial_5@2x.png */; };
 		EDDCF259193540870090D06D /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
-		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
-		EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */; };
 		EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
 		EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
 		EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
@@ -293,14 +291,10 @@
 		EDDCF257193540870090D06D /* ErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorHandler.h; sourceTree = "<group>"; };
 		EDDCF258193540870090D06D /* ErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorHandler.m; sourceTree = "<group>"; };
 		EDDCF25A193541A40090D06D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
-		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
 		EDEFC64618E4884E006DD33D /* MatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesViewController.m; sourceTree = "<group>"; };
 		EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchTableViewCell.h; sourceTree = "<group>"; };
 		EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchTableViewCell.m; sourceTree = "<group>"; };
-		EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamsViewController.h; sourceTree = "<group>"; };
-		EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamsViewController.m; sourceTree = "<group>"; };
 		EDEFFA0518EEF764003E12B7 /* _Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Group.h; path = Models/_Group.h; sourceTree = "<group>"; };
 		EDEFFA0618EEF764003E12B7 /* _Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Group.m; path = Models/_Group.m; sourceTree = "<group>"; };
 		EDEFFA0818EEF76C003E12B7 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Group.h; path = Models/Group.h; sourceTree = "<group>"; };
@@ -405,17 +399,6 @@
 				ED81E82418EA6B1F00212D3C /* TemplateViewController.m */,
 			);
 			name = Template;
-			sourceTree = "<group>";
-		};
-		ED81E82718EA706700212D3C /* Prototype */ = {
-			isa = PBXGroup;
-			children = (
-				EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */,
-				EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */,
-				EDEFC64B18E48D1B006DD33D /* TeamsViewController.h */,
-				EDEFC64C18E48D1B006DD33D /* TeamsViewController.m */,
-			);
-			name = Prototype;
 			sourceTree = "<group>";
 		};
 		ED81E82818EA707800212D3C /* Navigation */ = {
@@ -696,7 +679,6 @@
 				ED81E82A18EA708E00212D3C /* Matches */,
 				ED81E82818EA707800212D3C /* Navigation */,
 				ED81E82B18EA709200212D3C /* Profile */,
-				ED81E82718EA706700212D3C /* Prototype */,
 				ED9F07911909C04700C8AC71 /* Settings */,
 				ED81E82618EA705E00212D3C /* Template */,
 				ED9D0AF818F310BA0061AE42 /* Tutorial */,
@@ -1016,7 +998,6 @@
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
-				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
 				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
 				ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */,
 				EDDCF229193400030090D06D /* AnonymousViewController.m in Sources */,
@@ -1027,7 +1008,6 @@
 				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
 				ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */,
-				EDEFC64D18E48D1B006DD33D /* TeamsViewController.m in Sources */,
 				ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */,
 				ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */,
 				ED19A40A190AF85800946490 /* LogsViewController.m in Sources */,
