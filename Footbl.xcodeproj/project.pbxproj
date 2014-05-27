@@ -98,6 +98,7 @@
 		EDDCF23C1934EDA20090D06D /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
 		EDDCF23F1934EDA60090D06D /* tutorial_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2411934EDA60090D06D /* tutorial_4@2x.png */; };
 		EDDCF2421934EDB50090D06D /* tutorial_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2441934EDB50090D06D /* tutorial_5@2x.png */; };
+		EDDCF259193540870090D06D /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
 		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -289,6 +290,9 @@
 		EDDCF2541934EE000090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_3@2x.png"; sourceTree = "<group>"; };
 		EDDCF2551934EE080090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_4@2x.png"; sourceTree = "<group>"; };
 		EDDCF2561934EE0B0090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
+		EDDCF257193540870090D06D /* ErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorHandler.h; sourceTree = "<group>"; };
+		EDDCF258193540870090D06D /* ErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorHandler.m; sourceTree = "<group>"; };
+		EDDCF25A193541A40090D06D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
 		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 			isa = PBXGroup;
 			children = (
 				EDBC848018EDE60B00CCC01A /* Cache */,
+				EDDCF25A193541A40090D06D /* Constants.h */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl-Info.plist */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 				EDB1D47018E1F18B00E0C949 /* InfoPlist.strings */,
@@ -752,6 +757,8 @@
 		EDB9C6E9192A88F6002A913D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EDDCF257193540870090D06D /* ErrorHandler.h */,
+				EDDCF258193540870090D06D /* ErrorHandler.m */,
 				EDD6711C19229E2400985174 /* FriendsHelper.h */,
 				EDD6711D19229E2400985174 /* FriendsHelper.m */,
 				ED1E913719253F1200BDE434 /* ImportImageHelper.h */,
@@ -967,6 +974,7 @@
 				ED324328192BBD5700F54D57 /* ProfileTableViewCell.m in Sources */,
 				ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
+				EDDCF259193540870090D06D /* ErrorHandler.m in Sources */,
 				ED493D36190DCAF100A7869B /* Wallet.m in Sources */,
 				EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */,
 				ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */,

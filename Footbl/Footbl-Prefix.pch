@@ -14,8 +14,5 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-    #import "FootblAppearance.h"
+    #import "Constants.h"
 #endif
-
-#define FB_READ_PERMISSIONS @[@"public_profile", @"user_friends", @"email"]
-#define UPDATE_INTERVAL 60 * 3
