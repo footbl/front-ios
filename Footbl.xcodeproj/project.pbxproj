@@ -92,6 +92,7 @@
 		EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
 		EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		EDDCF2261933B1BB0090D06D /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
+		EDDCF229193400030090D06D /* AnonymousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF228193400030090D06D /* AnonymousViewController.m */; };
 		EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -271,6 +272,8 @@
 		EDDCF222193395D30090D06D /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		EDDCF2241933B1BB0090D06D /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		EDDCF227193400030090D06D /* AnonymousViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnonymousViewController.h; sourceTree = "<group>"; };
+		EDDCF228193400030090D06D /* AnonymousViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnonymousViewController.m; sourceTree = "<group>"; };
 		EDEFC64218E47D1C006DD33D /* ChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsViewController.h; sourceTree = "<group>"; };
 		EDEFC64318E47D1C006DD33D /* ChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 		ED9D0AFC18F31B700061AE42 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				EDDCF227193400030090D06D /* AnonymousViewController.h */,
+				EDDCF228193400030090D06D /* AnonymousViewController.m */,
 				ED9D0B0018F31D8F0061AE42 /* AuthenticationViewController.h */,
 				ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */,
 				EDDCF221193395D30090D06D /* ChangePasswordViewController.h */,
@@ -973,6 +978,7 @@
 				EDEFC64418E47D1C006DD33D /* ChampionshipsViewController.m in Sources */,
 				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
 				ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */,
+				EDDCF229193400030090D06D /* AnonymousViewController.m in Sources */,
 				ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */,
 				ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,

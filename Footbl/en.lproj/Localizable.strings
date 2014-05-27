@@ -396,3 +396,9 @@
 /* Name */
 "Name" = "Name";
 
+/* Anonymous user message */
+"Anonymous user message" = "You're not logged in.\nTo view your profile or join groups, you need to create an account or login with Facebook. Thinks will get even better!";
+
+/* No comment provided by engineer. */
+"Create my account" = "Create my account";
+

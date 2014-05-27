@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "AnonymousViewController.h"
 #import "Championship.h"
 #import "Group.h"
 #import "GroupDetailViewController.h"
@@ -20,6 +21,7 @@
 @interface GroupsViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 
 @end
 
@@ -204,10 +206,21 @@
     
     [self setFooterViewVisible:YES];
     
+    self.anonymousViewController = [AnonymousViewController new];
+    
     [self reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
+        if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+            [self addChildViewController:self.anonymousViewController];
+            [self.view addSubview:self.anonymousViewController.view];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        } else {
+            [self.anonymousViewController.view removeFromSuperview];
+            [self.anonymousViewController removeFromParentViewController];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }
     }];
 }
 
@@ -221,6 +234,16 @@
     
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }
+    
+    if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+        [self addChildViewController:self.anonymousViewController];
+        [self.view addSubview:self.anonymousViewController.view];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        [self.anonymousViewController.view removeFromSuperview];
+        [self.anonymousViewController removeFromParentViewController];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 

@@ -28,6 +28,11 @@
 #pragma mark - Instance Methods
 
 - (IBAction)cancelAction:(id)sender {
+    if (self.navigationController.viewControllers.firstObject == self) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.statusBarVisible = NO;
@@ -72,7 +77,7 @@
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return !self.statusBarVisible;
+    return !self.statusBarVisible && self.navigationController.viewControllers.firstObject != self;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -207,14 +212,19 @@
     passwordTextFieldBackground.alpha = 0;
     [self.view insertSubview:passwordTextFieldBackground belowSubview:self.passwordTextField];
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    BOOL shouldAnimate = self.navigationController.viewControllers.firstObject != self;
+    if (!shouldAnimate) {
+        [self.emailTextField becomeFirstResponder];
+    }
+    
+    [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
         signupImageView.alpha = 1;
     } completion:^(BOOL finished) {
         self.statusBarVisible = YES;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
         
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
             emailTextFieldBackground.alpha = 1;
             passwordTextFieldBackground.alpha = 1;
             self.emailTextField.alpha = 1;

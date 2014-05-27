@@ -35,6 +35,11 @@
 #pragma mark - Instance Methods
 
 - (IBAction)cancelAction:(id)sender {
+    if (self.navigationController.viewControllers.firstObject == self) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.statusBarVisible = NO;
@@ -200,7 +205,7 @@
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return !self.statusBarVisible;
+    return !self.statusBarVisible && self.navigationController.viewControllers.firstObject != self;
 }
 
 - (void)showHint {
@@ -439,14 +444,19 @@
     [facebookButton addTarget:self action:@selector(importFromFacebookAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.importProfileImageOptionsView addSubview:facebookButton];
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    BOOL shouldAnimate = self.navigationController.viewControllers.firstObject != self;
+    if (!shouldAnimate) {
+        [self.textField becomeFirstResponder];
+    }
+    
+    [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
         signupImageView.alpha = 1;
     } completion:^(BOOL finished) {
         self.statusBarVisible = YES;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
         
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
             self.textFieldBackground.alpha = 1;
             self.textField.alpha = 1;
             self.hintLabel.alpha = 1;

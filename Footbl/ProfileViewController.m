@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "AnonymousViewController.h"
 #import "Bet.h"
 #import "Championship.h"
 #import "FavoritesViewController.h"
@@ -29,6 +30,7 @@
 
 @interface ProfileViewController ()
 
+@property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *totalWallet;
 @property (strong, nonatomic) NSNumber *numberOfWallets;
@@ -491,6 +493,8 @@
     
     [[User currentUser] updateStarredUsersWithSuccess:nil failure:nil];
     
+    self.anonymousViewController = [AnonymousViewController new];
+    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
@@ -504,7 +508,20 @@
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        self.user = nil;
         [self reloadData];
+        
+        if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+            [self addChildViewController:self.anonymousViewController];
+            [self.view addSubview:self.anonymousViewController.view];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            self.navigationItem.leftBarButtonItem.enabled = NO;
+        } else {
+            [self.anonymousViewController.view removeFromSuperview];
+            [self.anonymousViewController removeFromParentViewController];
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+            self.navigationItem.leftBarButtonItem.enabled = YES;
+        }
     }];
     
     self.tableView = tableViewController.tableView;
@@ -530,6 +547,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+        [self addChildViewController:self.anonymousViewController];
+        [self.view addSubview:self.anonymousViewController.view];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+    } else {
+        [self.anonymousViewController.view removeFromSuperview];
+        [self.anonymousViewController removeFromParentViewController];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.leftBarButtonItem.enabled = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

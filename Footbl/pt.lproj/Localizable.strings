@@ -384,3 +384,6 @@
 /* Name */
 "Name" = "Nome";
 
+/* Anonymous user message */
+"Anonymous user message" = "Você não está logado.\nPara ter seu perfil e poder criar ou participar de grupos, crie    sua conta ou faça log-in pelo Facebook. As coisas ficarão ainda mais divertidas!";
+

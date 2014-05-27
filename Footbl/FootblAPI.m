@@ -207,9 +207,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     FBSessionState currentFbState = [FBSession activeSession].state;
     if (currentFbState != FBSessionStateClosed && currentFbState != FBSessionStateClosedLoginFailed && [[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] boolValue]) {
         return FootblAuthenticationTypeFacebook;
-    } else if ((self.userIdentifier.length > 0 || self.userEmail.length > 0) && self.userPassword.length > 0) {
+    } else if (self.userEmail.length > 0 && self.userPassword.length > 0) {
         return FootblAuthenticationTypeEmailPassword;
-    } else if (self.userEmail.length == 0 && self.userIdentifier.length > 0) {
+    } else if (self.userEmail.length == 0 && self.userIdentifier.length > 0 && self.userPassword.length > 0) {
         return FootblAuthenticationTypeAnonymous;
     }
     
@@ -424,6 +424,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         } else {
             [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
         }
+        
+        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+        SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
         
         requestSucceedWithBlock(operation, parameters, success);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
