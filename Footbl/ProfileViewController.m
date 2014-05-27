@@ -133,10 +133,7 @@
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self reloadContent];
         [self.refreshControl endRefreshing];
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        [[ErrorHandler sharedInstance] displayError:error];
     };
     
     [Wallet updateWithUser:self.user.editableObject success:^{
@@ -459,13 +456,8 @@
         return;
     }
     
-    void(^failureBlock)(NSError *error) = ^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
-    };
-    
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] starUser:self.user success:nil failure:failureBlock];
+        [[User currentUser] starUser:self.user success:nil failure:[ErrorHandler failureBlock]];
     }
 }
 
@@ -474,13 +466,8 @@
         return;
     }
     
-    void(^failureBlock)(NSError *error) = ^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
-    };
-    
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] unstarUser:self.user success:nil failure:failureBlock];
+        [[User currentUser] unstarUser:self.user success:nil failure:[ErrorHandler failureBlock]];
     }
 }
 

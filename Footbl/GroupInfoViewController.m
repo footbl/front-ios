@@ -65,10 +65,7 @@
     } failure:^(NSError *error) {
         switchView.userInteractionEnabled = YES;
         [switchView setOn:!switchView.isOn animated:YES];
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 

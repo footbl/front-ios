@@ -36,8 +36,7 @@
         if (error) {
             [[LoadingHelper sharedInstance] hideHud];
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-            [alertView show];
+            [[ErrorHandler sharedInstance] displayError:error];
         } else {
             self.view.userInteractionEnabled = NO;
             [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {

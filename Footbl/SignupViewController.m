@@ -59,8 +59,7 @@
         if (error) {
             self.view.userInteractionEnabled = YES;
             [self.textField becomeFirstResponder];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
+            [[ErrorHandler sharedInstance] displayError:error];
         }
     };
     

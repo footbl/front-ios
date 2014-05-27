@@ -36,12 +36,9 @@
 - (IBAction)signupAction:(id)sender {
     FootblAPIFailureBlock failureBlock = ^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
-        if (error) {
-            self.view.userInteractionEnabled = YES;
-            [self.textField becomeFirstResponder];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        self.view.userInteractionEnabled = YES;
+        [self.textField becomeFirstResponder];
+        [[ErrorHandler sharedInstance] displayError:error];
     };
     
     self.view.userInteractionEnabled = NO;

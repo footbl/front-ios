@@ -42,9 +42,10 @@
         return;
     }
     
+    _alertVisible = YES;
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
     [alert show];
-    _alertVisible = YES;
 }
 
 - (ErrorBlock)failureBlock {

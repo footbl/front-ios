@@ -51,10 +51,7 @@
     FootblAPIFailureBlock failureBlock = ^(NSError *error) {
         self.view.userInteractionEnabled = YES;
         [self.passwordTextField becomeFirstResponder];
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        [[ErrorHandler sharedInstance] displayError:error];
     };
     
     self.view.userInteractionEnabled = NO;

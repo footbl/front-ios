@@ -81,8 +81,7 @@
             [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
                 if (error) {
                     SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-                    [alertView show];
+                    [[ErrorHandler sharedInstance] displayError:error];
                 } else {
                     self.facebookDataSource = friends;
                     self.dataSource = nil;
@@ -213,8 +212,7 @@
     self.view.window.userInteractionEnabled = NO;
     
     FootblAPIFailureBlock failureBlock = ^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
+        [[ErrorHandler sharedInstance] displayError:error];
         self.view.window.userInteractionEnabled = YES;
         [[LoadingHelper sharedInstance] hideHud];
     };

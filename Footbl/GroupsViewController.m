@@ -99,10 +99,7 @@
     
     void(^failureBlock)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        [[ErrorHandler sharedInstance] displayError:error];
     };
     
     [Group updateWithSuccess:^{

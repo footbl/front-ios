@@ -100,8 +100,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         [self reloadWallet];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
+        [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 
@@ -254,8 +253,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         match.tempBetResult = result;
         
         FootblAPIFailureBlock failure = ^(NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
+            [[ErrorHandler sharedInstance] displayError:error];
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             } completion:nil];
@@ -374,10 +372,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         if (matches == 0) {
             [[LoadingHelper sharedInstance] hideHud];
         }
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
+        [[ErrorHandler sharedInstance] displayError:error];
     };
     
     self.numberOfMatches = matches;

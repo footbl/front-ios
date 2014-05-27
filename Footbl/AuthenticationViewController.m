@@ -33,8 +33,7 @@
     [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         if (error) {
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-            [alertView show];
+            [[ErrorHandler sharedInstance] displayError:error];
         } else {
             self.view.userInteractionEnabled = NO;
             [self setSubviewsHidden:YES animated:YES];
@@ -114,10 +113,7 @@
     
     [[FootblAPI sharedAPI] createAccountWithSuccess:^{
         if (self.completionBlock) self.completionBlock();
-    } failure:^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
-    }];
+    } failure:[ErrorHandler failureBlock]];
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {

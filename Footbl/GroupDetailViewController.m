@@ -69,8 +69,7 @@
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-        [alert show];
+        [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 

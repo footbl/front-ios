@@ -40,12 +40,8 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
-        if (error) {
-            self.view.userInteractionEnabled = YES;
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:[error localizedDescription] delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
-            [alert show];
-        }
-
+        self.view.userInteractionEnabled = YES;
+        [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 
