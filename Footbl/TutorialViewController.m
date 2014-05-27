@@ -59,7 +59,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger page = (NSInteger)(scrollView.contentOffset.x / scrollView.frameWidth);
     if (page < 4 && self.shouldUpdatePageControl) {
-        self.pageControl.currentPage = page;
+        self.pageControl.currentPage = (int)page;
     }
     
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
