@@ -121,7 +121,7 @@
 /* 1 character left */
 "1 character left" = "1 caracter restante";
 
-"NOTIFICATION_ GROUP_ADDED" = "%@ adicionou você no grupo %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "%@ adicionou você no grupo %@ (%@).";
 
 /* Add photo */
 "Add photo" = "Adic.\nfoto";

@@ -121,7 +121,7 @@
 /* 1 character left */
 "1 character left" = "1 character left";
 
-"NOTIFICATION_ GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
 
 "NOTIFICATION_ROUND_END" = "Notification round end";
 
