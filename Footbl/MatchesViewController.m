@@ -402,6 +402,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                     } failure:failure];
                 } failure:failure];
             } else {
+                if (matches == 0) {
+                    [[LoadingHelper sharedInstance] hideHud];
+                }
                 [self.refreshControl endRefreshing];
             }
         });
