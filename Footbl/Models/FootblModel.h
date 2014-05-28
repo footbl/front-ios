@@ -16,7 +16,7 @@
 #define API_RESULT(key) [FootblModel resultDictionary][key] ? [FootblModel resultDictionary][key] : [NSMutableArray new]
 #define API_SET_RESULT(result, key) [FootblModel resultDictionary][key] = result
 #define API_RESET_KEY(key) API_SET_RESULT([NSMutableArray new], key); API_SET_CURRENT_PAGE(0, key)
-#define API_APPEND_RESULT(result, key) ![FootblModel resultDictionary][key] ? [FootblModel resultDictionary][key] = [NSMutableArray new] : 0; [FootblModel resultDictionary][key] = [[FootblModel resultDictionary][key] arrayByAddingObjectsFromArray:responseObject]
+#define API_APPEND_RESULT(result, key) ![FootblModel resultDictionary][key] ? [FootblModel resultDictionary][key] = [NSMutableArray new] : 0; [FootblModel resultDictionary][key] = [[FootblModel resultDictionary][key] arrayByAddingObjectsFromArray:result]
 #define API_APPEND_PAGE(key) [FootblModel pagingDictionary][key] = @([[FootblModel pagingDictionary][key] integerValue] + 1)
 
 @interface FootblModel : _FootblModel
