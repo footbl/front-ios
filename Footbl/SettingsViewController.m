@@ -270,8 +270,8 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     cell.infoLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceValueKey];
     cell.infoLabel.textAlignment = NSTextAlignmentLeft;
-    cell.infoLabel.textColor = [UIColor blackColor];
-    cell.infoLabel.font = [UIFont systemFontOfSize:17];
+    cell.infoLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    cell.infoLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
     
     switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] integerValue]) {
         case SettingsTypeMore:
@@ -282,7 +282,6 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         case SettingsTypeActionDestructive:
             cell.infoLabel.textAlignment = NSTextAlignmentCenter;
             cell.infoLabel.textColor = [UIColor colorWithRed:216/255.f green:80./255.f blue:80./255.f alpha:1.00];
-            cell.infoLabel.font = [UIFont boldSystemFontOfSize:17];
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         default:
