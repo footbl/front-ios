@@ -91,6 +91,9 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     
     for (NSInteger i = 0; i < 5; i++) {
         NSString *imageName = [NSString stringWithFormat:@"tutorial_%@", @(i + 1).stringValue];
+        if ([UIScreen mainScreen].bounds.size.height <= 480) {
+            imageName = [imageName stringByAppendingString:@"_480"];
+        }
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         imageView.frameX = i * self.scrollView.frameWidth;
         imageView.frameY -= 20;
