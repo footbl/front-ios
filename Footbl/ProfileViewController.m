@@ -299,9 +299,9 @@
             matchCell.profitValueLabel.text = @"-";
             
             if (match.jackpot.integerValue > 0) {
-                matchCell.footerLabel.text = [NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue];
+                [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
             } else {
-                matchCell.footerLabel.text = @"";
+                [matchCell setFooterText:@""];
             }
             
             // Just for testing
