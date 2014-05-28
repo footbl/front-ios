@@ -429,3 +429,24 @@
 /* Error: insufient funds */
 "Error: insufient funds" = "Você ainda não tem tudo isso de ฿ para fazer essa aposta, vá com calma!";
 
+/* Copied group sharing code */
+"Copied!" = "Copiado!";
+
+/* Copy sharing code */
+"Copy sharing code" = "Copiar código de compartilhamento";
+
+/* Create a new group */
+"Create a new group" = "Criar um novo grupo";
+
+/* Do you have an invitation code? */
+"Do you have an invitation code?" = "Você já tem um código de convite?";
+
+/* Insert invitation code */
+"Insert invitation code" = "Inserir código de convite";
+
+/* Join Group */
+"Join Group" = "Entrar no Grupo";
+
+/* Paste on WhatsApp, Facebook & Twitter */
+"Paste on WhatsApp, Facebook & Twitter" = "Compartilhe no WhatsApp & Facebook";
+

@@ -11,10 +11,14 @@
 #import "Group.h"
 #import "GroupChampionshipsViewController.h"
 #import "ImportImageHelper.h"
+#import "LoadingHelper.h"
 #import "NewGroupViewController.h"
+#import "UIView+Frame.h"
 #import "UIView+Shake.h"
 
 @interface NewGroupViewController ()
+
+@property (assign, nonatomic, getter = isInvitationMode) BOOL invitationMode;
 
 @end
 
@@ -25,6 +29,36 @@
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
+
+- (void)setInvitationMode:(BOOL)invitationMode {
+    _invitationMode = invitationMode;
+    
+    if (self.nameTextField.text.length > 0) {
+        self.nameTextField.text = @"";
+    }
+    
+    if (self.isInvitationMode) {
+        self.title = NSLocalizedString(@"Join Group", @"");
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextAction:)];
+        self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert invitation code", @"");
+        [self.invitationModeButton setTitle:NSLocalizedString(@"Create a new group", @"") forState:UIControlStateNormal];
+        
+        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.groupImageButton.frameY -= 100;
+            self.groupImageButtonBorder.frameY = self.groupImageButton.frameY;
+        } completion:nil];
+    } else {
+        self.title = NSLocalizedString(@"New Group", @"");
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", @"") style:UIBarButtonItemStylePlain target:self action:@selector(nextAction:)];
+        self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert group name", @"");
+        [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
+        
+        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] * 2 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.groupImageButton.center = CGPointMake(self.groupImageButton.center.x, CGRectGetMinY(self.nameTextField.frame));
+            self.groupImageButtonBorder.center = self.groupImageButton.center;
+        } completion:nil];
+    }
+}
 
 #pragma mark - Instance Methods
 
@@ -43,6 +77,16 @@
 }
 
 - (IBAction)nextAction:(id)sender {
+    if (self.isInvitationMode) {
+        [self.nameTextField resignFirstResponder];
+        [[LoadingHelper sharedInstance] showHud];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[LoadingHelper sharedInstance] hideHud];
+            [self dismissAction:sender];
+        });
+        return;
+    }
+    
     if ([self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
         [self shakeLimitLabel];
         return;
@@ -52,6 +96,16 @@
     championshipsViewController.groupName = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     championshipsViewController.groupImage = [self.groupImageButton imageForState:UIControlStateNormal];
     [self.navigationController pushViewController:championshipsViewController animated:YES];
+}
+
+- (IBAction)invitationCodeAction:(id)sender {
+    self.invitationMode = !self.isInvitationMode;
+}
+
+- (void)updateLimitTextForLength:(NSInteger)length {
+    if (!self.isInvitationMode) {
+        [super updateLimitTextForLength:length];
+    }
 }
 
 #pragma mark - Delegates & Data sources
@@ -64,6 +118,14 @@
     return NO;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (self.isInvitationMode) {
+        return YES;
+    } else {
+        return [super textField:textField shouldChangeCharactersInRange:range replacementString:string];
+    }
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
@@ -73,6 +135,14 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", @"") style:UIBarButtonItemStylePlain target:self action:@selector(nextAction:)];
+    
+    self.invitationModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.nameTextField.frame), self.view.frameWidth, 40)];
+    self.invitationModeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
+    [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
+    [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+    [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4] forState:UIControlStateHighlighted];
+    [self.invitationModeButton addTarget:self action:@selector(invitationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.invitationModeButton];
 }
 
 - (void)viewDidLoad {

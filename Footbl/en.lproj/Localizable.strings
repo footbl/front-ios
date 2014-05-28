@@ -441,3 +441,24 @@
 /* Error: insufient funds */
 "Error: insufient funds" = "You don't have that amount of ฿, take it easy!";
 
+/* Copied group sharing code */
+"Copied!" = "Copied!";
+
+/* Copy sharing code */
+"Copy sharing code" = "Copy sharing code";
+
+/* Create a new group */
+"Create a new group" = "Create a new group";
+
+/* Do you have an invitation code? */
+"Do you have an invitation code?" = "Do you have an invitation code?";
+
+/* Insert invitation code */
+"Insert invitation code" = "Insert invitation code";
+
+/* Join Group */
+"Join Group" = "Join Group";
+
+/* Paste on WhatsApp, Facebook & Twitter */
+"Paste on WhatsApp, Facebook & Twitter" = "Share on WhatsApp, Facebook & Twitter";
+

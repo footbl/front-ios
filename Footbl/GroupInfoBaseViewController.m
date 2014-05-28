@@ -13,6 +13,8 @@
 
 @interface GroupInfoBaseViewController ()
 
+@property (assign, nonatomic) CGRect nameOriginalFrame;
+
 @end
 
 #pragma mark GroupInfoBaseViewController
@@ -81,9 +83,11 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self updateLimitTextForLength:MAX_GROUP_NAME_SIZE - self.nameTextField.text.length];
     
+    self.nameOriginalFrame = self.nameTextField.frame;
+    
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
         self.nameSizeLimitLabel.alpha = 1.0;
-        self.nameTextField.frameY = 123;
+        self.nameTextField.frameY -= 2;
     }];
 }
 
@@ -102,10 +106,10 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
         self.nameSizeLimitLabel.alpha = 0;
-        self.nameTextField.frameY = 125;
+        self.nameTextField.frame = self.nameOriginalFrame;
     }];
     
-    [textField resignFirstResponder];
+    [self.nameTextField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -168,12 +172,12 @@
     [self.groupImageButton addTarget:self action:@selector(selectImageAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.groupImageButton];
     
-    UIView *groupImageButtonBorder = [[UIView alloc] initWithFrame:self.groupImageButton.frame];
-    groupImageButtonBorder.layer.borderColor = titleView.layer.borderColor;
-    groupImageButtonBorder.layer.borderWidth = 0.5;
-    groupImageButtonBorder.layer.cornerRadius = self.groupImageButton.layer.cornerRadius;
-    groupImageButtonBorder.userInteractionEnabled = NO;
-    [self.view insertSubview:groupImageButtonBorder aboveSubview:self.groupImageButton];
+    self.groupImageButtonBorder = [[UIView alloc] initWithFrame:self.groupImageButton.frame];
+    self.groupImageButtonBorder.layer.borderColor = titleView.layer.borderColor;
+    self.groupImageButtonBorder.layer.borderWidth = 0.5;
+    self.groupImageButtonBorder.layer.cornerRadius = self.groupImageButton.layer.cornerRadius;
+    self.groupImageButtonBorder.userInteractionEnabled = NO;
+    [self.view insertSubview:self.groupImageButtonBorder aboveSubview:self.groupImageButton];
 }
 
 - (void)viewDidLoad {

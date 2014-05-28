@@ -16,5 +16,6 @@
 @property (strong, nonatomic) UILabel *championshipLabel;
 @property (strong, nonatomic) UIButton *leaveGroupButton;
 @property (strong, nonatomic) UIButton *addNewMembersGroupButton;
+@property (strong, nonatomic) UISwitch *freeToEditSwich;
 
 @end

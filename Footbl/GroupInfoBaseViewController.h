@@ -13,8 +13,10 @@
 @property (strong, nonatomic) UITextField *nameTextField;
 @property (strong, nonatomic) UILabel *nameSizeLimitLabel;
 @property (strong, nonatomic) UIButton *groupImageButton;
+@property (strong, nonatomic) UIView *groupImageButtonBorder;
 
 - (void)shakeLimitLabel;
+- (void)updateLimitTextForLength:(NSInteger)length;;
 - (IBAction)selectImageAction:(id)sender;
 
 @end

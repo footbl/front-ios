@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import "Championship.h"
 #import "FootblNavigationController.h"
@@ -17,7 +18,7 @@
 #import "UIView+Shake.h"
 #import "User.h"
 
-@interface GroupInfoViewController ()
+@interface GroupInfoViewController () <UIScrollViewDelegate>
 
 @end
 
@@ -67,6 +68,23 @@
         [switchView setOn:!switchView.isOn animated:YES];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
+}
+
+- (IBAction)copySharingCodeAction:(id)sender {
+    if (!self.group.freeToEditValue) {
+        [self.freeToEditSwich setOn:YES animated:YES];
+        [self freeToEditSwitchValueChangedAction:self.freeToEditSwich];
+    }
+    
+    [[UIPasteboard generalPasteboard] setString:self.group.rid];
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    hud.mode = MBProgressHUDModeText;
+    hud.animationType = MBProgressHUDAnimationZoom;
+    hud.labelText = NSLocalizedString(@"Copied!", @"");
+    [self.view addSubview:hud];
+    [hud show:YES];
+    [hud hide:YES afterDelay:1.5];
 }
 
 - (void)updateGroupName {
@@ -119,7 +137,7 @@
 #pragma mark - Delegates & Data sources
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [super textFieldDidBeginEditing:textField];
+    [super textFieldDidEndEditing:textField];
 
     [self updateGroupName];
 }
@@ -187,10 +205,34 @@
         arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(self.addNewMembersGroupButton.frame));
         [scrollView addSubview:arrowImageView];
         
-        bottomRect = addNewMembersView.frame;
+        UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(addNewMembersView.frame) - 0.5, CGRectGetWidth(self.view.frame), 72));
+        UIButton *copyShareCodeButton = [[UIButton alloc] initWithFrame:copyShareCodeView.frame];
+        [copyShareCodeButton setTitle:NSLocalizedString(@"Copy sharing code", @"") forState:UIControlStateNormal];
+        [copyShareCodeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [copyShareCodeButton setTitleColor:[[self.addNewMembersGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        copyShareCodeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
+        copyShareCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        copyShareCodeButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 17, 0);
+        [copyShareCodeButton addTarget:self action:@selector(copySharingCodeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [scrollView addSubview:copyShareCodeButton];
+        
+        UILabel *sharingLabel = [[UILabel alloc] initWithFrame:copyShareCodeButton.frame];
+        sharingLabel.frameY += 11;
+        sharingLabel.frameX += 15;
+        sharingLabel.frameWidth -= 50;
+        sharingLabel.text = NSLocalizedString(@"Paste on WhatsApp, Facebook & Twitter", @"");
+        sharingLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
+        sharingLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
+        [scrollView addSubview:sharingLabel];
+        
+        arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+        arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(copyShareCodeButton.frame));
+        [scrollView addSubview:arrowImageView];
+        
+        bottomRect = copyShareCodeButton.frame;
         
         if (self.group.owner.isMe) {
-            UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(addNewMembersView.frame) - 0.5, CGRectGetWidth(self.view.frame), 52));
+            UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(copyShareCodeView.frame) - 0.5, CGRectGetWidth(self.view.frame), 52));
             UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.frameY, 240, freeToEditView.frameHeight)];
             [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
             [freeToEditButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
@@ -201,12 +243,12 @@
             freeToEditButton.userInteractionEnabled = NO;
             [scrollView addSubview:freeToEditButton];
             
-            UISwitch *freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
-            freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
-            freeToEditSwich.on = self.group.freeToEditValue;
-            freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
-            [freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
-            [scrollView addSubview:freeToEditSwich];
+            self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
+            self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
+            self.freeToEditSwich.on = self.group.freeToEditValue;
+            self.freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
+            [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
+            [scrollView addSubview:self.freeToEditSwich];
             
             bottomRect = freeToEditView.frame;
         }

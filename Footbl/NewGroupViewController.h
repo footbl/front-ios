@@ -10,4 +10,6 @@
 
 @interface NewGroupViewController : GroupInfoBaseViewController
 
+@property (strong, nonatomic) UIButton *invitationModeButton;
+
 @end
