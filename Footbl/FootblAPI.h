@@ -20,6 +20,7 @@ void requestSucceedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *pa
 extern void requestFailedWithBlock(AFHTTPRequestOperation *operation, NSDictionary *parameters, NSError *error, FootblAPIFailureBlock failure);
 extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext);
 
+extern NSString * const FootblAPIErrorDomain;
 extern NSString * const kAPIIdentifierKey;
 extern NSString * const kFootblAPINotificationAuthenticationChanged;
 

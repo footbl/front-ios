@@ -30,8 +30,6 @@
 
 @implementation FootblAPI
 
-static NSString * const FootblAPIErrorDomain = @"FootblAPIErrorDomain";
-
 static NSString * const kAPIBaseURLString = @"https://footbl-development.herokuapp.com";
 static NSString * const kAPISignatureKey = @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
 static NSString * const kAPIAcceptVersion = @"1.0";
@@ -47,6 +45,7 @@ static NSString * const kCloudinaryCloudName = @"he5zfntay";
 static NSString * const kCloudinaryApiKey = @"854175976174894";
 static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 
+NSString * const FootblAPIErrorDomain = @"FootblAPIErrorDomain";
 NSString * const kAPIIdentifierKey = @"_id";
 NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
 

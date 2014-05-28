@@ -438,3 +438,6 @@
 /* Error: email or username already taken */
 "Error: email or username already taken" = "Email or username already taken";
 
+/* Error: insufient funds */
+"Error: insufient funds" = "You don't have that amount of ฿, take it easy!";
+

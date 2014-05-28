@@ -426,3 +426,6 @@
 /* Error: email or username already taken */
 "Error: email or username already taken" = "Email ou usuário já existente";
 
+/* Error: insufient funds */
+"Error: insufient funds" = "Você ainda não tem tudo isso de ฿ para fazer essa aposta, vá com calma!";
+

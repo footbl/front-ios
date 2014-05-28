@@ -248,6 +248,13 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         if (currentBet == 0) {
             result = 0;
         }
+        
+        if (MAX(bet.valueValue, match.tempBetValue.integerValue) < currentBet && (self.championship.myWallet.localFunds.integerValue - 1) < 1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
         match.tempBetValue = @(currentBet);
         match.tempBetResult = result;
         
