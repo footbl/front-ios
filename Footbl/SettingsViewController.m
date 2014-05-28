@@ -132,29 +132,19 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                           ]}];
         
         if (SPGetBuildType() != SPBuildTypeAppStore) {
-            NSMutableString *commitText = [NSMutableString new];
-            for (NSString *commit in [[[NSBundle mainBundle] infoDictionary][@"CommitHistory"] componentsSeparatedByString:@"\n"]) {
-                [commitText appendFormat:@"- %@\n\n", commit];
-            }
-            
             NSMutableArray *logs = [NSMutableArray new];
             NSString *logsFolder = SPLogFilePath();
             for (NSString *logFile in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsFolder error:nil]) {
                 if ([logFile.lowercaseString rangeOfString:@"ds_store"].location != NSNotFound) {
                     continue;
                 }
-                
                 [logs insertObject:@{kSettingsDataSourceTitleKey : logFile, kSettingsDataSourceTypeKey : @(SettingsTypeAction), kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(openLogs:))} atIndex:0];
             }
             
             _dataSource = [_dataSource arrayByAddingObject:@{kSettingsDataSourceTitleKey : @"",
                                                              kSettingsDataSourceItemsKey : @[]}];
             _dataSource = [_dataSource arrayByAddingObject:@{kSettingsDataSourceTitleKey : @"",
-                                                             kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"Commit history",
-                                                                                               kSettingsDataSourceValueKey : @"",
-                                                                                               kSettingsDataSourceTypeKey : @(SettingsTypeInfo),
-                                                                                               kSettingsDataSourceExtraKey : commitText},
-                                                                                             @{kSettingsDataSourceTitleKey : @"Logs",
+                                                             kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
                                                                                                kSettingsDataSourceValueKey : @"",
                                                                                                kSettingsDataSourceTypeKey : @(SettingsTypeMore),
                                                                                                kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
