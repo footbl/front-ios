@@ -559,6 +559,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+                if (operation.response.statusCode == 500) {
+                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: email or username already taken", @"")}];
+                }
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
         } failure:failure];

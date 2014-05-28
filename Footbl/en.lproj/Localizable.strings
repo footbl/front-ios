@@ -429,3 +429,6 @@
 /* Delete account confirmation title */
 "Sorry to see you go!" = "Sorry to see you go!";
 
+/* Error: email or username already taken */
+"Error: email or username already taken" = "Email or username already taken";
+

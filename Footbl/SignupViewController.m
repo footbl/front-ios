@@ -58,8 +58,20 @@
         [[LoadingHelper sharedInstance] hideHud];
         if (error) {
             self.view.userInteractionEnabled = YES;
-            [self.textField becomeFirstResponder];
             [[ErrorHandler sharedInstance] displayError:error];
+            
+            self.email = nil;
+            self.username = nil;
+            self.textField.text = @"";
+            self.importProfileImageOptionsView.hidden = YES;
+            self.informationLabel.frameY = 93;
+
+            self.informationLabel.alpha = 1;
+            self.textField.alpha = 1;
+            self.textFieldBackground.alpha = 1;
+            self.profileImageButton.alpha = 0;
+            [self reloadTextField];
+            [self.textField becomeFirstResponder];
         }
     };
     
@@ -72,7 +84,10 @@
         [[FootblAPI sharedAPI] updateAccountWithUsername:self.username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^{
             [[LoadingHelper sharedInstance] hideHud];
             if (self.completionBlock) self.completionBlock();
-        } failure:failureBlock];
+        } failure:^(NSError *error) {
+            [[FootblAPI sharedAPI] logout];
+            failureBlock(error);
+        }];
     } failure:failureBlock];
 }
 
@@ -144,7 +159,13 @@
     } else if (!self.username) {
         if (self.textField.text.isValidUsername) {
             self.username = self.textField.text;
-            switchInputBlock(YES);
+            if (!self.aboutMe) {
+                switchInputBlock(YES);
+            } else if (!self.profileImage) {
+                switchInputBlock(NO);
+            } else {
+                [self signupAction:sender];
+            }
         } else {
             invalidInputBlock();
         }
