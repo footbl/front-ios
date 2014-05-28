@@ -429,6 +429,12 @@
 /* Delete account confirmation title */
 "Sorry to see you go!" = "Sorry to see you go!";
 
+/* Error: authentication error, need to login again */
+"Error: authentication error, need to login again" = "Authentication error, please login again";
+
+/* Error: invalid username or password */
+"Error: invalid username or password" = "Invalid email or password";
+
 /* Error: email or username already taken */
 "Error: email or username already taken" = "Email or username already taken";
 

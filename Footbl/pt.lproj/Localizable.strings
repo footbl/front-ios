@@ -417,6 +417,12 @@
 /* Delete account confirmation title */
 "Sorry to see you go!" = "É triste ver você ir embora!";
 
+/* Error: authentication error, need to login again */
+"Error: authentication error, need to login again" = "Não foi possível autenticar o usuário, por favor faça o login novamente";
+
+/* Error: invalid username or password */
+"Error: invalid username or password" = "Email ou senha inválido";
+
 /* Error: email or username already taken */
 "Error: email or username already taken" = "Email ou usuário já existente";
 

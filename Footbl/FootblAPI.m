@@ -433,6 +433,13 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.response.statusCode == 403) {
+            if (self.isAuthenticated) {
+                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: authentication error, need to login again", @"")}];
+            } else {
+                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: invalid username or password", @"")}];
+            }
+        }
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
 }
@@ -495,6 +502,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 }
 
 - (void)logout {
+    if (!self.isAuthenticated) {
+        return;
+    }
+    
     self.userIdentifier = nil;
     self.userEmail = nil;
     self.userPassword = nil;
