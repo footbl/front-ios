@@ -559,6 +559,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
                 if (fbToken.length > 0) {
                     [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
                 }
+                if (email.length > 0) {
+                    self.userEmail = email;
+                }
                 if (password.length > 0) {
                     self.userPassword = password;
                 }
