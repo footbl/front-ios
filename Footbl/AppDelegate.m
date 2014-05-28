@@ -60,7 +60,7 @@
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] && ![[[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey] isEqualToString:SPGetApplicationVersion()]) {
         SPLog(@"Application updated from v%@ to v%@", [[NSUserDefaults standardUserDefaults] objectForKey:kVersionKey], SPGetApplicationVersion());
-        newRelease = SPGetBuildType() != SPBuildTypeDebug;
+        newRelease = (SPGetBuildType() == SPBuildTypeAdHoc);
     }
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey] || newRelease) {
