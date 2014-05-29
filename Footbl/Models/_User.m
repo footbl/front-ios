@@ -8,6 +8,7 @@ const struct UserAttributes UserAttributes = {
 	.createdAt = @"createdAt",
 	.email = @"email",
 	.featured = @"featured",
+	.followers = @"followers",
 	.name = @"name",
 	.picture = @"picture",
 	.username = @"username",
@@ -54,6 +55,11 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	
 	if ([key isEqualToString:@"featuredValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"featured"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"followersValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"followers"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -110,6 +116,32 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 - (void)setPrimitiveFeaturedValue:(BOOL)value_ {
 	[self setPrimitiveFeatured:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic followers;
+
+
+
+- (int64_t)followersValue {
+	NSNumber *result = [self followers];
+	return [result longLongValue];
+}
+
+- (void)setFollowersValue:(int64_t)value_ {
+	[self setFollowers:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveFollowersValue {
+	NSNumber *result = [self primitiveFollowers];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveFollowersValue:(int64_t)value_ {
+	[self setPrimitiveFollowers:[NSNumber numberWithLongLong:value_]];
 }
 
 

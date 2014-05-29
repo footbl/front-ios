@@ -75,6 +75,12 @@
     self.picture = data[@"picture"];
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
+    
+    if ([data[@"followers"] isKindOfClass:[NSNumber class]]) {
+        self.followers = data[@"followers"];
+    } else {
+        self.followers = @0;
+    }
 }
 
 - (BOOL)isMe {
@@ -123,6 +129,7 @@
 - (void)unstarUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self.editableManagedObjectContext performBlock:^{
         [self removeStarredUsersObject:user.editableObject];
+        user.editableObject.followers = @(MAX(0, user.editableObject.followersValue - 1));
         SaveManagedObjectContext(self.editableManagedObjectContext);
     }];
     
@@ -144,6 +151,7 @@
 - (void)starUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self.editableManagedObjectContext performBlock:^{
         [self addStarredUsersObject:user.editableObject];
+        user.editableObject.followers = @(user.editableObject.followersValue + 1);
         SaveManagedObjectContext(self.editableManagedObjectContext);
     }];
     

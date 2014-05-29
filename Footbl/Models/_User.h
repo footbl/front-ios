@@ -9,6 +9,7 @@ extern const struct UserAttributes {
 	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *featured;
+	__unsafe_unretained NSString *followers;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *username;
@@ -33,6 +34,7 @@ extern const struct UserFetchedProperties {
 @class User;
 @class User;
 @class Wallet;
+
 
 
 
@@ -95,6 +97,20 @@ extern const struct UserFetchedProperties {
 - (void)setFeaturedValue:(BOOL)value_;
 
 //- (BOOL)validateFeatured:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* followers;
+
+
+
+@property int64_t followersValue;
+- (int64_t)followersValue;
+- (void)setFollowersValue:(int64_t)value_;
+
+//- (BOOL)validateFollowers:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -249,6 +265,15 @@ extern const struct UserFetchedProperties {
 
 - (BOOL)primitiveFeaturedValue;
 - (void)setPrimitiveFeaturedValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveFollowers;
+- (void)setPrimitiveFollowers:(NSNumber*)value;
+
+- (int64_t)primitiveFollowersValue;
+- (void)setPrimitiveFollowersValue:(int64_t)value_;
 
 
 

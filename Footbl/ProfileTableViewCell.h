@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *dateLabel;
 @property (strong, nonatomic) UIImageView *starImageView;
+@property (strong, nonatomic) UILabel *followersLabel;
 @property (assign, nonatomic, getter = isVerified) BOOL verified;
 @property (copy, nonatomic) NSString *aboutText;
 

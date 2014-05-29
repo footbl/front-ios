@@ -173,8 +173,11 @@
                     profileCell.nameLabel.text = self.user.name;
                     profileCell.usernameLabel.text = self.user.username;
                     profileCell.verified = self.user.verifiedValue;
-                    profileCell.starImageView.hidden = self.user.isMe;
+                    if (self.user.isMe) {
+                        profileCell.starImageView.highlightedImage = nil;
+                    }
                     profileCell.aboutText = self.user.about;
+                    profileCell.followersLabel.text = self.user.followers.shortStringValue;
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];

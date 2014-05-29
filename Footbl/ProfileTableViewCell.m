@@ -145,6 +145,13 @@
         self.starImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 40, CGRectGetMidY(self.nameLabel.frame));
         [self.contentView addSubview:self.starImageView];
         
+        self.followersLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+        self.followersLabel.center = CGPointMake(CGRectGetMidX(self.starImageView.frame), CGRectGetMidY(self.starImageView.frame) + 25);
+        self.followersLabel.textColor = self.nameLabel.textColor;
+        self.followersLabel.font = self.nameLabel.font;
+        self.followersLabel.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:self.followersLabel];
+        
         gradientView = [[UIView alloc] initWithFrame:CGRectMake(self.starImageView.frameX - 10, 0, self.contentView.frameWidth - self.starImageView.frameX + 10, self.contentView.frameHeight)];
         gradientView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
