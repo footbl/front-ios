@@ -61,7 +61,11 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         }
         
         NSArray *aboutDataSource = @[@{kSettingsDataSourceTitleKey : @"",
-                                       kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Licenses", @""),
+                                       kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Legal", @""),
+                                                                         kSettingsDataSourceValueKey : @"",
+                                                                         kSettingsDataSourceTypeKey : @(SettingsTypeAction),
+                                                                         kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(legalAction:))},
+                                                                       @{kSettingsDataSourceTitleKey : NSLocalizedString(@"Licenses", @""),
                                                                          kSettingsDataSourceValueKey : @"",
                                                                          kSettingsDataSourceTypeKey : @(SettingsTypeMore),
                                                                          kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Licenses", @""),
@@ -170,6 +174,10 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     };
     FootblNavigationController *navigationViewController = [[FootblNavigationController alloc] initWithRootViewController:changePasswordViewController];
     [self presentViewController:navigationViewController animated:YES completion:nil];
+}
+
+- (void)legalAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:NSLocalizedString(@"Legal URL", @"")]];
 }
 
 - (void)updateAccountAction:(id)sender {
