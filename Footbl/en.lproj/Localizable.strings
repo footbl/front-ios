@@ -117,9 +117,9 @@
 
 "NOTIFICATION_GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
 
-"NOTIFICATION_ROUND_END" = "Notification round end";
+"NOTIFICATION_ROUND_END" = "You've just made ฿%@ on %@! Check?";
 
-"NOTIFICATION_LEAGUE_END" = "Notification league end";
+"NOTIFICATION_LEAGUE_END" = "%@ has just ended. Check your standings?";
 
 /* Add photo */
 "Add photo" = "Add photo";
@@ -130,7 +130,7 @@
 /* Next */
 "Next" = "Next";
 
-"NOTIFICATION_ROUND_START" = "Notification round start";
+"NOTIFICATION_ROUND_START" = "Matches are about to start… wanna bet?";
 
 /* Add members */
 "Add members" = "Add members";
@@ -241,34 +241,34 @@
 "Share" = "Share";
 
 /* {home team} {away team} {bet value} {bet profit} */
-"Share match: finished with bet (draw)" = "Let's see my profits...";
+"Share match: finished with bet (draw)" = "It's a draw!";
 
 /* {bet team} {against team} {bet value} {bet profit} */
-"Share match: finished with bet" = "Let's see my profits...";
+"Share match: finished with bet" = "Way to go, %1$@!";
 
 /* {home team} {away team} */
-"Share match: finished without bet" = " ";
+"Share match: finished without bet" = "Good game!";
 
 /* {home team} {away team} {bet value} */
-"Share match: live with bet (draw)" = "It's going to be draw!";
+"Share match: live with bet (draw)" = "It's going to be a draw!";
 
 /* {bet team} {against team} {bet value} */
 "Share match: live with bet" = "Go %1$@!";
 
 /* {home team} {away team} */
-"Share match: live without bet" = " ";
+"Share match: live without bet" = "Good game!";
 
 /* {home team} {away team} {bet value} */
-"Share match: waiting with bet (draw)" = "It's going to be draw!";
+"Share match: waiting with bet (draw)" = "It's going to be a draw!";
 
 /* {bet team} {against team} {bet value} */
 "Share match: waiting with bet" = "%1$@, for sure!";
 
 /* {home team} {away team} */
-"Share match: waiting without bet" = "Which team should I bet? %1$@ or %2$@?";
+"Share match: waiting without bet" = "Which team should I bet on? %1$@ or %2$@?";
 
 /* Cannot update wallet due to wallet balance */
-"Cannot update wallet due to wallet balance" = "You can only recharge your League Wallet back to $100 when your balance is < $20";
+"Cannot update wallet due to wallet balance" = "You can only recharge your League Wallet when you have less than ฿100 available.";
 
 /* Unit for 1000 (kilo) */
 "k" = "k";
@@ -277,7 +277,7 @@
 "M" = "M";
 
 /* Ops */
-"Ops" = "Ops";
+"Ops" = "Oops";
 
 /* Email placeholder */
 "Email placeholder" = "Email";
@@ -298,7 +298,7 @@
 "Sign up text: about hint" = "Less than 70 characteres, please :)";
 
 /* Sign up text: about */
-"Sign up text: about" = "Who are you?\nDescribe yourself! (or not)";
+"Sign up text: about" = "Lastly… Who are you?\nBriefly describe yourself! (or not)";
 
 /* Choose from my albums */
 "Choose from my albums" = "Choose from my albums";
@@ -334,7 +334,7 @@
 "My Account" = "My account";
 
 /* Sharing text */
-"Sharing text" = "Checkout this awesome app!";
+"Sharing text" = "Check out this awesome app! \nfootbl | wanna bet?";
 
 /* Sharing URL */
 "Sharing URL" = "https://itunes.apple.com/us/app/footbl/id881307076?ls=1&mt=8";
@@ -391,7 +391,7 @@
 "Name" = "Name";
 
 /* Anonymous user message */
-"Anonymous user message" = "You're not logged in.\nTo view your profile or join groups, you need to create an account or login with Facebook. Thinks will get even better!";
+"Anonymous user message" = "You're not logged in.\nTo view your profile or join groups, you need to create an account or login with Facebook. Things will get even better!";
 
 /* Create my account */
 "Create my account" = "Create my account";
@@ -433,7 +433,7 @@
 "Error: email or username already taken" = "Email or username already taken";
 
 /* Error: insufient funds */
-"Error: insufient funds" = "You don't have that amount of ฿, take it easy!";
+"Error: insufient funds" = "You're out of cash! Recharge your wallet or undo a few bets, if possible.";
 
 /* Copied group sharing code */
 "Copied!" = "Copied!";

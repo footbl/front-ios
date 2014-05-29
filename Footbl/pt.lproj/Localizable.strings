@@ -14,7 +14,7 @@
 "Championships" = "Campeonatos";
 
 /* Create your group button subtitle */
-"Create your group button subtitle" = "Aposte com os seus amigos e veja quem é o melhor!";
+"Create your group button subtitle" = "Escolha uma liga, aposte com amigos e prove quem é o melhor!";
 
 /* Close tutorial */
 "Close tutorial" = "Fechar tutorial";
@@ -115,7 +115,11 @@
 /* 1 character left */
 "1 character left" = "1 caracter restante";
 
-"NOTIFICATION_GROUP_ADDED" = "%@ adicionou você no grupo %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "%@ adicionou você ao grupo %@ (%@).";
+
+"NOTIFICATION_ROUND_END" = "Você fez ฿%@ em %@! Ver?";
+
+"NOTIFICATION_LEAGUE_END" = "%@ acabou! Ver os resultados?";
 
 /* Add photo */
 "Add photo" = "Adic.\nfoto";
@@ -125,6 +129,8 @@
 
 /* Next */
 "Next" = "Continuar";
+
+"NOTIFICATION_ROUND_START" = "Partidas estão para começar… quer apostar?";
 
 /* Add members */
 "Add members" = "Adic. amigos";
@@ -175,7 +181,7 @@
 "Login text: welcome back" = "Seja bem vindo!\n";
 
 /* Sign in */
-"Sign in" = "Login";
+"Sign in" = "Sign in";
 
 /* Sign up text: username hint */
 "Sign up text: username hint" = "Muito pequeno, digite um pouco mais :)";
@@ -211,10 +217,10 @@
 "'Since' MMMM YYYY" = "'Desde' MMMM 'de' YYYY ";
 
 /* Betting in 1 league */
-"Betting in 1 league" = "participando de 1 liga";
+"Betting in 1 league" = "apostando em 1 liga";
 
 /* Betting in {number of leagues} leagues */
-"Betting in %i leagues" = "participando de %i ligas";
+"Betting in %i leagues" = "apostando em %i ligas";
 
 /* Country: BR */
 "Country: BR" = "Brasil";
@@ -229,13 +235,13 @@
 "Share" = "Compartilhar";
 
 /* {home team} {away team} {bet value} {bet profit} */
-"Share match: finished with bet (draw)" = "Terminou a partida!";
+"Share match: finished with bet (draw)" = "Empatou!";
 
 /* {bet team} {against team} {bet value} {bet profit} */
-"Share match: finished with bet" = "Terminou a partida!";
+"Share match: finished with bet" = "Boa, %1$@!!";
 
 /* {home team} {away team} */
-"Share match: finished without bet" = " ";
+"Share match: finished without bet" = "Jogão!";
 
 /* {home team} {away team} {bet value} */
 "Share match: live with bet (draw)" = "Vai dar empate, certeza!";
@@ -244,7 +250,7 @@
 "Share match: live with bet" = "Vai %1$@!";
 
 /* {home team} {away team} */
-"Share match: live without bet" = " ";
+"Share match: live without bet" = "Jogão!";
 
 /* {home team} {away team} {bet value} */
 "Share match: waiting with bet (draw)" = "Vai dar empate, certeza!";
@@ -253,10 +259,10 @@
 "Share match: waiting with bet" = "Vai dar %1$@!";
 
 /* {home team} {away team} */
-"Share match: waiting without bet" = "Quem vocês acham que vai ganhar? %1$@ ou %2$@";
+"Share match: waiting without bet" = "Em qual apostar? %1$@ ou %2$@?";
 
 /* Cannot update wallet due to wallet balance */
-"Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para $100 quando ela está com menos de $20";
+"Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para quando tiver menos do que ฿100 disponível. ";
 
 /* Unit for 1000 (kilo) */
 "k" = "k";
@@ -283,16 +289,16 @@
 "Featured users" = "Usuários em destaque";
 
 /* Sign up text: about hint */
-"Sign up text: about hint" = "Escreva menos de 70 caracteres por favor :)";
+"Sign up text: about hint" = "Menos de 70 caracteres, por favor :)";
 
 /* Sign up text: about */
-"Sign up text: about" = "Por último...\nEscreva uma bio (ou não)";
+"Sign up text: about" = "Por último… Quem é você?\nDigite uma breve descrição! (ou não)";
 
 /* Choose from my albums */
 "Choose from my albums" = "Biblioteca de fotos";
 
 /* Sign up text: profile */
-"Sign up text: profile" = "Hora de tirar uma selfie...\nOu escolher uma foto legal!";
+"Sign up text: profile" = "Hora de tirar uma selfie...\nOu escolher uma foto bacana!";
 
 /* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Não é possível tirar fotos com o seu iDevice.";
@@ -307,7 +313,7 @@
 "Yes" = "Sim";
 
 /* You entered your email as %@ */
-"You entered your email as %@" = "%@";
+"You entered your email as %@" = "Você digitou seu e-mail como %@";
 
 /* About */
 "About" = "Sobre";
@@ -322,7 +328,7 @@
 "My Account" = "Minha conta";
 
 /* Sharing text */
-"Sharing text" = "Já conhecem esse aplicativo?";
+"Sharing text" = "Dá uma olhada nesse aplicativo!\nfootbl | wanna bet?";
 
 /* Sharing URL */
 "Sharing URL" = "https://itunes.apple.com/br/app/footbl/id881307076?ls=1&mt=8";
@@ -373,7 +379,7 @@
 "Change password text: old password hint" = "As senhas não estão batendo...";
 
 /* About me */
-"About me" = "Sobre você";
+"About me" = "Sobre mim";
 
 /* Name */
 "Name" = "Nome";
@@ -421,7 +427,7 @@
 "Error: email or username already taken" = "Email ou usuário já existente";
 
 /* Error: insufient funds */
-"Error: insufient funds" = "Você ainda não tem tudo isso de ฿ para fazer essa aposta, vá com calma!";
+"Error: insufient funds" = "Sua grana acabou! Recarrege sua carteira ou desfaça algumas apostas, se possível.";
 
 /* Copied group sharing code */
 "Copied!" = "Copiado!";
