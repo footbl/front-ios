@@ -104,7 +104,7 @@
                         [self updateStarredUsersWithSuccess:success failure:failure];
                     }];
                 } else {
-                    [[self class] loadContent:API_RESULT(key) inManagedObjectContext:self.managedObjectContext usingCache:self.starredUsers enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
+                    [[self class] loadContent:API_RESULT(key) inManagedObjectContext:self.managedObjectContext usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
                         if (![self.starredUsers containsObject:user]) {
                             [self addStarredUsersObject:user];
                         }
