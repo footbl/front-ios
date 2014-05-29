@@ -505,6 +505,8 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         return;
     }
     
+    [[self operationQueue] cancelAllOperations];
+    
     self.userIdentifier = nil;
     self.userEmail = nil;
     self.userPassword = nil;
