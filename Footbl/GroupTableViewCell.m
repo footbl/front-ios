@@ -59,10 +59,15 @@
         self.roundsLabel.textColor = self.championshipLabel.textColor;
         [self.contentView addSubview:self.roundsLabel];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 95.5, CGRectGetWidth(self.contentView.frame) - 15, 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.contentView addSubview:separatorView];
+        self.topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 1)];
+        self.topSeparatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        self.topSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:self.topSeparatorView];
+        
+        self.bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 95.5, CGRectGetWidth(self.contentView.frame) - 15, 0.5)];
+        self.bottomSeparatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        self.bottomSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:self.bottomSeparatorView];
     }
     return self;
 }

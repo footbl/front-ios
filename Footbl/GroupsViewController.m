@@ -36,9 +36,9 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Group"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"isDefault" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"removed = %@", @NO];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:@"isDefault" cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
         NSError *error = nil;
@@ -92,6 +92,9 @@
     } else {
         cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.displayName, group.championship.edition.stringValue];
     }
+    
+    cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
+    cell.topSeparatorView.hidden = !(indexPath.section == 1 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row == 0);
 }
 
 - (void)reloadData {
@@ -170,6 +173,14 @@
     GroupDetailViewController *groupDetailViewController = [GroupDetailViewController new];
     groupDetailViewController.group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.navigationController pushViewController:groupDetailViewController animated:YES];
+}
+
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super controllerDidChangeContent:controller];
+    
+    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
 
 #pragma mark - View Lifecycle
