@@ -226,7 +226,7 @@
 "Country: BR" = "Brasil";
 
 /* Highest: {highest funds} in {month format} {year format} */
-"'Highest: %@ in' MMMM YYYY" = "'Recorde: ฿%@ em' MMMM 'de' YYYY";
+"'Highest: %@ in' MMMM YYYY" = "'Recorde: %@ em' MMMM 'de' YYYY";
 
 /* Final */
 "Final" = "Final";
