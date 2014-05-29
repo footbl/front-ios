@@ -284,17 +284,17 @@
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [self.editableManagedObjectContext performBlock:^{
+        self.editableObject.removed = @YES;
+        SaveManagedObjectContext(self.editableManagedObjectContext);
+    }];
+    
+    if (self.isDefaultValue) {
+        if (success) success();
+        return;
+    }
+    
     [[self API] ensureAuthenticationWithSuccess:^{
-        [self.editableManagedObjectContext performBlock:^{
-            self.editableObject.removed = @YES;
-            SaveManagedObjectContext(self.editableManagedObjectContext);
-        }];
-        
-        if (self.isDefaultValue) {
-            if (success) success();
-            return;
-        }
-        
         if (self.owner.isMe) {
             NSMutableDictionary *parameters = [self generateDefaultParameters];
             [[self API] DELETE:[NSString stringWithFormat:@"groups/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
