@@ -52,7 +52,7 @@
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
     formatter.maximumFractionDigits = 2;
-    formatter.minimumFractionDigits = 0;
+    formatter.minimumFractionDigits = 2;
     return [formatter stringFromNumber:self];
 }
 

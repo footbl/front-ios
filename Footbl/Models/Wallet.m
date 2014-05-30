@@ -161,7 +161,7 @@
 }
 
 - (NSString *)toReturnString {
-    return self.toReturn.integerValue > 0 ? self.toReturn.shortStringValue : @"-";
+    return self.toReturn.integerValue > 0 ? @(self.toReturn.integerValue).shortStringValue : @"-";
 }
 
 - (NSNumber *)profit {
@@ -180,7 +180,7 @@
             break;
         }
     }
-    return started ? self.profit.shortStringValue : @"-";
+    return started ? @(self.profit.integerValue).shortStringValue : @"-";
 }
 
 - (void)updateWithData:(NSDictionary *)data {

@@ -224,7 +224,7 @@ static CGFloat kBetSyncWaitTime = 2;
 }
 
 - (NSString *)valueString {
-    return self.valueValue == 0 ? @"-" : self.value.shortStringValue;
+    return self.valueValue == 0 ? @"-" : @(self.value.integerValue).shortStringValue;
 }
 
 - (NSNumber *)toReturn {
@@ -241,7 +241,7 @@ static CGFloat kBetSyncWaitTime = 2;
 }
 
 - (NSString *)toReturnString {
-    return self.valueValue == 0 ? @"-" : self.toReturn.shortStringValue;
+    return self.valueValue == 0 ? @"-" : @(self.toReturn.integerValue).shortStringValue;
 }
 
 - (NSNumber *)reward {
@@ -261,7 +261,7 @@ static CGFloat kBetSyncWaitTime = 2;
         return @"-";
     }
     
-    return self.reward.shortStringValue;
+    return @(self.reward.integerValue).shortStringValue;
 }
 
 @end

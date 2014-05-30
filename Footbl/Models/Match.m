@@ -205,7 +205,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSString *)myBetValueString {
-    return self.myBetValue.floatValue == 0 ? @"-" : self.myBetValue.shortStringValue;
+    return self.myBetValue.floatValue == 0 ? @"-" : @(self.myBetValue.integerValue).shortStringValue;
 }
 
 - (NSNumber *)localJackpot {
@@ -241,7 +241,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSString *)myBetReturnString {
-    return self.myBetValue.floatValue == 0 ? @"-" : self.myBetReturn.shortStringValue;
+    return self.myBetValue.floatValue == 0 ? @"-" : @(self.myBetReturn.integerValue).shortStringValue;
 }
 
 - (NSNumber *)myBetProfit {
@@ -261,7 +261,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
         return @"-";
     }
     
-    return self.myBetProfit.shortStringValue;
+    return @(self.myBetProfit.integerValue).shortStringValue;
 }
 
 #pragma mark Earnings per bet
