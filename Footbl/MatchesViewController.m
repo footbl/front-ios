@@ -97,6 +97,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     [self.championship.myWallet rechargeWithSuccess:^{
         [self reloadWallet];
+        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         [[ErrorHandler sharedInstance] displayError:error];
