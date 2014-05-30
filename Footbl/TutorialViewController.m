@@ -40,6 +40,8 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
 }
 
 - (IBAction)nextAction:(id)sender {
+    self.nextButton.userInteractionEnabled = NO;
+    
     self.shouldUpdatePageControl = NO;
     [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + self.scrollView.frameWidth, self.scrollView.contentOffset.y) animated:YES];
     if (self.pageControl.currentPage == 3) {
@@ -49,6 +51,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.shouldUpdatePageControl = YES;
+        self.nextButton.userInteractionEnabled = YES;
     });
 }
 
@@ -81,12 +84,13 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     self.navigationController.navigationBarHidden = YES;
     self.shouldUpdatePageControl = YES;
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, self.view.frameHeight - 60)];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.bounces = NO;
     self.scrollView.delegate = self;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
+    self.scrollView.clipsToBounds = NO;
     [self.view addSubview:self.scrollView];
     
     for (NSInteger i = 0; i < 5; i++) {
@@ -108,6 +112,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     self.pageControl.gapWidth = 9;
     self.pageControl.coreNormalColor = [UIColor colorWithRed:0.32 green:0.81 blue:0.52 alpha:1];
     self.pageControl.coreSelectedColor = [UIColor whiteColor];
+    self.pageControl.userInteractionEnabled = NO;
     [self.view addSubview:self.pageControl];
     
     self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(200, self.pageControl.frameY, self.view.frameWidth - 200, self.pageControl.frameHeight)];
