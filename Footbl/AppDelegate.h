@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class FootblTabBarController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) FootblTabBarController *footblTabBarController;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *backgroundManagedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

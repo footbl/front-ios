@@ -14,7 +14,9 @@
 #import "FriendsHelper.h"
 #import "FootblAPI.h"
 #import "FootblTabBarController.h"
+#import "Group.h"
 #import "ImportImageHelper.h"
+#import "LoadingHelper.h"
 #import "TutorialViewController.h"
 #import "SDImageCache+ShippedCache.h"
 
@@ -84,7 +86,8 @@
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     
-    self.window.rootViewController = [FootblTabBarController new];
+    self.footblTabBarController = [FootblTabBarController new];
+    self.window.rootViewController = self.footblTabBarController;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
@@ -162,6 +165,26 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([url.absoluteString rangeOfString:@"footbl://groups/"].location != NSNotFound) {
+        NSString *groupCode = [url.absoluteString componentsSeparatedByString:@"/"].lastObject;
+        if (groupCode.length > 0) {
+            self.footblTabBarController.selectedIndex = 0;
+            
+            [[LoadingHelper sharedInstance] showHud];
+            
+            [Group joinGroupWithCode:groupCode success:^{
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:^(NSError *error) {
+                [[ErrorHandler sharedInstance] displayError:error];
+                [[LoadingHelper sharedInstance] hideHud];
+            }];
+            
+            return YES;
+        }
+        
+        return NO;
+    }
+    
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 

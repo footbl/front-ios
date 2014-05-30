@@ -466,3 +466,12 @@ Do you want to log in instead? */
 /* Username already taken, please choose another */
 "Username already taken, please choose another" = "Esse usuário já existe!";
 
+/* And bring friends */
+"And bring friends" = "E traga seus amigos";
+
+/* @{group_share_url} {group_code} */
+"Join my group on Footbl! Access %@ or use the code %@" = "Entre no meu grupo do Footbl! Acesse %1$@ ou use o código %2$@.\nfootbl | wanna bet?";
+
+/* Share on WhatsApp */
+"Share on WhatsApp" = "Compartilhe no WhatsApp";
+

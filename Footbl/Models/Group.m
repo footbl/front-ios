@@ -94,6 +94,38 @@
     } success:success failure:failure];
 }
 
++ (void)joinGroupWithCode:(NSString *)code success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    [[self API] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [self generateDefaultParameters];
+        parameters[@"code"] = code;
+        [[self API] GET:@"groups" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            requestSucceedWithBlock(operation, parameters, nil);
+            NSDictionary *groupDictionary = [responseObject firstObject];
+            if ([Group findByIdentifier:groupDictionary[kAPIIdentifierKey] inManagedObjectContext:[self editableManagedObjectContext]]) {
+                if (success) success();
+            } else if (groupDictionary) {
+                NSMutableDictionary *joinGroupParameters = [self generateDefaultParameters];
+                joinGroupParameters[@"user"] = [User currentUser].rid;
+                joinGroupParameters[@"code"] = code;
+                [[self API] POST:[NSString stringWithFormat:@"groups/%@/members", groupDictionary[kAPIIdentifierKey]] parameters:joinGroupParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[self editableManagedObjectContext] performBlock:^{
+                        Group *group = [Group findOrCreateByIdentifier:groupDictionary[kAPIIdentifierKey] inManagedObjectContext:[self editableManagedObjectContext]];
+                        [group updateWithData:groupDictionary];
+                        SaveManagedObjectContext([self editableManagedObjectContext]);
+                        requestSucceedWithBlock(operation, joinGroupParameters, success);
+                    }];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    requestFailedWithBlock(operation, joinGroupParameters, error, failure);
+                }];
+            } else {
+                if (success) success();
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
+}
+
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
