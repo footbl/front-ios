@@ -19,6 +19,8 @@
 - (NSNumber *)localFunds;
 - (NSNumber *)localStake;
 - (NSNumber *)toReturn;
+- (NSString *)toReturnString;
 - (NSNumber *)profit;
+- (NSString *)profitString;
 
 @end

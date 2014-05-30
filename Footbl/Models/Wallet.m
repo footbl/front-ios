@@ -10,6 +10,7 @@
 #import <RMStore/RMStore.h>
 #import "Bet.h"
 #import "Championship.h"
+#import "NSNumber+Formatter.h"
 #import "Match.h"
 #import "User.h"
 #import "Wallet.h"
@@ -159,12 +160,27 @@
     return @(toReturn);
 }
 
+- (NSString *)toReturnString {
+    return self.toReturn.integerValue > 0 ? self.toReturn.shortStringValue : @"-";
+}
+
 - (NSNumber *)profit {
     float profit = 0;
     for (Bet *bet in self.activeBets) {
         profit += bet.reward.floatValue;
     }
     return @(profit);
+}
+
+- (NSString *)profitString {
+    BOOL started = NO;
+    for (Bet *bet in self.activeBets) {
+        if (bet.match.status != MatchStatusWaiting) {
+            started = YES;
+            break;
+        }
+    }
+    return started ? self.profit.shortStringValue : @"-";
 }
 
 - (void)updateWithData:(NSDictionary *)data {

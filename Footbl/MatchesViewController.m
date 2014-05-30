@@ -297,8 +297,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         }];
         self.navigationBarTitleView.walletValueLabel.text = self.championship.myWallet.localFunds.shortStringValue;
         self.navigationBarTitleView.stakeValueLabel.text = self.championship.myWallet.localStake.shortStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturn.shortStringValue;
-        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profit.shortStringValue;
+        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturnString;
+        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profitString;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
