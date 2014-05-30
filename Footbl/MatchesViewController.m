@@ -95,12 +95,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         return;
     }
     
+    [[LoadingHelper sharedInstance] showHud];
+    
     [self.championship.myWallet rechargeWithSuccess:^{
         [self reloadWallet];
         [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
+        [[LoadingHelper sharedInstance] hideHud];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         [[ErrorHandler sharedInstance] displayError:error];
+        [[LoadingHelper sharedInstance] hideHud];
     }];
 }
 
