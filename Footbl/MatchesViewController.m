@@ -481,7 +481,6 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     tableViewController.refreshControl = self.refreshControl;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-//        [self reloadWallet];
         if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted) && [FootblAPI sharedAPI].isAuthenticated) {
             [self.refreshControl beginRefreshing];
             [self reloadData];
