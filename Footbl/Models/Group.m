@@ -102,6 +102,7 @@
     self.name = data[@"name"];
     self.picture = data[@"picture"];
     self.freeToEdit = data[@"freeToEdit"];
+    self.code = data[@"code"];
     self.owner = [User findOrCreateByIdentifier:data[@"owner"] inManagedObjectContext:self.managedObjectContext];
     if ([data[@"owner"] isKindOfClass:[NSDictionary class]]) {
         [self.owner updateWithData:data[@"owner"]];

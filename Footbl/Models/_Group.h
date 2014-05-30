@@ -5,6 +5,7 @@
 #import "FootblModel.h"
 
 extern const struct GroupAttributes {
+	__unsafe_unretained NSString *code;
 	__unsafe_unretained NSString *freeToEdit;
 	__unsafe_unretained NSString *isDefault;
 	__unsafe_unretained NSString *isNew;
@@ -33,6 +34,7 @@ extern const struct GroupFetchedProperties {
 
 
 
+
 @interface GroupID : NSManagedObjectID {}
 @end
 
@@ -41,6 +43,16 @@ extern const struct GroupFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (GroupID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* code;
+
+
+
+//- (BOOL)validateCode:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -156,6 +168,12 @@ extern const struct GroupFetchedProperties {
 @end
 
 @interface _Group (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveCode;
+- (void)setPrimitiveCode:(NSString*)value;
+
+
 
 
 - (NSNumber*)primitiveFreeToEdit;
