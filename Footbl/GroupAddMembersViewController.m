@@ -374,7 +374,7 @@
         [[headerView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
     
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @""), NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @"").lowercaseString, NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
     self.segmentedControl.frame = CGRectMake(15, 9, 290, 29);
     self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     self.segmentedControl.selectedSegmentIndex = 0;
