@@ -140,7 +140,9 @@
     self.backgroundImageView.contentMode = UIViewContentModeTop;
     [self.view addSubview:self.backgroundImageView];
     
-    UIButton *signupButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 210, CGRectGetWidth(self.view.bounds), 52)];
+    BOOL tallView = self.view.frameHeight > 500;
+    
+    UIButton *signupButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - (tallView ? 210 : 180), CGRectGetWidth(self.view.bounds), 52)];
     [signupButton setTitle:NSLocalizedString(@"Sign up", @"") forState:UIControlStateNormal];
     [signupButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [signupButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
