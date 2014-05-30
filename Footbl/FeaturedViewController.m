@@ -53,14 +53,12 @@
         [self.refreshControl endRefreshing];
     });
     
-    /*
-    [User updateFeaturedWithSuccess:^{
+    [User updateFeaturedUsersWithSuccess:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
-    */
 }
 
 #pragma mark - Delegates & Data sources

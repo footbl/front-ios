@@ -12,6 +12,7 @@
 
 + (instancetype)currentUser;
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
++ (void)updateFeaturedUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (NSDictionary *)dictionaryRepresentation;
 - (BOOL)isMe;
 - (void)starUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;

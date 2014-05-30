@@ -60,6 +60,33 @@
     }];
 }
 
++ (void)updateFeaturedUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    NSString *key = API_DICTIONARY_KEY;
+    NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+    parameters[@"featured"] = @YES;
+    
+    [[self API] GET:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        API_APPEND_RESULT(responseObject, key);
+        if ([responseObject count] == [self responseLimit]) {
+            API_APPEND_PAGE(key);
+            [self updateFeaturedUsersWithSuccess:success failure:failure];
+        } else {
+            [self loadContent:API_RESULT(key) inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
+                user.featured = @YES;
+            } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
+                [untouchedObjects makeObjectsPerformSelector:@selector(setFeatured:) withObject:@NO];
+            }];
+            
+            requestSucceedWithBlock(operation, parameters, nil);
+            if (success) success(API_RESULT(key));
+            API_RESET_KEY(key);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        requestFailedWithBlock(operation, parameters, error, failure);
+        API_RESET_KEY(key);
+    }];
+}
+
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
