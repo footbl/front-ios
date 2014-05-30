@@ -167,22 +167,22 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 
 
-- (int64_t)toReturnValue {
+- (float)toReturnValue {
 	NSNumber *result = [self toReturn];
-	return [result longLongValue];
+	return [result floatValue];
 }
 
-- (void)setToReturnValue:(int64_t)value_ {
-	[self setToReturn:[NSNumber numberWithLongLong:value_]];
+- (void)setToReturnValue:(float)value_ {
+	[self setToReturn:[NSNumber numberWithFloat:value_]];
 }
 
-- (int64_t)primitiveToReturnValue {
+- (float)primitiveToReturnValue {
 	NSNumber *result = [self primitiveToReturn];
-	return [result longLongValue];
+	return [result floatValue];
 }
 
-- (void)setPrimitiveToReturnValue:(int64_t)value_ {
-	[self setPrimitiveToReturn:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitiveToReturnValue:(float)value_ {
+	[self setPrimitiveToReturn:[NSNumber numberWithFloat:value_]];
 }
 
 

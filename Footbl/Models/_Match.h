@@ -74,9 +74,9 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property int16_t elapsedValue;
-- (int16_t)elapsedValue;
-- (void)setElapsedValue:(int16_t)value_;
+@property int32_t elapsedValue;
+- (int32_t)elapsedValue;
+- (void)setElapsedValue:(int32_t)value_;
 
 //- (BOOL)validateElapsed:(id*)value_ error:(NSError**)error_;
 
@@ -102,9 +102,9 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property int16_t guestScoreValue;
-- (int16_t)guestScoreValue;
-- (void)setGuestScoreValue:(int16_t)value_;
+@property int32_t guestScoreValue;
+- (int32_t)guestScoreValue;
+- (void)setGuestScoreValue:(int32_t)value_;
 
 //- (BOOL)validateGuestScore:(id*)value_ error:(NSError**)error_;
 
@@ -116,9 +116,9 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property int16_t hostScoreValue;
-- (int16_t)hostScoreValue;
-- (void)setHostScoreValue:(int16_t)value_;
+@property int32_t hostScoreValue;
+- (int32_t)hostScoreValue;
+- (void)setHostScoreValue:(int32_t)value_;
 
 //- (BOOL)validateHostScore:(id*)value_ error:(NSError**)error_;
 
@@ -196,9 +196,9 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property int16_t roundValue;
-- (int16_t)roundValue;
-- (void)setRoundValue:(int16_t)value_;
+@property int32_t roundValue;
+- (int32_t)roundValue;
+- (void)setRoundValue:(int32_t)value_;
 
 //- (BOOL)validateRound:(id*)value_ error:(NSError**)error_;
 
@@ -270,8 +270,8 @@ extern const struct MatchFetchedProperties {
 - (NSNumber*)primitiveElapsed;
 - (void)setPrimitiveElapsed:(NSNumber*)value;
 
-- (int16_t)primitiveElapsedValue;
-- (void)setPrimitiveElapsedValue:(int16_t)value_;
+- (int32_t)primitiveElapsedValue;
+- (void)setPrimitiveElapsedValue:(int32_t)value_;
 
 
 
@@ -288,8 +288,8 @@ extern const struct MatchFetchedProperties {
 - (NSNumber*)primitiveGuestScore;
 - (void)setPrimitiveGuestScore:(NSNumber*)value;
 
-- (int16_t)primitiveGuestScoreValue;
-- (void)setPrimitiveGuestScoreValue:(int16_t)value_;
+- (int32_t)primitiveGuestScoreValue;
+- (void)setPrimitiveGuestScoreValue:(int32_t)value_;
 
 
 
@@ -297,8 +297,8 @@ extern const struct MatchFetchedProperties {
 - (NSNumber*)primitiveHostScore;
 - (void)setPrimitiveHostScore:(NSNumber*)value;
 
-- (int16_t)primitiveHostScoreValue;
-- (void)setPrimitiveHostScoreValue:(int16_t)value_;
+- (int32_t)primitiveHostScoreValue;
+- (void)setPrimitiveHostScoreValue:(int32_t)value_;
 
 
 
@@ -348,8 +348,8 @@ extern const struct MatchFetchedProperties {
 - (NSNumber*)primitiveRound;
 - (void)setPrimitiveRound:(NSNumber*)value;
 
-- (int16_t)primitiveRoundValue;
-- (void)setPrimitiveRoundValue:(int16_t)value_;
+- (int32_t)primitiveRoundValue;
+- (void)setPrimitiveRoundValue:(int32_t)value_;
 
 
 

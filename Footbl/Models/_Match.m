@@ -117,22 +117,22 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 
 
-- (int16_t)elapsedValue {
+- (int32_t)elapsedValue {
 	NSNumber *result = [self elapsed];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setElapsedValue:(int16_t)value_ {
-	[self setElapsed:[NSNumber numberWithShort:value_]];
+- (void)setElapsedValue:(int32_t)value_ {
+	[self setElapsed:[NSNumber numberWithInt:value_]];
 }
 
-- (int16_t)primitiveElapsedValue {
+- (int32_t)primitiveElapsedValue {
 	NSNumber *result = [self primitiveElapsed];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveElapsedValue:(int16_t)value_ {
-	[self setPrimitiveElapsed:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveElapsedValue:(int32_t)value_ {
+	[self setPrimitiveElapsed:[NSNumber numberWithInt:value_]];
 }
 
 
@@ -169,22 +169,22 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 
 
-- (int16_t)guestScoreValue {
+- (int32_t)guestScoreValue {
 	NSNumber *result = [self guestScore];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setGuestScoreValue:(int16_t)value_ {
-	[self setGuestScore:[NSNumber numberWithShort:value_]];
+- (void)setGuestScoreValue:(int32_t)value_ {
+	[self setGuestScore:[NSNumber numberWithInt:value_]];
 }
 
-- (int16_t)primitiveGuestScoreValue {
+- (int32_t)primitiveGuestScoreValue {
 	NSNumber *result = [self primitiveGuestScore];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveGuestScoreValue:(int16_t)value_ {
-	[self setPrimitiveGuestScore:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveGuestScoreValue:(int32_t)value_ {
+	[self setPrimitiveGuestScore:[NSNumber numberWithInt:value_]];
 }
 
 
@@ -195,22 +195,22 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 
 
-- (int16_t)hostScoreValue {
+- (int32_t)hostScoreValue {
 	NSNumber *result = [self hostScore];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setHostScoreValue:(int16_t)value_ {
-	[self setHostScore:[NSNumber numberWithShort:value_]];
+- (void)setHostScoreValue:(int32_t)value_ {
+	[self setHostScore:[NSNumber numberWithInt:value_]];
 }
 
-- (int16_t)primitiveHostScoreValue {
+- (int32_t)primitiveHostScoreValue {
 	NSNumber *result = [self primitiveHostScore];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveHostScoreValue:(int16_t)value_ {
-	[self setPrimitiveHostScore:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveHostScoreValue:(int32_t)value_ {
+	[self setPrimitiveHostScore:[NSNumber numberWithInt:value_]];
 }
 
 
@@ -332,22 +332,22 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 
 
-- (int16_t)roundValue {
+- (int32_t)roundValue {
 	NSNumber *result = [self round];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setRoundValue:(int16_t)value_ {
-	[self setRound:[NSNumber numberWithShort:value_]];
+- (void)setRoundValue:(int32_t)value_ {
+	[self setRound:[NSNumber numberWithInt:value_]];
 }
 
-- (int16_t)primitiveRoundValue {
+- (int32_t)primitiveRoundValue {
 	NSNumber *result = [self primitiveRound];
-	return [result shortValue];
+	return [result intValue];
 }
 
-- (void)setPrimitiveRoundValue:(int16_t)value_ {
-	[self setPrimitiveRound:[NSNumber numberWithShort:value_]];
+- (void)setPrimitiveRoundValue:(int32_t)value_ {
+	[self setPrimitiveRound:[NSNumber numberWithInt:value_]];
 }
 
 

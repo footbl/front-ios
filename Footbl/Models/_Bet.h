@@ -100,9 +100,9 @@ extern const struct BetFetchedProperties {
 
 
 
-@property int64_t toReturnValue;
-- (int64_t)toReturnValue;
-- (void)setToReturnValue:(int64_t)value_;
+@property float toReturnValue;
+- (float)toReturnValue;
+- (void)setToReturnValue:(float)value_;
 
 //- (BOOL)validateToReturn:(id*)value_ error:(NSError**)error_;
 
@@ -184,8 +184,8 @@ extern const struct BetFetchedProperties {
 - (NSNumber*)primitiveToReturn;
 - (void)setPrimitiveToReturn:(NSNumber*)value;
 
-- (int64_t)primitiveToReturnValue;
-- (void)setPrimitiveToReturnValue:(int64_t)value_;
+- (float)primitiveToReturnValue;
+- (void)setPrimitiveToReturnValue:(float)value_;
 
 
 

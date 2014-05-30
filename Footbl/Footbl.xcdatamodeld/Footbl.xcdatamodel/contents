@@ -5,7 +5,7 @@
         <attribute name="finished" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="result" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="reward" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="toReturn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="toReturn" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="bets" inverseEntity="Match" syncable="YES"/>
         <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="bets" inverseEntity="Wallet" syncable="YES"/>
@@ -46,16 +46,16 @@
     </entity>
     <entity name="Match" representedClassName="Match" parentEntity="FootblModel" syncable="YES">
         <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
-        <attribute name="elapsed" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="elapsed" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="finished" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
-        <attribute name="guestScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="hostScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="guestScore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="hostScore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="jackpot" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="localUpdatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="potDraw" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="potGuest" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="potHost" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="round" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="round" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="match" inverseEntity="Bet" syncable="YES"/>
         <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
