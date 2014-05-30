@@ -310,6 +310,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 - (void)createAccountWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     if (self.authenticationType == FootblAuthenticationTypeAnonymous) {
         if (success) success();
+        return;
     }
     
     NSMutableDictionary *parameters = [self generateDefaultParameters];
