@@ -24,17 +24,15 @@
     [super updateWithData:data];
     
     self.ranking = nil;
+    self.funds = nil;
     if ([data[@"rounds"] count] > 0) {
         NSDictionary *lastRound = [data[@"rounds"] lastObject];
         if ([lastRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
             self.ranking = lastRound[@"ranking"];
         }
-    }
-    
-    if (data[@"funds"] && [data[@"funds"] isKindOfClass:[NSNull class]]) {
-        self.funds = nil;
-    } else {
-        self.funds = data[@"funds"];
+        if ([lastRound[@"funds"] isKindOfClass:[NSNumber class]]) {
+            self.funds = lastRound[@"funds"];
+        }
     }
     
     self.hasRanking = @(self.ranking != nil);
