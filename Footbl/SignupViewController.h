@@ -23,5 +23,6 @@
 @property (copy, nonatomic) NSString *fbToken;
 @property (copy, nonatomic) NSString *aboutMe;
 @property (strong, nonatomic) UIImage *profileImage;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @end

@@ -18,4 +18,6 @@
 @property (strong, nonatomic) UIImageView *passwordIconImageView;
 @property (strong, nonatomic) UILabel *informationLabel;
 
++ (void)setEmail:(NSString *)email;
+
 @end

@@ -6,13 +6,16 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "AuthenticationViewController.h"
 #import "FootblAPI.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
+#import "LoginViewController.h"
 #import "NSString+Validations.h"
 #import "SignupViewController.h"
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
+#import "User.h"
 
 @interface SignupViewController () <UIAlertViewDelegate>
 
@@ -158,14 +161,29 @@
         }
     } else if (!self.username) {
         if (self.textField.text.isValidUsername) {
-            self.username = self.textField.text;
-            if (!self.aboutMe) {
-                switchInputBlock(YES);
-            } else if (!self.profileImage) {
-                switchInputBlock(NO);
-            } else {
-                [self signupAction:sender];
-            }
+            self.view.userInteractionEnabled = NO;
+            [self.activityIndicatorView startAnimating];
+            [User searchUsingEmails:nil usernames:@[self.textField.text] ids:nil fbIds:nil success:^(NSArray *response) {
+                self.view.userInteractionEnabled = YES;
+                [self.activityIndicatorView stopAnimating];
+                if (response.count > 0) {
+                    invalidInputBlock();
+                    self.hintLabel.text = NSLocalizedString(@"Username already taken, please choose another", @"");
+                    [self.textField becomeFirstResponder];
+                } else {
+                    self.username = self.textField.text;
+                    if (!self.aboutMe) {
+                        switchInputBlock(YES);
+                    } else if (!self.profileImage) {
+                        switchInputBlock(NO);
+                    } else {
+                        [self signupAction:sender];
+                    }
+                }
+            } failure:^(NSError *error) {
+                self.view.userInteractionEnabled = YES;
+                [self.activityIndicatorView stopAnimating];
+            }];
         } else {
             invalidInputBlock();
         }
@@ -359,11 +377,44 @@
 #pragma mark - UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    BOOL confirmed = (buttonIndex == 1);
-    self.emailConfirmed = confirmed;
-    
-    if (confirmed) {
-        [self continueAction:alertView];
+    if (self.isEmailConfirmed) {
+        if (buttonIndex == 1) {
+            [LoginViewController setEmail:self.textField.text];
+            AuthenticationViewController *authenticationViewController = [self.navigationController viewControllers].firstObject;
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [authenticationViewController performSelector:@selector(loginAction:) withObject:nil afterDelay:1.2];
+        } else {
+            self.emailConfirmed = NO;
+            self.textField.text = @"";
+            [self reloadTextField];
+            [self.textField becomeFirstResponder];
+        }
+    } else {
+        BOOL confirmed = (buttonIndex == 1);
+        self.emailConfirmed = confirmed;
+        
+        if (confirmed) {
+            self.view.userInteractionEnabled = NO;
+            [self.textField resignFirstResponder];
+            
+            [self.activityIndicatorView startAnimating];
+            
+            [User searchUsingEmails:@[self.textField.text] usernames:nil ids:nil fbIds:nil success:^(NSArray *response) {
+                self.view.userInteractionEnabled = YES;
+                [self.activityIndicatorView stopAnimating];
+                if (response.count > 0) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Email already exists.\nDo you want to log in instead?", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"No", @"") otherButtonTitles:NSLocalizedString(@"Yes", @""), nil];
+                    [alert show];
+                } else {
+                    [self continueAction:alertView];
+                }
+            } failure:^(NSError *error) {
+                self.view.userInteractionEnabled = YES;
+                [self.activityIndicatorView stopAnimating];
+                [[ErrorHandler sharedInstance] displayError:error];
+            }];
+        }
+
     }
 }
 
@@ -496,6 +547,18 @@
     [self.profileImageButton setImage:[UIImage imageNamed:@"signup_icon_photo"] forState:UIControlStateNormal];
     [self.profileImageButton addTarget:self action:@selector(importFromCameraAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.profileImageButton];
+    
+    if (self.view.frameHeight > 500) {
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.textFieldBackground.frame), CGRectGetMidY(self.textFieldBackground.frame) + self.activityIndicatorView.frameHeight + 30);
+        self.activityIndicatorView.hidesWhenStopped = YES;
+        [self.view addSubview:self.activityIndicatorView];
+    } else {
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.activityIndicatorView.center = CGPointMake(self.textFieldBackground.frameWidth - 40, CGRectGetMidY(self.textFieldBackground.frame));
+        self.activityIndicatorView.hidesWhenStopped = YES;
+        [self.view addSubview:self.activityIndicatorView];
+    }
     
     [self reloadTextField];
 }

@@ -462,6 +462,13 @@
 /* Everyone */
 "Everyone" = "Everyone";
 
-/* No comment provided by engineer. */
+/* Legal */
 "Legal" = "Legal";
+
+/* Email already exists.
+Do you want to log in instead? */
+"Email already exists.\nDo you want to log in instead?" = "Email already exists.\nDo you want to log in instead?";
+
+/* Username already taken, please choose another */
+"Username already taken, please choose another" = "Sorry, username already taken!";
 

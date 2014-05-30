@@ -14,4 +14,6 @@
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
+- (IBAction)loginAction:(UIButton *)sender;
+
 @end

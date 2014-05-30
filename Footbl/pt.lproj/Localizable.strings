@@ -456,3 +456,13 @@
 /* Everyone */
 "Everyone" = "Todo mundo";
 
+/* Legal */
+"Legal" = "Legal";
+
+/* Email already exists.
+Do you want to log in instead? */
+"Email already exists.\nDo you want to log in instead?" = "Esse email já existe.\nDeseja fazer login com esse usuário?";
+
+/* Username already taken, please choose another */
+"Username already taken, please choose another" = "Esse usuário já existe!";
+

@@ -17,6 +17,8 @@
 
 @end
 
+static NSString * kCachedEmailKey = @"kCachedEmailKey";
+
 #pragma mark LoginViewController
 
 @implementation LoginViewController
@@ -24,6 +26,11 @@
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
+
++ (void)setEmail:(NSString *)email {
+    [[NSUserDefaults standardUserDefaults] setObject:email forKey:kCachedEmailKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 #pragma mark - Instance Methods
 
@@ -175,7 +182,11 @@
     self.emailTextField.returnKeyType = UIReturnKeyNext;
     self.emailTextField.enablesReturnKeyAutomatically = YES;
     self.emailTextField.placeholder = NSLocalizedString(@"Email placeholder", @"");
+    self.emailTextField.text = [[NSUserDefaults standardUserDefaults] objectForKey:kCachedEmailKey];
     [self.view addSubview:self.emailTextField];
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCachedEmailKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.emailIconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"signup_user_icon_off"]];
     self.emailIconImageView.center = CGPointMake(CGRectGetMinX(self.emailTextField.frame) - 30, CGRectGetMidY(self.emailTextField.frame));
