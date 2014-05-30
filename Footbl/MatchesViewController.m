@@ -114,18 +114,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.hostScoreLabel.text = match.hostScore.stringValue;
     cell.guestScoreLabel.text = match.guestScore.stringValue;
     
-    CGFloat potTotal = MAX(1, match.jackpotValue);
-    NSNumber *potHost = @(potTotal / match.potHostValue);
-    NSNumber *potDraw = @(potTotal / match.potDrawValue);
-    NSNumber *potGuest = @(potTotal / match.potGuestValue);
-    
-    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-    numberFormatter.maximumFractionDigits = 2;
-    numberFormatter.minimumFractionDigits = 0;
-    
-    cell.hostPotLabel.text = [numberFormatter stringFromNumber:potHost];
-    cell.drawPotLabel.text = [numberFormatter stringFromNumber:potDraw];
-    cell.guestPotLabel.text = [numberFormatter stringFromNumber:potGuest];
+    cell.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
+    cell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
+    cell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
     
     // Auto-decrease font size to fit bounds
     cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
@@ -138,18 +129,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.guestNameLabel.font = [UIFont fontWithName:cell.guestNameLabel.font.fontName size:maxFontSize];
     cell.drawLabel.font = [UIFont fontWithName:cell.drawLabel.font.fontName size:maxFontSize];
     
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterShortStyle;
-    formatter.AMSymbol = @"am";
-    formatter.PMSymbol = @"pm";
-    formatter.dateFormat = [@"EEEE, " stringByAppendingString:formatter.dateFormat];
-    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
-    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
-    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
-    [cell setDateText:[formatter stringFromDate:match.date]];
+    [cell setDateText:match.dateString];
     
-    __block Bet *bet = [match myBet];
+    __block Bet *bet = match.myBet;
     MatchResult result = (MatchResult)bet.resultValue;
     if (match.tempBetValue) {
         result = match.tempBetResult;
@@ -170,48 +152,19 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             break;
     }
     
-    if (match.tempBetValue) {
-        if (match.tempBetValue.integerValue == 0) {
-            cell.stakeValueLabel.text = @"-";
-            cell.returnValueLabel.text = @"-";
-        } else {
-            cell.stakeValueLabel.text = match.tempBetValue.stringValue;
-            if (match.tempBetResult == MatchResultHost) {
-                cell.returnValueLabel.text = @((int)(potHost.floatValue * match.tempBetValue.floatValue)).stringValue;
-            } else if (match.tempBetResult == MatchResultGuest) {
-                cell.returnValueLabel.text = @((int)(potGuest.floatValue * match.tempBetValue.floatValue)).stringValue;
-            } else {
-                cell.returnValueLabel.text = @((int)(potDraw.floatValue * match.tempBetValue.floatValue)).stringValue;
-            }
-        }
-        cell.profitValueLabel.text = @"-";
-    } else if (bet) {
-        cell.stakeValueLabel.text = bet.value.stringValue;
-        cell.returnValueLabel.text = bet.toReturn.stringValue;
-        if (match.finishedValue) {
-            cell.profitValueLabel.text = bet.reward.stringValue;
-        } else {
-            cell.profitValueLabel.text = @"-";
-        }
-    } else {
-        cell.stakeValueLabel.text = @"-";
-        cell.returnValueLabel.text = @"-";
-        cell.profitValueLabel.text = @"-";
-    }
+    cell.stakeValueLabel.text = match.myBetValueString;
+    cell.returnValueLabel.text = match.myBetReturnString;
+    cell.profitValueLabel.text = match.myBetProfitString;
     
     cell.selectionBlock = ^(NSInteger index){
-        if (match.isBetSyncing || match.finishedValue || match.elapsed) {
+        if (match.isBetSyncing || match.status != MatchStatusWaiting) {
             return;
         }
         
-        bet = [match myBet];
+        bet = match.myBet;
         
-        NSInteger currentBet = bet.valueValue;
-        MatchResult result = (MatchResult)bet.result.integerValue;
-        if (match.tempBetValue) {
-            currentBet = match.tempBetValue.integerValue;
-            result = match.tempBetResult;
-        }
+        NSInteger currentBet = match.myBetValue.integerValue;
+        MatchResult result = match.myBetResult;
         
         switch (index) {
             case 0: // Host
@@ -266,12 +219,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             [self reloadWallet];
         };
         
+        void(^successBlock)() = ^() {
+            [self reloadWallet];
+        };
+        
         if (result == 0) {
-            [bet.editableObject deleteWithSuccess:nil failure:failure];
+            [bet.editableObject deleteWithSuccess:successBlock failure:failure];
         } else if (bet) {
-            [bet.editableObject updateWithBid:@(currentBet) result:result success:nil failure:failure];
+            [bet.editableObject updateWithBid:@(currentBet) result:result success:successBlock failure:failure];
         } else {
-            [Bet createWithMatch:match.editableObject bid:@(currentBet) result:result success:nil failure:failure];
+            [Bet createWithMatch:match.editableObject bid:@(currentBet) result:result success:successBlock failure:failure];
         }
         
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
@@ -281,8 +238,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         [self reloadWallet];
     };
     
-    if (match.jackpot.integerValue > 0) {
-        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
+    if (match.localJackpot.integerValue > 0) {
+        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
         cell.footerLabel.hidden = NO;
     } else {
         [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:@"0"]];
@@ -295,15 +252,19 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
     [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
     
-    if (match.elapsed) {
-        cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
-        cell.stateLayout = MatchTableViewCellStateLayoutLive;
-    } else if (match.finishedValue) {
-        cell.liveLabel.text = NSLocalizedString(@"Final", @"");
-        cell.stateLayout = MatchTableViewCellStateLayoutDone;
-    } else {
-        cell.liveLabel.text = @"";
-        cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+    switch (match.status) {
+        case MatchStatusWaiting:
+            cell.liveLabel.text = @"";
+            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            break;
+        case MatchStatusLive:
+            cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
+            cell.stateLayout = MatchTableViewCellStateLayoutLive;
+            break;
+        case MatchStatusFinished:
+            cell.liveLabel.text = NSLocalizedString(@"Final", @"");
+            cell.stateLayout = MatchTableViewCellStateLayoutDone;
+            break;
     }
     
     cell.shareBlock = ^(MatchTableViewCell *matchCell) {
@@ -335,9 +296,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             }
         }];
         self.navigationBarTitleView.walletValueLabel.text = self.championship.myWallet.localFunds.shortStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = self.championship.myWallet.localStake.stringValue;
-        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturn.stringValue;
-        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profit.stringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = self.championship.myWallet.localStake.shortStringValue;
+        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturn.shortStringValue;
+        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profit.shortStringValue;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
@@ -393,8 +354,11 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             }
             if (self.championship) {
                 [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
+                    [self reloadWallet];
                     [Match updateFromChampionship:self.championship.editableObject success:^{
                         [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
+                            [self reloadWallet];
+                            [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
                             [self.refreshControl endRefreshing];
                             if (matches == 0) {
                                 [[LoadingHelper sharedInstance] hideHud];
@@ -512,7 +476,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     tableViewController.refreshControl = self.refreshControl;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadWallet];
+//        [self reloadWallet];
         if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted) && [FootblAPI sharedAPI].isAuthenticated) {
             [self.refreshControl beginRefreshing];
             [self reloadData];

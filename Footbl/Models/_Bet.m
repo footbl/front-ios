@@ -7,8 +7,6 @@ const struct BetAttributes BetAttributes = {
 	.date = @"date",
 	.finished = @"finished",
 	.result = @"result",
-	.reward = @"reward",
-	.toReturn = @"toReturn",
 	.value = @"value",
 };
 
@@ -53,16 +51,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	}
 	if ([key isEqualToString:@"resultValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"result"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"rewardValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"reward"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"toReturnValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"toReturn"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -131,58 +119,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 - (void)setPrimitiveResultValue:(int64_t)value_ {
 	[self setPrimitiveResult:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
-@dynamic reward;
-
-
-
-- (float)rewardValue {
-	NSNumber *result = [self reward];
-	return [result floatValue];
-}
-
-- (void)setRewardValue:(float)value_ {
-	[self setReward:[NSNumber numberWithFloat:value_]];
-}
-
-- (float)primitiveRewardValue {
-	NSNumber *result = [self primitiveReward];
-	return [result floatValue];
-}
-
-- (void)setPrimitiveRewardValue:(float)value_ {
-	[self setPrimitiveReward:[NSNumber numberWithFloat:value_]];
-}
-
-
-
-
-
-@dynamic toReturn;
-
-
-
-- (float)toReturnValue {
-	NSNumber *result = [self toReturn];
-	return [result floatValue];
-}
-
-- (void)setToReturnValue:(float)value_ {
-	[self setToReturn:[NSNumber numberWithFloat:value_]];
-}
-
-- (float)primitiveToReturnValue {
-	NSNumber *result = [self primitiveToReturn];
-	return [result floatValue];
-}
-
-- (void)setPrimitiveToReturnValue:(float)value_ {
-	[self setPrimitiveToReturn:[NSNumber numberWithFloat:value_]];
 }
 
 

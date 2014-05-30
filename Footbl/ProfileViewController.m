@@ -225,7 +225,8 @@
             break;
         }
         case 2: {
-            Match *match = [self.bets[indexPath.row] match];
+            Bet *bet = self.bets[indexPath.row];
+            Match *match = bet.match;
             MatchTableViewCell *matchCell = (MatchTableViewCell *)cell;
             matchCell.hostNameLabel.text = match.host.displayName;
             matchCell.hostPotLabel.text = @"0";
@@ -239,21 +240,9 @@
             matchCell.hostScoreLabel.text = match.hostScore.stringValue;
             matchCell.guestScoreLabel.text = match.guestScore.stringValue;
             
-            CGFloat potTotal = match.potHostValue + match.potGuestValue + match.potDrawValue;
-            
-            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-            numberFormatter.maximumFractionDigits = 2;
-            numberFormatter.minimumFractionDigits = 0;
-            
-            if (match.potHostValue > 0) {
-                matchCell.hostPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potHostValue)];
-            }
-            if (match.potDrawValue > 0) {
-                matchCell.drawPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potDrawValue)];
-            }
-            if (match.potGuestValue > 0) {
-                matchCell.guestPotLabel.text = [numberFormatter stringFromNumber:@(potTotal / match.potGuestValue)];
-            }
+            matchCell.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
+            matchCell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
+            matchCell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
             
             // Auto-decrease font size to fit bounds
             matchCell.hostNameLabel.font = [UIFont fontWithName:matchCell.hostNameLabel.font.fontName size:matchCell.defaultTeamNameFontSize];
@@ -297,12 +286,18 @@
                     break;
             }
             
-            matchCell.stakeValueLabel.text = [match betForUser:self.user].value.stringValue;
-            matchCell.returnValueLabel.text = @"-";
-            matchCell.profitValueLabel.text = @"-";
+            if (self.user.isMe) {
+                matchCell.stakeValueLabel.text = match.myBetValueString;
+                matchCell.returnValueLabel.text = match.myBetReturnString;
+                matchCell.profitValueLabel.text = match.myBetProfitString;
+            } else {
+                matchCell.stakeValueLabel.text = bet.valueString;
+                matchCell.returnValueLabel.text = bet.toReturnString;
+                matchCell.profitValueLabel.text = bet.rewardString;
+            }
             
-            if (match.jackpot.integerValue > 0) {
-                [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
+            if (match.localJackpot.integerValue > 0) {
+                [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
             } else {
                 [matchCell setFooterText:@""];
             }
@@ -313,15 +308,19 @@
             [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
             [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
             
-            if (match.elapsed) {
-                matchCell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
-                matchCell.stateLayout = MatchTableViewCellStateLayoutLive;
-            } else if (match.finishedValue) {
-                matchCell.liveLabel.text = NSLocalizedString(@"Final", @"");
-                matchCell.stateLayout = MatchTableViewCellStateLayoutDone;
-            } else {
-                matchCell.liveLabel.text = @"";
-                matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            switch (match.status) {
+                case MatchStatusWaiting:
+                    matchCell.liveLabel.text = @"";
+                    matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
+                    break;
+                case MatchStatusLive:
+                    matchCell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
+                    matchCell.stateLayout = MatchTableViewCellStateLayoutLive;
+                    break;
+                case MatchStatusFinished:
+                    matchCell.liveLabel.text = NSLocalizedString(@"Final", @"");
+                    matchCell.stateLayout = MatchTableViewCellStateLayoutDone;
+                    break;
             }
             
             matchCell.shareButton.hidden = !self.user.isMe;

@@ -7,7 +7,9 @@
 //
 
 #import <TransformerKit/TransformerKit.h>
+#import "Bet.h"
 #import "Championship.h"
+#import "NSNumber+Formatter.h"
 #import "Match.h"
 #import "Team.h"
 #import "User.h"
@@ -155,18 +157,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.round = data[@"round"];
     self.jackpot = data[@"jackpot"];
     
-    if (self.potHostValue == 0) {
-        self.potHost = @1;
-    }
-    
-    if (self.potGuestValue == 0) {
-        self.potGuest = @1;
-    }
-    
-    if (self.potDrawValue == 0) {
-        self.potDraw = @1;
-    }
-    
     if ([data[@"elapsed"] isKindOfClass:[NSNumber class]]) {
         self.elapsed = data[@"elapsed"];
     } else {
@@ -175,6 +165,138 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
+}
+
+- (NSString *)dateString {
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    formatter.AMSymbol = @"am";
+    formatter.PMSymbol = @"pm";
+    formatter.dateFormat = [@"EEEE, " stringByAppendingString:formatter.dateFormat];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
+    formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
+    return [formatter stringFromDate:self.date];
+}
+
+- (MatchResult)myBetResult {
+    return self.tempBetValue ? self.tempBetResult : (MatchResult)self.myBet.resultValue;
+}
+
+- (MatchResult)result {
+    if (self.hostScoreValue == self.guestScoreValue) {
+        return MatchResultDraw;
+    } else if (self.hostScoreValue > self.guestScoreValue) {
+        return MatchResultHost;
+    } else {
+        return MatchResultGuest;
+    }
+}
+
+- (MatchStatus)status {
+    if (self.elapsed) {
+        return MatchStatusLive;
+    } else if (self.finishedValue) {
+        return MatchStatusFinished;
+    } else {
+        return MatchStatusWaiting;
+    }
+}
+
+- (NSString *)myBetValueString {
+    return self.myBetValue.floatValue == 0 ? @"-" : self.myBetValue.shortStringValue;
+}
+
+- (NSNumber *)localJackpot {
+    float jackpot = self.jackpotValue;
+    if (self.myBetValue) {
+        jackpot -= self.myBet.valueValue;
+        jackpot += self.myBetValue.floatValue;
+    }
+    return @(jackpot);
+}
+
+#pragma mark Wallet
+
+- (NSNumber *)myBetValue {
+    if (self.tempBetValue) {
+        return self.tempBetValue;
+    } else {
+        return self.myBet.value;
+    }
+}
+
+- (NSNumber *)myBetReturn {
+    switch (self.myBetResult) {
+        case MatchResultHost:
+            return @(self.myBetValue.floatValue * self.earningsPerBetForHost.floatValue);
+        case MatchResultDraw:
+            return @(self.myBetValue.floatValue * self.earningsPerBetForDraw.floatValue);
+        case MatchResultGuest:
+            return @(self.myBetValue.floatValue * self.earningsPerBetForGuest.floatValue);
+        default:
+            return @0;
+    }
+}
+
+- (NSString *)myBetReturnString {
+    return self.myBetValue.floatValue == 0 ? @"-" : self.myBetReturn.shortStringValue;
+}
+
+- (NSNumber *)myBetProfit {
+    if (!self.myBetValue || self.status == MatchStatusWaiting) {
+        return @0;
+    }
+    
+    if (self.result == self.myBetResult) {
+        return @(self.myBetReturn.floatValue - self.myBetValue.floatValue);
+    } else {
+        return @(-self.myBetValue.floatValue);
+    }
+}
+
+- (NSString *)myBetProfitString {
+    if (!self.myBetValue || self.status == MatchStatusWaiting) {
+        return @"-";
+    }
+    
+    return self.myBetProfit.shortStringValue;
+}
+
+#pragma mark Earnings per bet
+
+- (NSNumber *)earningsPerBetForHost {
+    float sumOfBets = self.potHostValue;
+    if (self.myBet.resultValue == MatchResultHost) {
+        sumOfBets -= self.myBet.valueValue;
+    }
+    if (self.myBetResult == MatchResultHost) {
+        sumOfBets += self.myBetValue.floatValue;
+    }
+    return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
+}
+
+- (NSNumber *)earningsPerBetForDraw {
+    float sumOfBets = self.potDrawValue;
+    if (self.myBet.resultValue == MatchResultDraw) {
+        sumOfBets -= self.myBet.valueValue;
+    }
+    if (self.myBetResult == MatchResultDraw) {
+        sumOfBets += self.myBetValue.floatValue;
+    }
+    return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
+}
+
+- (NSNumber *)earningsPerBetForGuest {
+    float sumOfBets = self.potGuestValue;
+    if (self.myBet.resultValue == MatchResultGuest) {
+        sumOfBets -= self.myBet.valueValue;
+    }
+    if (self.myBetResult == MatchResultGuest) {
+        sumOfBets += self.myBetValue.floatValue;
+    }
+    return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
 
 @end

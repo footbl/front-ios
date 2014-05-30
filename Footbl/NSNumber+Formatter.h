@@ -12,5 +12,6 @@
 
 - (NSString *)shortStringValue;
 - (NSString *)rankingStringValue;
+- (NSString *)potStringValue;
 
 @end

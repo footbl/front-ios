@@ -17,10 +17,10 @@
 - (NSString *)shortStringValue {
     CGFloat number = self.floatValue;
     NSString *unit = @"";
-    if (self.integerValue >= 1000000) {
+    if (fabs(self.integerValue) >= 1000000) {
         number = (float)self.integerValue / 1000000.f;
         unit = NSLocalizedString(@"M", @"Unit for 1000000 (mega)");
-    } else if (self.integerValue >= 1000) {
+    } else if (fabs(self.integerValue) >= 1000) {
         number = (float)self.integerValue / 1000.f;
         unit = NSLocalizedString(@"k", @"Unit for 1000 (kilo)");
     }
@@ -45,6 +45,14 @@
     formatter.usesGroupingSeparator = YES;
     formatter.numberStyle = NSNumberFormatterCurrencyStyle;
     formatter.currencySymbol = @"#";
+    return [formatter stringFromNumber:self];
+}
+
+- (NSString *)potStringValue {
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
+    formatter.maximumFractionDigits = 2;
+    formatter.minimumFractionDigits = 0;
     return [formatter stringFromNumber:self];
 }
 

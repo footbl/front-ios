@@ -14,6 +14,12 @@ typedef NS_ENUM(NSInteger, MatchResult) {
     MatchResultGuest = 3
 };
 
+typedef NS_ENUM(NSInteger, MatchStatus) {
+    MatchStatusWaiting = 0,
+    MatchStatusLive = 1,
+    MatchStatusFinished = 2
+};
+
 extern NSString * MatchResultToString(MatchResult result);
 extern MatchResult MatchResultFromString(NSString *result);
 
@@ -32,5 +38,28 @@ extern MatchResult MatchResultFromString(NSString *result);
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value;
 - (Bet *)myBet;
 - (Bet *)betForUser:(User *)user;
+
+- (MatchResult)result;
+- (MatchStatus)status;
+
+- (MatchResult)myBetResult;
+- (NSNumber *)localJackpot;
+
+- (NSString *)dateString;
+
+// Earnings
+- (NSNumber *)earningsPerBetForHost;
+- (NSNumber *)earningsPerBetForDraw;
+- (NSNumber *)earningsPerBetForGuest;
+
+// Wallet
+- (NSNumber *)myBetValue;
+- (NSString *)myBetValueString;
+
+- (NSNumber *)myBetReturn;
+- (NSString *)myBetReturnString;
+
+- (NSNumber *)myBetProfit;
+- (NSString *)myBetProfitString;
 
 @end

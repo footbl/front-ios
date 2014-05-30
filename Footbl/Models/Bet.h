@@ -10,6 +10,7 @@
 #import "Match.h"
 
 @class Match;
+@class User;
 @class Wallet;
 
 @interface Bet : _Bet
@@ -18,5 +19,13 @@
 + (void)updateWithWallet:(Wallet *)wallet success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+
+- (User *)user;
+- (BOOL)isMine;
+- (NSString *)valueString;
+- (NSNumber *)toReturn;
+- (NSString *)toReturnString;
+- (NSNumber *)reward;
+- (NSString *)rewardString;
 
 @end

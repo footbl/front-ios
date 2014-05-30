@@ -99,24 +99,72 @@
     return [NSString stringWithFormat:@"users/%@/wallets", self.user.rid];
 }
 
+- (NSSet *)activeBets {
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
+}
+
 - (NSNumber *)localFunds {
     NSInteger funds = self.funds.integerValue;
-    for (Match *match in self.pendingMatchesToSyncBet) {
-        funds += match.myBet.valueValue;
-        funds -= match.tempBetValue.integerValue;
+    if (self.user.isMe) {
+        for (Bet *bet in self.activeBets) {
+            funds += bet.valueValue;
+            funds -= bet.match.myBetValue.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                funds -= match.myBetValue.floatValue;
+            }
+        }
     }
     
     return @(funds);
 }
 
 - (NSNumber *)localStake {
-    NSInteger stake = self.stake.integerValue;
-    for (Match *match in self.pendingMatchesToSyncBet) {
-        stake -= match.myBet.valueValue;
-        stake += match.tempBetValue.integerValue;
+    NSInteger stake = 0;
+    if (self.user.isMe) {
+        for (Bet *bet in self.activeBets) {
+            stake += bet.match.myBetValue.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                stake += match.myBetValue.floatValue;
+            }
+        }
+    } else {
+        for (Bet *bet in self.activeBets) {
+            stake += bet.valueValue;
+        }
     }
     
     return @(stake);
+}
+
+- (NSNumber *)toReturn {
+    float toReturn = 0;
+    if (self.user.isMe) {
+        for (Bet *bet in self.activeBets) {
+            toReturn += bet.match.myBetReturn.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                toReturn += match.myBetReturn.floatValue;
+            }
+        }
+    } else {
+        for (Bet *bet in self.activeBets) {
+            toReturn += bet.toReturn.floatValue;
+        }
+    }
+    return @(toReturn);
+}
+
+- (NSNumber *)profit {
+    float profit = 0;
+    for (Bet *bet in self.activeBets) {
+        profit += bet.reward.floatValue;
+    }
+    return @(profit);
 }
 
 - (void)updateWithData:(NSDictionary *)data {
@@ -130,8 +178,6 @@
     self.active = data[@"active"];
     self.funds = data[@"funds"];
     self.stake = data[@"stake"];
-    self.toReturn = data[@"toReturn"];
-    self.profit = @(MAX(0, self.toReturn.integerValue - self.stake.integerValue));
     
     NSArray *rounds = data[@"rounds"];
     NSMutableArray *lastRounds = [NSMutableArray new];

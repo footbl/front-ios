@@ -8,8 +8,6 @@ extern const struct BetAttributes {
 	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *result;
-	__unsafe_unretained NSString *reward;
-	__unsafe_unretained NSString *toReturn;
 	__unsafe_unretained NSString *value;
 } BetAttributes;
 
@@ -23,8 +21,6 @@ extern const struct BetFetchedProperties {
 
 @class Match;
 @class Wallet;
-
-
 
 
 
@@ -77,34 +73,6 @@ extern const struct BetFetchedProperties {
 - (void)setResultValue:(int64_t)value_;
 
 //- (BOOL)validateResult:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* reward;
-
-
-
-@property float rewardValue;
-- (float)rewardValue;
-- (void)setRewardValue:(float)value_;
-
-//- (BOOL)validateReward:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* toReturn;
-
-
-
-@property float toReturnValue;
-- (float)toReturnValue;
-- (void)setToReturnValue:(float)value_;
-
-//- (BOOL)validateToReturn:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -168,24 +136,6 @@ extern const struct BetFetchedProperties {
 
 - (int64_t)primitiveResultValue;
 - (void)setPrimitiveResultValue:(int64_t)value_;
-
-
-
-
-- (NSNumber*)primitiveReward;
-- (void)setPrimitiveReward:(NSNumber*)value;
-
-- (float)primitiveRewardValue;
-- (void)setPrimitiveRewardValue:(float)value_;
-
-
-
-
-- (NSNumber*)primitiveToReturn;
-- (void)setPrimitiveToReturn:(NSNumber*)value;
-
-- (float)primitiveToReturnValue;
-- (void)setPrimitiveToReturnValue:(float)value_;
 
 
 

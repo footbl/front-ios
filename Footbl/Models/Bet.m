@@ -10,6 +10,7 @@
 #import <TransformerKit/TransformerKit.h>
 #import "Bet.h"
 #import "Championship.h"
+#import "NSNumber+Formatter.h"
 #import "User.h"
 #import "Wallet.h"
 
@@ -174,16 +175,6 @@ static CGFloat kBetSyncWaitTime = 2;
     }
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
-    if ([data[@"reward"] isKindOfClass:[NSNumber class]]) {
-        self.reward = data[@"reward"];
-    } else {
-        self.reward = @0;
-    }
-    if ([data[@"toReturn"] isKindOfClass:[NSNumber class]]) {
-        self.toReturn = data[@"toReturn"];
-    } else {
-        self.toReturn = @0;
-    }
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
@@ -222,6 +213,55 @@ static CGFloat kBetSyncWaitTime = 2;
         } failure:customFailureBlock];
     });
     self.match.editableObject.betBlockKey = key;
+}
+
+- (User *)user {
+    return self.wallet.user;
+}
+
+- (BOOL)isMine {
+    return self.user.isMe;
+}
+
+- (NSString *)valueString {
+    return self.valueValue == 0 ? @"-" : self.value.shortStringValue;
+}
+
+- (NSNumber *)toReturn {
+    switch (self.resultValue) {
+        case MatchResultHost:
+            return @(self.valueValue * self.match.earningsPerBetForHost.floatValue);
+        case MatchResultDraw:
+            return @(self.valueValue * self.match.earningsPerBetForDraw.floatValue);
+        case MatchResultGuest:
+            return @(self.valueValue * self.match.earningsPerBetForGuest.floatValue);
+        default:
+            return @0;
+    }
+}
+
+- (NSString *)toReturnString {
+    return self.valueValue == 0 ? @"-" : self.toReturn.shortStringValue;
+}
+
+- (NSNumber *)reward {
+    if (self.valueValue == 0 || self.match.status == MatchStatusWaiting) {
+        return @0;
+    }
+    
+    if (self.resultValue == self.match.result) {
+        return @(self.toReturn.floatValue - self.valueValue);
+    } else {
+        return @(-self.valueValue);
+    }
+}
+
+- (NSString *)rewardString {
+    if (self.valueValue == 0 || self.match.status == MatchStatusWaiting) {
+        return @"-";
+    }
+    
+    return self.reward.shortStringValue;
 }
 
 @end

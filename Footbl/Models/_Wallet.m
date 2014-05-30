@@ -8,10 +8,8 @@ const struct WalletAttributes WalletAttributes = {
 	.funds = @"funds",
 	.lastRounds = @"lastRounds",
 	.maxFunds = @"maxFunds",
-	.profit = @"profit",
 	.ranking = @"ranking",
 	.stake = @"stake",
-	.toReturn = @"toReturn",
 };
 
 const struct WalletRelationships WalletRelationships = {
@@ -64,11 +62,6 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"profitValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"profit"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"rankingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"ranking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -76,11 +69,6 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 	}
 	if ([key isEqualToString:@"stakeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"stake"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"toReturnValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"toReturn"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -176,32 +164,6 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 
 
-@dynamic profit;
-
-
-
-- (int64_t)profitValue {
-	NSNumber *result = [self profit];
-	return [result longLongValue];
-}
-
-- (void)setProfitValue:(int64_t)value_ {
-	[self setProfit:[NSNumber numberWithLongLong:value_]];
-}
-
-- (int64_t)primitiveProfitValue {
-	NSNumber *result = [self primitiveProfit];
-	return [result longLongValue];
-}
-
-- (void)setPrimitiveProfitValue:(int64_t)value_ {
-	[self setPrimitiveProfit:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
 @dynamic ranking;
 
 
@@ -248,32 +210,6 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 - (void)setPrimitiveStakeValue:(int64_t)value_ {
 	[self setPrimitiveStake:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
-@dynamic toReturn;
-
-
-
-- (int64_t)toReturnValue {
-	NSNumber *result = [self toReturn];
-	return [result longLongValue];
-}
-
-- (void)setToReturnValue:(int64_t)value_ {
-	[self setToReturn:[NSNumber numberWithLongLong:value_]];
-}
-
-- (int64_t)primitiveToReturnValue {
-	NSNumber *result = [self primitiveToReturn];
-	return [result longLongValue];
-}
-
-- (void)setPrimitiveToReturnValue:(int64_t)value_ {
-	[self setPrimitiveToReturn:[NSNumber numberWithLongLong:value_]];
 }
 
 

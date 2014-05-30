@@ -9,10 +9,8 @@ extern const struct WalletAttributes {
 	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *lastRounds;
 	__unsafe_unretained NSString *maxFunds;
-	__unsafe_unretained NSString *profit;
 	__unsafe_unretained NSString *ranking;
 	__unsafe_unretained NSString *stake;
-	__unsafe_unretained NSString *toReturn;
 } WalletAttributes;
 
 extern const struct WalletRelationships {
@@ -31,8 +29,6 @@ extern const struct WalletFetchedProperties {
 
 
 @class NSObject;
-
-
 
 
 
@@ -102,20 +98,6 @@ extern const struct WalletFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* profit;
-
-
-
-@property int64_t profitValue;
-- (int64_t)profitValue;
-- (void)setProfitValue:(int64_t)value_;
-
-//- (BOOL)validateProfit:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSNumber* ranking;
 
 
@@ -139,20 +121,6 @@ extern const struct WalletFetchedProperties {
 - (void)setStakeValue:(int64_t)value_;
 
 //- (BOOL)validateStake:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* toReturn;
-
-
-
-@property int64_t toReturnValue;
-- (int64_t)toReturnValue;
-- (void)setToReturnValue:(int64_t)value_;
-
-//- (BOOL)validateToReturn:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -227,15 +195,6 @@ extern const struct WalletFetchedProperties {
 
 
 
-- (NSNumber*)primitiveProfit;
-- (void)setPrimitiveProfit:(NSNumber*)value;
-
-- (int64_t)primitiveProfitValue;
-- (void)setPrimitiveProfitValue:(int64_t)value_;
-
-
-
-
 - (NSNumber*)primitiveRanking;
 - (void)setPrimitiveRanking:(NSNumber*)value;
 
@@ -250,15 +209,6 @@ extern const struct WalletFetchedProperties {
 
 - (int64_t)primitiveStakeValue;
 - (void)setPrimitiveStakeValue:(int64_t)value_;
-
-
-
-
-- (NSNumber*)primitiveToReturn;
-- (void)setPrimitiveToReturn:(NSNumber*)value;
-
-- (int64_t)primitiveToReturnValue;
-- (void)setPrimitiveToReturnValue:(int64_t)value_;
 
 
 
