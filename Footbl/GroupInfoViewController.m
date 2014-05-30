@@ -76,15 +76,26 @@
         [self freeToEditSwitchValueChangedAction:self.freeToEditSwich];
     }
     
-    [[UIPasteboard generalPasteboard] setString:self.group.rid];
-    
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    hud.mode = MBProgressHUDModeText;
-    hud.animationType = MBProgressHUDAnimationZoom;
-    hud.labelText = NSLocalizedString(@"Copied!", @"");
-    [self.view addSubview:hud];
-    [hud show:YES];
-    [hud hide:YES afterDelay:1.5];
+    NSString *sharingUrl = [NSString stringWithFormat:@"http://footbl.co/groups/%@", self.group.code];
+    NSString *sharingText = [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! Access %@ or use the code %@", @"@{group_share_url} {group_code}"), sharingUrl, self.group.code];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"whatsapp://send"]]) {
+        CFStringRef encodedString = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)sharingText, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
+        sharingText = CFBridgingRelease(encodedString);
+        
+        NSString *text = [NSString stringWithFormat:@"whatsapp://send?text=%@", sharingText];
+        NSURL *whatsAppURL = [NSURL URLWithString:text];
+        [[UIApplication sharedApplication] openURL:whatsAppURL];
+    } else {
+        [[UIPasteboard generalPasteboard] setString:sharingText];
+        
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        hud.mode = MBProgressHUDModeText;
+        hud.animationType = MBProgressHUDAnimationZoom;
+        hud.labelText = NSLocalizedString(@"Copied!", @"");
+        [self.view addSubview:hud];
+        [hud show:YES];
+        [hud hide:YES afterDelay:1.5];
+    }
 }
 
 - (void)updateGroupName {
@@ -225,11 +236,20 @@
         sharingLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
         [scrollView addSubview:sharingLabel];
         
-        arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-        arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(copyShareCodeButton.frame));
-        [scrollView addSubview:arrowImageView];
-        
         bottomRect = copyShareCodeButton.frame;
+        
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"whatsapp://send"]]) {
+            [copyShareCodeButton setTitle:NSLocalizedString(@"Share on WhatsApp", @"") forState:UIControlStateNormal];
+            sharingLabel.text = NSLocalizedString(@"And bring friends", @"");
+            
+            arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whatsapp_icon_iphone"]];
+            arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(copyShareCodeButton.frame));
+            [scrollView addSubview:arrowImageView];
+        } else {
+            arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+            arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(copyShareCodeButton.frame));
+            [scrollView addSubview:arrowImageView];
+        }
         
         if (self.group.owner.isMe) {
             UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(copyShareCodeView.frame) - 0.5, CGRectGetWidth(self.view.frame), 52));
@@ -270,6 +290,8 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
     }];
+    
+    self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.freeToEditValue;
 }
 
 - (void)viewDidLoad {
