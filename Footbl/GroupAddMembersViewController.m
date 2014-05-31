@@ -212,9 +212,9 @@
     self.view.window.userInteractionEnabled = NO;
     
     FootblAPIFailureBlock failureBlock = ^(NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
         self.view.window.userInteractionEnabled = YES;
-        [[LoadingHelper sharedInstance] hideHud];
     };
     
     void(^successBlock)() = ^() {
@@ -238,15 +238,23 @@
         });
     };
     
+    NSMutableArray *invitedMembers = [NSMutableArray new];
+    [invitedMembers addObjectsFromArray:self.facebookSelectedMembers.allObjects];
+    for (APContact *contact in self.addressBookSelectedMembers) {
+        [invitedMembers addObjectsFromArray:contact.emails];
+    }
+    
     [[LoadingHelper sharedInstance] showHud];
     if (self.group) {
         [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^{
-            [self.group.editableObject updateMembersWithSuccess:successBlock failure:^(NSError *error) {
-                successBlock();
-            }];
+            [self.group.editableObject addInvitedMembers:invitedMembers success:^{
+                [self.group.editableObject updateMembersWithSuccess:successBlock failure:^(NSError *error) {
+                    successBlock();
+                }];
+            } failure:failureBlock];
         } failure:failureBlock];
     } else {
-        [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects success:successBlock failure:failureBlock];
+        [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects invitedMembers:invitedMembers success:successBlock failure:failureBlock];
     }
 }
 

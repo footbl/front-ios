@@ -25,7 +25,7 @@
     return @"groups";
 }
 
-+ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
++ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
         [[self API] ensureAuthenticationWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
@@ -41,7 +41,10 @@
                     [group updateWithData:responseObject];
                     requestSucceedWithBlock(operation, parameters, nil);
                     SaveManagedObjectContext(self.editableManagedObjectContext);
-                    [group addMembers:members success:success failure:failure];
+                    __weak typeof(Group *)weakGroup = group;
+                    [group addMembers:members success:^{
+                        [weakGroup addInvitedMembers:invitedMembers success:success failure:failure];
+                    } failure:failure];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, failure);
@@ -175,6 +178,53 @@
                 [pendingMembers removeObject:user];
                 if (pendingMembers.count == 0) {
                     requestFailedWithBlock(operation, parameters, error, failure);
+                }
+            }];
+        }];
+    } failure:failure];
+}
+
+- (void)addInvitedMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
+    if (members.count == 0) {
+        if (success) success();
+        return;
+    }
+    
+    [[self API] ensureAuthenticationWithSuccess:^{
+        __block NSMutableArray *pendingMembers = [members mutableCopy];
+        __block NSError *operationError = nil;
+        [members enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
+            NSMutableDictionary *parameters = [self generateDefaultParameters];
+            if ([user isKindOfClass:[NSDictionary class]]) {
+                parameters[@"facebookId"] = user[@"id"];
+            } else {
+                parameters[@"email"] = user;
+            }
+            [[self API] POST:[NSString stringWithFormat:@"groups/%@/invites", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [pendingMembers removeObject:user];
+                if (pendingMembers.count == 0) {
+                    if (operationError) {
+                        requestFailedWithBlock(operation, parameters, operationError, failure);
+                    } else {
+                        requestSucceedWithBlock(operation, parameters, success);
+                    }
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (operation.response.statusCode >= 200 && operation.response.statusCode < 300) {
+                    [pendingMembers removeObject:user];
+                    if (pendingMembers.count == 0) {
+                        if (operationError) {
+                            requestFailedWithBlock(operation, parameters, operationError, failure);
+                        } else {
+                            requestSucceedWithBlock(operation, parameters, success);
+                        }
+                    }
+                } else {
+                    operationError = error;
+                    [pendingMembers removeObject:user];
+                    if (pendingMembers.count == 0) {
+                        requestFailedWithBlock(operation, parameters, error, failure);
+                    }
                 }
             }];
         }];
