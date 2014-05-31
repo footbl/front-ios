@@ -252,10 +252,10 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     }
     
     // Just for testing
-    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
+    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
     
     switch (match.status) {
         case MatchStatusWaiting:

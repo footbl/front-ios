@@ -86,6 +86,10 @@
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     
+    /* Import cached images
+    [[SDImageCache sharedImageCache] downloadCachedImages];
+    */
+    
     self.footblTabBarController = [FootblTabBarController new];
     self.window.rootViewController = self.footblTabBarController;
     

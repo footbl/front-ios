@@ -303,10 +303,10 @@
             }
             
             // Just for testing
-            [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-            [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_COR%402x.png"]];
-            [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
-            [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"https://dl.dropboxusercontent.com/u/6954324/Aplicativos/Footbl/Temp/Escudo_SAN%402x.png"]];
+            [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+            [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+            [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
+            [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
             
             switch (match.status) {
                 case MatchStatusWaiting:
