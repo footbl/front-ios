@@ -254,11 +254,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         cell.footerLabel.hidden = YES;
     }
     
-    // Just for testing
-    [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
-    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
-    [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
-    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
+    if (!FT_ENVIRONMENT_IS_PRODUCTION && match.host.picture.length == 0 && match.guest.picture.length == 0) { // Just for testing
+        [cell.hostImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+        [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
+        [cell.guestImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
+        [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
+    }
     
     switch (match.status) {
         case MatchStatusWaiting:
