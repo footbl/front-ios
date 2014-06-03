@@ -436,6 +436,8 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         if (operation.response.statusCode == 403) {
             if (self.isAuthenticated) {
                 error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: authentication error, need to login again", @"")}];
+                [self logout];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
             } else {
                 error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: invalid username or password", @"")}];
             }
