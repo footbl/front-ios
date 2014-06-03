@@ -20,6 +20,7 @@
 #import "Team.h"
 #import "TeamImageView.h"
 #import "UILabel+MaxFontSize.h"
+#import "UIView+Shake.h"
 #import "User.h"
 #import "Wallet.h"
 
@@ -161,8 +162,10 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.returnValueLabel.text = match.myBetReturnString;
     cell.profitValueLabel.text = match.myBetProfitString;
     
+    __weak typeof(MatchTableViewCell *)weakCell = cell;
     cell.selectionBlock = ^(NSInteger index){
         if (match.isBetSyncing || match.status != MatchStatusWaiting) {
+            [weakCell.cardContentView shake];
             return;
         }
         
