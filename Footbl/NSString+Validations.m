@@ -38,7 +38,7 @@
 }
 
 - (BOOL)isValidAboutMe {
-    return self.length <= 70;
+    return self.length <= 66;
 }
 
 @end
