@@ -30,8 +30,22 @@
 
 @implementation FootblAPI
 
-static NSString * const kAPIBaseURLString = @"https://footbl-development.herokuapp.com";
-static NSString * const kAPISignatureKey = @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
+#if FT_ENVIRONMENT_IS_PRODUCTION
+    static NSString * const kAPIBaseURLString = @"https://footbl-production.herokuapp.com";
+    static NSString * const kAPISignatureKey = @"~BYq)Ag-;$+r!hrw+b=Wx>MU#t0)*B,h+!#:+>Er|Gp#N)$=|tyU1%|c@yH]I2RR";
+
+    static NSString * const kCloudinaryCloudName = @"hivstsgwo";
+    static NSString * const kCloudinaryApiKey = @"987722547954377";
+    static NSString * const kCloudinaryApiSecret = @"JDxfvbY3BWwp3Nvnc-zQS6B-jog";
+#else
+    static NSString * const kAPIBaseURLString = @"https://footbl-development.herokuapp.com";
+    static NSString * const kAPISignatureKey = @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
+
+    static NSString * const kCloudinaryCloudName = @"he5zfntay";
+    static NSString * const kCloudinaryApiKey = @"854175976174894";
+    static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
+#endif
+
 static NSString * const kAPIAcceptVersion = @"1.0";
 
 static NSString * const kConfigPageSize = @"kConfigPageSize";
@@ -40,10 +54,6 @@ static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
 static NSString * const kUserNotificationTokenKey = @"kUserNotificationTokenKey";
-
-static NSString * const kCloudinaryCloudName = @"he5zfntay";
-static NSString * const kCloudinaryApiKey = @"854175976174894";
-static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 
 NSString * const FootblAPIErrorDomain = @"FootblAPIErrorDomain";
 NSString * const kAPIIdentifierKey = @"_id";
