@@ -40,6 +40,7 @@
     if (self.isInvitationMode) {
         self.title = NSLocalizedString(@"Join Group", @"");
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextAction:)];
+        self.nameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert invitation code", @"");
         [self.invitationModeButton setTitle:NSLocalizedString(@"Create a new group", @"") forState:UIControlStateNormal];
         
@@ -50,6 +51,7 @@
     } else {
         self.title = NSLocalizedString(@"New Group", @"");
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", @"") style:UIBarButtonItemStylePlain target:self action:@selector(nextAction:)];
+        self.nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert group name", @"");
         [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
         
@@ -58,6 +60,8 @@
             self.groupImageButtonBorder.center = self.groupImageButton.center;
         } completion:nil];
     }
+    
+    [self.nameTextField becomeFirstResponder];
 }
 
 #pragma mark - Instance Methods
@@ -80,10 +84,15 @@
     if (self.isInvitationMode) {
         [self.nameTextField resignFirstResponder];
         [[LoadingHelper sharedInstance] showHud];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[LoadingHelper sharedInstance] hideHud];
+        
+        [Group joinGroupWithCode:self.nameTextField.text success:^{
+           [[LoadingHelper sharedInstance] hideHud];
             [self dismissAction:sender];
-        });
+        } failure:^(NSError *error) {
+            [[LoadingHelper sharedInstance] hideHud];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+        
         return;
     }
     

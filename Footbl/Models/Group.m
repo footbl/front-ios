@@ -121,7 +121,7 @@
                     requestFailedWithBlock(operation, joinGroupParameters, error, failure);
                 }];
             } else {
-                if (success) success();
+                if (failure) failure([NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: group not found", @"")}]);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             requestFailedWithBlock(operation, parameters, error, failure);

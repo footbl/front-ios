@@ -475,3 +475,6 @@ Do you want to log in instead? */
 /* Share on WhatsApp */
 "Share on WhatsApp" = "Compartilhe no WhatsApp";
 
+/* Error: group not found */
+"Error: group not found" = "Não encontramos nenhum grupo com esse código, tem certeza que ele está certo?";
+
