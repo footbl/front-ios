@@ -476,7 +476,7 @@ Do you want to log in instead? */
 "And bring friends" = "And bring friends";
 
 /* @{group_share_url} {group_code} */
-"Join my group on Footbl! Access %@ or use the code %@" = "Join my group on Footbl! Access %1$@ or use the code %2$@.\nfootbl | wanna bet?";
+"Join my group on Footbl! Access %@ or use the code %@" = "Join my group on footbl! Access %1$@ or use the code %2$@.\nfootbl | wanna bet?";
 
 /* Share on WhatsApp */
 "Share on WhatsApp" = "Share on WhatsApp";

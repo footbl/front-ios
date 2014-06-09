@@ -470,7 +470,7 @@ Do you want to log in instead? */
 "And bring friends" = "E traga seus amigos";
 
 /* @{group_share_url} {group_code} */
-"Join my group on Footbl! Access %@ or use the code %@" = "Entre no meu grupo do Footbl! Acesse %1$@ ou use o código %2$@.\nfootbl | wanna bet?";
+"Join my group on Footbl! Access %@ or use the code %@" = "Entre no meu grupo do footbl! Acesse %1$@ ou use o código %2$@.\nfootbl | wanna bet?";
 
 /* Share on WhatsApp */
 "Share on WhatsApp" = "Compartilhe no WhatsApp";
