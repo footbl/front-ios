@@ -98,6 +98,7 @@
         <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lastRounds" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="maxFunds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxFundsDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="wallet" inverseEntity="Bet" syncable="YES"/>
@@ -114,6 +115,6 @@
         <element name="Membership" positionX="-18" positionY="126" width="128" height="120"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="270"/>
-        <element name="Wallet" positionX="-36" positionY="117" width="128" height="178"/>
+        <element name="Wallet" positionX="-36" positionY="117" width="128" height="195"/>
     </elements>
 </model>

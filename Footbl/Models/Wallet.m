@@ -8,6 +8,7 @@
 
 #import <CargoBay/CargoBay.h>
 #import <RMStore/RMStore.h>
+#import <TransformerKit/TransformerKit.h>
 #import "Bet.h"
 #import "Championship.h"
 #import "NSNumber+Formatter.h"
@@ -205,13 +206,23 @@
             [lastRounds addObject:@{@"funds" : currentRound[@"funds"]}];
         }
     }
-    self.maxFunds = [rounds valueForKeyPath:@"@max.funds"];
-    if (!self.maxFunds) {
-        self.maxFunds = self.funds;
-    }
-    
     self.ranking = lastRounds.firstObject[@"ranking"];
     self.lastRounds = lastRounds;
+    
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+    NSDictionary *maxWallet = @{@"funds" : @(MAX(self.fundsValue, 100)), @"date" : [transformer transformedValue:[NSDate date]]};
+    for (NSDictionary *round in rounds) {
+        if ([maxWallet[@"funds"] floatValue] < [round[@"funds"] integerValue]) {
+            maxWallet = round;
+        }
+    }
+    
+    self.maxFunds = maxWallet[@"funds"];
+    if (maxWallet[@"date"]) {
+        self.maxFundsDate = [transformer reverseTransformedValue:maxWallet[@"date"]];
+    } else {
+        self.maxFundsDate = [NSDate date];
+    }
 }
 
 - (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

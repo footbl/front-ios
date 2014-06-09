@@ -9,6 +9,7 @@ extern const struct WalletAttributes {
 	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *lastRounds;
 	__unsafe_unretained NSString *maxFunds;
+	__unsafe_unretained NSString *maxFundsDate;
 	__unsafe_unretained NSString *ranking;
 	__unsafe_unretained NSString *stake;
 } WalletAttributes;
@@ -29,6 +30,7 @@ extern const struct WalletFetchedProperties {
 
 
 @class NSObject;
+
 
 
 
@@ -93,6 +95,16 @@ extern const struct WalletFetchedProperties {
 - (void)setMaxFundsValue:(int64_t)value_;
 
 //- (BOOL)validateMaxFunds:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* maxFundsDate;
+
+
+
+//- (BOOL)validateMaxFundsDate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -191,6 +203,12 @@ extern const struct WalletFetchedProperties {
 
 - (int64_t)primitiveMaxFundsValue;
 - (void)setPrimitiveMaxFundsValue:(int64_t)value_;
+
+
+
+
+- (NSDate*)primitiveMaxFundsDate;
+- (void)setPrimitiveMaxFundsDate:(NSDate*)value;
 
 
 

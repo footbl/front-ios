@@ -34,7 +34,7 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *totalWallet;
 @property (strong, nonatomic) NSNumber *numberOfWallets;
-@property (strong, nonatomic) NSNumber *maxWallet;
+@property (strong, nonatomic) Wallet *maxWallet;
 @property (strong, nonatomic) NSArray *wallets;
 @property (strong, nonatomic) NSArray *bets;
 
@@ -101,7 +101,7 @@
         self.user = nil;
         self.numberOfWallets = @0;
         self.totalWallet = @0;
-        self.maxWallet = @0;
+        self.maxWallet = nil;
         self.wallets = @[];
         self.bets = @[];
         [self.tableView reloadData];
@@ -110,7 +110,7 @@
     
     self.numberOfWallets = @(self.user.wallets.count);
     self.totalWallet = [self.user.wallets valueForKeyPath:@"@sum.funds"];
-    self.maxWallet = [self.user.wallets valueForKeyPath:@"@max.maxFunds"];
+    self.maxWallet = [self.user.wallets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"maxFunds" ascending:NO]]].firstObject;
     self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
@@ -198,10 +198,9 @@
                     break;
                 }
                 case 2: {
-#warning Add highest value & Date
                     WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
                     if (self.maxWallet) {
-                        [walletCell setHighestValue:self.maxWallet withDate:[NSDate date]];
+                        [walletCell setHighestValue:self.maxWallet.maxFunds withDate:self.maxWallet.maxFundsDate];
                     } else {
                         [walletCell setHighestValue:@0 withDate:[NSDate date]];
                     }

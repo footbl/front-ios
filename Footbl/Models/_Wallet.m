@@ -8,6 +8,7 @@ const struct WalletAttributes WalletAttributes = {
 	.funds = @"funds",
 	.lastRounds = @"lastRounds",
 	.maxFunds = @"maxFunds",
+	.maxFundsDate = @"maxFundsDate",
 	.ranking = @"ranking",
 	.stake = @"stake",
 };
@@ -159,6 +160,13 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 - (void)setPrimitiveMaxFundsValue:(int64_t)value_ {
 	[self setPrimitiveMaxFunds:[NSNumber numberWithLongLong:value_]];
 }
+
+
+
+
+
+@dynamic maxFundsDate;
+
 
 
 
