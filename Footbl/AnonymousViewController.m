@@ -34,8 +34,8 @@
     [[LoadingHelper sharedInstance] showHud];
     [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         if (error) {
-            [[LoadingHelper sharedInstance] hideHud];
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+            [[LoadingHelper sharedInstance] hideHud];
             [[ErrorHandler sharedInstance] displayError:error];
         } else {
             self.view.userInteractionEnabled = NO;

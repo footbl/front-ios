@@ -179,8 +179,8 @@
             [Group joinGroupWithCode:groupCode success:^{
                 [[LoadingHelper sharedInstance] hideHud];
             } failure:^(NSError *error) {
-                [[ErrorHandler sharedInstance] displayError:error];
                 [[LoadingHelper sharedInstance] hideHud];
+                [[ErrorHandler sharedInstance] displayError:error];
             }];
             
             return YES;

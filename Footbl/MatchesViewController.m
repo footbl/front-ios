@@ -104,8 +104,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
-        [[ErrorHandler sharedInstance] displayError:error];
         [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 
