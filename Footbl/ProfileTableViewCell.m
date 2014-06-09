@@ -29,12 +29,6 @@
     _verified = verified;
     
     self.verifiedImageView.hidden = !self.isVerified;
-    if (self.isVerified) {
-        CGRect frame = self.verifiedImageView.frame;
-        frame.origin.y = CGRectGetMidY(self.usernameLabel.frame) - CGRectGetHeight(frame) / 2;
-        frame.origin.x = CGRectGetMinX(self.usernameLabel.frame) + [self.usernameLabel sizeThatFits:CGSizeMake(INT_MAX, CGRectGetHeight(self.usernameLabel.frame))].width + 5;
-        self.verifiedImageView.frame = frame;
-    }
 }
 
 - (void)setAboutText:(NSString *)aboutText {
@@ -139,6 +133,7 @@
         
         self.verifiedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"verified_badge"]];
         self.verifiedImageView.hidden = YES;
+        self.verifiedImageView.frame = CGRectMake(185, 23, 16, 16);
         [self.contentView addSubview:self.verifiedImageView];
         
         self.starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star_inactive"] highlightedImage:[UIImage imageNamed:@"star_active"]];

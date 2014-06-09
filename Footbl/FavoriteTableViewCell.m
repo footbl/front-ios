@@ -24,12 +24,6 @@
     _verified = verified;
     
     self.verifiedImageView.hidden = !self.isVerified;
-    if (self.isVerified) {
-        CGRect frame = self.verifiedImageView.frame;
-        frame.origin.y = CGRectGetMidY(self.usernameLabel.frame) - CGRectGetHeight(frame) / 2;
-        frame.origin.x = CGRectGetMinX(self.usernameLabel.frame) + [self.usernameLabel sizeThatFits:CGSizeMake(INT_MAX, CGRectGetHeight(self.usernameLabel.frame))].width + 5;
-        self.verifiedImageView.frame = frame;
-    }
 }
 
 #pragma mark - Instance Methods
@@ -65,12 +59,15 @@
         
         self.verifiedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"verified_badge"]];
         self.verifiedImageView.hidden = YES;
+        self.verifiedImageView.frame = CGRectMake(185, 16, 16, 16);
         [self.contentView addSubview:self.verifiedImageView];
         
+        /*
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 65.5, CGRectGetWidth(self.contentView.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//        [self.contentView addSubview:separatorView];
+        [self.contentView addSubview:separatorView];
+        */
     }
     return self;
 }
