@@ -235,31 +235,31 @@
 "Share" = "Compartilhar";
 
 /* {home team} {away team} {bet value} {bet profit} */
-"Share match: finished with bet (draw)" = "Empatou!";
+"Share match: finished with bet (draw)" = "Empatou!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} {bet profit} */
-"Share match: finished with bet" = "Boa, %1$@!!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: finished with bet" = "Boa, %1$@!!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: finished without bet" = "Jogão!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: finished without bet" = "Jogão!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} {bet value} */
-"Share match: live with bet (draw)" = "Vai dar empate, certeza!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live with bet (draw)" = "Vai dar empate, certeza!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} */
-"Share match: live with bet" = "Vai %1$@!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live with bet" = "Vai %1$@!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: live without bet" = "Jogão!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live without bet" = "Jogão!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} {bet value} */
-"Share match: waiting with bet (draw)" = "Vai dar empate, certeza!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting with bet (draw)" = "Vai dar empate, certeza!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} */
-"Share match: waiting with bet" = "Vai dar %1$@!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting with bet" = "Vai dar %1$@!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: waiting without bet" = "Em qual apostar? %1$@ ou %2$@?\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting without bet" = "Em qual apostar? %1$@ ou %2$@?\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* Cannot update wallet due to wallet balance */
 "Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para quando tiver menos do que ฿100 disponível. ";

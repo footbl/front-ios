@@ -241,31 +241,31 @@
 "Share" = "Share";
 
 /* {home team} {away team} {bet value} {bet profit} */
-"Share match: finished with bet (draw)" = "It's a draw!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: finished with bet (draw)" = "It's a draw!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} {bet profit} */
-"Share match: finished with bet" = "Way to go, %1$@!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: finished with bet" = "Way to go, %1$@!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: finished without bet" = "Good game!";
+"Share match: finished without bet" = "Good game!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} {bet value} */
-"Share match: live with bet (draw)" = "It's going to be a draw!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live with bet (draw)" = "It's going to be a draw!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} */
-"Share match: live with bet" = "Go %1$@!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live with bet" = "Go %1$@!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: live without bet" = "Good game!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: live without bet" = "Good game!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} {bet value} */
-"Share match: waiting with bet (draw)" = "It's going to be a draw!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting with bet (draw)" = "It's going to be a draw!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {bet team} {against team} {bet value} */
-"Share match: waiting with bet" = "%1$@, for sure!\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting with bet" = "%1$@, for sure!\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* {home team} {away team} */
-"Share match: waiting without bet" = "Which team should I bet on? %1$@ or %2$@?\n#footbl | Wanna bet? http://footbl.co/dl";
+"Share match: waiting without bet" = "Which team should I bet on? %1$@ or %2$@?\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* Cannot update wallet due to wallet balance */
 "Cannot update wallet due to wallet balance" = "You can only recharge your League Wallet when you have less than ฿100 available.";
