@@ -13,6 +13,7 @@
 #import "GroupDetailViewController.h"
 #import "GroupInfoViewController.h"
 #import "GroupMembershipTableViewCell.h"
+#import "LoadingHelper.h"
 #import "Membership.h"
 #import "NSNumber+Formatter.h"
 #import "NSString+Hex.h"
@@ -63,12 +64,18 @@
 - (void)reloadData {
     [super reloadData];
     
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        [[LoadingHelper sharedInstance] showHud];
+    }
+    
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [self.group.editableObject updateMembersWithSuccess:^{
         [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
