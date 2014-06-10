@@ -35,6 +35,10 @@
         }
     }
     
+    if (!self.funds) {
+        self.funds = data[@"initialFunds"];
+    }
+    
     self.hasRanking = @(self.ranking != nil);
     
     if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
