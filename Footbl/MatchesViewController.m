@@ -364,14 +364,17 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             if (self.championship) {
                 [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
                     [self reloadWallet];
-                    [Match updateFromChampionship:self.championship.editableObject success:^{
-                        [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
-                            [self reloadWallet];
-                            [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
-                            [self.refreshControl endRefreshing];
-                            if (matches == 0) {
-                                [[LoadingHelper sharedInstance] hideHud];
-                            }
+                    [self.championship.myWallet.editableObject updateWithSuccess:^{
+                        [self reloadWallet];
+                        [Match updateFromChampionship:self.championship.editableObject success:^{
+                            [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
+                                [self reloadWallet];
+                                [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
+                                [self.refreshControl endRefreshing];
+                                if (matches == 0) {
+                                    [[LoadingHelper sharedInstance] hideHud];
+                                }
+                            } failure:failure];
                         } failure:failure];
                     } failure:failure];
                 } failure:failure];
