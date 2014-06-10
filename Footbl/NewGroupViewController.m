@@ -61,6 +61,7 @@
         } completion:nil];
     }
     
+    [self.nameTextField resignFirstResponder];
     [self.nameTextField becomeFirstResponder];
 }
 
