@@ -43,7 +43,11 @@
                     SaveManagedObjectContext(self.editableManagedObjectContext);
                     __weak typeof(Group *)weakGroup = group;
                     [group addMembers:members success:^{
-                        [weakGroup addInvitedMembers:invitedMembers success:success failure:failure];
+                        [weakGroup addInvitedMembers:invitedMembers success:^{
+                            [weakGroup updateMembersWithSuccess:success failure:^(NSError *error) {
+                                if (success) success();
+                            }];
+                        } failure:failure];
                     } failure:failure];
                 }];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -115,7 +119,10 @@
                         Group *group = [Group findOrCreateByIdentifier:groupDictionary[kAPIIdentifierKey] inManagedObjectContext:[self editableManagedObjectContext]];
                         [group updateWithData:groupDictionary];
                         SaveManagedObjectContext([self editableManagedObjectContext]);
-                        requestSucceedWithBlock(operation, joinGroupParameters, success);
+                        requestSucceedWithBlock(operation, joinGroupParameters, nil);
+                        [group updateMembersWithSuccess:success failure:^(NSError *error) {
+                            if (success) success();
+                        }];
                     }];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     requestFailedWithBlock(operation, joinGroupParameters, error, failure);
