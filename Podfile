@@ -4,6 +4,9 @@ platform :ios, '7.0'
 pod 'SPHipster'
 pod 'SPNotifier'
 
+# Analytics
+pod 'GoogleAnalytics-iOS-SDK', '3.0.3'
+
 # Networking
 pod 'AFNetworking', '~> 2.0'
 pod 'SDWebImage'

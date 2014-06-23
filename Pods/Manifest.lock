@@ -23,6 +23,7 @@ PODS:
     - AFNetworking (~> 2.1)
   - Cloudinary (1.0.11)
   - FXKeychain (1.5)
+  - GoogleAnalytics-iOS-SDK (3.0.3)
   - MBProgressHUD (0.8)
   - RMStore (0.5):
     - RMStore/Core
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - CargoBay
   - Cloudinary
   - FXKeychain
+  - GoogleAnalytics-iOS-SDK (= 3.0.3)
   - MBProgressHUD
   - RMStore
   - SDWebImage
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   CargoBay: 186add8173f99bd8f0379cc1da9c7c6bd1bef82b
   Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
   FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
+  GoogleAnalytics-iOS-SDK: ee5322bf919d731d34ff3c8d891301e8f1e0e873
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   RMStore: 6df6d5d71ebadbeede7963f7dd83f9c5a52acbbf
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc

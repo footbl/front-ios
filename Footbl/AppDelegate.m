@@ -8,6 +8,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
@@ -37,13 +38,16 @@
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
+            [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
             break;
         case SPBuildTypeAdHoc:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
             SPLogSwitchToLocalFiles();
+            [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
             break;
         case SPBuildTypeAppStore:
             kSPDebugLogLevel = SPDebugLogLevelError;
+            [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
             break;
         default:
             break;
@@ -55,6 +59,10 @@
     
     [SPNotifier setToken:@"MtdSF5SsLWBLnhkjZa1nWF3ZXwg4ybGnuRzxi2sy"];
     [SPNotifier handleNotification:launchOptions];
+    
+    [[GAI sharedInstance] setDispatchInterval:20];
+    [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-43860362-8"];
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";

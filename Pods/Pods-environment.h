@@ -72,6 +72,12 @@
 #define COCOAPODS_VERSION_MINOR_FXKeychain 5
 #define COCOAPODS_VERSION_PATCH_FXKeychain 0
 
+// GoogleAnalytics-iOS-SDK
+#define COCOAPODS_POD_AVAILABLE_GoogleAnalytics_iOS_SDK
+#define COCOAPODS_VERSION_MAJOR_GoogleAnalytics_iOS_SDK 3
+#define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK 0
+#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 3
+
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD
 #define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
