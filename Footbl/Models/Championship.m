@@ -75,7 +75,7 @@
     if (self.activeValue) {
         Group *group = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
         group.championship = self;
-        group.name = self.name;
+        group.name = self.displayName;
         group.freeToEdit = @NO;
         group.owner = nil;
         group.isDefault = @YES;

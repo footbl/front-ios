@@ -214,7 +214,7 @@
             Wallet *wallet = self.wallets[indexPath.row];
             Championship *championship = wallet.championship;
             [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
-            championshipCell.nameLabel.text = championship.name;
+            championshipCell.nameLabel.text = championship.displayName;
             championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
             if (wallet.ranking) {
                 championshipCell.rankingLabel.text = wallet.ranking.rankingStringValue;
