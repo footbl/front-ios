@@ -17,6 +17,7 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "User.h"
+#import "WhatsAppAPI.h"
 
 @interface GroupInfoViewController () <UIScrollViewDelegate>
 
@@ -75,18 +76,11 @@
         [self.freeToEditSwich setOn:YES animated:YES];
         [self freeToEditSwitchValueChangedAction:self.freeToEditSwich];
     }
-    
-    NSString *sharingUrl = [NSString stringWithFormat:@"http://footbl.co/groups/%@", self.group.code];
-    NSString *sharingText = [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! Access %@ or use the code %@", @"@{group_share_url} {group_code}"), sharingUrl, self.group.code];
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"whatsapp://send"]]) {
-        CFStringRef encodedString = CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)sharingText, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
-        sharingText = CFBridgingRelease(encodedString);
-        
-        NSString *text = [NSString stringWithFormat:@"whatsapp://send?text=%@", sharingText];
-        NSURL *whatsAppURL = [NSURL URLWithString:text];
-        [[UIApplication sharedApplication] openURL:whatsAppURL];
+
+    if ([WhatsAppAPI isAvailable]) {
+        [WhatsAppAPI shareText:self.group.sharingText];
     } else {
-        [[UIPasteboard generalPasteboard] setString:sharingText];
+        [[UIPasteboard generalPasteboard] setString:self.group.sharingText];
         
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         hud.mode = MBProgressHUDModeText;
@@ -238,7 +232,7 @@
         
         bottomRect = copyShareCodeButton.frame;
         
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"whatsapp://send"]]) {
+        if ([WhatsAppAPI isAvailable]) {
             [copyShareCodeButton setTitle:NSLocalizedString(@"Share on WhatsApp", @"") forState:UIControlStateNormal];
             sharingLabel.text = NSLocalizedString(@"And bring friends", @"");
             

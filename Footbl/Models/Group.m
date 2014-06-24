@@ -428,4 +428,9 @@
     } failure:failure];
 }
 
+- (NSString *)sharingText {
+    NSString *sharingUrl = [NSString stringWithFormat:@"http://footbl.co/groups/%@", self.code];
+    return [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! Access %@ or use the code %@", @"@{group_share_url} {group_code}"), sharingUrl, self.code];
+}
+
 @end

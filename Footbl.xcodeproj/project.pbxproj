@@ -33,6 +33,7 @@
 		ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
 		ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
 		ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
+		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
@@ -175,6 +176,8 @@
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
+		ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppAPI.h; sourceTree = "<group>"; };
+		ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppAPI.m; sourceTree = "<group>"; };
 		ED81E81A18EA687800212D3C /* FootblTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblTabBarController.h; sourceTree = "<group>"; };
 		ED81E81B18EA687800212D3C /* FootblTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblTabBarController.m; sourceTree = "<group>"; };
 		ED81E81D18EA6A3900212D3C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
@@ -747,6 +750,8 @@
 			children = (
 				EDB1D4A318E1F43000E0C949 /* FootblAPI.h */,
 				EDB1D4A418E1F43000E0C949 /* FootblAPI.m */,
+				ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */,
+				ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */,
 			);
 			name = APIs;
 			sourceTree = "<group>";
@@ -1011,6 +1016,7 @@
 				ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */,
 				ED2D1C4D1915614200F1BC81 /* UIView+Shake.m in Sources */,
 				ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */,
+				ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDAF0EA3191BC7E3005218FB /* SignupViewController.m in Sources */,
