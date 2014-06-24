@@ -23,6 +23,7 @@
 #import "UIView+Shake.h"
 #import "User.h"
 #import "Wallet.h"
+#import "WhatsAppActivity.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
 static CGFloat kWalletMaximumFundsToAllowBet = 20;

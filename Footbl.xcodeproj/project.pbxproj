@@ -34,6 +34,7 @@
 		ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
 		ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
+		ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
@@ -178,6 +179,8 @@
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
 		ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppAPI.h; sourceTree = "<group>"; };
 		ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppAPI.m; sourceTree = "<group>"; };
+		ED7C0FB51959C76900275685 /* WhatsAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
+		ED7C0FB61959C76900275685 /* WhatsAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppActivity.m; sourceTree = "<group>"; };
 		ED81E81A18EA687800212D3C /* FootblTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblTabBarController.h; sourceTree = "<group>"; };
 		ED81E81B18EA687800212D3C /* FootblTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblTabBarController.m; sourceTree = "<group>"; };
 		ED81E81D18EA6A3900212D3C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 			children = (
 				EDB1D4A318E1F43000E0C949 /* FootblAPI.h */,
 				EDB1D4A418E1F43000E0C949 /* FootblAPI.m */,
+				ED7C0FB51959C76900275685 /* WhatsAppActivity.h */,
+				ED7C0FB61959C76900275685 /* WhatsAppActivity.m */,
 				ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */,
 				ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */,
 			);
@@ -1005,6 +1010,7 @@
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				EDDCF2261933B1BB0090D06D /* EditProfileViewController.m in Sources */,
+				ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,

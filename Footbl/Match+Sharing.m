@@ -10,6 +10,11 @@
 #import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
 #import "Team.h"
+#import "WhatsAppActivity.h"
+
+@interface Match () <UIDocumentInteractionControllerDelegate>
+
+@end
 
 #pragma mark Match (Sharing)
 
@@ -84,7 +89,7 @@
             break;
     }
     
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[screenshot, text] applicationActivities:nil];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[screenshot, text] applicationActivities:@[[WhatsAppActivity new]]];
     activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint];
     [viewController presentViewController:activityViewController animated:YES completion:nil];
 }
