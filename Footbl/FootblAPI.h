@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 typedef void (^FootblAPISuccessBlock)();
-typedef void (^FootblAPISuccessWithResponseBlock)(NSArray *response);
+typedef void (^FootblAPISuccessWithResponseBlock)(id response);
 typedef void (^FootblAPIFailureBlock)(NSError *error);
 
 extern NSManagedObjectContext * FootblBackgroundManagedObjectContext();

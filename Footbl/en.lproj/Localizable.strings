@@ -484,3 +484,12 @@ Do you want to log in instead? */
 /* Error: group not found */
 "Error: group not found" = "We didn't found any group with this code. Are you sure it's correct?";
 
+/* Not now */
+"Not now" = "Not now";
+
+/* Share {group_name} on WhatsApp */
+"Share %@ on WhatsApp and bring friends!" = "Share \"%@\" on WhatsApp and bring friends!";
+
+/* Sure */
+"Sure" = "Sure";
+

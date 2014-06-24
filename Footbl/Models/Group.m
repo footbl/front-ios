@@ -25,7 +25,7 @@
     return @"groups";
 }
 
-+ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
++ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure {
     void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
         [[self API] ensureAuthenticationWithSuccess:^{
             NSMutableDictionary *parameters = [self generateDefaultParameters];
@@ -44,8 +44,10 @@
                     __weak typeof(Group *)weakGroup = group;
                     [group addMembers:members success:^{
                         [weakGroup addInvitedMembers:invitedMembers success:^{
-                            [weakGroup updateMembersWithSuccess:success failure:^(NSError *error) {
-                                if (success) success();
+                            [weakGroup updateMembersWithSuccess:^{
+                                if (success) success(weakGroup);
+                            } failure:^(NSError *error) {
+                                if (success) success(weakGroup);
                             }];
                         } failure:failure];
                     } failure:failure];

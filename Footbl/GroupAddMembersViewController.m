@@ -11,11 +11,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 #import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupAddMemberTableViewCell.h"
 #import "LoadingHelper.h"
+#import "WhatsAppAPI.h"
 
 @interface GroupAddMembersViewController ()
 
@@ -217,7 +219,20 @@
         self.view.window.userInteractionEnabled = YES;
     };
     
-    void(^successBlock)() = ^() {
+    void(^whatsAppBlock)(Group *group) = ^(Group *group) {
+        if ([self.group.rid isEqualToString:group.rid] || ![WhatsAppAPI isAvailable]) {
+            return;
+        }
+        
+        RIButtonItem *shareItem = [RIButtonItem itemWithLabel:NSLocalizedString(@"Sure", @"") action:^{
+            [WhatsAppAPI shareText:group.sharingText];
+        }];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Share %@ on WhatsApp and bring friends!", @"Share {group_name} on WhatsApp"), group.name] message:nil cancelButtonItem:[RIButtonItem itemWithLabel:NSLocalizedString(@"Not now", @"")] otherButtonItems:shareItem, nil];
+        [alertView show];
+    };
+    
+    void(^successBlock)(Group *group) = ^(Group *group) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
             self.view.window.userInteractionEnabled = YES;
@@ -233,7 +248,15 @@
                     if (error) {
                         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
                     }
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        whatsAppBlock(group);
+                    });
                 }];
+            } else {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    whatsAppBlock(group);
+                });
             }
         });
     };
@@ -248,8 +271,10 @@
     if (self.group) {
         [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^{
             [self.group.editableObject addInvitedMembers:invitedMembers success:^{
-                [self.group.editableObject updateMembersWithSuccess:successBlock failure:^(NSError *error) {
-                    successBlock();
+                [self.group.editableObject updateMembersWithSuccess:^{
+                    successBlock(self.group);
+                } failure:^(NSError *error) {
+                    successBlock(self.group);
                 }];
             } failure:failureBlock];
         } failure:failureBlock];
