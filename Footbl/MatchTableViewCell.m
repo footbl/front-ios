@@ -374,10 +374,43 @@ static CGFloat kDisabledAlpha = 0.4;
 }
 
 - (UIImage *)imageRepresentation {
+    BOOL footerLabelHidden = self.footerLabel.isHidden;
+    BOOL shareButtonHidden = self.shareButton.isHidden;
+    
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth + 10, self.cardContentView.frameHeight + 10)];
     CGPoint cardCenter = self.cardContentView.center;
     [tempView addSubview:self.cardContentView];
     self.cardContentView.center = tempView.center;
+    
+    self.footerLabel.hidden = YES;
+    self.shareButton.hidden = YES;
+    
+    CGFloat centerY = CGRectGetMidY(self.footerLabel.frame) + (self.stateLayout == MatchTableViewCellStateLayoutLive ? 2 : 1);
+    
+    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"rounded_icon_small"]];
+    iconImageView.frame = CGRectMake(0, 0, 30, 30);
+    iconImageView.center = CGPointMake(68, centerY);
+    [self.cardContentView addSubview:iconImageView];
+    
+    UILabel *footblLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, CGRectGetMinY(iconImageView.frame) - 1, 200, 30)];
+    footblLabel.text = NSLocalizedString(@"Footbl", @"").lowercaseString;
+    footblLabel.font = [UIFont fontWithName:kFontNameSystemLight size:24];
+    footblLabel.textAlignment = NSTextAlignmentLeft;
+    footblLabel.textColor = [UIColor blackColor];
+    [self.cardContentView addSubview:footblLabel];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(160, CGRectGetMinY(iconImageView.frame), 2, CGRectGetHeight(iconImageView.frame) - 1)];
+    separatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.4];
+    separatorView.clipsToBounds = YES;
+    separatorView.layer.cornerRadius = 1;
+    [self.cardContentView addSubview:separatorView];
+    
+    UILabel *betLabel = [[UILabel alloc] initWithFrame:CGRectMake(172, CGRectGetMinY(iconImageView.frame) - 1, 100, 30)];
+    betLabel.text = NSLocalizedString(@"wanna bet?", @"").lowercaseString;
+    betLabel.font = [UIFont systemFontOfSize:14];
+    betLabel.textAlignment = NSTextAlignmentLeft;
+    betLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    [self.cardContentView addSubview:betLabel];
     
     UIGraphicsBeginImageContextWithOptions(tempView.frame.size, NO, 2.0);
     [tempView.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -386,6 +419,14 @@ static CGFloat kDisabledAlpha = 0.4;
     
     [self.contentView addSubview:self.cardContentView];
     self.cardContentView.center = cardCenter;
+    
+    self.footerLabel.hidden = footerLabelHidden;
+    self.shareButton.hidden = shareButtonHidden;
+    
+    [iconImageView removeFromSuperview];
+    [footblLabel removeFromSuperview];
+    [separatorView removeFromSuperview];
+    [betLabel removeFromSuperview];
     
     return image;
 }
