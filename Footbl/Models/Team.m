@@ -22,10 +22,18 @@
 
 - (NSString *)displayName {
     if (self.acronym && self.acronym.length > 0) {
-        return self.acronym;
+        NSString *string = [NSString stringWithFormat:@"Team: %@", self.acronym];
+        if ([NSLocalizedString(string, @"") isEqualToString:string]) {
+            return self.acronym;
+        }
+        return NSLocalizedString(string, @"");
     }
     
-    return self.name;
+    NSString *string = [NSString stringWithFormat:@"Team: %@", self.name];
+    if ([NSLocalizedString(string, @"") isEqualToString:string]) {
+        return self.name;
+    }
+    return NSLocalizedString(string, @"");
 }
 
 - (void)updateWithData:(NSDictionary *)data {
