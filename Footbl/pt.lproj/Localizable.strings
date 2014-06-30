@@ -186,6 +186,12 @@
 /* Sign up text: username hint */
 "Sign up text: username hint" = "Muito pequeno, digite um pouco mais :)";
 
+/* Facebook group invitation message */
+"Facebook group invitation message" = "footbl | wanna bet?";
+
+/* Facebook group invitation title */
+"Facebook group invitation title" = "Entre no meu grupo!";
+
 /* FootblAPI error: unknown error */
 "FootblAPI error: unknown error" = "Erro desconhecido, por favor verifique a sua conexão e tente novamente.";
 
