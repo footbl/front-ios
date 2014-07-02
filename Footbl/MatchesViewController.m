@@ -25,7 +25,7 @@
 #import "Wallet.h"
 #import "WhatsAppActivity.h"
 
-static CGFloat kScrollMinimumVelocityToToggleTabBar = 300.f;
+static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 static CGFloat kWalletMaximumFundsToAllowBet = 20;
 
 @interface MatchesViewController ()
