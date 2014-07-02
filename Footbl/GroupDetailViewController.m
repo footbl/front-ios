@@ -9,6 +9,7 @@
 #import <SDWebImage/UIButton+WebCache.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Championship.h"
+#import "FootblNavigationController.h"
 #import "Group.h"
 #import "GroupDetailViewController.h"
 #import "GroupInfoViewController.h"
@@ -100,6 +101,44 @@
     [cell.profileImageView setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
 }
 
+- (void)setupTitleView {
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSMutableDictionary *titleAttributes = [[[UINavigationBar appearanceWhenContainedIn:[FootblNavigationController class], nil] titleTextAttributes] mutableCopy];
+    titleAttributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    NSMutableDictionary *highlightedAttributes = [titleAttributes mutableCopy];
+    highlightedAttributes[NSForegroundColorAttributeName] = [highlightedAttributes[NSForegroundColorAttributeName] colorWithAlphaComponent:0.2];
+    NSMutableDictionary *subAttributes = [titleAttributes mutableCopy];
+    subAttributes[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
+    subAttributes[NSFontAttributeName] = [UIFont systemFontOfSize:11];
+    NSMutableDictionary *highlightedSubAttributes = [subAttributes mutableCopy];
+    highlightedSubAttributes[NSForegroundColorAttributeName] = [highlightedSubAttributes[NSForegroundColorAttributeName] colorWithAlphaComponent:0.2];
+    
+    UIButton *titleViewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    titleViewButton.titleLabel.numberOfLines = 2;
+    
+    NSString *groupName = self.group.championship.displayName;
+    if (self.group.isDefaultValue) {
+        groupName = self.group.championship.displayCountry;
+    }
+    
+    NSMutableAttributedString *buttonText = [NSMutableAttributedString new];
+    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:titleAttributes]];
+    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:titleAttributes]];
+    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:groupName attributes:subAttributes]];
+    
+    NSMutableAttributedString *highlightedButtonText = [NSMutableAttributedString new];
+    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:highlightedAttributes]];
+    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:highlightedAttributes]];
+    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:groupName attributes:highlightedSubAttributes]];
+    
+    [titleViewButton setAttributedTitle:buttonText forState:UIControlStateNormal];
+    [titleViewButton setAttributedTitle:highlightedButtonText forState:UIControlStateHighlighted];
+    [titleViewButton addTarget:self action:@selector(groupInfoAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = titleViewButton;
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UITableView data source
@@ -135,8 +174,10 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    self.title = NSLocalizedString(@"Group", @"");
+    self.title = self.group.name;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.title style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    [self setupTitleView];
     
     self.rightNavigationBarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
     self.rightNavigationBarButton.layer.cornerRadius = CGRectGetWidth(self.rightNavigationBarButton.frame) / 2;
