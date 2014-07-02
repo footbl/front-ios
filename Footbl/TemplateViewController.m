@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 #import "TemplateViewController.h"
 
 @interface TemplateViewController ()
@@ -66,6 +69,11 @@
 
     self.visible = YES;
     [self checkForUpdate];
+    
+    if (self.navigationController && self.navigationController.viewControllers.firstObject == self) {
+        [[[GAI sharedInstance] defaultTracker] set:kGAIScreenName value:self.title];
+        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
