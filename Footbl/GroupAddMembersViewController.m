@@ -49,7 +49,7 @@
         APAddressBook *addressBook = [APAddressBook new];
         addressBook.fieldsMask = APContactFieldEmails | APContactFieldFirstName | APContactFieldLastName | APContactFieldThumbnail | APContactFieldCompositeName;
         addressBook.filterBlock = ^BOOL(APContact *contact) {
-            if (contact.emails.count == 0) {
+            if (contact.emails.count == 0 && contact.firstName.length == 0 && contact.lastName.length == 0) {
                 return NO;
             }
             
@@ -178,7 +178,13 @@
             break;
         case 1: {
             APContact *contact = self.dataSource[indexPath.row];
-            cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
+            if (contact.firstName.length > 0 && contact.lastName.length > 0) {
+                cell.usernameLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
+            } else if (contact.firstName.length > 0) {
+                cell.usernameLabel.text = contact.firstName;
+            } else {
+                cell.usernameLabel.text = contact.lastName;
+            }
             cell.nameLabel.text = contact.emails.firstObject;
             if (contact.thumbnail) {
                 cell.profileImageView.image = contact.thumbnail;

@@ -107,7 +107,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         APAddressBook *addressBook = [APAddressBook new];
         addressBook.fieldsMask = APContactFieldEmails | APContactFieldFirstName | APContactFieldLastName | APContactFieldThumbnail | APContactFieldCompositeName;
         addressBook.filterBlock = ^BOOL(APContact *contact) {
-            return contact.emails.count > 0;
+            return contact.emails.count > 0 && (contact.firstName.length > 0 || contact.lastName.length > 0);
         };
         addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
