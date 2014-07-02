@@ -6,6 +6,7 @@
 const struct MembershipAttributes MembershipAttributes = {
 	.funds = @"funds",
 	.hasRanking = @"hasRanking",
+	.lastRounds = @"lastRounds",
 	.ranking = @"ranking",
 };
 
@@ -112,6 +113,13 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 - (void)setPrimitiveHasRankingValue:(BOOL)value_ {
 	[self setPrimitiveHasRanking:[NSNumber numberWithBool:value_]];
 }
+
+
+
+
+
+@dynamic lastRounds;
+
 
 
 

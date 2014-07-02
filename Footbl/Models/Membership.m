@@ -25,15 +25,21 @@
     
     self.ranking = nil;
     self.funds = nil;
-    if ([data[@"rounds"] count] > 0) {
-        NSDictionary *lastRound = [data[@"rounds"] lastObject];
-        if ([lastRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
-            self.ranking = lastRound[@"ranking"];
-        }
-        if ([lastRound[@"funds"] isKindOfClass:[NSNumber class]]) {
-            self.funds = lastRound[@"funds"];
+    
+    NSArray *rounds = data[@"rounds"];
+    NSMutableArray *lastRounds = [NSMutableArray new];
+    for (NSInteger i = 1; i <= 12 && i < rounds.count; i++) {
+        NSDictionary *currentRound = rounds[rounds.count - i];
+        if ([currentRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
+            [lastRounds addObject:@{@"ranking" : currentRound[@"ranking"], @"funds" : currentRound[@"funds"]}];
+        } else {
+            [lastRounds addObject:@{@"funds" : currentRound[@"funds"]}];
         }
     }
+    
+    self.ranking = lastRounds.firstObject[@"ranking"];
+    self.funds = lastRounds.firstObject[@"funds"];
+    self.lastRounds = lastRounds;
     
     if (!self.funds) {
         self.funds = data[@"initialFunds"];

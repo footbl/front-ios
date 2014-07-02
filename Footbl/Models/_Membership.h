@@ -7,6 +7,7 @@
 extern const struct MembershipAttributes {
 	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *hasRanking;
+	__unsafe_unretained NSString *lastRounds;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
 
@@ -23,6 +24,7 @@ extern const struct MembershipFetchedProperties {
 
 
 
+@class NSObject;
 
 
 @interface MembershipID : NSManagedObjectID {}
@@ -61,6 +63,16 @@ extern const struct MembershipFetchedProperties {
 - (void)setHasRankingValue:(BOOL)value_;
 
 //- (BOOL)validateHasRanking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) id lastRounds;
+
+
+
+//- (BOOL)validateLastRounds:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -118,6 +130,12 @@ extern const struct MembershipFetchedProperties {
 
 - (BOOL)primitiveHasRankingValue;
 - (void)setPrimitiveHasRankingValue:(BOOL)value_;
+
+
+
+
+- (id)primitiveLastRounds;
+- (void)setPrimitiveLastRounds:(id)value;
 
 
 

@@ -11,10 +11,13 @@
 @interface GroupMembershipTableViewCell : TemplateTableViewCell
 
 @property (strong, nonatomic) UIImageView *profileImageView;
+@property (strong, nonatomic) UIImageView *arrowImageView;
+@property (strong, nonatomic) UILabel *progressLabel;
 @property (strong, nonatomic) UILabel *rankingLabel;
 @property (strong, nonatomic) UILabel *usernameLabel;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *walletLabel;
+@property (strong, nonatomic) NSNumber *rankingProgress;
 
 - (UIImage *)placeholderImage;
 

@@ -7,10 +7,33 @@
 //
 
 #import "GroupMembershipTableViewCell.h"
+#import "UIView+Frame.h"
 
 #pragma mark GroupMembershipTableViewCell
 
 @implementation GroupMembershipTableViewCell
+
+#pragma mark - Getters/Setters
+
+- (void)setRankingProgress:(NSNumber *)rankingProgress {
+    _rankingProgress = rankingProgress;
+    
+    CGFloat width = [self.rankingLabel sizeThatFits:self.rankingLabel.bounds.size].width;
+    self.arrowImageView.frameX = self.rankingLabel.frameX + width + 3;
+    self.progressLabel.text = [NSString stringWithFormat:@"%i", (int)fabs(self.rankingProgress.integerValue)];
+    self.progressLabel.frameX = self.arrowImageView.frameX + self.arrowImageView.frameWidth + 4;
+    
+    if (rankingProgress.integerValue > 0) {
+        self.arrowImageView.image = [UIImage imageNamed:@"up_arrow"];
+        self.arrowImageView.center = CGPointMake(self.arrowImageView.center.x, self.rankingLabel.center.y - 0.5);
+    } else if (rankingProgress.integerValue < 0) {
+        self.arrowImageView.image = [UIImage imageNamed:@"down_arrow"];
+        self.arrowImageView.center = CGPointMake(self.arrowImageView.center.x, self.rankingLabel.center.y);
+    } else {
+        self.arrowImageView.image = nil;
+        self.progressLabel.text = @"";
+    }
+}
 
 #pragma mark - Instance Methods
 
@@ -52,6 +75,16 @@
         self.walletLabel.textAlignment = NSTextAlignmentLeft;
         self.walletLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
         [self.contentView addSubview:self.walletLabel];
+        
+        self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_arrow"]];
+        self.arrowImageView.center = CGPointMake(100, self.rankingLabel.center.y);
+        [self.contentView addSubview:self.arrowImageView];
+        
+        self.progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.rankingLabel.frameY, 100, self.rankingLabel.frameHeight)];
+        self.progressLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
+        self.progressLabel.textAlignment = NSTextAlignmentLeft;
+        self.progressLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4];
+        [self.contentView addSubview:self.progressLabel];
     }
     return self;
 }

@@ -39,7 +39,7 @@
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil", self.group];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
         fetchRequest.includesSubentities = YES;
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
@@ -91,6 +91,12 @@
     
     cell.usernameLabel.text = membership.user.username;
     cell.nameLabel.text = membership.user.name;
+    
+    if ([membership.lastRounds count] > 1 && membership.lastRounds[1][@"ranking"]) {
+        cell.rankingProgress = @([membership.lastRounds[1][@"ranking"] integerValue] - membership.rankingValue);
+    } else {
+        cell.rankingProgress = @(0);
+    }
     
     if (membership.funds) {
         cell.walletLabel.text = membership.funds.stringValue;
