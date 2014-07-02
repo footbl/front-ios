@@ -502,7 +502,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     }];
     
     self.tableView = tableViewController.tableView;
-    self.tableView.frame = self.view.frame;
+    self.tableView.frame = [UIApplication sharedApplication].keyWindow.bounds;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;

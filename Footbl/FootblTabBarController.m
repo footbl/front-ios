@@ -50,7 +50,8 @@
             tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) - CGRectGetHeight(tabBarFrame);
         }
         CGRect viewControllerFrame = self.selectedViewController.view.frame;
-        viewControllerFrame.size.height = tabBarFrame.origin.y;
+        viewControllerFrame.size.height = tabBarFrame.origin.y + CGRectGetHeight(tabBarFrame);
+        self.selectedViewController.view.frame = viewControllerFrame;
         self.tabBar.frame = tabBarFrame;
         
         CGRect separatorFrame = self.tabBarSeparatorView.frame;
