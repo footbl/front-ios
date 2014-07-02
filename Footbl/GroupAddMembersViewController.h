@@ -18,6 +18,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) UIView *segmentedControlBackgroundView;
+@property (strong, nonatomic) UIView *separatorView;
 @property (strong, nonatomic) UIImage *groupImage;
 @property (strong, nonatomic) Group *group;
 

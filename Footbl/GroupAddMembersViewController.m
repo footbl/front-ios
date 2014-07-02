@@ -369,6 +369,12 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.searchBar resignFirstResponder];
+    
+    if (scrollView.contentOffset.y > -18) {
+        self.separatorView.alpha = 1;
+    } else {
+        self.separatorView.alpha = 0;
+    }
 }
 
 #pragma mark - View Lifecycle
@@ -385,7 +391,23 @@
     self.footblSelectedMembers = [NSMutableSet new];
     self.facebookSelectedMembers = [NSMutableSet new];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @"").lowercaseString, NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
+    self.segmentedControl.frame = CGRectMake(15, 73, CGRectGetWidth(self.view.frame) - 30, 29);
+    self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    self.segmentedControl.backgroundColor = self.view.backgroundColor;
+    [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.segmentedControl];
+    
+    self.segmentedControlBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 47)];
+    self.segmentedControlBackgroundView.backgroundColor = self.segmentedControl.backgroundColor;
+    [self.view insertSubview:self.segmentedControlBackgroundView belowSubview:self.segmentedControl];
+    
+    self.separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 111, CGRectGetWidth(self.view.frame), 0.5)];
+    self.separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+    [self.view insertSubview:self.separatorView belowSubview:self.segmentedControlBackgroundView];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 47, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 47)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
@@ -393,26 +415,9 @@
     self.tableView.rowHeight = 66;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.tableView.allowsMultipleSelection = YES;
+    self.tableView.clipsToBounds = YES;
     [self.tableView registerClass:[GroupAddMemberTableViewCell class] forCellReuseIdentifier:@"GroupMemberCell"];
-    [self.view addSubview:self.tableView];
-    
-    UISearchBar *headerView = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 93)];
-    headerView.searchBarStyle = UISearchBarStyleMinimal;
-    self.tableView.tableHeaderView = headerView;
-    [[self tableView] setTableHeaderView:headerView];
-    
-    @try {
-        [[[[headerView subviews] objectAtIndex:0] subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    } @catch (NSException *exception) {
-        [[headerView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    }
-    
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @"").lowercaseString, NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
-    self.segmentedControl.frame = CGRectMake(15, 9, 290, 29);
-    self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
-    self.segmentedControl.selectedSegmentIndex = 0;
-    [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-    [headerView addSubview:self.segmentedControl];
+    [self.view insertSubview:self.tableView belowSubview:self.separatorView];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 46, CGRectGetWidth(self.view.frame), 47)];
     self.searchBar.barTintColor = [UIColor whiteColor];
@@ -421,7 +426,7 @@
     self.searchBar.placeholder = NSLocalizedString(@"Type a friend's name", @"");
     self.searchBar.delegate = self;
     self.searchBar.backgroundImage = [UIImage new];
-    [headerView addSubview:self.searchBar];
+    self.tableView.tableHeaderView = self.searchBar;
     
     for (UITextField *textField in [self.searchBar.subviews.firstObject subviews]) {
         if ([textField isKindOfClass:[UITextField class]]) {
