@@ -7,6 +7,7 @@
 //
 
 #import "FavoriteTableViewCell.h"
+#import "UIView+Frame.h"
 
 @interface FavoriteTableViewCell ()
 
@@ -24,6 +25,10 @@
     _verified = verified;
     
     self.verifiedImageView.hidden = !self.isVerified;
+    
+    CGFloat width = [self.usernameLabel sizeThatFits:self.usernameLabel.bounds.size].width;
+    self.verifiedImageView.frameX = self.usernameLabel.frameX + width + 10;
+    self.verifiedImageView.center = CGPointMake(self.verifiedImageView.center.x, self.usernameLabel.center.y);
 }
 
 #pragma mark - Instance Methods
