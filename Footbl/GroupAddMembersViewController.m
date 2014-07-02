@@ -356,13 +356,13 @@
     } else {
         switch (self.segmentedControl.selectedSegmentIndex) {
             case 0:
-                self.dataSource = [self.footblDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@ OR username CONTAINS[cd] %@", text, text]];
+                self.dataSource = [self.footblDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@ OR username BEGINSWITH[cd] %@", text, text]];
                 break;
             case 1:
-                self.dataSource = [self.addressBookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"firstName CONTAINS[cd] %@ OR lastName CONTAINS[cd] %@ OR compositeName CONTAINS[cd] %@", text, text, text]];
+                self.dataSource = [self.addressBookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@", text, text]];
                 break;
             case 2:
-                self.dataSource = [self.facebookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", text]];
+                self.dataSource = [self.facebookDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"first_name BEGINSWITH[cd] %@ OR last_name BEGINSWITH[cd] %@", text, text]];
                 break;
             default:
                 break;
