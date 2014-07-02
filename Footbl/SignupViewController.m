@@ -84,7 +84,7 @@
     [[LoadingHelper sharedInstance] showHud];
     
     [[FootblAPI sharedAPI] createAccountWithSuccess:^{
-        [[FootblAPI sharedAPI] updateAccountWithUsername:self.username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^{
+        [[FootblAPI sharedAPI] updateAccountWithUsername:[self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)] name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^{
             [[LoadingHelper sharedInstance] hideHud];
             if (self.completionBlock) self.completionBlock();
         } failure:^(NSError *error) {
@@ -163,7 +163,7 @@
         if (self.textField.text.isValidUsername) {
             self.view.userInteractionEnabled = NO;
             [self.activityIndicatorView startAnimating];
-            [User searchUsingEmails:nil usernames:@[self.textField.text] ids:nil fbIds:nil success:^(NSArray *response) {
+            [User searchUsingEmails:nil usernames:@[[self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)]] ids:nil fbIds:nil success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {
@@ -313,6 +313,7 @@
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.returnKeyType = UIReturnKeyNext;
         self.textField.enablesReturnKeyAutomatically = YES;
+        self.textField.text = @"@";
     } else if (!self.aboutMe) {
         text = NSLocalizedString(@"Sign up text: about", @"");
         
@@ -424,6 +425,12 @@
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
         self.hintLabel.alpha = 0;
     }];
+    
+    if (self.password.length > 0 && self.username.length == 0) {
+        if (range.location == 0) {
+            return NO;
+        }
+    }
     
     return YES;
 }

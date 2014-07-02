@@ -34,7 +34,16 @@
 }
 
 - (BOOL)isValidUsername {
-    return self.length > 4;
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\@?)([a-zA-Z0-9\\_]{5,20})" options:0 error:&error];
+    NSUInteger numberOfMatches = [regex numberOfMatchesInString:self options:0 range:NSMakeRange(0, self.length)];
+    if (numberOfMatches > 0) {
+        NSRange range = [regex firstMatchInString:self options:0 range:NSMakeRange(0, self.length)].range;
+        if ([self isEqualToString:[self substringWithRange:range]]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (BOOL)isValidAboutMe {

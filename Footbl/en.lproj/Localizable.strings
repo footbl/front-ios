@@ -184,7 +184,7 @@
 "Sign in" = "Sign in";
 
 /* Sign up text: username hint */
-"Sign up text: username hint" = "Too short! Just a few more characters...";
+"Sign up text: username hint" = "It should be from 5 to 20 characters, using letters, numbers or underscore.";
 
 /* Facebook group invitation message */
 "Facebook group invitation message" = "footbl | wanna bet?";
