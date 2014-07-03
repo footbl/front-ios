@@ -290,7 +290,7 @@
                         [self.managedObjectContext deleteObjects:untouchedObjects];
                     }];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    if (success) success(API_RESULT(key));
+                    if (success) success(@NO);
                     API_RESET_KEY(key);
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
