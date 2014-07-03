@@ -12,6 +12,7 @@
 #import "Championship.h"
 #import "FavoritesViewController.h"
 #import "FootblAPI.h"
+#import "LoadingHelper.h"
 #import "Match.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell.h"
@@ -133,8 +134,13 @@
     void(^failure)(NSError *error) = ^(NSError *error) {
         [self reloadContent];
         [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     };
+    
+    if (!self.totalWallet.integerValue) {
+        [[LoadingHelper sharedInstance] showHud];
+    }
     
     [Wallet updateWithUser:self.user.editableObject success:^{
         [self reloadContent];
@@ -150,6 +156,7 @@
                         } else {
                             [self reloadContent];
                             [self.refreshControl endRefreshing];
+                            [[LoadingHelper sharedInstance] hideHud];
                         }
                     }
                 } failure:^(NSError *newError) {
