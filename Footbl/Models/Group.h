@@ -14,7 +14,8 @@
 
 + (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
 + (void)joinGroupWithCode:(NSString *)code success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)updateMembersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)cancelMembersUpdate;
+- (void)updateMembersWithSuccess:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)addMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)addInvitedMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)saveWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;

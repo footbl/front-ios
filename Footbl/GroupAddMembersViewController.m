@@ -277,7 +277,7 @@
     if (self.group) {
         [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^{
             [self.group.editableObject addInvitedMembers:invitedMembers success:^{
-                [self.group.editableObject updateMembersWithSuccess:^{
+                [self.group.editableObject updateMembersWithSuccess:^(id response) {
                     successBlock(self.group);
                 } failure:^(NSError *error) {
                     successBlock(self.group);

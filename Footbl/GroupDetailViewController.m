@@ -8,6 +8,7 @@
 
 #import <SDWebImage/UIButton+WebCache.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "Championship.h"
 #import "FootblNavigationController.h"
 #import "Group.h"
@@ -41,6 +42,7 @@
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
         fetchRequest.includesSubentities = YES;
+        fetchRequest.fetchLimit = 20;
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
@@ -62,6 +64,10 @@
     [self.navigationController pushViewController:groupInfoViewController animated:YES];
 }
 
+- (NSTimeInterval)updateInterval {
+    return 60 * 60 * 24 * 365;
+}
+
 - (void)reloadData {
     [super reloadData];
     
@@ -71,13 +77,45 @@
     
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
-    [self.group.editableObject updateMembersWithSuccess:^{
+    [self.group cancelMembersUpdate];
+    [self.group.editableObject updateMembersWithSuccess:^(NSNumber *shouldContinue) {
+        [self setupInfiniteScrolling];
+        self.tableView.showsInfiniteScrolling = shouldContinue.boolValue;
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
+    }];
+}
+
+- (void)setupInfiniteScrolling {
+    if (self.tableView.infiniteScrollingView) {
+        return;
+    }
+    
+    __weak typeof(self.tableView)weakTableView = self.tableView;
+    [weakTableView addInfiniteScrollingWithActionHandler:^{
+        [super reloadData];
+        
+        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+            [[LoadingHelper sharedInstance] showHud];
+        }
+        
+        self.navigationItem.title = self.group.name;
+        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [self.group.editableObject updateMembersWithSuccess:^(NSNumber *shouldContinue) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            if (!shouldContinue.boolValue) {
+                self.tableView.showsInfiniteScrolling = shouldContinue.boolValue;
+            }
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:^(NSError *error) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            [[LoadingHelper sharedInstance] hideHud];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
     }];
 }
 
@@ -171,6 +209,14 @@
     ProfileViewController *profileViewController = [ProfileViewController new];
     profileViewController.user = membership.user;
     [self.navigationController pushViewController:profileViewController animated:YES];
+}
+
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super controllerDidChangeContent:controller];
+    
+    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
 }
 
 #pragma mark - View Lifecycle
