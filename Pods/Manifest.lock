@@ -43,6 +43,7 @@ PODS:
   - SPNotifier (0.2.1):
     - AFNetworking (~> 2.0)
   - StyledPageControl (1.0)
+  - SVPullToRefresh (0.4.1)
   - TransformerKit (0.3.1)
   - UIAlertView-Blocks (1.0)
 
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - SPHipster
   - SPNotifier
   - StyledPageControl
+  - SVPullToRefresh
   - TransformerKit
   - UIAlertView-Blocks
 
@@ -75,6 +77,7 @@ SPEC CHECKSUMS:
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183
   SPNotifier: 23f1975c68c449ec81433a167dda3dbe429d8f85
   StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
   TransformerKit: 06b091aea93e66436d35abe7b9e12fb144acad29
   UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
 
