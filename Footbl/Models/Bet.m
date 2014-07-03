@@ -241,7 +241,7 @@ static CGFloat kBetSyncWaitTime = 2;
 }
 
 - (NSString *)toReturnString {
-    return self.valueValue == 0 ? @"-" : @(self.toReturn.integerValue).shortStringValue;
+    return self.valueValue == 0 ? @"-" : @(nearbyintf(self.toReturn.floatValue)).shortStringValue;
 }
 
 - (NSNumber *)reward {
@@ -261,7 +261,7 @@ static CGFloat kBetSyncWaitTime = 2;
         return @"-";
     }
     
-    return @(self.reward.integerValue).shortStringValue;
+    return @(nearbyintf(self.reward.floatValue)).shortStringValue;
 }
 
 @end
