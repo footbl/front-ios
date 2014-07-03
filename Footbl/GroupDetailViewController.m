@@ -39,12 +39,14 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
         fetchRequest.includesSubentities = YES;
-        fetchRequest.fetchLimit = 20;
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
+        if (!self.tableView.infiniteScrollingView) {
+            fetchRequest.fetchLimit = 20;
+        }
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController.delegate = self;
         
         NSError *error = nil;
         if (![_fetchedResultsController performFetch:&error]) {
@@ -216,7 +218,10 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [super controllerDidChangeContent:controller];
     
-    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.4];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.fetchedResultsController = nil;
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - View Lifecycle
