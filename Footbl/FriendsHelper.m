@@ -148,7 +148,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         return;
     }
     
-    [self startRequestWithGraphPath:@"me/friends?fields=name,last_name,first_name,picture.type(normal)" completionBlock:^(id result, NSError *error) {
+    [self startRequestWithGraphPath:@"me/friends?fields=name,picture.type(normal)" completionBlock:^(id result, NSError *error) {
         if (error) {
             if (completionBlock) completionBlock(nil, error);
             return;
