@@ -40,6 +40,7 @@
     self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     self.textView.text = self.text;
     self.textView.editable = NO;
+    self.textView.alwaysBounceVertical = YES;
     [self.view addSubview:self.textView];
 }
 
