@@ -139,7 +139,7 @@
     }
     
     if (membership.funds) {
-        cell.walletLabel.text = membership.funds.stringValue;
+        cell.walletLabel.text = membership.funds.shortStringValue;
     } else {
         cell.walletLabel.text = @"";
     }

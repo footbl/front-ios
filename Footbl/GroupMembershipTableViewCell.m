@@ -56,7 +56,7 @@
         self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
         
-        self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 26, 185, 22)];
+        self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 26, 175, 22)];
         self.usernameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.usernameLabel.textAlignment = NSTextAlignmentLeft;
         self.usernameLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
@@ -70,9 +70,9 @@
         self.nameLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
         [self.contentView addSubview:self.nameLabel];
         
-        self.walletLabel = [[UILabel alloc] initWithFrame:CGRectMake(264, 0, 40, 71)];
+        self.walletLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 0, 60, 71)];
         self.walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:20];
-        self.walletLabel.textAlignment = NSTextAlignmentLeft;
+        self.walletLabel.textAlignment = NSTextAlignmentRight;
         self.walletLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
         [self.contentView addSubview:self.walletLabel];
         

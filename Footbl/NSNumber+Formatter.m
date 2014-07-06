@@ -14,6 +14,13 @@
 
 #pragma mark - Instance Methods
 
+- (NSString *)walletStringValue {
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    return [formatter stringFromNumber:self];
+}
+
 - (NSString *)shortStringValue {
     CGFloat number = self.floatValue;
     NSString *unit = @"";

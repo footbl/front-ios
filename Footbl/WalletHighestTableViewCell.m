@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "NSNumber+Formatter.h"
 #import "WalletHighestTableViewCell.h"
 
 @interface WalletHighestTableViewCell ()
@@ -41,7 +42,7 @@
 
 - (void)setHighestValue:(NSNumber *)highestValue withDate:(NSDate *)date {
     NSDateFormatter *formatter = [NSDateFormatter new];
-    formatter.dateFormat = [NSString stringWithFormat:NSLocalizedString(@"'Highest: %@ in' MMMM YYYY", @"Highest: {highest funds} in {month format} {year format}"), highestValue.stringValue];
+    formatter.dateFormat = [NSString stringWithFormat:NSLocalizedString(@"'Highest: %@ in' MMMM YYYY", @"Highest: {highest funds} in {month format} {year format}"), highestValue.walletStringValue];
     
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     attributes[NSForegroundColorAttributeName] = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
@@ -52,9 +53,9 @@
     NSMutableAttributedString *attributedText = [NSMutableAttributedString new];
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:[formatter stringFromDate:date] attributes:attributes]];
     attributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
-    NSRange range = [attributedText.string rangeOfString:[NSLocalizedString(@"$", @"") stringByAppendingString:highestValue.stringValue]];
+    NSRange range = [attributedText.string rangeOfString:[NSLocalizedString(@"$", @"") stringByAppendingString:highestValue.walletStringValue]];
     if (range.location == NSNotFound) {
-        range = [attributedText.string rangeOfString:highestValue.stringValue];
+        range = [attributedText.string rangeOfString:highestValue.walletStringValue];
     }
     [attributedText setAttributes:attributes range:range];
     self.walletLabel.attributedText = attributedText;

@@ -13,5 +13,6 @@
 - (NSString *)shortStringValue;
 - (NSString *)rankingStringValue;
 - (NSString *)potStringValue;
+- (NSString *)walletStringValue;
 
 @end
