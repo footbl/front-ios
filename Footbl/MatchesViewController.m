@@ -420,16 +420,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
     
-    CGFloat tabBarHeight = CGRectGetHeight(tabBarController.tabBar.frame);
-    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
     CGFloat velocityY = [scrollView.panGestureRecognizer velocityInView:self.view].y;
-    CGFloat tabBarInsetTop = 20.f;
     
-    BOOL isContentBehindTabBar = scrollView.contentSize.height - scrollView.contentOffset.y < viewHeight + tabBarInsetTop + tabBarHeight * 3;
-    if (viewHeight < scrollView.contentSize.height && (velocityY < -kScrollMinimumVelocityToToggleTabBar || isContentBehindTabBar) && scrollView.contentOffset.y > 20) {
+    if (velocityY < -kScrollMinimumVelocityToToggleTabBar) {
         [tabBarController setTabBarHidden:YES animated:YES];
         [self.navigationBarTitleView setTitleHidden:YES animated:YES];
-    } else if (viewHeight > scrollView.contentSize.height || (velocityY > kScrollMinimumVelocityToToggleTabBar * 2.5 && !isContentBehindTabBar) || scrollView.contentOffset.y < 20) {
+    } else if (velocityY > kScrollMinimumVelocityToToggleTabBar) {
         [tabBarController setTabBarHidden:NO animated:YES];
         [self.navigationBarTitleView setTitleHidden:NO animated:YES];
     }
