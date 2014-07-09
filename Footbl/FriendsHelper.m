@@ -109,7 +109,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         addressBook.filterBlock = ^BOOL(APContact *contact) {
             return contact.emails.count > 0 && (contact.firstName.length > 0 || contact.lastName.length > 0);
         };
-        addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES]];
+        addressBook.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], [NSSortDescriptor sortDescriptorWithKey:@"lastName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
         [addressBook loadContacts:^(NSArray *contacts, NSError *error) {
             if (completionBlock) completionBlock(contacts);
         }];
@@ -170,7 +170,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
             if (completionBlock) completionBlock(nil, error);
             return;
         }
-        self.cache[kCacheKey] = @{@"data" : [result sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCompare:)]]], @"updatedAt" : [NSDate date]};
+        self.cache[kCacheKey] = @{@"data" : [result sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]], @"updatedAt" : [NSDate date]};
         if (completionBlock) completionBlock(self.cache[kCacheKey][@"data"], nil);
     }];
 }

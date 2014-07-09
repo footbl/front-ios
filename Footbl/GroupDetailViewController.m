@@ -40,10 +40,10 @@
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
         if (self.group.isDefaultValue) {
-            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
+            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
         } else {
-            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES]];
+            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil", self.group];
         }
         
