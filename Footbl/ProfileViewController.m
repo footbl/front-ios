@@ -110,7 +110,7 @@
     }
     
     self.numberOfWallets = @(self.user.wallets.count);
-    self.totalWallet = [self.user.wallets valueForKeyPath:@"@sum.funds"];
+    self.totalWallet = @([[self.user.wallets valueForKeyPath:@"@sum.funds"] floatValue] + [[self.user.wallets valueForKeyPath:@"@sum.stake"] floatValue]);
     self.maxWallet = [self.user.wallets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"maxFunds" ascending:NO]]].firstObject;
     self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
     
