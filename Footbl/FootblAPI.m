@@ -549,6 +549,13 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
     }];
     
+    @try {
+        [[FBSession activeSession] closeAndClearTokenInformation];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
 }
 
