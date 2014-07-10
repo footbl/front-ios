@@ -79,6 +79,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                             }
                         }
                     }];
+                    [users sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
                     self.cache[kCacheKey] = @{@"data" : users, @"updatedAt" : [NSDate date]};
                     if (completionBlock) completionBlock(users, nil);
                 } failure:^(NSError *error) {
