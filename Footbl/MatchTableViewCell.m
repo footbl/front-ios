@@ -174,6 +174,10 @@ static CGFloat kDisabledAlpha = 0.4;
     }
     self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
     
+    self.hostStepper.frameY = self.hostImageView.frameY;
+    self.drawStepper.frameY = self.versusLabel.frameY;
+    self.guestStepper.frameY = self.guestImageView.frameY;
+    
     [UIView performWithoutAnimation:^{
         CGPoint footerLabelCenter = self.footerLabel.center;
         [self.footerLabel sizeToFit];
@@ -307,6 +311,15 @@ static CGFloat kDisabledAlpha = 0.4;
             return teamImageView;
         };
         
+        UIStepper * (^stepperBlock)(UIView *baseView) = ^(UIView *baseView) {
+            UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(baseView.frameX - baseView.frameWidth, baseView.frameY, baseView.frameWidth * 2, baseView.frameHeight)];
+            stepper.maximumValue = INT_MAX;
+            stepper.tintColor = [UIColor clearColor];
+            [stepper addTarget:self action:@selector(stepperAction:) forControlEvents:UIControlEventValueChanged];
+            [self.cardContentView addSubview:stepper];
+            return stepper;
+        };
+        
         // Bets
         self.stakeValueLabel = label(CGRectMake(12, 12, 89, 26), [UIColor ftRedStakeColor]);
         self.returnValueLabel = label(CGRectMake(104, 12, 89, 26), [UIColor ftBlueReturnColor]);
@@ -365,6 +378,16 @@ static CGFloat kDisabledAlpha = 0.4;
         self.shareButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
         [self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.cardContentView addSubview:self.shareButton];
+        
+        self.hostStepper = [[UIStepper alloc] initWithFrame:CGRectMake(self.hostImageView.frameX - self.hostImageView.frameWidth, self.hostImageView.frameY, self.hostImageView.frameWidth * 2, self.hostImageView.frameHeight)];
+        self.hostStepper.maximumValue = INT_MAX;
+        self.hostStepper.tintColor = [UIColor clearColor];
+        [self.hostStepper addTarget:self action:@selector(stepperAction:) forControlEvents:UIControlEventValueChanged];
+        [self.cardContentView addSubview:self.hostStepper];
+        
+        self.hostStepper = stepperBlock(self.hostImageView);
+        self.drawStepper = stepperBlock(self.versusLabel);
+        self.guestStepper = stepperBlock(self.guestImageView);
     }
     return self;
 }
@@ -431,6 +454,24 @@ static CGFloat kDisabledAlpha = 0.4;
     return image;
 }
 
+- (IBAction)stepperAction:(UIStepper *)stepper {
+    if (!self.selectionBlock || !self.stepperUserInteractionEnabled) {
+        return;
+    }
+    
+    if (stepper == self.hostStepper) {
+        self.selectionBlock(0);
+    } else if (stepper == self.drawStepper) {
+        self.selectionBlock(1);
+    } else if (stepper == self.guestStepper) {
+        self.selectionBlock(2);
+    }
+}
+
+- (BOOL)isStepperSelected {
+    return self.hostStepper.isHighlighted || self.drawStepper.isHighlighted || self.guestStepper.isHighlighted;
+}
+
 - (void)gestureRecognizerHandler:(UIGestureRecognizer *)gestureRecognizer {
     if (!self.selectionBlock) {
         return;
@@ -443,6 +484,22 @@ static CGFloat kDisabledAlpha = 0.4;
     } else if (gestureRecognizer.view == self.versusLabel) {
         self.selectionBlock(1);
     }
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    self.stepperUserInteractionEnabled = YES;
+    
+    CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
+    if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
+        return [self.hostStepper hitTest:CGPointMake(self.hostStepper.frameWidth - 30, 10) withEvent:event];
+    } else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
+        return [self.drawStepper hitTest:CGPointMake(self.drawStepper.frameWidth - 30, 10) withEvent:event];
+    } else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
+        
+        return [self.guestStepper hitTest:CGPointMake(self.guestStepper.frameWidth - 30, 10) withEvent:event];
+    }
+    
+    return [super hitTest:point withEvent:event];
 }
 
 - (CGFloat)defaultTeamNameFontSize {

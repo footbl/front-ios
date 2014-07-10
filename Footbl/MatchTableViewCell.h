@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (copy, nonatomic) void (^selectionBlock)(NSInteger index);
 @property (copy, nonatomic) void (^shareBlock)(MatchTableViewCell *matchCell);
 @property (strong, nonatomic) UIView *cardContentView;
+@property (assign, nonatomic, getter = isStepperUserInteractionEnabled) BOOL stepperUserInteractionEnabled;
 
 // Live
 @property (strong, nonatomic) UIView *liveHeaderView;
@@ -49,23 +50,30 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (strong, nonatomic) UILabel *hostPotLabel;
 @property (strong, nonatomic) TeamImageView *hostImageView;
 @property (strong, nonatomic) TeamImageView *hostDisabledImageView;
+@property (strong, nonatomic) UIStepper *hostStepper;
+
 // Draw
 @property (strong, nonatomic) UILabel *drawLabel;
 @property (strong, nonatomic) UILabel *drawPotLabel;
 @property (strong, nonatomic) UILabel *versusLabel;
+@property (strong, nonatomic) UIStepper *drawStepper;
+
 // Guest
 @property (strong, nonatomic) UILabel *guestScoreLabel;
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
 @property (strong, nonatomic) TeamImageView *guestImageView;
 @property (strong, nonatomic) TeamImageView *guestDisabledImageView;
+@property (strong, nonatomic) UIStepper *guestStepper;
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 @property (strong, nonatomic) UIButton *shareButton;
+
 
 - (CGFloat)defaultTeamNameFontSize;
 - (void)setDateText:(NSString *)dateText;
 - (void)setFooterText:(NSString *)footerText;
 - (UIImage *)imageRepresentation;
+- (BOOL)isStepperSelected;
 
 @end
