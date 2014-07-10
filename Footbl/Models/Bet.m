@@ -22,7 +22,7 @@
 
 @implementation Bet
 
-static CGFloat kBetSyncWaitTime = 2;
+static CGFloat kBetSyncWaitTime = 3;
 
 #pragma mark - Class Methods
 
