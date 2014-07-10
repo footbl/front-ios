@@ -268,7 +268,7 @@
 "Share match: waiting without bet" = "Em qual apostar? %1$@ ou %2$@?\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* Cannot update wallet due to wallet balance */
-"Cannot update wallet due to wallet balance" = "Você só pode recarregar a sua carteira para quando tiver menos do que ฿100 disponível. ";
+"Cannot update wallet due to wallet balance" = "Você só pode recarregar sua carteira quando tiver menos do que ฿100 disponível (saldo da Carteira + Aposta).";
 
 /* Unit for 1000 (kilo) */
 "k" = "k";
