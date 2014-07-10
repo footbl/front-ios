@@ -9,6 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FavoriteTableViewCell.h"
 #import "FavoritesViewController.h"
+#import "FeaturedButton.h"
 #import "FeaturedViewController.h"
 #import "FootblAPI.h"
 #import "ProfileViewController.h"
@@ -141,25 +142,8 @@
     }];
 
     if (self.shouldShowFeatured) {
-        UIButton *featuredButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
-        [featuredButton setImage:[UIImage imageNamed:@"featured_user"] forState:UIControlStateNormal];
-        [featuredButton setTitle:NSLocalizedString(@"Featured users", @"") forState:UIControlStateNormal];
-        [featuredButton setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
-        [featuredButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        featuredButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17];
-        featuredButton.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-        featuredButton.titleEdgeInsets = UIEdgeInsetsMake(0, 80 - featuredButton.imageView.image.size.width, 0, 0);
+        FeaturedButton *featuredButton = [[FeaturedButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
         [featuredButton addTarget:self action:@selector(featuredAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-        arrowImageView.center = CGPointMake(CGRectGetWidth(featuredButton.frame) - 20, CGRectGetMidY(featuredButton.frame));
-        [featuredButton addSubview:arrowImageView];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetHeight(featuredButton.frame) - 0.5, CGRectGetWidth(featuredButton.frame) - 15, 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [featuredButton addSubview:separatorView];
-        
         self.tableView.tableHeaderView = featuredButton;
     }
 }

@@ -106,6 +106,7 @@
 		EDDCF26D193583050090D06D /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		EDDCF2711935830D0090D06D /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		EDDCF275193583170090D06D /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
+		EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
 		EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
@@ -312,6 +313,8 @@
 		EDDCF274193583120090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF276193583170090D06D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF278193583190090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
+		EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedButton.h; sourceTree = "<group>"; };
+		EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedButton.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
 		EDEFC64618E4884E006DD33D /* MatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesViewController.m; sourceTree = "<group>"; };
 		EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchTableViewCell.h; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 				EDB1D4A218E1F3F300E0C949 /* APIs */,
 				EDB1D47618E1F18B00E0C949 /* AppDelegate.h */,
 				EDB1D47718E1F18B00E0C949 /* AppDelegate.m */,
+				EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */,
+				EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */,
 				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
 				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
 				EDB9C6E9192A88F6002A913D /* Helpers */,
@@ -1039,6 +1044,7 @@
 				ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */,
 				EDDCF229193400030090D06D /* AnonymousViewController.m in Sources */,
 				ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */,
+				EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */,
 				ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
