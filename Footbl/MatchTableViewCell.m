@@ -378,13 +378,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.shareButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
         [self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.cardContentView addSubview:self.shareButton];
-        
-        self.hostStepper = [[UIStepper alloc] initWithFrame:CGRectMake(self.hostImageView.frameX - self.hostImageView.frameWidth, self.hostImageView.frameY, self.hostImageView.frameWidth * 2, self.hostImageView.frameHeight)];
-        self.hostStepper.maximumValue = INT_MAX;
-        self.hostStepper.tintColor = [UIColor clearColor];
-        [self.hostStepper addTarget:self action:@selector(stepperAction:) forControlEvents:UIControlEventValueChanged];
-        [self.cardContentView addSubview:self.hostStepper];
-        
+
         self.hostStepper = stepperBlock(self.hostImageView);
         self.drawStepper = stepperBlock(self.versusLabel);
         self.guestStepper = stepperBlock(self.guestImageView);
@@ -487,16 +481,26 @@ static CGFloat kDisabledAlpha = 0.4;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    self.stepperUserInteractionEnabled = YES;
-    
-    CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
-    if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
-        return [self.hostStepper hitTest:CGPointMake(self.hostStepper.frameWidth - 30, 10) withEvent:event];
-    } else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
-        return [self.drawStepper hitTest:CGPointMake(self.drawStepper.frameWidth - 30, 10) withEvent:event];
-    } else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
+    if (FBTweakValue(@"UX", @"Match", @"Tap & Hold", NO)) {
+        self.stepperUserInteractionEnabled = YES;
         
-        return [self.guestStepper hitTest:CGPointMake(self.guestStepper.frameWidth - 30, 10) withEvent:event];
+        self.hostStepper.userInteractionEnabled = YES;
+        self.drawStepper.userInteractionEnabled = YES;
+        self.guestStepper.userInteractionEnabled = YES;
+        
+        CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
+        if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
+            return [self.hostStepper hitTest:CGPointMake(self.hostStepper.frameWidth - 30, 10) withEvent:event];
+        } else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
+            return [self.drawStepper hitTest:CGPointMake(self.drawStepper.frameWidth - 30, 10) withEvent:event];
+        } else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
+            
+            return [self.guestStepper hitTest:CGPointMake(self.guestStepper.frameWidth - 30, 10) withEvent:event];
+        }
+    } else {
+        self.hostStepper.userInteractionEnabled = NO;
+        self.drawStepper.userInteractionEnabled = NO;
+        self.guestStepper.userInteractionEnabled = NO;
     }
     
     return [super hitTest:point withEvent:event];
