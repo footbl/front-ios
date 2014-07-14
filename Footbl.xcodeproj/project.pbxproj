@@ -106,6 +106,7 @@
 		EDDCF26D193583050090D06D /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		EDDCF2711935830D0090D06D /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		EDDCF275193583170090D06D /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
+		EDE66160196EDC2900C8F5E1 /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
 		EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -313,6 +314,8 @@
 		EDDCF274193583120090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF276193583170090D06D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF278193583190090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
+		EDE6615E196EDC2900C8F5E1 /* ProfileSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSearchViewController.h; sourceTree = "<group>"; };
+		EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSearchViewController.m; sourceTree = "<group>"; };
 		EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedButton.h; sourceTree = "<group>"; };
 		EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedButton.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
@@ -465,6 +468,8 @@
 				EDBD2C98192F10CA002C763D /* FavoritesViewController.m */,
 				EDBD2C9D192F19B9002C763D /* FeaturedViewController.h */,
 				EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */,
+				EDE6615E196EDC2900C8F5E1 /* ProfileSearchViewController.h */,
+				EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */,
 				ED81E82018EA6A7500212D3C /* ProfileViewController.h */,
 				ED81E82118EA6A7500212D3C /* ProfileViewController.m */,
 			);
@@ -1020,6 +1025,7 @@
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
 				EDBD2C9C192F149C002C763D /* FavoriteTableViewCell.m in Sources */,
+				EDE66160196EDC2900C8F5E1 /* ProfileSearchViewController.m in Sources */,
 				ED324334192D396500F54D57 /* Match+Sharing.m in Sources */,
 				EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */,
 				ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */,

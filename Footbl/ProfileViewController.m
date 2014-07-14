@@ -18,6 +18,7 @@
 #import "MatchTableViewCell.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
+#import "ProfileSearchViewController.h"
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
@@ -59,19 +60,40 @@
 
 - (void)setShouldShowSettings:(BOOL)shouldShowSettings {
     _shouldShowSettings = shouldShowSettings;
-    if (self.shouldShowSettings) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+    
+    if (FBTweakValue(@"Profile", @"Search", @"Enabled", NO)) {
+        self.navigationItem.leftBarButtonItem = nil;
+        
+        if (self.shouldShowSettings) {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+        }
     } else {
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
+        
+        if (self.shouldShowSettings) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+        }
     }
 }
 
 - (void)setShouldShowFavorites:(BOOL)shouldShowFavorites {
     _shouldShowFavorites = shouldShowFavorites;
-    if (self.shouldShowFavorites) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
+    
+    if (FBTweakValue(@"Profile", @"Search", @"Enabled", NO)) {
+        self.navigationItem.rightBarButtonItems = nil;
+        
+        if (self.shouldShowFavorites) {
+            UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star_active"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
+            UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_search"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(searchAction:)];
+            
+            self.navigationItem.rightBarButtonItems = @[favoritesButton, searchButton];
+        }
     } else {
         self.navigationItem.leftBarButtonItem = nil;
+        
+        if (self.shouldShowFavorites) {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
+        }
     }
 }
 
@@ -97,6 +119,10 @@
     [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
 }
 
+- (IBAction)searchAction:(id)sender {
+    [self.navigationController pushViewController:[ProfileSearchViewController new] animated:YES];
+}
+
 - (void)reloadContent {
     if (![FootblAPI sharedAPI].isAuthenticated) {
         self.user = nil;
@@ -112,7 +138,7 @@
     self.numberOfWallets = @(self.user.wallets.count);
     self.totalWallet = @([[self.user.wallets valueForKeyPath:@"@sum.funds"] floatValue] + [[self.user.wallets valueForKeyPath:@"@sum.stake"] floatValue]);
     self.maxWallet = [self.user.wallets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"maxFunds" ascending:NO]]].firstObject;
-    self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
+    self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]];
@@ -548,15 +574,22 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    self.shouldShowSettings = self.shouldShowSettings;
+    self.shouldShowFavorites = self.shouldShowFavorites;
+    
     if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
         [self addChildViewController:self.anonymousViewController];
         [self.view addSubview:self.anonymousViewController.view];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        for (UIBarButtonItem *button in self.navigationItem.rightBarButtonItems) {
+            button.enabled = NO;
+        }
         self.navigationItem.leftBarButtonItem.enabled = NO;
     } else {
         [self.anonymousViewController.view removeFromSuperview];
         [self.anonymousViewController removeFromParentViewController];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        for (UIBarButtonItem *button in self.navigationItem.rightBarButtonItems) {
+            button.enabled = YES;
+        }
         self.navigationItem.leftBarButtonItem.enabled = YES;
     }
 }
