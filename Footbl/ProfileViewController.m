@@ -61,7 +61,7 @@
 - (void)setShouldShowSettings:(BOOL)shouldShowSettings {
     _shouldShowSettings = shouldShowSettings;
     
-    if (FBTweakValue(@"Profile", @"Search", @"Enabled", NO)) {
+    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
         self.navigationItem.leftBarButtonItem = nil;
         
         if (self.shouldShowSettings) {
@@ -79,7 +79,7 @@
 - (void)setShouldShowFavorites:(BOOL)shouldShowFavorites {
     _shouldShowFavorites = shouldShowFavorites;
     
-    if (FBTweakValue(@"Profile", @"Search", @"Enabled", NO)) {
+    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
         self.navigationItem.rightBarButtonItems = nil;
         
         if (self.shouldShowFavorites) {
