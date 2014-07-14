@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <Tweaks/FBTweak.h>
+#import <Tweaks/FBTweakInline.h>
+#import <Tweaks/FBTweakViewController.h>
 #import "ErrorHandler.h"
 #import "FootblAppearance.h"
 

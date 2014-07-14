@@ -8,6 +8,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Tweaks/FBTweakShakeWindow.h>
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
@@ -83,7 +84,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:SPGetApplicationVersion() forKey:kVersionKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
