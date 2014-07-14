@@ -87,7 +87,7 @@
                             }
                         }];
                     }];
-                    requestSucceedWithBlock(operation, parameters, success);
+                    requestSucceedWithBlock(operation, parameters, nil);
                     [[self API] finishGroupedOperationsWithKey:key error:nil];
                     API_RESET_KEY(key);
                 }
