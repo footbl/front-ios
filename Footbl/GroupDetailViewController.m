@@ -73,7 +73,7 @@
 }
 
 - (NSTimeInterval)updateInterval {
-    return 60 * 60 * 24 * 365;
+    return UPDATE_INTERVAL_NEVER;
 }
 
 - (void)reloadData {
