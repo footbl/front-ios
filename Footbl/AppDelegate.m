@@ -38,7 +38,7 @@
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
-            [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
+            [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
             break;
         case SPBuildTypeAdHoc:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
