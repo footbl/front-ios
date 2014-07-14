@@ -45,6 +45,7 @@ PODS:
   - StyledPageControl (1.0)
   - SVPullToRefresh (0.4.1)
   - TransformerKit (0.3.1)
+  - Tweaks (1.1.0)
   - UIAlertView-Blocks (1.0)
 
 DEPENDENCIES:
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - StyledPageControl
   - SVPullToRefresh
   - TransformerKit
+  - Tweaks
   - UIAlertView-Blocks
 
 SPEC CHECKSUMS:
@@ -79,6 +81,7 @@ SPEC CHECKSUMS:
   StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
   TransformerKit: 06b091aea93e66436d35abe7b9e12fb144acad29
+  Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
   UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
 
 COCOAPODS: 0.33.1
