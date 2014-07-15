@@ -25,3 +25,7 @@ pod 'StyledPageControl'
 pod 'SVPullToRefresh'
 pod 'Tweaks'
 pod 'UIAlertView-Blocks'
+
+target 'FootblTests', :exclusive => true do
+    pod 'KIF', '~> 3.0'
+end
