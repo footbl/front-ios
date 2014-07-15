@@ -49,7 +49,12 @@
         self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 66.5, CGRectGetWidth(self.contentView.frame), 0.5)];
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 0.5)];
+        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:separatorView];
+        
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 66.5, CGRectGetWidth(self.contentView.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:separatorView];

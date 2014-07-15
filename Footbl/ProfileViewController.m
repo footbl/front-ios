@@ -362,12 +362,6 @@
     if (section == 1 && self.wallets.count > 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
         view.backgroundColor = [UIColor clearColor];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 9.5, CGRectGetWidth(view.frame), 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [view addSubview:separatorView];
-        
         return view;
     } else if (section == 2 && self.bets.count > 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 7)];
