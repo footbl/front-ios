@@ -89,11 +89,13 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    /*
     NSError *error = nil;
     [[SDImageCache sharedImageCache] importImagesFromPath:[[[NSBundle mainBundle] pathForResource:@"Cache" ofType:@""] stringByAppendingPathComponent:@"Images"] error:&error];
     if (error) {
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
     }
+    */
     
     /* Import cached images
     [[SDImageCache sharedImageCache] downloadCachedImages];
