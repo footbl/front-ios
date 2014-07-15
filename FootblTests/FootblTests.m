@@ -22,10 +22,16 @@
 
 - (void)beforeAll {
     [[FootblAPI sharedAPI] logout];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kPresentTutorialViewController"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFirstRunKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)afterAll {
     [[FootblAPI sharedAPI] logout];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kPresentTutorialViewController"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFirstRunKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setUp {
@@ -39,6 +45,18 @@
 }
 
 - (void)testSignup {
+    // Skip tutorial
+    [tester waitForTimeInterval:1];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Next", @"")];
+    [tester waitForTimeInterval:1];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Next", @"")];
+    [tester waitForTimeInterval:1];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Next", @"")];
+    [tester waitForTimeInterval:1];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Next", @"")];
+    [tester waitForTimeInterval:1];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Get started", @"")];
+    
     NSString *email = @"test@footbl.co";
     NSString *name = @"Alfredo";
     NSString *invalidPassword = @"senha";
@@ -48,7 +66,7 @@
     
     // Create account button
     [tester waitForTimeInterval:1];
-    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Create my account", @"")];
+    [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Sign up", @"")];
     
     // Enter email
     [tester waitForKeyboard];
