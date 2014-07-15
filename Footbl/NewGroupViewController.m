@@ -83,6 +83,11 @@
 
 - (IBAction)nextAction:(id)sender {
     if (self.isInvitationMode) {
+        if (self.nameTextField.text.length == 0) {
+            [self shakeLimitLabel];
+            return;
+        }
+        
         [self.nameTextField resignFirstResponder];
         [[LoadingHelper sharedInstance] showHud];
         
