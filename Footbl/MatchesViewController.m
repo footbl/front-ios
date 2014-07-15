@@ -452,6 +452,15 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - UIScrollView delegate
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
+    [tabBarController setTabBarHidden:NO animated:YES];
+    [self.navigationBarTitleView setTitleHidden:NO animated:YES];
+    return YES;
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
