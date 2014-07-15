@@ -43,6 +43,7 @@
 		ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
+		ED82BAF51974A9F400A580B4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */; };
 		ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
 		ED9D0AFF18F31B7C0061AE42 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
@@ -116,6 +117,7 @@
 		EDEFFA1018EF30BA003E12B7 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
 		EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
 		EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
+		F38BE948186B40249BCEB4CC /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +131,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		367ED0AE31BD4C60B34A5B8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.xcconfig"; path = "Pods/Pods-FootblTests.xcconfig"; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
 		ED19A400190A222900946490 /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
@@ -359,6 +363,8 @@
 				EDB1D48718E1F18B00E0C949 /* CoreData.framework in Frameworks */,
 				EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */,
 				EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */,
+				F38BE948186B40249BCEB4CC /* libPods-FootblTests.a in Frameworks */,
+				ED82BAF51974A9F400A580B4 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +589,7 @@
 				EDB1D46418E1F18B00E0C949 /* Frameworks */,
 				EDB1D46318E1F18B00E0C949 /* Products */,
 				ED71846E6ADC42B088DC3378 /* Pods.xcconfig */,
+				C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -606,6 +613,7 @@
 				367ED0AE31BD4C60B34A5B8E /* libPods.a */,
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
 				EDB1D48318E1F18B00E0C949 /* XCTest.framework */,
+				21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -832,9 +840,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDB1D49718E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "FootblTests" */;
 			buildPhases = (
+				A8695072CA434151B7CA923D /* Check Pods Manifest.lock */,
 				EDB1D47E18E1F18B00E0C949 /* Sources */,
 				EDB1D47F18E1F18B00E0C949 /* Frameworks */,
 				EDB1D48018E1F18B00E0C949 /* Resources */,
+				C521AF257A6E4199A3F3E33E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -944,6 +954,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8695072CA434151B7CA923D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C521AF257A6E4199A3F3E33E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-FootblTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED9F078C1909AD3A00C8AC71 /* Set Info.plist values */ = {
@@ -1273,12 +1313,14 @@
 		};
 		ED6E0199193DAFD2006B9783 /* App Store */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
@@ -1404,12 +1446,14 @@
 		};
 		EDB1D49818E1F18B00E0C949 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
@@ -1426,12 +1470,14 @@
 		};
 		EDB1D49918E1F18B00E0C949 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
