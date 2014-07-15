@@ -209,6 +209,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSNumber *)localJackpot {
+    if (FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL));
+    }
+    
     float jackpot = self.jackpotValue;
     if (self.myBetValue) {
         jackpot -= self.myBet.valueValue;
@@ -220,6 +224,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 #pragma mark Wallet
 
 - (NSNumber *)myBetValue {
+    if (FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL));
+    }
+    
     if (self.tempBetValue) {
         return self.tempBetValue;
     } else {
@@ -245,7 +253,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSNumber *)myBetProfit {
-    if (!self.myBetValue || self.status == MatchStatusWaiting) {
+    if ((!self.myBetValue || self.status == MatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
         return @0;
     }
     
@@ -257,7 +265,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSString *)myBetProfitString {
-    if (!self.myBetValue || self.status == MatchStatusWaiting) {
+    if ((!self.myBetValue || self.status == MatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
         return @"-";
     }
     
@@ -267,6 +275,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 #pragma mark Earnings per bet
 
 - (NSNumber *)earningsPerBetForHost {
+    if (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL)) {
+        return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL))));
+    }
+    
     float sumOfBets = self.potHostValue;
     if (self.myBet.resultValue == MatchResultHost) {
         sumOfBets -= self.myBet.valueValue;
@@ -278,6 +290,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSNumber *)earningsPerBetForDraw {
+    if (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL)) {
+        return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL))));
+    }
+    
     float sumOfBets = self.potDrawValue;
     if (self.myBet.resultValue == MatchResultDraw) {
         sumOfBets -= self.myBet.valueValue;
@@ -289,6 +305,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (NSNumber *)earningsPerBetForGuest {
+    if (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL)) {
+        return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL))));
+    }
+    
     float sumOfBets = self.potGuestValue;
     if (self.myBet.resultValue == MatchResultGuest) {
         sumOfBets -= self.myBet.valueValue;

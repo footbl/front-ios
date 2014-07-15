@@ -119,6 +119,10 @@
         }
     }
     
+    if (FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL));
+    }
+    
     return @(funds);
 }
 
@@ -137,6 +141,10 @@
         for (Bet *bet in self.activeBets) {
             stake += bet.valueValue;
         }
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL));
     }
     
     return @(stake);
@@ -158,6 +166,11 @@
             toReturn += bet.toReturn.floatValue;
         }
     }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL));
+    }
+    
     return @(toReturn);
 }
 
@@ -170,6 +183,11 @@
     for (Bet *bet in self.activeBets) {
         profit += bet.reward.floatValue;
     }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL));
+    }
+    
     return @(profit);
 }
 
@@ -181,6 +199,11 @@
             break;
         }
     }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+        started = YES;
+    }
+    
     return started ? @(self.profit.integerValue).shortStringValue : @"-";
 }
 

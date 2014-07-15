@@ -52,7 +52,11 @@
     formatter.usesGroupingSeparator = YES;
     formatter.numberStyle = NSNumberFormatterCurrencyStyle;
     formatter.currencySymbol = @"#";
-    return [formatter stringFromNumber:self];
+    if (FBTweakValue(@"Values", @"Profile", @"Ranking", 0, 0, HUGE_VAL)) {
+        return [formatter stringFromNumber:@(FBTweakValue(@"Values", @"Profile", @"Ranking", 0, 0, HUGE_VAL))];
+    } else {
+        return [formatter stringFromNumber:self];
+    }
 }
 
 - (NSString *)potStringValue {
