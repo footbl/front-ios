@@ -153,6 +153,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.stakeValueLabel.text = match.myBetValueString;
     cell.returnValueLabel.text = match.myBetReturnString;
     cell.profitValueLabel.text = match.myBetProfitString;
+    [UIFont setMaxFontSizeToFitBoundsInLabels:@[cell.stakeValueLabel, cell.returnValueLabel, cell.profitValueLabel]];
     
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     cell.selectionBlock = ^(NSInteger index){

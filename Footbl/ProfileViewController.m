@@ -318,6 +318,7 @@
                 matchCell.returnValueLabel.text = bet.toReturnString;
                 matchCell.profitValueLabel.text = bet.rewardString;
             }
+            [UIFont setMaxFontSizeToFitBoundsInLabels:@[matchCell.stakeValueLabel, matchCell.returnValueLabel, matchCell.profitValueLabel]];
             
             if (match.localJackpot.integerValue > 0) {
                 [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];

@@ -91,7 +91,7 @@ static CGFloat kDisabledAlpha = 0.4;
             [self setSecondSeparatorPosition:236];
             
             // Bets
-            self.stakeValueLabel.frameY = 12;
+            self.stakeValueLabel.frameY = 7;
             self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
             self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
             self.stakeTitleLabel.frameY = 36;
@@ -321,9 +321,9 @@ static CGFloat kDisabledAlpha = 0.4;
         };
         
         // Bets
-        self.stakeValueLabel = label(CGRectMake(12, 12, 89, 26), [UIColor ftRedStakeColor]);
-        self.returnValueLabel = label(CGRectMake(104, 12, 89, 26), [UIColor ftBlueReturnColor]);
-        self.profitValueLabel = label(CGRectMake(197, 12, 89, 26), [UIColor ftGreenMoneyColor]);
+        self.stakeValueLabel = label(CGRectMake(12, 7, 89, 36), [UIColor ftRedStakeColor]);
+        self.returnValueLabel = label(CGRectMake(104, 7, 89, 36), [UIColor ftBlueReturnColor]);
+        self.profitValueLabel = label(CGRectMake(197, 7, 89, 36), [UIColor ftGreenMoneyColor]);
         self.stakeTitleLabel = subtitleLabel(CGRectMake(10, 36, 89, 14), NSLocalizedString(@"Stake", @"").lowercaseString);
         self.returnTitleLabel = subtitleLabel(CGRectMake(104, 36, 89, 14), NSLocalizedString(@"To return", @"").lowercaseString);
         self.profitTitleLabel = subtitleLabel(CGRectMake(197, 36, 89, 14), NSLocalizedString(@"Profit", @"").lowercaseString);

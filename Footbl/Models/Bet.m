@@ -224,7 +224,7 @@ static CGFloat kBetSyncWaitTime = 3;
 }
 
 - (NSString *)valueString {
-    return self.valueValue == 0 ? @"-" : @(self.value.integerValue).shortStringValue;
+    return self.valueValue == 0 ? @"-" : @(self.value.integerValue).walletStringValue;
 }
 
 - (NSNumber *)toReturn {
@@ -241,7 +241,7 @@ static CGFloat kBetSyncWaitTime = 3;
 }
 
 - (NSString *)toReturnString {
-    return self.valueValue == 0 ? @"-" : @(nearbyintf(self.toReturn.floatValue)).shortStringValue;
+    return self.valueValue == 0 ? @"-" : @(nearbyintf(self.toReturn.floatValue)).walletStringValue;
 }
 
 - (NSNumber *)reward {
@@ -261,7 +261,7 @@ static CGFloat kBetSyncWaitTime = 3;
         return @"-";
     }
     
-    return @(nearbyintf(self.reward.floatValue)).shortStringValue;
+    return @(nearbyintf(self.reward.floatValue)).walletStringValue;
 }
 
 @end
