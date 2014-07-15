@@ -86,6 +86,7 @@
         self.scrollView.pagingEnabled = YES;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.delegate = self;
+        self.scrollView.scrollsToTop = NO;
         [self.contentView insertSubview:self.scrollView belowSubview:self.profileImageView];
         
         UIView *opaqueView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMidX(self.profileImageView.frame), self.contentView.frameHeight)];
