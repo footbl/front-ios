@@ -19,7 +19,7 @@
 #import "NSNumber+Formatter.h"
 #import "Team.h"
 #import "TeamImageView.h"
-#import "UILabel+MaxFontSize.h"
+#import "UIFont+MaxFontSize.h"
 #import "UIView+Shake.h"
 #import "User.h"
 #import "Wallet.h"
@@ -125,16 +125,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
     cell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
     
-    // Auto-decrease font size to fit bounds
-    cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
-    cell.guestNameLabel.font = [UIFont fontWithName:cell.guestNameLabel.font.fontName size:cell.defaultTeamNameFontSize];
-    cell.drawLabel.font = [UIFont fontWithName:cell.drawLabel.font.fontName size:cell.defaultTeamNameFontSize];
-    CGFloat maxHostNameSize = cell.hostNameLabel.maxFontSizeToFitBounds;
-    CGFloat maxGuestNameSize = cell.guestNameLabel.maxFontSizeToFitBounds;
-    CGFloat maxFontSize = MIN(maxHostNameSize, maxGuestNameSize);
-    cell.hostNameLabel.font = [UIFont fontWithName:cell.hostNameLabel.font.fontName size:maxFontSize];
-    cell.guestNameLabel.font = [UIFont fontWithName:cell.guestNameLabel.font.fontName size:maxFontSize];
-    cell.drawLabel.font = [UIFont fontWithName:cell.drawLabel.font.fontName size:maxFontSize];
+    [UIFont setMaxFontSizeToFitBoundsInLabels:@[cell.hostNameLabel, cell.guestNameLabel, cell.drawLabel]];
     
     [cell setDateText:match.dateString];
     
@@ -324,9 +315,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
     }
     
-    CGFloat fontSize = MIN(self.navigationBarTitleView.walletValueLabel.maxFontSizeToFitBounds, self.navigationBarTitleView.defaultValueFontSize);
-    UIFont *font = [UIFont fontWithName:self.navigationBarTitleView.walletValueLabel.font.fontName size:fontSize];
-    [labels makeObjectsPerformSelector:@selector(setFont:) withObject:font];
+    [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {

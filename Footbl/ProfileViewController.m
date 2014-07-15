@@ -24,7 +24,7 @@
 #import "SettingsViewController.h"
 #import "Team.h"
 #import "TeamImageView.h"
-#import "UILabel+MaxFontSize.h"
+#import "UIFont+MaxFontSize.h"
 #import "User.h"
 #import "Wallet.h"
 #import "WalletHighestTableViewCell.h"
@@ -276,16 +276,7 @@
             matchCell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
             matchCell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
             
-            // Auto-decrease font size to fit bounds
-            matchCell.hostNameLabel.font = [UIFont fontWithName:matchCell.hostNameLabel.font.fontName size:matchCell.defaultTeamNameFontSize];
-            matchCell.guestNameLabel.font = [UIFont fontWithName:matchCell.guestNameLabel.font.fontName size:matchCell.defaultTeamNameFontSize];
-            matchCell.drawLabel.font = [UIFont fontWithName:matchCell.drawLabel.font.fontName size:matchCell.defaultTeamNameFontSize];
-            CGFloat maxHostNameSize = matchCell.hostNameLabel.maxFontSizeToFitBounds;
-            CGFloat maxGuestNameSize = matchCell.guestNameLabel.maxFontSizeToFitBounds;
-            CGFloat maxFontSize = MIN(maxHostNameSize, maxGuestNameSize);
-            matchCell.hostNameLabel.font = [UIFont fontWithName:matchCell.hostNameLabel.font.fontName size:maxFontSize];
-            matchCell.guestNameLabel.font = [UIFont fontWithName:matchCell.guestNameLabel.font.fontName size:maxFontSize];
-            matchCell.drawLabel.font = [UIFont fontWithName:matchCell.drawLabel.font.fontName size:maxFontSize];
+            [UIFont setMaxFontSizeToFitBoundsInLabels:@[matchCell.hostNameLabel, matchCell.guestNameLabel, matchCell.drawLabel]];
             
             NSDateFormatter *formatter = [NSDateFormatter new];
             formatter.dateStyle = NSDateFormatterShortStyle;

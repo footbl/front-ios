@@ -31,6 +31,7 @@
 		ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D38190ED2BF00A7869B /* TeamImageView.m */; };
 		ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
 		ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
+		ED4F3B291975882400869E85 /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
 		ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
@@ -178,6 +179,8 @@
 		ED493D3C190EDF1300A7869B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		ED493D3E190EF49900A7869B /* UILabel+MaxFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MaxFontSize.h"; sourceTree = "<group>"; };
 		ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MaxFontSize.m"; sourceTree = "<group>"; };
+		ED4F3B271975882400869E85 /* UIFont+MaxFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MaxFontSize.h"; sourceTree = "<group>"; };
+		ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+MaxFontSize.m"; sourceTree = "<group>"; };
 		ED617558191EB7FB00242F74 /* GroupMembershipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMembershipTableViewCell.h; sourceTree = "<group>"; };
 		ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMembershipTableViewCell.m; sourceTree = "<group>"; };
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 				EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */,
 				EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */,
 				EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */,
+				ED4F3B271975882400869E85 /* UIFont+MaxFontSize.h */,
+				ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */,
 				ED493D3E190EF49900A7869B /* UILabel+MaxFontSize.h */,
 				ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */,
 				EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */,
@@ -1096,6 +1101,7 @@
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
 				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
+				ED4F3B291975882400869E85 /* UIFont+MaxFontSize.m in Sources */,
 				ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */,
 				ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */,
 				ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */,
