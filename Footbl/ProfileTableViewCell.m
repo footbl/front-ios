@@ -55,6 +55,7 @@
     self.dateLabel.frameY = originY;
     
     self.aboutLabel.text = aboutText;
+    self.verifiedImageView.center = CGPointMake(self.verifiedImageView.center.x, self.usernameLabel.center.y);
 }
 
 #pragma mark - Instance Methods
