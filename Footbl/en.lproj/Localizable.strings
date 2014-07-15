@@ -566,3 +566,6 @@ Do you want to log in instead? */
 /* Search */
 "Search" = "Search";
 
+/* Loading */
+"Loading" = "Loading";
+

@@ -60,7 +60,7 @@
     [tester waitForViewWithAccessibilityLabel:[NSString stringWithFormat:NSLocalizedString(@"You entered your email as %@", @""), email]];
     [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Yes", @"")];
     [tester waitForTimeInterval:1];
-    [tester waitForAbsenceOfViewWithAccessibilityLabel:@"Em andamento"];
+    [tester waitForAbsenceOfViewWithAccessibilityLabel:NSLocalizedString(@"Loading", @"Loading")];
     
     // Enter name
     [tester enterTextIntoCurrentFirstResponder:name];
@@ -85,7 +85,7 @@
     [tester enterTextIntoCurrentFirstResponder:username];
     [tester waitForTimeInterval:1];
     [tester tapViewWithAccessibilityLabel:NSLocalizedString(@"Continue", @"")];
-    [tester waitForAbsenceOfViewWithAccessibilityLabel:@"Em andamento"];
+    [tester waitForAbsenceOfViewWithAccessibilityLabel:NSLocalizedString(@"Loading", @"Loading")];
     
     // Enter bio
     [tester enterTextIntoCurrentFirstResponder:bio];

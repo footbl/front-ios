@@ -558,14 +558,13 @@
     if (self.view.frameHeight > 500) {
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.textFieldBackground.frame), CGRectGetMidY(self.textFieldBackground.frame) + self.activityIndicatorView.frameHeight + 30);
-        self.activityIndicatorView.hidesWhenStopped = YES;
-        [self.view addSubview:self.activityIndicatorView];
     } else {
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.activityIndicatorView.center = CGPointMake(self.textFieldBackground.frameWidth - 40, CGRectGetMidY(self.textFieldBackground.frame));
-        self.activityIndicatorView.hidesWhenStopped = YES;
-        [self.view addSubview:self.activityIndicatorView];
     }
+    self.activityIndicatorView.hidesWhenStopped = YES;
+    self.activityIndicatorView.accessibilityLabel = NSLocalizedString(@"Loading", @"Loading");
+    [self.view addSubview:self.activityIndicatorView];
     
     [self reloadTextField];
 }
