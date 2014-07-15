@@ -610,10 +610,10 @@
 				ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */,
 				EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */,
 				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
+				21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */,
 				367ED0AE31BD4C60B34A5B8E /* libPods.a */,
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
 				EDB1D48318E1F18B00E0C949 /* XCTest.framework */,
-				21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
