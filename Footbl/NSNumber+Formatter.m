@@ -8,6 +8,8 @@
 
 #import "NSNumber+Formatter.h"
 
+static CGFloat kMaxValueToShortTextFormat = 999999;
+
 #pragma mark NSNumber (Formatter)
 
 @implementation NSNumber (Formatter)
@@ -19,6 +21,14 @@
     formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     return [formatter stringFromNumber:self];
+}
+
+- (NSString *)limitedWalletStringValue {
+    if (self.integerValue > kMaxValueToShortTextFormat) {
+        return self.shortStringValue;
+    } else {
+        return self.walletStringValue;
+    }
 }
 
 - (NSString *)shortStringValue {

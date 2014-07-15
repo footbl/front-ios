@@ -296,8 +296,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @(self.championship.myWallet.localFunds.integerValue).walletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @(self.championship.myWallet.localStake.integerValue).walletStringValue;
+        self.navigationBarTitleView.walletValueLabel.text = @(self.championship.myWallet.localFunds.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = @(self.championship.myWallet.localStake.integerValue).limitedWalletStringValue;
         self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturnString;
         self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profitString;
     } else {

@@ -175,7 +175,7 @@
 }
 
 - (NSString *)toReturnString {
-    return self.toReturn.integerValue > 0 ? @(self.toReturn.integerValue).shortStringValue : @"-";
+    return self.toReturn.integerValue > 0 ? @(self.toReturn.integerValue).limitedWalletStringValue : @"-";
 }
 
 - (NSNumber *)profit {
@@ -204,7 +204,7 @@
         started = YES;
     }
     
-    return started ? @(self.profit.integerValue).shortStringValue : @"-";
+    return started ? @(self.profit.integerValue).limitedWalletStringValue : @"-";
 }
 
 - (void)updateWithData:(NSDictionary *)data {

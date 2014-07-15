@@ -45,13 +45,13 @@
         self.moneyButton.adjustsImageWhenDisabled = NO;
         [self addSubview:self.moneyButton];
         
-        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(32, 25, 42, 35)];
+        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 25, 48, 35)];
         self.walletValueLabel.textColor = [UIColor ftGreenMoneyColor];
         self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.walletValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.walletValueLabel];
         
-        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 58 , 72, 14)];
+        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 58 , 72, 14)];
         self.walletTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wallet", @"") attributes:titleAttributes];
         [self addSubview:self.walletTitleLabel];
         
@@ -75,23 +75,23 @@
         self.returnValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.returnValueLabel];
         
-        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 58, 72, 14)];
+        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 58, 72, 14)];
         self.returnTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"To return", @"") attributes:titleAttributes];
         [self addSubview:self.returnTitleLabel];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
         
-        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(242, 25, 72, 35)];
+        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 25, 72, 35)];
         self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
         self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.profitValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.profitValueLabel];
         
-        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(242, 58, 72, 14)];
+        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(239, 58, 72, 14)];
         self.profitTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Profit", @"") attributes:titleAttributes];
         [self addSubview:self.profitTitleLabel];
         
-        for (NSNumber *offsetX in @[@77.5, @242]) {
+        for (NSNumber *offsetX in @[@89.5, @235]) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(offsetX.floatValue, 27, 0.5, 29)];
             separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
             [self addSubview:separatorView];
