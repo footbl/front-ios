@@ -334,13 +334,6 @@
                 [matchCell setFooterText:@""];
             }
             
-            if (!FT_ENVIRONMENT_IS_PRODUCTION && match.host.picture.length == 0 && match.guest.picture.length == 0) { // Just for testing
-                [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
-                [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/BRAZIL_mwcpjv.png"]];
-                [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
-                [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:@"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/ARGENTINA_ig2aip.png"]];
-            }
-            
             switch (match.status) {
                 case MatchStatusWaiting:
                     matchCell.liveLabel.text = @"";
