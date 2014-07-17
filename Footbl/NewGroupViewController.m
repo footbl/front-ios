@@ -166,7 +166,7 @@
     
     [self.nameTextField becomeFirstResponder];
     
-    [[FriendsHelper sharedInstance] reloadFriendsWithCompletionBlock:nil];
+    [[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:nil];
 }
 
 - (void)didReceiveMemoryWarning {

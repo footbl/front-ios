@@ -70,21 +70,43 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                 [emails addObjectsFromArray:userEmails];
             }
             if ([FootblAPI sharedAPI].isAuthenticated) {
-                [User searchUsingEmails:emails usernames:nil ids:nil fbIds:[fbFriends valueForKeyPath:@"id"] success:^(NSArray *response) {
-                    NSMutableArray *users = [NSMutableArray new];
-                    [response enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
-                        if (![user[kAPIIdentifierKey] isEqualToString:[User currentUser].rid]) {
-                            if ([user[@"username"] length] > 0) {
-                                [users addObject:user];
+                __block NSInteger operationsCount = 0;
+                __block NSInteger operationsFinished = 0;
+                __block NSMutableArray *searchResults = [NSMutableArray new];
+                
+                void(^finishedBlock)(id response) = ^(id response) {
+                    operationsFinished ++;
+                    [searchResults addObjectsFromArray:response];
+                    
+                    if (operationsFinished == operationsCount) {
+                        NSMutableSet *resultSet = [NSMutableSet new];
+                        NSMutableArray *result = [NSMutableArray new];
+                        for (NSDictionary *user in searchResults) {
+                            if (![resultSet containsObject:user[kAPIIdentifierKey]] && ![user[kAPIIdentifierKey] isEqualToString:[User currentUser].rid]) {
+                                [resultSet addObject:user[kAPIIdentifierKey]];
+                                [result addObject:user];
                             }
                         }
-                    }];
-                    [users sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-                    self.cache[kCacheKey] = @{@"data" : users, @"updatedAt" : [NSDate date]};
-                    if (completionBlock) completionBlock(users, nil);
-                } failure:^(NSError *error) {
-                    if (completionBlock) completionBlock(nil, error);
-                }];
+                        [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+                        self.cache[kCacheKey] = @{@"data" : result, @"updatedAt" : [NSDate date]};
+                        if (completionBlock) completionBlock(result, nil);
+                    }
+                };
+                
+                NSInteger filterIndex = 0;
+                for (NSArray *filter in @[emails, [fbFriends valueForKeyPath:@"id"]]) {
+                    for (int i = 0; i < filter.count; i += 100) {
+                        operationsCount ++;
+                        NSArray *range = [filter objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(filter.count - i, 100))]];
+                        [User searchUsingEmails:filterIndex == 0 ? range : nil usernames:nil ids:nil fbIds:filterIndex == 1 ? range : nil success:^(id response) {
+                            finishedBlock(response);
+                        } failure:^(NSError *error) {
+                            SPLogError(@"%@", error);
+                            finishedBlock(@[]);
+                        }];
+                    }
+                    filterIndex ++;
+                }
             } else {
                 if (completionBlock) completionBlock(@[], nil);
             }
