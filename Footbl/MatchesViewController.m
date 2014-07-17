@@ -458,7 +458,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
     [tabBarController setTabBarHidden:NO animated:YES];
     [self.navigationBarTitleView setTitleHidden:NO animated:YES];
-    return YES;
+    if (FBTweakValue(@"UX", @"Match", @"Tap status bar to act. match", NO)) {
+        [self scrollToFirstActiveMatchAnimated:YES];
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 #pragma mark - View Lifecycle
