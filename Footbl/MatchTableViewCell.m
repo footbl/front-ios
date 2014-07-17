@@ -133,7 +133,7 @@ static CGFloat kDisabledAlpha = 0.4;
             [self setSecondSeparatorPosition:236 + increment + 7];
             
             // Bets
-            self.stakeValueLabel.frameY = 12 + increment;
+            self.stakeValueLabel.frameY = 7 + increment;
             self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
             self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
             self.stakeTitleLabel.frameY = 36 + increment;
