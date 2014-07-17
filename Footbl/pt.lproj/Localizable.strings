@@ -442,7 +442,7 @@
 "Copy sharing code" = "Copiar código de compartilhamento";
 
 /* Create a new group */
-"Create a new group" = "Criar um novo grupo";
+"Create a new group" = "Deseja criar um novo grupo?";
 
 /* Do you have an invitation code? */
 "Do you have an invitation code?" = "Você já tem um código de convite?";
