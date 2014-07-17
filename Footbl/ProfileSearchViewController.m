@@ -155,7 +155,7 @@
     [self.tableView registerClass:[FavoriteTableViewCell class] forCellReuseIdentifier:@"FavoriteCell"];
     [self.view addSubview:self.tableView];
     
-    UISearchBar *headerView = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 46, CGRectGetWidth(self.view.frame), 47 + self.tableView.rowHeight)];
+    UISearchBar *headerView = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 46, CGRectGetWidth(self.view.frame), 47 + (FBTweakValue(@"UX", @"Search", @"Show featured users", NO) ? self.tableView.rowHeight : 0))];
     headerView.searchBarStyle = UISearchBarStyleMinimal;
     self.tableView.tableHeaderView = headerView;
     [[self tableView] setTableHeaderView:headerView];
@@ -175,9 +175,11 @@
     self.searchBar.backgroundImage = [UIImage new];
     [headerView addSubview:self.searchBar];
     
-    FeaturedButton *featuredButton = [[FeaturedButton alloc] initWithFrame:CGRectMake(0, 47, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
-    [featuredButton addTarget:self action:@selector(featuredAction:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:featuredButton];
+    if (FBTweakValue(@"UX", @"Search", @"Show featured users", NO)) {
+        FeaturedButton *featuredButton = [[FeaturedButton alloc] initWithFrame:CGRectMake(0, 47, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
+        [featuredButton addTarget:self action:@selector(featuredAction:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:featuredButton];
+    }
 }
 
 - (void)viewDidLoad {

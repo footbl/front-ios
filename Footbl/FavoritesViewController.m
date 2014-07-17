@@ -12,6 +12,7 @@
 #import "FeaturedButton.h"
 #import "FeaturedViewController.h"
 #import "FootblAPI.h"
+#import "ProfileSearchViewController.h"
 #import "ProfileViewController.h"
 #import "User.h"
 
@@ -51,6 +52,10 @@
 
 - (IBAction)featuredAction:(id)sender {
     [self.navigationController pushViewController:[FeaturedViewController new] animated:YES];
+}
+
+- (IBAction)searchAction:(id)sender {
+    [self.navigationController pushViewController:[ProfileSearchViewController new] animated:YES];
 }
 
 - (void)configureCell:(FavoriteTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -117,6 +122,11 @@
     
     self.title = NSLocalizedString(@"Favorites", @"");
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    
+    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
+        UIBarButtonItem *searchButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_icn_search"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(searchAction:)];
+        self.navigationItem.rightBarButtonItem = searchButtonItem;
+    }
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];

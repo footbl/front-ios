@@ -18,7 +18,6 @@
 #import "MatchTableViewCell.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
-#import "ProfileSearchViewController.h"
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
@@ -65,10 +64,10 @@
         self.navigationItem.leftBarButtonItem = nil;
         
         if (self.shouldShowSettings) {
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_settings"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
         }
     } else {
-        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = nil;
         
         if (self.shouldShowSettings) {
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
@@ -80,13 +79,10 @@
     _shouldShowFavorites = shouldShowFavorites;
     
     if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
-        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = nil;
         
         if (self.shouldShowFavorites) {
-            UIBarButtonItem *favoritesButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"star_active"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
-            UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_search"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(searchAction:)];
-            
-            self.navigationItem.rightBarButtonItems = @[favoritesButton, searchButton];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
         }
     } else {
         self.navigationItem.leftBarButtonItem = nil;
@@ -117,10 +113,6 @@
 
 - (IBAction)settingsAction:(id)sender {
     [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
-}
-
-- (IBAction)searchAction:(id)sender {
-    [self.navigationController pushViewController:[ProfileSearchViewController new] animated:YES];
 }
 
 - (void)reloadContent {
