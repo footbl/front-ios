@@ -26,6 +26,7 @@
 #import "UIFont+MaxFontSize.h"
 #import "User.h"
 #import "Wallet.h"
+#import "WalletGraphTableViewCell.h"
 #import "WalletHighestTableViewCell.h"
 #import "WalletTableViewCell.h"
 
@@ -229,6 +230,13 @@
                     } else {
                         [walletCell setHighestValue:@0 withDate:[NSDate date]];
                     }
+                    break;
+                }
+                case 3: {
+                    WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
+                    walletCell.dataSource = [self.maxWallet.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]];
+                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Last %lu rounds", @"Last {number of rounds} rounds"), walletCell.dataSource.count];
+                    break;
                 }
                 default:
                     break;
@@ -381,7 +389,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3;
+            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.maxWallet.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]].count >= 3 ? 1 : 0);
         case 1:
             return self.wallets.count;
         case 2:
@@ -404,6 +412,9 @@
                     break;
                 case 2:
                     identifier = @"WalletHighestCell";
+                    break;
+                case 3:
+                    identifier = @"WalletGraphCell";
                     break;
                 default:
                     break;
@@ -531,6 +542,7 @@
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
     [self.tableView registerClass:[ProfileChampionshipTableViewCell class] forCellReuseIdentifier:@"ChampionshipCell"];
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
+    [self.tableView registerClass:[WalletGraphTableViewCell class] forCellReuseIdentifier:@"WalletGraphCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     

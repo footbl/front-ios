@@ -569,3 +569,6 @@ Do you want to log in instead? */
 /* Loading */
 "Loading" = "Loading";
 
+/* Last {number of rounds} rounds */
+"Last %lu rounds" = "Last %lu rounds";
+

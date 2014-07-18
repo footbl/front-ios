@@ -12,6 +12,8 @@
 		ED19A402190A222900946490 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
 		ED19A405190ACF8700946490 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
 		ED19A40A190AF85800946490 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
+		ED1A697D197988540084FB14 /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
+		ED1A69801979894B0084FB14 /* WalletGraphTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */; };
 		ED1E913919253F1200BDE434 /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED2D1C4D1915614200F1BC81 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
 		ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
@@ -142,6 +144,10 @@
 		ED19A406190ACF8700946490 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED19A408190AF85800946490 /* LogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
 		ED19A409190AF85800946490 /* LogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
+		ED1A697B197988540084FB14 /* WalletGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletGraphView.h; sourceTree = "<group>"; };
+		ED1A697C197988540084FB14 /* WalletGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletGraphView.m; sourceTree = "<group>"; };
+		ED1A697E1979894B0084FB14 /* WalletGraphTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletGraphTableViewCell.h; sourceTree = "<group>"; };
+		ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletGraphTableViewCell.m; sourceTree = "<group>"; };
 		ED1E913719253F1200BDE434 /* ImportImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportImageHelper.h; sourceTree = "<group>"; };
 		ED1E913819253F1200BDE434 /* ImportImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportImageHelper.m; sourceTree = "<group>"; };
 		ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
@@ -420,6 +426,8 @@
 				ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */,
 				ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */,
 				ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */,
+				ED1A697E1979894B0084FB14 /* WalletGraphTableViewCell.h */,
+				ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */,
 				ED32432C192BDC8D00F54D57 /* WalletHighestTableViewCell.h */,
 				ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */,
 				ED324329192BCD8000F54D57 /* WalletTableViewCell.h */,
@@ -711,6 +719,8 @@
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
 				ED493D38190ED2BF00A7869B /* TeamImageView.m */,
+				ED1A697B197988540084FB14 /* WalletGraphView.h */,
+				ED1A697C197988540084FB14 /* WalletGraphView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1045,6 +1055,7 @@
 				EDEFFA0D18EF30B4003E12B7 /* User.m in Sources */,
 				ED324328192BBD5700F54D57 /* ProfileTableViewCell.m in Sources */,
 				ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */,
+				ED1A697D197988540084FB14 /* WalletGraphView.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				EDDCF259193540870090D06D /* ErrorHandler.m in Sources */,
 				ED493D36190DCAF100A7869B /* Wallet.m in Sources */,
@@ -1114,6 +1125,7 @@
 				ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */,
 				ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */,
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
+				ED1A69801979894B0084FB14 /* WalletGraphTableViewCell.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,

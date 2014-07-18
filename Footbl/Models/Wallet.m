@@ -221,7 +221,7 @@
     
     NSArray *rounds = data[@"rounds"];
     NSMutableArray *lastRounds = [NSMutableArray new];
-    for (NSInteger i = 1; i <= 12 && i < rounds.count; i++) {
+    for (NSInteger i = 1; i < rounds.count; i++) {
         NSDictionary *currentRound = rounds[rounds.count - i];
         if ([currentRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
             [lastRounds addObject:@{@"ranking" : currentRound[@"ranking"], @"funds" : currentRound[@"funds"]}];
