@@ -76,7 +76,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                 
                 void(^finishedBlock)(id response) = ^(id response) {
                     operationsFinished ++;
-                    [searchResults addObjectsFromArray:response];
+                    if (response && [response isKindOfClass:[NSArray class]]) {
+                        [searchResults addObjectsFromArray:response];
+                    }
                     
                     if (operationsFinished == operationsCount) {
                         NSMutableSet *resultSet = [NSMutableSet new];
