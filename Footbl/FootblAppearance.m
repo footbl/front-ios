@@ -36,7 +36,7 @@ NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
         case FootblColorViewMatchBackground:
             return [UIColor colorWithRed:239/255.f green:244/255.f blue:240/255.f alpha:1.00];
         case FootblColorNavigationBar:
-            return [UIColor colorWithWhite:1.00 alpha:FBTweakValue(@"UI", @"Navigation Bar", @"Alpha", 0.9, 0.8, 1.0)];
+            return [UIColor colorWithWhite:1.00 alpha:FBTweakValue(@"UI", @"Navigation Bar", @"Alpha", 0.95, 0.8, 1.0)];
         case FootblColorTabBar:
             return [UIColor colorWithWhite:1.00 alpha:0.98];
         case FootblColorTabBarTint:
