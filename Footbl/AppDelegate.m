@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 #import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <Tweaks/FBTweakShakeWindow.h>
@@ -40,15 +41,18 @@
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
             [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
+            [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
             break;
         case SPBuildTypeAdHoc:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
             SPLogSwitchToLocalFiles();
             [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
+            [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
             break;
         case SPBuildTypeAppStore:
             kSPDebugLogLevel = SPDebugLogLevelError;
             [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
+            [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelOff];
             break;
         default:
             break;
@@ -57,6 +61,8 @@
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
     
     [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
+    
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     [SPNotifier setToken:@"MtdSF5SsLWBLnhkjZa1nWF3ZXwg4ybGnuRzxi2sy"];
     [SPNotifier handleNotification:launchOptions];

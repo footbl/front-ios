@@ -9,6 +9,7 @@ pod 'GoogleAnalytics-iOS-SDK', '3.0.3'
 
 # Networking
 pod 'AFNetworking', '~> 2.0'
+pod 'AFNetworkActivityLogger'
 pod 'SDWebImage'
 pod 'TransformerKit'
 
