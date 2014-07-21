@@ -235,7 +235,7 @@
                 case 3: {
                     WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
                     walletCell.dataSource = [self.maxWallet.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]];
-                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Last %lu rounds", @"Last {number of rounds} rounds"), walletCell.dataSource.count];
+                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource.count];
                     break;
                 }
                 default:

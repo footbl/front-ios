@@ -572,3 +572,6 @@ Do you want to log in instead? */
 /* Last {number of rounds} rounds */
 "Last %lu rounds" = "Últimas %lu rodadas";
 
+/* Wallet evolution */
+"Wallet evolution" = "Evolução da Carteira";
+
