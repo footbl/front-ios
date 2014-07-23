@@ -21,6 +21,7 @@
 
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) NSArray *footblDataSource;
+@property (assign, nonatomic) BOOL shouldShowKeyboard;
 
 @end
 
@@ -163,6 +164,8 @@
     self.searchBar.delegate = self;
     self.searchBar.backgroundImage = [UIImage new];
     self.tableView.tableHeaderView = self.searchBar;
+    
+    self.shouldShowKeyboard = YES;
 }
 
 - (void)viewDidLoad {
@@ -181,7 +184,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.searchBar becomeFirstResponder];
+    if (self.shouldShowKeyboard) {
+        [self.searchBar becomeFirstResponder];
+        self.shouldShowKeyboard = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
