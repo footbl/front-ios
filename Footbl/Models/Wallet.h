@@ -22,5 +22,6 @@
 - (NSString *)toReturnString;
 - (NSNumber *)profit;
 - (NSString *)profitString;
+- (NSArray *)lastActiveRounds;
 
 @end

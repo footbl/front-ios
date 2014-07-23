@@ -105,6 +105,22 @@
     return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
 }
 
+- (NSArray *)lastActiveRounds {
+    NSMutableArray *dataSource = [NSMutableArray new];
+    for (NSDictionary *round in [self.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]]) {
+        if (dataSource.count == 0) {
+            [dataSource addObject:round];
+        } else if ([dataSource.lastObject[@"funds"] floatValue] != [round[@"funds"] floatValue]) {
+            [dataSource addObject:round];
+        }
+        
+        if (dataSource.count >= 7) {
+            break;
+        }
+    }
+    return dataSource;
+}
+
 - (NSNumber *)localFunds {
     NSInteger funds = self.funds.integerValue;
     if (self.user.isMe) {

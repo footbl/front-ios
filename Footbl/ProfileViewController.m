@@ -234,8 +234,8 @@
                 }
                 case 3: {
                     WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
-                    walletCell.dataSource = [self.maxWallet.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]];
-                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource.count];
+                    walletCell.dataSource = self.maxWallet.lastActiveRounds;
+                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource];
                     break;
                 }
                 default:
@@ -399,7 +399,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.maxWallet.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]].count >= 3 ? 1 : 0);
+            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && self.maxWallet.lastActiveRounds.count >= 3 ? 1 : 0);
         case 1:
             return self.wallets.count;
         case 2:
