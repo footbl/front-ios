@@ -23,6 +23,12 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
     MatchTableViewCellStateLayoutDone
 };
 
+typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
+    MatchTableViewCellColorSchemeDefault,
+    MatchTableViewCellColorSchemeHighlightProfit,
+    MatchTableViewCellColorSchemeGray
+};
+
 @interface MatchTableViewCell : TemplateTableViewCell
 
 @property (assign, nonatomic) MatchTableViewCellLayout layout;
@@ -31,6 +37,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellStateLayout) {
 @property (copy, nonatomic) void (^shareBlock)(MatchTableViewCell *matchCell);
 @property (strong, nonatomic) UIView *cardContentView;
 @property (assign, nonatomic, getter = isStepperUserInteractionEnabled) BOOL stepperUserInteractionEnabled;
+@property (assign, nonatomic) MatchTableViewCellColorScheme colorScheme;
 
 // Live
 @property (strong, nonatomic) UIView *liveHeaderView;

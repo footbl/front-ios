@@ -320,6 +320,16 @@
             }
             [UIFont setMaxFontSizeToFitBoundsInLabels:@[matchCell.stakeValueLabel, matchCell.returnValueLabel, matchCell.profitValueLabel]];
             
+            if (match.status == MatchStatusFinished) {
+                if (bet.reward.floatValue > 0) {
+                    matchCell.colorScheme = MatchTableViewCellColorSchemeHighlightProfit;
+                } else {
+                    matchCell.colorScheme = MatchTableViewCellColorSchemeGray;
+                }
+            } else {
+                matchCell.colorScheme = MatchTableViewCellColorSchemeDefault;
+            }
+            
             if (match.localJackpot.integerValue > 0) {
                 [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
             } else {

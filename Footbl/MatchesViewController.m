@@ -155,6 +155,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.profitValueLabel.text = match.myBetProfitString;
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[cell.stakeValueLabel, cell.returnValueLabel, cell.profitValueLabel]];
     
+    if (match.status == MatchStatusFinished) {
+        if (match.myBetProfit.floatValue > 0) {
+            cell.colorScheme = MatchTableViewCellColorSchemeHighlightProfit;
+        } else {
+            cell.colorScheme = MatchTableViewCellColorSchemeGray;
+        }
+    } else {
+        cell.colorScheme = MatchTableViewCellColorSchemeDefault;
+    }
+    
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     cell.selectionBlock = ^(NSInteger index){
         if (match.isBetSyncing || match.status != MatchStatusWaiting) {

@@ -170,7 +170,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
         self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     } else if (self.stateLayout == MatchTableViewCellStateLayoutDone) {
-        self.liveHeaderView.backgroundColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1];
+        self.liveHeaderView.backgroundColor = [UIColor colorWithWhite:FBTweakValue(@"UI", @"Match", @"Border (Gray)", 0.7, 0.55, 0.8) alpha:1.0];
     }
     self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
     
@@ -198,6 +198,36 @@ static CGFloat kDisabledAlpha = 0.4;
             self.shareButton.frame = CGRectMake(13, self.shareButton.frameY, 86, self.shareButton.frameHeight);
         }
     }];
+}
+
+- (void)setColorScheme:(MatchTableViewCellColorScheme)colorScheme {
+    _colorScheme = colorScheme;
+    
+    if (FBTweakValue(@"UI", @"Match", @"Highlight only profit", NO)) {
+        UIColor *grayColor = [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:0.4];
+        
+        switch (self.colorScheme) {
+            case MatchTableViewCellColorSchemeDefault:
+                self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
+                self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
+                self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+                break;
+            case MatchTableViewCellColorSchemeHighlightProfit:
+                self.stakeValueLabel.textColor = grayColor;
+                self.returnValueLabel.textColor = grayColor;
+                self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+                break;
+            case MatchTableViewCellColorSchemeGray:
+                self.stakeValueLabel.textColor = grayColor;
+                self.returnValueLabel.textColor = grayColor;
+                self.profitValueLabel.textColor = grayColor;
+                break;
+        }
+    } else {
+        self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
+        self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
+        self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+    }
 }
 
 #pragma mark - Instance Methods
