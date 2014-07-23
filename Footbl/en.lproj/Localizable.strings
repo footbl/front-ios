@@ -575,3 +575,12 @@ Do you want to log in instead? */
 /* Wallet evolution */
 "Wallet evolution" = "Wallet Evolution";
 
+/* Update on App Store */
+"Update on App Store" = "Update on App Store";
+
+/* Update available! */
+"Update available!" = "Update available! :)";
+
+/* Update available text */
+"Update available text" = "A new version is ready for download!\n\nTo avoid conflicts, it's important that you update the app - it takes just a few seconds! :)";
+

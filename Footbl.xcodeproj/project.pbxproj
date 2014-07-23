@@ -110,6 +110,10 @@
 		EDDCF26D193583050090D06D /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		EDDCF2711935830D0090D06D /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		EDDCF275193583170090D06D /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
+		EDE555B81980061E0051AAF5 /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
+		EDE555BB198012390051AAF5 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
+		EDE555BE198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
+		EDE555C11980240E0051AAF5 /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		EDE66160196EDC2900C8F5E1 /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
 		EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
@@ -327,6 +331,14 @@
 		EDDCF274193583120090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF276193583170090D06D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF278193583190090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
+		EDE555B61980061E0051AAF5 /* ForceUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForceUpdateViewController.h; sourceTree = "<group>"; };
+		EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForceUpdateViewController.m; sourceTree = "<group>"; };
+		EDE555B9198012390051AAF5 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		EDE555BA198012390051AAF5 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		EDE555BC198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+AlignmentCenter.h"; sourceTree = "<group>"; };
+		EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+AlignmentCenter.m"; sourceTree = "<group>"; };
+		EDE555BF1980240E0051AAF5 /* TweaksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweaksHelper.h; sourceTree = "<group>"; };
+		EDE555C01980240E0051AAF5 /* TweaksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweaksHelper.m; sourceTree = "<group>"; };
 		EDE6615E196EDC2900C8F5E1 /* ProfileSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSearchViewController.h; sourceTree = "<group>"; };
 		EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSearchViewController.m; sourceTree = "<group>"; };
 		EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedButton.h; sourceTree = "<group>"; };
@@ -683,6 +695,8 @@
 				ED324333192D396500F54D57 /* Match+Sharing.m */,
 				EDB98296192D5FFC00697783 /* NSNumber+Formatter.h */,
 				EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */,
+				EDE555BC198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.h */,
+				EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */,
 				EDB1D4A918E209E500E0C949 /* NSString+Hex.h */,
 				EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */,
 				EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */,
@@ -693,6 +707,8 @@
 				EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */,
 				ED4F3B271975882400869E85 /* UIFont+MaxFontSize.h */,
 				ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */,
+				EDE555B9198012390051AAF5 /* UIImage+Color.h */,
+				EDE555BA198012390051AAF5 /* UIImage+Color.m */,
 				ED493D3E190EF49900A7869B /* UILabel+MaxFontSize.h */,
 				ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */,
 				EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */,
@@ -736,6 +752,7 @@
 				ED9F07911909C04700C8AC71 /* Settings */,
 				ED81E82618EA705E00212D3C /* Template */,
 				ED9D0AF818F310BA0061AE42 /* Tutorial */,
+				EDE555B5198006060051AAF5 /* Update */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -805,6 +822,8 @@
 				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
 				ED115ED61932B5FD00F5A722 /* LoadingHelper.h */,
 				ED115ED71932B5FD00F5A722 /* LoadingHelper.m */,
+				EDE555BF1980240E0051AAF5 /* TweaksHelper.h */,
+				EDE555C01980240E0051AAF5 /* TweaksHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -824,6 +843,15 @@
 				EDDCF277193583170090D06D /* tutorial_5_480@2x.png */,
 			);
 			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		EDE555B5198006060051AAF5 /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				EDE555B61980061E0051AAF5 /* ForceUpdateViewController.h */,
+				EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */,
+			);
+			name = Update;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1058,6 +1086,7 @@
 				ED1A697D197988540084FB14 /* WalletGraphView.m in Sources */,
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				EDDCF259193540870090D06D /* ErrorHandler.m in Sources */,
+				EDE555B81980061E0051AAF5 /* ForceUpdateViewController.m in Sources */,
 				ED493D36190DCAF100A7869B /* Wallet.m in Sources */,
 				EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */,
 				ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */,
@@ -1074,13 +1103,16 @@
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
 				ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
+				EDE555BB198012390051AAF5 /* UIImage+Color.m in Sources */,
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				EDDCF2261933B1BB0090D06D /* EditProfileViewController.m in Sources */,
 				ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
+				EDE555C11980240E0051AAF5 /* TweaksHelper.m in Sources */,
 				EDBD2C9C192F149C002C763D /* FavoriteTableViewCell.m in Sources */,
+				EDE555BE198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				EDE66160196EDC2900C8F5E1 /* ProfileSearchViewController.m in Sources */,
 				ED324334192D396500F54D57 /* Match+Sharing.m in Sources */,
 				EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */,

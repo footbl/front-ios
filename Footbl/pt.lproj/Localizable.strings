@@ -575,3 +575,12 @@ Do you want to log in instead? */
 /* Wallet evolution */
 "Wallet evolution" = "Evolução da Carteira";
 
+/* Update on App Store */
+"Update on App Store" = "Atualizar na App Store";
+
+/* Update available! */
+"Update available!" = "Atualize o Footbl! :)";
+
+/* Update available text */
+"Update available text" = "Há uma nova versão do Footbl disponível para atualização!\n\nPara evitar possíveis conflitos, é importante que você atualize o aplicativo - é bem rápido! :)";
+
