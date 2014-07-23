@@ -23,6 +23,7 @@ extern void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContex
 extern NSString * const FootblAPIErrorDomain;
 extern NSString * const kAPIIdentifierKey;
 extern NSString * const kFootblAPINotificationAuthenticationChanged;
+extern NSString * const kFootblAPINotificationAPIOutdated;
 
 typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
     FootblAuthenticationTypeNone = 0,

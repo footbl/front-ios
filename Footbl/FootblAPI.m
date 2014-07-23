@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSDate *tokenExpirationDate;
 @property (strong, nonatomic) NSMutableDictionary *operationGroupingDictionary;
 @property (assign, nonatomic) BOOL shouldGroup;
+@property (assign, nonatomic) BOOL shouldUsePreLaunchBaseUrl;
 @property (strong, nonatomic) CLCloudinary *cloudinary;
 
 @end
@@ -46,7 +47,10 @@
     static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 #endif
 
+static NSString * const kAPIBasePreLaunchURLString = @"https://footbl-prelaunch.herokuapp.com";
+
 static NSString * const kAPIAcceptVersion = @"1.0";
+static NSInteger const kAPIVersion = 1;
 
 static NSString * const kConfigPageSize = @"kConfigPageSize";
 static NSString * const kUserEmailKey = @"kUserEmailKey";
@@ -58,6 +62,7 @@ static NSString * const kUserNotificationTokenKey = @"kUserNotificationTokenKey"
 NSString * const FootblAPIErrorDomain = @"FootblAPIErrorDomain";
 NSString * const kAPIIdentifierKey = @"_id";
 NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
+NSString * const kFootblAPINotificationAPIOutdated = @"kFootblAPINotificationAPIOutdated";
 
 NSString * generateFacebookPasswordWithUserId(NSString *userId) {
     return [[NSString stringWithFormat:@"%@%@", userId, kAPISignatureKey] sha1];
@@ -194,6 +199,14 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     } failure:nil];
 }
 
+- (NSURL *)baseURL {
+    if (self.shouldUsePreLaunchBaseUrl) {
+        return [NSURL URLWithString:kAPIBasePreLaunchURLString];
+    } else {
+        return [super baseURL];
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
@@ -204,6 +217,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         [self.requestSerializer setValue:kAPIAcceptVersion forHTTPHeaderField:@"Accept-Version"];
         self.operationGroupingDictionary = [NSMutableDictionary new];
         self.shouldGroup = YES;
+        self.shouldUsePreLaunchBaseUrl = NO;
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
@@ -212,6 +226,14 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         self.cloudinary.config[@"cloud_name"] = kCloudinaryCloudName;
         self.cloudinary.config[@"api_key"] = kCloudinaryApiKey;
         self.cloudinary.config[@"api_secret"] = kCloudinaryApiSecret;
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            [self updateConfigWithSuccess:^{
+                
+            } failure:^(NSError *error) {
+                
+            }];
+        }];
     }
     return self;
 }
@@ -295,16 +317,40 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 #pragma mark - Config
 
 - (void)updateConfigWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [self ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
+    NSMutableDictionary *parameters = [self generateDefaultParameters];
+    [self groupOperationsWithKey:@"config" block:^{
         [self GET:@"/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"pageSize"] forKey:kConfigPageSize];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            requestSucceedWithBlock(operation, parameters, success);
+            
+            NSInteger serverVersion = [responseObject[@"version"] integerValue];
+            NSError *error = nil;
+            if (serverVersion < kAPIVersion) {
+                if (![self.baseURL.absoluteString isEqualToString:kAPIBasePreLaunchURLString]) {
+                    self.shouldUsePreLaunchBaseUrl = YES;
+                    [FootblAPI performOperationWithoutGrouping:^{
+                       [self updateConfigWithSuccess:success failure:failure];
+                    }];
+                    return;
+                } else {
+                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
+                }
+            } else if (serverVersion > kAPIVersion) {
+                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
+            }
+            
+            if (error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAPIOutdated object:nil];
+                [self finishGroupedOperationsWithKey:@"config" error:error];
+            } else {
+                requestSucceedWithBlock(operation, parameters, nil);
+                [self finishGroupedOperationsWithKey:@"config" error:nil];
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            requestFailedWithBlock(operation, parameters, error, failure);
+            requestFailedWithBlock(operation, parameters, error, nil);
+            [self finishGroupedOperationsWithKey:@"config" error:error];
         }];
-    } failure:failure];
+    } success:success failure:failure];
 }
 
 #pragma mark - Users
@@ -425,39 +471,41 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         return;
     }
     
-    [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.userToken = responseObject[@"token"];
-        self.userIdentifier = responseObject[kAPIIdentifierKey];
+    [self updateConfigWithSuccess:^{
+        [self GET:@"users/me/session" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.userToken = responseObject[@"token"];
+            self.userIdentifier = responseObject[kAPIIdentifierKey];
 #if !TARGET_IPHONE_SIMULATOR
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
 #endif
-        [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
-        
-        if (fbToken.length > 0) {
-            [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
-        } else {
-            [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
-        }
-        
-        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
-        SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
-        
-        requestSucceedWithBlock(operation, parameters, success);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (operation.response.statusCode == 403) {
-            if (self.isAuthenticated) {
-                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: authentication error, need to login again", @"")}];
-                [self logout];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
+            [self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+            
+            if (fbToken.length > 0) {
+                [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
             } else {
-                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: invalid username or password", @"")}];
+                [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
             }
-        }
-        requestFailedWithBlock(operation, parameters, error, failure);
-    }];
+            
+            self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+            SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
+            
+            requestSucceedWithBlock(operation, parameters, success);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
+            });
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (operation.response.statusCode == 403) {
+                if (self.isAuthenticated) {
+                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: authentication error, need to login again", @"")}];
+                    [self logout];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kFootblAPINotificationAuthenticationChanged object:nil];
+                } else {
+                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: invalid username or password", @"")}];
+                }
+            }
+            requestFailedWithBlock(operation, parameters, error, failure);
+        }];
+    } failure:failure];
 }
 
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

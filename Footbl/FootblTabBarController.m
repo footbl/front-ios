@@ -10,6 +10,7 @@
 #import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
+#import "ForceUpdateViewController.h"
 #import "GroupsViewController.h"
 #import "MatchesViewController.h"
 #import "ProfileViewController.h"
@@ -125,6 +126,14 @@
                 [navigationController dismissViewControllerAnimated:YES completion:nil];
             };
         }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAPIOutdated object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        while (viewController.presentedViewController) {
+            viewController = viewController.presentedViewController;
+        }
+        [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
     }];
     
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];

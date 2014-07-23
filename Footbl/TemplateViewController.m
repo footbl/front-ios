@@ -9,6 +9,7 @@
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+#import "FootblAPI.h"
 #import "TemplateViewController.h"
 
 @interface TemplateViewController ()
@@ -31,6 +32,11 @@
 
 - (void)reloadData {
     self.lastUpdateAt = [NSDate date];
+    [[FootblAPI sharedAPI] updateConfigWithSuccess:^{
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (NSTimeInterval)updateInterval {
