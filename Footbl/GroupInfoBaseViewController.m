@@ -21,8 +21,6 @@
 
 @implementation GroupInfoBaseViewController
 
-#define MAX_GROUP_NAME_SIZE 20
-
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
