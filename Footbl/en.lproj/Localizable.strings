@@ -587,3 +587,12 @@ Do you want to log in instead? */
 /* Group code: {group code} */
 "Group code: %@" = "group code: %@";
 
+/* {money} {number of matches} */
+"You lost $%lu in the last %@ matches =(" = "You lost $%1$lu in the last %2$@ matches =(";
+
+/* {money} {number of matches} */
+"You made $%lu in the last %@ matches =)" = "You made $%1$lu in the last %2$@ matches =)";
+
+/* {number of matches} */
+"You made $0 in the last %@ matches" = "You made $0 in the last %@ matches";
+

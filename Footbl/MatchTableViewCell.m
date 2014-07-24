@@ -412,6 +412,24 @@ static CGFloat kDisabledAlpha = 0.4;
         self.hostStepper = stepperBlock(self.hostImageView);
         self.drawStepper = stepperBlock(self.versusLabel);
         self.guestStepper = stepperBlock(self.guestImageView);
+        
+        self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 380, CGRectGetWidth(self.frame) + 2, 33)];
+        self.totalProfitView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.totalProfitView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+        self.totalProfitView.clipsToBounds = NO;
+        self.totalProfitView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
+        self.totalProfitView.layer.borderWidth = 0.5;
+        [self.contentView addSubview:self.totalProfitView];
+        
+        self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+        self.totalProfitArrowImageView.center = CGPointMake(CGRectGetMidX(self.totalProfitView.frame), CGRectGetMinY(self.totalProfitView.frame) - (self.totalProfitArrowImageView.image.size.height / 2) + 0.5);
+        [self.contentView addSubview:self.totalProfitArrowImageView];
+        
+        self.totalProfitLabel = [[UILabel alloc] initWithFrame:self.totalProfitView.bounds];
+        self.totalProfitLabel.textColor = [UIColor whiteColor];
+        self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
+        self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
+        [self.totalProfitView addSubview:self.totalProfitLabel];
     }
     return self;
 }

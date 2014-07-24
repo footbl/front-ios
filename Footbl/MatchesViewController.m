@@ -34,6 +34,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 @property (assign, nonatomic) CGPoint tableViewOffset;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
 @property (assign, nonatomic) NSInteger numberOfMatches;
+@property (copy, nonatomic) NSString *totalProfitText;
+@property (strong, nonatomic) NSIndexPath *totalProfitIndexPath;
 
 @end
 
@@ -75,6 +77,23 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)setChampionship:(Championship *)championship {
     _championship = championship;
     self.fetchedResultsController = nil;
+    [self.tableView reloadData];
+}
+
+- (void)setTotalProfitText:(NSString *)totalProfitText {
+    if ([totalProfitText isEqualToString:self.totalProfitText]) {
+        return;
+    }
+    
+    _totalProfitText = totalProfitText;
+    
+    if (self.totalProfitText.length > 0) {
+        Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]].lastObject;
+        self.totalProfitIndexPath = [self.fetchedResultsController indexPathForObject:match];
+    } else {
+        self.totalProfitIndexPath = nil;
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -281,6 +300,11 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     cell.shareBlock = ^(MatchTableViewCell *matchCell) {
         [match shareUsingMatchCell:matchCell viewController:self];
     };
+    
+    BOOL hideTotalProfit = !(self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section);
+    cell.totalProfitArrowImageView.hidden = hideTotalProfit;
+    cell.totalProfitView.hidden = hideTotalProfit;
+    cell.totalProfitLabel.text = self.totalProfitText;
 }
 
 - (void)fetchChampionship {
@@ -355,6 +379,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     if (matches == 0) {
         [[LoadingHelper sharedInstance] showHud];
     }
+    
+    NSArray *finishedMatches = [[self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]] valueForKeyPath:@"rid"];
+    
     [Wallet updateWithUser:[User currentUser] success:^{
         [self fetchChampionship];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.championship ? 0.1 : 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -374,6 +401,29 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                                 if (matches == 0) {
                                     [[LoadingHelper sharedInstance] hideHud];
                                 }
+                                
+                                void(^computeProfit)() = ^() {
+                                    NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
+                                    float sum = 0;
+                                    for (NSNumber *betReturn in [updatedMatches valueForKey:@"myBetReturn"]) {
+                                        sum += [betReturn floatValue];
+                                    }
+                                    NSNumber *numberOfMatches = @(updatedMatches.count);
+                                    
+                                    if (updatedMatches.count > 1 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", NO)) {
+                                        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
+                                        if (sum > 0) {
+                                            text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                                        } else if (sum < 0) {
+                                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                                        }
+                                        self.totalProfitText = text;
+                                    }
+                                };
+                                
+                                computeProfit();
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
                             } failure:failure];
                         } failure:failure];
                     } failure:failure];
@@ -451,11 +501,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    CGFloat height = 340;
     if (match.elapsed || match.finishedValue) {
-        return 363;
-    } else {
-        return 340;
+        height = 363;
     }
+    
+    if (self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section) {
+        height += 56;
+    }
+    
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -540,6 +595,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     [self reloadWallet];
     [self.tableView reloadData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    self.totalProfitText = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
