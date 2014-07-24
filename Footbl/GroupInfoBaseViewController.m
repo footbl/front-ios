@@ -138,7 +138,7 @@
     };
     
     UIView *titleView = generateView(CGRectMake(0, 120, CGRectGetWidth(self.view.frame), 103));
-    CGRect titleFrame = titleView.frame;
+    CGRect titleFrame = CGRectMake(CGRectGetMinX(titleView.frame), 145, CGRectGetWidth(titleView.frame), 53);
     titleFrame.origin.y += 5;
     self.nameTextField = [[UITextField alloc] initWithFrame:titleFrame];
     self.nameTextField.font = [UIFont fontWithName:kFontNameLight size:24];
@@ -147,8 +147,7 @@
     self.nameTextField.delegate = self;
     [self.view addSubview:self.nameTextField];
     
-    CGRect limitFrame = titleFrame;
-    limitFrame.origin.y += 25;
+    CGRect limitFrame = CGRectMake(CGRectGetMinX(titleFrame), 190, CGRectGetWidth(titleFrame), 23);
     self.nameSizeLimitLabel = [[UILabel alloc] initWithFrame:limitFrame];
     self.nameSizeLimitLabel.textAlignment = NSTextAlignmentCenter;
     self.nameSizeLimitLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:12];

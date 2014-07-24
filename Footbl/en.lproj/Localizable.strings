@@ -584,3 +584,6 @@ Do you want to log in instead? */
 /* Update available text */
 "Update available text" = "A new version is ready for download!\n\nTo avoid conflicts, it's important that you update the app - it takes just a few seconds! :)";
 
+/* Group code: {group code} */
+"Group code: %@" = "group code: %@";
+

@@ -17,11 +17,14 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "User.h"
+#import "WhatsAppActivity.h"
 #import "WhatsAppAPI.h"
 
 @interface GroupInfoViewController () <UIScrollViewDelegate>
 
 @end
+
+#define SHOULD_USE_NEW_GROUP_UI FBTweakValue(@"UI", @"Group", @"Info view redesign", NO)
 
 #pragma mark GroupInfoViewController
 
@@ -88,8 +91,14 @@
         hud.labelText = NSLocalizedString(@"Copied!", @"");
         [self.view addSubview:hud];
         [hud show:YES];
-        [hud hide:YES afterDelay:1.5];
+        [hud hide:YES afterDelay:1];
     }
+}
+
+- (IBAction)shareAction:(id)sender {
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[self.group.sharingText] applicationActivities:@[[WhatsAppActivity new]]];
+    activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypePostToFlickr, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 - (void)updateGroupName {
@@ -99,9 +108,20 @@
     }
 }
 
+- (void)tapGroupCodeGestureRecognizer:(UITapGestureRecognizer *)gestureRecognizer {
+    [[UIPasteboard generalPasteboard] setString:self.group.code];
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    hud.mode = MBProgressHUDModeText;
+    hud.animationType = MBProgressHUDAnimationZoom;
+    hud.labelText = NSLocalizedString(@"Copied!", @"");
+    [self.view addSubview:hud];
+    [hud show:YES];
+    [hud hide:YES afterDelay:1];
+}
+
 - (void)dismissKeyboardGesture:(UITapGestureRecognizer *)gestureRecognizer {
-    [self.nameTextField resignFirstResponder];
-    [self updateGroupName];
+    [self textFieldShouldReturn:self.nameTextField];
 }
 
 - (void)reloadData {
@@ -141,8 +161,23 @@
 
 #pragma mark - Delegates & Data sources
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (SHOULD_USE_NEW_GROUP_UI) {
+        [self updateLimitTextForLength:MAX_GROUP_NAME_SIZE - self.nameTextField.text.length];
+        self.nameSizeLimitLabel.userInteractionEnabled = NO;
+    } else {
+        [super textFieldDidBeginEditing:textField];
+    }
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [super textFieldDidEndEditing:textField];
+    if (SHOULD_USE_NEW_GROUP_UI) {
+        self.nameSizeLimitLabel.userInteractionEnabled = YES;
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
+        [self.nameTextField resignFirstResponder];
+    } else {
+        [super textFieldDidEndEditing:textField];
+    }
 
     [self updateGroupName];
 }
@@ -150,9 +185,9 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
         [textField resignFirstResponder];
-        [self updateGroupName];
         return YES;
     } else {
+        [self shakeLimitLabel];
         return NO;
     }
 }
@@ -165,6 +200,16 @@
     self.title = NSLocalizedString(@"Group Info", @"");
 
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardGesture:)]];
+    
+    if (SHOULD_USE_NEW_GROUP_UI) {
+        self.nameTextField.frameY -= 2;
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
+        self.nameSizeLimitLabel.alpha = 1;
+        self.nameSizeLimitLabel.userInteractionEnabled = YES;
+        [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
+    }
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     scrollView.alwaysBounceVertical = YES;
@@ -188,14 +233,17 @@
         return view;
     };
     
-    UIView *championshipView = generateView(CGRectMake(0, 168, CGRectGetWidth(self.view.frame), 62));
-    self.championshipLabel = [[UILabel alloc] initWithFrame:championshipView.frame];
-    self.championshipLabel.numberOfLines = 2;
-    [scrollView addSubview:self.championshipLabel];
+    CGRect bottomRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 159);
+    if (!SHOULD_USE_NEW_GROUP_UI) {
+        UIView *championshipView = generateView(CGRectMake(0, 168, CGRectGetWidth(self.view.frame), 62));
+        self.championshipLabel = [[UILabel alloc] initWithFrame:championshipView.frame];
+        self.championshipLabel.numberOfLines = 2;
+        [scrollView addSubview:self.championshipLabel];
+        bottomRect = championshipView.frame;
+    }
     
-    CGRect bottomRect = championshipView.frame;
     if (self.group.owner.isMe || self.group.freeToEditValue) {
-        UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(championshipView.frame) + 9, CGRectGetWidth(self.view.frame), 52));
+        UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
         self.addNewMembersGroupButton = [[UIButton alloc] initWithFrame:addNewMembersView.frame];
         [self.addNewMembersGroupButton setTitle:NSLocalizedString(@"Add new members", @"") forState:UIControlStateNormal];
         [self.addNewMembersGroupButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];

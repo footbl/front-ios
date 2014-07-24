@@ -439,7 +439,7 @@
 "Copied!" = "Copiado!";
 
 /* Copy sharing code */
-"Copy sharing code" = "Copiar código de compartilhamento";
+"Copy sharing code" = "Copiar código do grupo";
 
 /* Create a new group */
 "Create a new group" = "Deseja criar um novo grupo?";
@@ -583,4 +583,7 @@ Do you want to log in instead? */
 
 /* Update available text */
 "Update available text" = "Há uma nova versão do Footbl disponível para atualização!\n\nPara evitar possíveis conflitos, é importante que você atualize o aplicativo - é bem rápido! :)";
+
+/* Group code: {group code} */
+"Group code: %@" = "código do grupo: %@";
 
