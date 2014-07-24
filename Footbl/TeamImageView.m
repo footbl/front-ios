@@ -67,7 +67,7 @@
 
 - (UIImage *)imageWithTintColor:(UIColor *)tintColor {
     CGRect frame = CGRectMake(0.f, 0.f, self.size.width, self.size.height);
-    UIGraphicsBeginImageContext(frame.size);
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, self.scale);
     
     // Get the graphic context
     CGContextRef context = UIGraphicsGetCurrentContext();

@@ -132,11 +132,11 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.hostNameLabel.text = match.host.displayName;
-    [cell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
-    [cell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
+    [cell.hostImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [cell.hostDisabledImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     cell.guestNameLabel.text = match.guest.displayName;
-    [cell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
-    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
+    [cell.guestImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture] placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     cell.hostScoreLabel.text = match.hostScore.stringValue;
     cell.guestScoreLabel.text = match.guestScore.stringValue;
     

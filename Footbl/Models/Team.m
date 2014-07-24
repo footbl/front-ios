@@ -36,6 +36,19 @@
     return NSLocalizedString(string, @"");
 }
 
+- (NSURL *)pictureURL {
+    NSString *absoluteString = self.picture;
+    absoluteString = [absoluteString stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    absoluteString = [absoluteString stringByReplacingOccurrencesOfString:@"https://" withString:@""];
+    if ([absoluteString rangeOfString:@"res.cloudinary.com"].location != NSNotFound && [absoluteString rangeOfString:@"image/upload/"].location != NSNotFound && [absoluteString componentsSeparatedByString:@"/"].count == 6) {
+        NSString *stringToReplace = [[absoluteString componentsSeparatedByString:@"/"] objectAtIndex:4];
+        absoluteString = [absoluteString stringByReplacingOccurrencesOfString:stringToReplace withString:@"w_192,h_192,c_fit"];
+    }
+    absoluteString = [NSString stringWithFormat:@"http://%@?@2x.png", absoluteString];
+    
+    return [NSURL URLWithString:absoluteString];
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     

@@ -11,6 +11,7 @@
 @interface Team : _Team
 
 - (NSString *)displayName;
+- (NSURL *)pictureURL;
 - (void)updateWithData:(NSDictionary *)data;
 
 @end

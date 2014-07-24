@@ -262,15 +262,18 @@
             MatchTableViewCell *matchCell = (MatchTableViewCell *)cell;
             matchCell.hostNameLabel.text = match.host.displayName;
             matchCell.hostPotLabel.text = @"0";
-            [matchCell.hostImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
-            [matchCell.hostDisabledImageView setImageWithURL:[NSURL URLWithString:match.host.picture]];
+            [matchCell.hostImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+            [matchCell.hostDisabledImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
             matchCell.drawPotLabel.text = @"0";
             matchCell.guestNameLabel.text = match.guest.displayName;
-            [matchCell.guestImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
-            [matchCell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture]];
+            [matchCell.guestImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+            [matchCell.guestDisabledImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
             matchCell.guestPotLabel.text = @"0";
             matchCell.hostScoreLabel.text = match.hostScore.stringValue;
             matchCell.guestScoreLabel.text = match.guestScore.stringValue;
+            
+            matchCell.totalProfitArrowImageView.hidden = YES;
+            matchCell.totalProfitView.hidden = YES;
             
             matchCell.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
             matchCell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
