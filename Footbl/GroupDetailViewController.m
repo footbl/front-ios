@@ -99,7 +99,7 @@
 }
 
 - (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView) {
+    if (self.tableView.infiniteScrollingView || !self.group.isDefaultValue) {
         return;
     }
     
