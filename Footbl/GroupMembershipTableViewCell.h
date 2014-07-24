@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *walletLabel;
 @property (strong, nonatomic) NSNumber *rankingProgress;
+@property (strong, nonatomic) UIImageView *medalImageView;
 
 - (UIImage *)placeholderImage;
 

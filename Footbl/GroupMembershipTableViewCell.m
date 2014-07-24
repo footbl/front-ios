@@ -50,6 +50,9 @@
         self.profileImageView.image = self.placeholderImage;
         [self.contentView addSubview:self.profileImageView];
         
+        self.medalImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 35, 28, 28)];
+        [self.contentView addSubview:self.medalImageView];
+        
         self.rankingLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 11, 185, 16)];
         self.rankingLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
         self.rankingLabel.textAlignment = NSTextAlignmentLeft;

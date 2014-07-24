@@ -151,6 +151,23 @@
     }
     
     [cell.profileImageView setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
+    
+    if (FBTweakValue(@"UI", @"Group", @"Medals", NO)) {
+        switch (indexPath.row) {
+            case 0:
+                cell.medalImageView.image = [UIImage imageNamed:@"groups_medal_gold"];
+                break;
+            case 1:
+                cell.medalImageView.image = [UIImage imageNamed:@"groups_medal_silver"];
+                break;
+            case 2:
+                cell.medalImageView.image = [UIImage imageNamed:@"groups_medal_bronze"];
+                break;
+            default:
+                cell.medalImageView.image = nil;
+                break;
+        }
+    }
 }
 
 - (void)setupTitleView {
