@@ -95,19 +95,28 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     }
                 };
                 
-                NSInteger filterIndex = 0;
-                for (NSArray *filter in @[emails, [fbFriends valueForKeyPath:@"id"]]) {
-                    for (int i = 0; i < filter.count; i += 100) {
+                for (int i = 0; i < emails.count; i += 100) {
+                    operationsCount ++;
+                    NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
+                    [User searchUsingEmails:range usernames:nil ids:nil fbIds:nil success:^(id response) {
+                        finishedBlock(response);
+                    } failure:^(NSError *error) {
+                        SPLogError(@"%@", error);
+                        finishedBlock(@[]);
+                    }];
+                }
+                if (fbFriends) {
+                NSArray *fbIds = [fbFriends valueForKeyPath:@"id"];
+                    for (int i = 0; i < fbIds.count; i += 100) {
                         operationsCount ++;
-                        NSArray *range = [filter objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(filter.count - i, 100))]];
-                        [User searchUsingEmails:filterIndex == 0 ? range : nil usernames:nil ids:nil fbIds:filterIndex == 1 ? range : nil success:^(id response) {
+                        NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
+                        [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range success:^(id response) {
                             finishedBlock(response);
                         } failure:^(NSError *error) {
                             SPLogError(@"%@", error);
                             finishedBlock(@[]);
                         }];
                     }
-                    filterIndex ++;
                 }
             } else {
                 if (completionBlock) completionBlock(@[], nil);
