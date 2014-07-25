@@ -152,6 +152,21 @@
         [self.owner updateWithData:data[@"owner"]];
     }
     
+    NSMutableDictionary *groups = [[[NSUserDefaults standardUserDefaults] objectForKey:@"groups"] mutableCopy];
+    if (!groups) {
+        groups = [NSMutableDictionary new];
+    }
+    
+    if (self.isNewValue) {
+        if (groups[self.rid]) {
+            self.isNew = groups[self.rid];
+        }
+    } else {
+        groups[self.rid] = @NO;
+        [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"groups"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     NSString *championship = data[@"championship"];
     if ([championship isKindOfClass:[NSDictionary class]]) {
         self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];

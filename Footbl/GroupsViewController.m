@@ -241,6 +241,9 @@
     [super viewWillAppear:animated];
     
     if (self.tableView.indexPathForSelectedRow) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
     

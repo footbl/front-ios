@@ -306,7 +306,6 @@
     
     if (self.group.isNewValue) {
         self.group.editableObject.isNew = @NO;
-        SaveManagedObjectContext(self.group.editableManagedObjectContext);
     }
 }
 
