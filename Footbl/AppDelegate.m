@@ -21,6 +21,7 @@
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "TutorialViewController.h"
+#import "RatingHelper.h"
 #import "SDImageCache+ShippedCache.h"
 
 #pragma mark AppDelegate
@@ -70,6 +71,8 @@
     [[GAI sharedInstance] setDispatchInterval:20];
     [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-43860362-8"];
+    
+    [[RatingHelper sharedInstance] run];
     
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";

@@ -110,6 +110,7 @@
 		EDDCF26D193583050090D06D /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		EDDCF2711935830D0090D06D /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		EDDCF275193583170090D06D /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
+		EDDF974F1981E7FB00B97F15 /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
 		EDE555B81980061E0051AAF5 /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
 		EDE555BB198012390051AAF5 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
 		EDE555BE198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
@@ -331,6 +332,8 @@
 		EDDCF274193583120090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF276193583170090D06D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		EDDCF278193583190090D06D /* pt */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pt; path = "pt.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
+		EDDF974D1981E7FB00B97F15 /* RatingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingHelper.h; sourceTree = "<group>"; };
+		EDDF974E1981E7FB00B97F15 /* RatingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingHelper.m; sourceTree = "<group>"; };
 		EDE555B61980061E0051AAF5 /* ForceUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForceUpdateViewController.h; sourceTree = "<group>"; };
 		EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForceUpdateViewController.m; sourceTree = "<group>"; };
 		EDE555B9198012390051AAF5 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
@@ -822,6 +825,8 @@
 				ED1E913819253F1200BDE434 /* ImportImageHelper.m */,
 				ED115ED61932B5FD00F5A722 /* LoadingHelper.h */,
 				ED115ED71932B5FD00F5A722 /* LoadingHelper.m */,
+				EDDF974D1981E7FB00B97F15 /* RatingHelper.h */,
+				EDDF974E1981E7FB00B97F15 /* RatingHelper.m */,
 				EDE555BF1980240E0051AAF5 /* TweaksHelper.h */,
 				EDE555C01980240E0051AAF5 /* TweaksHelper.m */,
 			);
@@ -1163,6 +1168,7 @@
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 				ED115ED81932B5FD00F5A722 /* LoadingHelper.m in Sources */,
 				EDEFFA0A18EEF76C003E12B7 /* Group.m in Sources */,
+				EDDF974F1981E7FB00B97F15 /* RatingHelper.m in Sources */,
 				ED9DC8D518E3270600DF458C /* _Match.m in Sources */,
 				EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */,
 				ED1E913919253F1200BDE434 /* ImportImageHelper.m in Sources */,

@@ -27,6 +27,7 @@ PODS:
   - Cloudinary (1.0.11)
   - FXKeychain (1.5)
   - GoogleAnalytics-iOS-SDK (3.0.3)
+  - iRate (1.10.2)
   - KIF (3.0.7):
     - KIF/XCTest
   - KIF/XCTest (3.0.7)
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - Cloudinary
   - FXKeychain
   - GoogleAnalytics-iOS-SDK (= 3.0.3)
+  - iRate
   - KIF (~> 3.0)
   - MBProgressHUD
   - RMStore
@@ -82,6 +84,7 @@ SPEC CHECKSUMS:
   Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
   FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
   GoogleAnalytics-iOS-SDK: ee5322bf919d731d34ff3c8d891301e8f1e0e873
+  iRate: 7d204971bab2f727195b868e32e05216fe257681
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   RMStore: 6df6d5d71ebadbeede7963f7dd83f9c5a52acbbf

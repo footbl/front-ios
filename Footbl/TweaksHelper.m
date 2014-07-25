@@ -7,6 +7,7 @@
 //
 
 #import "ForceUpdateViewController.h"
+#import "RatingHelper.h"
 #import "TweaksHelper.h"
 
 #pragma mark TweaksHelper
@@ -24,6 +25,10 @@
             viewController = viewController.presentedViewController;
         }
         [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
+    });
+    
+    FBTweakAction(@"Actions", @"Review on App Store", @"Show alert", ^{
+        [[RatingHelper sharedInstance] showAlert];
     });
 }
 
