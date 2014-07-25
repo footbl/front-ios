@@ -12,6 +12,8 @@
 #import "ErrorHandler.h"
 #import "FootblAppearance.h"
 
+#define APP_STORE_APP_ID @"881307076"
+
 // Environment
 #define FB_READ_PERMISSIONS @[@"public_profile", @"user_friends", @"email"]
 #define FT_ENVIRONMENT_IS_PRODUCTION 1
