@@ -22,5 +22,6 @@
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)uploadImage:(UIImage *)image success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (NSString *)sharingText;
+- (void)saveStatusInLocalDatabase;
 
 @end

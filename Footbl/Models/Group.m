@@ -140,6 +140,16 @@
 
 #pragma mark - Instance Methods
 
+- (void)saveStatusInLocalDatabase {
+    NSMutableDictionary *localDatabase = [[[NSUserDefaults standardUserDefaults] objectForKey:@"groups"] mutableCopy];
+    if (!localDatabase) {
+        localDatabase = [NSMutableDictionary new];
+    }
+    localDatabase[self.rid] = self.isNew;
+    [[NSUserDefaults standardUserDefaults] setObject:localDatabase forKey:@"groups"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
@@ -152,19 +162,11 @@
         [self.owner updateWithData:data[@"owner"]];
     }
     
-    NSMutableDictionary *groups = [[[NSUserDefaults standardUserDefaults] objectForKey:@"groups"] mutableCopy];
-    if (!groups) {
-        groups = [NSMutableDictionary new];
-    }
-    
+    NSDictionary *localDatabase = [[NSUserDefaults standardUserDefaults] objectForKey:@"groups"];
     if (self.isNewValue) {
-        if (groups[self.rid]) {
-            self.isNew = groups[self.rid];
+        if (localDatabase[self.rid]) {
+            self.isNew = localDatabase[self.rid];
         }
-    } else {
-        groups[self.rid] = @NO;
-        [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"groups"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     NSString *championship = data[@"championship"];

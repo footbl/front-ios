@@ -305,7 +305,11 @@
     [super viewDidAppear:animated];
     
     if (self.group.isNewValue) {
-        self.group.editableObject.isNew = @NO;
+        [self.group.editableManagedObjectContext performBlock:^{
+            self.group.editableObject.isNew = @NO;
+            [self.group saveStatusInLocalDatabase];
+            SaveManagedObjectContext(self.group.editableManagedObjectContext);
+        }];
     }
 }
 
