@@ -48,7 +48,7 @@
         }
         
         fetchRequest.includesSubentities = YES;
-        if (!self.tableView.infiniteScrollingView) {
+        if (self.group.isDefaultValue && !self.tableView.infiniteScrollingView) {
             fetchRequest.fetchLimit = 20;
         }
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
