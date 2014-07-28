@@ -405,8 +405,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                                 void(^computeProfit)() = ^() {
                                     NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
                                     float sum = 0;
-                                    for (NSNumber *betReturn in [updatedMatches valueForKey:@"myBetReturn"]) {
-                                        sum += [betReturn floatValue];
+                                    for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
+                                        sum += [betProfit floatValue];
                                     }
                                     NSNumber *numberOfMatches = @(updatedMatches.count);
                                     
