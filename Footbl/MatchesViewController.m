@@ -238,14 +238,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             return;
         }
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (self.championship.myWallet.localFunds.integerValue < 1 && weakCell.isStepperSelected) {
-                weakCell.stepperUserInteractionEnabled = NO;
-            }
-        });
-        
         match.tempBetValue = @(currentBet);
         match.tempBetResult = result;
+        
+        if (self.championship.myWallet.localFunds.integerValue < 1 && weakCell.isStepperSelected) {
+            weakCell.stepperUserInteractionEnabled = NO;
+        }
         
         FootblAPIFailureBlock failure = ^(NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
