@@ -596,3 +596,6 @@ Do you want to log in instead? */
 /* {number of matches} */
 "You made $0 in the last %@ matches" = "Você fez $0 nas útimas %@ partidas";
 
+/* Join my group on Footbl! http://footbl.co/dl */
+"Join my group on Footbl! http://footbl.co/dl" = "Entre no meu grupo do footbl! http://footbl.co/dl";
+

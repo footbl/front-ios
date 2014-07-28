@@ -171,7 +171,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (SHOULD_USE_NEW_GROUP_UI) {
+    if (SHOULD_USE_NEW_GROUP_UI && !self.group.isDefaultValue) {
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
         self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
         [self.nameTextField resignFirstResponder];
@@ -202,11 +202,13 @@
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardGesture:)]];
     
     if (SHOULD_USE_NEW_GROUP_UI) {
-        self.nameTextField.frameY -= 2;
-        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
-        self.nameSizeLimitLabel.alpha = 1;
-        self.nameSizeLimitLabel.userInteractionEnabled = YES;
-        [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
+        if (!self.group.isDefaultValue) {
+            self.nameTextField.frameY -= 2;
+            self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
+            self.nameSizeLimitLabel.alpha = 1;
+            self.nameSizeLimitLabel.userInteractionEnabled = YES;
+            [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
+        }
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
     }
@@ -258,7 +260,13 @@
         arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(self.addNewMembersGroupButton.frame));
         [scrollView addSubview:arrowImageView];
         
-        UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(addNewMembersView.frame) - 0.5, CGRectGetWidth(self.view.frame), 72));
+        bottomRect = addNewMembersView.frame;
+    } else {
+        bottomRect.origin.y += 9;
+    }
+    
+    if (self.group.isDefaultValue || self.group.freeToEditValue) {
+        UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 72));
         UIButton *copyShareCodeButton = [[UIButton alloc] initWithFrame:copyShareCodeView.frame];
         [copyShareCodeButton setTitle:NSLocalizedString(@"Copy sharing code", @"") forState:UIControlStateNormal];
         [copyShareCodeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
@@ -284,36 +292,36 @@
             [copyShareCodeButton setTitle:NSLocalizedString(@"Share on WhatsApp", @"") forState:UIControlStateNormal];
             sharingLabel.text = NSLocalizedString(@"And bring friends", @"");
             
-            arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whatsapp_icon_iphone"]];
+            UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"whatsapp_icon_iphone"]];
             arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(copyShareCodeButton.frame));
             [scrollView addSubview:arrowImageView];
         } else {
-            arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+            UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
             arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(copyShareCodeButton.frame));
             [scrollView addSubview:arrowImageView];
         }
+    }
+    
+    if (self.group.owner.isMe) {
+        UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
+        UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.frameY, 240, freeToEditView.frameHeight)];
+        [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
+        [freeToEditButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [freeToEditButton setTitleColor:[[freeToEditButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        freeToEditButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
+        freeToEditButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        freeToEditButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+        freeToEditButton.userInteractionEnabled = NO;
+        [scrollView addSubview:freeToEditButton];
         
-        if (self.group.owner.isMe) {
-            UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(copyShareCodeView.frame) - 0.5, CGRectGetWidth(self.view.frame), 52));
-            UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.frameY, 240, freeToEditView.frameHeight)];
-            [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
-            [freeToEditButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-            [freeToEditButton setTitleColor:[[freeToEditButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
-            freeToEditButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
-            freeToEditButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            freeToEditButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-            freeToEditButton.userInteractionEnabled = NO;
-            [scrollView addSubview:freeToEditButton];
-            
-            self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
-            self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
-            self.freeToEditSwich.on = self.group.freeToEditValue;
-            self.freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
-            [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
-            [scrollView addSubview:self.freeToEditSwich];
-            
-            bottomRect = freeToEditView.frame;
-        }
+        self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
+        self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
+        self.freeToEditSwich.on = self.group.freeToEditValue;
+        self.freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
+        [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:self.freeToEditSwich];
+        
+        bottomRect = freeToEditView.frame;
     }
     
     UIView *leaveGroupView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
