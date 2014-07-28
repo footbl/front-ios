@@ -56,7 +56,7 @@
         [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
         
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] * 2 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.groupImageButton.center = CGPointMake(self.groupImageButton.center.x, CGRectGetMinY(self.nameTextField.frame));
+            self.groupImageButton.center = CGPointMake(self.groupImageButton.center.x, 120);
             self.groupImageButtonBorder.center = self.groupImageButton.center;
         } completion:nil];
     }
@@ -151,7 +151,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", @"") style:UIBarButtonItemStylePlain target:self action:@selector(nextAction:)];
     
-    self.invitationModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.nameTextField.frame), self.view.frameWidth, 40)];
+    self.invitationModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 223, self.view.frameWidth, 40)];
     self.invitationModeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
     [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
     [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
