@@ -78,7 +78,7 @@
 }
 
 - (IBAction)dismissAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)nextAction:(id)sender {
