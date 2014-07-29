@@ -207,6 +207,94 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     }
 }
 
+#pragma mark - New methods
+
+- (void)startOperationWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options constructingResponse:(id)constructingResponse success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    BOOL shouldAutoPage = (options & FootblRequestOptionShouldAutoPage);
+    BOOL authenticationRequired = (options & FootblRequestOptionAuthenticationRequired);
+    BOOL shouldGroup = (options & FootblRequestOptionShouldGroup);
+    NSMutableString *key = [URLString mutableCopy];
+    
+    void(^requestBlock)() = ^() {
+        NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+        AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id response) {
+            if (!shouldAutoPage || !response || ![response isKindOfClass:[NSArray class]]) {
+                if (shouldGroup) {
+                    [self finishGroupedOperationsWithKey:key response:response error:nil];
+                } else {
+                    if (success) success(operation, response);
+                }
+                return;
+            }
+            
+            NSArray *responseArray = response;
+            if (constructingResponse) {
+                responseArray = [constructingResponse arrayByAddingObjectsFromArray:responseArray];
+            }
+            if ([response count] == self.responseLimit) {
+                NSMutableDictionary *nextPageParameters = [parameters mutableCopy];
+                nextPageParameters[@"page"] = @([parameters[@"page"] integerValue] + 1);
+                [self startOperationWithMethod:method URLString:URLString parameters:nextPageParameters options:options constructingResponse:responseArray success:success failure:failure];
+            } else if (shouldGroup) {
+                [self finishGroupedOperationsWithKey:key response:responseArray error:nil];
+            } else if (success) {
+                success(operation, responseArray);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (shouldGroup) {
+                [self finishGroupedOperationsWithKey:key error:error];
+            } else if (failure) {
+                failure(operation, error);
+            }
+        }];
+        [self.operationQueue addOperation:operation];
+    };
+    
+    void(^groupBlock)() = ^() {
+        if (!shouldGroup || ([parameters[@"page"] integerValue] > 0 && shouldAutoPage)) {
+            requestBlock();
+            return;
+        }
+        
+        for (NSString *parameter in parameters.allKeys) {
+            if (![parameter isEqualToString:@"page"]) {
+                [key appendFormat:@"%lu", [parameters[parameter] hash]];
+            }
+        }
+        
+        [self groupOperationsWithKey:key block:requestBlock success:^(id response) {
+            if (success) success(nil, response);
+        } failure:^(NSError *error) {
+            if (failure) failure(nil, error);
+        }];
+    };
+    
+    if (authenticationRequired) {
+        [self ensureAuthenticationWithSuccess:^{
+            [self generateRequestHeaders];
+            groupBlock();
+        } failure:^(NSError *error) {
+            if (failure) failure(nil, error);
+        }];
+    }
+}
+
+- (void)GET:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+    [self startOperationWithMethod:@"GET" URLString:URLString parameters:parameters options:options constructingResponse:nil success:success failure:failure];
+}
+
+- (void)POST:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    [self startOperationWithMethod:@"POST" URLString:URLString parameters:parameters options:options constructingResponse:nil success:success failure:failure];
+}
+
+- (void)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    [self startOperationWithMethod:@"PUT" URLString:URLString parameters:parameters options:options constructingResponse:nil success:success failure:failure];
+}
+
+- (void)DELETE:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+    [self startOperationWithMethod:@"DELETE" URLString:URLString parameters:parameters options:options constructingResponse:nil success:success failure:failure];
+}
+
 #pragma mark - Instance Methods
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
@@ -251,11 +339,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     return FootblAuthenticationTypeNone;
 }
 
-- (NSString *)generateSignatureWithTimestamp:(float)timestamp transaction:(NSString *)transactionIdentifier {
-    return [[NSString stringWithFormat:@"%.00f%@%@", timestamp, transactionIdentifier, kAPISignatureKey] sha1];
-}
-
-- (NSMutableDictionary *)generateDefaultParameters {
+- (void)generateRequestHeaders {
     float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
     NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
     
@@ -265,7 +349,14 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if ([self isAuthenticated] && self.userToken.length > 0) {
         [self.requestSerializer setValue:self.userToken forHTTPHeaderField:@"auth-token"];
     }
-    
+}
+
+- (NSString *)generateSignatureWithTimestamp:(float)timestamp transaction:(NSString *)transactionIdentifier {
+    return [[NSString stringWithFormat:@"%.00f%@%@", timestamp, transactionIdentifier, kAPISignatureKey] sha1];
+}
+
+- (NSMutableDictionary *)generateDefaultParameters {
+    [self generateRequestHeaders];
     return [@{} mutableCopy];
 }
 
@@ -291,6 +382,20 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     self.operationGroupingDictionary[key] = queue;
     
     if (block && queue.count == 1) block();
+}
+
+- (void)finishGroupedOperationsWithKey:(id)key response:(id)response error:(NSError *)error {
+    NSMutableArray *queue = self.operationGroupingDictionary[key];
+    for (NSDictionary *queuedRequest in queue) {
+        if (error) {
+            FootblAPIFailureBlock block = queuedRequest[@"failure"];
+            if (block) block(error);
+        } else {
+            FootblAPISuccessWithResponseBlock block = queuedRequest[@"success"];
+            if (block) block(response);
+        }
+    }
+    [self.operationGroupingDictionary removeObjectForKey:key];
 }
 
 - (void)finishGroupedOperationsWithKey:(id)key error:(NSError *)error {

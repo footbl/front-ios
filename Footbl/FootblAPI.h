@@ -32,6 +32,12 @@ typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
     FootblAuthenticationTypeEmailPassword = 3
 };
 
+typedef NS_OPTIONS(NSInteger, FootblRequestOption) {
+    FootblRequestOptionAuthenticationRequired = 1 << 0,
+    FootblRequestOptionShouldAutoPage = 1 << 1,
+    FootblRequestOptionShouldGroup = 1 << 2
+};
+
 @class FBSession;
 @class User;
 
@@ -46,6 +52,11 @@ typedef NS_ENUM(NSInteger, FootblAuthenticationType) {
 
 + (instancetype)sharedAPI;
 + (void)performOperationWithoutGrouping:(void (^)())block;
+
+- (void)GET:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)POST:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+- (void)PUT:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
+- (void)DELETE:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
 
 - (NSMutableDictionary *)generateDefaultParameters;
 - (FootblAuthenticationType)authenticationType;

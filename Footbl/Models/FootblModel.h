@@ -35,6 +35,7 @@
 + (NSManagedObjectContext *)editableManagedObjectContext;
 + (NSInteger)responseLimit;
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock;
++ (void)loadContentWithPath:(NSString *)path options:(FootblRequestOption)options inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock successBlock:(void (^)(AFHTTPRequestOperation *operation, id responseObject))successBlock failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failureBlock;
 + (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 + (void)createWithParameters:(NSDictionary *)parameters success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (FootblAPI *)API;

@@ -104,6 +104,13 @@
     return [FootblAPI sharedAPI].responseLimit;
 }
 
++ (void)loadContentWithPath:(NSString *)path options:(FootblRequestOption)options inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock successBlock:(void (^)(AFHTTPRequestOperation *operation, id responseObject))successBlock failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failureBlock {
+    [[FootblAPI sharedAPI] GET:path parameters:[self generateDefaultParameters] options:options success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadContent:responseObject inManagedObjectContext:context usingCache:specifiedCache enumeratingObjectsWithBlock:objectBlock deletingUntouchedObjectsWithBlock:deleteBlock];
+        if (successBlock) successBlock(operation, responseObject);
+    } failure:failureBlock];
+}
+
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)specifiedCache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *contentEntry))objectBlock deletingUntouchedObjectsWithBlock:(void (^)(NSSet *untouchedObjects))deleteBlock {
     [self.editableManagedObjectContext performBlock:^{
         NSSet *cache = specifiedCache;
