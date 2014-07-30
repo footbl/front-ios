@@ -26,6 +26,8 @@
 		ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
 		ED324334192D396500F54D57 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
+		ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
+		ED3A0F5C1988BAF800011E91 /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED3A0F6619899A8D00011E91 /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
@@ -178,6 +180,10 @@
 		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED324332192D396500F54D57 /* Match+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Match+Sharing.h"; sourceTree = "<group>"; };
 		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
+		ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupAnimatedTransition.h; sourceTree = "<group>"; };
+		ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblPopupAnimatedTransition.m; sourceTree = "<group>"; };
+		ED3A0F5A1988BAF800011E91 /* FootblPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupViewController.h; sourceTree = "<group>"; };
+		ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblPopupViewController.m; sourceTree = "<group>"; };
 		ED3A0F6419899A8D00011E91 /* MatchTableViewCell+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MatchTableViewCell+Setup.h"; sourceTree = "<group>"; };
 		ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MatchTableViewCell+Setup.m"; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
@@ -452,6 +458,15 @@
 				ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		ED3A0F591988BAD000011E91 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				ED3A0F5A1988BAF800011E91 /* FootblPopupViewController.h */,
+				ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */,
+			);
+			name = Popup;
 			sourceTree = "<group>";
 		};
 		ED81E82618EA705E00212D3C /* Template */ = {
@@ -739,6 +754,8 @@
 				EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */,
 				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
 				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
+				ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */,
+				ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */,
 				EDB9C6E9192A88F6002A913D /* Helpers */,
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
@@ -756,6 +773,7 @@
 				ED9D0AFC18F31B700061AE42 /* Login */,
 				ED81E82A18EA708E00212D3C /* Matches */,
 				ED81E82818EA707800212D3C /* Navigation */,
+				ED3A0F591988BAD000011E91 /* Popup */,
 				ED81E82B18EA709200212D3C /* Profile */,
 				ED9F07911909C04700C8AC71 /* Settings */,
 				ED81E82618EA705E00212D3C /* Template */,
@@ -1132,6 +1150,7 @@
 				ED2D1C4D1915614200F1BC81 /* UIView+Shake.m in Sources */,
 				ED2D1C5319156C4600F1BC81 /* GroupInfoBaseViewController.m in Sources */,
 				ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */,
+				ED3A0F5C1988BAF800011E91 /* FootblPopupViewController.m in Sources */,
 				ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */,
 				EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */,
 				EDAF0EA3191BC7E3005218FB /* SignupViewController.m in Sources */,
@@ -1141,6 +1160,7 @@
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */,
 				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
+				ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */,
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
