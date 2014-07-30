@@ -9,6 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Bet.h"
 #import "Championship.h"
+#import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
 #import "LoadingHelper.h"
 #import "Match.h"
@@ -16,6 +17,7 @@
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
+#import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Shake.h"
 #import "User.h"
@@ -107,6 +109,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
+    if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[RechargeViewController new]];
+        [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
+        return;
+    }
+    
     if (self.championship.myWallet.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show]; 
