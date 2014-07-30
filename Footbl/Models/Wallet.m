@@ -105,6 +105,10 @@
     return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
 }
 
+- (BOOL)canRecharge {
+    return (self.localFunds.integerValue + self.localStake.integerValue >= 100);
+}
+
 - (NSArray *)lastActiveRounds {
     NSMutableArray *dataSource = [NSMutableArray new];
     for (NSDictionary *round in [self.lastRounds filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ranking != nil"]]) {

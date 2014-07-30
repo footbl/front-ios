@@ -110,7 +110,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-    if (self.championship.myWallet.localFunds.integerValue + self.championship.myWallet.localStake.integerValue >= 100) {
+    if (self.championship.myWallet.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show]; 
         return;

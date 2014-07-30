@@ -23,5 +23,6 @@
 - (NSNumber *)profit;
 - (NSString *)profitString;
 - (NSArray *)lastActiveRounds;
+- (BOOL)canRecharge;
 
 @end
