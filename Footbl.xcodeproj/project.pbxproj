@@ -27,6 +27,7 @@
 		ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
 		ED324334192D396500F54D57 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
 		ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
+		ED3A0F581988B42E00011E91 /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
 		ED3A0F5C1988BAF800011E91 /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED3A0F6619899A8D00011E91 /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
@@ -182,6 +183,8 @@
 		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
 		ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupAnimatedTransition.h; sourceTree = "<group>"; };
 		ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblPopupAnimatedTransition.m; sourceTree = "<group>"; };
+		ED3A0F561988B42E00011E91 /* FootblLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblLabel.h; sourceTree = "<group>"; };
+		ED3A0F571988B42E00011E91 /* FootblLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblLabel.m; sourceTree = "<group>"; };
 		ED3A0F5A1988BAF800011E91 /* FootblPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupViewController.h; sourceTree = "<group>"; };
 		ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblPopupViewController.m; sourceTree = "<group>"; };
 		ED3A0F6419899A8D00011E91 /* MatchTableViewCell+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MatchTableViewCell+Setup.h"; sourceTree = "<group>"; };
@@ -754,6 +757,8 @@
 				EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */,
 				ED81E83B18EA769400212D3C /* FootblAppearance.h */,
 				ED81E83C18EA769400212D3C /* FootblAppearance.m */,
+				ED3A0F561988B42E00011E91 /* FootblLabel.h */,
+				ED3A0F571988B42E00011E91 /* FootblLabel.m */,
 				ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */,
 				ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */,
 				EDB9C6E9192A88F6002A913D /* Helpers */,
@@ -1175,6 +1180,7 @@
 				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,
 				ED9DC8D618E3270600DF458C /* _Team.m in Sources */,
 				ED4F3B291975882400869E85 /* UIFont+MaxFontSize.m in Sources */,
+				ED3A0F581988B42E00011E91 /* FootblLabel.m in Sources */,
 				ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */,
 				ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */,
 				ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */,
