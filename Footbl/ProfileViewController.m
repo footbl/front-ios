@@ -13,17 +13,13 @@
 #import "FavoritesViewController.h"
 #import "FootblAPI.h"
 #import "LoadingHelper.h"
-#import "Match.h"
 #import "Match+Sharing.h"
-#import "MatchTableViewCell.h"
+#import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
-#import "Team.h"
-#import "TeamImageView.h"
-#import "UIFont+MaxFontSize.h"
 #import "User.h"
 #import "Wallet.h"
 #import "WalletGraphTableViewCell.h"
@@ -257,109 +253,13 @@
             break;
         }
         case 2: {
-            Bet *bet = self.bets[indexPath.row];
-            Match *match = bet.match;
-            MatchTableViewCell *matchCell = (MatchTableViewCell *)cell;
-            matchCell.hostNameLabel.text = match.host.displayName;
-            matchCell.hostPotLabel.text = @"0";
-            [matchCell.hostImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-            [matchCell.hostDisabledImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-            matchCell.drawPotLabel.text = @"0";
-            matchCell.guestNameLabel.text = match.guest.displayName;
-            [matchCell.guestImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-            [matchCell.guestDisabledImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-            matchCell.guestPotLabel.text = @"0";
-            matchCell.hostScoreLabel.text = match.hostScore.stringValue;
-            matchCell.guestScoreLabel.text = match.guestScore.stringValue;
-            
-            matchCell.totalProfitArrowImageView.hidden = YES;
-            matchCell.totalProfitView.hidden = YES;
-            
-            matchCell.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
-            matchCell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
-            matchCell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
-            
-            [UIFont setMaxFontSizeToFitBoundsInLabels:@[matchCell.hostNameLabel, matchCell.guestNameLabel, matchCell.drawLabel]];
-            
-            NSDateFormatter *formatter = [NSDateFormatter new];
-            formatter.dateStyle = NSDateFormatterShortStyle;
-            formatter.timeStyle = NSDateFormatterShortStyle;
-            formatter.AMSymbol = @"am";
-            formatter.PMSymbol = @"pm";
-            formatter.dateFormat = [@"EEEE, " stringByAppendingString:formatter.dateFormat];
-            formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
-            formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
-            formatter.dateFormat = [formatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
-            [matchCell setDateText:[formatter stringFromDate:match.date]];
-            
-            MatchResult result = (MatchResult)[match betForUser:self.user].resultValue;
-            if (match.tempBetValue) {
-                result = match.tempBetResult;
-            }
-            
-            switch (result) {
-                case MatchResultHost:
-                    matchCell.layout = MatchTableViewCellLayoutHost;
-                    break;
-                case MatchResultGuest:
-                    matchCell.layout = MatchTableViewCellLayoutGuest;
-                    break;
-                case MatchResultDraw:
-                    matchCell.layout = MatchTableViewCellLayoutDraw;
-                    break;
-                default:
-                    matchCell.layout = MatchTableViewCellLayoutNoBet;
-                    break;
-            }
-            
-            if (self.user.isMe) {
-                matchCell.stakeValueLabel.text = match.myBetValueString;
-                matchCell.returnValueLabel.text = match.myBetReturnString;
-                matchCell.profitValueLabel.text = match.myBetProfitString;
-            } else {
-                matchCell.stakeValueLabel.text = bet.valueString;
-                matchCell.returnValueLabel.text = bet.toReturnString;
-                matchCell.profitValueLabel.text = bet.rewardString;
-            }
-            [UIFont setMaxFontSizeToFitBoundsInLabels:@[matchCell.stakeValueLabel, matchCell.returnValueLabel, matchCell.profitValueLabel]];
-            
-            if (match.status == MatchStatusFinished) {
-                if (bet.reward.floatValue > 0) {
-                    matchCell.colorScheme = MatchTableViewCellColorSchemeHighlightProfit;
-                } else {
-                    matchCell.colorScheme = MatchTableViewCellColorSchemeGray;
                 }
-            } else {
-                matchCell.colorScheme = MatchTableViewCellColorSchemeDefault;
+                
+                break;
             }
             
-            if (match.localJackpot.integerValue > 0) {
-                [matchCell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
-            } else {
-                [matchCell setFooterText:@""];
-            }
-            
-            switch (match.status) {
-                case MatchStatusWaiting:
-                    matchCell.liveLabel.text = @"";
-                    matchCell.stateLayout = MatchTableViewCellStateLayoutWaiting;
-                    break;
-                case MatchStatusLive:
-                    matchCell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
-                    matchCell.stateLayout = MatchTableViewCellStateLayoutLive;
-                    break;
-                case MatchStatusFinished:
-                    matchCell.liveLabel.text = NSLocalizedString(@"Final", @"");
-                    matchCell.stateLayout = MatchTableViewCellStateLayoutDone;
-                    break;
-            }
-            
-            matchCell.shareButton.hidden = !self.user.isMe;
-            
-            matchCell.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
-                [match shareUsingMatchCell:matchBlockCell viewController:self];
-            };
-            
+            Bet *bet = self.bets[indexPath.row];
+            [(MatchTableViewCell *)cell setMatch:bet.match bet:bet viewController:self selectionBlock:nil];
             break;
         }
         default:
