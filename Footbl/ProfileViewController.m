@@ -12,6 +12,7 @@
 #import "Championship.h"
 #import "FavoritesViewController.h"
 #import "FootblAPI.h"
+#import "FootblTabBarController.h"
 #import "LoadingHelper.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell+Setup.h"
@@ -472,6 +473,12 @@
     
     self.shouldShowSettings = self.shouldShowSettings;
     self.shouldShowFavorites = self.shouldShowFavorites;
+    
+    for (UIView *view in self.tabBarController.tabBar.subviews) {
+        if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) < 2) {
+            view.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarSeparator];
+        }
+    }
     
     if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
         [self addChildViewController:self.anonymousViewController];

@@ -18,8 +18,6 @@
 
 @interface FootblTabBarController ()
 
-@property (strong, nonatomic) UIView *tabBarSeparatorView;
-
 @end
 
 #pragma mark FootblTabBarController
