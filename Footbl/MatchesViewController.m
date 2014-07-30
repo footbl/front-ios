@@ -12,13 +12,10 @@
 #import "FootblTabBarController.h"
 #import "LoadingHelper.h"
 #import "Match.h"
-#import "Match+Sharing.h"
-#import "MatchTableViewCell.h"
+#import "MatchTableViewCell+Setup.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
-#import "Team.h"
-#import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Shake.h"
 #import "User.h"
@@ -131,61 +128,15 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.hostNameLabel.text = match.host.displayName;
-    [cell.hostImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    [cell.hostDisabledImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    cell.guestNameLabel.text = match.guest.displayName;
-    [cell.guestImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    [cell.guestDisabledImageView setImageWithURL:[NSURL URLWithString:match.guest.picture] placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    cell.hostScoreLabel.text = match.hostScore.stringValue;
-    cell.guestScoreLabel.text = match.guestScore.stringValue;
     
-    cell.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
-    cell.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
-    cell.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
-    
-    [UIFont setMaxFontSizeToFitBoundsInLabels:@[cell.hostNameLabel, cell.guestNameLabel, cell.drawLabel]];
-    
-    [cell setDateText:match.dateString];
+    BOOL hideTotalProfit = !(self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section);
+    cell.totalProfitArrowImageView.hidden = hideTotalProfit;
+    cell.totalProfitView.hidden = hideTotalProfit;
+    cell.totalProfitLabel.text = self.totalProfitText;
     
     __block Bet *bet = match.myBet;
-    MatchResult result = (MatchResult)bet.resultValue;
-    if (match.tempBetValue) {
-        result = match.tempBetResult;
-    }
-    
-    switch (result) {
-        case MatchResultHost:
-            cell.layout = MatchTableViewCellLayoutHost;
-            break;
-        case MatchResultGuest:
-            cell.layout = MatchTableViewCellLayoutGuest;
-            break;
-        case MatchResultDraw:
-            cell.layout = MatchTableViewCellLayoutDraw;
-            break;
-        default:
-            cell.layout = MatchTableViewCellLayoutNoBet;
-            break;
-    }
-    
-    cell.stakeValueLabel.text = match.myBetValueString;
-    cell.returnValueLabel.text = match.myBetReturnString;
-    cell.profitValueLabel.text = match.myBetProfitString;
-    [UIFont setMaxFontSizeToFitBoundsInLabels:@[cell.stakeValueLabel, cell.returnValueLabel, cell.profitValueLabel]];
-    
-    if (match.status == MatchStatusFinished) {
-        if (match.myBetProfit.floatValue > 0) {
-            cell.colorScheme = MatchTableViewCellColorSchemeHighlightProfit;
-        } else {
-            cell.colorScheme = MatchTableViewCellColorSchemeGray;
-        }
-    } else {
-        cell.colorScheme = MatchTableViewCellColorSchemeDefault;
-    }
-    
     __weak typeof(MatchTableViewCell *)weakCell = cell;
-    cell.selectionBlock = ^(NSInteger index){
+    [cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
         if (match.isBetSyncing || match.status != MatchStatusWaiting) {
             [weakCell.cardContentView shake];
             return;
@@ -270,39 +221,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         }];
         
         [self reloadWallet];
-    };
-    
-    if (match.localJackpot.integerValue > 0) {
-        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
-        cell.footerLabel.hidden = NO;
-    } else {
-        [cell setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:@"0"]];
-        cell.footerLabel.hidden = YES;
-    }
-    
-    switch (match.status) {
-        case MatchStatusWaiting:
-            cell.liveLabel.text = @"";
-            cell.stateLayout = MatchTableViewCellStateLayoutWaiting;
-            break;
-        case MatchStatusLive:
-            cell.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
-            cell.stateLayout = MatchTableViewCellStateLayoutLive;
-            break;
-        case MatchStatusFinished:
-            cell.liveLabel.text = NSLocalizedString(@"Final", @"");
-            cell.stateLayout = MatchTableViewCellStateLayoutDone;
-            break;
-    }
-    
-    cell.shareBlock = ^(MatchTableViewCell *matchCell) {
-        [match shareUsingMatchCell:matchCell viewController:self];
-    };
-    
-    BOOL hideTotalProfit = !(self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section);
-    cell.totalProfitArrowImageView.hidden = hideTotalProfit;
-    cell.totalProfitView.hidden = hideTotalProfit;
-    cell.totalProfitLabel.text = self.totalProfitText;
+    }];
 }
 
 - (void)fetchChampionship {
