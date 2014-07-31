@@ -96,7 +96,6 @@
 		EDB639BC1910776300D7B041 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
 		EDB639BF1910776C00D7B041 /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
 		EDB98298192D5FFC00697783 /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
-		EDBC848118EDE60B00CCC01A /* Cache in Resources */ = {isa = PBXBuildFile; fileRef = EDBC848018EDE60B00CCC01A /* Cache */; };
 		EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		EDBD2C99192F10CA002C763D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
 		EDBD2C9C192F149C002C763D /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
@@ -315,7 +314,6 @@
 		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB9C6E7192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EDB9C6E8192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EDBC848018EDE60B00CCC01A /* Cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Cache; sourceTree = SOURCE_ROOT; };
 		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
 		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
 		EDBD2C97192F10CA002C763D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
@@ -722,7 +720,6 @@
 		EDB1D46E18E1F18B00E0C949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EDBC848018EDE60B00CCC01A /* Cache */,
 				EDDCF25A193541A40090D06D /* Constants.h */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl-Info.plist */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
@@ -1019,7 +1016,6 @@
 				EDDCF269193582FD0090D06D /* tutorial_2_480@2x.png in Resources */,
 				EDDCF2351934ED7C0090D06D /* Images.xcassets in Resources */,
 				EDDCF275193583170090D06D /* tutorial_5_480@2x.png in Resources */,
-				EDBC848118EDE60B00CCC01A /* Cache in Resources */,
 				EDDCF23F1934EDA60090D06D /* tutorial_4@2x.png in Resources */,
 				ED19A405190ACF8700946490 /* Localizable.strings in Resources */,
 				EDDCF2361934ED940090D06D /* tutorial_1@2x.png in Resources */,
