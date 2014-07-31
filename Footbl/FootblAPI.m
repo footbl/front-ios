@@ -24,6 +24,7 @@
 @property (assign, nonatomic) BOOL shouldGroup;
 @property (assign, nonatomic) BOOL shouldUsePreLaunchBaseUrl;
 @property (strong, nonatomic) CLCloudinary *cloudinary;
+@property (strong, nonatomic, readonly) NSString *signatureKey;
 
 @end
 
@@ -47,6 +48,7 @@
     static NSString * const kCloudinaryApiSecret = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 #endif
 
+static NSString * const kAPIPreLaunchSignatureKey = @"sL5hQpGu[W(PUY/8&</*}.|}mSjiW*55oT/ZwJrJo%z+=pX;#R7-P|?.&&~jctR7";
 static NSString * const kAPIBasePreLaunchURLString = @"https://footbl-prelaunch.herokuapp.com";
 
 static NSInteger const kAPIVersion = 1;
@@ -64,7 +66,7 @@ NSString * const kFootblAPINotificationAuthenticationChanged = @"kFootblAPINotif
 NSString * const kFootblAPINotificationAPIOutdated = @"kFootblAPINotificationAPIOutdated";
 
 NSString * generateFacebookPasswordWithUserId(NSString *userId) {
-    return [[NSString stringWithFormat:@"%@%@", userId, kAPISignatureKey] sha1];
+    return [[NSString stringWithFormat:@"%@%@", userId, [FootblAPI sharedAPI].signatureKey] sha1];
 }
 
 NSManagedObjectContext * FootblBackgroundManagedObjectContext() {
@@ -138,6 +140,10 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (NSString *)userPassword {
     return [FXKeychain defaultKeychain][kUserPasswordKey];
+}
+
+- (NSString *)signatureKey {
+    return self.shouldUsePreLaunchBaseUrl ? kAPIPreLaunchSignatureKey : kAPISignatureKey;
 }
 
 - (void)setUserEmail:(NSString *)userEmail {
@@ -350,7 +356,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 }
 
 - (NSString *)generateSignatureWithTimestamp:(float)timestamp transaction:(NSString *)transactionIdentifier {
-    return [[NSString stringWithFormat:@"%.00f%@%@", timestamp, transactionIdentifier, kAPISignatureKey] sha1];
+    return [[NSString stringWithFormat:@"%.00f%@%@", timestamp, transactionIdentifier, self.signatureKey] sha1];
 }
 
 - (NSMutableDictionary *)generateDefaultParameters {
