@@ -59,36 +59,24 @@
 - (void)setShouldShowSettings:(BOOL)shouldShowSettings {
     _shouldShowSettings = shouldShowSettings;
     
-    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
-        self.navigationItem.leftBarButtonItem = nil;
-        
-        if (self.shouldShowSettings) {
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
+    if (self.shouldShowSettings) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
+        } else {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
         }
     } else {
         self.navigationItem.rightBarButtonItem = nil;
-        
-        if (self.shouldShowSettings) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
-        }
     }
 }
 
 - (void)setShouldShowFavorites:(BOOL)shouldShowFavorites {
     _shouldShowFavorites = shouldShowFavorites;
+
+    self.navigationItem.leftBarButtonItem = nil;
     
-    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
-        self.navigationItem.rightBarButtonItem = nil;
-        
-        if (self.shouldShowFavorites) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
-        }
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
-        
-        if (self.shouldShowFavorites) {
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
-        }
+    if (self.shouldShowFavorites) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
     }
 }
 
@@ -101,6 +89,10 @@
     }
     
     return self;
+}
+
+- (IBAction)betsAction:(id)sender {
+    
 }
 
 - (IBAction)favoritesAction:(id)sender {
@@ -165,30 +157,37 @@
     
     [Wallet updateWithUser:self.user.editableObject success:^{
         [self reloadContent];
-        __block NSError *error;
-        __block NSInteger completedRequests = 0;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.wallets enumerateObjectsUsingBlock:^(Wallet *wallet, NSUInteger idx, BOOL *stop) {
-                [Bet updateWithWallet:wallet.editableObject success:^{
-                    completedRequests ++;
-                    if (completedRequests == self.wallets.count) {
-                        if (error) {
-                            failure(error);
-                        } else {
-                            [self reloadContent];
-                            [self.refreshControl endRefreshing];
-                            [[LoadingHelper sharedInstance] hideHud];
+        
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+            [self reloadContent];
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } else {
+            __block NSError *error;
+            __block NSInteger completedRequests = 0;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.wallets enumerateObjectsUsingBlock:^(Wallet *wallet, NSUInteger idx, BOOL *stop) {
+                    [Bet updateWithWallet:wallet.editableObject success:^{
+                        completedRequests ++;
+                        if (completedRequests == self.wallets.count) {
+                            if (error) {
+                                failure(error);
+                            } else {
+                                [self reloadContent];
+                                [self.refreshControl endRefreshing];
+                                [[LoadingHelper sharedInstance] hideHud];
+                            }
                         }
-                    }
-                } failure:^(NSError *newError) {
-                    completedRequests ++;
-                    error = newError;
-                    if (completedRequests == self.wallets.count) {
-                        if (failure) failure(error);
-                    }
+                    } failure:^(NSError *newError) {
+                        completedRequests ++;
+                        error = newError;
+                        if (completedRequests == self.wallets.count) {
+                            if (failure) failure(error);
+                        }
+                    }];
                 }];
-            }];
-        });
+            });
+        }
     } failure:failure];
 }
 
@@ -245,20 +244,66 @@
             }
             break;
         case 1: {
-            ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
-            Wallet *wallet = self.wallets[indexPath.row];
-            Championship *championship = wallet.championship;
-            [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
-            championshipCell.nameLabel.text = championship.displayName;
-            championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
-            if (wallet.ranking) {
-                championshipCell.rankingLabel.text = wallet.ranking.rankingStringValue;
-            } else {
-                championshipCell.rankingLabel.text = @"";
+            switch (indexPath.row) {
+                case 1: {
+                    cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
+                    cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+                    cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
+                    
+                    NSInteger separatorTag = 1251123;
+                    if (![cell.contentView viewWithTag:separatorTag]) {
+                        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+                        arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
+                        [cell.contentView addSubview:arrowImageView];
+                        
+                        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
+                        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+                        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                        separatorView.tag = separatorTag;
+                        [cell.contentView addSubview:separatorView];
+                    }
+                    
+                    break;
+                }
+                default: {
+                    ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
+                    Wallet *wallet = self.wallets[indexPath.row > 1 ? indexPath.row - 1 : indexPath.row];
+                    Championship *championship = wallet.championship;
+                    [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+                    championshipCell.nameLabel.text = championship.displayName;
+                    championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
+                    if (wallet.ranking) {
+                        championshipCell.rankingLabel.text = wallet.ranking.rankingStringValue;
+                    } else {
+                        championshipCell.rankingLabel.text = @"";
+                    }
+                    break;
+                }
             }
             break;
         }
         case 2: {
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+                cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+                cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+                cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
+                
+                NSInteger separatorTag = 1251123;
+                if (![cell.contentView viewWithTag:separatorTag]) {
+                    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+                    arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
+                    [cell.contentView addSubview:arrowImageView];
+                    
+                    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
+                    separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+                    separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                    separatorView.tag = separatorTag;
+                    [cell.contentView addSubview:separatorView];
+                    
+                    separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
+                    separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+                    separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+                    [cell.contentView addSubview:separatorView];
                 }
                 
                 break;
@@ -294,11 +339,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 1 && self.wallets.count > 0) {
         return 10;
-    } else if (section == 2 && self.bets.count > 0) {
-        return 7;
-    } else {
-        return 0;
+    } else if (section == 2) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+            return 10;
+        } else if (self.bets.count > 0) {
+            return 7;
+        }
     }
+    
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -310,9 +359,9 @@
         case 0:
             return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && self.maxWallet.lastActiveRounds.count >= 3 ? 1 : 0);
         case 1:
-            return self.wallets.count;
+            return self.wallets.count + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
         case 2:
-            return self.bets.count;
+            return FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : self.bets.count;
         default:
             return 1;
     }
@@ -340,10 +389,22 @@
             }
             break;
         case 1:
-            identifier = @"ChampionshipCell";
+            switch (indexPath.row) {
+                case 1:
+                    identifier = @"Cell";
+                    break;
+                default:
+                    identifier = @"ChampionshipCell";
+                    break;
+            }
+            
             break;
         case 2:
-            identifier = @"MatchCell";
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+                identifier = @"Cell";
+            } else {
+                identifier = @"MatchCell";
+            }
             break;
         default:
             break;
@@ -371,8 +432,17 @@
             }
             break;
         case 1:
-            return 67;
+            switch (indexPath.row) {
+                case 1:
+                    return 50;
+                default:
+                    return 67;
+            }
         case 2: {
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+                return 50;
+            }
+            
             Match *match = [self.bets[indexPath.row] match];
             if (match.elapsed || match.finishedValue) {
                 return 363;
@@ -388,6 +458,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.shouldShowSettings) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
+            if (indexPath.section == 1 && indexPath.row == 1) {
+                [self betsAction:nil];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            } else if (indexPath.section == 2 && indexPath.row == 0) {
+                [self settingsAction:nil];
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }
+        }
+    }
+    
     if (self.user.isMe) {
         return;
     }
@@ -455,7 +537,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.allowsMultipleSelection = YES;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 5)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 10 : 5)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
