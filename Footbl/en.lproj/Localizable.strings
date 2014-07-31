@@ -599,3 +599,46 @@ Do you want to log in instead? */
 /* Join my group on Footbl! http://footbl.co/dl */
 "Join my group on Footbl! http://footbl.co/dl" = "Join my group on footbl! http://footbl.co/dl";
 
+/* Received from */
+"Received from" = "Received from";
+
+/* Send $ */
+"Send $" = "Send $";
+
+/* Send to */
+"Send to" = "Send to";
+
+/* Transfers */
+"Transfers" = "Transfers";
+
+/* Not now, thank you! */
+"Not now, thank you!" = "Not now, thank you!";
+
+/* {recharge value} */
+"Buy for %@" = "Buy for %@";
+
+/* Ask for friends */
+"Ask for friends" = "Ask friends";
+
+/* Recharge your wallet
+Make more bets and increase your profit! */
+"Recharge your wallet\nMake more bets and increase your profit!" = "Recharge your wallet\nMake more bets and increase\nyour profit!";
+
+/* Actual amount */
+"Actual amount" = "Actual amount";
+
+/* After recharge */
+"After recharge" = "After recharge";
+
+/* Send */
+"Send" = "Send";
+
+/* Select all */
+"Select all" = "Select all";
+
+/* View betting history */
+"View betting history" = "View betting history";
+
+/* Bet history */
+"Bet history" = "Bets";
+
