@@ -18,6 +18,7 @@
 #import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
+#import "ProfileBetsViewController.h"
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
@@ -92,7 +93,9 @@
 }
 
 - (IBAction)betsAction:(id)sender {
-    
+    ProfileBetsViewController *betsViewController = [ProfileBetsViewController new];
+    betsViewController.user = self.user;
+    [self.navigationController pushViewController:betsViewController animated:YES];
 }
 
 - (IBAction)favoritesAction:(id)sender {

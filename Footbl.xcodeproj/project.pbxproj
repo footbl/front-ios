@@ -34,6 +34,7 @@
 		ED3A0F5F19893AAE00011E91 /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
 		ED3A0F631989777900011E91 /* AskFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F621989777900011E91 /* AskFriendTableViewCell.m */; };
 		ED3A0F6619899A8D00011E91 /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
+		ED3A0F691989EF1D00011E91 /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
 		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
@@ -201,6 +202,8 @@
 		ED3A0F621989777900011E91 /* AskFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskFriendTableViewCell.m; sourceTree = "<group>"; };
 		ED3A0F6419899A8D00011E91 /* MatchTableViewCell+Setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MatchTableViewCell+Setup.h"; sourceTree = "<group>"; };
 		ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MatchTableViewCell+Setup.m"; sourceTree = "<group>"; };
+		ED3A0F671989EF1D00011E91 /* ProfileBetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileBetsViewController.h; sourceTree = "<group>"; };
+		ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileBetsViewController.m; sourceTree = "<group>"; };
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
@@ -555,6 +558,8 @@
 				EDBD2C98192F10CA002C763D /* FavoritesViewController.m */,
 				EDBD2C9D192F19B9002C763D /* FeaturedViewController.h */,
 				EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */,
+				ED3A0F671989EF1D00011E91 /* ProfileBetsViewController.h */,
+				ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */,
 				EDE6615E196EDC2900C8F5E1 /* ProfileSearchViewController.h */,
 				EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */,
 				ED81E82018EA6A7500212D3C /* ProfileViewController.h */,
@@ -1169,6 +1174,7 @@
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
 				EDBD2C9F192F19B9002C763D /* FeaturedViewController.m in Sources */,
+				ED3A0F691989EF1D00011E91 /* ProfileBetsViewController.m in Sources */,
 				EDB1D47818E1F18B00E0C949 /* AppDelegate.m in Sources */,
 				ED81E83418EA724C00212D3C /* GroupTableViewCell.m in Sources */,
 				EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */,
