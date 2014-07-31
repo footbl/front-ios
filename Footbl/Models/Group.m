@@ -69,7 +69,7 @@
 
 + (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [Group loadContentWithPath:[[self class] resourcePath] options:FootblRequestOptionShouldGroup | FootblRequestOptionShouldAutoPage | FootblRequestOptionAuthenticationRequired inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-        [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+        [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault = %@", @NO]]];
     } successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
         requestSucceedWithBlock(operation, nil, success);
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
