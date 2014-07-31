@@ -21,6 +21,7 @@
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
+#import "TransfersViewController.h"
 #import "User.h"
 #import "Wallet.h"
 #import "WalletGraphTableViewCell.h"
@@ -111,6 +112,10 @@
 
 - (IBAction)settingsAction:(id)sender {
     [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
+}
+
+- (IBAction)transfersAction:(id)sender {
+    [self.navigationController pushViewController:[TransfersViewController new] animated:YES];
 }
 
 - (void)reloadContent {

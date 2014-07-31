@@ -26,6 +26,7 @@
 		ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
 		ED324334192D396500F54D57 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
+		ED3A0F4F1988187200011E91 /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED3A0F521988594600011E91 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
 		ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
 		ED3A0F581988B42E00011E91 /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
@@ -184,6 +185,8 @@
 		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED324332192D396500F54D57 /* Match+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Match+Sharing.h"; sourceTree = "<group>"; };
 		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
+		ED3A0F4D1988187200011E91 /* TransfersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransfersViewController.h; sourceTree = "<group>"; };
+		ED3A0F4E1988187200011E91 /* TransfersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransfersViewController.m; sourceTree = "<group>"; };
 		ED3A0F501988594600011E91 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		ED3A0F511988594600011E91 /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupAnimatedTransition.h; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 				ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */,
 				ED3A0F501988594600011E91 /* RechargeViewController.h */,
 				ED3A0F511988594600011E91 /* RechargeViewController.m */,
+				ED3A0F4D1988187200011E91 /* TransfersViewController.h */,
+				ED3A0F4E1988187200011E91 /* TransfersViewController.m */,
 			);
 			name = "Credit Request";
 			sourceTree = "<group>";
@@ -1171,6 +1176,7 @@
 				ED9DC8E018E3271900DF458C /* Team.m in Sources */,
 				EDDCF2261933B1BB0090D06D /* EditProfileViewController.m in Sources */,
 				ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */,
+				ED3A0F4F1988187200011E91 /* TransfersViewController.m in Sources */,
 				ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */,
 				EDB639BF1910776C00D7B041 /* Bet.m in Sources */,
 				ED2D1C591915848100F1BC81 /* GroupChampionshipsViewController.m in Sources */,
