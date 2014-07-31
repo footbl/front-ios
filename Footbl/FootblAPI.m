@@ -49,7 +49,6 @@
 
 static NSString * const kAPIBasePreLaunchURLString = @"https://footbl-prelaunch.herokuapp.com";
 
-static NSString * const kAPIAcceptVersion = @"1.0";
 static NSInteger const kAPIVersion = 1;
 
 static NSString * const kConfigPageSize = @"kConfigPageSize";
@@ -302,7 +301,6 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     if (self) {
         self.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [self.requestSerializer setValue:kAPIAcceptVersion forHTTPHeaderField:@"Accept-Version"];
         self.operationGroupingDictionary = [NSMutableDictionary new];
         self.shouldGroup = YES;
         self.shouldUsePreLaunchBaseUrl = NO;
