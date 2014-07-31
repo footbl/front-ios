@@ -112,6 +112,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[RechargeViewController new]];
         [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
+        [self setNeedsStatusBarAppearanceUpdate];
         return;
     }
     
@@ -457,6 +458,18 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 #pragma mark - View Lifecycle
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    if (self.presentedViewController && !self.presentedViewController.isBeingDismissed) {
+        return self.presentedViewController;
+    }
+    
+    return nil;
+}
 
 - (void)loadView {
     [super loadView];
