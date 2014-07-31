@@ -38,7 +38,7 @@
     [iRate sharedInstance].applicationName = NSLocalizedString(@"Footbl", @"");
     [iRate sharedInstance].appStoreGenreID = 1000;
     [iRate sharedInstance].daysUntilPrompt = 5;
-    [iRate sharedInstance].usesUntilPrompt = 10;
+    [iRate sharedInstance].usesUntilPrompt = 3;
     [iRate sharedInstance].verboseLogging = (SPGetBuildType() != SPBuildTypeAppStore);
     [iRate sharedInstance].delegate = self;
 }
