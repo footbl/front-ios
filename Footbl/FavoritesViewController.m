@@ -123,7 +123,7 @@
     self.title = NSLocalizedString(@"Favorites", @"");
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    if (FBTweakValue(@"UX", @"Profile", @"Search", NO)) {
+    if (FBTweakValue(@"UX", @"Profile", @"Search", FT_ENABLE_SEARCH)) {
         UIBarButtonItem *searchButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_icn_search"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(searchAction:)];
         self.navigationItem.rightBarButtonItem = searchButtonItem;
     }

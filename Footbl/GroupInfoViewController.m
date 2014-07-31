@@ -24,7 +24,7 @@
 
 @end
 
-#define SHOULD_USE_NEW_GROUP_UI FBTweakValue(@"UI", @"Group", @"Info view redesign", NO)
+#define SHOULD_USE_NEW_GROUP_UI FBTweakValue(@"UI", @"Group", @"Info view redesign", FT_ENABLE_INFO_VIEW_REDESIGN)
 
 #pragma mark GroupInfoViewController
 

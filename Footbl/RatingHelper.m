@@ -51,7 +51,7 @@
 
 - (BOOL)iRateShouldPromptForRating {
     Wallet *wallet = [User currentUser].wallets.anyObject;
-    if (wallet.fundsValue + wallet.stakeValue > 120 && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", NO)) {
+    if (wallet.fundsValue + wallet.stakeValue > 120 && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
         return YES;
     }
     

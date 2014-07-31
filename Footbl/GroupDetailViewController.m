@@ -152,7 +152,7 @@
     
     [cell.profileImageView setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
     
-    if (FBTweakValue(@"UI", @"Group", @"Medals", NO)) {
+    if (FBTweakValue(@"UI", @"Group", @"Medals", FT_ENABLE_MEDALS)) {
         switch (indexPath.row) {
             case 0:
                 cell.medalImageView.image = [UIImage imageNamed:@"groups_medal_gold"];
