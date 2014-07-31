@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "FootblAPI.h"
 #import "ErrorHandler.h"
 
 @interface ErrorHandler () <UIAlertViewDelegate>
@@ -35,6 +36,10 @@
 
 - (void)displayError:(NSError *)error {
     if (self.isAlertVisible) {
+        return;
+    }
+    
+    if (![FootblAPI sharedAPI].shouldShowError) {
         return;
     }
     

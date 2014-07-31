@@ -49,6 +49,7 @@ typedef NS_OPTIONS(NSInteger, FootblRequestOption) {
 @property (copy, nonatomic, readonly) NSString *userPassword;
 @property (copy, nonatomic) NSString *pushNotificationToken;
 @property (assign, nonatomic, readonly) NSInteger responseLimit;
+@property (assign, nonatomic) BOOL shouldShowError;
 
 + (instancetype)sharedAPI;
 + (void)performOperationWithoutGrouping:(void (^)())block;

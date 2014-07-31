@@ -310,6 +310,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
         self.operationGroupingDictionary = [NSMutableDictionary new];
         self.shouldGroup = YES;
         self.shouldUsePreLaunchBaseUrl = NO;
+        self.shouldShowError = YES;
         
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
         [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
@@ -437,6 +438,11 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
             if (serverVersion < kAPIVersion) {
                 if (![self.baseURL.absoluteString isEqualToString:kAPIBasePreLaunchURLString]) {
                     self.shouldUsePreLaunchBaseUrl = YES;
+                    self.shouldShowError = NO;
+                    [self logout];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        self.shouldShowError = YES;
+                    });
                     [FootblAPI performOperationWithoutGrouping:^{
                        [self updateConfigWithSuccess:success failure:failure];
                     }];
