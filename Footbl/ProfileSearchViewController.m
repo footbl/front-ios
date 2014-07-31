@@ -165,7 +165,7 @@
     self.searchBar.backgroundImage = [UIImage new];
     self.tableView.tableHeaderView = self.searchBar;
     
-    self.shouldShowKeyboard = YES;
+    self.shouldShowKeyboard = NO;
 }
 
 - (void)viewDidLoad {
