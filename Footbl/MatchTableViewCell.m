@@ -425,10 +425,12 @@ static CGFloat kDisabledAlpha = 0.4;
         self.totalProfitArrowImageView.center = CGPointMake(CGRectGetMidX(self.totalProfitView.frame), CGRectGetMinY(self.totalProfitView.frame) - (self.totalProfitArrowImageView.image.size.height / 2) + 0.5);
         [self.contentView addSubview:self.totalProfitArrowImageView];
         
-        self.totalProfitLabel = [[UILabel alloc] initWithFrame:self.totalProfitView.bounds];
+        self.totalProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.totalProfitView.frame) - 20, CGRectGetHeight(self.totalProfitView.frame))];
         self.totalProfitLabel.textColor = [UIColor whiteColor];
         self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
         self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
+        self.totalProfitLabel.adjustsFontSizeToFitWidth = YES;
+        self.totalProfitLabel.minimumScaleFactor = 0.6;
         [self.totalProfitView addSubview:self.totalProfitLabel];
     }
     return self;

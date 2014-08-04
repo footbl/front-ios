@@ -341,7 +341,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
                                         if (sum > 0) {
                                             text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
                                         } else if (sum < 0) {
-                                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
                                         }
                                         self.totalProfitText = text;
                                     }
