@@ -10,7 +10,6 @@ const struct TeamAttributes TeamAttributes = {
 };
 
 const struct TeamRelationships TeamRelationships = {
-	.championships = @"championships",
 	.guestMatches = @"guestMatches",
 	.hostMatches = @"hostMatches",
 };
@@ -71,19 +70,6 @@ const struct TeamFetchedProperties TeamFetchedProperties = {
 
 
 
-
-@dynamic championships;
-
-	
-- (NSMutableSet*)championshipsSet {
-	[self willAccessValueForKey:@"championships"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"championships"];
-  
-	[self didAccessValueForKey:@"championships"];
-	return result;
-}
-	
 
 @dynamic guestMatches;
 

@@ -4,8 +4,10 @@
 #import "_FTModel.h"
 
 const struct FTModelAttributes FTModelAttributes = {
+	.createdAt = @"createdAt",
 	.rid = @"rid",
 	.slug = @"slug",
+	.updatedAt = @"updatedAt",
 };
 
 const struct FTModelRelationships FTModelRelationships = {
@@ -47,6 +49,13 @@ const struct FTModelFetchedProperties FTModelFetchedProperties = {
 
 
 
+@dynamic createdAt;
+
+
+
+
+
+
 @dynamic rid;
 
 
@@ -55,6 +64,13 @@ const struct FTModelFetchedProperties FTModelFetchedProperties = {
 
 
 @dynamic slug;
+
+
+
+
+
+
+@dynamic updatedAt;
 
 
 

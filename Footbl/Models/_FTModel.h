@@ -5,8 +5,10 @@
 
 
 extern const struct FTModelAttributes {
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *rid;
 	__unsafe_unretained NSString *slug;
+	__unsafe_unretained NSString *updatedAt;
 } FTModelAttributes;
 
 extern const struct FTModelRelationships {
@@ -14,6 +16,8 @@ extern const struct FTModelRelationships {
 
 extern const struct FTModelFetchedProperties {
 } FTModelFetchedProperties;
+
+
 
 
 
@@ -27,6 +31,16 @@ extern const struct FTModelFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (FTModelID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -52,6 +66,16 @@ extern const struct FTModelFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSDate* updatedAt;
+
+
+
+//- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 
 @end
 
@@ -62,6 +86,12 @@ extern const struct FTModelFetchedProperties {
 @interface _FTModel (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
+
+
+
+
 - (NSString*)primitiveRid;
 - (void)setPrimitiveRid:(NSString*)value;
 
@@ -70,6 +100,12 @@ extern const struct FTModelFetchedProperties {
 
 - (NSString*)primitiveSlug;
 - (void)setPrimitiveSlug:(NSString*)value;
+
+
+
+
+- (NSDate*)primitiveUpdatedAt;
+- (void)setPrimitiveUpdatedAt:(NSDate*)value;
 
 
 

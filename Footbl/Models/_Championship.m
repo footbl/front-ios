@@ -10,12 +10,12 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 	.edition = @"edition",
 	.name = @"name",
 	.picture = @"picture",
-	.roundFinished = @"roundFinished",
 	.rounds = @"rounds",
+	.type = @"type",
+	.year = @"year",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
-	.competitors = @"competitors",
 	.groups = @"groups",
 	.matches = @"matches",
 	.wallets = @"wallets",
@@ -65,13 +65,13 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"roundFinishedValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"roundFinished"];
+	if ([key isEqualToString:@"roundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"roundsValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
+	if ([key isEqualToString:@"yearValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"year"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -181,32 +181,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
-@dynamic roundFinished;
-
-
-
-- (BOOL)roundFinishedValue {
-	NSNumber *result = [self roundFinished];
-	return [result boolValue];
-}
-
-- (void)setRoundFinishedValue:(BOOL)value_ {
-	[self setRoundFinished:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveRoundFinishedValue {
-	NSNumber *result = [self primitiveRoundFinished];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveRoundFinishedValue:(BOOL)value_ {
-	[self setPrimitiveRoundFinished:[NSNumber numberWithBool:value_]];
-}
-
-
-
-
-
 @dynamic rounds;
 
 
@@ -233,18 +207,38 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
-@dynamic competitors;
+@dynamic type;
 
-	
-- (NSMutableSet*)competitorsSet {
-	[self willAccessValueForKey:@"competitors"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"competitors"];
-  
-	[self didAccessValueForKey:@"competitors"];
-	return result;
+
+
+
+
+
+@dynamic year;
+
+
+
+- (int64_t)yearValue {
+	NSNumber *result = [self year];
+	return [result longLongValue];
 }
-	
+
+- (void)setYearValue:(int64_t)value_ {
+	[self setYear:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveYearValue {
+	NSNumber *result = [self primitiveYear];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveYearValue:(int64_t)value_ {
+	[self setPrimitiveYear:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
 
 @dynamic groups;
 

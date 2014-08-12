@@ -11,12 +11,12 @@ extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *edition;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
-	__unsafe_unretained NSString *roundFinished;
 	__unsafe_unretained NSString *rounds;
+	__unsafe_unretained NSString *type;
+	__unsafe_unretained NSString *year;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
-	__unsafe_unretained NSString *competitors;
 	__unsafe_unretained NSString *groups;
 	__unsafe_unretained NSString *matches;
 	__unsafe_unretained NSString *wallets;
@@ -25,10 +25,10 @@ extern const struct ChampionshipRelationships {
 extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
-@class Team;
 @class Group;
 @class Match;
 @class Wallet;
+
 
 
 
@@ -124,20 +124,6 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* roundFinished;
-
-
-
-@property BOOL roundFinishedValue;
-- (BOOL)roundFinishedValue;
-- (void)setRoundFinishedValue:(BOOL)value_;
-
-//- (BOOL)validateRoundFinished:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSNumber* rounds;
 
 
@@ -152,9 +138,26 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *competitors;
+@property (nonatomic, strong) NSString* type;
 
-- (NSMutableSet*)competitorsSet;
+
+
+//- (BOOL)validateType:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* year;
+
+
+
+@property int64_t yearValue;
+- (int64_t)yearValue;
+- (void)setYearValue:(int64_t)value_;
+
+//- (BOOL)validateYear:(id*)value_ error:(NSError**)error_;
+
 
 
 
@@ -184,11 +187,6 @@ extern const struct ChampionshipFetchedProperties {
 @end
 
 @interface _Championship (CoreDataGeneratedAccessors)
-
-- (void)addCompetitors:(NSSet*)value_;
-- (void)removeCompetitors:(NSSet*)value_;
-- (void)addCompetitorsObject:(Team*)value_;
-- (void)removeCompetitorsObject:(Team*)value_;
 
 - (void)addGroups:(NSSet*)value_;
 - (void)removeGroups:(NSSet*)value_;
@@ -255,15 +253,6 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-- (NSNumber*)primitiveRoundFinished;
-- (void)setPrimitiveRoundFinished:(NSNumber*)value;
-
-- (BOOL)primitiveRoundFinishedValue;
-- (void)setPrimitiveRoundFinishedValue:(BOOL)value_;
-
-
-
-
 - (NSNumber*)primitiveRounds;
 - (void)setPrimitiveRounds:(NSNumber*)value;
 
@@ -273,9 +262,19 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+- (NSString*)primitiveType;
+- (void)setPrimitiveType:(NSString*)value;
 
-- (NSMutableSet*)primitiveCompetitors;
-- (void)setPrimitiveCompetitors:(NSMutableSet*)value;
+
+
+
+- (NSNumber*)primitiveYear;
+- (void)setPrimitiveYear:(NSNumber*)value;
+
+- (int64_t)primitiveYearValue;
+- (void)setPrimitiveYearValue:(int64_t)value_;
+
+
 
 
 

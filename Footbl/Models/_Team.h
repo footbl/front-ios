@@ -11,7 +11,6 @@ extern const struct TeamAttributes {
 } TeamAttributes;
 
 extern const struct TeamRelationships {
-	__unsafe_unretained NSString *championships;
 	__unsafe_unretained NSString *guestMatches;
 	__unsafe_unretained NSString *hostMatches;
 } TeamRelationships;
@@ -19,7 +18,6 @@ extern const struct TeamRelationships {
 extern const struct TeamFetchedProperties {
 } TeamFetchedProperties;
 
-@class Championship;
 @class Match;
 @class Match;
 
@@ -70,13 +68,6 @@ extern const struct TeamFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *championships;
-
-- (NSMutableSet*)championshipsSet;
-
-
-
-
 @property (nonatomic, strong) NSSet *guestMatches;
 
 - (NSMutableSet*)guestMatchesSet;
@@ -95,11 +86,6 @@ extern const struct TeamFetchedProperties {
 @end
 
 @interface _Team (CoreDataGeneratedAccessors)
-
-- (void)addChampionships:(NSSet*)value_;
-- (void)removeChampionships:(NSSet*)value_;
-- (void)addChampionshipsObject:(Championship*)value_;
-- (void)removeChampionshipsObject:(Championship*)value_;
 
 - (void)addGuestMatches:(NSSet*)value_;
 - (void)removeGuestMatches:(NSSet*)value_;
@@ -132,11 +118,6 @@ extern const struct TeamFetchedProperties {
 - (void)setPrimitivePicture:(NSString*)value;
 
 
-
-
-
-- (NSMutableSet*)primitiveChampionships;
-- (void)setPrimitiveChampionships:(NSMutableSet*)value;
 
 
 
