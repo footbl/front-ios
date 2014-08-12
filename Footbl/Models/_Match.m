@@ -20,7 +20,6 @@ const struct MatchAttributes MatchAttributes = {
 const struct MatchRelationships MatchRelationships = {
 	.bets = @"bets",
 	.championship = @"championship",
-	.comments = @"comments",
 	.guest = @"guest",
 	.host = @"host",
 };
@@ -369,19 +368,6 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 @dynamic championship;
 
-	
-
-@dynamic comments;
-
-	
-- (NSMutableSet*)commentsSet {
-	[self willAccessValueForKey:@"comments"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"comments"];
-  
-	[self didAccessValueForKey:@"comments"];
-	return result;
-}
 	
 
 @dynamic guest;

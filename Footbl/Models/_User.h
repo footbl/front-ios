@@ -17,7 +17,6 @@ extern const struct UserAttributes {
 } UserAttributes;
 
 extern const struct UserRelationships {
-	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *memberships;
 	__unsafe_unretained NSString *ownedGroups;
 	__unsafe_unretained NSString *starredByUsers;
@@ -28,7 +27,6 @@ extern const struct UserRelationships {
 extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
-@class Comment;
 @class Membership;
 @class Group;
 @class User;
@@ -164,13 +162,6 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *comments;
-
-- (NSMutableSet*)commentsSet;
-
-
-
-
 @property (nonatomic, strong) NSSet *memberships;
 
 - (NSMutableSet*)membershipsSet;
@@ -210,11 +201,6 @@ extern const struct UserFetchedProperties {
 @end
 
 @interface _User (CoreDataGeneratedAccessors)
-
-- (void)addComments:(NSSet*)value_;
-- (void)removeComments:(NSSet*)value_;
-- (void)addCommentsObject:(Comment*)value_;
-- (void)removeCommentsObject:(Comment*)value_;
 
 - (void)addMemberships:(NSSet*)value_;
 - (void)removeMemberships:(NSSet*)value_;
@@ -310,11 +296,6 @@ extern const struct UserFetchedProperties {
 - (void)setPrimitiveVerifiedValue:(BOOL)value_;
 
 
-
-
-
-- (NSMutableSet*)primitiveComments;
-- (void)setPrimitiveComments:(NSMutableSet*)value;
 
 
 

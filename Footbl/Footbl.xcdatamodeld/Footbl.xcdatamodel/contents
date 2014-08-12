@@ -22,12 +22,6 @@
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="championship" inverseEntity="Wallet" syncable="YES"/>
     </entity>
-    <entity name="Comment" representedClassName="Comment" parentEntity="FootblModel" syncable="YES">
-        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
-        <attribute name="message" attributeType="String" syncable="YES"/>
-        <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="comments" inverseEntity="Match" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User" syncable="YES"/>
-    </entity>
     <entity name="FootblModel" representedClassName="FootblModel" isAbstract="YES" syncable="YES">
         <attribute name="rid" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
@@ -68,7 +62,6 @@
         <attribute name="round" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="match" inverseEntity="Bet" syncable="YES"/>
         <relationship name="championship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Championship" inverseName="matches" inverseEntity="Championship" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="match" inverseEntity="Comment" syncable="YES"/>
         <relationship name="guest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="guestMatches" inverseEntity="Team" syncable="YES"/>
         <relationship name="host" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="hostMatches" inverseEntity="Team" syncable="YES"/>
     </entity>
@@ -97,7 +90,6 @@
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="verified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
         <relationship name="starredByUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredUsers" inverseEntity="User" syncable="YES"/>
@@ -119,14 +111,13 @@
     <elements>
         <element name="Bet" positionX="-36" positionY="117" width="128" height="133"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="223"/>
-        <element name="Comment" positionX="0" positionY="63" width="128" height="105"/>
         <element name="FootblModel" positionX="-9" positionY="36" width="128" height="58"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="195"/>
-        <element name="Match" positionX="-54" positionY="-9" width="128" height="285"/>
+        <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="135"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="268"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="253"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="195"/>
     </elements>
 </model>

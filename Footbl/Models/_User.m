@@ -16,7 +16,6 @@ const struct UserAttributes UserAttributes = {
 };
 
 const struct UserRelationships UserRelationships = {
-	.comments = @"comments",
 	.memberships = @"memberships",
 	.ownedGroups = @"ownedGroups",
 	.starredByUsers = @"starredByUsers",
@@ -218,19 +217,6 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
-
-@dynamic comments;
-
-	
-- (NSMutableSet*)commentsSet {
-	[self willAccessValueForKey:@"comments"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"comments"];
-  
-	[self didAccessValueForKey:@"comments"];
-	return result;
-}
-	
 
 @dynamic memberships;
 

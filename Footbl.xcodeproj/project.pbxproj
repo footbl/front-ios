@@ -71,8 +71,6 @@
 		ED9DC8E018E3271900DF458C /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
 		ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E218E3285A00DF458C /* _FootblModel.m */; };
 		ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E518E3286900DF458C /* FootblModel.m */; };
-		ED9DC8E918E3330400DF458C /* _Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E818E3330400DF458C /* _Comment.m */; };
-		ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8EB18E3330D00DF458C /* Comment.m */; };
 		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
@@ -282,10 +280,6 @@
 		ED9DC8E218E3285A00DF458C /* _FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _FootblModel.m; path = Models/_FootblModel.m; sourceTree = "<group>"; };
 		ED9DC8E418E3286900DF458C /* FootblModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootblModel.h; path = Models/FootblModel.h; sourceTree = "<group>"; };
 		ED9DC8E518E3286900DF458C /* FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootblModel.m; path = Models/FootblModel.m; sourceTree = "<group>"; };
-		ED9DC8E718E3330400DF458C /* _Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Comment.h; path = Models/_Comment.h; sourceTree = "<group>"; };
-		ED9DC8E818E3330400DF458C /* _Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Comment.m; path = Models/_Comment.m; sourceTree = "<group>"; };
-		ED9DC8EA18E3330D00DF458C /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = Models/Comment.h; sourceTree = "<group>"; };
-		ED9DC8EB18E3330D00DF458C /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = Models/Comment.m; sourceTree = "<group>"; };
 		ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		ED9F07921909C05900C8AC71 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ED9F07931909C05900C8AC71 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -682,8 +676,6 @@
 				EDB639BB1910776300D7B041 /* _Bet.m */,
 				ED9DC8CE18E3270600DF458C /* _Championship.h */,
 				ED9DC8CF18E3270600DF458C /* _Championship.m */,
-				ED9DC8E718E3330400DF458C /* _Comment.h */,
-				ED9DC8E818E3330400DF458C /* _Comment.m */,
 				ED9DC8E118E3285A00DF458C /* _FootblModel.h */,
 				ED9DC8E218E3285A00DF458C /* _FootblModel.m */,
 				EDC67207199924B200D06E66 /* _FTModel.h */,
@@ -895,8 +887,6 @@
 				EDB639BE1910776C00D7B041 /* Bet.m */,
 				ED9DC8D818E3271900DF458C /* Championship.h */,
 				ED9DC8D918E3271900DF458C /* Championship.m */,
-				ED9DC8EA18E3330D00DF458C /* Comment.h */,
-				ED9DC8EB18E3330D00DF458C /* Comment.m */,
 				EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */,
 				ED9DC8E418E3286900DF458C /* FootblModel.h */,
 				ED9DC8E518E3286900DF458C /* FootblModel.m */,
@@ -1262,7 +1252,6 @@
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
 				EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */,
-				ED9DC8EC18E3330D00DF458C /* Comment.m in Sources */,
 				ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */,
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,
@@ -1291,7 +1280,6 @@
 				ED19A402190A222900946490 /* SettingsTableViewCell.m in Sources */,
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
 				EDC67212199933B900D06E66 /* FTImageUploader.m in Sources */,
-				ED9DC8E918E3330400DF458C /* _Comment.m in Sources */,
 				EDB98298192D5FFC00697783 /* NSNumber+Formatter.m in Sources */,
 				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
 				ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */,

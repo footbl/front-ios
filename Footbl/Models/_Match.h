@@ -21,7 +21,6 @@ extern const struct MatchAttributes {
 extern const struct MatchRelationships {
 	__unsafe_unretained NSString *bets;
 	__unsafe_unretained NSString *championship;
-	__unsafe_unretained NSString *comments;
 	__unsafe_unretained NSString *guest;
 	__unsafe_unretained NSString *host;
 } MatchRelationships;
@@ -31,7 +30,6 @@ extern const struct MatchFetchedProperties {
 
 @class Bet;
 @class Championship;
-@class Comment;
 @class Team;
 @class Team;
 
@@ -220,13 +218,6 @@ extern const struct MatchFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *comments;
-
-- (NSMutableSet*)commentsSet;
-
-
-
-
 @property (nonatomic, strong) Team *guest;
 
 //- (BOOL)validateGuest:(id*)value_ error:(NSError**)error_;
@@ -250,11 +241,6 @@ extern const struct MatchFetchedProperties {
 - (void)removeBets:(NSSet*)value_;
 - (void)addBetsObject:(Bet*)value_;
 - (void)removeBetsObject:(Bet*)value_;
-
-- (void)addComments:(NSSet*)value_;
-- (void)removeComments:(NSSet*)value_;
-- (void)addCommentsObject:(Comment*)value_;
-- (void)removeCommentsObject:(Comment*)value_;
 
 @end
 
@@ -362,11 +348,6 @@ extern const struct MatchFetchedProperties {
 
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
-
-
-
-- (NSMutableSet*)primitiveComments;
-- (void)setPrimitiveComments:(NSMutableSet*)value;
 
 
 
