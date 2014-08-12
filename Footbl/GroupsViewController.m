@@ -75,6 +75,8 @@
     cell.nameLabel.text = group.name;
     [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
+#warning FIX
+    /*
     switch (group.championship.pendingRounds.integerValue) {
         case 0:
             cell.roundsLabel.text = NSLocalizedString(@"Championship finished", @"");
@@ -92,6 +94,7 @@
     } else {
         cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.displayName, group.championship.edition.stringValue];
     }
+    */
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
     cell.topSeparatorView.hidden = !(indexPath.section == 1 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row == 0);
@@ -100,17 +103,15 @@
 - (void)reloadData {
     [super reloadData];
     
-    void(^failureBlock)(NSError *error) = ^(NSError *error) {
+    void(^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
     };
     
-    [Group updateWithSuccess:^{
+    [Group getWithObject:nil success:^(id response) {
         [[User currentUser] getStarredWithSuccess:^(id response) {
             [self.refreshControl endRefreshing];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            failureBlock(error);
-        }];
+        } failure:failureBlock];
     } failure:failureBlock];
 }
 

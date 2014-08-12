@@ -24,6 +24,11 @@
 #import "RatingHelper.h"
 #import "SDImageCache+ShippedCache.h"
 
+#import "Championship.h"
+#import "FootblAPI.h"
+#import "FTOperationManager.h"
+#import "FTAuthenticationManager.h"
+
 #pragma mark AppDelegate
 
 @implementation AppDelegate
@@ -113,6 +118,7 @@
     self.footblTabBarController = [FootblTabBarController new];
     self.window.rootViewController = self.footblTabBarController;
     
+    /*
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
             if (error) {
@@ -132,7 +138,7 @@
     }];
     
     [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:NO completionHandler:nil];
-    
+*/
     return YES;
 }
 
@@ -196,9 +202,9 @@
             
             [[LoadingHelper sharedInstance] showHud];
             
-            [Group joinGroupWithCode:groupCode success:^{
+            [Group joinGroupWithCode:groupCode success:^(id response) {
                 [[LoadingHelper sharedInstance] hideHud];
-            } failure:^(NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [[LoadingHelper sharedInstance] hideHud];
                 [[ErrorHandler sharedInstance] displayError:error];
             }];

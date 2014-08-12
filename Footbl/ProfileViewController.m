@@ -166,30 +166,13 @@
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
         } else {
-            __block NSError *error;
-            __block NSInteger completedRequests = 0;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.wallets enumerateObjectsUsingBlock:^(Wallet *wallet, NSUInteger idx, BOOL *stop) {
-                    [Bet updateWithWallet:wallet.editableObject success:^{
-                        completedRequests ++;
-                        if (completedRequests == self.wallets.count) {
-                            if (error) {
-                                failure(error);
-                            } else {
-                                [self reloadContent];
-                                [self.refreshControl endRefreshing];
-                                [[LoadingHelper sharedInstance] hideHud];
-                            }
-                        }
-                    } failure:^(NSError *newError) {
-                        completedRequests ++;
-                        error = newError;
-                        if (completedRequests == self.wallets.count) {
-                            if (failure) failure(error);
-                        }
-                    }];
-                }];
-            });
+            [Bet getWithObject:self.user success:^(id response) {
+                [self reloadContent];
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (failure) failure(error);
+            }];
         }
     } failure:failure];
 }

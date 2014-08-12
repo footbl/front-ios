@@ -9,6 +9,7 @@
 #import <Tweaks/FBTweak.h>
 #import <Tweaks/FBTweakInline.h>
 #import <Tweaks/FBTweakViewController.h>
+#import <SPHipster/SPHipster.h>
 #import "ErrorHandler.h"
 #import "FootblAppearance.h"
 

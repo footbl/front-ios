@@ -4,7 +4,6 @@
 #import "_Championship.h"
 
 const struct ChampionshipAttributes ChampionshipAttributes = {
-	.active = @"active",
 	.country = @"country",
 	.currentRound = @"currentRound",
 	.edition = @"edition",
@@ -15,9 +14,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
-	.groups = @"groups",
 	.matches = @"matches",
-	.wallets = @"wallets",
 };
 
 const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
@@ -49,11 +46,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"activeValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"active"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"currentRoundValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"currentRound"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -72,32 +64,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic active;
-
-
-
-- (BOOL)activeValue {
-	NSNumber *result = [self active];
-	return [result boolValue];
-}
-
-- (void)setActiveValue:(BOOL)value_ {
-	[self setActive:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveActiveValue {
-	NSNumber *result = [self primitiveActive];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveActiveValue:(BOOL)value_ {
-	[self setPrimitiveActive:[NSNumber numberWithBool:value_]];
-}
-
 
 
 
@@ -208,19 +174,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
-@dynamic groups;
-
-	
-- (NSMutableSet*)groupsSet {
-	[self willAccessValueForKey:@"groups"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"groups"];
-  
-	[self didAccessValueForKey:@"groups"];
-	return result;
-}
-	
-
 @dynamic matches;
 
 	
@@ -230,19 +183,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"matches"];
   
 	[self didAccessValueForKey:@"matches"];
-	return result;
-}
-	
-
-@dynamic wallets;
-
-	
-- (NSMutableSet*)walletsSet {
-	[self willAccessValueForKey:@"wallets"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"wallets"];
-  
-	[self didAccessValueForKey:@"wallets"];
 	return result;
 }
 	

@@ -207,4 +207,31 @@
     }];
 }
 
+#pragma mark - Wallet
+
+#warning FIX
+- (NSNumber *)localFunds {
+    return self.funds;
+}
+
+- (NSNumber *)localStake {
+    return self.stake;
+}
+
+- (NSNumber *)toReturn {
+    return @0;
+}
+
+- (NSString *)toReturnString {
+    return @"";
+}
+
+- (NSNumber *)profit {
+    return @0;
+}
+
+- (NSString *)profitString {
+    return @"";
+}
+
 @end

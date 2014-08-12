@@ -91,10 +91,10 @@
         [self.nameTextField resignFirstResponder];
         [[LoadingHelper sharedInstance] showHud];
         
-        [Group joinGroupWithCode:self.nameTextField.text success:^{
+        [Group joinGroupWithCode:self.nameTextField.text success:^(id response) {
            [[LoadingHelper sharedInstance] hideHud];
             [self dismissAction:sender];
-        } failure:^(NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[LoadingHelper sharedInstance] hideHud];
             [[ErrorHandler sharedInstance] displayError:error];
         }];

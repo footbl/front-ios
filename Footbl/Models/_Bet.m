@@ -12,6 +12,7 @@ const struct BetAttributes BetAttributes = {
 
 const struct BetRelationships BetRelationships = {
 	.match = @"match",
+	.user = @"user",
 	.wallet = @"wallet",
 };
 
@@ -152,6 +153,10 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 
 @dynamic match;
+
+	
+
+@dynamic user;
 
 	
 

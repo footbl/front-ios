@@ -13,43 +13,21 @@
 
 @end
 
-
 @implementation Membership
 
 #pragma mark - Class Methods
+
++ (NSString *)resourcePathWithObject:(FTModel *)object {
+    return [[object.resourcePath stringByAppendingPathComponent:object.rid] stringByAppendingPathComponent:@"members"];
+}
 
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.ranking = nil;
-    self.funds = nil;
-    
-    NSArray *rounds = data[@"rounds"];
-    NSMutableArray *lastRounds = [NSMutableArray new];
-    for (NSInteger i = 1; i <= 12 && i < rounds.count; i++) {
-        NSDictionary *currentRound = rounds[rounds.count - i];
-        if ([currentRound[@"ranking"] isKindOfClass:[NSNumber class]]) {
-            [lastRounds addObject:@{@"ranking" : currentRound[@"ranking"], @"funds" : currentRound[@"funds"]}];
-        } else {
-            [lastRounds addObject:@{@"funds" : currentRound[@"funds"]}];
-        }
-    }
-    
-    self.ranking = lastRounds.firstObject[@"ranking"];
-    self.funds = lastRounds.firstObject[@"funds"];
-    self.lastRounds = lastRounds;
-    
-    if (!self.funds) {
-        self.funds = data[@"initialFunds"];
-    }
-    
-    self.hasRanking = @(self.ranking != nil);
-    
     if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
         self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
-        [self.user updateWithData:data[@"user"]];
     } else {
         self.user = nil;
     }

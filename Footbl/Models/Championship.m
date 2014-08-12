@@ -8,9 +8,6 @@
 
 #import "AppDelegate.h"
 #import "Championship.h"
-#import "Group.h"
-#import "Team.h"
-#import "User.h"
 
 @interface Championship ()
 
@@ -29,10 +26,6 @@
 #pragma mark - Instance Methods
 
 - (NSNumber *)pendingRounds {
-    if (!self.activeValue) {
-        return @0;
-    }
-    
     return @(self.roundsValue - (self.currentRoundValue - 1));
 }
 
@@ -52,22 +45,8 @@
     return NSLocalizedString(string, @"");
 }
 
-- (Wallet *)myWallet {
-    return [self.wallets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", [User currentUser].rid]].anyObject;
-}
-
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
-    
-    if (self.activeValue) {
-        Group *group = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
-        group.championship = self;
-        group.name = self.displayName;
-        group.freeToEdit = @NO;
-        group.owner = nil;
-        group.isDefault = @YES;
-        group.picture = self.picture;
-    }
 }
 
 @end

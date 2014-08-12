@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 #import "LoginViewController.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
+#import "User.h"
 
 @interface LoginViewController ()
 
@@ -55,19 +56,17 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
 }
 
 - (IBAction)loginAction:(id)sender {
-    FootblAPIFailureBlock failureBlock = ^(NSError *error) {
-        self.view.userInteractionEnabled = YES;
-        [self.passwordTextField becomeFirstResponder];
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-    
     self.view.userInteractionEnabled = NO;
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
     
-    [[FootblAPI sharedAPI] loginWithEmail:self.emailTextField.text password:self.passwordTextField.text success:^{
+    [[FTAuthenticationManager sharedManager] loginWithEmail:self.emailTextField.text password:self.passwordTextField.text success:^(id response) {
         if (self.completionBlock) self.completionBlock();
-    } failure:failureBlock];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.view.userInteractionEnabled = YES;
+        [self.passwordTextField becomeFirstResponder];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {

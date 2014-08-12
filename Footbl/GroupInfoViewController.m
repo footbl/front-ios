@@ -65,9 +65,9 @@
 - (IBAction)freeToEditSwitchValueChangedAction:(UISwitch *)switchView {
     switchView.userInteractionEnabled = NO;
     self.group.editableObject.freeToEdit = @(switchView.isOn);
-    [self.group.editableObject saveWithSuccess:^{
+    [self.group.editableObject saveWithSuccess:^(id response) {
         switchView.userInteractionEnabled = YES;
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         switchView.userInteractionEnabled = YES;
         [switchView setOn:!switchView.isOn animated:YES];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -109,7 +109,7 @@
 }
 
 - (void)tapGroupCodeGestureRecognizer:(UITapGestureRecognizer *)gestureRecognizer {
-    [[UIPasteboard generalPasteboard] setString:self.group.code];
+    [[UIPasteboard generalPasteboard] setString:self.group.slug];
     
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
     hud.mode = MBProgressHUDModeText;
@@ -131,6 +131,8 @@
     self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
     [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
     
+#warning FIX ME
+    /*
     NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
     NSString *championshipName = self.group.championship.displayName;
     if (!championshipName) {
@@ -157,6 +159,7 @@
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:location attributes:championshipTextAttributes]];
     
     self.championshipLabel.attributedText = attributedString;
+    */
 }
 
 #pragma mark - Delegates & Data sources
@@ -173,7 +176,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (SHOULD_USE_NEW_GROUP_UI && !self.group.isDefaultValue) {
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
-        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
         [self.nameTextField resignFirstResponder];
     } else {
         [super textFieldDidEndEditing:textField];
@@ -204,7 +207,7 @@
     if (SHOULD_USE_NEW_GROUP_UI) {
         if (!self.group.isDefaultValue) {
             self.nameTextField.frameY -= 2;
-            self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.code];
+            self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
             self.nameSizeLimitLabel.alpha = 1;
             self.nameSizeLimitLabel.userInteractionEnabled = YES;
             [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];

@@ -2,7 +2,7 @@
 // Make changes to Match.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct MatchAttributes {
 	__unsafe_unretained NSString *date;
@@ -48,7 +48,7 @@ extern const struct MatchFetchedProperties {
 @interface MatchID : NSManagedObjectID {}
 @end
 
-@interface _Match : FootblModel {}
+@interface _Match : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

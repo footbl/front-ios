@@ -27,15 +27,14 @@ static CGFloat kBetSyncWaitTime = 3;
 #pragma mark - Class Methods
 
 + (NSString *)resourcePath {
-    SPLogError(@"Bet resource path should not be used.");
-    return @"wallets/%@/bets";
+    return @"bets";
 }
 
-+ (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
++ (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [match.editableObject setBetTemporaryResult:0 value:nil];
         match.editableObject.betSyncing = NO;
-        if (failure) failure(error);
+        if (failure) failure(operation, error);
     };
     
     [match.editableObject setBetTemporaryResult:result value:bid];
@@ -47,68 +46,37 @@ static CGFloat kBetSyncWaitTime = 3;
     NSUInteger key;
     perform_block_after_delay_k(kBetSyncWaitTime, &key, ^{
         match.editableObject.betSyncing = YES;
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateDefaultParameters];
-            NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-            parameters[@"date"] = [transformer transformedValue:[NSDate date]];
-            parameters[@"bid"] = bid;
-            parameters[@"result"] = MatchResultToString(result);
-            [[self API] POST:[NSString stringWithFormat:@"championships/%@/matches/%@/bets", match.championship.rid, match.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self.editableManagedObjectContext performBlock:^{
-                    Bet *bet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.editableManagedObjectContext];
-                    bet.match = match;
-                    bet.wallet = match.championship.myWallet;
-                    [bet updateWithData:responseObject];
-                    requestSucceedWithBlock(operation, parameters, nil);
-                    [match.championship.myWallet updateWithSuccess:^{
-                        match.editableObject.betSyncing = NO;
-                        [match setBetTemporaryResult:0 value:nil];
-                        if (success) success();
-                    } failure:failure];
-                    [match updateWithSuccess:nil failure:nil];
-                }];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if (operation.response.statusCode == 500) {
-                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
-                }
-                requestFailedWithBlock(operation, parameters, error, customFailureBlock);
-            }];
-        } failure:customFailureBlock];
+        NSMutableDictionary *parameters = [NSMutableDictionary new];
+        parameters[@"bid"] = bid;
+        parameters[@"result"] = MatchResultToString(result);
+        parameters[kFTRequestParamResourcePathObject] = match;
+        [self createWithParameters:parameters success:^(Bet *bet) {
+            bet.match = match.editableObject;
+            bet.user = [User currentUser];
+            [[User currentUser] getWithSuccess:^(id response) {
+                match.editableObject.betSyncing = NO;
+                [match setBetTemporaryResult:0 value:nil];
+                if (success) success(bet);
+            } failure:failure];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (operation.response.statusCode == 500) {
+                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
+            }
+            customFailureBlock(operation, error);
+        }];
     });
     match.editableObject.betBlockKey = key;
 }
 
-+ (void)updateWithWallet:(Wallet *)wallet success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSString *key = [NSString stringWithFormat:@"%@%@", wallet.rid, API_DICTIONARY_KEY];
-    [[self API] groupOperationsWithKey:key block:^{
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
-            [[self API] GET:[NSString stringWithFormat:@"users/%@/wallets/%@/bets", wallet.user.rid, wallet.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                API_APPEND_RESULT(responseObject, key);
-                if ([[operation responseObject] count] == [self responseLimit]) {
-                    API_APPEND_PAGE(key);
-                    [FootblAPI performOperationWithoutGrouping:^{
-                       [self updateWithWallet:wallet success:success failure:failure];
-                    }];
-                } else {
-                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:wallet.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *contentEntry) {
-                        bet.wallet = wallet;
-                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                        [self.editableManagedObjectContext deleteObjects:untouchedObjects];
-                    }];
-                    requestSucceedWithBlock(operation, parameters, nil);
-                    [[self API] finishGroupedOperationsWithKey:key error:nil];
-                    API_RESET_KEY(key);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                requestFailedWithBlock(operation, parameters, error, nil);
-                [[self API] finishGroupedOperationsWithKey:key error:error];
-                API_RESET_KEY(key);
-            }];
-        } failure:^(NSError *error) {
-            [[self API] finishGroupedOperationsWithKey:key error:error];
-        }];
-    } success:success failure:failure];
++ (void)getWithObject:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [NSString stringWithFormat:@"users/%@/bets", user.slug];
+    [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
+            bet.user = user.editableObject;
+        } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+        } completionBlock:success];
+    } failure:failure];
 }
 
 #pragma mark - Instance Methods
@@ -117,11 +85,11 @@ static CGFloat kBetSyncWaitTime = 3;
     return [NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.wallet.championship.rid, self.match.rid];
 }
 
-- (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
+- (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.match.editableObject setBetTemporaryResult:0 value:nil];
         self.match.editableObject.betSyncing = NO;
-        if (failure) failure(error);
+        if (failure) failure(operation, error);
     };
     
     [self.match.editableObject setBetTemporaryResult:result value:bid];
@@ -133,31 +101,28 @@ static CGFloat kBetSyncWaitTime = 3;
     NSUInteger key;
     perform_block_after_delay_k(kBetSyncWaitTime, &key, ^{
         self.match.editableObject.betSyncing = YES;
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateDefaultParameters];
-            NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-            parameters[@"date"] = [transformer transformedValue:[NSDate date]];
-            parameters[@"result"] = MatchResultToString(result);
-            parameters[@"bid"] = bid;
-            [[self API] PUT:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self.editableManagedObjectContext performBlock:^{
-                    [self updateWithData:responseObject];
-                    self.match.editableObject.localUpdatedAt = [NSDate date];
-                    requestSucceedWithBlock(operation, parameters, nil);
-                    [self.match.championship.myWallet updateWithSuccess:^{
-                        self.match.editableObject.betSyncing = NO;
-                        [self.match.editableObject setBetTemporaryResult:0 value:nil];
-                        if (success) success();
-                    } failure:failure];
-                    [self.match updateWithSuccess:nil failure:nil];
-                }];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if (operation.response.statusCode == 500) {
-                    error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
-                }
-                requestFailedWithBlock(operation, parameters, error, customFailureBlock);
+
+        NSMutableDictionary *parameters = [NSMutableDictionary new];
+        parameters[@"result"] = MatchResultToString(result);
+        parameters[@"bid"] = bid;
+        parameters[kFTRequestParamResourcePathObject] = self.match;
+        
+        [self updateWithParameters:parameters success:^(id response) {
+            [[[self class] editableManagedObjectContext] performBlock:^{
+               self.match.editableObject.localUpdatedAt = [NSDate date];
+                [[User currentUser] getWithSuccess:^(id response) {
+                    self.match.editableObject.betSyncing = NO;
+                    [self.match.editableObject setBetTemporaryResult:0 value:nil];
+                    [[[self class] editableManagedObjectContext] performSave];
+                    if (success) success(self);
+                } failure:failure];
             }];
-        } failure:customFailureBlock];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (operation.response.statusCode == 500) {
+                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
+            }
+            customFailureBlock(operation, error);
+        }];
     });
     self.match.editableObject.betBlockKey = key;
 }
@@ -167,21 +132,16 @@ static CGFloat kBetSyncWaitTime = 3;
     
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
-    if ([data[@"match"] isKindOfClass:[NSDictionary class]]) {
-        self.match = [Match findByIdentifier:data[@"match"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-        [self.match updateWithData:data[@"match"]];
-    } else {
-        self.match = [Match findByIdentifier:data[@"match"] inManagedObjectContext:self.managedObjectContext];
-    }
+    self.match = [Match findWithObject:data[@"match"] inContext:self.managedObjectContext];
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
 }
 
-- (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    FootblAPIFailureBlock customFailureBlock = ^(NSError *error) {
+- (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.match.editableObject setBetTemporaryResult:0 value:nil];
         self.match.editableObject.betSyncing = NO;
-        if (failure) failure(error);
+        if (failure) failure(operation, error);
     };
     
     Match *match = self.match.editableObject;
@@ -194,22 +154,13 @@ static CGFloat kBetSyncWaitTime = 3;
     NSUInteger key;
     perform_block_after_delay_k(kBetSyncWaitTime, &key, ^{
         self.match.editableObject.betSyncing = YES;
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateDefaultParameters];
-            [[self API] DELETE:[self.resourcePath stringByAppendingPathComponent:self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [self.editableManagedObjectContext performBlock:^{
-                    [self.editableManagedObjectContext deleteObject:self];
-                    requestSucceedWithBlock(operation, parameters, nil);
-                    [match.championship.myWallet updateWithSuccess:^{
-                        [match setBetTemporaryResult:0 value:nil];
-                        match.betSyncing = NO;
-                        if (success) success();
-                    } failure:failure];
-                    [match updateWithSuccess:nil failure:nil];
-                }];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                requestFailedWithBlock(operation, parameters, error, customFailureBlock);
-            }];
+
+        [self deleteWithSuccess:^(id response) {
+            [[User currentUser] getWithSuccess:^(id response) {
+                [match setBetTemporaryResult:0 value:nil];
+                match.betSyncing = NO;
+                if (success) success(nil);
+            } failure:failure];
         } failure:customFailureBlock];
     });
     self.match.editableObject.betBlockKey = key;

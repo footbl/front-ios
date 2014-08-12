@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import "FootblAPI.h"
 #import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupAddMembersViewController.h"
@@ -219,7 +220,7 @@
 - (IBAction)createAction:(id)sender {
     self.view.window.userInteractionEnabled = NO;
     
-    FootblAPIFailureBlock failureBlock = ^(NSError *error) {
+    FTOperationErrorBlock failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
         self.view.window.userInteractionEnabled = YES;
@@ -275,11 +276,11 @@
     
     [[LoadingHelper sharedInstance] showHud];
     if (self.group) {
-        [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^{
-            [self.group.editableObject addInvitedMembers:invitedMembers success:^{
+        [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^(id response) {
+            [self.group.editableObject addInvitedMembers:invitedMembers success:^(id response) {
                 [self.group.editableObject updateMembersWithSuccess:^(id response) {
                     successBlock(self.group);
-                } failure:^(NSError *error) {
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     successBlock(self.group);
                 }];
             } failure:failureBlock];

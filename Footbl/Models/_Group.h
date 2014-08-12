@@ -2,10 +2,9 @@
 // Make changes to Group.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct GroupAttributes {
-	__unsafe_unretained NSString *code;
 	__unsafe_unretained NSString *freeToEdit;
 	__unsafe_unretained NSString *isDefault;
 	__unsafe_unretained NSString *isNew;
@@ -15,7 +14,6 @@ extern const struct GroupAttributes {
 } GroupAttributes;
 
 extern const struct GroupRelationships {
-	__unsafe_unretained NSString *championship;
 	__unsafe_unretained NSString *members;
 	__unsafe_unretained NSString *owner;
 } GroupRelationships;
@@ -23,10 +21,8 @@ extern const struct GroupRelationships {
 extern const struct GroupFetchedProperties {
 } GroupFetchedProperties;
 
-@class Championship;
 @class Membership;
 @class User;
-
 
 
 
@@ -38,21 +34,11 @@ extern const struct GroupFetchedProperties {
 @interface GroupID : NSManagedObjectID {}
 @end
 
-@interface _Group : FootblModel {}
+@interface _Group : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (GroupID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSString* code;
-
-
-
-//- (BOOL)validateCode:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -134,13 +120,6 @@ extern const struct GroupFetchedProperties {
 
 
 
-@property (nonatomic, strong) Championship *championship;
-
-//- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
-
-
-
-
 @property (nonatomic, strong) NSSet *members;
 
 - (NSMutableSet*)membersSet;
@@ -168,12 +147,6 @@ extern const struct GroupFetchedProperties {
 @end
 
 @interface _Group (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSString*)primitiveCode;
-- (void)setPrimitiveCode:(NSString*)value;
-
-
 
 
 - (NSNumber*)primitiveFreeToEdit;
@@ -222,11 +195,6 @@ extern const struct GroupFetchedProperties {
 - (void)setPrimitiveRemovedValue:(BOOL)value_;
 
 
-
-
-
-- (Championship*)primitiveChampionship;
-- (void)setPrimitiveChampionship:(Championship*)value;
 
 
 

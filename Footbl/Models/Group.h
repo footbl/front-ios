@@ -12,15 +12,15 @@
 
 @interface Group : _Group
 
-+ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
-+ (void)joinGroupWithCode:(NSString *)code success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
++ (void)createWithChampionship:(Championship *)championship name:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)joinGroupWithCode:(NSString *)code success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)cancelMembersUpdate;
-- (void)updateMembersWithSuccess:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)addMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)addInvitedMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)saveWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)uploadImage:(UIImage *)image success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
+- (void)updateMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)addMembers:(NSArray *)members success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)addInvitedMembers:(NSArray *)members success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)uploadImage:(UIImage *)image success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (NSString *)sharingText;
 - (void)saveStatusInLocalDatabase;
 

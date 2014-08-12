@@ -7,10 +7,10 @@
 //
 
 #import "AuthenticationViewController.h"
-#import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
 #import "ForceUpdateViewController.h"
+#import "FTAuthenticationManager.h"
 #import "GroupsViewController.h"
 #import "MatchesViewController.h"
 #import "ProfileViewController.h"
@@ -79,7 +79,7 @@
     };
     
     void(^authenticationBlock)(UINavigationController *navigationController) = ^(UINavigationController *navigationController) {
-        if ([FootblAPI sharedAPI].isAuthenticated) {
+        if ([FTAuthenticationManager sharedManager].isAuthenticated) {
             [self dismissViewControllerAnimated:YES completion:nil];
             viewControllersSetupBlock();
         } else {
@@ -112,8 +112,8 @@
         }
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if (![FootblAPI sharedAPI].isAuthenticated) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        if (![FTAuthenticationManager sharedManager].isAuthenticated) {
             AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
             FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
             [self presentViewController:navigationController animated:YES completion:^{
@@ -126,7 +126,7 @@
         }
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAPIOutdated object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAPIOutdated object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         while (viewController.presentedViewController) {
             viewController = viewController.presentedViewController;

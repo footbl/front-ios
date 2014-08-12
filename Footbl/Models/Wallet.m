@@ -33,21 +33,6 @@
     return @"users/%@/wallets";
 }
 
-+ (void)ensureWalletWithChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    if (championship.myWallet) {
-        if (success) success();
-        return;
-    }
-    
-    [self updateWithUser:[User currentUser].editableObject success:^{
-        if (championship.myWallet) {
-            if (success) success();
-        } else {
-            [self createWithChampionship:championship success:success failure:failure];
-        }
-    } failure:failure];
-}
-
 + (void)createWithChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     [self createWithParameters:@{@"championship": championship.rid} success:success failure:failure];    
 }

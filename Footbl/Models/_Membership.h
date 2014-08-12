@@ -2,12 +2,10 @@
 // Make changes to Membership.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct MembershipAttributes {
-	__unsafe_unretained NSString *funds;
-	__unsafe_unretained NSString *hasRanking;
-	__unsafe_unretained NSString *lastRounds;
+	__unsafe_unretained NSString *previousRanking;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
 
@@ -24,13 +22,11 @@ extern const struct MembershipFetchedProperties {
 
 
 
-@class NSObject;
-
 
 @interface MembershipID : NSManagedObjectID {}
 @end
 
-@interface _Membership : FootblModel {}
+@interface _Membership : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -40,39 +36,15 @@ extern const struct MembershipFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* funds;
+@property (nonatomic, strong) NSNumber* previousRanking;
 
 
 
-@property int64_t fundsValue;
-- (int64_t)fundsValue;
-- (void)setFundsValue:(int64_t)value_;
+@property int64_t previousRankingValue;
+- (int64_t)previousRankingValue;
+- (void)setPreviousRankingValue:(int64_t)value_;
 
-//- (BOOL)validateFunds:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* hasRanking;
-
-
-
-@property BOOL hasRankingValue;
-- (BOOL)hasRankingValue;
-- (void)setHasRankingValue:(BOOL)value_;
-
-//- (BOOL)validateHasRanking:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) id lastRounds;
-
-
-
-//- (BOOL)validateLastRounds:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validatePreviousRanking:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -116,26 +88,11 @@ extern const struct MembershipFetchedProperties {
 @interface _Membership (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSNumber*)primitiveFunds;
-- (void)setPrimitiveFunds:(NSNumber*)value;
+- (NSNumber*)primitivePreviousRanking;
+- (void)setPrimitivePreviousRanking:(NSNumber*)value;
 
-- (int64_t)primitiveFundsValue;
-- (void)setPrimitiveFundsValue:(int64_t)value_;
-
-
-
-
-- (NSNumber*)primitiveHasRanking;
-- (void)setPrimitiveHasRanking:(NSNumber*)value;
-
-- (BOOL)primitiveHasRankingValue;
-- (void)setPrimitiveHasRankingValue:(BOOL)value_;
-
-
-
-
-- (id)primitiveLastRounds;
-- (void)setPrimitiveLastRounds:(id)value;
+- (int64_t)primitivePreviousRankingValue;
+- (void)setPrimitivePreviousRankingValue:(int64_t)value_;
 
 
 

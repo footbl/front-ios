@@ -15,6 +15,5 @@
 - (NSNumber *)pendingRounds;
 - (NSString *)displayName;
 - (NSString *)displayCountry;
-- (Wallet *)myWallet;
 
 @end

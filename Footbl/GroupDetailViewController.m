@@ -91,7 +91,7 @@
         self.tableView.showsInfiniteScrolling = shouldContinue.boolValue;
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -119,7 +119,7 @@
                 self.tableView.showsInfiniteScrolling = shouldContinue.boolValue;
             }
             [[LoadingHelper sharedInstance] hideHud];
-        } failure:^(NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [weakTableView.infiniteScrollingView stopAnimating];
             [[LoadingHelper sharedInstance] hideHud];
             [[ErrorHandler sharedInstance] displayError:error];
@@ -129,7 +129,7 @@
 
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (membership.hasRankingValue) {
+    if (membership.ranking) {
         cell.rankingLabel.text = membership.ranking.rankingStringValue;
     } else {
         cell.rankingLabel.text = @(indexPath.row + 1).rankingStringValue;
@@ -138,14 +138,14 @@
     cell.usernameLabel.text = membership.user.username;
     cell.nameLabel.text = membership.user.name;
     
-    if ([membership.lastRounds count] > 1 && membership.lastRounds[1][@"ranking"]) {
-        cell.rankingProgress = @([membership.lastRounds[1][@"ranking"] integerValue] - membership.rankingValue);
+    if ([membership.user.history count] > 1 && membership.user.history[1][@"ranking"]) {
+        cell.rankingProgress = @([membership.user.history[1][@"ranking"] integerValue] - membership.rankingValue);
     } else {
         cell.rankingProgress = @(0);
     }
     
-    if (membership.funds) {
-        cell.walletLabel.text = membership.funds.shortStringValue;
+    if (membership.user.funds) {
+        cell.walletLabel.text = membership.user.funds.shortStringValue;
     } else {
         cell.walletLabel.text = @"";
     }
@@ -187,10 +187,7 @@
     UIButton *titleViewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     titleViewButton.titleLabel.numberOfLines = 2;
     
-    NSString *groupName = self.group.championship.displayName;
-    if (self.group.isDefaultValue) {
-        groupName = self.group.championship.displayCountry;
-    }
+    NSString *groupName = self.group.name;
     
     NSMutableAttributedString *buttonText = [NSMutableAttributedString new];
     [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:titleAttributes]];
@@ -305,10 +302,10 @@
     [super viewDidAppear:animated];
     
     if (self.group.isNewValue) {
-        [self.group.editableManagedObjectContext performBlock:^{
+        [[Group editableManagedObjectContext] performBlock:^{
             self.group.editableObject.isNew = @NO;
             [self.group saveStatusInLocalDatabase];
-            SaveManagedObjectContext(self.group.editableManagedObjectContext);
+            [[Group editableManagedObjectContext] performSave];
         }];
     }
 }

@@ -4,9 +4,7 @@
 #import "_Membership.h"
 
 const struct MembershipAttributes MembershipAttributes = {
-	.funds = @"funds",
-	.hasRanking = @"hasRanking",
-	.lastRounds = @"lastRounds",
+	.previousRanking = @"previousRanking",
 	.ranking = @"ranking",
 };
 
@@ -44,13 +42,8 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"fundsValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"hasRankingValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"hasRanking"];
+	if ([key isEqualToString:@"previousRankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"previousRanking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -66,60 +59,27 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 
 
 
-@dynamic funds;
+@dynamic previousRanking;
 
 
 
-- (int64_t)fundsValue {
-	NSNumber *result = [self funds];
+- (int64_t)previousRankingValue {
+	NSNumber *result = [self previousRanking];
 	return [result longLongValue];
 }
 
-- (void)setFundsValue:(int64_t)value_ {
-	[self setFunds:[NSNumber numberWithLongLong:value_]];
+- (void)setPreviousRankingValue:(int64_t)value_ {
+	[self setPreviousRanking:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int64_t)primitiveFundsValue {
-	NSNumber *result = [self primitiveFunds];
+- (int64_t)primitivePreviousRankingValue {
+	NSNumber *result = [self primitivePreviousRanking];
 	return [result longLongValue];
 }
 
-- (void)setPrimitiveFundsValue:(int64_t)value_ {
-	[self setPrimitiveFunds:[NSNumber numberWithLongLong:value_]];
+- (void)setPrimitivePreviousRankingValue:(int64_t)value_ {
+	[self setPrimitivePreviousRanking:[NSNumber numberWithLongLong:value_]];
 }
-
-
-
-
-
-@dynamic hasRanking;
-
-
-
-- (BOOL)hasRankingValue {
-	NSNumber *result = [self hasRanking];
-	return [result boolValue];
-}
-
-- (void)setHasRankingValue:(BOOL)value_ {
-	[self setHasRanking:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveHasRankingValue {
-	NSNumber *result = [self primitiveHasRanking];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveHasRankingValue:(BOOL)value_ {
-	[self setPrimitiveHasRanking:[NSNumber numberWithBool:value_]];
-}
-
-
-
-
-
-@dynamic lastRounds;
-
 
 
 

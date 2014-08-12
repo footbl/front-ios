@@ -21,6 +21,7 @@ const struct UserAttributes UserAttributes = {
 };
 
 const struct UserRelationships UserRelationships = {
+	.bets = @"bets",
 	.fans = @"fans",
 	.memberships = @"memberships",
 	.ownedGroups = @"ownedGroups",
@@ -353,6 +354,19 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+
+@dynamic bets;
+
+	
+- (NSMutableSet*)betsSet {
+	[self willAccessValueForKey:@"bets"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"bets"];
+  
+	[self didAccessValueForKey:@"bets"];
+	return result;
+}
+	
 
 @dynamic fans;
 

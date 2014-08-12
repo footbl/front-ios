@@ -2,7 +2,7 @@
 // Make changes to Bet.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct BetAttributes {
 	__unsafe_unretained NSString *date;
@@ -13,6 +13,7 @@ extern const struct BetAttributes {
 
 extern const struct BetRelationships {
 	__unsafe_unretained NSString *match;
+	__unsafe_unretained NSString *user;
 	__unsafe_unretained NSString *wallet;
 } BetRelationships;
 
@@ -20,6 +21,7 @@ extern const struct BetFetchedProperties {
 } BetFetchedProperties;
 
 @class Match;
+@class User;
 @class Wallet;
 
 
@@ -30,7 +32,7 @@ extern const struct BetFetchedProperties {
 @interface BetID : NSManagedObjectID {}
 @end
 
-@interface _Bet : FootblModel {}
+@interface _Bet : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -99,6 +101,13 @@ extern const struct BetFetchedProperties {
 
 
 
+@property (nonatomic, strong) User *user;
+
+//- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) Wallet *wallet;
 
 //- (BOOL)validateWallet:(id*)value_ error:(NSError**)error_;
@@ -152,6 +161,11 @@ extern const struct BetFetchedProperties {
 
 - (Match*)primitiveMatch;
 - (void)setPrimitiveMatch:(Match*)value;
+
+
+
+- (User*)primitiveUser;
+- (void)setPrimitiveUser:(User*)value;
 
 
 

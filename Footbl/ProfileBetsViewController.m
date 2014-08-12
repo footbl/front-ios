@@ -50,10 +50,10 @@
 - (void)reloadData {
     [super reloadData];
     
-    [Bet updateWithWallet:self.user.wallets.anyObject success:^{
+    [Bet getWithObject:self.user success:^(id response) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];

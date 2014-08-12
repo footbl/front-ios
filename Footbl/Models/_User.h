@@ -22,6 +22,7 @@ extern const struct UserAttributes {
 } UserAttributes;
 
 extern const struct UserRelationships {
+	__unsafe_unretained NSString *bets;
 	__unsafe_unretained NSString *fans;
 	__unsafe_unretained NSString *memberships;
 	__unsafe_unretained NSString *ownedGroups;
@@ -32,6 +33,7 @@ extern const struct UserRelationships {
 extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
+@class Bet;
 @class User;
 @class Membership;
 @class Group;
@@ -238,6 +240,13 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *bets;
+
+- (NSMutableSet*)betsSet;
+
+
+
+
 @property (nonatomic, strong) NSSet *fans;
 
 - (NSMutableSet*)fansSet;
@@ -277,6 +286,11 @@ extern const struct UserFetchedProperties {
 @end
 
 @interface _User (CoreDataGeneratedAccessors)
+
+- (void)addBets:(NSSet*)value_;
+- (void)removeBets:(NSSet*)value_;
+- (void)addBetsObject:(Bet*)value_;
+- (void)removeBetsObject:(Bet*)value_;
 
 - (void)addFans:(NSSet*)value_;
 - (void)removeFans:(NSSet*)value_;
@@ -414,6 +428,11 @@ extern const struct UserFetchedProperties {
 - (void)setPrimitiveVerifiedValue:(BOOL)value_;
 
 
+
+
+
+- (NSMutableSet*)primitiveBets;
+- (void)setPrimitiveBets:(NSMutableSet*)value;
 
 
 

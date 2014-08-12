@@ -5,7 +5,6 @@
 #import "FTModel.h"
 
 extern const struct ChampionshipAttributes {
-	__unsafe_unretained NSString *active;
 	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *currentRound;
 	__unsafe_unretained NSString *edition;
@@ -16,18 +15,13 @@ extern const struct ChampionshipAttributes {
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
-	__unsafe_unretained NSString *groups;
 	__unsafe_unretained NSString *matches;
-	__unsafe_unretained NSString *wallets;
 } ChampionshipRelationships;
 
 extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
-@class Group;
 @class Match;
-@class Wallet;
-
 
 
 
@@ -45,20 +39,6 @@ extern const struct ChampionshipFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (ChampionshipID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* active;
-
-
-
-@property BOOL activeValue;
-- (BOOL)activeValue;
-- (void)setActiveValue:(BOOL)value_;
-
-//- (BOOL)validateActive:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -146,23 +126,9 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *groups;
-
-- (NSMutableSet*)groupsSet;
-
-
-
-
 @property (nonatomic, strong) NSSet *matches;
 
 - (NSMutableSet*)matchesSet;
-
-
-
-
-@property (nonatomic, strong) NSSet *wallets;
-
-- (NSMutableSet*)walletsSet;
 
 
 
@@ -172,33 +138,14 @@ extern const struct ChampionshipFetchedProperties {
 
 @interface _Championship (CoreDataGeneratedAccessors)
 
-- (void)addGroups:(NSSet*)value_;
-- (void)removeGroups:(NSSet*)value_;
-- (void)addGroupsObject:(Group*)value_;
-- (void)removeGroupsObject:(Group*)value_;
-
 - (void)addMatches:(NSSet*)value_;
 - (void)removeMatches:(NSSet*)value_;
 - (void)addMatchesObject:(Match*)value_;
 - (void)removeMatchesObject:(Match*)value_;
 
-- (void)addWallets:(NSSet*)value_;
-- (void)removeWallets:(NSSet*)value_;
-- (void)addWalletsObject:(Wallet*)value_;
-- (void)removeWalletsObject:(Wallet*)value_;
-
 @end
 
 @interface _Championship (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSNumber*)primitiveActive;
-- (void)setPrimitiveActive:(NSNumber*)value;
-
-- (BOOL)primitiveActiveValue;
-- (void)setPrimitiveActiveValue:(BOOL)value_;
-
-
 
 
 - (NSString*)primitiveCountry;
@@ -253,18 +200,8 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-- (NSMutableSet*)primitiveGroups;
-- (void)setPrimitiveGroups:(NSMutableSet*)value;
-
-
-
 - (NSMutableSet*)primitiveMatches;
 - (void)setPrimitiveMatches:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveWallets;
-- (void)setPrimitiveWallets:(NSMutableSet*)value;
 
 
 @end

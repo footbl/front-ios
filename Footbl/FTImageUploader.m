@@ -54,4 +54,12 @@
     } andProgress:nil];
 }
 
++ (void)uploadImage:(UIImage *)image withCompletion:(void (^)(NSString *imagePath, NSError *error))completion {
+    [self uploadImage:image withSuccess:^(id response) {
+        if (completion) completion(response, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+      if (completion) completion(nil, nil);
+    }];
+}
+
 @end

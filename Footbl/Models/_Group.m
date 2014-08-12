@@ -4,7 +4,6 @@
 #import "_Group.h"
 
 const struct GroupAttributes GroupAttributes = {
-	.code = @"code",
 	.freeToEdit = @"freeToEdit",
 	.isDefault = @"isDefault",
 	.isNew = @"isNew",
@@ -14,7 +13,6 @@ const struct GroupAttributes GroupAttributes = {
 };
 
 const struct GroupRelationships GroupRelationships = {
-	.championship = @"championship",
 	.members = @"members",
 	.owner = @"owner",
 };
@@ -71,13 +69,6 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic code;
-
-
 
 
 
@@ -199,10 +190,6 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 
 
-
-@dynamic championship;
-
-	
 
 @dynamic members;
 

@@ -116,23 +116,24 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         return;
     }
     
-    if (self.championship.myWallet.canRecharge) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-        [alert show]; 
-        return;
-    }
-    
-    [[LoadingHelper sharedInstance] showHud];
-    
-    [self.championship.myWallet rechargeWithSuccess:^{
-        [self reloadWallet];
-        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
-        [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(NSError *error) {
-        SPLogError(@"%@", error);
-        [[LoadingHelper sharedInstance] hideHud];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+#warning FIX
+//    if (self.championship.myWallet.canRecharge) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+//        [alert show]; 
+//        return;
+//    }
+//    
+//    [[LoadingHelper sharedInstance] showHud];
+//    
+//    [self.championship.myWallet rechargeWithSuccess:^{
+//        [self reloadWallet];
+//        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
+//        [[LoadingHelper sharedInstance] hideHud];
+//    } failure:^(NSError *error) {
+//        SPLogError(@"%@", error);
+//        [[LoadingHelper sharedInstance] hideHud];
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -192,7 +193,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             result = 0;
         }
         
-        if (MAX(bet.valueValue, match.tempBetValue.integerValue) < currentBet && (self.championship.myWallet.localFunds.integerValue - 1) < 0) {
+        if (MAX(bet.valueValue, match.tempBetValue.integerValue) < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
             [alert show];
             return;
@@ -201,11 +202,11 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         match.tempBetValue = @(currentBet);
         match.tempBetResult = result;
         
-        if (self.championship.myWallet.localFunds.integerValue < 1 && weakCell.isStepperSelected) {
+        if ([User currentUser].localFunds.integerValue < 1 && weakCell.isStepperSelected) {
             weakCell.stepperUserInteractionEnabled = NO;
         }
         
-        FootblAPIFailureBlock failure = ^(NSError *error) {
+        FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
@@ -250,16 +251,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)reloadWallet {
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
     
-    if (self.championship.myWallet) {
+    if ([User currentUser]) {
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @(self.championship.myWallet.localFunds.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @(self.championship.myWallet.localStake.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = self.championship.myWallet.toReturnString;
-        self.navigationBarTitleView.profitValueLabel.text = self.championship.myWallet.profitString;
+        self.navigationBarTitleView.walletValueLabel.text = @([User currentUser].localFunds.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = @([User currentUser].localStake.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.returnValueLabel.text = [User currentUser].toReturnString;
+        self.navigationBarTitleView.profitValueLabel.text = [User currentUser].profitString;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
@@ -267,7 +268,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         }
     }
     
-    if (self.championship.myWallet.localFunds.integerValue + self.championship.myWallet.localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
+    if ([User currentUser].localFunds.integerValue + [User currentUser].localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
         UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
         if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
             [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
@@ -292,15 +293,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     [super reloadData];
     
     NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
-    
-    void(^failure)(NSError *error) = ^(NSError *error) {
-        [self.refreshControl endRefreshing];
-        if (matches == 0) {
-            [[LoadingHelper sharedInstance] hideHud];
-        }
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-    
+
     self.numberOfMatches = matches;
     if (matches == 0) {
         [[LoadingHelper sharedInstance] showHud];
@@ -308,6 +301,33 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     NSArray *finishedMatches = [[self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]] valueForKeyPath:@"rid"];
     
+    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+    };
+    
+    [[User currentUser] getWithSuccess:^(User *user) {
+        [Championship getWithObject:nil success:^(NSArray *championships) {
+            self.championship = championships.firstObject;
+            self.fetchedResultsController = nil;
+            [self.tableView reloadData];
+            [Match getWithObject:self.championship.editableObject success:^(id response) {
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:failure];
+        } failure:failure];
+    } failure:failure];
+    
+    /*
+    void(^failure)(NSError *error) = ^(NSError *error) {
+        [self.refreshControl endRefreshing];
+        if (matches == 0) {
+            [[LoadingHelper sharedInstance] hideHud];
+        }
+        [[ErrorHandler sharedInstance] displayError:error];
+    };
+     
     [Wallet updateWithUser:[User currentUser] success:^{
         [self fetchChampionship];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.championship ? 0.1 : 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -362,6 +382,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             }
         });
     } failure:failure];
+    */
 }
 
 - (NSTimeInterval)updateInterval {

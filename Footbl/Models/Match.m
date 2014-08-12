@@ -52,42 +52,23 @@ extern MatchResult MatchResultFromString(NSString *result) {
 #pragma mark - Class Methods
 
 + (NSString *)resourcePath {
-    SPLogError(@"Match resource path should not be used.");
-    return @"championships/%@/matches";
+    return @"matches";
 }
 
-+ (void)updateFromChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSString *key = [NSString stringWithFormat:@"%@%@", championship.rid, API_DICTIONARY_KEY];
-    [[self API] groupOperationsWithKey:key block:^{
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
-            [[self API] GET:[NSString stringWithFormat:@"championships/%@/matches", championship.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                API_APPEND_RESULT(responseObject, key);
-                if ([[operation responseObject] count] == [self responseLimit]) {
-                    API_APPEND_PAGE(key);
-                    [FootblAPI performOperationWithoutGrouping:^{
-                       [self updateFromChampionship:championship success:success failure:failure];
-                    }];
-                } else {
-                    [self loadContent:API_RESULT(key) inManagedObjectContext:self.editableManagedObjectContext usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *object, NSDictionary *contentEntry) {
-                        object.championship = championship;
-                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                        [self.editableManagedObjectContext deleteObjects:untouchedObjects];
-                    }];
-                    [[self API] finishGroupedOperationsWithKey:key error:nil];
-                    requestSucceedWithBlock(operation, parameters, success);
-                    API_RESET_KEY(key);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [[self API] finishGroupedOperationsWithKey:key error:error];
-                requestFailedWithBlock(operation, parameters, error, failure);
-                API_RESET_KEY(key);
-            }];
-        } failure:^(NSError *error) {
-            [[self API] finishGroupedOperationsWithKey:key error:error];
-            if (failure) failure(error);
-        }];
-    } success:success failure:failure];
++ (NSDictionary *)relationshipProperties {
+    return @{@"host" : [Team class],
+             @"guest" : [Team class]};
+}
+
++ (void)getWithObject:(Championship *)championshp success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [self resourcePathWithObject:championshp];
+    [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
+            match.championship = championshp.editableObject;
+        } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+        } completionBlock:success];
+    } failure:failure];
 }
 
 #pragma mark - Instance Methods
@@ -124,11 +105,12 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.tempBetResult = result;
     self.tempBetValue = value;
     
-    if (value && ![self.championship.myWallet.pendingMatchesToSyncBet containsObject:self]) {
-        [self.championship.myWallet.pendingMatchesToSyncBet addObject:self];
-    } else if (!value) {
-        [self.championship.myWallet.pendingMatchesToSyncBet removeObject:self];
-    }
+#warning FIX
+//    if (value && ![self.championship.myWallet.pendingMatchesToSyncBet containsObject:self]) {
+//        [self.championship.myWallet.pendingMatchesToSyncBet addObject:self];
+//    } else if (!value) {
+//        [self.championship.myWallet.pendingMatchesToSyncBet removeObject:self];
+//    }
 }
 
 - (NSString *)resourcePath {

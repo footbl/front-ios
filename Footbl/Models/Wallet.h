@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) NSMutableArray *pendingMatchesToSyncBet;
 
-+ (void)ensureWalletWithChampionship:(Championship *)championship success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 + (void)updateWithUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
 - (NSSet *)activeBets;

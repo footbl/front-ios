@@ -107,6 +107,8 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 #pragma mark - Class Methods
 
 + (instancetype)sharedAPI {
+#warning FIX
+    return nil;
     static FootblAPI *_sharedAPI = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

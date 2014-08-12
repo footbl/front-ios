@@ -220,7 +220,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAPIOutdated object:nil];
+            if (error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAPIOutdated object:nil];
+            }
         } failure:failure];
     }];
 }
