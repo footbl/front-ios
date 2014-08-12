@@ -9,6 +9,7 @@ const struct UserAttributes UserAttributes = {
 	.email = @"email",
 	.featured = @"featured",
 	.followers = @"followers",
+	.isMe = @"isMe",
 	.name = @"name",
 	.picture = @"picture",
 	.username = @"username",
@@ -60,6 +61,11 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	}
 	if ([key isEqualToString:@"followersValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"followers"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isMeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isMe"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -142,6 +148,32 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 - (void)setPrimitiveFollowersValue:(int64_t)value_ {
 	[self setPrimitiveFollowers:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic isMe;
+
+
+
+- (BOOL)isMeValue {
+	NSNumber *result = [self isMe];
+	return [result boolValue];
+}
+
+- (void)setIsMeValue:(BOOL)value_ {
+	[self setIsMe:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsMeValue {
+	NSNumber *result = [self primitiveIsMe];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsMeValue:(BOOL)value_ {
+	[self setPrimitiveIsMe:[NSNumber numberWithBool:value_]];
 }
 
 

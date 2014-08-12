@@ -2,7 +2,7 @@
 // Make changes to Championship.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *active;
@@ -42,7 +42,7 @@ extern const struct ChampionshipFetchedProperties {
 @interface ChampionshipID : NSManagedObjectID {}
 @end
 
-@interface _Championship : FootblModel {}
+@interface _Championship : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

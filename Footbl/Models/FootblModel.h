@@ -9,6 +9,7 @@
 #import <SPHipster/SPLog.h>
 #import "_FootblModel.h"
 #import "FootblAPI.h"
+#import "NSManagedObjectContext+FTAddons.h"
 
 #define API_DICTIONARY_KEY [NSString stringWithFormat:@"%s", __FUNCTION__]
 #define API_CURRENT_PAGE(key) [FootblModel pagingDictionary][key] ? [[FootblModel pagingDictionary][key] integerValue] : 0
@@ -46,11 +47,5 @@
 - (NSInteger)responseLimit;
 - (void)updateWithData:(NSDictionary *)data NS_REQUIRES_SUPER;
 - (void)updateWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-
-@end
-
-@interface NSManagedObjectContext (Addons)
-
-- (void)deleteObjects:(NSSet *)objects;
 
 @end

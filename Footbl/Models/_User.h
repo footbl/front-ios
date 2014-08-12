@@ -2,7 +2,7 @@
 // Make changes to User.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct UserAttributes {
 	__unsafe_unretained NSString *about;
@@ -10,6 +10,7 @@ extern const struct UserAttributes {
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *featured;
 	__unsafe_unretained NSString *followers;
+	__unsafe_unretained NSString *isMe;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *username;
@@ -45,10 +46,11 @@ extern const struct UserFetchedProperties {
 
 
 
+
 @interface UserID : NSManagedObjectID {}
 @end
 
-@interface _User : FootblModel {}
+@interface _User : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
@@ -111,6 +113,20 @@ extern const struct UserFetchedProperties {
 - (void)setFollowersValue:(int64_t)value_;
 
 //- (BOOL)validateFollowers:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* isMe;
+
+
+
+@property BOOL isMeValue;
+- (BOOL)isMeValue;
+- (void)setIsMeValue:(BOOL)value_;
+
+//- (BOOL)validateIsMe:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -274,6 +290,15 @@ extern const struct UserFetchedProperties {
 
 - (int64_t)primitiveFollowersValue;
 - (void)setPrimitiveFollowersValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveIsMe;
+- (void)setPrimitiveIsMe:(NSNumber*)value;
+
+- (BOOL)primitiveIsMeValue;
+- (void)setPrimitiveIsMeValue:(BOOL)value_;
 
 
 

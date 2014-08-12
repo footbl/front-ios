@@ -131,7 +131,7 @@
     self.picture = data[@"picture"];
     self.freeToEdit = data[@"freeToEdit"];
     self.code = data[@"code"];
-    self.owner = [User findOrCreateByIdentifier:data[@"owner"] inManagedObjectContext:self.managedObjectContext];
+    self.owner = [User findOrCreateWithObject:data[@"owner"] inContext:self.managedObjectContext];
     if ([data[@"owner"] isKindOfClass:[NSDictionary class]]) {
         [self.owner updateWithData:data[@"owner"]];
     }
@@ -143,13 +143,7 @@
         }
     }
     
-    NSString *championship = data[@"championship"];
-    if ([championship isKindOfClass:[NSDictionary class]]) {
-        self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-        [self.championship updateWithData:data[@"championship"]];
-    } else {
-        self.championship = [Championship findByIdentifier:championship inManagedObjectContext:self.managedObjectContext];
-    }
+    self.championship = [Championship findOrCreateWithObject:data[@"championship"] inContext:self.managedObjectContext];
 }
 
 - (void)addMembers:(NSArray *)members success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {

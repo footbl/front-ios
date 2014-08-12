@@ -18,7 +18,6 @@
 
 @interface FootblAPI ()
 
-@property (copy, nonatomic) NSString *userToken;
 @property (strong, nonatomic) NSDate *tokenExpirationDate;
 @property (strong, nonatomic) NSMutableDictionary *operationGroupingDictionary;
 @property (assign, nonatomic) BOOL shouldGroup;
@@ -175,7 +174,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     }
     
     if (self.userIdentifier) {
-        self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+        self.currentUser = [User findOrCreateWithObject:self.userIdentifier inContext:FootblBackgroundManagedObjectContext()];
         SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
     }
     
@@ -199,7 +198,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
     
     [FXKeychain defaultKeychain][kUserNotificationTokenKey] = self.pushNotificationToken;
     
-    [[User currentUser] updateWithSuccess:^{
+    [[User currentUser] getWithSuccess:^(User *user) {
         [self updateAccountWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:nil about:nil success:nil failure:nil];
     } failure:nil];
 }
@@ -601,7 +600,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
                 [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
             }
             
-            self.currentUser = [User findOrCreateByIdentifier:self.userIdentifier inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+            self.currentUser = [User findOrCreateWithObject:self.userIdentifier inContext:FootblBackgroundManagedObjectContext()];
             SaveManagedObjectContext(FootblBackgroundManagedObjectContext());
             
             requestSucceedWithBlock(operation, parameters, success);
@@ -728,7 +727,7 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
 
 - (void)updateAccountWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     void(^requestBlock)(NSString *picturePath) = ^(NSString *picturePath) {
-        [[User currentUser] updateWithSuccess:^{
+        [[User currentUser] getWithSuccess:^(id response) {
             NSMutableDictionary *parameters = [self generateDefaultParameters];
             [parameters addEntriesFromDictionary:[[User currentUser] dictionaryRepresentation]];
             if (username) parameters[@"username"] = username;
@@ -766,7 +765,9 @@ void SaveManagedObjectContext(NSManagedObjectContext *managedObjectContext) {
                 }
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
-        } failure:failure];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (failure) failure(error);
+        }];
     };
     
     if (profileImage) {

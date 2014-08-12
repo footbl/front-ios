@@ -89,7 +89,7 @@
     NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     self.date = [transformer reverseTransformedValue:data[@"date"]];
     self.message = data[@"message"];
-    self.user = [User findOrCreateByIdentifier:data[@"user"] inManagedObjectContext:self.managedObjectContext];
+    self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
 }
 
 @end

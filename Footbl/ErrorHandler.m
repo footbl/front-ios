@@ -34,6 +34,14 @@
 
 #pragma mark - Instance Methods
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.shouldShowError = YES;
+    }
+    return self;
+}
+
 - (void)displayError:(NSError *)error {
     if (self.isAlertVisible) {
         return;

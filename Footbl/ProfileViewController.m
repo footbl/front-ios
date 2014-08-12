@@ -100,7 +100,7 @@
 
 - (IBAction)favoritesAction:(id)sender {
     FavoritesViewController *favoritesViewController = [FavoritesViewController new];
-    favoritesViewController.shouldShowFeatured = self.user.isMe;
+    favoritesViewController.shouldShowFeatured = self.user.isMeValue;
     favoritesViewController.user = self.user;
     [self.navigationController pushViewController:favoritesViewController animated:YES];
 }
@@ -138,7 +138,7 @@
 
     [self.tableView reloadData];
     
-    if (!self.user.isMe && [self.user isStarredByUser:[User currentUser]]) {
+    if (!self.user.isMeValue && [self.user isStarredByUser:[User currentUser]]) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
@@ -203,7 +203,7 @@
                     profileCell.nameLabel.text = self.user.name;
                     profileCell.usernameLabel.text = self.user.username;
                     profileCell.verified = self.user.verifiedValue;
-                    if (self.user.isMe) {
+                    if (self.user.isMeValue) {
                         profileCell.starImageView.highlightedImage = nil;
                     }
                     profileCell.aboutText = self.user.about;
@@ -473,7 +473,7 @@
         }
     }
     
-    if (self.user.isMe) {
+    if (self.user.isMeValue) {
         return;
     }
     
@@ -483,7 +483,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.user.isMe) {
+    if (self.user.isMeValue) {
         return;
     }
     

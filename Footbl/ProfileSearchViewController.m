@@ -92,7 +92,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileViewController *profileViewController = [ProfileViewController new];
     NSDictionary *userRepresentation = self.dataSource[indexPath.row];
-    User *user = [User findOrCreateByIdentifier:userRepresentation[kAPIIdentifierKey] inManagedObjectContext:FootblBackgroundManagedObjectContext()];
+    User *user = [User findOrCreateWithObject:userRepresentation inContext:FootblBackgroundManagedObjectContext()];
     
     NSUInteger blockKey;
     perform_block_after_delay_k(0.5, &blockKey, ^{

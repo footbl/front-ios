@@ -250,13 +250,3 @@
 }
 
 @end
-
-@implementation NSManagedObjectContext (Addons)
-
-- (void)deleteObjects:(NSSet *)objects {
-    [objects enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-        [self deleteObject:obj];
-    }];
-}
-
-@end

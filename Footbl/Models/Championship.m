@@ -59,19 +59,6 @@
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.name = data[@"name"];
-    self.country = data[@"country"];
-    if ([data[@"edition"] isKindOfClass:[NSNumber class]]) {
-        self.edition = data[@"edition"];
-    } else {
-        self.edition = nil;
-    }
-    self.active = data[@"active"];
-    self.currentRound = data[@"currentRound"];
-    self.roundFinished = data[@"roundFinished"];
-    self.rounds = data[@"rounds"];
-    self.picture = data[@"picture"];
-    
     if (self.activeValue) {
         Group *group = [Group findOrCreateByIdentifier:self.rid inManagedObjectContext:self.managedObjectContext];
         group.championship = self;

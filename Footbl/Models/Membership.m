@@ -48,7 +48,7 @@
     self.hasRanking = @(self.ranking != nil);
     
     if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
-        self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+        self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
         [self.user updateWithData:data[@"user"]];
     } else {
         self.user = nil;

@@ -12,7 +12,8 @@ typedef void (^ErrorBlock)(NSError *error);
 
 @interface ErrorHandler : NSObject
 
-@property (assign, nonatomic, getter = isAlertVisible, readonly) BOOL alertVisible;;
+@property (assign, nonatomic, getter = isAlertVisible, readonly) BOOL alertVisible;
+@property (assign, nonatomic) BOOL shouldShowError;
 
 + (instancetype)sharedInstance;
 + (ErrorBlock)failureBlock;

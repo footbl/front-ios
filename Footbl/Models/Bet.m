@@ -220,7 +220,7 @@ static CGFloat kBetSyncWaitTime = 3;
 }
 
 - (BOOL)isMine {
-    return self.user.isMe;
+    return self.user.isMeValue;
 }
 
 - (NSString *)valueString {

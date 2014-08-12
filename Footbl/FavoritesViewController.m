@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/SPLog.h>
 #import "FavoriteTableViewCell.h"
 #import "FavoritesViewController.h"
 #import "FeaturedButton.h"
@@ -97,7 +98,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.user.isMe;
+    return self.user.isMeValue;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -7,6 +7,7 @@
 //
 
 #import <TransformerKit/TransformerKit.h>
+#import "FootblAPI.h"
 #import "User.h"
 #import "Wallet.h"
 
@@ -25,12 +26,12 @@
 }
 
 + (instancetype)currentUser {
-    return [[self API] currentUser];
+    return [self findOrCreateWithObject:@"me" inContext:[self editableManagedObjectContext]];
 }
 
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FootblAPISuccessWithResponseBlock)success failure:(FootblAPIFailureBlock)failure {
     NSString *key = [NSString stringWithFormat:@"%lu%lu%lu%lu%@", (unsigned long)emails.hash, (unsigned long)usernames.hash, (unsigned long)ids.hash, (unsigned long)fbIds.hash, API_DICTIONARY_KEY];
-    NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+    NSMutableDictionary *parameters = [FootblModel generateParametersWithPage:API_CURRENT_PAGE(key)];
     if (emails) {
         parameters[@"emails"] = emails;
     }
@@ -44,9 +45,9 @@
         parameters[@"facebookIds"] = fbIds;
     }
     
-    [[self API] GET:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[FootblAPI sharedAPI] GET:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         API_APPEND_RESULT(responseObject, key);
-        if ([responseObject count] == [self responseLimit]) {
+        if ([responseObject count] == 20) {
             API_APPEND_PAGE(key);
             [self searchUsingEmails:emails usernames:usernames ids:ids fbIds:fbIds success:success failure:failure];
         } else {
@@ -62,16 +63,16 @@
 
 + (void)updateFeaturedUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSString *key = API_DICTIONARY_KEY;
-    NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
+    NSMutableDictionary *parameters = [FootblModel generateParametersWithPage:API_CURRENT_PAGE(key)];
     parameters[@"featured"] = @YES;
     
-    [[self API] GET:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[FootblAPI sharedAPI] GET:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         API_APPEND_RESULT(responseObject, key);
-        if ([responseObject count] == [self responseLimit]) {
+        if ([responseObject count] == 20) {
             API_APPEND_PAGE(key);
             [self updateFeaturedUsersWithSuccess:success failure:failure];
         } else {
-            [self loadContent:API_RESULT(key) inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
+            [FootblModel loadContent:API_RESULT(key) inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
                 user.featured = @YES;
             } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
                 [untouchedObjects makeObjectsPerformSelector:@selector(setFeatured:) withObject:@NO];
@@ -91,25 +92,17 @@
 
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
-    
-    self.verified = data[@"verified"];
-    self.email = data[@"email"];
-    self.username = data[@"username"];
-    self.name = data[@"name"];
-    self.about = data[@"about"];
-    self.picture = data[@"picture"];
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-    self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
-    
+        
     if ([data[@"followers"] isKindOfClass:[NSNumber class]]) {
         self.followers = data[@"followers"];
     } else {
         self.followers = @0;
     }
-}
-
-- (BOOL)isMe {
-    return [User currentUser] && [[User currentUser].rid isEqualToString:self.rid];
+    
+    if (self.isMeValue) {
+        self.slug = @"me";
+        self.rid = @"me";
+    }
 }
 
 - (BOOL)isStarredByUser:(User *)user {
@@ -118,12 +111,12 @@
 
 - (void)updateStarredUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
     NSString *key = API_DICTIONARY_KEY;
-    [[self API] groupOperationsWithKey:key block:^{
-        [[self API] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [self generateParametersWithPage:API_CURRENT_PAGE(key)];
-            [[self API] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[FootblAPI sharedAPI] groupOperationsWithKey:key block:^{
+        [[FootblAPI sharedAPI] ensureAuthenticationWithSuccess:^{
+            NSMutableDictionary *parameters = [FootblModel generateParametersWithPage:API_CURRENT_PAGE(key)];
+            [[FootblAPI sharedAPI] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 API_APPEND_RESULT(responseObject, key);
-                if ([responseObject count] == [self responseLimit]) {
+                if ([responseObject count] == 20) {
                     API_APPEND_PAGE(key);
                     [FootblAPI performOperationWithoutGrouping:^{
                         [self updateStarredUsersWithSuccess:success failure:failure];
@@ -137,36 +130,36 @@
                         [self removeStarredUsers:untouchedObjects];
                     }];
                     requestSucceedWithBlock(operation, parameters, nil);
-                    [[self API] finishGroupedOperationsWithKey:key error:nil];
+                    [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:nil];
                     API_RESET_KEY(key);
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 requestFailedWithBlock(operation, parameters, error, nil);
-                [[self API] finishGroupedOperationsWithKey:key error:error];
+                [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:error];
                 API_RESET_KEY(key);
             }];
         } failure:^(NSError *error) {
-            [[self API] finishGroupedOperationsWithKey:key error:error];
+            [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:error];
         }];
     } success:success failure:failure];
 }
 
 - (void)unstarUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [self.editableManagedObjectContext performBlock:^{
+    [[[self class] editableManagedObjectContext] performBlock:^{
         [self removeStarredUsersObject:user.editableObject];
         user.editableObject.followers = @(MAX(0, user.editableObject.followersValue - 1));
-        SaveManagedObjectContext(self.editableManagedObjectContext);
+        [[[self class] editableManagedObjectContext] performSave];
     }];
     
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
+    [[FootblAPI sharedAPI] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [FootblModel generateDefaultParameters];
         parameters[@"user"] = user.rid;
-        [[self API] DELETE:[NSString stringWithFormat:@"users/%@/starred/%@", self.rid, user.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[FootblAPI sharedAPI] DELETE:[NSString stringWithFormat:@"users/%@/starred/%@", self.rid, user.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.editableManagedObjectContext performBlock:^{
+            [[[self class] editableManagedObjectContext] performBlock:^{
                 [self addStarredUsersObject:user.editableObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
+                [[[self class] editableManagedObjectContext] performSave];
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
         }];
@@ -174,21 +167,21 @@
 }
 
 - (void)starUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    [self.editableManagedObjectContext performBlock:^{
+    [[[self class] editableManagedObjectContext] performBlock:^{
         [self addStarredUsersObject:user.editableObject];
         user.editableObject.followers = @(user.editableObject.followersValue + 1);
-        SaveManagedObjectContext(self.editableManagedObjectContext);
+        [[[self class] editableManagedObjectContext] performSave];
     }];
     
-    [[self API] ensureAuthenticationWithSuccess:^{
-        NSMutableDictionary *parameters = [self generateDefaultParameters];
+    [[FootblAPI sharedAPI] ensureAuthenticationWithSuccess:^{
+        NSMutableDictionary *parameters = [FootblModel generateDefaultParameters];
         parameters[@"user"] = user.rid;
-        [[self API] POST:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[FootblAPI sharedAPI] POST:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             requestSucceedWithBlock(operation, parameters, success);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.editableManagedObjectContext performBlock:^{
+            [[[self class] editableManagedObjectContext] performBlock:^{
                 [self removeStarredUsersObject:user.editableObject];
-                SaveManagedObjectContext(self.editableManagedObjectContext);
+                [[[self class] editableManagedObjectContext] performSave];
                 requestFailedWithBlock(operation, parameters, error, failure);
             }];
         }];
@@ -216,13 +209,24 @@
 }
 
 - (void)deleteWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSMutableDictionary *parameters = [self generateDefaultParameters];
-    [[self API] DELETE:[NSString stringWithFormat:@"users/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSMutableDictionary *parameters = [FootblModel generateDefaultParameters];
+    [[FootblAPI sharedAPI] DELETE:[NSString stringWithFormat:@"users/%@", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[FootblAPI sharedAPI] logout];
         requestSucceedWithBlock(operation, parameters, success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         requestFailedWithBlock(operation, parameters, error, failure);
     }];
+}
+
++ (void)getMeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[FTOperationManager sharedManager] GET:@"users/me" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       [[self editableManagedObjectContext] performBlock:^{
+           User *user = [User findOrCreateWithObject:responseObject inContext:[self editableManagedObjectContext]];
+           user.isMeValue = YES;
+           [[self editableManagedObjectContext] performSave];
+           if (success) success(user);
+       }];
+    } failure:failure];
 }
 
 @end

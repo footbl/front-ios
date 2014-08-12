@@ -68,7 +68,7 @@
             break;
     }
     
-    if (bet.user.isMe || !bet) {
+    if (bet.user.isMeValue || !bet) {
         self.stakeValueLabel.text = match.myBetValueString;
         self.returnValueLabel.text = match.myBetReturnString;
         self.profitValueLabel.text = match.myBetProfitString;
@@ -112,7 +112,7 @@
             break;
     }
     
-    self.shareButton.hidden = !(bet.user.isMe || selectionBlock);
+    self.shareButton.hidden = !(bet.user.isMeValue || selectionBlock);
     
     self.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
         [match shareUsingMatchCell:matchBlockCell viewController:viewController];

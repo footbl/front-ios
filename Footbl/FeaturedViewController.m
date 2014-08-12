@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SPHipster/SPLog.h>
 #import "FeaturedViewController.h"
 #import "FootblAPI.h"
 #import "User.h"

@@ -127,7 +127,7 @@
 
 - (NSNumber *)localFunds {
     NSInteger funds = self.funds.integerValue;
-    if (self.user.isMe) {
+    if (self.user.isMeValue) {
         for (Bet *bet in self.activeBets) {
             funds += bet.valueValue;
             funds -= bet.match.myBetValue.floatValue;
@@ -148,7 +148,7 @@
 
 - (NSNumber *)localStake {
     NSInteger stake = 0;
-    if (self.user.isMe) {
+    if (self.user.isMeValue) {
         for (Bet *bet in self.activeBets) {
             stake += bet.match.myBetValue.floatValue;
         }
@@ -172,7 +172,7 @@
 
 - (NSNumber *)toReturn {
     float toReturn = 0;
-    if (self.user.isMe) {
+    if (self.user.isMeValue) {
         for (Bet *bet in self.activeBets) {
             toReturn += bet.match.myBetReturn.floatValue;
         }
@@ -230,9 +230,8 @@
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.championship = [Championship findOrCreateByIdentifier:data[@"championship"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-    [self.championship updateWithData:data[@"championship"]];
-    self.user = [User findOrCreateByIdentifier:data[@"user"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
+    self.championship = [Championship findOrCreateWithObject:data[@"championship"] inContext:self.managedObjectContext];
+    self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
     [self.user updateWithData:data[@"user"]];
     
     self.active = data[@"active"];

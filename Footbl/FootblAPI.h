@@ -50,9 +50,13 @@ typedef NS_OPTIONS(NSInteger, FootblRequestOption) {
 @property (copy, nonatomic) NSString *pushNotificationToken;
 @property (assign, nonatomic, readonly) NSInteger responseLimit;
 @property (assign, nonatomic) BOOL shouldShowError;
+@property (copy, nonatomic) NSString *userToken;
+
 
 + (instancetype)sharedAPI;
 + (void)performOperationWithoutGrouping:(void (^)())block;
+
+- (BOOL)isTokenValid;
 
 - (void)GET:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 - (void)POST:(NSString *)URLString parameters:(NSDictionary *)parameters options:(FootblRequestOption)options success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure;
