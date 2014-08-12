@@ -25,6 +25,9 @@
 // Groups
 #define MAX_GROUP_NAME_SIZE 20
 
+// Users
+#define MAX_FOLLOWERS_COUNT 20
+
 // Features
 #define FT_ENABLE_MEDALS YES
 #define FT_ENABLE_INFO_VIEW_REDESIGN YES

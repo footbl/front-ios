@@ -70,9 +70,9 @@
 - (void)reloadData {
     [super reloadData];
     
-    [self.user updateStarredUsersWithSuccess:^{
+    [self.user getStarredWithSuccess:^(id response) {
         [self.refreshControl endRefreshing];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
     }];

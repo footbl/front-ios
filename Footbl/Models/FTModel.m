@@ -44,9 +44,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
-        } completionBlock:^(NSArray *objects) {
-            if (success) success(objects);
-        }];
+        } completionBlock:success];
     } failure:failure];
 }
 

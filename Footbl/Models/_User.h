@@ -9,17 +9,22 @@ extern const struct UserAttributes {
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *featured;
 	__unsafe_unretained NSString *followers;
+	__unsafe_unretained NSString *funds;
+	__unsafe_unretained NSString *history;
 	__unsafe_unretained NSString *isMe;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
+	__unsafe_unretained NSString *previousRanking;
+	__unsafe_unretained NSString *ranking;
+	__unsafe_unretained NSString *stake;
 	__unsafe_unretained NSString *username;
 	__unsafe_unretained NSString *verified;
 } UserAttributes;
 
 extern const struct UserRelationships {
+	__unsafe_unretained NSString *fans;
 	__unsafe_unretained NSString *memberships;
 	__unsafe_unretained NSString *ownedGroups;
-	__unsafe_unretained NSString *starredByUsers;
 	__unsafe_unretained NSString *starredUsers;
 	__unsafe_unretained NSString *wallets;
 } UserRelationships;
@@ -27,13 +32,18 @@ extern const struct UserRelationships {
 extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
+@class User;
 @class Membership;
 @class Group;
-@class User;
 @class User;
 @class Wallet;
 
 
+
+
+
+
+@class NSObject;
 
 
 
@@ -104,6 +114,30 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* funds;
+
+
+
+@property float fundsValue;
+- (float)fundsValue;
+- (void)setFundsValue:(float)value_;
+
+//- (BOOL)validateFunds:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) id history;
+
+
+
+//- (BOOL)validateHistory:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* isMe;
 
 
@@ -138,6 +172,48 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSNumber* previousRanking;
+
+
+
+@property int64_t previousRankingValue;
+- (int64_t)previousRankingValue;
+- (void)setPreviousRankingValue:(int64_t)value_;
+
+//- (BOOL)validatePreviousRanking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* ranking;
+
+
+
+@property int64_t rankingValue;
+- (int64_t)rankingValue;
+- (void)setRankingValue:(int64_t)value_;
+
+//- (BOOL)validateRanking:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* stake;
+
+
+
+@property int64_t stakeValue;
+- (int64_t)stakeValue;
+- (void)setStakeValue:(int64_t)value_;
+
+//- (BOOL)validateStake:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* username;
 
 
@@ -162,6 +238,13 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet *fans;
+
+- (NSMutableSet*)fansSet;
+
+
+
+
 @property (nonatomic, strong) NSSet *memberships;
 
 - (NSMutableSet*)membershipsSet;
@@ -172,13 +255,6 @@ extern const struct UserFetchedProperties {
 @property (nonatomic, strong) NSSet *ownedGroups;
 
 - (NSMutableSet*)ownedGroupsSet;
-
-
-
-
-@property (nonatomic, strong) NSSet *starredByUsers;
-
-- (NSMutableSet*)starredByUsersSet;
 
 
 
@@ -202,6 +278,11 @@ extern const struct UserFetchedProperties {
 
 @interface _User (CoreDataGeneratedAccessors)
 
+- (void)addFans:(NSSet*)value_;
+- (void)removeFans:(NSSet*)value_;
+- (void)addFansObject:(User*)value_;
+- (void)removeFansObject:(User*)value_;
+
 - (void)addMemberships:(NSSet*)value_;
 - (void)removeMemberships:(NSSet*)value_;
 - (void)addMembershipsObject:(Membership*)value_;
@@ -211,11 +292,6 @@ extern const struct UserFetchedProperties {
 - (void)removeOwnedGroups:(NSSet*)value_;
 - (void)addOwnedGroupsObject:(Group*)value_;
 - (void)removeOwnedGroupsObject:(Group*)value_;
-
-- (void)addStarredByUsers:(NSSet*)value_;
-- (void)removeStarredByUsers:(NSSet*)value_;
-- (void)addStarredByUsersObject:(User*)value_;
-- (void)removeStarredByUsersObject:(User*)value_;
 
 - (void)addStarredUsers:(NSSet*)value_;
 - (void)removeStarredUsers:(NSSet*)value_;
@@ -262,6 +338,21 @@ extern const struct UserFetchedProperties {
 
 
 
+- (NSNumber*)primitiveFunds;
+- (void)setPrimitiveFunds:(NSNumber*)value;
+
+- (float)primitiveFundsValue;
+- (void)setPrimitiveFundsValue:(float)value_;
+
+
+
+
+- (id)primitiveHistory;
+- (void)setPrimitiveHistory:(id)value;
+
+
+
+
 - (NSNumber*)primitiveIsMe;
 - (void)setPrimitiveIsMe:(NSNumber*)value;
 
@@ -283,6 +374,33 @@ extern const struct UserFetchedProperties {
 
 
 
+- (NSNumber*)primitivePreviousRanking;
+- (void)setPrimitivePreviousRanking:(NSNumber*)value;
+
+- (int64_t)primitivePreviousRankingValue;
+- (void)setPrimitivePreviousRankingValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveRanking;
+- (void)setPrimitiveRanking:(NSNumber*)value;
+
+- (int64_t)primitiveRankingValue;
+- (void)setPrimitiveRankingValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveStake;
+- (void)setPrimitiveStake:(NSNumber*)value;
+
+- (int64_t)primitiveStakeValue;
+- (void)setPrimitiveStakeValue:(int64_t)value_;
+
+
+
+
 - (NSString*)primitiveUsername;
 - (void)setPrimitiveUsername:(NSString*)value;
 
@@ -299,6 +417,11 @@ extern const struct UserFetchedProperties {
 
 
 
+- (NSMutableSet*)primitiveFans;
+- (void)setPrimitiveFans:(NSMutableSet*)value;
+
+
+
 - (NSMutableSet*)primitiveMemberships;
 - (void)setPrimitiveMemberships:(NSMutableSet*)value;
 
@@ -306,11 +429,6 @@ extern const struct UserFetchedProperties {
 
 - (NSMutableSet*)primitiveOwnedGroups;
 - (void)setPrimitiveOwnedGroups:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveStarredByUsers;
-- (void)setPrimitiveStarredByUsers:(NSMutableSet*)value;
 
 
 

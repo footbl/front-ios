@@ -478,7 +478,9 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] starUser:self.user success:nil failure:[ErrorHandler failureBlock]];
+        [[User currentUser] starUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
     }
 }
 
@@ -488,7 +490,9 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] unstarUser:self.user success:nil failure:[ErrorHandler failureBlock]];
+        [[User currentUser] unstarUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
     }
 }
 
@@ -499,7 +503,7 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    [[User currentUser] updateStarredUsersWithSuccess:nil failure:nil];
+    [[User currentUser] getStarredWithSuccess:nil failure:nil];
     
     self.anonymousViewController = [AnonymousViewController new];
     

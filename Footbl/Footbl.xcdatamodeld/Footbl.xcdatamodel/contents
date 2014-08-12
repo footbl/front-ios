@@ -85,15 +85,20 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="featured" optional="YES" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="followers" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="funds" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="history" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="isMe" optional="YES" attributeType="Boolean" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="previousRanking" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="verified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="fans" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
-        <relationship name="starredByUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredUsers" inverseEntity="User" syncable="YES"/>
-        <relationship name="starredUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="starredByUsers" inverseEntity="User" syncable="YES"/>
+        <relationship name="starredUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fans" inverseEntity="User" syncable="YES"/>
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wallet" inverseName="user" inverseEntity="Wallet" syncable="YES"/>
     </entity>
     <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
@@ -117,7 +122,7 @@
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="135"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="253"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="328"/>
         <element name="Wallet" positionX="-36" positionY="117" width="128" height="195"/>
     </elements>
 </model>

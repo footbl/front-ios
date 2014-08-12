@@ -180,7 +180,7 @@
                         [self signupAction:sender];
                     }
                 }
-            } failure:^(NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
             }];
@@ -409,7 +409,7 @@
                 } else {
                     [self continueAction:alertView];
                 }
-            } failure:^(NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 [[ErrorHandler sharedInstance] displayError:error];

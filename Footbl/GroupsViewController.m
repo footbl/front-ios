@@ -106,9 +106,11 @@
     };
     
     [Group updateWithSuccess:^{
-        [[User currentUser] updateStarredUsersWithSuccess:^{
+        [[User currentUser] getStarredWithSuccess:^(id response) {
             [self.refreshControl endRefreshing];
-        } failure:failureBlock];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            failureBlock(error);
+        }];
     } failure:failureBlock];
 }
 

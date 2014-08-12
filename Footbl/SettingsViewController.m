@@ -264,9 +264,11 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [[User currentUser] deleteWithSuccess:^{
+        [[User currentUser] deleteWithSuccess:^(id response) {
             [self logoutAction:nil];
-        } failure:[ErrorHandler failureBlock]];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
     }
 }
 

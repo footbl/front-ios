@@ -8,17 +8,22 @@ const struct UserAttributes UserAttributes = {
 	.email = @"email",
 	.featured = @"featured",
 	.followers = @"followers",
+	.funds = @"funds",
+	.history = @"history",
 	.isMe = @"isMe",
 	.name = @"name",
 	.picture = @"picture",
+	.previousRanking = @"previousRanking",
+	.ranking = @"ranking",
+	.stake = @"stake",
 	.username = @"username",
 	.verified = @"verified",
 };
 
 const struct UserRelationships UserRelationships = {
+	.fans = @"fans",
 	.memberships = @"memberships",
 	.ownedGroups = @"ownedGroups",
-	.starredByUsers = @"starredByUsers",
 	.starredUsers = @"starredUsers",
 	.wallets = @"wallets",
 };
@@ -62,8 +67,28 @@ const struct UserFetchedProperties UserFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"fundsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"isMeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isMe"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"previousRankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"previousRanking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"rankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"ranking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"stakeValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"stake"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -145,6 +170,39 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+@dynamic funds;
+
+
+
+- (float)fundsValue {
+	NSNumber *result = [self funds];
+	return [result floatValue];
+}
+
+- (void)setFundsValue:(float)value_ {
+	[self setFunds:[NSNumber numberWithFloat:value_]];
+}
+
+- (float)primitiveFundsValue {
+	NSNumber *result = [self primitiveFunds];
+	return [result floatValue];
+}
+
+- (void)setPrimitiveFundsValue:(float)value_ {
+	[self setPrimitiveFunds:[NSNumber numberWithFloat:value_]];
+}
+
+
+
+
+
+@dynamic history;
+
+
+
+
+
+
 @dynamic isMe;
 
 
@@ -185,6 +243,84 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+@dynamic previousRanking;
+
+
+
+- (int64_t)previousRankingValue {
+	NSNumber *result = [self previousRanking];
+	return [result longLongValue];
+}
+
+- (void)setPreviousRankingValue:(int64_t)value_ {
+	[self setPreviousRanking:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitivePreviousRankingValue {
+	NSNumber *result = [self primitivePreviousRanking];
+	return [result longLongValue];
+}
+
+- (void)setPrimitivePreviousRankingValue:(int64_t)value_ {
+	[self setPrimitivePreviousRanking:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic ranking;
+
+
+
+- (int64_t)rankingValue {
+	NSNumber *result = [self ranking];
+	return [result longLongValue];
+}
+
+- (void)setRankingValue:(int64_t)value_ {
+	[self setRanking:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveRankingValue {
+	NSNumber *result = [self primitiveRanking];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveRankingValue:(int64_t)value_ {
+	[self setPrimitiveRanking:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic stake;
+
+
+
+- (int64_t)stakeValue {
+	NSNumber *result = [self stake];
+	return [result longLongValue];
+}
+
+- (void)setStakeValue:(int64_t)value_ {
+	[self setStake:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveStakeValue {
+	NSNumber *result = [self primitiveStake];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveStakeValue:(int64_t)value_ {
+	[self setPrimitiveStake:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
 @dynamic username;
 
 
@@ -218,6 +354,19 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+@dynamic fans;
+
+	
+- (NSMutableSet*)fansSet {
+	[self willAccessValueForKey:@"fans"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"fans"];
+  
+	[self didAccessValueForKey:@"fans"];
+	return result;
+}
+	
+
 @dynamic memberships;
 
 	
@@ -240,19 +389,6 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"ownedGroups"];
   
 	[self didAccessValueForKey:@"ownedGroups"];
-	return result;
-}
-	
-
-@dynamic starredByUsers;
-
-	
-- (NSMutableSet*)starredByUsersSet {
-	[self willAccessValueForKey:@"starredByUsers"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"starredByUsers"];
-  
-	[self didAccessValueForKey:@"starredByUsers"];
 	return result;
 }
 	

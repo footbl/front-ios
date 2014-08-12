@@ -100,7 +100,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
                     [User searchUsingEmails:range usernames:nil ids:nil fbIds:nil success:^(id response) {
                         finishedBlock(response);
-                    } failure:^(NSError *error) {
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         SPLogError(@"%@", error);
                         finishedBlock(@[]);
                     }];
@@ -112,7 +112,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                         NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
                         [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range success:^(id response) {
                             finishedBlock(response);
-                        } failure:^(NSError *error) {
+                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                             SPLogError(@"%@", error);
                             finishedBlock(@[]);
                         }];

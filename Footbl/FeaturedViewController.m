@@ -54,12 +54,12 @@
         [self.refreshControl endRefreshing];
     });
     
-    [User updateFeaturedUsersWithSuccess:^{
+    [User getFeaturedWithSuccess:^(id response) {
         [self.refreshControl endRefreshing];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    }];    
 }
 
 #pragma mark - Delegates & Data sources
