@@ -13,7 +13,6 @@ extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *rounds;
 	__unsafe_unretained NSString *type;
-	__unsafe_unretained NSString *year;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
@@ -28,7 +27,6 @@ extern const struct ChampionshipFetchedProperties {
 @class Group;
 @class Match;
 @class Wallet;
-
 
 
 
@@ -148,20 +146,6 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* year;
-
-
-
-@property int64_t yearValue;
-- (int64_t)yearValue;
-- (void)setYearValue:(int64_t)value_;
-
-//- (BOOL)validateYear:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSSet *groups;
 
 - (NSMutableSet*)groupsSet;
@@ -264,15 +248,6 @@ extern const struct ChampionshipFetchedProperties {
 
 - (NSString*)primitiveType;
 - (void)setPrimitiveType:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveYear;
-- (void)setPrimitiveYear:(NSNumber*)value;
-
-- (int64_t)primitiveYearValue;
-- (void)setPrimitiveYearValue:(int64_t)value_;
 
 
 

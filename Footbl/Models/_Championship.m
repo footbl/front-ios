@@ -12,7 +12,6 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 	.picture = @"picture",
 	.rounds = @"rounds",
 	.type = @"type",
-	.year = @"year",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
@@ -67,11 +66,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	}
 	if ([key isEqualToString:@"roundsValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"yearValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"year"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -209,32 +203,6 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 @dynamic type;
 
-
-
-
-
-
-@dynamic year;
-
-
-
-- (int64_t)yearValue {
-	NSNumber *result = [self year];
-	return [result longLongValue];
-}
-
-- (void)setYearValue:(int64_t)value_ {
-	[self setYear:[NSNumber numberWithLongLong:value_]];
-}
-
-- (int64_t)primitiveYearValue {
-	NSNumber *result = [self primitiveYear];
-	return [result longLongValue];
-}
-
-- (void)setPrimitiveYearValue:(int64_t)value_ {
-	[self setPrimitiveYear:[NSNumber numberWithLongLong:value_]];
-}
 
 
 
