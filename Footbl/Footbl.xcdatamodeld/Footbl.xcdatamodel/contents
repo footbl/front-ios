@@ -72,7 +72,7 @@
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="memberships" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Team" representedClassName="Team" parentEntity="FootblModel" syncable="YES">
+    <entity name="Team" representedClassName="Team" parentEntity="FTModel" syncable="YES">
         <attribute name="acronym" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>

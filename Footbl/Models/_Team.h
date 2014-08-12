@@ -2,7 +2,7 @@
 // Make changes to Team.h instead.
 
 #import <CoreData/CoreData.h>
-#import "FootblModel.h"
+#import "FTModel.h"
 
 extern const struct TeamAttributes {
 	__unsafe_unretained NSString *acronym;
@@ -28,7 +28,7 @@ extern const struct TeamFetchedProperties {
 @interface TeamID : NSManagedObjectID {}
 @end
 
-@interface _Team : FootblModel {}
+@interface _Team : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;

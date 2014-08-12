@@ -138,15 +138,8 @@ extern MatchResult MatchResultFromString(NSString *result) {
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    if ([data[@"guest"] isKindOfClass:[NSDictionary class]]) {
-        self.guest = [Team findOrCreateByIdentifier:data[@"guest"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-        self.host = [Team findOrCreateByIdentifier:data[@"host"][kAPIIdentifierKey] inManagedObjectContext:self.managedObjectContext];
-        [self.guest updateWithData:data[@"guest"]];
-        [self.host updateWithData:data[@"host"]];
-    } else {
-        self.guest = [Team findByIdentifier:data[@"guest"] inManagedObjectContext:self.managedObjectContext];
-        self.host = [Team findByIdentifier:data[@"host"] inManagedObjectContext:self.managedObjectContext];
-    }
+    self.guest = [Team findOrCreateWithObject:data[@"guest"] inContext:self.managedObjectContext];
+    self.host = [Team findOrCreateWithObject:data[@"host"] inContext:self.managedObjectContext];
     
     self.finished = data[@"finished"];
     self.hostScore = data[@"result"][@"host"];
