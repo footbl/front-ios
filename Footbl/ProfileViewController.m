@@ -134,13 +134,8 @@
     void(^failure)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self reloadContent];
         [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     };
-    
-    if (!self.totalWallet.integerValue) {
-        [[LoadingHelper sharedInstance] showHud];
-    }
     
     [[User currentUser].editableObject getWithSuccess:^(id response) {
         [self reloadContent];
@@ -148,12 +143,10 @@
         if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
             [self reloadContent];
             [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
         } else {
             [Bet getWithObject:self.user.editableObject success:^(id response) {
                 [self reloadContent];
                 [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
             } failure:failure];
         }
     } failure:failure];
