@@ -73,15 +73,13 @@
 }
 
 - (void)setIndicatorHidden:(BOOL)hidden animated:(BOOL)animated {
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
-        CGFloat paddingLeft = hidden ? 0 : 13;
-        self.indicatorView.alpha = !hidden;
-        
-        self.groupImageView.frameX = 18 + paddingLeft;
-        self.nameLabel.frameX = 94 + paddingLeft;
-        self.championshipLabel.frameX = self.nameLabel.frameX;
-        self.roundsLabel.frameX = self.nameLabel.frameX;
-    }];
+    CGFloat paddingLeft = hidden ? 0 : 13;
+    self.indicatorView.alpha = !hidden;
+    
+    self.groupImageView.frameX = 18 + paddingLeft;
+    self.nameLabel.frameX = 94 + paddingLeft;
+    self.championshipLabel.frameX = self.nameLabel.frameX;
+    self.roundsLabel.frameX = self.nameLabel.frameX;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
