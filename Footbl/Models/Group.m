@@ -30,12 +30,6 @@
     return @{@"owner" : [User class]};
 }
 
-+ (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [super createWithParameters:parameters success:^(id response) {
-        
-    } failure:failure];
-}
-
 + (void)createName:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
         NSMutableDictionary *parameters = [NSMutableDictionary new];
