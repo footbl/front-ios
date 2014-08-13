@@ -27,7 +27,6 @@ extern const struct UserRelationships {
 	__unsafe_unretained NSString *memberships;
 	__unsafe_unretained NSString *ownedGroups;
 	__unsafe_unretained NSString *starredUsers;
-	__unsafe_unretained NSString *wallets;
 } UserRelationships;
 
 extern const struct UserFetchedProperties {
@@ -38,7 +37,6 @@ extern const struct UserFetchedProperties {
 @class Membership;
 @class Group;
 @class User;
-@class Wallet;
 
 
 
@@ -275,13 +273,6 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *wallets;
-
-- (NSMutableSet*)walletsSet;
-
-
-
-
 
 @end
 
@@ -311,11 +302,6 @@ extern const struct UserFetchedProperties {
 - (void)removeStarredUsers:(NSSet*)value_;
 - (void)addStarredUsersObject:(User*)value_;
 - (void)removeStarredUsersObject:(User*)value_;
-
-- (void)addWallets:(NSSet*)value_;
-- (void)removeWallets:(NSSet*)value_;
-- (void)addWalletsObject:(Wallet*)value_;
-- (void)removeWalletsObject:(Wallet*)value_;
 
 @end
 
@@ -453,11 +439,6 @@ extern const struct UserFetchedProperties {
 
 - (NSMutableSet*)primitiveStarredUsers;
 - (void)setPrimitiveStarredUsers:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveWallets;
-- (void)setPrimitiveWallets:(NSMutableSet*)value;
 
 
 @end

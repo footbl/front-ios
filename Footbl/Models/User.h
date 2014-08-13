@@ -11,6 +11,8 @@
 
 @interface User : _User
 
+@property (strong, nonatomic) NSMutableArray *pendingMatchesToSyncBet;
+
 + (instancetype)currentUser;
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)getMeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
@@ -22,11 +24,13 @@
 - (BOOL)isStarredByUser:(User *)user;
 - (NSDictionary *)dictionaryRepresentation;
 
+- (BOOL)canRecharge;
 - (NSNumber *)localFunds;
 - (NSNumber *)localStake;
 - (NSNumber *)toReturn;
 - (NSString *)toReturnString;
 - (NSNumber *)profit;
 - (NSString *)profitString;
+- (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
 @end

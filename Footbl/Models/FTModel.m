@@ -143,14 +143,14 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 }
 
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *data))objectBlock untouchedObjectsBlock:(void (^)(NSSet *untouchedObjects))untouchedObjectsBlock completionBlock:(void (^)(NSArray *objects))completionBlock {
-    [[self editableManagedObjectContext] performBlock:^{
+    [context performBlockAndWait:^{
         NSSet *localCache = cache;
         if (!localCache) {
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
             
             NSError *error = nil;
-            NSArray *fetchResult = [[self editableManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
+            NSArray *fetchResult = [context executeFetchRequest:fetchRequest error:&error];
             if (error) {
                 SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
                 abort();
@@ -161,7 +161,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         NSMutableSet *untouchedObjects = [localCache mutableCopy];
         NSMutableArray *objects = [NSMutableArray new];
         for (NSDictionary *entry in content) {
-            FTModel *object = [[self class] findOrCreateWithObject:entry inContext:[self editableManagedObjectContext] withCache:localCache];
+            FTModel *object = [[self class] findOrCreateWithObject:entry inContext:context withCache:localCache];
             if (objectBlock) objectBlock(object, entry);
             [untouchedObjects removeObject:object];
             [objects addObject:object];

@@ -4,6 +4,7 @@
 #import "_Membership.h"
 
 const struct MembershipAttributes MembershipAttributes = {
+	.hasRanking = @"hasRanking",
 	.previousRanking = @"previousRanking",
 	.ranking = @"ranking",
 };
@@ -42,6 +43,11 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"hasRankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"hasRanking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"previousRankingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"previousRanking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -55,6 +61,32 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic hasRanking;
+
+
+
+- (BOOL)hasRankingValue {
+	NSNumber *result = [self hasRanking];
+	return [result boolValue];
+}
+
+- (void)setHasRankingValue:(BOOL)value_ {
+	[self setHasRanking:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveHasRankingValue {
+	NSNumber *result = [self primitiveHasRanking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveHasRankingValue:(BOOL)value_ {
+	[self setPrimitiveHasRanking:[NSNumber numberWithBool:value_]];
+}
+
 
 
 

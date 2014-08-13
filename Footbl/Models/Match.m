@@ -60,11 +60,11 @@ extern MatchResult MatchResultFromString(NSString *result) {
              @"guest" : [Team class]};
 }
 
-+ (void)getWithObject:(Championship *)championshp success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    NSString *path = [self resourcePathWithObject:championshp];
++ (void)getWithObject:(Championship *)championship success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [self resourcePathWithObject:championship];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
-            match.championship = championshp.editableObject;
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
+            match.championship = championship.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
         } completionBlock:success];
@@ -77,9 +77,8 @@ extern MatchResult MatchResultFromString(NSString *result) {
     return [self betForUser:[User currentUser]];
 }
 
-
 - (Bet *)betForUser:(User *)user {
-    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"wallet.user.rid = %@", user.rid]].anyObject;
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", user.rid]].anyObject;
 }
 
 - (void)setBetBlockKey:(NSUInteger)betBlockKey {
@@ -105,16 +104,15 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.tempBetResult = result;
     self.tempBetValue = value;
     
-#warning FIX
-//    if (value && ![self.championship.myWallet.pendingMatchesToSyncBet containsObject:self]) {
-//        [self.championship.myWallet.pendingMatchesToSyncBet addObject:self];
-//    } else if (!value) {
-//        [self.championship.myWallet.pendingMatchesToSyncBet removeObject:self];
-//    }
+    if (value && ![[User currentUser].pendingMatchesToSyncBet containsObject:self]) {
+        [[User currentUser].pendingMatchesToSyncBet addObject:self];
+    } else if (!value) {
+        [[User currentUser].pendingMatchesToSyncBet removeObject:self];
+    }
 }
 
 - (NSString *)resourcePath {
-    return [NSString stringWithFormat:@"championships/%@/matches", self.championship.rid];
+    return [NSString stringWithFormat:@"%@/matches/%@", self.championship.resourcePath, self.slug];
 }
 
 - (void)updateWithData:(NSDictionary *)data {

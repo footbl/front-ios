@@ -56,7 +56,7 @@
 
 + (void)getWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[self resourcePath] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+        [self loadContent:responseObject inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault = %@", @NO]]];
         } completionBlock:success];
     } failure:failure];
@@ -176,7 +176,7 @@
 
 - (void)updateMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     #warning FIX Default groups
-    [Membership getWithObject:self success:success failure:failure];
+    [Membership getWithObject:self.editableObject success:success failure:failure];
 }
 
 - (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -222,6 +222,10 @@
         return;
     }
     
+    [super deleteWithSuccess:success failure:failure];
+    
+#warning Fix not owned groups
+    /*
     if (self.owner.isMe) {
         [super deleteWithSuccess:success failure:failure];
     } else {
@@ -234,6 +238,7 @@
             [membership deleteWithSuccess:success failure:failure];
         } failure:failure];
     }
+    */
 }
 
 - (NSString *)sharingText {

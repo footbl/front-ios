@@ -9,7 +9,7 @@
 #import "Championship.h"
 #import "FriendsHelper.h"
 #import "Group.h"
-#import "GroupChampionshipsViewController.h"
+#import "GroupAddMembersViewController.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "NewGroupViewController.h"
@@ -107,10 +107,10 @@
         return;
     }
     
-    GroupChampionshipsViewController *championshipsViewController = [GroupChampionshipsViewController new];
-    championshipsViewController.groupName = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    championshipsViewController.groupImage = [self.groupImageButton imageForState:UIControlStateNormal];
-    [self.navigationController pushViewController:championshipsViewController animated:YES];
+    GroupAddMembersViewController *groupAddMembersViewController = [GroupAddMembersViewController new];
+    groupAddMembersViewController.groupName = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    groupAddMembersViewController.groupImage = [self.groupImageButton imageForState:UIControlStateNormal];
+    [self.navigationController pushViewController:groupAddMembersViewController animated:YES];
 }
 
 - (IBAction)invitationCodeAction:(id)sender {

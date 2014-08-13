@@ -30,6 +30,14 @@ static CGFloat kBetSyncWaitTime = 3;
     return @"bets";
 }
 
++ (NSDictionary *)relationshipProperties {
+    return @{@"match": [Match class], @"user": [User class]};
+}
+
++ (NSArray *)ignoredProperties {
+    return [[super ignoredProperties] arrayByAddingObjectsFromArray:@[@"result", @"reward"]];
+}
+
 + (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [match.editableObject setBetTemporaryResult:0 value:nil];
@@ -71,7 +79,7 @@ static CGFloat kBetSyncWaitTime = 3;
 + (void)getWithObject:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [NSString stringWithFormat:@"users/%@/bets", user.slug];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:user.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
             bet.user = user.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
@@ -80,10 +88,6 @@ static CGFloat kBetSyncWaitTime = 3;
 }
 
 #pragma mark - Instance Methods
-
-- (NSString *)resourcePath {
-    return [NSString stringWithFormat:@"championships/%@/matches/%@/bets", self.wallet.championship.rid, self.match.rid];
-}
 
 - (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -130,8 +134,6 @@ static CGFloat kBetSyncWaitTime = 3;
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-    self.date = [transformer reverseTransformedValue:data[@"date"]];
     self.match = [Match findWithObject:data[@"match"] inContext:self.managedObjectContext];
     self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
@@ -164,10 +166,6 @@ static CGFloat kBetSyncWaitTime = 3;
         } failure:customFailureBlock];
     });
     self.match.editableObject.betBlockKey = key;
-}
-
-- (User *)user {
-    return self.wallet.user;
 }
 
 - (BOOL)isMine {

@@ -5,6 +5,7 @@
 #import "FTModel.h"
 
 extern const struct MembershipAttributes {
+	__unsafe_unretained NSString *hasRanking;
 	__unsafe_unretained NSString *previousRanking;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
@@ -23,6 +24,7 @@ extern const struct MembershipFetchedProperties {
 
 
 
+
 @interface MembershipID : NSManagedObjectID {}
 @end
 
@@ -31,6 +33,20 @@ extern const struct MembershipFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MembershipID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* hasRanking;
+
+
+
+@property BOOL hasRankingValue;
+- (BOOL)hasRankingValue;
+- (void)setHasRankingValue:(BOOL)value_;
+
+//- (BOOL)validateHasRanking:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -86,6 +102,15 @@ extern const struct MembershipFetchedProperties {
 @end
 
 @interface _Membership (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSNumber*)primitiveHasRanking;
+- (void)setPrimitiveHasRanking:(NSNumber*)value;
+
+- (BOOL)primitiveHasRankingValue;
+- (void)setPrimitiveHasRankingValue:(BOOL)value_;
+
+
 
 
 - (NSNumber*)primitivePreviousRanking;

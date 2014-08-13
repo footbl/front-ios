@@ -6,8 +6,12 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <CargoBay/CargoBay.h>
+#import <RMStore/RMStore.h>
 #import <TransformerKit/TransformerKit.h>
+#import "Bet.h"
 #import "FootblAPI.h"
+#import "NSNumber+Formatter.h"
 #import "User.h"
 #import "Wallet.h"
 
@@ -26,7 +30,16 @@
 }
 
 + (instancetype)currentUser {
-    return [self findOrCreateWithObject:@"me" inContext:[self editableManagedObjectContext]];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isMe = %@", @YES];
+    fetchRequest.fetchLimit = 1;
+    NSError *error = nil;
+    NSArray *fetchResult = [[self editableManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return fetchResult.firstObject;
 }
 
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -73,6 +86,17 @@
     } failure:failure];
 }
 
+#pragma mark - Getters/Setters
+
+@synthesize pendingMatchesToSyncBet = _pendingMatchesToSyncBet;
+
+- (NSMutableArray *)pendingMatchesToSyncBet {
+    if (!_pendingMatchesToSyncBet) {
+        _pendingMatchesToSyncBet = [NSMutableArray new];
+    }
+    return _pendingMatchesToSyncBet;
+}
+
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
@@ -82,11 +106,6 @@
         self.followers = data[@"followers"];
     } else {
         self.followers = @0;
-    }
-    
-    if (self.isMeValue) {
-        self.slug = @"me";
-        self.rid = @"me";
     }
 }
 
@@ -209,29 +228,142 @@
 
 #pragma mark - Wallet
 
-#warning FIX
+- (NSSet *)activeBets {
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
+}
+
+- (BOOL)canRecharge {
+    return (self.localFunds.integerValue + self.localStake.integerValue >= 100);
+}
+
 - (NSNumber *)localFunds {
-    return self.funds;
+    NSInteger funds = self.funds.integerValue;
+    if (self.isMeValue) {
+        for (Bet *bet in self.activeBets) {
+            funds += bet.valueValue;
+            funds -= bet.match.myBetValue.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                funds -= match.myBetValue.floatValue;
+            }
+        }
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL));
+    }
+    
+    return @(funds);
 }
 
 - (NSNumber *)localStake {
-    return self.stake;
+    NSInteger stake = 0;
+    if (self.isMeValue) {
+        for (Bet *bet in self.activeBets) {
+            stake += bet.match.myBetValue.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                stake += match.myBetValue.floatValue;
+            }
+        }
+    } else {
+        for (Bet *bet in self.activeBets) {
+            stake += bet.valueValue;
+        }
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL));
+    }
+    
+    return @(stake);
 }
 
 - (NSNumber *)toReturn {
-    return @0;
+    float toReturn = 0;
+    if (self.isMeValue) {
+        for (Bet *bet in self.activeBets) {
+            toReturn += bet.match.myBetReturn.floatValue;
+        }
+        for (Match *match in self.pendingMatchesToSyncBet) {
+            if (!match.myBet) {
+                toReturn += match.myBetReturn.floatValue;
+            }
+        }
+    } else {
+        for (Bet *bet in self.activeBets) {
+            toReturn += bet.toReturn.floatValue;
+        }
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL));
+    }
+    
+    return @(toReturn);
 }
 
 - (NSString *)toReturnString {
-    return @"";
+    return self.toReturn.integerValue > 0 ? @(nearbyintf(self.toReturn.floatValue)).limitedWalletStringValue : @"-";
 }
 
 - (NSNumber *)profit {
-    return @0;
+    float profit = 0;
+    for (Bet *bet in self.activeBets) {
+        profit += bet.reward.floatValue;
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+        return @(FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL));
+    }
+    
+    return @(profit);
 }
 
 - (NSString *)profitString {
-    return @"";
+    BOOL started = NO;
+    for (Bet *bet in self.activeBets) {
+        if (bet.match.status != MatchStatusWaiting) {
+            started = YES;
+            break;
+        }
+    }
+    
+    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+        started = YES;
+    }
+    
+    return started ? @(nearbyintf(self.profit.floatValue)).limitedWalletStringValue : @"-";
+}
+
+- (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[@"com.madeatsampa.Footbl.recharge"]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
+        SKProduct *product = products.firstObject;
+        if (product) {
+            [[RMStore defaultStore] addPayment:product.productIdentifier success:^(SKPaymentTransaction *transaction) {
+                [[CargoBay sharedManager] verifyTransaction:transaction password:nil success:^(NSDictionary *receipt) {
+                    NSMutableDictionary *parameters = [NSMutableDictionary new];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                    parameters[@"receipt"] = CBBase64EncodedStringFromData(transaction.transactionReceipt);
+#pragma clang diagnostic pop
+                    [[FTOperationManager sharedManager] GET:[self.resourcePath stringByAppendingPathComponent:@"recharge"] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        [self getWithSuccess:success failure:failure];
+                    } failure:failure];
+                } failure:^(NSError *error) {
+                    if (failure) failure(nil, error);
+                }];
+            } failure:^(SKPaymentTransaction *transaction, NSError *error) {
+                if (failure) failure(nil, error);
+            }];
+        } else {
+            if (failure) failure(nil, nil);
+        }
+    } failure:^(NSError *error) {
+        if (failure) failure(nil, error);
+    }];
 }
 
 @end

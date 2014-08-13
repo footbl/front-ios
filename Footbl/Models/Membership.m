@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "Group.h"
 #import "Membership.h"
 #import "User.h"
 
@@ -17,8 +18,23 @@
 
 #pragma mark - Class Methods
 
-+ (NSString *)resourcePathWithObject:(FTModel *)object {
-    return [[object.resourcePath stringByAppendingPathComponent:object.rid] stringByAppendingPathComponent:@"members"];
++ (NSString *)resourcePath {
+    return @"members";
+}
+
++ (NSDictionary *)relationshipProperties {
+    return @{@"user": [User class]};
+}
+
++ (void)getWithObject:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [self resourcePathWithObject:group];
+    [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:group.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *data) {
+            membership.group = group.editableObject;
+        } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+        } completionBlock:success];
+    } failure:failure];
 }
 
 #pragma mark - Instance Methods
@@ -30,6 +46,12 @@
         self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
     } else {
         self.user = nil;
+    }
+    
+    if (self.ranking) {
+        self.hasRanking = @YES;
+    } else {
+        self.hasRanking = @NO;
     }
 }
 

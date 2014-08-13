@@ -51,11 +51,9 @@
     NSMutableAttributedString *walletText = [NSMutableAttributedString new];
     NSMutableAttributedString *stakeText = [NSMutableAttributedString new];
     
-    Wallet *wallet = [User currentUser].wallets.anyObject;
-    
-    [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[wallet.localFunds.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
+    [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[User currentUser].localFunds.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
-    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[wallet.localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
+    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[[User currentUser].localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
     
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameLight size:12];

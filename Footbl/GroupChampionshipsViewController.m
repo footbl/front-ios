@@ -58,12 +58,14 @@
 - (void)reloadData {
     [super reloadData];
     
+    /*
     [Wallet updateWithUser:[User currentUser] success:^{
         [self.refreshControl endRefreshing];
     } failure:^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
+    */
 }
 
 #pragma mark - Delegates & Data sources
@@ -90,9 +92,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     tableView.userInteractionEnabled = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
         GroupAddMembersViewController *addMembersViewController = [GroupAddMembersViewController new];
-        addMembersViewController.championship = championship;
         addMembersViewController.groupName = self.groupName;
         addMembersViewController.groupImage = self.groupImage;
         [self.navigationController pushViewController:addMembersViewController animated:YES];

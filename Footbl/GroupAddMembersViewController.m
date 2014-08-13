@@ -286,7 +286,7 @@
             } failure:failureBlock];
         } failure:failureBlock];
     } else {
-        [Group createWithChampionship:self.championship name:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects invitedMembers:invitedMembers success:successBlock failure:failureBlock];
+        [Group createName:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects invitedMembers:invitedMembers success:successBlock failure:failureBlock];
     }
 }
 

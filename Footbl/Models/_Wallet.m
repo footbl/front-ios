@@ -14,9 +14,6 @@ const struct WalletAttributes WalletAttributes = {
 };
 
 const struct WalletRelationships WalletRelationships = {
-	.bets = @"bets",
-	.championship = @"championship",
-	.user = @"user",
 };
 
 const struct WalletFetchedProperties WalletFetchedProperties = {
@@ -223,27 +220,6 @@ const struct WalletFetchedProperties WalletFetchedProperties = {
 
 
 
-
-@dynamic bets;
-
-	
-- (NSMutableSet*)betsSet {
-	[self willAccessValueForKey:@"bets"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"bets"];
-  
-	[self didAccessValueForKey:@"bets"];
-	return result;
-}
-	
-
-@dynamic championship;
-
-	
-
-@dynamic user;
-
-	
 
 
 

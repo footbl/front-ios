@@ -4,7 +4,6 @@
 #import "_Bet.h"
 
 const struct BetAttributes BetAttributes = {
-	.date = @"date",
 	.finished = @"finished",
 	.result = @"result",
 	.value = @"value",
@@ -13,7 +12,6 @@ const struct BetAttributes BetAttributes = {
 const struct BetRelationships BetRelationships = {
 	.match = @"match",
 	.user = @"user",
-	.wallet = @"wallet",
 };
 
 const struct BetFetchedProperties BetFetchedProperties = {
@@ -63,13 +61,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic date;
-
-
 
 
 
@@ -157,10 +148,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	
 
 @dynamic user;
-
-	
-
-@dynamic wallet;
 
 	
 

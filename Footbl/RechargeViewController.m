@@ -34,9 +34,7 @@
 }
 
 - (IBAction)rechargeAction:(id)sender {
-    Wallet *wallet = [User currentUser].wallets.anyObject;
-    
-    if (wallet.canRecharge) {
+    if ([User currentUser].canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
         return;
@@ -44,13 +42,14 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-    [wallet rechargeWithSuccess:^{
-        [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(NSError *error) {
-        SPLogError(@"%@", error);
-        [[LoadingHelper sharedInstance] hideHud];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+#warning Add recharge
+//    [wallet rechargeWithSuccess:^{
+//        [[LoadingHelper sharedInstance] hideHud];
+//    } failure:^(NSError *error) {
+//        SPLogError(@"%@", error);
+//        [[LoadingHelper sharedInstance] hideHud];
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
 }
 
 #pragma mark - Delegates & Data sources
@@ -74,15 +73,13 @@
     rechargeLabel.text = NSLocalizedString(@"Recharge your wallet\nMake more bets and increase your profit!", @"");
     [self.view addSubview:rechargeLabel];
     
-    Wallet *wallet = [User currentUser].wallets.anyObject;
-    
     FootblLabel *walletLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(29, 224, 86, 72)];
     walletLabel.textAlignment = NSTextAlignmentCenter;
     walletLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
     walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:11];
     walletLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextMedium size:36];
     walletLabel.lineHeightMultiple = 0.5;
-    walletLabel.text = [wallet.localFunds.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
+    walletLabel.text = [[User currentUser].localFunds.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
     [self.view addSubview:walletLabel];
     
     FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(183, 224, 86, 72)];

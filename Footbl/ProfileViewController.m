@@ -34,9 +34,6 @@
 @property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *totalWallet;
-@property (strong, nonatomic) NSNumber *numberOfWallets;
-@property (strong, nonatomic) Wallet *maxWallet;
-@property (strong, nonatomic) NSArray *wallets;
 @property (strong, nonatomic) NSArray *bets;
 
 @end
@@ -116,23 +113,17 @@
 - (void)reloadContent {
     if (![FootblAPI sharedAPI].isAuthenticated) {
         self.user = nil;
-        self.numberOfWallets = @0;
         self.totalWallet = @0;
-        self.maxWallet = nil;
-        self.wallets = @[];
         self.bets = @[];
         [self.tableView reloadData];
         return;
     }
     
-    self.numberOfWallets = @(self.user.wallets.count);
-    self.totalWallet = @([[self.user.wallets valueForKeyPath:@"@sum.funds"] floatValue] + [[self.user.wallets valueForKeyPath:@"@sum.stake"] floatValue]);
-    self.maxWallet = [self.user.wallets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"maxFunds" ascending:NO]]].firstObject;
-    self.wallets = [self.user.wallets.allObjects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"championship.edition" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"championship.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]]];
+    self.totalWallet = @(self.user.funds.floatValue + self.user.stake.floatValue);
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.rid IN %@", [self.wallets valueForKeyPath:@"rid"]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"user.rid = %@", self.user.rid];
     NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:nil];
     self.bets = fetchResult;
 
@@ -147,7 +138,7 @@
     [super reloadData];
     [self reloadContent];
     
-    void(^failure)(NSError *error) = ^(NSError *error) {
+    void(^failure)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self reloadContent];
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
@@ -158,7 +149,7 @@
         [[LoadingHelper sharedInstance] showHud];
     }
     
-    [Wallet updateWithUser:self.user.editableObject success:^{
+    [[User currentUser].editableObject getWithSuccess:^(id response) {
         [self reloadContent];
         
         if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
@@ -166,13 +157,11 @@
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
         } else {
-            [Bet getWithObject:self.user success:^(id response) {
+            [Bet getWithObject:self.user.editableObject success:^(id response) {
                 [self reloadContent];
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                if (failure) failure(error);
-            }];
+            } failure:failure];
         }
     } failure:failure];
 }
@@ -203,17 +192,15 @@
                     walletCell.valueText = self.totalWallet.walletStringValue;
                     walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    if (self.numberOfWallets.integerValue == 1) {
-                        walletCell.leaguesLabel.text = NSLocalizedString(@"Betting in 1 league", @"");
-                    } else {
-                        walletCell.leaguesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Betting in %i leagues", @"Betting in {number of leagues} leagues"), self.numberOfWallets.integerValue];
-                    }
+#warning Fix number of leagues
+                    walletCell.leaguesLabel.text = NSLocalizedString(@"Betting in 1 league", @"");
                     break;
                 }
                 case 2: {
                     WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
-                    if (self.maxWallet) {
-                        [walletCell setHighestValue:self.maxWallet.maxFunds withDate:self.maxWallet.maxFundsDate];
+#warning Fix max funds
+                    if (self.user) {
+                        [walletCell setHighestValue:self.user.funds withDate:[NSDate date]];
                     } else {
                         [walletCell setHighestValue:@0 withDate:[NSDate date]];
                     }
@@ -221,7 +208,8 @@
                 }
                 case 3: {
                     WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
-                    walletCell.dataSource = self.maxWallet.lastActiveRounds;
+#warning Fix graph
+//                    walletCell.dataSource = self.maxWallet.lastActiveRounds;
                     walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource];
                     break;
                 }
@@ -252,14 +240,12 @@
                     break;
                 }
                 default: {
+#warning FIXME
                     ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
-                    Wallet *wallet = self.wallets[indexPath.row > 1 ? indexPath.row - 1 : indexPath.row];
-                    Championship *championship = wallet.championship;
-                    [championshipCell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
-                    championshipCell.nameLabel.text = championship.displayName;
-                    championshipCell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", championship.displayCountry, championship.edition.stringValue];
-                    if (wallet.ranking) {
-                        championshipCell.rankingLabel.text = wallet.ranking.rankingStringValue;
+                    [championshipCell.championshipImageView setImage:[UIImage imageNamed:@"generic_group"]];
+                    championshipCell.nameLabel.text = NSLocalizedString(@"World", @"");
+                    if ([User currentUser].ranking) {
+                        championshipCell.rankingLabel.text = [User currentUser].ranking.rankingStringValue;
                     } else {
                         championshipCell.rankingLabel.text = @"";
                     }
@@ -309,7 +295,7 @@
 #pragma mark - UITableView data source
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1 && self.wallets.count > 0) {
+    if (section == 1) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
         view.backgroundColor = [UIColor clearColor];
         return view;
@@ -323,7 +309,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1 && self.wallets.count > 0) {
+    if (section == 1) {
         return 10;
     } else if (section == 2) {
         if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
@@ -343,9 +329,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && self.maxWallet.lastActiveRounds.count >= 3 ? 1 : 0);
+#warning Fix graph
+            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.user.history count] >= 3 ? 1 : 0);
         case 1:
-            return self.wallets.count + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
+            return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
         case 2:
             return FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : self.bets.count;
         default:

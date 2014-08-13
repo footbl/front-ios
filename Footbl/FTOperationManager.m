@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import "ErrorHandler.h"
 #import "FTAuthenticationManager.h"
 #import "FTModel.h"
@@ -46,6 +47,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
         _responseLimit = 20;
         self.requestSerializer = [FTRequestSerializer serializer];
         self.environment = FTEnvironmentDevelopment;
+        [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
 }

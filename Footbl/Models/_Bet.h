@@ -5,7 +5,6 @@
 #import "FTModel.h"
 
 extern const struct BetAttributes {
-	__unsafe_unretained NSString *date;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *result;
 	__unsafe_unretained NSString *value;
@@ -14,7 +13,6 @@ extern const struct BetAttributes {
 extern const struct BetRelationships {
 	__unsafe_unretained NSString *match;
 	__unsafe_unretained NSString *user;
-	__unsafe_unretained NSString *wallet;
 } BetRelationships;
 
 extern const struct BetFetchedProperties {
@@ -22,8 +20,6 @@ extern const struct BetFetchedProperties {
 
 @class Match;
 @class User;
-@class Wallet;
-
 
 
 
@@ -37,16 +33,6 @@ extern const struct BetFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (BetID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSDate* date;
-
-
-
-//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -108,13 +94,6 @@ extern const struct BetFetchedProperties {
 
 
 
-@property (nonatomic, strong) Wallet *wallet;
-
-//- (BOOL)validateWallet:(id*)value_ error:(NSError**)error_;
-
-
-
-
 
 @end
 
@@ -123,12 +102,6 @@ extern const struct BetFetchedProperties {
 @end
 
 @interface _Bet (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSDate*)primitiveDate;
-- (void)setPrimitiveDate:(NSDate*)value;
-
-
 
 
 - (NSNumber*)primitiveFinished;
@@ -166,11 +139,6 @@ extern const struct BetFetchedProperties {
 
 - (User*)primitiveUser;
 - (void)setPrimitiveUser:(User*)value;
-
-
-
-- (Wallet*)primitiveWallet;
-- (void)setPrimitiveWallet:(Wallet*)value;
 
 
 @end

@@ -24,9 +24,9 @@
 
 @implementation Wallet
 
-@synthesize pendingMatchesToSyncBet = _pendingMatchesToSyncBet;
-
 #pragma mark - Class Methods
+
+/*
 
 + (NSString *)resourcePath {
     SPLogError(@"Wallet resource path should not be used.");
@@ -73,25 +73,10 @@
 
 #pragma mark - Getters/Setters
 
-- (NSMutableArray *)pendingMatchesToSyncBet {
-    if (!_pendingMatchesToSyncBet) {
-        _pendingMatchesToSyncBet = [NSMutableArray new];
-    }
-    return _pendingMatchesToSyncBet;
-}
-
 #pragma mark - Instance Methods
 
 - (NSString *)resourcePath {
     return [NSString stringWithFormat:@"users/%@/wallets", self.user.rid];
-}
-
-- (NSSet *)activeBets {
-    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
-}
-
-- (BOOL)canRecharge {
-    return (self.localFunds.integerValue + self.localStake.integerValue >= 100);
 }
 
 - (NSArray *)lastActiveRounds {
@@ -110,112 +95,9 @@
     return dataSource;
 }
 
-- (NSNumber *)localFunds {
-    NSInteger funds = self.funds.integerValue;
-    if (self.user.isMeValue) {
-        for (Bet *bet in self.activeBets) {
-            funds += bet.valueValue;
-            funds -= bet.match.myBetValue.floatValue;
-        }
-        for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
-                funds -= match.myBetValue.floatValue;
-            }
-        }
-    }
-    
-    if (FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL)) {
-        return @(FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL));
-    }
-    
-    return @(funds);
-}
-
-- (NSNumber *)localStake {
-    NSInteger stake = 0;
-    if (self.user.isMeValue) {
-        for (Bet *bet in self.activeBets) {
-            stake += bet.match.myBetValue.floatValue;
-        }
-        for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
-                stake += match.myBetValue.floatValue;
-            }
-        }
-    } else {
-        for (Bet *bet in self.activeBets) {
-            stake += bet.valueValue;
-        }
-    }
-    
-    if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
-        return @(FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL));
-    }
-    
-    return @(stake);
-}
-
-- (NSNumber *)toReturn {
-    float toReturn = 0;
-    if (self.user.isMeValue) {
-        for (Bet *bet in self.activeBets) {
-            toReturn += bet.match.myBetReturn.floatValue;
-        }
-        for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
-                toReturn += match.myBetReturn.floatValue;
-            }
-        }
-    } else {
-        for (Bet *bet in self.activeBets) {
-            toReturn += bet.toReturn.floatValue;
-        }
-    }
-    
-    if (FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL)) {
-        return @(FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL));
-    }
-    
-    return @(toReturn);
-}
-
-- (NSString *)toReturnString {
-    return self.toReturn.integerValue > 0 ? @(nearbyintf(self.toReturn.floatValue)).limitedWalletStringValue : @"-";
-}
-
-- (NSNumber *)profit {
-    float profit = 0;
-    for (Bet *bet in self.activeBets) {
-        profit += bet.reward.floatValue;
-    }
-    
-    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
-        return @(FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL));
-    }
-    
-    return @(profit);
-}
-
-- (NSString *)profitString {
-    BOOL started = NO;
-    for (Bet *bet in self.activeBets) {
-        if (bet.match.status != MatchStatusWaiting) {
-            started = YES;
-            break;
-        }
-    }
-    
-    if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
-        started = YES;
-    }
-    
-    return started ? @(nearbyintf(self.profit.floatValue)).limitedWalletStringValue : @"-";
-}
-
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.championship = [Championship findOrCreateWithObject:data[@"championship"] inContext:self.managedObjectContext];
     self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
     [self.user updateWithData:data[@"user"]];
     
@@ -284,5 +166,7 @@
         if (failure) failure(error);
     }];
 }
+ 
+*/
 
 @end

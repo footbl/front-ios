@@ -52,7 +52,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
+//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
@@ -116,24 +116,23 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         return;
     }
     
-#warning FIX
-//    if (self.championship.myWallet.canRecharge) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-//        [alert show]; 
-//        return;
-//    }
-//    
-//    [[LoadingHelper sharedInstance] showHud];
-//    
-//    [self.championship.myWallet rechargeWithSuccess:^{
-//        [self reloadWallet];
-//        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
-//        [[LoadingHelper sharedInstance] hideHud];
-//    } failure:^(NSError *error) {
-//        SPLogError(@"%@", error);
-//        [[LoadingHelper sharedInstance] hideHud];
-//        [[ErrorHandler sharedInstance] displayError:error];
-//    }];
+    if (![User currentUser].canRecharge) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+        [alert show]; 
+        return;
+    }
+
+    [[LoadingHelper sharedInstance] showHud];
+
+    [[User currentUser] rechargeWithSuccess:^(id response) {
+        [self reloadWallet];
+        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
+        [[LoadingHelper sharedInstance] hideHud];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        SPLogError(@"%@", error);
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -235,17 +234,17 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 - (void)fetchChampionship {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-    fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY wallets.user.rid = %@ AND ANY wallets.active = %@", [User currentUser].rid, @YES];
-    NSError *error = nil;
-    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    self.championship = fetchResult.firstObject;
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
+//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+//    fetchRequest.fetchLimit = 1;
+//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY wallets.user.rid = %@ AND ANY wallets.active = %@", [User currentUser].rid, @YES];
+//    NSError *error = nil;
+//    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+//    if (error) {
+//        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//    self.championship = fetchResult.firstObject;
 }
 
 - (void)reloadWallet {
@@ -308,81 +307,45 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     };
     
     [[User currentUser] getWithSuccess:^(User *user) {
+        [self reloadWallet];
         [Championship getWithObject:nil success:^(NSArray *championships) {
-            self.championship = championships.firstObject;
-            self.fetchedResultsController = nil;
-            [self.tableView reloadData];
-            [Match getWithObject:self.championship.editableObject success:^(id response) {
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-            } failure:failure];
-        } failure:failure];
-    } failure:failure];
-    
-    /*
-    void(^failure)(NSError *error) = ^(NSError *error) {
-        [self.refreshControl endRefreshing];
-        if (matches == 0) {
-            [[LoadingHelper sharedInstance] hideHud];
-        }
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-     
-    [Wallet updateWithUser:[User currentUser] success:^{
-        [self fetchChampionship];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.championship ? 0.1 : 0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (!self.championship) {
-                [self fetchChampionship];
-            }
-            if (self.championship) {
-                [Wallet ensureWalletWithChampionship:self.championship.editableObject success:^{
-                    [self reloadWallet];
-                    [self.championship.myWallet.editableObject updateWithSuccess:^{
+            if (championships.firstObject) {
+                [Match getWithObject:championships.firstObject success:^(id response) {
+                    [Bet getWithObject:[User currentUser] success:^(id response) {
+                        [self.refreshControl endRefreshing];
+                        [[LoadingHelper sharedInstance] hideHud];
                         [self reloadWallet];
-                        [Match updateFromChampionship:self.championship.editableObject success:^{
-                            [Bet updateWithWallet:self.championship.myWallet.editableObject success:^{
-                                [self reloadWallet];
-                                [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
-                                [self.refreshControl endRefreshing];
-                                if (matches == 0) {
-                                    [[LoadingHelper sharedInstance] hideHud];
+                        
+                        void(^computeProfit)() = ^() {
+                            NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
+                            float sum = 0;
+                            for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
+                                sum += [betProfit floatValue];
+                            }
+                            NSNumber *numberOfMatches = @(updatedMatches.count);
+                            
+                            if (updatedMatches.count > 1 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
+                                NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
+                                if (sum > 0) {
+                                    text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                                } else if (sum < 0) {
+                                    text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
                                 }
-                                
-                                void(^computeProfit)() = ^() {
-                                    NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
-                                    float sum = 0;
-                                    for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
-                                        sum += [betProfit floatValue];
-                                    }
-                                    NSNumber *numberOfMatches = @(updatedMatches.count);
-                                    
-                                    if (updatedMatches.count > 1 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
-                                        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
-                                        if (sum > 0) {
-                                            text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
-                                        } else if (sum < 0) {
-                                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
-                                        }
-                                        self.totalProfitText = text;
-                                    }
-                                };
-                                
-                                computeProfit();
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-                            } failure:failure];
-                        } failure:failure];
+                                self.totalProfitText = text;
+                            }
+                        };
+                        
+                        computeProfit();
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
                     } failure:failure];
                 } failure:failure];
             } else {
-                if (matches == 0) {
-                    [[LoadingHelper sharedInstance] hideHud];
-                }
                 [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
             }
-        });
+        } failure:failure];
     } failure:failure];
-    */
 }
 
 - (NSTimeInterval)updateInterval {

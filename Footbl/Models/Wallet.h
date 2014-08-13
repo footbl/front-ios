@@ -10,18 +10,4 @@
 
 @interface Wallet : _Wallet
 
-@property (strong, nonatomic) NSMutableArray *pendingMatchesToSyncBet;
-
-+ (void)updateWithUser:(User *)user success:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (void)rechargeWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure;
-- (NSSet *)activeBets;
-- (NSNumber *)localFunds;
-- (NSNumber *)localStake;
-- (NSNumber *)toReturn;
-- (NSString *)toReturnString;
-- (NSNumber *)profit;
-- (NSString *)profitString;
-- (NSArray *)lastActiveRounds;
-- (BOOL)canRecharge;
-
 @end
