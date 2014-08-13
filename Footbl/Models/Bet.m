@@ -61,7 +61,7 @@ static CGFloat kBetSyncWaitTime = 3;
         [self createWithParameters:parameters success:^(Bet *bet) {
             bet.match = match.editableObject;
             bet.user = [User currentUser];
-            [[User currentUser] getWithSuccess:^(id response) {
+            [[User currentUser].editableObject getWithSuccess:^(id response) {
                 match.editableObject.betSyncing = NO;
                 [match setBetTemporaryResult:0 value:nil];
                 if (success) success(bet);
@@ -118,7 +118,7 @@ static CGFloat kBetSyncWaitTime = 3;
         [self updateWithParameters:parameters success:^(id response) {
             [[[self class] editableManagedObjectContext] performBlock:^{
                self.match.editableObject.localUpdatedAt = [NSDate date];
-                [[User currentUser] getWithSuccess:^(id response) {
+                [[User currentUser].editableObject getWithSuccess:^(id response) {
                     self.match.editableObject.betSyncing = NO;
                     [self.match.editableObject setBetTemporaryResult:0 value:nil];
                     [[[self class] editableManagedObjectContext] performSave];
@@ -161,7 +161,7 @@ static CGFloat kBetSyncWaitTime = 3;
         self.match.editableObject.betSyncing = YES;
 
         [self deleteWithSuccess:^(id response) {
-            [[User currentUser] getWithSuccess:^(id response) {
+            [[User currentUser].editableObject getWithSuccess:^(id response) {
                 [match setBetTemporaryResult:0 value:nil];
                 match.betSyncing = NO;
                 if (success) success(nil);
