@@ -187,17 +187,9 @@
     UIButton *titleViewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     titleViewButton.titleLabel.numberOfLines = 2;
     
-    NSString *groupName = self.group.name;
-    
-    NSMutableAttributedString *buttonText = [NSMutableAttributedString new];
-    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:titleAttributes]];
-    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:titleAttributes]];
-    [buttonText appendAttributedString:[[NSAttributedString alloc] initWithString:groupName attributes:subAttributes]];
-    
-    NSMutableAttributedString *highlightedButtonText = [NSMutableAttributedString new];
-    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:self.title attributes:highlightedAttributes]];
-    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:highlightedAttributes]];
-    [highlightedButtonText appendAttributedString:[[NSAttributedString alloc] initWithString:groupName attributes:highlightedSubAttributes]];
+    NSAttributedString *buttonText = [[NSAttributedString alloc] initWithString:self.title attributes:titleAttributes];
+
+    NSAttributedString *highlightedButtonText = [[NSAttributedString alloc] initWithString:self.title attributes:highlightedAttributes];
     
     [titleViewButton setAttributedTitle:buttonText forState:UIControlStateNormal];
     [titleViewButton setAttributedTitle:highlightedButtonText forState:UIControlStateHighlighted];
