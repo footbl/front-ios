@@ -39,7 +39,12 @@
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    return fetchResult.firstObject;
+    User *user = fetchResult.firstObject;
+    if (!user) {
+        user = [User findOrCreateWithObject:@"me" inContext:[self editableManagedObjectContext]];
+        user.isMe = @YES;
+    }
+    return user;
 }
 
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
