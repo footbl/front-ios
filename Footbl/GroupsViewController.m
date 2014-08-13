@@ -73,7 +73,11 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = group.name;
-    [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    if (group.isDefaultValue) {
+        [cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
+    } else {
+        [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    }
     [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
