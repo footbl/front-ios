@@ -26,6 +26,10 @@
     return @"groups";
 }
 
++ (NSDictionary *)relationshipProperties {
+    return @{@"owner" : [User class]};
+}
+
 + (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [super createWithParameters:parameters success:^(id response) {
         
