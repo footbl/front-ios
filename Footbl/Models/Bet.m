@@ -89,6 +89,10 @@ static CGFloat kBetSyncWaitTime = 3;
 
 #pragma mark - Instance Methods
 
+- (NSString *)resourcePath {
+    return [[[self class] resourcePathWithObject:self.match] stringByAppendingPathComponent:self.slug];
+}
+
 - (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     FTOperationErrorBlock customFailureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.match.editableObject setBetTemporaryResult:0 value:nil];
