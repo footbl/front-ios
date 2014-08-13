@@ -160,7 +160,7 @@ static CGFloat kBetSyncWaitTime = 3;
     perform_block_after_delay_k(kBetSyncWaitTime, &key, ^{
         self.match.editableObject.betSyncing = YES;
 
-        [self deleteWithSuccess:^(id response) {
+        [super deleteWithSuccess:^(id response) {
             [[User currentUser].editableObject getWithSuccess:^(id response) {
                 [match setBetTemporaryResult:0 value:nil];
                 match.betSyncing = NO;
