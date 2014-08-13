@@ -34,7 +34,6 @@
 
 @property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) NSNumber *totalWallet;
 @property (strong, nonatomic) NSArray *bets;
 
 @end
@@ -183,7 +182,7 @@
                 }
                 case 1: {
                     WalletTableViewCell *walletCell = (WalletTableViewCell *)cell;
-                    walletCell.valueText = self.totalWallet.walletStringValue;
+                    walletCell.valueText = self.user.totalWallet.walletStringValue;
                     walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
 #warning Fix number of leagues
