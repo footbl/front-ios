@@ -229,7 +229,7 @@
 #pragma mark - Wallet
 
 - (NSSet *)activeBets {
-    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"value > %@ AND match.finished = %@", @0, @NO]];
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"bid > %@ AND match.finished = %@", @0, @NO]];
 }
 
 - (BOOL)canRecharge {
@@ -240,7 +240,7 @@
     NSInteger funds = self.funds.integerValue;
     if (self.isMeValue) {
         for (Bet *bet in self.activeBets) {
-            funds += bet.valueValue;
+            funds += bet.bidValue;
             funds -= bet.match.myBetValue.floatValue;
         }
         for (Match *match in self.pendingMatchesToSyncBet) {
@@ -270,7 +270,7 @@
         }
     } else {
         for (Bet *bet in self.activeBets) {
-            stake += bet.valueValue;
+            stake += bet.bidValue;
         }
     }
     

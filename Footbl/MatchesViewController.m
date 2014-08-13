@@ -192,7 +192,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
             result = 0;
         }
         
-        if (MAX(bet.valueValue, match.tempBetValue.integerValue) < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
+        if (MAX(bet.bidValue, match.tempBetValue.integerValue) < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
             [alert show];
             return;

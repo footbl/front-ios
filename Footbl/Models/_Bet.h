@@ -5,9 +5,9 @@
 #import "FTModel.h"
 
 extern const struct BetAttributes {
+	__unsafe_unretained NSString *bid;
 	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *result;
-	__unsafe_unretained NSString *value;
 } BetAttributes;
 
 extern const struct BetRelationships {
@@ -33,6 +33,20 @@ extern const struct BetFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (BetID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* bid;
+
+
+
+@property int64_t bidValue;
+- (int64_t)bidValue;
+- (void)setBidValue:(int64_t)value_;
+
+//- (BOOL)validateBid:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -66,20 +80,6 @@ extern const struct BetFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* value;
-
-
-
-@property float valueValue;
-- (float)valueValue;
-- (void)setValueValue:(float)value_;
-
-//- (BOOL)validateValue:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) Match *match;
 
 //- (BOOL)validateMatch:(id*)value_ error:(NSError**)error_;
@@ -104,6 +104,15 @@ extern const struct BetFetchedProperties {
 @interface _Bet (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSNumber*)primitiveBid;
+- (void)setPrimitiveBid:(NSNumber*)value;
+
+- (int64_t)primitiveBidValue;
+- (void)setPrimitiveBidValue:(int64_t)value_;
+
+
+
+
 - (NSNumber*)primitiveFinished;
 - (void)setPrimitiveFinished:(NSNumber*)value;
 
@@ -118,15 +127,6 @@ extern const struct BetFetchedProperties {
 
 - (int64_t)primitiveResultValue;
 - (void)setPrimitiveResultValue:(int64_t)value_;
-
-
-
-
-- (NSNumber*)primitiveValue;
-- (void)setPrimitiveValue:(NSNumber*)value;
-
-- (float)primitiveValueValue;
-- (void)setPrimitiveValueValue:(float)value_;
 
 
 

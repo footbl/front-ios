@@ -4,9 +4,9 @@
 #import "_Bet.h"
 
 const struct BetAttributes BetAttributes = {
+	.bid = @"bid",
 	.finished = @"finished",
 	.result = @"result",
-	.value = @"value",
 };
 
 const struct BetRelationships BetRelationships = {
@@ -43,6 +43,11 @@ const struct BetFetchedProperties BetFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"bidValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"bid"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"finishedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"finished"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -53,14 +58,35 @@ const struct BetFetchedProperties BetFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"valueValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"value"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic bid;
+
+
+
+- (int64_t)bidValue {
+	NSNumber *result = [self bid];
+	return [result longLongValue];
+}
+
+- (void)setBidValue:(int64_t)value_ {
+	[self setBid:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveBidValue {
+	NSNumber *result = [self primitiveBid];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveBidValue:(int64_t)value_ {
+	[self setPrimitiveBid:[NSNumber numberWithLongLong:value_]];
+}
+
 
 
 
@@ -111,32 +137,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 - (void)setPrimitiveResultValue:(int64_t)value_ {
 	[self setPrimitiveResult:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
-@dynamic value;
-
-
-
-- (float)valueValue {
-	NSNumber *result = [self value];
-	return [result floatValue];
-}
-
-- (void)setValueValue:(float)value_ {
-	[self setValue:[NSNumber numberWithFloat:value_]];
-}
-
-- (float)primitiveValueValue {
-	NSNumber *result = [self primitiveValue];
-	return [result floatValue];
-}
-
-- (void)setPrimitiveValueValue:(float)value_ {
-	[self setPrimitiveValue:[NSNumber numberWithFloat:value_]];
 }
 
 

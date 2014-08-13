@@ -27,7 +27,7 @@
     
     NSString *text = @"";
     BOOL hasBet = self.myBet || self.tempBetValue;
-    NSNumber *value = self.myBet.value;
+    NSNumber *value = self.myBet.bid;
     MatchResult result = (MatchResult)self.myBet.resultValue;
     if (self.tempBetValue) {
         result = self.tempBetResult;

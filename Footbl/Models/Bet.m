@@ -135,7 +135,6 @@ static CGFloat kBetSyncWaitTime = 3;
     [super updateWithData:data];
     
     self.match = [Match findWithObject:data[@"match"] inContext:self.managedObjectContext];
-    self.value = data[@"bid"];
     self.result = @(MatchResultFromString(data[@"result"]));
 }
 
@@ -169,40 +168,40 @@ static CGFloat kBetSyncWaitTime = 3;
 }
 
 - (NSString *)valueString {
-    return self.valueValue == 0 ? @"-" : @(self.value.integerValue).walletStringValue;
+    return self.bidValue == 0 ? @"-" : @(self.bid.integerValue).walletStringValue;
 }
 
 - (NSNumber *)toReturn {
     switch (self.resultValue) {
         case MatchResultHost:
-            return @(self.valueValue * self.match.earningsPerBetForHost.floatValue);
+            return @(self.bidValue * self.match.earningsPerBetForHost.floatValue);
         case MatchResultDraw:
-            return @(self.valueValue * self.match.earningsPerBetForDraw.floatValue);
+            return @(self.bidValue * self.match.earningsPerBetForDraw.floatValue);
         case MatchResultGuest:
-            return @(self.valueValue * self.match.earningsPerBetForGuest.floatValue);
+            return @(self.bidValue * self.match.earningsPerBetForGuest.floatValue);
         default:
             return @0;
     }
 }
 
 - (NSString *)toReturnString {
-    return self.valueValue == 0 ? @"-" : @(nearbyintf(self.toReturn.floatValue)).walletStringValue;
+    return self.bidValue == 0 ? @"-" : @(nearbyintf(self.toReturn.floatValue)).walletStringValue;
 }
 
 - (NSNumber *)reward {
-    if (self.valueValue == 0 || self.match.status == MatchStatusWaiting) {
+    if (self.bidValue == 0 || self.match.status == MatchStatusWaiting) {
         return @0;
     }
     
     if (self.resultValue == self.match.result) {
-        return @(self.toReturn.floatValue - self.valueValue);
+        return @(self.toReturn.floatValue - self.bidValue);
     } else {
-        return @(-self.valueValue);
+        return @(-self.bidValue);
     }
 }
 
 - (NSString *)rewardString {
-    if (self.valueValue == 0 || self.match.status == MatchStatusWaiting) {
+    if (self.bidValue == 0 || self.match.status == MatchStatusWaiting) {
         return @"-";
     }
     

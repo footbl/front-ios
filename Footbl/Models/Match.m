@@ -188,7 +188,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     float jackpot = self.jackpotValue;
     if (self.myBetValue) {
-        jackpot -= self.myBet.valueValue;
+        jackpot -= self.myBet.bidValue;
         jackpot += self.myBetValue.floatValue;
     }
     return @(jackpot);
@@ -204,7 +204,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     if (self.tempBetValue) {
         return self.tempBetValue;
     } else {
-        return self.myBet.value;
+        return self.myBet.bid;
     }
 }
 
@@ -254,7 +254,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     float sumOfBets = self.potHostValue;
     if (self.myBet.resultValue == MatchResultHost) {
-        sumOfBets -= self.myBet.valueValue;
+        sumOfBets -= self.myBet.bidValue;
     }
     if (self.myBetResult == MatchResultHost) {
         sumOfBets += self.myBetValue.floatValue;
@@ -269,7 +269,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     float sumOfBets = self.potDrawValue;
     if (self.myBet.resultValue == MatchResultDraw) {
-        sumOfBets -= self.myBet.valueValue;
+        sumOfBets -= self.myBet.bidValue;
     }
     if (self.myBetResult == MatchResultDraw) {
         sumOfBets += self.myBetValue.floatValue;
@@ -284,7 +284,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     
     float sumOfBets = self.potGuestValue;
     if (self.myBet.resultValue == MatchResultGuest) {
-        sumOfBets -= self.myBet.valueValue;
+        sumOfBets -= self.myBet.bidValue;
     }
     if (self.myBetResult == MatchResultGuest) {
         sumOfBets += self.myBetValue.floatValue;
