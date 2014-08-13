@@ -168,10 +168,6 @@ static CGFloat kBetSyncWaitTime = 3;
     self.match.editableObject.betBlockKey = key;
 }
 
-- (BOOL)isMine {
-    return self.user.isMeValue;
-}
-
 - (NSString *)valueString {
     return self.valueValue == 0 ? @"-" : @(self.value.integerValue).walletStringValue;
 }
