@@ -34,7 +34,10 @@
         self.groupImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.groupImageView];
         
+        /*
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(107, 19, 220, 22)];
+        */
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(107, 0, 220, 96)];
         self.nameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
