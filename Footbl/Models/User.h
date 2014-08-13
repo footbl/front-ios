@@ -31,6 +31,8 @@
 - (NSString *)toReturnString;
 - (NSNumber *)profit;
 - (NSString *)profitString;
+- (NSNumber *)totalWallet;
+
 - (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
 @end

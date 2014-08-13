@@ -343,6 +343,10 @@
     return started ? @(nearbyintf(self.profit.floatValue)).limitedWalletStringValue : @"-";
 }
 
+- (NSNumber *)totalWallet {
+    return @(self.localFunds.floatValue + self.localStake.floatValue);
+}
+
 - (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[@"com.madeatsampa.Footbl.recharge"]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
         SKProduct *product = products.firstObject;
