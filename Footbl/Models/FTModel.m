@@ -161,6 +161,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         NSMutableSet *untouchedObjects = [localCache mutableCopy];
         NSMutableArray *objects = [NSMutableArray new];
         for (NSDictionary *entry in content) {
+            if ([entry isKindOfClass:[NSNull class]]) {
+                continue;
+            }
             FTModel *object = [[self class] findOrCreateWithObject:entry inContext:context withCache:localCache];
             if (objectBlock) objectBlock(object, entry);
             [untouchedObjects removeObject:object];
