@@ -75,26 +75,6 @@
     cell.nameLabel.text = group.name;
     [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
-#warning FIX
-    /*
-    switch (group.championship.pendingRounds.integerValue) {
-        case 0:
-            cell.roundsLabel.text = NSLocalizedString(@"Championship finished", @"");
-            break;
-        case 1:
-            cell.roundsLabel.text = NSLocalizedString(@"1 round to end", @"1 round to end");
-            break;
-        default:
-            cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%i rounds to end", @"{number of rounds} rounds to end"), group.championship.pendingRounds.integerValue];
-            break;
-    }
-    
-    if (group.isDefaultValue) {
-        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@ (%@)", group.championship.displayCountry, group.championship.edition.stringValue, NSLocalizedString(@"Everyone", @"").lowercaseString];
-    } else {
-        cell.championshipLabel.text = [NSString stringWithFormat:@"%@, %@", group.championship.displayName, group.championship.edition.stringValue];
-    }
-    */
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
     cell.topSeparatorView.hidden = !(indexPath.section == 1 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row == 0);
