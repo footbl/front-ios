@@ -27,7 +27,10 @@
         self.championshipImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.championshipImageView];
         
+        /*
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 13, 207, 22)];
+        */
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 207, 66)];
         self.nameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
