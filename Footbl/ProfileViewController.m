@@ -11,6 +11,7 @@
 #import "Bet.h"
 #import "Championship.h"
 #import "FavoritesViewController.h"
+#import "FTAuthenticationManager.h"
 #import "FootblAPI.h"
 #import "FootblTabBarController.h"
 #import "LoadingHelper.h"
@@ -111,21 +112,14 @@
 }
 
 - (void)reloadContent {
-    if (![FootblAPI sharedAPI].isAuthenticated) {
+    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         self.user = nil;
-        self.totalWallet = @0;
         self.bets = @[];
         [self.tableView reloadData];
         return;
     }
     
-    self.totalWallet = @(self.user.funds.floatValue + self.user.stake.floatValue);
-    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Bet"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"user.rid = %@", self.user.rid];
-    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:nil];
-    self.bets = fetchResult;
+    self.bets = [self.user.bets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]]];
 
     [self.tableView reloadData];
     
