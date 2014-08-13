@@ -60,7 +60,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
             FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[self editableManagedObjectContext]];
             [object updateWithData:responseObject];
             [[self editableManagedObjectContext] performSave];
-            if (success) success(object);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) success(object.editableObject);
+            });
         }];
     } failure:failure];
 }
@@ -70,7 +72,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         [[[self class] editableManagedObjectContext] performBlock:^{
             [self.editableObject updateWithData:responseObject];
             [[[self class] editableManagedObjectContext] performSave];
-            if (success) success(self.editableObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+               if (success) success(self.editableObject);
+            });
         }];
     } failure:failure];
 }
@@ -80,7 +84,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         [[[self class] editableManagedObjectContext] performBlock:^{
             [self.editableObject updateWithData:responseObject];
             [[[self class] editableManagedObjectContext] performSave];
-            if (success) success(self.editableObject);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) success(self.editableObject);
+            });
         }];
     } failure:failure];
 }
@@ -90,7 +96,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         [[[self class] editableManagedObjectContext] performBlock:^{
             [[[self class] editableManagedObjectContext] deleteObject:self.editableObject];
             [[[self class] editableManagedObjectContext] performSave];
-            if (success) success(nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) success(self.editableObject);
+            });
         }];
     } failure:failure];
 }
@@ -174,7 +182,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         
         [context performSave];
         
-        if (completionBlock) completionBlock(objects);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completionBlock) completionBlock(objects);
+        });
     }];
 }
 
