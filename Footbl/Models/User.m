@@ -74,7 +74,9 @@
             User *user = [User findOrCreateWithObject:responseObject inContext:[self editableManagedObjectContext]];
             user.isMeValue = YES;
             [[self editableManagedObjectContext] performSave];
-            if (success) success(user);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) success(user);
+            });
         }];
     } failure:failure];
 }
@@ -178,7 +180,9 @@
         [[[self class] editableManagedObjectContext] performBlock:^{
             [self removeStarredUsersObject:user.editableObject];
             [[[self class] editableManagedObjectContext] performSave];
-            if (failure) failure(operation, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failure) failure(operation, error);
+            });
         }];
     }];
 }
@@ -198,7 +202,9 @@
         [[[self class] editableManagedObjectContext] performBlock:^{
             [self addStarredUsersObject:user.editableObject];
             [[[self class] editableManagedObjectContext] performSave];
-            if (failure) failure(operation, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failure) failure(operation, error);
+            });
         }];
     }];
 }

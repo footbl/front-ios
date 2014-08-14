@@ -121,7 +121,9 @@ static CGFloat kBetSyncWaitTime = 3;
                     self.match.editableObject.betSyncing = NO;
                     [self.match.editableObject setBetTemporaryResult:0 value:nil];
                     [[[self class] editableManagedObjectContext] performSave];
-                    if (success) success(self);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       if (success) success(self);
+                    });
                 } failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

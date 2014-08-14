@@ -71,7 +71,9 @@
                 Group *group = [Group findOrCreateWithObject:responseObject inContext:[self editableManagedObjectContext]];
                 [Membership createWithParameters:@{kFTRequestParamResourcePathObject : group, @"user" : @"me"} success:^(id response) {
                     [[self editableManagedObjectContext] performSave];
-                    if (success) success(group);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (success) success(group);
+                    });
                 } failure:failure];
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -207,11 +209,11 @@
 
 - (void)uploadImage:(UIImage *)image success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
-            self.picture = imagePath;
-            
-            [[[self class] editableManagedObjectContext] performBlock:^{
-                [[[self class] editableManagedObjectContext] performSave];
-            }];
+        self.picture = imagePath;
+        
+        [[[self class] editableManagedObjectContext] performBlock:^{
+            [[[self class] editableManagedObjectContext] performSave];
+        }];
             
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[@"name"] = self.name;

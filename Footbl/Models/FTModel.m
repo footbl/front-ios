@@ -151,7 +151,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 }
 
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *data))objectBlock untouchedObjectsBlock:(void (^)(NSSet *untouchedObjects))untouchedObjectsBlock completionBlock:(void (^)(NSArray *objects))completionBlock {
-    [context performBlockAndWait:^{
+    [context performBlock:^{
         NSSet *localCache = cache;
         if (!localCache) {
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
