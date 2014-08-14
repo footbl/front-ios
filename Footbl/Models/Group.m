@@ -237,23 +237,21 @@
         return;
     }
     
-    [super deleteWithSuccess:success failure:failure];
-    
-#warning Fix not owned groups
-    /*
     if (self.owner.isMe) {
         [super deleteWithSuccess:success failure:failure];
     } else {
-        [self updateMembersWithSuccess:^(id response) {
-            Membership *membership = [response filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", [User currentUser].rid]].anyObject;
+        [self getMembersWithSuccess:^(NSArray *members) {
+            Membership *membership = [members filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"user.rid = %@", [User currentUser].rid]].firstObject;
             if (!membership) {
                 if (success) success(nil);
                 return;
             }
-            [membership deleteWithSuccess:success failure:failure];
+            [membership deleteWithSuccess:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+#warning Fix deleting members from a group
+                NSLog(@"%@ - %@", operation, error);
+            }];
         } failure:failure];
     }
-    */
 }
 
 - (NSString *)sharingText {

@@ -57,6 +57,10 @@
 
 #pragma mark - Instance Methods
 
+- (NSString *)resourcePath {
+    return [[[self class] resourcePathWithObject:self.group] stringByAppendingPathComponent:self.slug];
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
