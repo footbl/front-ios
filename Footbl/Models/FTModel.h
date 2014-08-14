@@ -32,7 +32,7 @@ typedef void (^FTAPISuccessWithResponseBlock)(id response);
 + (NSManagedObjectContext *)editableManagedObjectContext;
 - (instancetype)editableObject;
 
-+ (NSArray *)ignoredProperties NS_REQUIRES_SUPER;
++ (NSArray *)enabledProperties NS_REQUIRES_SUPER;
 + (NSArray *)dateProperties;
 + (NSDictionary *)relationshipProperties;
 + (void)loadContent:(NSArray *)content inManagedObjectContext:(NSManagedObjectContext *)context usingCache:(NSSet *)cache enumeratingObjectsWithBlock:(void (^)(id object, NSDictionary *data))objectBlock untouchedObjectsBlock:(void (^)(NSSet *untouchedObjects))untouchedObjectsBlock completionBlock:(void (^)(NSArray *objects))completionBlock;

@@ -25,8 +25,8 @@
     return @"groups";
 }
 
-+ (NSDictionary *)relationshipProperties {
-    return @{@"owner" : [User class]};
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"freeToEdit", @"name", @"picture"]];
 }
 
 + (void)createName:(NSString *)name image:(UIImage *)image members:(NSArray *)members invitedMembers:(NSArray *)invitedMembers success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

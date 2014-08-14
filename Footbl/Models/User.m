@@ -28,6 +28,11 @@
     return @"users";
 }
 
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"about", @"email", @"funds", @"history", @"name", @"picture", @"previousRanking",
+                                                                      @"ranking", @"stake", @"username", @"verified"]];
+}
+
 + (instancetype)currentUser {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isMe = %@", @YES];

@@ -54,9 +54,8 @@ extern MatchResult MatchResultFromString(NSString *result) {
     return @"matches";
 }
 
-+ (NSDictionary *)relationshipProperties {
-    return @{@"host" : [Team class],
-             @"guest" : [Team class]};
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"elapsed", @"finished", @"jackpot", @"round"]];
 }
 
 + (void)getWithObject:(Championship *)championship success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -120,23 +119,11 @@ extern MatchResult MatchResultFromString(NSString *result) {
     self.guest = [Team findOrCreateWithObject:data[@"guest"] inContext:self.managedObjectContext];
     self.host = [Team findOrCreateWithObject:data[@"host"] inContext:self.managedObjectContext];
     
-    self.finished = data[@"finished"];
     self.hostScore = data[@"result"][@"host"];
     self.guestScore = data[@"result"][@"guest"];
     self.potDraw = data[@"pot"][@"draw"];
     self.potGuest = data[@"pot"][@"guest"];
     self.potHost = data[@"pot"][@"host"];
-    self.round = data[@"round"];
-    self.jackpot = data[@"jackpot"];
-    
-    if ([data[@"elapsed"] isKindOfClass:[NSNumber class]]) {
-        self.elapsed = data[@"elapsed"];
-    } else {
-        self.elapsed = nil;
-    }
-    
-    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-    self.date = [transformer reverseTransformedValue:data[@"date"]];
 }
 
 - (NSString *)dateString {

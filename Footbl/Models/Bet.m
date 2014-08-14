@@ -29,12 +29,8 @@ static CGFloat kBetSyncWaitTime = 3;
     return @"bets";
 }
 
-+ (NSDictionary *)relationshipProperties {
-    return @{@"match": [Match class], @"user": [User class]};
-}
-
-+ (NSArray *)ignoredProperties {
-    return [[super ignoredProperties] arrayByAddingObjectsFromArray:@[@"result", @"reward"]];
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"bid", @"finished"]];
 }
 
 + (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

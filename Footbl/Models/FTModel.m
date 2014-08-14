@@ -105,8 +105,8 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 #pragma mark - Updating data
 
-+ (NSArray *)ignoredProperties {
-    return @[kFTResponseParamIdentifier];
++ (NSArray *)enabledProperties {
+    return @[];
 }
 
 + (NSArray *)dateProperties {
@@ -124,29 +124,19 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
     }
     
     [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([[[self class] ignoredProperties] containsObject:key]) {
-            return;
-        }
-        
-        if ([[self class] relationshipProperties][key] || ![self respondsToSelector:NSSelectorFromString(key)]) {
-            if ([obj isKindOfClass:[NSDictionary class]] && !obj[kFTResponseParamIdentifier]) {
-                [self updateWithData:obj];
-            }
-            return;
-        }
-        
         if ([[[self class] dateProperties] containsObject:key]) {
             NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
             [self setValue:[transformer reverseTransformedValue:obj] forKey:key];
             return;
-        }
+        }      
         
-        if ([obj isKindOfClass:[NSNull class]]) {
-            [self setValue:nil forKey:key];
-            return;
+        if ([[[self class] enabledProperties] containsObject:key]) {
+            if ([obj isKindOfClass:[NSNull class]]) {
+                [self setValue:nil forKey:key];
+            } else {
+                [self setValue:obj forKey:key];
+            }
         }
-        
-        [self setValue:obj forKey:key];
     }];
 }
 

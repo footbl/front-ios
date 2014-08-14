@@ -23,6 +23,10 @@
     return @"championships";
 }
 
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"country", @"currentRound", @"edition", @"name", @"picture", @"rounds", @"type"]];
+}
+
 #pragma mark - Instance Methods
 
 - (NSNumber *)pendingRounds {

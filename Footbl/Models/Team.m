@@ -18,6 +18,10 @@
 
 #pragma mark - Class Methods
 
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"acronym", @"name", @"picture"]];
+}
+
 #pragma mark - Instance Methods
 
 - (NSString *)displayName {

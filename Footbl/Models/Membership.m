@@ -22,8 +22,8 @@
     return @"members";
 }
 
-+ (NSDictionary *)relationshipProperties {
-    return @{@"user": [User class]};
++ (NSArray *)enabledProperties {
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"previousRanking", @"ranking"]];
 }
 
 + (void)getWithObject:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -42,11 +42,7 @@
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    if ([data[@"user"] isKindOfClass:[NSDictionary class]]) {
-        self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
-    } else {
-        self.user = nil;
-    }
+    self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
     
     if (self.ranking) {
         self.hasRanking = @YES;
