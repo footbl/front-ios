@@ -10,7 +10,6 @@
 #import <RMStore/RMStore.h>
 #import <TransformerKit/TransformerKit.h>
 #import "Bet.h"
-#import "FootblAPI.h"
 #import "NSNumber+Formatter.h"
 #import "User.h"
 

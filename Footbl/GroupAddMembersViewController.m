@@ -13,7 +13,6 @@
 #import <SPHipster/SPHipster.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 #import "FTAuthenticationManager.h"
-#import "FootblAPI.h"
 #import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupAddMembersViewController.h"

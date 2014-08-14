@@ -7,7 +7,6 @@
 //
 
 #import "_User.h"
-#import "FootblAPI.h"
 
 @interface User : _User
 

@@ -9,7 +9,6 @@
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
-#import "FootblAPI.h"
 #import "FTOperationManager.h"
 #import "TemplateViewController.h"
 

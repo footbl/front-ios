@@ -13,8 +13,6 @@
 #import "NSURLRequest+FTAuthentication.h"
 #import "NSURLRequest+FTRequestOptions.h"
 
-#import "FootblAPI.h"
-
 #pragma mark FTRequestSerializer
 
 @implementation FTRequestSerializer

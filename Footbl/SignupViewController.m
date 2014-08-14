@@ -7,7 +7,6 @@
 //
 
 #import "AuthenticationViewController.h"
-#import "FootblAPI.h"
 #import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"

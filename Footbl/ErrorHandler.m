@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "FootblAPI.h"
 #import "ErrorHandler.h"
 
 @interface ErrorHandler () <UIAlertViewDelegate>

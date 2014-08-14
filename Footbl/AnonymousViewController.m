@@ -8,7 +8,6 @@
 
 #import <SPHipster/SPHipster.h>
 #import "AnonymousViewController.h"
-#import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"

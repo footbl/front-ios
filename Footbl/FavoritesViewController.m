@@ -12,7 +12,6 @@
 #import "FavoritesViewController.h"
 #import "FeaturedButton.h"
 #import "FeaturedViewController.h"
-#import "FootblAPI.h"
 #import "ProfileSearchViewController.h"
 #import "ProfileViewController.h"
 #import "User.h"

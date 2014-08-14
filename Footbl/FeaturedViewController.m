@@ -8,7 +8,6 @@
 
 #import <SPHipster/SPLog.h>
 #import "FeaturedViewController.h"
-#import "FootblAPI.h"
 #import "User.h"
 
 @interface FeaturedViewController ()

@@ -9,7 +9,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
-#import "FootblAPI.h"
 #import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoginViewController.h"

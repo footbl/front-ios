@@ -12,7 +12,6 @@
 #import "Championship.h"
 #import "FavoritesViewController.h"
 #import "FTAuthenticationManager.h"
-#import "FootblAPI.h"
 #import "FootblTabBarController.h"
 #import "LoadingHelper.h"
 #import "Match+Sharing.h"

@@ -15,7 +15,6 @@
 #import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
 #import "FriendsHelper.h"
-#import "FootblAPI.h"
 #import "FootblTabBarController.h"
 #import "Group.h"
 #import "ImportImageHelper.h"
@@ -25,7 +24,6 @@
 #import "SDImageCache+ShippedCache.h"
 
 #import "Championship.h"
-#import "FootblAPI.h"
 #import "FTOperationManager.h"
 #import "FTAuthenticationManager.h"
 

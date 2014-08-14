@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import "FootblModel.h"
 #import "FTImageUploader.h"
 #import "Group.h"
 #import "Membership.h"

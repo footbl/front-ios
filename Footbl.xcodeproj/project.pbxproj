@@ -67,8 +67,6 @@
 		ED9DC8DE18E3271900DF458C /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
 		ED9DC8DF18E3271900DF458C /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
 		ED9DC8E018E3271900DF458C /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
-		ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E218E3285A00DF458C /* _FootblModel.m */; };
-		ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8E518E3286900DF458C /* FootblModel.m */; };
 		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
@@ -90,7 +88,6 @@
 		EDB1D48718E1F18B00E0C949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D48D18E1F18B00E0C949 /* InfoPlist.strings */; };
 		EDB1D49118E1F18B00E0C949 /* FootblTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D49018E1F18B00E0C949 /* FootblTests.m */; };
-		EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A418E1F43000E0C949 /* FootblAPI.m */; };
 		EDB1D4A818E1FB8000E0C949 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
 		EDB639BC1910776300D7B041 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
@@ -270,10 +267,6 @@
 		ED9DC8DB18E3271900DF458C /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Match.m; path = Models/Match.m; sourceTree = "<group>"; };
 		ED9DC8DC18E3271900DF458C /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = Models/Team.h; sourceTree = "<group>"; };
 		ED9DC8DD18E3271900DF458C /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = Models/Team.m; sourceTree = "<group>"; };
-		ED9DC8E118E3285A00DF458C /* _FootblModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _FootblModel.h; path = Models/_FootblModel.h; sourceTree = "<group>"; };
-		ED9DC8E218E3285A00DF458C /* _FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _FootblModel.m; path = Models/_FootblModel.m; sourceTree = "<group>"; };
-		ED9DC8E418E3286900DF458C /* FootblModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FootblModel.h; path = Models/FootblModel.h; sourceTree = "<group>"; };
-		ED9DC8E518E3286900DF458C /* FootblModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FootblModel.m; path = Models/FootblModel.m; sourceTree = "<group>"; };
 		ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		ED9F07921909C05900C8AC71 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ED9F07931909C05900C8AC71 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -304,8 +297,6 @@
 		EDB1D48C18E1F18B00E0C949 /* FootblTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
 		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB1D49018E1F18B00E0C949 /* FootblTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootblTests.m; sourceTree = "<group>"; };
-		EDB1D4A318E1F43000E0C949 /* FootblAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAPI.h; sourceTree = "<group>"; };
-		EDB1D4A418E1F43000E0C949 /* FootblAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAPI.m; sourceTree = "<group>"; };
 		EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA1.h"; sourceTree = "<group>"; };
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
 		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
@@ -670,8 +661,6 @@
 				EDB639BB1910776300D7B041 /* _Bet.m */,
 				ED9DC8CE18E3270600DF458C /* _Championship.h */,
 				ED9DC8CF18E3270600DF458C /* _Championship.m */,
-				ED9DC8E118E3285A00DF458C /* _FootblModel.h */,
-				ED9DC8E218E3285A00DF458C /* _FootblModel.m */,
 				EDC67207199924B200D06E66 /* _FTModel.h */,
 				EDC67208199924B200D06E66 /* _FTModel.m */,
 				EDEFFA0518EEF764003E12B7 /* _Group.h */,
@@ -880,8 +869,6 @@
 				ED9DC8D818E3271900DF458C /* Championship.h */,
 				ED9DC8D918E3271900DF458C /* Championship.m */,
 				EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */,
-				ED9DC8E418E3286900DF458C /* FootblModel.h */,
-				ED9DC8E518E3286900DF458C /* FootblModel.m */,
 				EDC67204199924A500D06E66 /* FTModel.h */,
 				EDC67205199924A500D06E66 /* FTModel.m */,
 				EDEFFA0818EEF76C003E12B7 /* Group.h */,
@@ -902,8 +889,6 @@
 		EDB1D4A218E1F3F300E0C949 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				EDB1D4A318E1F43000E0C949 /* FootblAPI.h */,
-				EDB1D4A418E1F43000E0C949 /* FootblAPI.m */,
 				ED538171199409CD005D62BB /* FT */,
 				ED7C0FB51959C76900275685 /* WhatsAppActivity.h */,
 				ED7C0FB61959C76900275685 /* WhatsAppActivity.m */,
@@ -1187,7 +1172,6 @@
 				ED324328192BBD5700F54D57 /* ProfileTableViewCell.m in Sources */,
 				ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */,
 				ED1A697D197988540084FB14 /* WalletGraphView.m in Sources */,
-				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				EDDCF259193540870090D06D /* ErrorHandler.m in Sources */,
 				EDE555B81980061E0051AAF5 /* ForceUpdateViewController.m in Sources */,
 				EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */,
@@ -1245,7 +1229,6 @@
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */,
 				EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */,
-				ED9DC8E618E3286900DF458C /* FootblModel.m in Sources */,
 				ED61755A191EB7FB00242F74 /* GroupMembershipTableViewCell.m in Sources */,
 				EDDCF229193400030090D06D /* AnonymousViewController.m in Sources */,
 				ED5381701994084F005D62BB /* FTRequestSerializer.m in Sources */,
@@ -1269,7 +1252,6 @@
 				EDB1D47418E1F18B00E0C949 /* main.m in Sources */,
 				EDC67212199933B900D06E66 /* FTImageUploader.m in Sources */,
 				EDB98298192D5FFC00697783 /* NSNumber+Formatter.m in Sources */,
-				EDB1D4A518E1F43000E0C949 /* FootblAPI.m in Sources */,
 				ED2D1C50191566DC00F1BC81 /* NewGroupViewController.m in Sources */,
 				ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */,
 				ED3A0F6619899A8D00011E91 /* MatchTableViewCell+Setup.m in Sources */,

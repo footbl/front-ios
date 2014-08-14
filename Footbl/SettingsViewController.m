@@ -13,7 +13,6 @@
 #import <Tweaks/FBTweakViewController.h>
 #import "AuthenticationViewController.h"
 #import "ChangePasswordViewController.h"
-#import "FootblAPI.h"
 #import "FootblNavigationController.h"
 #import "FTAuthenticationManager.h"
 #import "EditProfileViewController.h"
