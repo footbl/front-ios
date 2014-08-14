@@ -208,6 +208,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
             NSError *error = nil;
             if (serverVersion == self.apiVersion) {
                 if (success) success(responseObject);
+                return;
             } else if (serverVersion < self.apiVersion) {
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
             } else if (self.environment == FTEnvironmentProduction) {
@@ -225,6 +226,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
             if (error) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAPIOutdated object:nil];
             }
+            if (success) success(responseObject);
         } failure:failure];
     }];
 }
