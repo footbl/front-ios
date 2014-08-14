@@ -168,9 +168,21 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
         return;
     }
     
+#ifdef FT_DEVELOPMENT_TARGET
+    @try {
+        [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            completionBlock(session, status, error);
+        }];
+    }
+    @catch (NSException *exception) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Please restart the app", @"") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+        [alert show];
+    }
+#else
     [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (completionBlock)completionBlock(session, status, error);
     }];
+#endif
 }
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
