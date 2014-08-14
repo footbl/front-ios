@@ -37,6 +37,24 @@
     } failure:failure];
 }
 
++ (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [[[Group resourcePath] stringByAppendingPathComponent:parameters[kFTRequestParamResourcePathObject]] stringByAppendingPathComponent:[self resourcePath]];
+    NSMutableDictionary *mutableParameters = [parameters mutableCopy];
+    if (mutableParameters[kFTRequestParamResourcePathObject]) {
+        [mutableParameters removeObjectForKey:kFTRequestParamResourcePathObject];
+    }
+    [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[[self class] editableManagedObjectContext] performBlock:^{
+            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[self editableManagedObjectContext]];
+            [object updateWithData:responseObject];
+            [[self editableManagedObjectContext] performSave];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (success) success(object.editableObject);
+            });
+        }];
+    } failure:failure];
+}
+
 #pragma mark - Instance Methods
 
 - (void)updateWithData:(NSDictionary *)data {
