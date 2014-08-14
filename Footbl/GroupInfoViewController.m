@@ -345,6 +345,13 @@
     }];
     
     self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.freeToEditValue;
+    if (!self.groupImageButton.imageView.image && !self.groupImageButton.userInteractionEnabled) {
+        if (self.group.isDefaultValue) {
+            [self.groupImageButton setImage:[UIImage imageNamed:@"world_icon"] forState:UIControlStateNormal];
+        } else {
+            [self.groupImageButton setImage:[UIImage imageNamed:@"generic_group"] forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)viewDidLoad {
