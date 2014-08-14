@@ -645,3 +645,6 @@ Make more bets and increase your profit! */
 /* World */
 "World" = "Mundo";
 
+/* Development only */
+"Please restart the app" = "Por favor reinicie o aplicativo";
+
