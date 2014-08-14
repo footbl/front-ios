@@ -52,7 +52,9 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-//        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
+        if (self.championship) {
+            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
+        }
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
@@ -64,13 +66,6 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     }
     
     return _fetchedResultsController;
-}
-
-- (Championship *)championship {
-    if (!_championship) {
-        [self fetchChampionship];
-    }
-    return _championship;
 }
 
 - (void)setChampionship:(Championship *)championship {
@@ -102,7 +97,6 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_matches_active"]];
-        [self fetchChampionship];
     }
     
     return self;
@@ -231,20 +225,6 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         
         [self reloadWallet];
     }];
-}
-
-- (void)fetchChampionship {
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-//    fetchRequest.fetchLimit = 1;
-//    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY wallets.user.rid = %@ AND ANY wallets.active = %@", [User currentUser].rid, @YES];
-//    NSError *error = nil;
-//    NSArray *fetchResult = [FootblManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
-//    if (error) {
-//        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-//    self.championship = fetchResult.firstObject;
 }
 
 - (void)reloadWallet {
