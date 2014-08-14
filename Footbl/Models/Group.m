@@ -246,10 +246,7 @@
                 if (success) success(nil);
                 return;
             }
-            [membership deleteWithSuccess:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-#warning Fix deleting members from a group
-                NSLog(@"%@ - %@", operation, error);
-            }];
+            [membership deleteWithSuccess:success failure:failure];
         } failure:failure];
     }
 }
