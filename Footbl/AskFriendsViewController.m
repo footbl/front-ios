@@ -10,6 +10,7 @@
 #import "AskFriendsViewController.h"
 #import "AskFriendTableViewCell.h"
 #import "FriendsHelper.h"
+#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 
 @interface AskFriendsViewController ()
@@ -69,11 +70,58 @@
 }
 
 - (IBAction)sendAction:(id)sender {
-    [[LoadingHelper sharedInstance] showHud];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[LoadingHelper sharedInstance] hideHud];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    });
+    __block NSMutableArray *ids = [[self.selectedFriendsSet.allObjects valueForKeyPath:@"id"] mutableCopy];
+    __block NSMutableArray *successfullIds = [NSMutableArray new];
+    __block NSMutableArray *failedIds = [NSMutableArray new];
+    __block void(^runBlock)();
+    
+    __block void(^fbBlock)(NSArray *fbIds) = ^(NSArray *fbIds) {
+        NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
+        NSUInteger idx = 0;
+        for (id object in fbIds) {
+            if (fbParamsDictionary.allKeys.count == 50) {
+                return;
+            }
+            fbParamsDictionary[[NSString stringWithFormat:@"to[%lu]", (unsigned long)idx]] = object;
+
+            idx ++;
+        }
+        
+        [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook request message", @"") title:NSLocalizedString(@"Facebook request title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                [[ErrorHandler sharedInstance] displayError:error];
+                return;
+            }
+            if (result == FBWebDialogResultDialogCompleted) {
+                [successfullIds addObjectsFromArray:fbIds];
+            } else {
+                [failedIds addObjectsFromArray:fbIds];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), runBlock);
+        }];
+    };
+    
+    runBlock = ^() {
+        NSMutableArray *tempIds = [NSMutableArray new];
+        [tempIds addObjectsFromArray:[ids subarrayWithRange:NSMakeRange(0, MIN(50, ids.count))]];
+        [ids removeObjectsInRange:NSMakeRange(0, MIN(50, ids.count))];
+        if (tempIds.count == 0) {
+            NSLog(@"%lu successful ids", successfullIds.count);
+            NSLog(@"%lu failed ids", failedIds.count);
+#warning Insert credit request API here
+            [[LoadingHelper sharedInstance] showHud];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[LoadingHelper sharedInstance] hideHud];
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            });
+        } else {
+            fbBlock(tempIds);
+        }
+    };
+    
+    runBlock();
 }
 
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -82,7 +130,7 @@
 
 - (void)reloadData {
     [[LoadingHelper sharedInstance] showHud];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
             self.friendsSet = [NSSet setWithArray:friends];
             [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
@@ -94,7 +142,7 @@
                 });
             }];
         }];
-    });
+    }];
 }
 
 - (void)configureCell:(AskFriendTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
