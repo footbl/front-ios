@@ -29,6 +29,7 @@
 
 // Users
 #define MAX_FOLLOWERS_COUNT 20
+#define MINIMUM_HISTORY_COUNT 3
 
 // Features
 #define FT_ENABLE_MEDALS YES

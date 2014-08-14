@@ -192,8 +192,7 @@
                 }
                 case 3: {
                     WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
-#warning Fix graph
-//                    walletCell.dataSource = self.maxWallet.lastActiveRounds;
+                    walletCell.dataSource = self.user.history;
                     walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource];
                     break;
                 }
@@ -312,8 +311,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-#warning Fix graph
-            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.user.history count] >= 3 ? 1 : 0);
+            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
             return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
         case 2:
