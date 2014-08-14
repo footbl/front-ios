@@ -101,6 +101,14 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 #pragma mark - Instance Methods
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        [FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
+    }
+    return self;
+}
+
 - (void)ensureAuthenticationWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     if (self.isTokenValid) {
         if (success) success(nil);
