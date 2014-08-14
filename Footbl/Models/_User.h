@@ -23,6 +23,8 @@ extern const struct UserAttributes {
 
 extern const struct UserRelationships {
 	__unsafe_unretained NSString *bets;
+	__unsafe_unretained NSString *chargeRequests;
+	__unsafe_unretained NSString *creditRequests;
 	__unsafe_unretained NSString *fanByUsers;
 	__unsafe_unretained NSString *fanOfUsers;
 	__unsafe_unretained NSString *memberships;
@@ -33,6 +35,8 @@ extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
 @class Bet;
+@class CreditRequest;
+@class CreditRequest;
 @class User;
 @class User;
 @class Membership;
@@ -245,6 +249,20 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) CreditRequest *chargeRequests;
+
+//- (BOOL)validateChargeRequests:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) NSSet *creditRequests;
+
+- (NSMutableSet*)creditRequestsSet;
+
+
+
+
 @property (nonatomic, strong) NSSet *fanByUsers;
 
 - (NSMutableSet*)fanByUsersSet;
@@ -282,6 +300,11 @@ extern const struct UserFetchedProperties {
 - (void)removeBets:(NSSet*)value_;
 - (void)addBetsObject:(Bet*)value_;
 - (void)removeBetsObject:(Bet*)value_;
+
+- (void)addCreditRequests:(NSSet*)value_;
+- (void)removeCreditRequests:(NSSet*)value_;
+- (void)addCreditRequestsObject:(CreditRequest*)value_;
+- (void)removeCreditRequestsObject:(CreditRequest*)value_;
 
 - (void)addFanByUsers:(NSSet*)value_;
 - (void)removeFanByUsers:(NSSet*)value_;
@@ -419,6 +442,16 @@ extern const struct UserFetchedProperties {
 
 - (NSMutableSet*)primitiveBets;
 - (void)setPrimitiveBets:(NSMutableSet*)value;
+
+
+
+- (CreditRequest*)primitiveChargeRequests;
+- (void)setPrimitiveChargeRequests:(CreditRequest*)value;
+
+
+
+- (NSMutableSet*)primitiveCreditRequests;
+- (void)setPrimitiveCreditRequests:(NSMutableSet*)value;
 
 
 

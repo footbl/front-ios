@@ -16,6 +16,12 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
     </entity>
+    <entity name="CreditRequest" representedClassName="CreditRequest" parentEntity="FTModel" syncable="YES">
+        <attribute name="payed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="chargedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="chargeRequests" inverseEntity="User" syncable="YES"/>
+        <relationship name="creditedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="creditRequests" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="FTModel" representedClassName="FTModel" isAbstract="YES" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="rid" attributeType="String" indexed="YES" syncable="YES"/>
@@ -84,6 +90,8 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="verified" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="bets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bet" inverseName="user" inverseEntity="Bet" syncable="YES"/>
+        <relationship name="chargeRequests" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CreditRequest" inverseName="chargedUser" inverseEntity="CreditRequest" syncable="YES"/>
+        <relationship name="creditRequests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CreditRequest" inverseName="creditedUser" inverseEntity="CreditRequest" syncable="YES"/>
         <relationship name="fanByUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fanOfUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="fanOfUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fanByUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
@@ -97,6 +105,7 @@
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="330"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="358"/>
+        <element name="CreditRequest" positionX="9" positionY="180" width="128" height="103"/>
     </elements>
 </model>
