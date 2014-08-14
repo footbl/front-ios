@@ -24,8 +24,6 @@
 
 @end
 
-#define SHOULD_USE_NEW_GROUP_UI FBTweakValue(@"UI", @"Group", @"Info view redesign", FT_ENABLE_INFO_VIEW_REDESIGN)
-
 #pragma mark GroupInfoViewController
 
 @implementation GroupInfoViewController
@@ -130,51 +128,17 @@
     self.nameTextField.text = self.group.name;
     self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
     [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
-    
-#warning FIX ME
-    /*
-    NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
-    NSString *championshipName = self.group.championship.displayName;
-    if (!championshipName) {
-        championshipName = @"";
-    }
-    NSString *location = self.group.championship.displayCountry;
-    if (self.group.championship.edition) {
-        location = [location stringByAppendingFormat:@", %@", self.group.championship.edition.stringValue];
-    }
-    
-    if (!location) {
-        location = @"";
-    }
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    NSMutableDictionary *championshipTextAttributes = [@{NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:16],
-                                                         NSParagraphStyleAttributeName : paragraphStyle} mutableCopy];
-    championshipTextAttributes[NSForegroundColorAttributeName] = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:championshipName attributes:championshipTextAttributes]];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-    championshipTextAttributes[NSForegroundColorAttributeName] = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
-    
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:location attributes:championshipTextAttributes]];
-    
-    self.championshipLabel.attributedText = attributedString;
-    */
 }
 
 #pragma mark - Delegates & Data sources
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (SHOULD_USE_NEW_GROUP_UI) {
-        [self updateLimitTextForLength:MAX_GROUP_NAME_SIZE - self.nameTextField.text.length];
-        self.nameSizeLimitLabel.userInteractionEnabled = NO;
-    } else {
-        [super textFieldDidBeginEditing:textField];
-    }
+    [self updateLimitTextForLength:MAX_GROUP_NAME_SIZE - self.nameTextField.text.length];
+    self.nameSizeLimitLabel.userInteractionEnabled = NO;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (SHOULD_USE_NEW_GROUP_UI && !self.group.isDefaultValue) {
+    if (!self.group.isDefaultValue) {
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
         self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
         [self.nameTextField resignFirstResponder];
@@ -204,17 +168,15 @@
 
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardGesture:)]];
     
-    if (SHOULD_USE_NEW_GROUP_UI) {
-        if (!self.group.isDefaultValue) {
-            self.nameTextField.frameY -= 2;
-            self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
-            self.nameSizeLimitLabel.alpha = 1;
-            self.nameSizeLimitLabel.userInteractionEnabled = YES;
-            [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
-        }
-        
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
+    if (!self.group.isDefaultValue) {
+        self.nameTextField.frameY -= 2;
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
+        self.nameSizeLimitLabel.alpha = 1;
+        self.nameSizeLimitLabel.userInteractionEnabled = YES;
+        [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction:)];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     scrollView.alwaysBounceVertical = YES;
@@ -239,14 +201,6 @@
     };
     
     CGRect bottomRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 159);
-    if (!SHOULD_USE_NEW_GROUP_UI) {
-        UIView *championshipView = generateView(CGRectMake(0, 168, CGRectGetWidth(self.view.frame), 62));
-        self.championshipLabel = [[UILabel alloc] initWithFrame:championshipView.frame];
-        self.championshipLabel.numberOfLines = 2;
-        [scrollView addSubview:self.championshipLabel];
-        bottomRect = championshipView.frame;
-    }
-    
     if (self.group.owner.isMe || self.group.freeToEditValue) {
         UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
         self.addNewMembersGroupButton = [[UIButton alloc] initWithFrame:addNewMembersView.frame];
