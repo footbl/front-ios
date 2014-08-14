@@ -31,6 +31,8 @@
 - (NSNumber *)profit;
 - (NSString *)profitString;
 - (NSNumber *)totalWallet;
+- (NSNumber *)highestWallet;
+- (NSDate *)highestWalletDate;
 
 - (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 

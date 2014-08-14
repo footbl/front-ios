@@ -185,9 +185,8 @@
                 }
                 case 2: {
                     WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
-#warning Fix max funds
                     if (self.user) {
-                        [walletCell setHighestValue:self.user.funds withDate:[NSDate date]];
+                        [walletCell setHighestValue:self.user.highestWallet withDate:self.user.highestWalletDate];
                     } else {
                         [walletCell setHighestValue:@0 withDate:[NSDate date]];
                     }

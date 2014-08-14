@@ -330,6 +330,25 @@
     return @(self.localFunds.floatValue + self.localStake.floatValue);
 }
 
+- (NSNumber *)highestWallet {
+    NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO]]].firstObject;
+    if (wallet) {
+        return @(MAX(self.totalWallet.floatValue, [wallet[@"funds"] floatValue]));
+    }
+    
+    return self.totalWallet;
+}
+
+- (NSDate *)highestWalletDate {
+    NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO]]].firstObject;
+    if (wallet && [wallet[@"funds"] floatValue] > self.totalWallet.floatValue) {
+        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+        return [transformer reverseTransformedValue:wallet[@"date"]];
+    }
+    
+    return [NSDate date];
+}
+
 - (void)rechargeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[RMStore defaultStore] requestProducts:[NSSet setWithArray:@[@"com.madeatsampa.Footbl.recharge"]] success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
         SKProduct *product = products.firstObject;
