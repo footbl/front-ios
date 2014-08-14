@@ -163,7 +163,10 @@
                         profileCell.starImageView.highlightedImage = nil;
                     }
                     profileCell.aboutText = self.user.about;
+#warning Fix number of followers
+                    /*
                     profileCell.followersLabel.text = self.user.followers.shortStringValue;
+                    */
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];
