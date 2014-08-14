@@ -12,7 +12,6 @@
 #import "GroupChampionshipsViewController.h"
 #import "GroupChampionshipTableViewCell.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface GroupChampionshipsViewController ()
 

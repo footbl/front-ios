@@ -93,15 +93,6 @@
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
         <relationship name="starredUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fans" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Wallet" representedClassName="Wallet" parentEntity="FootblModel" syncable="YES">
-        <attribute name="active" attributeType="Boolean" defaultValueString="YES" indexed="YES" syncable="YES"/>
-        <attribute name="funds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="lastRounds" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="maxFunds" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="maxFundsDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="stake" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
-    </entity>
     <elements>
         <element name="Bet" positionX="-36" positionY="117" width="128" height="118"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="163"/>
@@ -112,6 +103,5 @@
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="328"/>
-        <element name="Wallet" positionX="-36" positionY="117" width="128" height="148"/>
     </elements>
 </model>

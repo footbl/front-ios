@@ -12,7 +12,6 @@
 #import "Championship.h"
 #import "NSNumber+Formatter.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface Bet ()
 

@@ -13,7 +13,6 @@
 #import "RechargeViewController.h"
 #import "UIView+Frame.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface RechargeViewController ()
 
@@ -42,14 +41,14 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-#warning Add recharge
-//    [wallet rechargeWithSuccess:^{
-//        [[LoadingHelper sharedInstance] hideHud];
-//    } failure:^(NSError *error) {
-//        SPLogError(@"%@", error);
-//        [[LoadingHelper sharedInstance] hideHud];
-//        [[ErrorHandler sharedInstance] displayError:error];
-//    }];
+
+    [[User currentUser] rechargeWithSuccess:^(id response) {
+        [[LoadingHelper sharedInstance] hideHud];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        SPLogError(@"%@", error);
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 #pragma mark - Delegates & Data sources

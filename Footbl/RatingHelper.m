@@ -10,7 +10,6 @@
 #import <SPHipster/SPHipster.h>
 #import "RatingHelper.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface RatingHelper () <iRateDelegate>
 

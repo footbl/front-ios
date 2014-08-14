@@ -13,7 +13,6 @@
 #import "FootblAPI.h"
 #import "NSNumber+Formatter.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface User ()
 

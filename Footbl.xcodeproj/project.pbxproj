@@ -37,8 +37,6 @@
 		ED3A0F691989EF1D00011E91 /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
-		ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D32190DCAEA00A7869B /* _Wallet.m */; };
-		ED493D36190DCAF100A7869B /* Wallet.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D35190DCAF100A7869B /* Wallet.m */; };
 		ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D38190ED2BF00A7869B /* TeamImageView.m */; };
 		ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
 		ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
@@ -213,10 +211,6 @@
 		ED493D2C190DB40000A7869B /* SettingsTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTextViewController.h; sourceTree = "<group>"; };
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
-		ED493D31190DCAEA00A7869B /* _Wallet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Wallet.h; path = Models/_Wallet.h; sourceTree = "<group>"; };
-		ED493D32190DCAEA00A7869B /* _Wallet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Wallet.m; path = Models/_Wallet.m; sourceTree = "<group>"; };
-		ED493D34190DCAF100A7869B /* Wallet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wallet.h; path = Models/Wallet.h; sourceTree = "<group>"; };
-		ED493D35190DCAF100A7869B /* Wallet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Wallet.m; path = Models/Wallet.m; sourceTree = "<group>"; };
 		ED493D37190ED2BF00A7869B /* TeamImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamImageView.h; sourceTree = "<group>"; };
 		ED493D38190ED2BF00A7869B /* TeamImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamImageView.m; sourceTree = "<group>"; };
 		ED493D3B190EDF1300A7869B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
@@ -690,8 +684,6 @@
 				ED9DC8D318E3270600DF458C /* _Team.m */,
 				EDEFFA0E18EF30BA003E12B7 /* _User.h */,
 				EDEFFA0F18EF30BA003E12B7 /* _User.m */,
-				ED493D31190DCAEA00A7869B /* _Wallet.h */,
-				ED493D32190DCAEA00A7869B /* _Wallet.m */,
 			);
 			name = Machine;
 			sourceTree = "<group>";
@@ -903,8 +895,6 @@
 				ED9DC8DD18E3271900DF458C /* Team.m */,
 				EDEFFA0B18EF30B4003E12B7 /* User.h */,
 				EDEFFA0C18EF30B4003E12B7 /* User.m */,
-				ED493D34190DCAF100A7869B /* Wallet.h */,
-				ED493D35190DCAF100A7869B /* Wallet.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1200,7 +1190,6 @@
 				ED9DC8E318E3285A00DF458C /* _FootblModel.m in Sources */,
 				EDDCF259193540870090D06D /* ErrorHandler.m in Sources */,
 				EDE555B81980061E0051AAF5 /* ForceUpdateViewController.m in Sources */,
-				ED493D36190DCAF100A7869B /* Wallet.m in Sources */,
 				EDC5F52319142241005757EB /* GroupDetailViewController.m in Sources */,
 				ED740E1019076D22002B2322 /* MatchesNavigationBarView.m in Sources */,
 				EDC67209199924B200D06E66 /* _FTModel.m in Sources */,
@@ -1262,7 +1251,6 @@
 				ED5381701994084F005D62BB /* FTRequestSerializer.m in Sources */,
 				ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */,
 				EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */,
-				ED493D33190DCAEA00A7869B /* _Wallet.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
 				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,

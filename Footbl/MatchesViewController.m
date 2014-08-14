@@ -21,7 +21,6 @@
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Shake.h"
 #import "User.h"
-#import "Wallet.h"
 #import "WhatsAppActivity.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;

@@ -25,7 +25,6 @@
 #import "SettingsViewController.h"
 #import "TransfersViewController.h"
 #import "User.h"
-#import "Wallet.h"
 #import "WalletGraphTableViewCell.h"
 #import "WalletHighestTableViewCell.h"
 #import "WalletTableViewCell.h"

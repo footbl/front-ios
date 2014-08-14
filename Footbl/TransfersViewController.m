@@ -11,7 +11,6 @@
 #import "TransfersViewController.h"
 #import "UIImage+Color.h"
 #import "User.h"
-#import "Wallet.h"
 
 @interface TransfersViewController ()
 
