@@ -33,6 +33,7 @@
     [FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[@"name"] = name;
+        parameters[@"freeToEdit"] = @YES;
         if (imagePath) {
             parameters[@"picture"] = imagePath;
         }
