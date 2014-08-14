@@ -51,7 +51,7 @@
         if (self.group.isDefaultValue && !self.tableView.infiniteScrollingView) {
             fetchRequest.fetchLimit = 20;
         }
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:FootblManagedObjectContext() sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
         _fetchedResultsController.delegate = self;
         
         NSError *error = nil;
