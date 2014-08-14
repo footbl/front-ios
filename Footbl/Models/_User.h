@@ -23,10 +23,10 @@ extern const struct UserAttributes {
 
 extern const struct UserRelationships {
 	__unsafe_unretained NSString *bets;
-	__unsafe_unretained NSString *fans;
+	__unsafe_unretained NSString *fanByUsers;
+	__unsafe_unretained NSString *fanOfUsers;
 	__unsafe_unretained NSString *memberships;
 	__unsafe_unretained NSString *ownedGroups;
-	__unsafe_unretained NSString *starredUsers;
 } UserRelationships;
 
 extern const struct UserFetchedProperties {
@@ -34,9 +34,9 @@ extern const struct UserFetchedProperties {
 
 @class Bet;
 @class User;
+@class User;
 @class Membership;
 @class Group;
-@class User;
 
 
 
@@ -245,9 +245,16 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *fans;
+@property (nonatomic, strong) NSSet *fanByUsers;
 
-- (NSMutableSet*)fansSet;
+- (NSMutableSet*)fanByUsersSet;
+
+
+
+
+@property (nonatomic, strong) NSSet *fanOfUsers;
+
+- (NSMutableSet*)fanOfUsersSet;
 
 
 
@@ -266,13 +273,6 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet *starredUsers;
-
-- (NSMutableSet*)starredUsersSet;
-
-
-
-
 
 @end
 
@@ -283,10 +283,15 @@ extern const struct UserFetchedProperties {
 - (void)addBetsObject:(Bet*)value_;
 - (void)removeBetsObject:(Bet*)value_;
 
-- (void)addFans:(NSSet*)value_;
-- (void)removeFans:(NSSet*)value_;
-- (void)addFansObject:(User*)value_;
-- (void)removeFansObject:(User*)value_;
+- (void)addFanByUsers:(NSSet*)value_;
+- (void)removeFanByUsers:(NSSet*)value_;
+- (void)addFanByUsersObject:(User*)value_;
+- (void)removeFanByUsersObject:(User*)value_;
+
+- (void)addFanOfUsers:(NSSet*)value_;
+- (void)removeFanOfUsers:(NSSet*)value_;
+- (void)addFanOfUsersObject:(User*)value_;
+- (void)removeFanOfUsersObject:(User*)value_;
 
 - (void)addMemberships:(NSSet*)value_;
 - (void)removeMemberships:(NSSet*)value_;
@@ -297,11 +302,6 @@ extern const struct UserFetchedProperties {
 - (void)removeOwnedGroups:(NSSet*)value_;
 - (void)addOwnedGroupsObject:(Group*)value_;
 - (void)removeOwnedGroupsObject:(Group*)value_;
-
-- (void)addStarredUsers:(NSSet*)value_;
-- (void)removeStarredUsers:(NSSet*)value_;
-- (void)addStarredUsersObject:(User*)value_;
-- (void)removeStarredUsersObject:(User*)value_;
 
 @end
 
@@ -422,8 +422,13 @@ extern const struct UserFetchedProperties {
 
 
 
-- (NSMutableSet*)primitiveFans;
-- (void)setPrimitiveFans:(NSMutableSet*)value;
+- (NSMutableSet*)primitiveFanByUsers;
+- (void)setPrimitiveFanByUsers:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveFanOfUsers;
+- (void)setPrimitiveFanOfUsers:(NSMutableSet*)value;
 
 
 
@@ -434,11 +439,6 @@ extern const struct UserFetchedProperties {
 
 - (NSMutableSet*)primitiveOwnedGroups;
 - (void)setPrimitiveOwnedGroups:(NSMutableSet*)value;
-
-
-
-- (NSMutableSet*)primitiveStarredUsers;
-- (void)setPrimitiveStarredUsers:(NSMutableSet*)value;
 
 
 @end

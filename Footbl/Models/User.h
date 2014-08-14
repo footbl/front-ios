@@ -20,7 +20,7 @@
 - (void)getFansWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)starUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)unstarUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
-- (BOOL)isStarredByUser:(User *)user;
+- (BOOL)isFanOfUser:(User *)user;
 - (NSDictionary *)dictionaryRepresentation;
 
 - (BOOL)canRecharge;

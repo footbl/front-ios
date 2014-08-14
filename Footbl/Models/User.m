@@ -123,8 +123,8 @@
     }
 }
 
-- (BOOL)isStarredByUser:(User *)user {
-    return [self.starredUsers filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", user.rid]].count > 0;
+- (BOOL)isFanOfUser:(User *)user {
+    return [self.fanByUsersSet filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", user.rid]].count > 0;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
@@ -149,10 +149,10 @@
 
 - (void)getStarredWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/featured", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
-            [self addStarredUsersObject:user];
+        [[self class] loadContent:[responseObject valueForKeyPath:@"featured"] inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+            [self addFanOfUsersObject:user];
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [self removeStarredUsers:untouchedObjects];
+            [self removeFanOfUsers:untouchedObjects];
         } completionBlock:success];
     } failure:failure];
 }
@@ -160,16 +160,16 @@
 - (void)getFansWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/fans", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
-            [self addFansObject:user];
+            [self addFanByUsersObject:user];
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [self removeFans:untouchedObjects];
+            [self removeFanByUsers:untouchedObjects];
         } completionBlock:success];
     } failure:failure];
 }
 
 - (void)starUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[[self class] editableManagedObjectContext] performBlock:^{
-        [self addStarredUsersObject:user];
+        [self addFanOfUsersObject:user];
         user.followers = @(MAX(user.editableObject.followersValue + 1, MAX_FOLLOWERS_COUNT));
         [[[self class] editableManagedObjectContext] performSave];
     }];
@@ -178,7 +178,7 @@
         if (success) success(user);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class] editableManagedObjectContext] performBlock:^{
-            [self removeStarredUsersObject:user.editableObject];
+            [self removeFanOfUsersObject:user.editableObject];
             [[[self class] editableManagedObjectContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failure) failure(operation, error);
@@ -189,7 +189,7 @@
 
 - (void)unstarUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[[self class] editableManagedObjectContext] performBlock:^{
-        [self removeStarredUsersObject:user.editableObject];
+        [self removeFanOfUsersObject:user.editableObject];
         if (user.followersValue < MAX_FOLLOWERS_COUNT) {
             user.followers = @(MAX(0, user.editableObject.followersValue - 1));
         }
@@ -200,7 +200,7 @@
         if (success) success(user);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class] editableManagedObjectContext] performBlock:^{
-            [self addStarredUsersObject:user.editableObject];
+            [self addFanOfUsersObject:user.editableObject];
             [[[self class] editableManagedObjectContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failure) failure(operation, error);

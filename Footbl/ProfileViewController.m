@@ -120,7 +120,7 @@
 
     [self.tableView reloadData];
     
-    if (!self.user.isMeValue && [self.user isStarredByUser:[User currentUser]]) {
+    if (!self.user.isMeValue && [self.user isFanOfUser:[User currentUser]]) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }

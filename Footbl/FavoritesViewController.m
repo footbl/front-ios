@@ -34,7 +34,7 @@
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY starredByUsers.rid = %@", self.user.rid];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY fanByUsers.rid = %@", self.user.rid];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
