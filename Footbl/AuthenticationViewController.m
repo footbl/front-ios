@@ -10,6 +10,7 @@
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
@@ -30,7 +31,7 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
-    [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         if (error) {
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
             [[ErrorHandler sharedInstance] displayError:error];
@@ -44,14 +45,14 @@
             
             [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (result) {
-                    [[FootblAPI sharedAPI] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^{
+                    [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
                         self.view.userInteractionEnabled = YES;
                         if (self.completionBlock) self.completionBlock();
-                    } failure:^(NSError *error) {
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];
                         signupViewController.name = result[@"name"];
-                        signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
+                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
                         signupViewController.passwordConfirmation = signupViewController.password;
                         signupViewController.completionBlock = self.completionBlock;
                         if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
@@ -106,14 +107,16 @@
 }
 
 - (IBAction)skipLoginAction:(id)sender {
-    if ([[FootblAPI sharedAPI] isAuthenticated]) {
+    if ([FTAuthenticationManager sharedManager].isAuthenticated) {
         if (self.completionBlock) self.completionBlock();
         return;
     }
     
-    [[FootblAPI sharedAPI] createAccountWithSuccess:^{
+    [[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
         if (self.completionBlock) self.completionBlock();
-    } failure:[ErrorHandler failureBlock]];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {

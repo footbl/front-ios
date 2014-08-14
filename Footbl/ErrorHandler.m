@@ -47,7 +47,7 @@
         return;
     }
     
-    if (![FootblAPI sharedAPI].shouldShowError) {
+    if (!self.shouldShowError) {
         return;
     }
     

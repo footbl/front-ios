@@ -13,7 +13,6 @@
 #import "Match.h"
 #import "Team.h"
 #import "User.h"
-#import "Wallet.h"
 
 extern NSString * MatchResultToString(MatchResult result) {
     switch (result) {
@@ -84,22 +83,22 @@ extern MatchResult MatchResultFromString(NSString *result) {
 - (void)setBetBlockKey:(NSUInteger)betBlockKey {
     _betBlockKey = betBlockKey;
     
-    if (self.managedObjectContext != FootblManagedObjectContext()) {
-        [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetBlockKey:betBlockKey];
+    if (self.managedObjectContext != [FTModel managedObjectContext]) {
+        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetBlockKey:betBlockKey];
     }
 }
 
 - (void)setBetSyncing:(BOOL)betSyncing {
     _betSyncing = betSyncing;
     
-    if (self.managedObjectContext != FootblManagedObjectContext()) {
-        [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetSyncing:betSyncing];
+    if (self.managedObjectContext != [FTModel managedObjectContext]) {
+        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetSyncing:betSyncing];
     }
 }
 
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value {
-    if (self.managedObjectContext != FootblManagedObjectContext()) {
-        [(Match *)[FootblManagedObjectContext() objectWithID:self.objectID] setBetTemporaryResult:result value:value];
+    if (self.managedObjectContext != [FTModel managedObjectContext]) {
+        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetTemporaryResult:result value:value];
     }
     self.tempBetResult = result;
     self.tempBetValue = value;

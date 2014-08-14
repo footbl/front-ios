@@ -85,7 +85,6 @@
     
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
-    [self.group cancelMembersUpdate];
     [self.group.editableObject updateMembersWithSuccess:^(NSArray *members) {
         [self setupInfiniteScrolling];
         self.tableView.showsInfiniteScrolling = (members.count == FT_API_PAGE_LIMIT);

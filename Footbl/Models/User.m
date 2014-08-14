@@ -47,8 +47,7 @@
 }
 
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    NSString *key = [NSString stringWithFormat:@"%lu%lu%lu%lu%@", (unsigned long)emails.hash, (unsigned long)usernames.hash, (unsigned long)ids.hash, (unsigned long)fbIds.hash, API_DICTIONARY_KEY];
-    NSMutableDictionary *parameters = [FootblModel generateParametersWithPage:API_CURRENT_PAGE(key)];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
     if (emails) {
         parameters[@"emails"] = emails;
     }
@@ -115,41 +114,6 @@
 
 - (BOOL)isStarredByUser:(User *)user {
     return [self.starredUsers filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rid = %@", user.rid]].count > 0;
-}
-
-- (void)updateStarredUsersWithSuccess:(FootblAPISuccessBlock)success failure:(FootblAPIFailureBlock)failure {
-    NSString *key = API_DICTIONARY_KEY;
-    [[FootblAPI sharedAPI] groupOperationsWithKey:key block:^{
-        [[FootblAPI sharedAPI] ensureAuthenticationWithSuccess:^{
-            NSMutableDictionary *parameters = [FootblModel generateParametersWithPage:API_CURRENT_PAGE(key)];
-            [[FootblAPI sharedAPI] GET:[NSString stringWithFormat:@"users/%@/starred", self.rid] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                API_APPEND_RESULT(responseObject, key);
-                if ([responseObject count] == 20) {
-                    API_APPEND_PAGE(key);
-                    [FootblAPI performOperationWithoutGrouping:^{
-                        [self updateStarredUsersWithSuccess:success failure:failure];
-                    }];
-                } else {
-                    [[self class] loadContent:API_RESULT(key) inManagedObjectContext:self.managedObjectContext usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *contentEntry) {
-                        if (![self.starredUsers containsObject:user]) {
-                            [self addStarredUsersObject:user];
-                        }
-                    } deletingUntouchedObjectsWithBlock:^(NSSet *untouchedObjects) {
-                        [self removeStarredUsers:untouchedObjects];
-                    }];
-                    requestSucceedWithBlock(operation, parameters, nil);
-                    [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:nil];
-                    API_RESET_KEY(key);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                requestFailedWithBlock(operation, parameters, error, nil);
-                [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:error];
-                API_RESET_KEY(key);
-            }];
-        } failure:^(NSError *error) {
-            [[FootblAPI sharedAPI] finishGroupedOperationsWithKey:key error:error];
-        }];
-    } success:success failure:failure];
 }
 
 - (NSDictionary *)dictionaryRepresentation {

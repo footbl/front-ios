@@ -10,6 +10,7 @@
 #import "AnonymousViewController.h"
 #import "FootblAPI.h"
 #import "FootblNavigationController.h"
+#import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "LoginViewController.h"
@@ -32,7 +33,7 @@
 
 - (IBAction)facebookAction:(id)sender {
     [[LoadingHelper sharedInstance] showHud];
-    [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         if (error) {
             SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
             [[LoadingHelper sharedInstance] hideHud];
@@ -41,15 +42,15 @@
             self.view.userInteractionEnabled = NO;
             [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (result) {
-                    [[FootblAPI sharedAPI] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^{
+                    [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
                         self.view.userInteractionEnabled = YES;
                         [[LoadingHelper sharedInstance] hideHud];
-                    } failure:^(NSError *error) {
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         [[LoadingHelper sharedInstance] hideHud];
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];
                         signupViewController.name = result[@"name"];
-                        signupViewController.password = generateFacebookPasswordWithUserId(result[@"id"]);
+                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
                         signupViewController.passwordConfirmation = signupViewController.password;
                         if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
                             [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {

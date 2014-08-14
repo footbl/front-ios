@@ -11,6 +11,7 @@
 #import "Championship.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
+#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 #import "Match.h"
 #import "MatchTableViewCell+Setup.h"
@@ -290,6 +291,10 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)reloadData {
     [super reloadData];
     
+    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+        return;
+    }
+    
     NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
 
     self.numberOfMatches = matches;
@@ -473,14 +478,7 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:FootblManagedObjectContext() queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if (!self.refreshControl.isRefreshing && (!self.championship || self.championship.isDeleted) && [FootblAPI sharedAPI].isAuthenticated) {
-            [self.refreshControl beginRefreshing];
-            [self reloadData];
-        }
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.championship = nil;
         [self reloadWallet];
         [self reloadData];

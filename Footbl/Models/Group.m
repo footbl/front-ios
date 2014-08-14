@@ -114,7 +114,7 @@
     __block NSMutableArray *pendingMembers = [members mutableCopy];
     __block NSError *operationError = nil;
     [members enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
-        [Membership createWithParameters:@{kFTRequestParamResourcePathObject : self, @"user" : user[kAPIIdentifierKey]} success:^(id response) {
+        [Membership createWithParameters:@{kFTRequestParamResourcePathObject : self, @"user" : user[kFTResponseParamIdentifier]} success:^(id response) {
             [pendingMembers removeObject:user];
             if (pendingMembers.count == 0) {
                 if (operationError) {
@@ -165,11 +165,6 @@
             }
         }];
     }];
-}
-
-- (void)cancelMembersUpdate {
-    NSString *key = [NSString stringWithFormat:@"%@updateMembersWithSuccess:", self.rid];
-    API_RESET_KEY(key);
 }
 
 - (void)updateMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

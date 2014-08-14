@@ -7,6 +7,7 @@
 //
 
 #import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 #import "EditProfileViewController.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
@@ -35,10 +36,10 @@
     self.view.userInteractionEnabled = NO;
     [[LoadingHelper sharedInstance] showHud];
     
-    [[FootblAPI sharedAPI] updateAccountWithUsername:nil name:self.nameTextField.text email:nil password:nil fbToken:nil profileImage:nil about:self.aboutMeTextView.text success:^{
+    [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:self.nameTextField.text email:nil password:nil fbToken:nil profileImage:nil about:self.aboutMeTextView.text success:^(id response) {
         [[LoadingHelper sharedInstance] hideHud];
         [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         self.view.userInteractionEnabled = YES;
         [[ErrorHandler sharedInstance] displayError:error];

@@ -67,7 +67,7 @@ static CGFloat kBetSyncWaitTime = 3;
             } failure:failure];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (operation.response.statusCode == 500) {
-                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
+                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
             }
             customFailureBlock(operation, error);
         }];
@@ -126,7 +126,7 @@ static CGFloat kBetSyncWaitTime = 3;
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (operation.response.statusCode == 500) {
-                error = [NSError errorWithDomain:FootblAPIErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
+                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
             }
             customFailureBlock(operation, error);
         }];

@@ -8,6 +8,7 @@
 
 #import "AuthenticationViewController.h"
 #import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "LoginViewController.h"
@@ -57,7 +58,7 @@
 }
 
 - (IBAction)signupAction:(id)sender {
-    FootblAPIFailureBlock failureBlock = ^(NSError *error) {
+    FTOperationErrorBlock failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         if (error) {
             self.view.userInteractionEnabled = YES;
@@ -83,13 +84,13 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-    [[FootblAPI sharedAPI] createAccountWithSuccess:^{
-        [[FootblAPI sharedAPI] updateAccountWithUsername:[self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)] name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^{
+    [[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
+        [[FTAuthenticationManager sharedManager] updateUserWithUsername:[self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)] name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
             [[LoadingHelper sharedInstance] hideHud];
             if (self.completionBlock) self.completionBlock();
-        } failure:^(NSError *error) {
-            [[FootblAPI sharedAPI] logout];
-            failureBlock(error);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[FTAuthenticationManager sharedManager] logout];
+            failureBlock(operation, error);
         }];
     } failure:failureBlock];
 }
@@ -204,7 +205,7 @@
 }
 
 - (IBAction)importFromFacebookAction:(id)sender {
-    [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
         [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
             if (image) {
                 [self.profileImageButton setImage:image forState:UIControlStateNormal];

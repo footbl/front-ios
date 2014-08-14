@@ -8,6 +8,7 @@
 
 #import "ChangePasswordViewController.h"
 #import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
@@ -34,22 +35,20 @@
 }
 
 - (IBAction)signupAction:(id)sender {
-    FootblAPIFailureBlock failureBlock = ^(NSError *error) {
-        [[LoadingHelper sharedInstance] hideHud];
-        self.view.userInteractionEnabled = YES;
-        [self.textField becomeFirstResponder];
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-    
     self.view.userInteractionEnabled = NO;
     [self.textField resignFirstResponder];
     
     [[LoadingHelper sharedInstance] showHud];
     
-    [[FootblAPI sharedAPI] updateAccountWithUsername:nil name:nil email:nil password:self.password fbToken:nil profileImage:nil about:nil success:^{
+    [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:nil email:nil password:self.password fbToken:nil profileImage:nil about:nil success:^(id response) {
         [[LoadingHelper sharedInstance] hideHud];
         if (self.completionBlock) self.completionBlock();
-    } failure:failureBlock];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
+        self.view.userInteractionEnabled = YES;
+        [self.textField becomeFirstResponder];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (IBAction)continueAction:(id)sender {
@@ -78,7 +77,7 @@
     };
     
     if (!self.oldPassword) {
-        if ([self.textField.text isEqualToString:[FootblAPI sharedAPI].userPassword]) {
+        if ([[FTAuthenticationManager sharedManager] isValidPassword:self.textField.text]) {
             self.oldPassword = self.textField.text;
             switchInputBlock();
         } else {

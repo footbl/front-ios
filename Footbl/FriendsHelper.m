@@ -11,6 +11,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "FriendsHelper.h"
+#import "FTAuthenticationManager.h"
 #import "User.h"
 
 @interface FriendsHelper ()
@@ -50,8 +51,8 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 - (id)init {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            if (![[FootblAPI sharedAPI] isAuthenticated]) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            if (![FTAuthenticationManager sharedManager].isAuthenticated) {
                 [self.cache removeAllObjects];
             }
         }];
@@ -69,7 +70,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
             for (NSArray *userEmails in [contacts valueForKeyPath:@"emails"]) {
                 [emails addObjectsFromArray:userEmails];
             }
-            if ([FootblAPI sharedAPI].isAuthenticated) {
+            if ([FTAuthenticationManager sharedManager].isAuthenticated) {
                 __block NSInteger operationsCount = 0;
                 __block NSInteger operationsFinished = 0;
                 __block NSMutableArray *searchResults = [NSMutableArray new];
@@ -84,8 +85,8 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                         NSMutableSet *resultSet = [NSMutableSet new];
                         NSMutableArray *result = [NSMutableArray new];
                         for (NSDictionary *user in searchResults) {
-                            if (![resultSet containsObject:user[kAPIIdentifierKey]] && ![user[kAPIIdentifierKey] isEqualToString:[User currentUser].rid]) {
-                                [resultSet addObject:user[kAPIIdentifierKey]];
+                            if (![resultSet containsObject:user[kFTResponseParamIdentifier]] && ![user[kFTResponseParamIdentifier] isEqualToString:[User currentUser].rid]) {
+                                [resultSet addObject:user[kFTResponseParamIdentifier]];
                                 [result addObject:user];
                             }
                         }

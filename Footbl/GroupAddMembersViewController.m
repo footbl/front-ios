@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+#import "FTAuthenticationManager.h"
 #import "FootblAPI.h"
 #import "FriendsHelper.h"
 #import "Group.h"
@@ -80,7 +81,7 @@
     if (!_facebookDataSource) {
         _facebookDataSource = @[];
         
-        [[FootblAPI sharedAPI] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+        [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
             [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
                 if (error) {
                     SPLogError(@"Facebook error %@, %@", error, [error userInfo]);

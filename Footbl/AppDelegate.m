@@ -89,7 +89,7 @@
     }
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey] || newRelease) {
-        [[FootblAPI sharedAPI] logout];
+        [[FTAuthenticationManager sharedManager] logout];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPresentTutorialViewController];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstRunKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -167,7 +167,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    BOOL isAnonymous = [FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous;
+    BOOL isAnonymous = [FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous;
     NSArray *tags = @[isAnonymous ? @"Anonymous" : @"Authenticated"];
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
@@ -181,9 +181,9 @@
             break;
     }
     
-    [FootblAPI sharedAPI].pushNotificationToken = deviceToken.description;
+    [FTAuthenticationManager sharedManager].pushNotificationToken = deviceToken.description;
 
-    SPLogVerbose(@"APNS: %@", [FootblAPI sharedAPI].pushNotificationToken);
+    SPLogVerbose(@"APNS: %@", [FTAuthenticationManager sharedManager].pushNotificationToken);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {

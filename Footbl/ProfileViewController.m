@@ -473,11 +473,11 @@
         [self performSelector:@selector(reloadContent) withObject:nil afterDelay:1];
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFootblAPINotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.user = nil;
         [self reloadData];
         
-        if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+        if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
             [self addChildViewController:self.anonymousViewController];
             [self.view addSubview:self.anonymousViewController.view];
             self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -528,7 +528,7 @@
         }
     }
     
-    if ([FootblAPI sharedAPI].authenticationType == FootblAuthenticationTypeAnonymous) {
+    if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
         [self addChildViewController:self.anonymousViewController];
         [self.view addSubview:self.anonymousViewController.view];
         for (UIBarButtonItem *button in self.navigationItem.rightBarButtonItems) {

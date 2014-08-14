@@ -12,12 +12,17 @@
 #import "FTImageUploader.h"
 #import "FTOperationManager.h"
 #import "NSString+Hex.h"
+#import "NSString+SHA1.h"
 #import "User.h"
 
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
+
+NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
+    return [NSString stringWithFormat:@"%@%@", userId, [FTOperationManager sharedManager].signatureKey].sha1;
+}
 
 @interface FTAuthenticationManager ()
 
@@ -112,7 +117,22 @@ static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
             [[FTOperationManager sharedManager] POST:[User resourcePath] parameters:@{@"password" : password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [self loginWithEmail:nil password:password success:^(id response) {
                     if (success) success(responseObject);
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
+                } failure:failure];
+            } failure:failure];
+        }];
+    } failure:failure];
+}
+
+- (void)loginWithFacebookToken:(NSString *)fbToken success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[FTOperationManager sharedManager] validateEnvironmentWithSuccess:^(id response) {
+        [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionGroupRequests operations:^{
+            [[FTOperationManager sharedManager].requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
+            [[FTOperationManager sharedManager] GET:@"users/me/auth" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [[FTOperationManager sharedManager].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+                self.token = responseObject[@"token"];
+                [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
+                [User getMeWithSuccess:^(id response) {
+                    if (success) success(response);
                 } failure:failure];
             } failure:failure];
         }];
@@ -120,6 +140,7 @@ static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
 }
 
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    BOOL shouldSendNotification = (self.authenticationType == FTAuthenticationTypeNone);
     [[FTOperationManager sharedManager] validateEnvironmentWithSuccess:^(id response) {
         [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionGroupRequests operations:^{
             NSMutableDictionary *parameters = [NSMutableDictionary new];
@@ -129,12 +150,27 @@ static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
                 self.password = password;
                 self.email = email;
                 self.token = responseObject[@"token"];
+                [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
                 [User getMeWithSuccess:^(id response) {
+                    if (shouldSendNotification) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
+                    }
                     if (success) success(response);
                 } failure:failure];
             } failure:failure];
         }];
     } failure:failure];
+}
+
+- (void)authenticateFacebookWithCompletion:(void (^)(FBSession *session, FBSessionState status, NSError *error))completionBlock {
+    if ([FBSession activeSession].isOpen && [FBSession activeSession].accessTokenData.accessToken.length > 0) {
+        completionBlock([FBSession activeSession], [FBSession activeSession].state, nil);
+        return;
+    }
+    
+    [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (completionBlock)completionBlock(session, status, error);
+    }];
 }
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -187,6 +223,10 @@ static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
     }];
 }
 
+- (BOOL)isValidPassword:(NSString *)password {
+    return [self.password isEqualToString:password];
+}
+
 - (void)logout {
     if (!self.isAuthenticated) {
         return;
@@ -203,11 +243,11 @@ static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
     self.token = nil;
     
     [[FTModel editableManagedObjectContext] performBlock:^{
-        for (NSString *entity in @[@"Comment", @"Match", @"Team", @"Championship", @"Group", @"Bet", @"Wallet", @"User", @"Membership"]) {
+        for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Championship", @"Membership", @"Group", @"User"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
             NSError *error = nil;
-            NSArray *fetchResult = [FootblBackgroundManagedObjectContext() executeFetchRequest:fetchRequest error:&error];
+            NSArray *fetchResult = [[FTModel editableManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
             if (error) {
                 abort();
             }
