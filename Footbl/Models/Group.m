@@ -40,7 +40,7 @@
             __weak typeof(Group *)weakGroup = group;
             [group addMembers:members success:^(id response) {
                 [weakGroup addInvitedMembers:invitedMembers success:^(id response) {
-                    [weakGroup updateMembersWithSuccess:^(id response) {
+                    [weakGroup getMembersWithSuccess:^(id response) {
                         if (success) success(weakGroup);
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         if (success) success(weakGroup);
@@ -166,9 +166,29 @@
     }];
 }
 
-- (void)updateMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    #warning FIX Default groups
+- (void)getMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [Membership getWithObject:self.editableObject success:success failure:failure];
+}
+
+- (void)getWorldMembersWithPage:(NSInteger)page success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
+        [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"page": @(page)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [User loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+                Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:self.managedObjectContext];
+                membership.user = user;
+                membership.hasRanking = @(user.ranking != nil);
+                membership.ranking = user.ranking;
+                membership.previousRanking = user.previousRanking;
+                membership.group = self.editableObject;
+            } untouchedObjectsBlock:nil completionBlock:^(NSArray *objects) {
+                if (objects.count == MAX_GROUP_NAME_SIZE) {
+                    if (success) success(@(page + 1));
+                } else {
+                    if (success) success(nil);
+                }
+            }];
+        } failure:failure];
+    }];
 }
 
 - (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

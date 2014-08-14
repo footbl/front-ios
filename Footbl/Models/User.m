@@ -10,6 +10,7 @@
 #import <RMStore/RMStore.h>
 #import <TransformerKit/TransformerKit.h>
 #import "Bet.h"
+#import "Group.h"
 #import "NSNumber+Formatter.h"
 #import "User.h"
 
@@ -108,6 +109,15 @@
         self.followers = data[@"followers"];
     } else {
         self.followers = @0;
+    }
+    
+    if (self.isMeValue) {
+        Group *group = [Group findOrCreateWithObject:@"world" inContext:self.managedObjectContext];
+        group.name = NSLocalizedString(@"World", @"");
+        group.freeToEdit = @NO;
+        group.owner = nil;
+        group.isDefault = @YES;
+        group.picture = nil;
     }
 }
 

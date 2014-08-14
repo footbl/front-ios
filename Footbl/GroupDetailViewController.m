@@ -25,6 +25,7 @@
 @interface GroupDetailViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSNumber *nextPage;
 
 @end
 
@@ -40,7 +41,7 @@
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
         if (self.group.isDefaultValue) {
-            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
+            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
         } else {
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
@@ -85,16 +86,29 @@
     
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
-    [self.group.editableObject updateMembersWithSuccess:^(NSArray *members) {
-        [self setupInfiniteScrolling];
-        self.tableView.showsInfiniteScrolling = (members.count == FT_API_PAGE_LIMIT);
-        [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    
+    if (self.group.isDefaultValue) {
+        [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
+            [self setupInfiniteScrolling];
+            self.tableView.showsInfiniteScrolling = (nextPage != nil);
+            self.nextPage = nextPage;
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+    } else {
+        [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+    }
 }
 
 - (void)setupInfiniteScrolling {
@@ -112,12 +126,11 @@
         
         self.navigationItem.title = self.group.name;
         [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
-        [self.group.editableObject updateMembersWithSuccess:^(NSNumber *shouldContinue) {
+        [self.group.editableObject getWorldMembersWithPage:self.nextPage.integerValue success:^(NSNumber *nextPage) {
             [weakTableView.infiniteScrollingView stopAnimating];
-            if (!shouldContinue.boolValue) {
-                self.tableView.showsInfiniteScrolling = shouldContinue.boolValue;
-            }
+            self.tableView.showsInfiniteScrolling = (nextPage != nil);
             [[LoadingHelper sharedInstance] hideHud];
+            self.nextPage = nextPage;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [weakTableView.infiniteScrollingView stopAnimating];
             [[LoadingHelper sharedInstance] hideHud];
