@@ -6,7 +6,6 @@
 
 extern const struct BetAttributes {
 	__unsafe_unretained NSString *bid;
-	__unsafe_unretained NSString *finished;
 	__unsafe_unretained NSString *result;
 } BetAttributes;
 
@@ -20,7 +19,6 @@ extern const struct BetFetchedProperties {
 
 @class Match;
 @class User;
-
 
 
 
@@ -47,20 +45,6 @@ extern const struct BetFetchedProperties {
 - (void)setBidValue:(int64_t)value_;
 
 //- (BOOL)validateBid:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
-@property (nonatomic, strong) NSNumber* finished;
-
-
-
-@property BOOL finishedValue;
-- (BOOL)finishedValue;
-- (void)setFinishedValue:(BOOL)value_;
-
-//- (BOOL)validateFinished:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -109,15 +93,6 @@ extern const struct BetFetchedProperties {
 
 - (int64_t)primitiveBidValue;
 - (void)setPrimitiveBidValue:(int64_t)value_;
-
-
-
-
-- (NSNumber*)primitiveFinished;
-- (void)setPrimitiveFinished:(NSNumber*)value;
-
-- (BOOL)primitiveFinishedValue;
-- (void)setPrimitiveFinishedValue:(BOOL)value_;
 
 
 

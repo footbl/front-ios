@@ -5,7 +5,6 @@
 
 const struct BetAttributes BetAttributes = {
 	.bid = @"bid",
-	.finished = @"finished",
 	.result = @"result",
 };
 
@@ -48,11 +47,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"finishedValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"finished"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"resultValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"result"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -85,32 +79,6 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 - (void)setPrimitiveBidValue:(int64_t)value_ {
 	[self setPrimitiveBid:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
-@dynamic finished;
-
-
-
-- (BOOL)finishedValue {
-	NSNumber *result = [self finished];
-	return [result boolValue];
-}
-
-- (void)setFinishedValue:(BOOL)value_ {
-	[self setFinished:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveFinishedValue {
-	NSNumber *result = [self primitiveFinished];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveFinishedValue:(BOOL)value_ {
-	[self setPrimitiveFinished:[NSNumber numberWithBool:value_]];
 }
 
 

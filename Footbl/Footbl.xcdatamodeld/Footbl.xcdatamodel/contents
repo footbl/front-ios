@@ -2,7 +2,6 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Bet" representedClassName="Bet" parentEntity="FTModel" syncable="YES">
         <attribute name="bid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="finished" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="result" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="bets" inverseEntity="Match" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="bets" inverseEntity="User" syncable="YES"/>
@@ -91,13 +90,13 @@
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Bet" positionX="-36" positionY="117" width="128" height="118"/>
+        <element name="Bet" positionX="-36" positionY="117" width="128" height="105"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="163"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="165"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="328"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="330"/>
     </elements>
 </model>
