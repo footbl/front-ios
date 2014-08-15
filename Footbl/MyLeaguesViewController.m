@@ -125,10 +125,6 @@
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }];
-    
     self.tableView = tableViewController.tableView;
     self.tableView.frame = self.view.bounds;
     self.tableView.delegate = self;
@@ -142,6 +138,10 @@
     [self.view addSubview:self.tableView];
     
     [self reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
 }
 
 - (void)viewDidLoad {
