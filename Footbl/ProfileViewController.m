@@ -318,7 +318,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", NO) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
+            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", YES) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
             return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
         case 2:
