@@ -14,6 +14,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
+	.entry = @"entry",
 	.matches = @"matches",
 };
 
@@ -173,6 +174,10 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+
+@dynamic entry;
+
+	
 
 @dynamic matches;
 

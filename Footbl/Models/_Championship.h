@@ -15,12 +15,14 @@ extern const struct ChampionshipAttributes {
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
+	__unsafe_unretained NSString *entry;
 	__unsafe_unretained NSString *matches;
 } ChampionshipRelationships;
 
 extern const struct ChampionshipFetchedProperties {
 } ChampionshipFetchedProperties;
 
+@class Entry;
 @class Match;
 
 
@@ -126,6 +128,13 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) Entry *entry;
+
+//- (BOOL)validateEntry:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) NSSet *matches;
 
 - (NSMutableSet*)matchesSet;
@@ -197,6 +206,11 @@ extern const struct ChampionshipFetchedProperties {
 - (void)setPrimitiveType:(NSString*)value;
 
 
+
+
+
+- (Entry*)primitiveEntry;
+- (void)setPrimitiveEntry:(Entry*)value;
 
 
 
