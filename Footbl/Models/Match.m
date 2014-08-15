@@ -61,10 +61,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 + (void)getWithObject:(Championship *)championship success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [self resourcePathWithObject:championship];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:championship.matches enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
             match.championship = championship.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"championship = %@", championship]]];
         } completionBlock:success];
     } failure:failure];
 }
