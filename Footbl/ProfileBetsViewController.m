@@ -31,7 +31,7 @@
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Bet"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"wallet.user.rid = %@", self.user.rid];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"user.rid = %@", self.user.rid];
         self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
