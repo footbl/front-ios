@@ -77,11 +77,11 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 - (NSUInteger)apiVersion {
     switch ([FTOperationManager sharedManager].environment) {
         case FTEnvironmentDevelopment:
-            return 1;
+            return 2;
         case FTEnvironmentPreLaunch:
-            return 1;
+            return 2;
         case FTEnvironmentProduction:
-            return 1;
+            return 2;
     }
 }
 
