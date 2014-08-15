@@ -127,6 +127,11 @@
 
 - (void)reloadData {
     [super reloadData];
+    
+    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+        return;
+    }
+    
     [self reloadContent];
     
     void(^failure)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {

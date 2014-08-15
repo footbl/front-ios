@@ -57,7 +57,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
         return FTAuthenticationTypeEmailPassword;
     } else if (self.password.length > 0) {
         return FTAuthenticationTypeAnonymous;
-    } else if ([FBSession activeSession].accessTokenData.accessToken.length > 0) {
+    } else if ([FBSession activeSession].accessTokenData.accessToken.length > 0 && [FXKeychain defaultKeychain][kUserFbAuthenticatedKey]) {
         return FTAuthenticationTypeFacebook;
     } else {
         return FTAuthenticationTypeNone;
@@ -260,10 +260,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 }
 
 - (void)logout {
-    if (!self.isAuthenticated) {
-        return;
-    }
-    
     [ErrorHandler sharedInstance].shouldShowError = NO;
     [[[FTOperationManager sharedManager] operationQueue] cancelAllOperations];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -273,6 +269,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     self.email = nil;
     self.password = nil;
     self.token = nil;
+    [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
     
     [[FTModel editableManagedObjectContext] performBlock:^{
         for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Championship", @"Membership", @"Group", @"User"]) {

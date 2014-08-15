@@ -207,7 +207,10 @@
     [self reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadData];
+        if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+            [self reloadData];
+        }
+        
         if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
             [self addChildViewController:self.anonymousViewController];
             [self.view addSubview:self.anonymousViewController.view];
