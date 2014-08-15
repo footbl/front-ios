@@ -7,11 +7,12 @@ const struct UserAttributes UserAttributes = {
 	.about = @"about",
 	.email = @"email",
 	.featured = @"featured",
-	.followers = @"followers",
 	.funds = @"funds",
 	.history = @"history",
 	.isMe = @"isMe",
 	.name = @"name",
+	.numberOfFans = @"numberOfFans",
+	.numberOfLeagues = @"numberOfLeagues",
 	.picture = @"picture",
 	.previousRanking = @"previousRanking",
 	.ranking = @"ranking",
@@ -64,11 +65,6 @@ const struct UserFetchedProperties UserFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"followersValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"followers"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"fundsValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"funds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -76,6 +72,16 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	}
 	if ([key isEqualToString:@"isMeValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isMe"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"numberOfFansValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"numberOfFans"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"numberOfLeaguesValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"numberOfLeagues"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -146,32 +152,6 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
-@dynamic followers;
-
-
-
-- (int64_t)followersValue {
-	NSNumber *result = [self followers];
-	return [result longLongValue];
-}
-
-- (void)setFollowersValue:(int64_t)value_ {
-	[self setFollowers:[NSNumber numberWithLongLong:value_]];
-}
-
-- (int64_t)primitiveFollowersValue {
-	NSNumber *result = [self primitiveFollowers];
-	return [result longLongValue];
-}
-
-- (void)setPrimitiveFollowersValue:(int64_t)value_ {
-	[self setPrimitiveFollowers:[NSNumber numberWithLongLong:value_]];
-}
-
-
-
-
-
 @dynamic funds;
 
 
@@ -233,6 +213,58 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 @dynamic name;
 
+
+
+
+
+
+@dynamic numberOfFans;
+
+
+
+- (int64_t)numberOfFansValue {
+	NSNumber *result = [self numberOfFans];
+	return [result longLongValue];
+}
+
+- (void)setNumberOfFansValue:(int64_t)value_ {
+	[self setNumberOfFans:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveNumberOfFansValue {
+	NSNumber *result = [self primitiveNumberOfFans];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveNumberOfFansValue:(int64_t)value_ {
+	[self setPrimitiveNumberOfFans:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic numberOfLeagues;
+
+
+
+- (int64_t)numberOfLeaguesValue {
+	NSNumber *result = [self numberOfLeagues];
+	return [result longLongValue];
+}
+
+- (void)setNumberOfLeaguesValue:(int64_t)value_ {
+	[self setNumberOfLeagues:[NSNumber numberWithLongLong:value_]];
+}
+
+- (int64_t)primitiveNumberOfLeaguesValue {
+	NSNumber *result = [self primitiveNumberOfLeagues];
+	return [result longLongValue];
+}
+
+- (void)setPrimitiveNumberOfLeaguesValue:(int64_t)value_ {
+	[self setPrimitiveNumberOfLeagues:[NSNumber numberWithLongLong:value_]];
+}
 
 
 

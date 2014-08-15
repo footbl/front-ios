@@ -8,11 +8,12 @@ extern const struct UserAttributes {
 	__unsafe_unretained NSString *about;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *featured;
-	__unsafe_unretained NSString *followers;
 	__unsafe_unretained NSString *funds;
 	__unsafe_unretained NSString *history;
 	__unsafe_unretained NSString *isMe;
 	__unsafe_unretained NSString *name;
+	__unsafe_unretained NSString *numberOfFans;
+	__unsafe_unretained NSString *numberOfLeagues;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *previousRanking;
 	__unsafe_unretained NSString *ranking;
@@ -46,8 +47,9 @@ extern const struct UserFetchedProperties {
 
 
 
-
 @class NSObject;
+
+
 
 
 
@@ -104,20 +106,6 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* followers;
-
-
-
-@property int64_t followersValue;
-- (int64_t)followersValue;
-- (void)setFollowersValue:(int64_t)value_;
-
-//- (BOOL)validateFollowers:(id*)value_ error:(NSError**)error_;
-
-
-
-
-
 @property (nonatomic, strong) NSNumber* funds;
 
 
@@ -161,6 +149,34 @@ extern const struct UserFetchedProperties {
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* numberOfFans;
+
+
+
+@property int64_t numberOfFansValue;
+- (int64_t)numberOfFansValue;
+- (void)setNumberOfFansValue:(int64_t)value_;
+
+//- (BOOL)validateNumberOfFans:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* numberOfLeagues;
+
+
+
+@property int64_t numberOfLeaguesValue;
+- (int64_t)numberOfLeaguesValue;
+- (void)setNumberOfLeaguesValue:(int64_t)value_;
+
+//- (BOOL)validateNumberOfLeagues:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -352,15 +368,6 @@ extern const struct UserFetchedProperties {
 
 
 
-- (NSNumber*)primitiveFollowers;
-- (void)setPrimitiveFollowers:(NSNumber*)value;
-
-- (int64_t)primitiveFollowersValue;
-- (void)setPrimitiveFollowersValue:(int64_t)value_;
-
-
-
-
 - (NSNumber*)primitiveFunds;
 - (void)setPrimitiveFunds:(NSNumber*)value;
 
@@ -387,6 +394,24 @@ extern const struct UserFetchedProperties {
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveNumberOfFans;
+- (void)setPrimitiveNumberOfFans:(NSNumber*)value;
+
+- (int64_t)primitiveNumberOfFansValue;
+- (void)setPrimitiveNumberOfFansValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveNumberOfLeagues;
+- (void)setPrimitiveNumberOfLeagues:(NSNumber*)value;
+
+- (int64_t)primitiveNumberOfLeaguesValue;
+- (void)setPrimitiveNumberOfLeaguesValue:(int64_t)value_;
 
 
 

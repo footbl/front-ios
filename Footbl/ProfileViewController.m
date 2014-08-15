@@ -170,7 +170,7 @@
                     profileCell.aboutText = self.user.about;
 #warning Fix number of followers
                     /*
-                    profileCell.followersLabel.text = self.user.followers.shortStringValue;
+                    profileCell.followersLabel.text = self.user.numberOfFans.shortStringValue;
                     */
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     

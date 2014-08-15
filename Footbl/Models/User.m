@@ -109,14 +109,24 @@
 
 #pragma mark - Instance Methods
 
+- (void)getWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [super getWithSuccess:^(id response) {
+        /*
+        [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/fans", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.numberOfFans = @([responseObject count]);
+        } failure:nil];
+        
+        [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/entries", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.numberOfLeagues = @([responseObject count]);
+        } failure:nil];
+        */
+        
+        if (success) success(response);
+    } failure:failure];
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
-        
-    if ([data[@"followers"] isKindOfClass:[NSNumber class]]) {
-        self.followers = data[@"followers"];
-    } else {
-        self.followers = @0;
-    }
     
     if (self.isMeValue) {
         Group *group = [Group findOrCreateWithObject:@"world" inContext:self.managedObjectContext];
@@ -175,7 +185,7 @@
 - (void)starUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[[self class] editableManagedObjectContext] performBlock:^{
         [self addFanOfUsersObject:user];
-        user.followers = @(MAX(user.editableObject.followersValue + 1, MAX_FOLLOWERS_COUNT));
+        user.numberOfFans = @(MAX(user.editableObject.numberOfFansValue + 1, MAX_FOLLOWERS_COUNT));
         [[[self class] editableManagedObjectContext] performSave];
     }];
     
@@ -195,8 +205,8 @@
 - (void)unstarUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[[self class] editableManagedObjectContext] performBlock:^{
         [self removeFanOfUsersObject:user.editableObject];
-        if (user.followersValue < MAX_FOLLOWERS_COUNT) {
-            user.followers = @(MAX(0, user.editableObject.followersValue - 1));
+        if (user.numberOfFansValue < MAX_FOLLOWERS_COUNT) {
+            user.numberOfFans = @(MAX(0, user.editableObject.numberOfFansValue - 1));
         }
         [[[self class] editableManagedObjectContext] performSave];
     }];
