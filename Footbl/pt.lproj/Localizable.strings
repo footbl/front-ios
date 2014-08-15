@@ -235,9 +235,9 @@
 /* Team: Philadelphia Union */
 "Team: Philadelphia Union" = "Philadelphia U.";
 
-"NOTIFICATION_GROUP_ADDED" = "%@ adicionou você ao grupo %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "Olha a batiiiiida! %@ te adicionou a um novo grupo. ";
 
-"NOTIFICATION_ROUND_END" = "Você fez ฿%@ em %@! Ver?";
+"NOTIFICATION_ROUND_END" = "Apiiiiita o árbitro! Ver resultados?";
 
 /* Team: Portland Timbers */
 "Team: Portland Timbers" = "Portland T.";
@@ -724,4 +724,14 @@ Make more bets and increase your profit! */
 
 /* Development only */
 "Please restart the app" = "Por favor reinicie o aplicativo";
+
+"NOTIFICATION_ROUND_START_2" = "Tá na hora do cara-ou-coroa! Rever apostas? ";
+
+"NOTIFICATION_OVER_0" = "Times já no vestiário! Você fez $0 porque não apostou =(";
+
+"NOTIFICATION_NEED_CASH" = "Precisa de mais grana para se divertir mais? Peça a amigos agora!";
+
+"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ tá precisando de grana. Que faaase, heim!";
+
+"NOTIFICATION_RECEIVED_CASH" = "%@ te enviou uma grana. Que beleeeza!";
 

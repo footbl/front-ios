@@ -235,9 +235,9 @@
 /* Team: Philadelphia Union */
 "Team: Philadelphia Union" = "Philadelphia U.";
 
-"NOTIFICATION_GROUP_ADDED" = "%@ vient de vous ajouter au groupe %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "%@ vous a ajouté à un nouveau groupe!";
 
-"NOTIFICATION_ROUND_END" = "Vous venez de gagner ฿%@ sur %@. En voir plus ?";
+"NOTIFICATION_ROUND_END" = "Les matchs sont terminés! Afficher les résultats?";
 
 /* Team: Portland Timbers */
 "Team: Portland Timbers" = "Portland T.";
@@ -659,7 +659,7 @@ Do you want to log in instead? */
 "Update available!" = "Mise à jour disponible!";
 
 /* Update available text */
-"Update available text" = "Une nouvelle version est disponible au téléchargement!";
+"Update available text" = "Une nouvelle version est disponible au téléchargement!\n\nPour éviter les conflits, il est important que vous mettez à jour l'application - il prend quelques secondes! :)";
 
 /* Group code: {group code} */
 "Group code: %@" = "Code de groupe: %@";
@@ -699,7 +699,7 @@ Do you want to log in instead? */
 
 /* Recharge your wallet
 Make more bets and increase your profit! */
-"Recharge your wallet\nMake more bets and increase your profit!" = "Rechargez votre portefeuille porte-monnaie";
+"Recharge your wallet\nMake more bets and increase your profit!" = "Rechargez votre portefeuille porte-monnaie\nFaire plus de paris et augmenter vos profits!";
 
 /* Actual amount */
 "Actual amount" = "montant réel";
@@ -724,4 +724,14 @@ Make more bets and increase your profit! */
 
 /* Development only */
 "Please restart the app" = "S'il vous plaît redémarrer l'application";
+
+"NOTIFICATION_ROUND_START_2" = "Les matchs sont sur ​​le point de commencer! Voulez-vous revoir vos paris?";
+
+"NOTIFICATION_OVER_0" = "Les matchs sont terminés! Vous avez fait $0 parce que vous n'avez pas parier =(";
+
+"NOTIFICATION_NEED_CASH" = "Besoin de plus d'argent pour avoir plus de plaisir? Demandez à vos amis maintenant!";
+
+"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ a besoin de l'argent! Vous sentez-vous généreux?";
+
+"NOTIFICATION_RECEIVED_CASH" = "%@ vous a envoyé un peu d'argent. Ka-ching!";
 

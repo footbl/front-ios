@@ -235,9 +235,9 @@
 /* Team: Philadelphia Union */
 "Team: Philadelphia Union" = "Philadelphia U.";
 
-"NOTIFICATION_GROUP_ADDED" = "%@ hat dich gerade zur Gruppe %@ (%@) hinzugefügt.";
+"NOTIFICATION_GROUP_ADDED" = "%@ hat Sie zu einer neuen Gruppe hinzugefügt!";
 
-"NOTIFICATION_ROUND_END" = "Du hast gerade ฿%@ bei %@ verdient. Ansehen?";
+"NOTIFICATION_ROUND_END" = "Alle Spiele sind fertig! Überprüfen Sie Ergebnisse?";
 
 /* Team: Portland Timbers */
 "Team: Portland Timbers" = "Portland T.";
@@ -659,7 +659,7 @@ Do you want to log in instead? */
 "Update available!" = "Update verfügbar!";
 
 /* Update available text */
-"Update available text" = "Eine neue Version steht zum Download bereit!";
+"Update available text" = "Eine neue Version steht zum Download bereit!\n\nUm Konflikte zu vermeiden, ist es wichtig, dass Sie die App zu aktualisieren - es dauert nur ein paar Sekunden! :)";
 
 /* Group code: {group code} */
 "Group code: %@" = "Gruppencode: %@";
@@ -699,7 +699,7 @@ Do you want to log in instead? */
 
 /* Recharge your wallet
 Make more bets and increase your profit! */
-"Recharge your wallet\nMake more bets and increase your profit!" = "Laden Sie Ihren Brieftasche";
+"Recharge your wallet\nMake more bets and increase your profit!" = "Laden Sie Ihren Brieftasche\nMachen Sie mehr Wetten und steigern Sie Ihren Gewinn!";
 
 /* Actual amount */
 "Actual amount" = "tatsächliche Höhe";
@@ -724,4 +724,14 @@ Make more bets and increase your profit! */
 
 /* Development only */
 "Please restart the app" = "Bitte starten Sie die App";
+
+"NOTIFICATION_ROUND_START_2" = "Spiele sind zu starten! Möchten Sie Ihre Einsätze zu überprüfen?";
+
+"NOTIFICATION_OVER_0" = "Alle Spiele sind fertig! Sie haben $0, weil Sie nicht wetten =(";
+
+"NOTIFICATION_NEED_CASH" = "Brauchen mehr Geld, um mehr Spaß zu haben? Fragen Sie Freunde jetzt!";
+
+"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ braucht Geld! Fühlen Sie sich großzügig?";
+
+"NOTIFICATION_RECEIVED_CASH" = "%@ hat Euch etwas Bargeld. Ka-ching!";
 

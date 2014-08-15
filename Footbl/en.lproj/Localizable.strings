@@ -235,9 +235,9 @@
 /* Team: Philadelphia Union */
 "Team: Philadelphia Union" = "Philadelphia U.";
 
-"NOTIFICATION_GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
+"NOTIFICATION_GROUP_ADDED" = "%@ has added you to a new group!";
 
-"NOTIFICATION_ROUND_END" = "You've just made ฿%@ on %@! Check?";
+"NOTIFICATION_ROUND_END" = "Matches are over! Check results?";
 
 /* Team: Portland Timbers */
 "Team: Portland Timbers" = "Portland T.";
@@ -724,4 +724,14 @@ Make more bets and increase your profit! */
 
 /* Development only */
 "Please restart the app" = "Please restart the app";
+
+"NOTIFICATION_ROUND_START_2" = "Matches are about to start! Review bets?";
+
+"NOTIFICATION_OVER_0" = "Matches are over! You made $0 because you didn't bet =(";
+
+"NOTIFICATION_NEED_CASH" = "Need more cash to have more fun? Ask friends now! ";
+
+"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ needs some cash! Feeling generous? ";
+
+"NOTIFICATION_RECEIVED_CASH" = "%@ sent you some cash. Ka-ching!";
 
