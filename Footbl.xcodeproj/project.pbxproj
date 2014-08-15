@@ -182,6 +182,8 @@
 		ED785A80199DA5CE002A4DBD /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7E199DA5CE002A4DBD /* Entry.m */; };
 		ED785A83199DA5D7002A4DBD /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
 		ED785A84199DA5D7002A4DBD /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
+		ED785ABB199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
+		ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
@@ -432,6 +434,8 @@
 		ED785AB6199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785AB7199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		ED785AB8199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeaguesViewController.h; sourceTree = "<group>"; };
+		ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLeaguesViewController.m; sourceTree = "<group>"; };
 		ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppAPI.h; sourceTree = "<group>"; };
 		ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppAPI.m; sourceTree = "<group>"; };
 		ED7C0FB51959C76900275685 /* WhatsAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
@@ -916,6 +920,8 @@
 			children = (
 				ED19A408190AF85800946490 /* LogsViewController.h */,
 				ED19A409190AF85800946490 /* LogsViewController.m */,
+				ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */,
+				ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */,
 				ED493D2C190DB40000A7869B /* SettingsTextViewController.h */,
 				ED493D2D190DB40000A7869B /* SettingsTextViewController.m */,
 				ED9F07921909C05900C8AC71 /* SettingsViewController.h */,
@@ -1605,6 +1611,7 @@
 				ED785A24199D0C62002A4DBD /* WalletHighestTableViewCell.m in Sources */,
 				ED785A25199D0C62002A4DBD /* FeaturedButton.m in Sources */,
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
+				ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
 				ED785A29199D0C62002A4DBD /* NSManagedObjectContext+FTAddons.m in Sources */,
@@ -1716,6 +1723,7 @@
 				ED32432E192BDC8D00F54D57 /* WalletHighestTableViewCell.m in Sources */,
 				EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */,
 				EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */,
+				ED785ABB199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
 				ED81E82518EA6B1F00212D3C /* TemplateViewController.m in Sources */,
 				EDAF0EA0191ABA7F005218FB /* UILabel+Shake.m in Sources */,
 				EDC6720C1999254000D06E66 /* NSManagedObjectContext+FTAddons.m in Sources */,

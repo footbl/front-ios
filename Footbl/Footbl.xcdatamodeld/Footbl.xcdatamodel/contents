@@ -9,7 +9,9 @@
     <entity name="Championship" representedClassName="Championship" parentEntity="FTModel" syncable="YES">
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currentRound" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="edition" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="enabled" optional="YES" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rounds" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -103,7 +105,7 @@
     </entity>
     <elements>
         <element name="Bet" positionX="-36" positionY="117" width="128" height="105"/>
-        <element name="Championship" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Championship" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="165"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>

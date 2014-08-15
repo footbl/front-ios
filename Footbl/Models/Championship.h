@@ -13,7 +13,6 @@
 @interface Championship : _Championship
 
 - (NSNumber *)pendingRounds;
-- (NSString *)displayName;
 - (NSString *)displayCountry;
 
 @end

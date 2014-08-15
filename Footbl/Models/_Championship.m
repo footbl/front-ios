@@ -6,7 +6,9 @@
 const struct ChampionshipAttributes ChampionshipAttributes = {
 	.country = @"country",
 	.currentRound = @"currentRound",
+	.displayName = @"displayName",
 	.edition = @"edition",
+	.enabled = @"enabled",
 	.name = @"name",
 	.picture = @"picture",
 	.rounds = @"rounds",
@@ -57,6 +59,11 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"enabledValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"enabled"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"roundsValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"rounds"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -102,6 +109,13 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 
 
+@dynamic displayName;
+
+
+
+
+
+
 @dynamic edition;
 
 
@@ -122,6 +136,32 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 - (void)setPrimitiveEditionValue:(int64_t)value_ {
 	[self setPrimitiveEdition:[NSNumber numberWithLongLong:value_]];
+}
+
+
+
+
+
+@dynamic enabled;
+
+
+
+- (BOOL)enabledValue {
+	NSNumber *result = [self enabled];
+	return [result boolValue];
+}
+
+- (void)setEnabledValue:(BOOL)value_ {
+	[self setEnabled:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveEnabledValue {
+	NSNumber *result = [self primitiveEnabled];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveEnabledValue:(BOOL)value_ {
+	[self setPrimitiveEnabled:[NSNumber numberWithBool:value_]];
 }
 
 

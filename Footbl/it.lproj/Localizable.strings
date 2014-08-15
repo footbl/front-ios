@@ -4,6 +4,15 @@
   Created by Fernando Saragoça on 4/25/14.
   Copyright (c) 2014 made@sampa. All rights reserved. */
 
+/* Facebook request message */
+"Facebook request message" = " ";
+
+/* Facebook request title */
+"Facebook request title" = " ";
+
+/* My Leagues */
+"My Leagues" = "Miei campionati";
+
 /* Create your group button title */
 "Create your group button title" = "Crea il tuo gruppo";
 

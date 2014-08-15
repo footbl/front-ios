@@ -7,7 +7,9 @@
 extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *currentRound;
+	__unsafe_unretained NSString *displayName;
 	__unsafe_unretained NSString *edition;
+	__unsafe_unretained NSString *enabled;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *rounds;
@@ -24,6 +26,8 @@ extern const struct ChampionshipFetchedProperties {
 
 @class Entry;
 @class Match;
+
+
 
 
 
@@ -70,6 +74,16 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* displayName;
+
+
+
+//- (BOOL)validateDisplayName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSNumber* edition;
 
 
@@ -79,6 +93,20 @@ extern const struct ChampionshipFetchedProperties {
 - (void)setEditionValue:(int64_t)value_;
 
 //- (BOOL)validateEdition:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* enabled;
+
+
+
+@property BOOL enabledValue;
+- (BOOL)enabledValue;
+- (void)setEnabledValue:(BOOL)value_;
+
+//- (BOOL)validateEnabled:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -172,11 +200,26 @@ extern const struct ChampionshipFetchedProperties {
 
 
 
+- (NSString*)primitiveDisplayName;
+- (void)setPrimitiveDisplayName:(NSString*)value;
+
+
+
+
 - (NSNumber*)primitiveEdition;
 - (void)setPrimitiveEdition:(NSNumber*)value;
 
 - (int64_t)primitiveEditionValue;
 - (void)setPrimitiveEditionValue:(int64_t)value_;
+
+
+
+
+- (NSNumber*)primitiveEnabled;
+- (void)setPrimitiveEnabled:(NSNumber*)value;
+
+- (BOOL)primitiveEnabledValue;
+- (void)setPrimitiveEnabledValue:(BOOL)value_;
 
 
 

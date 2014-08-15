@@ -41,16 +41,15 @@
     return NSLocalizedString(string, @"");
 }
 
-- (NSString *)displayName {
-    NSString *string = [NSString stringWithFormat:@"Championship: %@", self.name];
-    if ([NSLocalizedString(string, @"") isEqualToString:string]) {
-        return self.name;
-    }
-    return NSLocalizedString(string, @"");
-}
-
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
+    
+    NSString *string = [NSString stringWithFormat:@"Championship: %@", self.name];
+    if ([NSLocalizedString(string, @"") isEqualToString:string]) {
+        self.displayName = self.name;
+    } else {
+        self.displayName = NSLocalizedString(string, @"");
+    }
 }
 
 @end
