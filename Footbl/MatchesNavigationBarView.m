@@ -114,7 +114,7 @@
     NSArray *titleLabels = @[self.walletTitleLabel, self.stakeTitleLabel, self.returnTitleLabel, self.profitTitleLabel];
     static CGFloat kTitleLabelAnimationVerticalOffset = -4;
     
-    CGFloat originalY = CGRectGetMinY(self.walletTitleLabel.frame);
+    CGFloat originalY = 58;
     if (!titleHidden) {
         for (UILabel *label in titleLabels) {
             CGRect frame = label.frame;
