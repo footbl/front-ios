@@ -233,7 +233,7 @@
                     ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
                     [championshipCell.championshipImageView setImage:[UIImage imageNamed:@"world_icon"]];
                     championshipCell.nameLabel.text = NSLocalizedString(@"World", @"");
-                    if ([User currentUser].ranking) {
+                    if ([User currentUser].ranking && [User currentUser].rankingValue > 0) {
                         championshipCell.rankingLabel.text = [User currentUser].ranking.rankingStringValue;
                     } else {
                         championshipCell.rankingLabel.text = @"";
