@@ -135,7 +135,7 @@ static CGFloat kBetSyncWaitTime = 3;
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
-    self.match = [Match findWithObject:data[@"match"] inContext:self.managedObjectContext];
+    self.match = [Match findOrCreateWithObject:data[@"match"] inContext:self.managedObjectContext];
     self.result = @(MatchResultFromString(data[@"result"]));
 }
 

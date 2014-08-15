@@ -7,6 +7,7 @@
 //
 
 #import "AuthenticationViewController.h"
+#import "BetsViewController.h"
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
 #import "ForceUpdateViewController.h"
@@ -67,7 +68,7 @@
     [super loadView];
     
     void(^viewControllersSetupBlock)() = ^() {
-        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[MatchesViewController new]];
+        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[BetsViewController new]];
         FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[GroupsViewController new]];
         
         ProfileViewController *profileViewController = [ProfileViewController new];

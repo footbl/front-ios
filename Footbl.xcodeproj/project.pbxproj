@@ -184,6 +184,7 @@
 		ED785A84199DA5D7002A4DBD /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
 		ED785ABB199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
+		ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
@@ -264,6 +265,7 @@
 		EDE555C11980240E0051AAF5 /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		EDE66160196EDC2900C8F5E1 /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
 		EDE66163196EDD9C00C8F5E1 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
+		EDE66166196F56E900C8F5E1 /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
 		EDEFC64718E4884E006DD33D /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		EDEFC64A18E48C25006DD33D /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
 		EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
@@ -584,6 +586,8 @@
 		EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSearchViewController.m; sourceTree = "<group>"; };
 		EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedButton.h; sourceTree = "<group>"; };
 		EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedButton.m; sourceTree = "<group>"; };
+		EDE66164196F56E900C8F5E1 /* BetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetsViewController.h; sourceTree = "<group>"; };
+		EDE66165196F56E900C8F5E1 /* BetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetsViewController.m; sourceTree = "<group>"; };
 		EDEFC64518E4884E006DD33D /* MatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesViewController.h; sourceTree = "<group>"; };
 		EDEFC64618E4884E006DD33D /* MatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesViewController.m; sourceTree = "<group>"; };
 		EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchTableViewCell.h; sourceTree = "<group>"; };
@@ -800,6 +804,8 @@
 		ED81E82A18EA708E00212D3C /* Matches */ = {
 			isa = PBXGroup;
 			children = (
+				EDE66164196F56E900C8F5E1 /* BetsViewController.h */,
+				EDE66165196F56E900C8F5E1 /* BetsViewController.m */,
 				ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */,
 				ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */,
 				EDEFC64518E4884E006DD33D /* MatchesViewController.h */,
@@ -1639,6 +1645,7 @@
 				ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */,
 				ED785A3F199D0C62002A4DBD /* Footbl.xcdatamodeld in Sources */,
 				ED785A40199D0C62002A4DBD /* LoadingHelper.m in Sources */,
+				ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */,
 				ED785A41199D0C62002A4DBD /* Group.m in Sources */,
 				ED785A42199D0C62002A4DBD /* RatingHelper.m in Sources */,
 				ED785A43199D0C62002A4DBD /* _Match.m in Sources */,
@@ -1748,6 +1755,7 @@
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
 				ED1A69801979894B0084FB14 /* WalletGraphTableViewCell.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
+				EDE66166196F56E900C8F5E1 /* BetsViewController.m in Sources */,
 				EDEFFA1918EF3DB0003E12B7 /* _Membership.m in Sources */,
 				EDB1D47B18E1F18B00E0C949 /* Footbl.xcdatamodeld in Sources */,
 				ED115ED81932B5FD00F5A722 /* LoadingHelper.m in Sources */,

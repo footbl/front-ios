@@ -39,9 +39,12 @@
 
 - (MBProgressHUD *)showHud {
     MBProgressHUD *hud = [MBProgressHUD HUDForView:[[UIApplication sharedApplication] keyWindow]];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.animationType = MBProgressHUDAnimationZoom;
-    [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+    if (!self.isVisible) {
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.animationType = MBProgressHUDAnimationZoom;
+        [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+        _visible = YES;
+    }
     return hud;
 }
 
@@ -50,6 +53,7 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     hud.animationType = MBProgressHUDAnimationZoom;
     [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+    _visible = NO;
 }
 
 @end

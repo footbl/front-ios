@@ -12,6 +12,8 @@
 
 @interface LoadingHelper : NSObject
 
+@property (assign, nonatomic, readonly, getter = isVisible) BOOL visible;
+
 + (instancetype)sharedInstance;
 - (MBProgressHUD *)showHud;
 - (void)hideHud;

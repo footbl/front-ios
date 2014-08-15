@@ -8,6 +8,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Bet.h"
+#import "BetsViewController.h"
 #import "Championship.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
@@ -20,21 +21,23 @@
 #import "NSNumber+Formatter.h"
 #import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
+#import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "User.h"
 #import "WhatsAppActivity.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
-static CGFloat kWalletMaximumFundsToAllowBet = 20;
+static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChanged";
 
 @interface MatchesViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) CGPoint tableViewOffset;
-@property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
 @property (assign, nonatomic) NSInteger numberOfMatches;
 @property (copy, nonatomic) NSString *totalProfitText;
 @property (strong, nonatomic) NSIndexPath *totalProfitIndexPath;
+
+- (BetsViewController *)betsViewController;
 
 @end
 
@@ -45,8 +48,6 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
-
-@synthesize championship = _championship;
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
@@ -69,9 +70,14 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 }
 
 - (void)setChampionship:(Championship *)championship {
+    if (championship && [championship.slug isEqualToString:self.championship.slug]) {
+        return;
+    }
+    
     _championship = championship;
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
+    [self reloadData];
 }
 
 - (void)setTotalProfitText:(NSString *)totalProfitText {
@@ -247,16 +253,15 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         }
     }
     
-    if ([User currentUser].localFunds.integerValue + [User currentUser].localStake.integerValue <= kWalletMaximumFundsToAllowBet) {
-        UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
-        if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
-            [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
-        }
-    } else {
-        [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
+    [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
+}
+
+- (BetsViewController *)betsViewController {
+    if ([self.parentViewController isKindOfClass:[BetsViewController class]]) {
+        return (BetsViewController *)self.parentViewController;
     }
     
-    [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
+    return nil;
 }
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
@@ -271,10 +276,16 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
 - (void)reloadData {
     [super reloadData];
     
+    if (!self.championship) {
+        self.headerLabel.text = @"";
+        return;
+    }
+    
     if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         return;
     }
     
+    self.headerLabel.text = self.championship.displayName;
     NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
 
     self.numberOfMatches = matches;
@@ -292,42 +303,35 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     [[User currentUser] getWithSuccess:^(User *user) {
         [self reloadWallet];
-        [Championship getWithObject:nil success:^(NSArray *championships) {
-            if (championships.firstObject) {
-                [Match getWithObject:championships.firstObject success:^(id response) {
-                    [Bet getWithObject:[User currentUser] success:^(id response) {
-                        [self.refreshControl endRefreshing];
-                        [[LoadingHelper sharedInstance] hideHud];
-                        [self reloadWallet];
-                        
-                        void(^computeProfit)() = ^() {
-                            NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
-                            float sum = 0;
-                            for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
-                                sum += [betProfit floatValue];
-                            }
-                            NSNumber *numberOfMatches = @(updatedMatches.count);
-                            
-                            if (updatedMatches.count > 1 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
-                                NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
-                                if (sum > 0) {
-                                    text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
-                                } else if (sum < 0) {
-                                    text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
-                                }
-                                self.totalProfitText = text;
-                            }
-                        };
-                        
-                        computeProfit();
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-                    } failure:failure];
-                } failure:failure];
-            } else {
+        [Match getWithObject:self.championship.editableObject success:^(id response) {
+            [Bet getWithObject:[User currentUser] success:^(id response) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
-            }
+                [self reloadWallet];
+                
+                void(^computeProfit)() = ^() {
+                    NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
+                    float sum = 0;
+                    for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
+                        sum += [betProfit floatValue];
+                    }
+                    NSNumber *numberOfMatches = @(updatedMatches.count);
+                    
+                    if (updatedMatches.count > 1 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
+                        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
+                        if (sum > 0) {
+                            text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                        } else if (sum < 0) {
+                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
+                        }
+                        self.totalProfitText = text;
+                    }
+                };
+                
+                computeProfit();
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+            } failure:failure];
         } failure:failure];
     } failure:failure];
 }
@@ -372,6 +376,12 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
         [tabBarController setTabBarHidden:NO animated:YES];
         [self.navigationBarTitleView setTitleHidden:NO animated:YES];
     }
+    
+    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        self.headerView.frameY = self.navigationBarTitleView.titleHidden ? 64 : 80;
+    } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMatchesHeaderViewFrameChanged object:@(self.headerView.frameY) userInfo:nil];
+    }];
 }
 
 #pragma mark - UITableView data source
@@ -448,35 +458,52 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
     
-    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
-    [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.navigationBarTitleView];
-    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMatchesHeaderViewFrameChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        self.headerView.frameY = [[note object] floatValue];
+    }];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        self.championship = nil;
-        [self reloadWallet];
-        [self reloadData];
-    }];
-    
     self.tableView = tableViewController.tableView;
-    self.tableView.frame = [UIApplication sharedApplication].keyWindow.bounds;
+    self.tableView.frame = CGRectMake(0, 30, self.view.frameWidth, self.view.frameHeight - 30);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 15)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 5 + CGRectGetHeight(self.tabBarController.tabBar.frame))];
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-    [self.view insertSubview:self.tableView belowSubview:self.navigationBarTitleView];
+    [self.view addSubview:self.tableView];
+    
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.tableView.frameWidth, 30)];
+    self.headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+    self.headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.headerView];
+    
+    self.headerLabel = [[UILabel alloc] initWithFrame:self.headerView.bounds];
+    self.headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
+    self.headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
+    self.headerLabel.textAlignment = NSTextAlignmentCenter;
+    [self.headerView addSubview:self.headerLabel];
+    
+    self.headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
+    self.headerSliderBackImageView.center = CGPointMake(15, self.headerLabel.center.y);
+    [self.headerView addSubview:self.headerSliderBackImageView];
+    
+    self.headerSliderForwardImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_forward"]];
+    self.headerSliderForwardImageView.center = CGPointMake(self.headerView.frameWidth - 15, self.headerLabel.center.y);
+    [self.headerView addSubview:self.headerSliderForwardImageView];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.headerView.frameWidth, 0.5)];
+    separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+    [self.headerView addSubview:separatorView];
     
     [self reloadWallet];
     [self reloadData];
@@ -494,6 +521,8 @@ static CGFloat kWalletMaximumFundsToAllowBet = 20;
     
     [self reloadWallet];
     [self.tableView reloadData];
+    
+    self.headerView.frameY = self.navigationBarTitleView.titleHidden ? 60 : 80;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
