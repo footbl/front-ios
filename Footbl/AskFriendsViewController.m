@@ -9,6 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AskFriendsViewController.h"
 #import "AskFriendTableViewCell.h"
+#import "CreditRequest.h"
 #import "FriendsHelper.h"
 #import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
@@ -108,14 +109,14 @@
         [tempIds addObjectsFromArray:[ids subarrayWithRange:NSMakeRange(0, MIN(50, ids.count))]];
         [ids removeObjectsInRange:NSMakeRange(0, MIN(50, ids.count))];
         if (tempIds.count == 0) {
-            NSLog(@"%lu successful ids", successfullIds.count);
-            NSLog(@"%lu failed ids", failedIds.count);
-#warning Insert credit request API here
             [[LoadingHelper sharedInstance] showHud];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [CreditRequest createWithIds:successfullIds success:^(id response) {
                 [[LoadingHelper sharedInstance] hideHud];
                 [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            });
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [[LoadingHelper sharedInstance] hideHud];
+                [[ErrorHandler sharedInstance] displayError:error];
+            }];
         } else {
             fbBlock(tempIds);
         }

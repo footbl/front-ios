@@ -8,8 +8,9 @@
 
 #import "TemplateViewController.h"
 
-@interface TransfersViewController : TemplateViewController
+@interface TransfersViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) UILabel *walletLabel;
 @property (strong, nonatomic) UILabel *stakeLabel;

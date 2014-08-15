@@ -10,4 +10,7 @@
 
 @interface CreditRequest : _CreditRequest
 
++ (void)createWithIds:(NSArray *)ids success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)getRequestsWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+
 @end

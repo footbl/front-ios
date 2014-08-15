@@ -6,13 +6,18 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "CreditRequest.h"
 #import "FootblTabBarController.h"
+#import "ErrorHandler.h"
+#import "LoadingHelper.h"
 #import "NSParagraphStyle+AlignmentCenter.h"
 #import "TransfersViewController.h"
 #import "UIImage+Color.h"
 #import "User.h"
 
 @interface TransfersViewController ()
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -23,6 +28,30 @@
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (!_fetchedResultsController) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CreditRequest"];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+        switch (self.segmentedControl.selectedSegmentIndex) {
+            case 0:
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"chargedUser.slug = %@", [User currentUser].slug];
+                break;
+            default:
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"creditedUser.slug = %@", [User currentUser].slug];
+                break;
+        }
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController.delegate = self;
+        
+        NSError *error = nil;
+        if (![_fetchedResultsController performFetch:&error]) {
+            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    return _fetchedResultsController;
+}
 
 #pragma mark - Instance Methods
 
@@ -35,7 +64,8 @@
 }
 
 - (IBAction)segmentedControlAction:(id)sender {
-    
+    self.fetchedResultsController = nil;
+    [self.tableView reloadData];
 }
 
 - (void)setupLabels {
@@ -65,7 +95,83 @@
     self.stakeLabel.attributedText = stakeText;
 }
 
+- (void)reloadData {
+    [super reloadData];
+    
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        [[LoadingHelper sharedInstance] showHud];
+    }
+    
+    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+    };
+    
+    [CreditRequest getWithObject:[User currentUser] success:^(id response) {
+        [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:failure];
+    } failure:failure];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0:
+            cell.textLabel.text = request.creditedUser.name;
+            break;
+        default:
+            cell.textLabel.text = request.chargedUser.name;
+            break;
+    }
+    
+//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    cell.nameLabel.text = championship.displayName;
+//    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.displayCountry stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
+//    [cell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+//    if (championship.enabledValue) {
+//        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    } else {
+//        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    }
+}
+
 #pragma mark - Delegates & Data sources
+
+#pragma mark - UITableView data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [[[self fetchedResultsController] sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
+    return [sectionInfo numberOfObjects];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CreditCell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark - UITableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser], @"championship" : championship.slug} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    [championship.entry deleteWithSuccess:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
+}
 
 #pragma mark - View Lifecycle
 
@@ -102,10 +208,20 @@
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:separatorView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(headerView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(headerView.frame) - 66)];
+    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    tableViewController.refreshControl = self.refreshControl;
+    
+    self.tableView = tableViewController.tableView;
+    self.tableView.frame = CGRectMake(0, CGRectGetMaxY(headerView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(headerView.frame) - 66);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.rowHeight = 62;
+    self.tableView.allowsMultipleSelection = YES;
     self.tableView.separatorColor = separatorView.backgroundColor;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CreditCell"];
     [self.view insertSubview:self.tableView belowSubview:separatorView];
     
     self.sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 66, CGRectGetWidth(self.view.frame), 66)];
@@ -117,6 +233,7 @@
     [self.view addSubview:self.sendButton];
     
     [self setupLabels];
+    [self reloadData];
 }
 
 - (void)viewDidLoad {
