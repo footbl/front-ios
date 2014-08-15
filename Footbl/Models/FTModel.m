@@ -200,7 +200,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 + (instancetype)findWithObject:(id)object inContext:(NSManagedObjectContext *)managedObjectContext createIfNil:(BOOL)createIfNil {
     NSString *rid = nil;
-    if ([object isKindOfClass:[NSDictionary class]]) {
+    if ([object isKindOfClass:[NSDictionary class]] && object[kFTResponseParamIdentifier]) {
         rid = object[kFTResponseParamIdentifier];
     } else if ([object isKindOfClass:[NSString class]]) {
         rid = object;
