@@ -57,6 +57,8 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
         return FTAuthenticationTypeEmailPassword;
     } else if (self.password.length > 0) {
         return FTAuthenticationTypeAnonymous;
+    } else if ([FBSession activeSession].accessTokenData.accessToken.length > 0) {
+        return FTAuthenticationTypeFacebook;
     } else {
         return FTAuthenticationTypeNone;
     }
@@ -115,7 +117,11 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
         return;
     }
     
-    [self loginWithEmail:self.email password:self.password success:success failure:failure];
+    if (self.authenticationType == FTAuthenticationTypeFacebook) {
+        [self loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:success failure:failure];
+    } else {
+        [self loginWithEmail:self.email password:self.password success:success failure:failure];
+    }
 }
 
 - (void)createUserWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -132,14 +138,20 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 }
 
 - (void)loginWithFacebookToken:(NSString *)fbToken success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    BOOL shouldSendNotification = (self.authenticationType == FTAuthenticationTypeNone);
     [[FTOperationManager sharedManager] validateEnvironmentWithSuccess:^(id response) {
         [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionGroupRequests operations:^{
             [[FTOperationManager sharedManager].requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
             [[FTOperationManager sharedManager] GET:@"users/me/auth" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                [[FTOperationManager sharedManager].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+                self.email = nil;
+                self.password = nil;
                 self.token = responseObject[@"token"];
                 [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
                 [User getMeWithSuccess:^(id response) {
+                    [[FTOperationManager sharedManager].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+                    if (shouldSendNotification) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
+                    }
                     if (success) success(response);
                 } failure:failure];
             } failure:failure];
