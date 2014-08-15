@@ -16,17 +16,32 @@
 /* Create your group button title */
 "Create your group button title" = "Create your own group";
 
+/* Championship: brasileirão */
+"Championship: brasileirão" = "Brasileirão";
+
 /* {number of stakes} stakes and {number of comments} comments */
 "%i stakes and %i comments" = "%1$i stakes and %2$i comments";
 
 /* Championships */
 "Championships" = "Championships";
 
+/* Country: brasil */
+"Country: brasil" = "Brazil";
+
+/* Team: Manchester United */
+"Team: Manchester United" = "Man. United";
+
 /* Create your group button subtitle */
 "Create your group button subtitle" = "Bet with friends and prove who’s the best!";
 
+/* Team: Manchester City */
+"Team: Manchester City" = "Man. City";
+
 /* Close tutorial */
 "Close tutorial" = "Close tutorial";
+
+/* Team: West Bromwich */
+"Team: West Bromwich" = "W. Bromwich";
 
 /* Draw */
 "Draw" = "Draw";
@@ -34,8 +49,17 @@
 /* Error */
 "Error" = "Error";
 
+/* Team: Athletic Bilbao */
+"Team: Athletic Bilbao" = "Athl. Bilbao";
+
+/* Team: Atlético Madrid */
+"Team: Atlético Madrid" = "Atl. Madrid";
+
 /* Find Friends */
 "Find Friends" = "Find Friends";
+
+/* Team: Deportivo La Coruna */
+"Team: Deportivo La Coruna" = "D. La Coruna";
 
 /* Groups */
 "Groups" = "Groups";
@@ -43,8 +67,17 @@
 /* Log in with Facebook */
 "Log in with Facebook" = "Log in with Facebook";
 
+/* Team: Rayo Vallecano */
+"Team: Rayo Vallecano" = "R. Vallecano";
+
+/* Team: Inter Milan */
+"Team: Inter Milan" = "Internazionale";
+
 /* Matches */
 "Matches" = "Matches";
+
+/* Team: Bor. Dortmund */
+"Team: Bor. Dortmund" = "B. Dortmund";
 
 /* New Group */
 "New Group" = "New Group";
@@ -52,14 +85,29 @@
 /* OK */
 "OK" = "OK";
 
+/* Team: Bayer Leverkusen */
+"Team: Bayer Leverkusen" = "B. Leverkusen";
+
 /* Profile */
 "Profile" = "Profile";
+
+/* Team: Bor. Monchengladbach */
+"Team: Bor. Monchengladbach" = "B. Monchen.";
 
 /* Profit */
 "Profit" = "Profit";
 
+/* Team: Bayern Munich */
+"Team: Bayern Munich" = "B. Munich";
+
+/* Team: Eintracht Frankfurt */
+"Team: Eintracht Frankfurt" = "E. Frankfurt";
+
 /* Settings */
 "Settings" = "Settings";
+
+/* Team: Hamburger SV */
+"Team: Hamburger SV" = "Hamburger";
 
 /* Sign up */
 "Sign up" = "Sign up";
@@ -67,8 +115,17 @@
 /* Skip for now */
 "Skip for now" = "Skip for now";
 
+/* Team: Hannover */
+"Team: Hannover" = "Hannover 96";
+
 /* Stake */
 "Stake" = "Stake";
+
+/* Team: Werder Bremen */
+"Team: Werder Bremen" = "W. Bremen";
+
+/* Team: Evian Tgfc */
+"Team: Evian Tgfc" = "Evian";
 
 /* Teams */
 "Teams" = "Teams";
@@ -76,20 +133,41 @@
 /* To return */
 "To return" = "To return";
 
+/* Team: Atletico Mineiro */
+"Team: Atletico Mineiro" = "Atlético MG";
+
 /* Tutorial */
 "Tutorial" = "Tutorial";
+
+/* Team: Atletico Paranaense */
+"Team: Atletico Paranaense" = "Atlético PR";
 
 /* Wallet */
 "Wallet" = "Wallet";
 
+/* Team: Arsenal Sarandi */
+"Team: Arsenal Sarandi" = "Arsenal Sar.";
+
 /* Build type */
 "Build type" = "Build type";
+
+/* Team: Atletico Rafaela */
+"Team: Atletico Rafaela" = "Atl. Rafaela";
+
+/* Team: Defensa Y Justicia */
+"Team: Defensa Y Justicia" = "Defensa Y J.";
 
 /* Version */
 "Version" = "Version";
 
+/* Team: Newells Ob */
+"Team: Newells Ob" = "Newells O. B.";
+
 /* Now */
 "Now" = "Now";
+
+/* Team: Rosario Central */
+"Team: Rosario Central" = "Rosario Cent.";
 
 /* Or */
 "Or" = "Or";
@@ -97,14 +175,29 @@
 /* Group Info */
 "Group Info" = "Group Info";
 
+/* Team: Chicago Fire */
+"Team: Chicago Fire" = "Chicago F.";
+
 /* Group */
 "Group" = "Group";
+
+/* Team: Chivas Usa */
+"Team: Chivas Usa" = "Chivas USA";
 
 /* Leave group */
 "Leave group" = "Leave group";
 
+/* Team: Colorado Rapids */
+"Team: Colorado Rapids" = "Colorado R.";
+
+/* Team: Columbus Crew */
+"Team: Columbus Crew" = "Columbus C.";
+
 /* Live - {time elapsed}' */
 "Live - %i'" = "Live - %i'";
+
+/* Team: Dc United */
+"Team: Dc United" = "DC United";
 
 /* Logout */
 "Logout" = "Logout";
@@ -112,8 +205,17 @@
 /* {number of rounds} rounds to end */
 "%i rounds to end" = "%i rounds to end";
 
+/* Team: FC Dallas */
+"Team: FC Dallas" = "FC Dallas";
+
+/* Team: Houston Dynamo */
+"Team: Houston Dynamo" = "Houston D.";
+
 /* 1 round to end */
 "1 round to end" = "Last round";
+
+/* Team: Montreal Impact */
+"Team: Montreal Impact" = "Montreal I.";
 
 /* Championship finished */
 "Championship finished" = "Championship finished";
@@ -121,14 +223,32 @@
 /* {number of characters} characters left */
 "%i characters left" = "%i characters left";
 
+/* Team: New England Rev */
+"Team: New England Rev" = "N. England R.";
+
+/* Team: N.Y Red Bulls */
+"Team: N.Y Red Bulls" = "NY Red Bulls";
+
 /* 1 character left */
 "1 character left" = "1 character left";
+
+/* Team: Philadelphia Union */
+"Team: Philadelphia Union" = "Philadelphia U.";
 
 "NOTIFICATION_GROUP_ADDED" = "%@ just added you to the group %@ (%@).";
 
 "NOTIFICATION_ROUND_END" = "You've just made ฿%@ on %@! Check?";
 
+/* Team: Portland Timbers */
+"Team: Portland Timbers" = "Portland T.";
+
 "NOTIFICATION_LEAGUE_END" = "%@ has just ended. Check your standings?";
+
+/* Team: Real Salt Lake */
+"Team: Real Salt Lake" = "R. Salt Lake";
+
+/* Team: Sporting Kansas City */
+"Team: Sporting Kansas City" = "S. Kansas C.";
 
 /* Add photo */
 "Add photo" = "Add photo";
@@ -136,13 +256,25 @@
 /* Insert group name */
 "Insert group name" = "Insert group name";
 
+/* Team: San Jose */
+"Team: San Jose" = "San Jose E.";
+
+/* Team: Seattle Sounders */
+"Team: Seattle Sounders" = "Seattle S.";
+
 /* Next */
 "Next" = "Next";
+
+/* Team: Toronto Fc */
+"Team: Toronto Fc" = "Toronto FC";
 
 "NOTIFICATION_ROUND_START" = "Matches are about to start… wanna bet?";
 
 /* Add members */
 "Add members" = "Add members";
+
+/* Team: Vancouver Whitecaps */
+"Team: Vancouver Whitecaps" = "Vancouver W.";
 
 /* Contacts */
 "Contacts" = "Contacts";
