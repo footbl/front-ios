@@ -267,9 +267,7 @@
             }
         }
     } else {
-        for (Bet *bet in self.activeBets) {
-            stake += bet.bidValue;
-        }
+        stake = self.stakeValue;
     }
     
     if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
