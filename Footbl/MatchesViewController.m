@@ -143,6 +143,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     cell.totalProfitView.hidden = hideTotalProfit;
     cell.totalProfitLabel.text = self.totalProfitText;
     
+    __block NSUInteger cancelBlockId;
     __block Bet *bet = match.myBet;
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     [cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
@@ -204,6 +205,15 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         if ([User currentUser].localFunds.integerValue < 1 && weakCell.isStepperSelected) {
             weakCell.stepperUserInteractionEnabled = NO;
         }
+        
+        if (cancelBlockId) {
+            cancel_block(cancelBlockId);
+        }
+        
+        self.betsViewController.panGestureRecognizer.enabled = NO;
+        perform_block_after_delay_k(1, &cancelBlockId, ^{
+            self.betsViewController.panGestureRecognizer.enabled = YES;
+        });
         
         FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];

@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;;
 
 - (void)reloadWallet;

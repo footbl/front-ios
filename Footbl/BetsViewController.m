@@ -257,8 +257,8 @@
     self.scrollView.scrollsToTop = NO;
     [self.view insertSubview:self.scrollView belowSubview:self.navigationBarTitleView];
     
-    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
-    [self.scrollView addGestureRecognizer:panGestureRecognizer];
+    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
+    [self.scrollView addGestureRecognizer:self.panGestureRecognizer];
     
     [self reloadData];
     [self reloadScrollView];
