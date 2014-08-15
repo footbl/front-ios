@@ -185,7 +185,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 }
 
 + (NSManagedObjectContext *)editableManagedObjectContext {
-    return [(AppDelegate *)[UIApplication sharedApplication].delegate backgroundManagedObjectContext];
+    return [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
 }
 
 - (instancetype)editableObject {
