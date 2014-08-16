@@ -75,6 +75,7 @@
     __block NSMutableArray *successfullIds = [NSMutableArray new];
     __block NSMutableArray *failedIds = [NSMutableArray new];
     __block void(^runBlock)();
+    __block FBSession *session;
     
     __block void(^fbBlock)(NSArray *fbIds) = ^(NSArray *fbIds) {
         NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
@@ -88,7 +89,7 @@
             idx ++;
         }
         
-        [FBWebDialogs presentRequestsDialogModallyWithSession:[FBSession activeSession] message:NSLocalizedString(@"Facebook request message", @"") title:NSLocalizedString(@"Facebook request title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+        [FBWebDialogs presentRequestsDialogModallyWithSession:session message:NSLocalizedString(@"Facebook request message", @"") title:NSLocalizedString(@"Facebook request title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
             if (error) {
                 SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
                 [[ErrorHandler sharedInstance] displayError:error];
@@ -122,7 +123,10 @@
         }
     };
     
-    runBlock();
+    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
+        session = fbSession;
+        runBlock();
+    }];
 }
 
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
