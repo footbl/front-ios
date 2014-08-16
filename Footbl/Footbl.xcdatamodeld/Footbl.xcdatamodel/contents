@@ -20,6 +20,7 @@
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="championship" inverseEntity="Match" syncable="YES"/>
     </entity>
     <entity name="CreditRequest" representedClassName="CreditRequest" parentEntity="FTModel" syncable="YES">
+        <attribute name="facebookId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="payed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="chargedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="chargeRequests" inverseEntity="User" syncable="YES"/>
@@ -107,13 +108,13 @@
     <elements>
         <element name="Bet" positionX="-36" positionY="117" width="128" height="105"/>
         <element name="Championship" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="CreditRequest" positionX="9" positionY="180" width="128" height="120"/>
+        <element name="Entry" positionX="18" positionY="189" width="128" height="58"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
         <element name="Group" positionX="-36" positionY="108" width="128" height="165"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="373"/>
-        <element name="CreditRequest" positionX="9" positionY="180" width="128" height="103"/>
-        <element name="Entry" positionX="18" positionY="189" width="128" height="58"/>
     </elements>
 </model>

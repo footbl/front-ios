@@ -5,6 +5,7 @@
 #import "FTModel.h"
 
 extern const struct CreditRequestAttributes {
+	__unsafe_unretained NSString *facebookId;
 	__unsafe_unretained NSString *payed;
 	__unsafe_unretained NSString *value;
 } CreditRequestAttributes;
@@ -23,6 +24,7 @@ extern const struct CreditRequestFetchedProperties {
 
 
 
+
 @interface CreditRequestID : NSManagedObjectID {}
 @end
 
@@ -31,6 +33,16 @@ extern const struct CreditRequestFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (CreditRequestID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* facebookId;
+
+
+
+//- (BOOL)validateFacebookId:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -86,6 +98,12 @@ extern const struct CreditRequestFetchedProperties {
 @end
 
 @interface _CreditRequest (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveFacebookId;
+- (void)setPrimitiveFacebookId:(NSString*)value;
+
+
 
 
 - (NSNumber*)primitivePayed;

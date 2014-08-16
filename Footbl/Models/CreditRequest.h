@@ -12,5 +12,6 @@
 
 + (void)createWithIds:(NSArray *)ids success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)getRequestsWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)payRequests:(NSArray *)requests success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
 @end

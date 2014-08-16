@@ -185,6 +185,8 @@
 		ED785ABB199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
+		ED785AC0199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
+		ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
@@ -438,6 +440,8 @@
 		ED785AB8199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeaguesViewController.h; sourceTree = "<group>"; };
 		ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLeaguesViewController.m; sourceTree = "<group>"; };
+		ED785ABE199ED2E3002A4DBD /* TransferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferTableViewCell.h; sourceTree = "<group>"; };
+		ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferTableViewCell.m; sourceTree = "<group>"; };
 		ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppAPI.h; sourceTree = "<group>"; };
 		ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppAPI.m; sourceTree = "<group>"; };
 		ED7C0FB51959C76900275685 /* WhatsAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
@@ -734,6 +738,8 @@
 			children = (
 				ED3A0F611989777900011E91 /* AskFriendTableViewCell.h */,
 				ED3A0F621989777900011E91 /* AskFriendTableViewCell.m */,
+				ED785ABE199ED2E3002A4DBD /* TransferTableViewCell.h */,
+				ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */,
 			);
 			name = "Credit Request";
 			sourceTree = "<group>";
@@ -1563,6 +1569,7 @@
 				ED7859F1199D0C62002A4DBD /* _Group.m in Sources */,
 				ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */,
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
+				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
 				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
 				ED7859F5199D0C62002A4DBD /* Match.m in Sources */,
 				ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */,
@@ -1676,6 +1683,7 @@
 				EDEFFA0718EEF764003E12B7 /* _Group.m in Sources */,
 				EDBD2C99192F10CA002C763D /* FavoritesViewController.m in Sources */,
 				EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */,
+				ED785AC0199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
 				ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */,
 				ED9DC8DF18E3271900DF458C /* Match.m in Sources */,
 				EDBD2C9F192F19B9002C763D /* FeaturedViewController.m in Sources */,

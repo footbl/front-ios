@@ -51,7 +51,6 @@
     [ids enumerateObjectsUsingBlock:^(NSString *userId, NSUInteger idx, BOOL *stop) {
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[kFTRequestParamResourcePathObject] = userId;
-        parameters[@"value"] = @(100 - [User currentUser].fundsValue);
         [CreditRequest createWithParameters:parameters success:^(id response) {
             [pendingIds removeObject:userId];
             if (pendingIds.count == 0) {
@@ -75,7 +74,7 @@
     NSString *path = [self resourcePathWithObject:object];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"creditedUser = %@", object]]];
+            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"chargedUser = %@", object]]];
         } completionBlock:success];
     } failure:failure];
 }
@@ -84,9 +83,37 @@
     NSString *path = [NSString stringWithFormat:@"users/%@/requested-credits", object.slug];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"creditedUser = %@", object]]];
         } completionBlock:success];
     } failure:failure];
+}
+
++ (void)payRequests:(NSArray *)requests success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    if (requests.count == 0) {
+        if (success) success(self);
+        return;
+    }
+    __block NSMutableArray *pendingIds = [requests mutableCopy];
+    __block NSError *operationError = nil;
+    [requests enumerateObjectsUsingBlock:^(CreditRequest *request, NSUInteger idx, BOOL *stop) {
+        NSString *path = [NSString stringWithFormat:@"users/%@/credit-requests/%@/approve", [User currentUser].slug, request.slug];
+        [[FTOperationManager sharedManager] PUT:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [pendingIds removeObject:request];
+            if (pendingIds.count == 0) {
+                if (operationError) {
+                    if (failure) failure(nil, operationError);
+                } else {
+                    if (success) success(self);
+                }
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            operationError = error;
+            [pendingIds removeObject:request];
+            if (pendingIds.count == 0) {
+                if (failure) failure(nil, operationError);
+            }
+        }];
+    }];
 }
 
 #pragma mark - Instance Methods
@@ -100,6 +127,14 @@
     
     self.chargedUser = [User findOrCreateWithObject:data[@"chargedUser"] inContext:self.managedObjectContext];
     self.creditedUser = [User findOrCreateWithObject:data[@"creditedUser"] inContext:self.managedObjectContext];
+    
+    if (!self.chargedUser) {
+        self.facebookId = data[@"chargedUser"][@"facebookId"];
+    } else if (!self.creditedUser) {
+        self.facebookId = data[@"creditedUser"][@"facebookId"];
+    }
+    
+    self.value = @(MAX(0, 100 - [data[@"creditedUser"][@"funds"] integerValue] - [data[@"creditedUser"][@"stake"] integerValue]));
 }
 
 @end

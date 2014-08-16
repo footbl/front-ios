@@ -4,6 +4,7 @@
 #import "_CreditRequest.h"
 
 const struct CreditRequestAttributes CreditRequestAttributes = {
+	.facebookId = @"facebookId",
 	.payed = @"payed",
 	.value = @"value",
 };
@@ -55,6 +56,13 @@ const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic facebookId;
+
+
 
 
 

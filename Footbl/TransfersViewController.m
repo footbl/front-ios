@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "CreditRequest.h"
 #import "FootblTabBarController.h"
+#import "FriendsHelper.h"
 #import "ErrorHandler.h"
 #import "LoadingHelper.h"
 #import "NSParagraphStyle+AlignmentCenter.h"
+#import "TransferTableViewCell.h"
 #import "TransfersViewController.h"
 #import "UIImage+Color.h"
 #import "User.h"
@@ -18,6 +21,8 @@
 @interface TransfersViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSArray *fbFriends;
+@property (strong, nonatomic) NSMutableArray *pendingTransfers;
 
 @end
 
@@ -32,7 +37,7 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CreditRequest"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         switch (self.segmentedControl.selectedSegmentIndex) {
             case 0:
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"chargedUser.slug = %@", [User currentUser].slug];
@@ -66,6 +71,44 @@
 - (IBAction)segmentedControlAction:(id)sender {
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
+    
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0:
+            self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - self.tableView.frame.origin.y - 66);
+            self.sendButton.hidden = NO;
+            break;
+        default:
+            self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - self.tableView.frame.origin.y);
+            self.sendButton.hidden = YES;
+            break;
+    }
+}
+
+- (IBAction)sendMoneyAction:(id)sender {
+    if (self.pendingTransfers.count == 0) {
+        return;
+    }
+    
+    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+    };
+    
+    [CreditRequest payRequests:self.pendingTransfers success:^(id response) {
+        [CreditRequest getWithObject:[User currentUser] success:^(id response) {
+            [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:failure];
+        } failure:failure];
+    } failure:failure];
+}
+
+- (NSInteger)userWallet {
+    NSInteger totalTransfers = [User currentUser].localFunds.integerValue;
+    for (CreditRequest *request in self.pendingTransfers) {
+        totalTransfers -= request.valueValue;
+    }
+    return totalTransfers;
 }
 
 - (void)setupLabels {
@@ -80,7 +123,7 @@
     NSMutableAttributedString *walletText = [NSMutableAttributedString new];
     NSMutableAttributedString *stakeText = [NSMutableAttributedString new];
     
-    [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[User currentUser].localFunds.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
+    [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[@([self userWallet]) stringValue] stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
     [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[[User currentUser].localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
@@ -95,12 +138,16 @@
     self.stakeLabel.attributedText = stakeText;
 }
 
+- (void)reloadWallet {
+    [self setupLabels];
+    
+    self.sendButton.enabled = (self.pendingTransfers.count > 0);
+}
+
 - (void)reloadData {
     [super reloadData];
     
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
-        [[LoadingHelper sharedInstance] showHud];
-    }
+    [[LoadingHelper sharedInstance] showHud];
     
     FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
@@ -108,34 +155,71 @@
         [[ErrorHandler sharedInstance] displayError:error];
     };
     
-    [CreditRequest getWithObject:[User currentUser] success:^(id response) {
-        [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-        } failure:failure];
-    } failure:failure];
+    [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *fbFriends, NSError *error) {
+        [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *invFriends, NSError *error) {
+            self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
+            [self.tableView reloadData];
+            [CreditRequest getWithObject:[User currentUser] success:^(id response) {
+                [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
+                    [self.refreshControl endRefreshing];
+                    [[LoadingHelper sharedInstance] hideHud];
+                } failure:failure];
+            } failure:failure];
+        }];
+    }];
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(TransferTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
-            cell.textLabel.text = request.creditedUser.name;
+            cell.nameLabel.text = request.creditedUser.name;
+            cell.valueLabel.hidden = NO;
+            [cell setEnabled:!request.payedValue];
+            if (request.payedValue) {
+                cell.valueLabel.hidden = YES;
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            } else {
+                cell.valueLabel.hidden = NO;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
             break;
         default:
-            cell.textLabel.text = request.chargedUser.name;
+            cell.nameLabel.text = request.chargedUser.name;
+            if (request.payedValue) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                cell.valueLabel.hidden = YES;
+                [cell setEnabled:NO];
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.valueLabel.hidden = NO;
+                [cell setEnabled:YES];
+            }
             break;
     }
     
-//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    cell.nameLabel.text = championship.displayName;
-//    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.displayCountry stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
-//    [cell.championshipImageView setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
-//    if (championship.enabledValue) {
-//        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    } else {
-//        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-//    }
+    cell.valueLabel.text = request.value.stringValue;
+    
+    User *user = nil;
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        user = request.creditedUser;
+    } else {
+        user = request.chargedUser;
+    }
+    
+    if (user) {
+        cell.nameLabel.text = user.name;
+        [cell.profileImageView setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
+    } else if (request.facebookId.length > 0) {
+        NSDictionary *friend = [self.fbFriends filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id = %@", request.facebookId]].firstObject;
+        cell.nameLabel.text = friend[@"name"];
+        if ([friend[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+            [cell.profileImageView cancelCurrentImageLoad];
+            [cell restoreProfileImagePlaceholder];
+        } else {
+            [cell.profileImageView setImageWithURL:[NSURL URLWithString:friend[@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+        }
+    }
 }
 
 #pragma mark - Delegates & Data sources
@@ -152,7 +236,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CreditCell" forIndexPath:indexPath];
+    TransferTableViewCell *cell = (TransferTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CreditCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -160,17 +244,24 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser], @"championship" : championship.slug} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [[ErrorHandler sharedInstance] displayError:error];
-//    }];
+    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 100) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
+    [self.pendingTransfers addObject:request];
+    [self reloadWallet];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [championship.entry deleteWithSuccess:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [[ErrorHandler sharedInstance] displayError:error];
-//    }];
+    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0) {
+        return;
+    }
+    
+    [self.pendingTransfers removeObject:request];
+    [self reloadWallet];
 }
 
 #pragma mark - View Lifecycle
@@ -181,6 +272,8 @@
     self.title = NSLocalizedString(@"Transfers", @"");
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     self.view.clipsToBounds = NO;
+    
+    self.pendingTransfers = [NSMutableArray new];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 100)];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -208,6 +301,9 @@
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:separatorView];
     
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+    
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
@@ -218,10 +314,10 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.rowHeight = 62;
+    self.tableView.rowHeight = 58;
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.separatorColor = separatorView.backgroundColor;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CreditCell"];
+    [self.tableView registerClass:[TransferTableViewCell class] forCellReuseIdentifier:@"CreditCell"];
     [self.view insertSubview:self.tableView belowSubview:separatorView];
     
     self.sendButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 66, CGRectGetWidth(self.view.frame), 66)];
@@ -230,10 +326,12 @@
     [self.sendButton setTitle:NSLocalizedString(@"Send $", @"") forState:UIControlStateNormal];
     [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.sendButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0.21 green:0.78 blue:0.46 alpha:1]] forState:UIControlStateNormal];
+    [self.sendButton addTarget:self action:@selector(sendMoneyAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.sendButton];
     
     [self setupLabels];
     [self reloadData];
+    [self reloadWallet];
 }
 
 - (void)viewDidLoad {
