@@ -702,7 +702,7 @@ Make more bets and increase your profit! */
 "Recharge your wallet\nMake more bets and increase your profit!" = "Recharge your wallet\nMake more bets and increase\nyour profit!";
 
 /* Actual amount */
-"Actual amount" = "Actual amount";
+"Actual amount" = "Current amount";
 
 /* After recharge */
 "After recharge" = "After recharge";
