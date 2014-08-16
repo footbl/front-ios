@@ -268,7 +268,10 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
     }];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self reloadWallet];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -280,6 +283,7 @@
     [super viewWillAppear:animated];
     
     self.scrollViewCurrentPage = self.scrollViewCurrentPage;
+    [self reloadWallet];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
