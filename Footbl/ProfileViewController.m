@@ -56,7 +56,7 @@
     _shouldShowSettings = shouldShowSettings;
     
     if (self.shouldShowSettings) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
         } else {
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
@@ -143,7 +143,7 @@
     [[User currentUser].editableObject getWithSuccess:^(id response) {
         [self reloadContent];
         
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
             [self reloadContent];
             [self.refreshControl endRefreshing];
         } else {
@@ -244,7 +244,7 @@
             break;
         }
         case 2: {
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
                 cell.textLabel.text = NSLocalizedString(@"Settings", @"");
                 cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
                 cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
@@ -301,7 +301,7 @@
     if (section == 1) {
         return 10;
     } else if (section == 2) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
             return 10;
         } else if (self.bets.count > 0) {
             return 7;
@@ -320,9 +320,9 @@
         case 0:
             return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", YES) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
-            return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : 0);
+            return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 1 : 0);
         case 2:
-            return FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 1 : self.bets.count;
+            return FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 1 : self.bets.count;
         default:
             return 1;
     }
@@ -361,7 +361,7 @@
             
             break;
         case 2:
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
                 identifier = @"Cell";
             } else {
                 identifier = @"MatchCell";
@@ -400,7 +400,7 @@
                     return 67;
             }
         case 2: {
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings) {
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
                 return 50;
             }
             
@@ -420,7 +420,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.shouldShowSettings) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", NO)) {
+        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
             if (indexPath.section == 1 && indexPath.row == 1) {
                 [self betsAction:nil];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -502,7 +502,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.allowsMultipleSelection = YES;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), FBTweakValue(@"UX", @"Profile", @"Transfers", NO) && self.shouldShowSettings ? 10 : 5)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 10 : 5)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
