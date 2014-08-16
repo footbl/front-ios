@@ -231,7 +231,7 @@
 }
 
 - (BOOL)canRecharge {
-    return (self.localFunds.integerValue + self.localStake.integerValue >= 100);
+    return (self.totalWallet.integerValue < 100);
 }
 
 - (NSNumber *)localFunds {
