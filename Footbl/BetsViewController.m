@@ -109,7 +109,12 @@
 }
 
 - (NSTimeInterval)updateInterval {
-    return UPDATE_INTERVAL_NEVER;
+    NSTimeInterval interval = [super updateInterval];
+    for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+        interval = MIN(interval, [matchesViewController updateInterval]);
+    }
+    
+    return 60;
 }
 
 - (void)reloadScrollView {
@@ -175,7 +180,9 @@
     
     [Championship getWithObject:nil success:^(id response) {
         [Entry getWithObject:[User currentUser] success:^(id response) {
-
+            for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+                [matchesViewController reloadData];
+            }
         } failure:failure];
     } failure:failure];
 }
