@@ -46,7 +46,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
     if (self) {
         _responseLimit = 20;
         self.requestSerializer = [FTRequestSerializer serializer];
-        self.environment = FTEnvironmentDevelopment;
+        self.environment = FTEnvironmentProduction;
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
