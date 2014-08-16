@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;;
+@property (strong, nonatomic) UILabel *placeholderLabel;
 
 - (void)reloadWallet;
 

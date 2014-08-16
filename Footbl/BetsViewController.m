@@ -149,6 +149,12 @@
     self.scrollView.contentSize = contentSize;
     self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.frameWidth), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
     
+    if (championships.count == 0) {
+        self.placeholderLabel.hidden = NO;
+    } else {
+        self.placeholderLabel.hidden = YES;
+    }
+    
     [self.championshipsViewControllers removeObjectsForKeys:championshipsToRemove.allKeys];
     for (UIViewController *viewController in championshipsToRemove.allValues) {
         [viewController removeFromParentViewController];
@@ -256,6 +262,16 @@
     self.scrollView.scrollEnabled = NO;
     self.scrollView.scrollsToTop = NO;
     [self.view insertSubview:self.scrollView belowSubview:self.navigationBarTitleView];
+    
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, self.view.frameWidth - 40, 200)];
+    self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+    self.placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
+    self.placeholderLabel.textAlignment = NSTextAlignmentCenter;
+    self.placeholderLabel.text = NSLocalizedString(@"Leagues placeholder", @"");
+    self.placeholderLabel.hidden = YES;
+    self.placeholderLabel.numberOfLines = 0;
+    [self.view addSubview:self.placeholderLabel];
     
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
     [self.scrollView addGestureRecognizer:self.panGestureRecognizer];

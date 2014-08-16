@@ -735,3 +735,6 @@ Make more bets and increase your profit! */
 
 "NOTIFICATION_RECEIVED_CASH" = "%@ te enviou uma grana. Que beleeeza!";
 
+/* Leagues placeholder */
+"Leagues placeholder" = "Adicione novas ligas em Perfil > Ajustes > Minhas Ligas";
+

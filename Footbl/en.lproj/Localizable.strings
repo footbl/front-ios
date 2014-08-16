@@ -623,7 +623,7 @@ Do you want to log in instead? */
 "Share on WhatsApp" = "Share on WhatsApp";
 
 /* Error: group not found */
-"Error: group not found" = "We didn't found any group with this code. Are you sure it's correct?";
+"Error: group not found" = "We didn't find any group with this code. Are you sure it's correct?";
 
 /* Not now */
 "Not now" = "Not now";
@@ -734,4 +734,7 @@ Make more bets and increase your profit! */
 "NOTIFICATION_SOMEONE_NEED_CASH" = "%@ needs some cash! Feeling generous? ";
 
 "NOTIFICATION_RECEIVED_CASH" = "%@ sent you some cash. Ka-ching!";
+
+/* Leagues placeholder */
+"Leagues placeholder" = "Add new leagues on Profile > Settings > My Leagues";
 
