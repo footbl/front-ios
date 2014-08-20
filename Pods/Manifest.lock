@@ -25,6 +25,9 @@ PODS:
   - CargoBay (2.0.3):
     - AFNetworking (~> 2.1)
   - Cloudinary (1.0.11)
+  - FlurrySDK (5.2.0):
+    - FlurrySDK/FlurrySDK
+  - FlurrySDK/FlurrySDK (5.2.0)
   - FXKeychain (1.5)
   - GoogleAnalytics-iOS-SDK (3.0.3)
   - iRate (1.10.2)
@@ -61,6 +64,7 @@ DEPENDENCIES:
   - APAddressBook
   - CargoBay
   - Cloudinary
+  - FlurrySDK
   - FXKeychain
   - GoogleAnalytics-iOS-SDK (= 3.0.3)
   - iRate
@@ -82,6 +86,7 @@ SPEC CHECKSUMS:
   APAddressBook: 68f34e35b5a037caca73e101c49b33c9eba224a9
   CargoBay: 186add8173f99bd8f0379cc1da9c7c6bd1bef82b
   Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
+  FlurrySDK: 5322b9eb0d0b538f1a1983a6717f3a2e2ba03047
   FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
   GoogleAnalytics-iOS-SDK: ee5322bf919d731d34ff3c8d891301e8f1e0e873
   iRate: 7d204971bab2f727195b868e32e05216fe257681
