@@ -475,6 +475,8 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         self.headerView.frameY = [[note object] floatValue];
     }];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
