@@ -33,7 +33,7 @@
 }
 
 - (IBAction)rechargeAction:(id)sender {
-    if ([User currentUser].canRecharge) {
+    if (![User currentUser].canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
         return;
