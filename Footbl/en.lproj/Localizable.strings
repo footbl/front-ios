@@ -409,7 +409,7 @@
 "Share match: waiting without bet" = "Which team should I bet on? %1$@ or %2$@?\n#footbl | wanna bet? http://footbl.co/dl";
 
 /* Cannot update wallet due to wallet balance */
-"Cannot update wallet due to wallet balance" = "You can only recharge your Wallet when you have less the ฿100 available (Wallet balance + Stake).";
+"Cannot update wallet due to wallet balance" = "You can only recharge your wallet when you have less than $100 available.";
 
 /* Unit for 1000 (kilo) */
 "k" = "k";

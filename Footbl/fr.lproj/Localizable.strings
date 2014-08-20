@@ -699,10 +699,10 @@ Do you want to log in instead? */
 
 /* Recharge your wallet
 Make more bets and increase your profit! */
-"Recharge your wallet\nMake more bets and increase your profit!" = "Rechargez votre portefeuille porte-monnaie\nFaire plus de paris et augmenter vos profits!";
+"Recharge your wallet\nMake more bets and increase your profit!" = "Rechargez votre porte-monnaie\nFaire plus de paris et augmenter vos profits!";
 
 /* Actual amount */
-"Actual amount" = "montant réel";
+"Actual amount" = "montant actuel";
 
 /* After recharge */
 "After recharge" = "après recharge";

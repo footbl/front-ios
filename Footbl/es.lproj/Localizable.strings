@@ -131,7 +131,7 @@
 "Teams" = "Equipos";
 
 /* To return */
-"To return" = "Ganancias totales";
+"To return" = "Ganancias";
 
 /* Team: Atletico Mineiro */
 "Team: Atletico Mineiro" = "Atlético MG";
@@ -702,7 +702,7 @@ Make more bets and increase your profit! */
 "Recharge your wallet\nMake more bets and increase your profit!" = "Recarga to cartera\nHacer más apuestas y aumentar sus beneficios!";
 
 /* Actual amount */
-"Actual amount" = "Cantidad real";
+"Actual amount" = "Cantidad actual";
 
 /* After recharge */
 "After recharge" = "Después de la recarga";
