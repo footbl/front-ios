@@ -78,7 +78,7 @@
     walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:11];
     walletLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextMedium size:36];
     walletLabel.lineHeightMultiple = 0.5;
-    walletLabel.text = [[User currentUser].localFunds.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
+    walletLabel.text = [[User currentUser].totalWallet.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
     [self.view addSubview:walletLabel];
     
     FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(183, 224, 86, 72)];
