@@ -207,6 +207,15 @@
         }
     }
     
+    if ([User currentUser].canRecharge) {
+        UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
+        if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
+            [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
+        }
+    } else {
+        [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
+    }
+    
     [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
