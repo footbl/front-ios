@@ -320,10 +320,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         [[ErrorHandler sharedInstance] displayError:error];
     };
     
-    [[User currentUser] getWithSuccess:^(User *user) {
+    [[User currentUser].editableObject getWithSuccess:^(User *user) {
         [self reloadWallet];
         [Match getWithObject:self.championship.editableObject success:^(id response) {
-            [Bet getWithObject:[User currentUser] success:^(id response) {
+            [Bet getWithObject:[User currentUser].editableObject success:^(id response) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
                 [self reloadWallet];

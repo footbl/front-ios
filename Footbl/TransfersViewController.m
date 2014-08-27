@@ -95,8 +95,8 @@
     };
     
     [CreditRequest payRequests:self.pendingTransfers success:^(id response) {
-        [CreditRequest getWithObject:[User currentUser] success:^(id response) {
-            [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
+        [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
+            [CreditRequest getRequestsWithObject:[User currentUser].editableObject success:^(id response) {
                 [[LoadingHelper sharedInstance] hideHud];
             } failure:failure];
         } failure:failure];
@@ -159,8 +159,8 @@
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *invFriends, NSError *error) {
             self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
             [self.tableView reloadData];
-            [CreditRequest getWithObject:[User currentUser] success:^(id response) {
-                [CreditRequest getRequestsWithObject:[User currentUser] success:^(id response) {
+            [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
+                [CreditRequest getRequestsWithObject:[User currentUser].editableObject success:^(id response) {
                     [self.refreshControl endRefreshing];
                     [[LoadingHelper sharedInstance] hideHud];
                 } failure:failure];

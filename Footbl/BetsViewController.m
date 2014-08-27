@@ -97,7 +97,7 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-    [[User currentUser] rechargeWithSuccess:^(id response) {
+    [[User currentUser].editableObject rechargeWithSuccess:^(id response) {
         [self reloadWallet];
         [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
         [[LoadingHelper sharedInstance] hideHud];

@@ -42,7 +42,7 @@
     [[LoadingHelper sharedInstance] showHud];
     
 
-    [[User currentUser] rechargeWithSuccess:^(id response) {
+    [[User currentUser].editableObject rechargeWithSuccess:^(id response) {
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         SPLogError(@"%@", error);

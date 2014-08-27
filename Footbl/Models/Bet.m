@@ -55,7 +55,7 @@ static CGFloat kBetSyncWaitTime = 3;
         parameters[kFTRequestParamResourcePathObject] = match;
         [self createWithParameters:parameters success:^(Bet *bet) {
             bet.match = match.editableObject;
-            bet.user = [User currentUser];
+            bet.user = [User currentUser].editableObject;
             [[User currentUser].editableObject getWithSuccess:^(id response) {
                 match.editableObject.betSyncing = NO;
                 [match setBetTemporaryResult:0 value:nil];

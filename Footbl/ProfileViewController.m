@@ -436,7 +436,7 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] starUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[User currentUser].editableObject starUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
         }];
     }
@@ -448,7 +448,7 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser] unstarUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[User currentUser].editableObject unstarUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
         }];
     }
@@ -461,7 +461,7 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    [[User currentUser] getStarredWithSuccess:nil failure:nil];
+    [[User currentUser].editableObject getStarredWithSuccess:nil failure:nil];
     
     self.anonymousViewController = [AnonymousViewController new];
     

@@ -99,7 +99,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser], @"championship" : championship.slug} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser].editableObject, @"championship" : championship.slug} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
