@@ -38,7 +38,7 @@
 }
 
 + (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    NSString *path = [[[Group resourcePath] stringByAppendingPathComponent:parameters[kFTRequestParamResourcePathObject]] stringByAppendingPathComponent:[self resourcePath]];
+    NSString *path = [[[Group resourcePath] stringByAppendingPathComponent:[parameters[kFTRequestParamResourcePathObject] slug]] stringByAppendingPathComponent:[self resourcePath]];
     NSMutableDictionary *mutableParameters = [parameters mutableCopy];
     if (mutableParameters[kFTRequestParamResourcePathObject]) {
         [mutableParameters removeObjectForKey:kFTRequestParamResourcePathObject];
