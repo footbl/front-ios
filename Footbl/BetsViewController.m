@@ -178,12 +178,10 @@
         return;
     }
     
-    [Championship getWithObject:nil success:^(id response) {
-        [Entry getWithObject:[User currentUser] success:^(id response) {
-            for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-                [matchesViewController reloadData];
-            }
-        } failure:failure];
+    [Entry getWithObject:[User currentUser] success:^(id response) {
+        for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+            [matchesViewController reloadData];
+        }
     } failure:failure];
 }
 
