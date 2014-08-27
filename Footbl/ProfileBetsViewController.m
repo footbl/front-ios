@@ -50,7 +50,7 @@
 - (void)reloadData {
     [super reloadData];
     
-    [Bet getWithObject:self.user success:^(id response) {
+    [Bet getWithObject:self.user.editableObject success:^(id response) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

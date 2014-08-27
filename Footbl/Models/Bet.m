@@ -75,7 +75,7 @@ static CGFloat kBetSyncWaitTime = 3;
     NSString *path = [NSString stringWithFormat:@"users/%@/bets", user.slug];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:user.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
-            bet.user = user.editableObject;
+            bet.user = user;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
         } completionBlock:success];
