@@ -61,10 +61,10 @@ extern MatchResult MatchResultFromString(NSString *result) {
 + (void)getWithObject:(Championship *)championship success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [self resourcePathWithObject:championship];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
             match.championship = championship.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"championship = %@", championship]]];
+            [[FTCoreDataStore privateQueueContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"championship = %@", championship]]];
         } completionBlock:success];
     } failure:failure];
 }
@@ -82,22 +82,22 @@ extern MatchResult MatchResultFromString(NSString *result) {
 - (void)setBetBlockKey:(NSUInteger)betBlockKey {
     _betBlockKey = betBlockKey;
     
-    if (self.managedObjectContext != [FTModel managedObjectContext]) {
-        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetBlockKey:betBlockKey];
+    if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
+        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetBlockKey:betBlockKey];
     }
 }
 
 - (void)setBetSyncing:(BOOL)betSyncing {
     _betSyncing = betSyncing;
     
-    if (self.managedObjectContext != [FTModel managedObjectContext]) {
-        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetSyncing:betSyncing];
+    if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
+        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetSyncing:betSyncing];
     }
 }
 
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value {
-    if (self.managedObjectContext != [FTModel managedObjectContext]) {
-        [(Match *)[[FTModel managedObjectContext] objectWithID:self.objectID] setBetTemporaryResult:result value:value];
+    if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
+        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetTemporaryResult:result value:value];
     }
     self.tempBetResult = result;
     self.tempBetValue = value;

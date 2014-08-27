@@ -46,7 +46,7 @@
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"creditedUser.slug = %@", [User currentUser].slug];
                 break;
         }
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore  mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
         NSError *error = nil;

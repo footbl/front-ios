@@ -52,7 +52,7 @@
         if (self.group.isDefaultValue && !self.tableView.infiniteScrollingView) {
             fetchRequest.fetchLimit = 20;
         }
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTModel managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
         _fetchedResultsController.delegate = self;
         
         NSError *error = nil;
@@ -306,10 +306,10 @@
     [super viewDidAppear:animated];
     
     if (self.group.isNewValue) {
-        [[Group editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             self.group.editableObject.isNew = @NO;
             [self.group saveStatusInLocalDatabase];
-            [[Group editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
         }];
     }
 }

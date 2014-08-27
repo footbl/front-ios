@@ -38,14 +38,14 @@
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isMe = %@", @YES];
     fetchRequest.fetchLimit = 1;
     NSError *error = nil;
-    NSArray *fetchResult = [[self editableManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResult = [[FTCoreDataStore mainQueueContext] executeFetchRequest:fetchRequest error:&error];
     if (error) {
         SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     User *user = fetchResult.firstObject;
     if (!user) {
-        user = [User findOrCreateWithObject:@"me" inContext:[self editableManagedObjectContext]];
+        user = [User findOrCreateWithObject:@"me" inContext:[FTCoreDataStore privateQueueContext]];
         user.isMe = @YES;
     }
     return user;
@@ -75,10 +75,10 @@
 
 + (void)getMeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:@"users/me" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self editableManagedObjectContext] performBlock:^{
-            User *user = [User findOrCreateWithObject:responseObject inContext:[self editableManagedObjectContext]];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            User *user = [User findOrCreateWithObject:responseObject inContext:[FTCoreDataStore privateQueueContext]];
             user.isMeValue = YES;
-            [[self editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (success) success(user);
             });
@@ -88,7 +88,7 @@
 
 + (void)getFeaturedWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"featured" : @YES} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self loadContent:responseObject inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+        [self loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
             user.featured = @YES;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [untouchedObjects makeObjectsPerformSelector:@selector(setFeatured:) withObject:@NO];
@@ -164,7 +164,7 @@
 
 - (void)getStarredWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/featured", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:[responseObject valueForKeyPath:@"featured"] inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+        [[self class] loadContent:[responseObject valueForKeyPath:@"featured"] inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
             [self addFanOfUsersObject:user];
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [self removeFanOfUsers:untouchedObjects];
@@ -174,7 +174,7 @@
 
 - (void)getFansWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/fans", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
             [self addFanByUsersObject:user];
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [self removeFanByUsers:untouchedObjects];
@@ -183,18 +183,18 @@
 }
 
 - (void)starUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[[self class] editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         [self addFanOfUsersObject:user];
         user.numberOfFans = @(MAX(user.editableObject.numberOfFansValue + 1, MAX_FOLLOWERS_COUNT));
-        [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     [[FTOperationManager sharedManager] POST:[NSString stringWithFormat:@"users/%@/featured", self.rid] parameters:@{@"featured" : user.rid} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) success(user);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             [self removeFanOfUsersObject:user.editableObject];
-            [[[self class] editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failure) failure(operation, error);
             });
@@ -203,20 +203,20 @@
 }
 
 - (void)unstarUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[[self class] editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         [self removeFanOfUsersObject:user.editableObject];
         if (user.numberOfFansValue < MAX_FOLLOWERS_COUNT) {
             user.numberOfFans = @(MAX(0, user.editableObject.numberOfFansValue - 1));
         }
-        [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     [[FTOperationManager sharedManager] DELETE:[NSString stringWithFormat:@"users/%@/featured/%@", self.rid, user.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) success(user);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             [self addFanOfUsersObject:user.editableObject];
-            [[[self class] editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (failure) failure(operation, error);
             });

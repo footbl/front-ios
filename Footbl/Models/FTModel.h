@@ -7,6 +7,7 @@
 //
 
 #import "_FTModel.h"
+#import "FTCoreDataStore.h"
 #import "FTOperationManager.h"
 #import "NSManagedObjectContext+FTAddons.h"
 
@@ -28,8 +29,6 @@ typedef void (^FTAPISuccessWithResponseBlock)(id response);
 - (void)updateWithParameters:(NSMutableDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
-+ (NSManagedObjectContext *)managedObjectContext;
-+ (NSManagedObjectContext *)editableManagedObjectContext;
 - (instancetype)editableObject;
 
 + (NSArray *)enabledProperties NS_REQUIRES_SUPER;

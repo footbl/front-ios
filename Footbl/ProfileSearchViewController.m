@@ -92,14 +92,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileViewController *profileViewController = [ProfileViewController new];
     NSDictionary *userRepresentation = self.dataSource[indexPath.row];
-    User *user = [User findOrCreateWithObject:userRepresentation inContext:[FTModel editableManagedObjectContext]];
+    User *user = [User findOrCreateWithObject:userRepresentation inContext:[FTCoreDataStore privateQueueContext]];
     
     NSUInteger blockKey;
     perform_block_after_delay_k(0.5, &blockKey, ^{
         [[LoadingHelper sharedInstance] showHud];
     });
     
-    [[FTModel editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         [user updateWithData:userRepresentation];
         dispatch_async(dispatch_get_main_queue(), ^{
             cancel_block(blockKey);

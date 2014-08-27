@@ -42,8 +42,8 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 + (void)getWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [self resourcePathWithObject:object];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
         } completionBlock:success];
     } failure:failure];
 }
@@ -56,10 +56,10 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         [mutableParameters removeObjectForKey:kFTRequestParamResourcePathObject];
     }
     [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
-            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[self editableManagedObjectContext]];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[FTCoreDataStore privateQueueContext]];
             [object updateWithData:responseObject];
-            [[self editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (success) success(object.editableObject);
             });
@@ -69,9 +69,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 - (void)getWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:self.resourcePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             [self.editableObject updateWithData:responseObject];
-            [[[self class] editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                if (success) success(self.editableObject);
             });
@@ -81,9 +81,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 - (void)updateWithParameters:(NSMutableDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] PUT:self.resourcePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             [self.editableObject updateWithData:responseObject];
-            [[[self class] editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (success) success(self.editableObject);
             });
@@ -93,9 +93,9 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] DELETE:self.resourcePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
-            [[[self class] editableManagedObjectContext] deleteObject:self.editableObject];
-            [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            [[FTCoreDataStore privateQueueContext] deleteObject:self.editableObject];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (success) success(self.editableObject);
             });
@@ -171,7 +171,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         if (untouchedObjectsBlock) untouchedObjectsBlock(untouchedObjects);
         
         [context performSave];
-        
+         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completionBlock) completionBlock(objects);
         });
@@ -180,20 +180,12 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 #pragma mark - NSManagedObjectContext
 
-+ (NSManagedObjectContext *)managedObjectContext {
-    return [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
-}
-
-+ (NSManagedObjectContext *)editableManagedObjectContext {
-    return [(AppDelegate *)[UIApplication sharedApplication].delegate managedObjectContext];
-}
-
 - (instancetype)editableObject {
-    if (self.managedObjectContext == [[self class] editableManagedObjectContext]) {
+    if (self.managedObjectContext == [FTCoreDataStore privateQueueContext]) {
         return self;
     }
     
-    return (FTModel *)[[[self class] editableManagedObjectContext] objectWithID:self.objectID];
+    return (FTModel *)[[FTCoreDataStore privateQueueContext] objectWithID:self.objectID];
 }
 
 #pragma mark - Find or Create

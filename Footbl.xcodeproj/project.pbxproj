@@ -244,6 +244,8 @@
 		EDC6720C1999254000D06E66 /* NSManagedObjectContext+FTAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */; };
 		EDC6720F19992C0B00D06E66 /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
 		EDC67212199933B900D06E66 /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
+		EDCE25D319AE3D3C00045438 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
+		EDCE25D419AE3D3C00045438 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
 		EDD6711E19229E2400985174 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
 		EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		EDDCF2261933B1BB0090D06D /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
@@ -545,6 +547,8 @@
 		EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAuthenticationManager.m; sourceTree = "<group>"; };
 		EDC67210199933B900D06E66 /* FTImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTImageUploader.h; sourceTree = "<group>"; };
 		EDC67211199933B900D06E66 /* FTImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTImageUploader.m; sourceTree = "<group>"; };
+		EDCE25D119AE3D3C00045438 /* FTCoreDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoreDataStore.h; sourceTree = "<group>"; };
+		EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoreDataStore.m; sourceTree = "<group>"; };
 		EDD6711C19229E2400985174 /* FriendsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsHelper.h; sourceTree = "<group>"; };
 		EDD6711D19229E2400985174 /* FriendsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsHelper.m; sourceTree = "<group>"; };
 		EDDCF221193395D30090D06D /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
@@ -749,6 +753,8 @@
 			children = (
 				EDC6720D19992C0B00D06E66 /* FTAuthenticationManager.h */,
 				EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */,
+				EDCE25D119AE3D3C00045438 /* FTCoreDataStore.h */,
+				EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */,
 				EDC67210199933B900D06E66 /* FTImageUploader.h */,
 				EDC67211199933B900D06E66 /* FTImageUploader.m */,
 				ED53816B199406CF005D62BB /* FTOperationManager.h */,
@@ -1613,6 +1619,7 @@
 				ED785A19199D0C62002A4DBD /* GroupAddMembersViewController.m in Sources */,
 				ED785A1A199D0C62002A4DBD /* _Bet.m in Sources */,
 				ED785A1B199D0C62002A4DBD /* Membership.m in Sources */,
+				EDCE25D419AE3D3C00045438 /* FTCoreDataStore.m in Sources */,
 				ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */,
 				ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */,
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
@@ -1727,6 +1734,7 @@
 				ED2D1C5C191588D100F1BC81 /* GroupAddMembersViewController.m in Sources */,
 				EDB639BC1910776300D7B041 /* _Bet.m in Sources */,
 				EDEFFA1C18EF3DBD003E12B7 /* Membership.m in Sources */,
+				EDCE25D319AE3D3C00045438 /* FTCoreDataStore.m in Sources */,
 				EDDCF223193395D30090D06D /* ChangePasswordViewController.m in Sources */,
 				ED3A0F5519885E7900011E91 /* FootblPopupAnimatedTransition.m in Sources */,
 				ED324331192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m in Sources */,

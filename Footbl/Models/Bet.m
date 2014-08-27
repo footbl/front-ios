@@ -74,10 +74,10 @@ static CGFloat kBetSyncWaitTime = 3;
 + (void)getWithObject:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [NSString stringWithFormat:@"users/%@/bets", user.slug];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:user.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:user.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
             bet.user = user.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+            [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
         } completionBlock:success];
     } failure:failure];
 }
@@ -111,12 +111,12 @@ static CGFloat kBetSyncWaitTime = 3;
         parameters[kFTRequestParamResourcePathObject] = self.match;
         
         [self updateWithParameters:parameters success:^(id response) {
-            [[[self class] editableManagedObjectContext] performBlock:^{
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
                self.match.editableObject.localUpdatedAt = [NSDate date];
                 [[User currentUser].editableObject getWithSuccess:^(id response) {
                     self.match.editableObject.betSyncing = NO;
                     [self.match.editableObject setBetTemporaryResult:0 value:nil];
-                    [[[self class] editableManagedObjectContext] performSave];
+                    [[FTCoreDataStore privateQueueContext] performSave];
                     dispatch_async(dispatch_get_main_queue(), ^{
                        if (success) success(self);
                     });

@@ -54,24 +54,24 @@
 
 + (void)getWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] GET:[self resourcePath] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self loadContent:responseObject inManagedObjectContext:[self editableManagedObjectContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault = %@", @NO]]];
+        [self loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            [[FTCoreDataStore privateQueueContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault = %@", @NO]]];
         } completionBlock:success];
     } failure:failure];
 }
 
 + (void)joinGroupWithCode:(NSString *)code success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [self getWithObject:nil success:^(id response) {
-        Group *group = [Group findWithObject:code inContext:[self editableManagedObjectContext]];
+        Group *group = [Group findWithObject:code inContext:[FTCoreDataStore privateQueueContext]];
         if (group) {
             if (success) success(group);
         }
         
         [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"groups/%@", code] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[self editableManagedObjectContext] performBlock:^{
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
                 [Membership createWithParameters:@{kFTRequestParamResourcePathObject : responseObject[@"slug"], @"user" : [User currentUser].slug} success:^(id response) {
-                    Group *group = [Group findOrCreateWithObject:responseObject inContext:[self editableManagedObjectContext]];
-                    [[self editableManagedObjectContext] performSave];
+                    Group *group = [Group findOrCreateWithObject:responseObject inContext:[FTCoreDataStore privateQueueContext]];
+                    [[FTCoreDataStore privateQueueContext] performSave];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (success) success(group);
                     });
@@ -195,8 +195,8 @@
 }
 
 - (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[[self class] editableManagedObjectContext] performBlock:^{
-        [[[self class] editableManagedObjectContext] performSave];
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
@@ -212,8 +212,8 @@
     [FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
         self.picture = imagePath;
         
-        [[[self class] editableManagedObjectContext] performBlock:^{
-            [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            [[FTCoreDataStore privateQueueContext] performSave];
         }];
             
         NSMutableDictionary *parameters = [NSMutableDictionary new];
@@ -227,9 +227,9 @@
 }
 
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[[self class] editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         self.editableObject.removed = @YES;
-        [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     if (self.isDefaultValue) {

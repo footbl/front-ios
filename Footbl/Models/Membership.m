@@ -29,10 +29,10 @@
 + (void)getWithObject:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [self resourcePathWithObject:group];
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[self class] loadContent:responseObject inManagedObjectContext:[[self class] editableManagedObjectContext] usingCache:group.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *data) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:group.members enumeratingObjectsWithBlock:^(Membership *membership, NSDictionary *data) {
             membership.group = group.editableObject;
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [[self editableManagedObjectContext] deleteObjects:untouchedObjects];
+            [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
         } completionBlock:success];
     } failure:failure];
 }
@@ -44,10 +44,10 @@
         [mutableParameters removeObjectForKey:kFTRequestParamResourcePathObject];
     }
     [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
-            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[self editableManagedObjectContext]];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[FTCoreDataStore privateQueueContext]];
             [object updateWithData:responseObject];
-            [[self editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (success) success(object.editableObject);
             });

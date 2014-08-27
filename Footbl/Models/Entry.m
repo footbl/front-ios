@@ -21,17 +21,17 @@
 }
 
 + (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[self editableManagedObjectContext] performBlock:^{
-        Championship *championship = [Championship findWithObject:parameters[@"championship"] inContext:[self editableManagedObjectContext]];
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
+        Championship *championship = [Championship findWithObject:parameters[@"championship"] inContext:[FTCoreDataStore privateQueueContext]];
         championship.enabled = @YES;
-        [[self editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     [super createWithParameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[self editableManagedObjectContext] performBlock:^{
-            Championship *championship = [Championship findWithObject:parameters[@"championship"] inContext:[self editableManagedObjectContext]];
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            Championship *championship = [Championship findWithObject:parameters[@"championship"] inContext:[FTCoreDataStore privateQueueContext]];
             championship.enabled = @NO;
-            [[self editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
         }];
         if (failure) failure(operation, error);
     }];
@@ -51,15 +51,15 @@
 }
 
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[[self class] editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         self.championship.enabled = @NO;
-        [[[self class] editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     [super deleteWithSuccess:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[[self class] editableManagedObjectContext] performBlock:^{
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
             self.championship.enabled = @YES;
-            [[[self class] editableManagedObjectContext] performSave];
+            [[FTCoreDataStore privateQueueContext] performSave];
         }];
         if (failure) failure(operation, error);
     }];

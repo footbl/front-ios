@@ -259,18 +259,18 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     self.token = nil;
     [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
     
-    [[FTModel editableManagedObjectContext] performBlock:^{
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
         for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Entry", @"Championship", @"Membership", @"Group", @"CreditRequest", @"User"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
             NSError *error = nil;
-            NSArray *fetchResult = [[FTModel editableManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
+            NSArray *fetchResult = [[FTCoreDataStore privateQueueContext] executeFetchRequest:fetchRequest error:&error];
             if (error) {
                 abort();
             }
-            [[FTModel editableManagedObjectContext] deleteObjects:[NSSet setWithArray:fetchResult]];
+            [[FTCoreDataStore privateQueueContext] deleteObjects:[NSSet setWithArray:fetchResult]];
         }
-        [[FTModel editableManagedObjectContext] performSave];
+        [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
     @try {
