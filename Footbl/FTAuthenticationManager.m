@@ -258,6 +258,8 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     self.password = nil;
     self.token = nil;
     [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserManagedObjectRepresentationKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[FTCoreDataStore privateQueueContext] performBlock:^{
         for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Entry", @"Championship", @"Membership", @"Group", @"CreditRequest", @"User"]) {

@@ -8,6 +8,8 @@
 
 #import "_User.h"
 
+static NSString * const kUserManagedObjectRepresentationKey;
+
 @interface User : _User
 
 @property (strong, nonatomic) NSMutableArray *pendingMatchesToSyncBet;

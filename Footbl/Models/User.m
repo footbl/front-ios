@@ -14,6 +14,8 @@
 #import "NSNumber+Formatter.h"
 #import "User.h"
 
+static NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepresentation";
+
 @interface User ()
 
 @end
@@ -34,6 +36,16 @@
 }
 
 + (instancetype)currentUser {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserManagedObjectRepresentationKey]) {
+        NSURL *objectURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:kUserManagedObjectRepresentationKey]];
+        NSManagedObjectID *objectID = [[FTCoreDataStore mainQueueContext].persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
+        NSError *error = nil;
+        User *user = (User *)[[FTCoreDataStore mainQueueContext] existingObjectWithID:objectID error:&error];
+        if (user) {
+            return user;
+        }
+    }
+    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([self class])];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isMe = %@", @YES];
     fetchRequest.fetchLimit = 1;
@@ -48,6 +60,10 @@
         user = [User findOrCreateWithObject:@"me" inContext:[FTCoreDataStore privateQueueContext]];
         user.isMe = @YES;
     }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:user.objectID.URIRepresentation.absoluteString forKey:kUserManagedObjectRepresentationKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return user;
 }
 
