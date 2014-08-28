@@ -170,10 +170,6 @@
 - (void)reloadData {
     [self reloadWallet];
 
-    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-    
     if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         return;
     }
@@ -182,7 +178,9 @@
         for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
             [matchesViewController reloadData];
         }
-    } failure:failure];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)reloadWallet {
