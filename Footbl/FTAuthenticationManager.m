@@ -207,7 +207,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
             if (self.pushNotificationToken.length > 0) parameters[@"apnsToken"] = self.pushNotificationToken;
             if (fbToken) [[FTOperationManager sharedManager].requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
             parameters[@"language"] = [NSLocale preferredLanguages][0];
-            parameters[@"locale"] = [[NSLocale currentLocale] identifier];
+            parameters[@"locale"] = [[NSLocale currentLocale] localeIdentifier];
             parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
             
             void(^completionBlock)() = ^() {

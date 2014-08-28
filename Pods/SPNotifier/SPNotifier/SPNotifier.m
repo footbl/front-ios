@@ -55,7 +55,7 @@ static NSString * AFNormalizedDeviceTokenStringWithDeviceToken(id deviceToken) {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     [parameters setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"identifier"];
     [parameters setValue:[[UIDevice currentDevice] systemName] forKey:@"platform"];
-    [parameters setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
+    [parameters setValue:[[NSLocale currentLocale] localeIdentifier] forKey:@"locale"];
     [parameters setValue:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
     [parameters setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
     [parameters setValue:FRAMEWORK_VERSION forKey:@"framework_version"];
