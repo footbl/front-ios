@@ -8,7 +8,7 @@
 
 #import "_User.h"
 
-static NSString * const kUserManagedObjectRepresentationKey;
+extern NSString * const kUserManagedObjectRepresentationKey;
 
 @interface User : _User
 

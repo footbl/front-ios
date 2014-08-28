@@ -14,7 +14,7 @@
 #import "NSNumber+Formatter.h"
 #import "User.h"
 
-static NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepresentation";
+NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepresentation";
 
 @interface User ()
 
