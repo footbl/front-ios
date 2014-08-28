@@ -38,9 +38,9 @@ PODS:
   - RMStore (0.5):
     - RMStore/Core
   - RMStore/Core (0.5)
-  - SDWebImage (3.6):
+  - SDWebImage (3.7.1):
     - SDWebImage/Core
-  - SDWebImage/Core (3.6)
+  - SDWebImage/Core (3.7.1)
   - SPHipster (0.3):
     - SPHipster/Categories
     - SPHipster/Core
@@ -93,7 +93,7 @@ SPEC CHECKSUMS:
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   RMStore: 6df6d5d71ebadbeede7963f7dd83f9c5a52acbbf
-  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183
   SPNotifier: 23f1975c68c449ec81433a167dda3dbe429d8f85
   StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
