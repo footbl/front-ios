@@ -212,7 +212,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
             if (serverVersion == self.apiVersion) {
                 if (success) success(responseObject);
                 return;
-            } else if (serverVersion < self.apiVersion) {
+            } else if (serverVersion > self.apiVersion) {
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
             } else if (self.environment == FTEnvironmentProduction) {
                 self.environment = FTEnvironmentPreLaunch;
