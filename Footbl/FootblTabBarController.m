@@ -132,7 +132,9 @@
         while (viewController.presentedViewController) {
             viewController = viewController.presentedViewController;
         }
-        [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
+        if (![viewController isKindOfClass:[ForceUpdateViewController class]]) {
+            [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
+        }
     }];
     
     self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
