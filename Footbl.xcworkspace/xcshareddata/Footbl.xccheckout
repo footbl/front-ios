@@ -12,20 +12,24 @@
 	<dict>
 		<key>035C90C1-C56B-4C39-B63C-3BC0B05D035A</key>
 		<string>ssh://git.madeatsampa.com/footbl/footbl-ios.git</string>
+		<key>218CA5C7D97EBBD6073BF0FA6FDC38CC52145A3A</key>
+		<string>git.madeatsampa.com:footbl/footbl-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Footbl.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>035C90C1-C56B-4C39-B63C-3BC0B05D035A</key>
+		<string>../../Footbl</string>
+		<key>218CA5C7D97EBBD6073BF0FA6FDC38CC52145A3A</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://git.madeatsampa.com/footbl/footbl-ios.git</string>
+	<string>git.madeatsampa.com:footbl/footbl-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>035C90C1-C56B-4C39-B63C-3BC0B05D035A</string>
+	<string>218CA5C7D97EBBD6073BF0FA6FDC38CC52145A3A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>035C90C1-C56B-4C39-B63C-3BC0B05D035A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Footbl</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>218CA5C7D97EBBD6073BF0FA6FDC38CC52145A3A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iOS</string>
 		</dict>
 	</array>
 </dict>
