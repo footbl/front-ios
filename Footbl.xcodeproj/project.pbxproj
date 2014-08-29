@@ -1384,11 +1384,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
+				ED83A99719B1278A0089CC5F /* Set Info.plist values */,
 				ED7859E0199D0C62002A4DBD /* Check Pods Manifest.lock */,
 				ED7859E1199D0C62002A4DBD /* Sources */,
 				ED785A46199D0C62002A4DBD /* Frameworks */,
 				ED785A4E199D0C62002A4DBD /* Resources */,
 				ED785A5D199D0C62002A4DBD /* Copy Pods Resources */,
+				ED83A99819B127AA0089CC5F /* Remove temporary Info.plist */,
 				ED785A5F199D0C62002A4DBD /* Run Crashlytics */,
 			);
 			buildRules = (
@@ -1694,6 +1696,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+		};
+		ED83A99719B1278A0089CC5F /* Set Info.plist values */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Info.plist values";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME}\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
+		};
+		ED83A99819B127AA0089CC5F /* Remove temporary Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove temporary Info.plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
 		};
 		ED9F078E1909B42D00C8AC71 /* Run Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2341,6 +2371,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=1",
+					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
@@ -2427,6 +2458,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "FB_TWEAK_ENABLED=0";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2456,6 +2488,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FB_TWEAK_ENABLED=0",
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
@@ -2545,6 +2578,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
@@ -2597,6 +2631,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2626,6 +2661,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FB_TWEAK_ENABLED=0",
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
@@ -2670,6 +2706,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=1",
+					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
@@ -2694,6 +2731,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
