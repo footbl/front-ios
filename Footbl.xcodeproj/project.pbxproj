@@ -514,7 +514,7 @@
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
 		ED785A64199D0C62002A4DBD /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED785A65199D0C63002A4DBD /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Footbl-Info.plist"; path = "/Users/Fernando/Developer/made@sampa/Footbl/iOS/Footbl-Info.plist"; sourceTree = "<absolute>"; };
+		ED785A65199D0C63002A4DBD /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl-Info.plist"; sourceTree = SOURCE_ROOT; };
 		ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60.png"; sourceTree = "<group>"; };
 		ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60@2x.png"; sourceTree = "<group>"; };
 		ED785A6B199D0E2C002A4DBD /* Icon-Development-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-Small.png"; sourceTree = "<group>"; };
