@@ -2344,7 +2344,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "c9e55266-aa33-4f00-9e68-a115eb94a669";
+				PROVISIONING_PROFILE = "d684b2da-9c3f-4376-aefd-d54986a7705a";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2368,7 +2368,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				PROVISIONING_PROFILE = "db05f73c-729d-491f-b110-99d02694eaaf";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2445,8 +2445,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (KQE53QV928)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (KQE53QV928)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2534,8 +2534,8 @@
 			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2673,7 +2673,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				PROVISIONING_PROFILE = "db05f73c-729d-491f-b110-99d02694eaaf";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;

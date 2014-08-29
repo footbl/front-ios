@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
-               BuildableName = "Footbl App Store.app"
+               BuildableName = "Footbl.app"
                BlueprintName = "Footbl App Store"
                ReferencedContainer = "container:Footbl.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
-            BuildableName = "Footbl App Store.app"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
-            BuildableName = "Footbl App Store.app"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
-            BuildableName = "Footbl App Store.app"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>

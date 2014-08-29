@@ -37,7 +37,7 @@ post_install do |installer_representation|
     installer_representation.project.targets.each do |target|
         if target.name == "Pods-Tweaks"
             target.build_configurations.each do |config|
-                if config.name == 'Release'
+                if config.name == 'QA'
                     config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1']
                 end
             end

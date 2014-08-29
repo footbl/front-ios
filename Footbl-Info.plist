@@ -21,7 +21,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>co.footbl.footbl1</string>
+	<string>com.madeatsampa.Footbl.development</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
