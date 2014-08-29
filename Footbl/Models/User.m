@@ -125,6 +125,14 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 
 #pragma mark - Instance Methods
 
+- (NSString *)resourcePath {
+    if (self.isMeValue) {
+        return [[self.class resourcePath] stringByAppendingPathComponent:@"me"];
+    } else {
+        return [super resourcePath];
+    }
+}
+
 - (void)getWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [super getWithSuccess:^(id response) {
         /*

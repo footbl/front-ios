@@ -177,7 +177,21 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
                     }
                     if (success) success(response);
                 } failure:failure];
-            } failure:failure];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (operation.response.statusCode == 403) {
+                    if (self.isAuthenticated) {
+                        [ErrorHandler sharedInstance].shouldShowError = NO;
+                        [self logout];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [ErrorHandler sharedInstance].shouldShowError = YES;
+                        });
+                        error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: authentication error, need to login again", @"")}];
+                    } else {
+                        error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: invalid username or password", @"")}];
+                    }
+                }
+                if (failure) failure(operation, error);
+            }];
         }];
     } failure:failure];
 }

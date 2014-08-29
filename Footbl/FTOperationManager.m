@@ -216,13 +216,8 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
             } else if (self.environment == FTEnvironmentProduction) {
                 self.environment = FTEnvironmentPreLaunch;
-                [ErrorHandler sharedInstance].shouldShowError = NO;
-                [[FTAuthenticationManager sharedManager] logout];
                 [self validateEnvironmentWithSuccess:success failure:failure];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [ErrorHandler sharedInstance].shouldShowError = YES;
-                });
-            } else {
+            } else if ([operation.request.URL.absoluteString rangeOfString:@"footbl-prelaunch"].location != NSNotFound) {
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
             }
             

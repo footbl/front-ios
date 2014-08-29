@@ -31,6 +31,11 @@
         request.page = self.page;
     }
     
+    if (![request.URL.host isEqualToString:[FTOperationManager sharedManager].baseURL.host]) {
+        NSString *newURL = [request.URL.absoluteString stringByReplacingOccurrencesOfString:request.URL.host withString:[FTOperationManager sharedManager].baseURL.host];
+        request.URL = [NSURL URLWithString:newURL];
+    }
+    
     if (!request.containsToken) {
         float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
         NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
