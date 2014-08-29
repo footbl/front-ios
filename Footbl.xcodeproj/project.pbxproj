@@ -192,6 +192,9 @@
 		ED81E83A18EA741A00212D3C /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
 		ED82BAF51974A9F400A580B4 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */; };
+		ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
+		ED83A99C19B12C5A0089CC5F /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
+		ED83A99D19B12C5A0089CC5F /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
 		ED9D0AFB18F310CC0061AE42 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
 		ED9D0AFF18F31B7C0061AE42 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED9D0B0218F31D8F0061AE42 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
@@ -605,6 +608,8 @@
 		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
 		ED81E83B18EA769400212D3C /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
 		ED81E83C18EA769400212D3C /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
+		ED83A99919B12C5A0089CC5F /* FTBuildType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBuildType.h; sourceTree = "<group>"; };
+		ED83A99A19B12C5A0089CC5F /* FTBuildType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBuildType.m; sourceTree = "<group>"; };
 		ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -915,6 +920,8 @@
 			children = (
 				EDC6720D19992C0B00D06E66 /* FTAuthenticationManager.h */,
 				EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */,
+				ED83A99919B12C5A0089CC5F /* FTBuildType.h */,
+				ED83A99A19B12C5A0089CC5F /* FTBuildType.m */,
 				EDCE25D119AE3D3C00045438 /* FTCoreDataStore.h */,
 				EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */,
 				EDC67210199933B900D06E66 /* FTImageUploader.h */,
@@ -1915,6 +1922,7 @@
 				ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */,
 				ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */,
 				ED785A3B199D0C62002A4DBD /* FootblTabBarController.m in Sources */,
+				ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */,
 				ED785A3D199D0C62002A4DBD /* _Championship.m in Sources */,
 				ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */,
@@ -2030,6 +2038,7 @@
 				ED81E83D18EA769400212D3C /* FootblAppearance.m in Sources */,
 				ED3A0F6619899A8D00011E91 /* MatchTableViewCell+Setup.m in Sources */,
 				ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */,
+				ED83A99C19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				ED1A69801979894B0084FB14 /* WalletGraphTableViewCell.m in Sources */,
 				ED9DC8D418E3270600DF458C /* _Championship.m in Sources */,
 				EDE66166196F56E900C8F5E1 /* BetsViewController.m in Sources */,
@@ -2153,6 +2162,7 @@
 				EDB7BC5119B0145400898D94 /* FootblAppearance.m in Sources */,
 				EDB7BC5219B0145400898D94 /* MatchTableViewCell+Setup.m in Sources */,
 				EDB7BC5319B0145400898D94 /* FootblTabBarController.m in Sources */,
+				ED83A99D19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				EDB7BC5419B0145400898D94 /* WalletGraphTableViewCell.m in Sources */,
 				EDB7BC5519B0145400898D94 /* _Championship.m in Sources */,
 				EDB7BC5619B0145400898D94 /* BetsViewController.m in Sources */,

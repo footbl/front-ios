@@ -9,6 +9,7 @@
 #import <FXKeychain/FXKeychain.h>
 #import "ErrorHandler.h"
 #import "FTAuthenticationManager.h"
+#import "FTBuildType.h"
 #import "FTImageUploader.h"
 #import "FTOperationManager.h"
 #import "NSString+Hex.h"
@@ -202,9 +203,22 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
         return;
     }
     
-    [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-        if (completionBlock)completionBlock(session, status, error);
-    }];
+    switch (FTGetBuildType()) {
+        case FTBuildTypeAppStore: {
+            [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                if (completionBlock) completionBlock(session, status, error);
+            }];
+            break;
+        }
+        default: {
+            [FBSession setActiveSession:[[FBSession alloc] initWithPermissions:FB_READ_PERMISSIONS]];
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                [FBSession setActiveSession:session];
+                if (completionBlock) completionBlock(session, status, error);
+            }];
+            break;
+        }
+    }
 }
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -291,6 +305,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     
     @try {
         [[FBSession activeSession] closeAndClearTokenInformation];
+        [FBSession setActiveSession:nil];
     }
     @catch (NSException *exception) {
         
