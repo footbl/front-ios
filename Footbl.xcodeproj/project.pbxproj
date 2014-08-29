@@ -168,12 +168,6 @@
 		ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
 		ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		ED785A5C199D0C62002A4DBD /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
-		ED785A6F199D0E2C002A4DBD /* Icon-Development-60.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */; };
-		ED785A70199D0E2C002A4DBD /* Icon-Development-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */; };
-		ED785A71199D0E2C002A4DBD /* Icon-Development-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6B199D0E2C002A4DBD /* Icon-Development-Small.png */; };
-		ED785A72199D0E2C002A4DBD /* Icon-Development-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6C199D0E2C002A4DBD /* Icon-Development-Small@2x.png */; };
-		ED785A73199D0E2C002A4DBD /* Icon-Development-Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6D199D0E2C002A4DBD /* Icon-Development-Spotlight-40.png */; };
-		ED785A74199D0E2C002A4DBD /* Icon-Development-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6E199D0E2C002A4DBD /* Icon-Development-Spotlight-40@2x.png */; };
 		ED785A77199D4A87002A4DBD /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
 		ED785A78199D4A87002A4DBD /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
 		ED785A7B199D4A92002A4DBD /* _CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7A199D4A92002A4DBD /* _CreditRequest.m */; };
@@ -232,6 +226,146 @@
 		EDB1D4AB18E209E500E0C949 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
 		EDB639BC1910776300D7B041 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
 		EDB639BF1910776C00D7B041 /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
+		EDB7BBF319B0145400898D94 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
+		EDB7BBF419B0145400898D94 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
+		EDB7BBF519B0145400898D94 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
+		EDB7BBF619B0145400898D94 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
+		EDB7BBF719B0145400898D94 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
+		EDB7BBF819B0145400898D94 /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
+		EDB7BBF919B0145400898D94 /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
+		EDB7BBFA19B0145400898D94 /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
+		EDB7BBFB19B0145400898D94 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
+		EDB7BBFC19B0145400898D94 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
+		EDB7BBFD19B0145400898D94 /* _FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67208199924B200D06E66 /* _FTModel.m */; };
+		EDB7BBFE19B0145400898D94 /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
+		EDB7BBFF19B0145400898D94 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
+		EDB7BC0019B0145400898D94 /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
+		EDB7BC0119B0145400898D94 /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
+		EDB7BC0219B0145400898D94 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
+		EDB7BC0319B0145400898D94 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
+		EDB7BC0419B0145400898D94 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
+		EDB7BC0519B0145400898D94 /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
+		EDB7BC0619B0145400898D94 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
+		EDB7BC0719B0145400898D94 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
+		EDB7BC0819B0145400898D94 /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
+		EDB7BC0919B0145400898D94 /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
+		EDB7BC0A19B0145400898D94 /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
+		EDB7BC0B19B0145400898D94 /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
+		EDB7BC0C19B0145400898D94 /* _CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7A199D4A92002A4DBD /* _CreditRequest.m */; };
+		EDB7BC0D19B0145400898D94 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7E199DA5CE002A4DBD /* Entry.m */; };
+		EDB7BC0E19B0145400898D94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
+		EDB7BC0F19B0145400898D94 /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
+		EDB7BC1019B0145400898D94 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
+		EDB7BC1119B0145400898D94 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
+		EDB7BC1219B0145400898D94 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
+		EDB7BC1319B0145400898D94 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
+		EDB7BC1419B0145400898D94 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
+		EDB7BC1519B0145400898D94 /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
+		EDB7BC1619B0145400898D94 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
+		EDB7BC1719B0145400898D94 /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
+		EDB7BC1819B0145400898D94 /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
+		EDB7BC1919B0145400898D94 /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
+		EDB7BC1A19B0145400898D94 /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
+		EDB7BC1B19B0145400898D94 /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
+		EDB7BC1C19B0145400898D94 /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
+		EDB7BC1D19B0145400898D94 /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
+		EDB7BC1E19B0145400898D94 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
+		EDB7BC1F19B0145400898D94 /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
+		EDB7BC2019B0145400898D94 /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
+		EDB7BC2119B0145400898D94 /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
+		EDB7BC2219B0145400898D94 /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
+		EDB7BC2319B0145400898D94 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
+		EDB7BC2419B0145400898D94 /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
+		EDB7BC2519B0145400898D94 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
+		EDB7BC2619B0145400898D94 /* NSURLRequest+FTRequestOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817619966B7E005D62BB /* NSURLRequest+FTRequestOptions.m */; };
+		EDB7BC2719B0145400898D94 /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
+		EDB7BC2819B0145400898D94 /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
+		EDB7BC2919B0145400898D94 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
+		EDB7BC2A19B0145400898D94 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
+		EDB7BC2B19B0145400898D94 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
+		EDB7BC2C19B0145400898D94 /* FTOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816C199406CF005D62BB /* FTOperationManager.m */; };
+		EDB7BC2D19B0145400898D94 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
+		EDB7BC2E19B0145400898D94 /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
+		EDB7BC2F19B0145400898D94 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
+		EDB7BC3019B0145400898D94 /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
+		EDB7BC3119B0145400898D94 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
+		EDB7BC3219B0145400898D94 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
+		EDB7BC3319B0145400898D94 /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
+		EDB7BC3419B0145400898D94 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
+		EDB7BC3519B0145400898D94 /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D38190ED2BF00A7869B /* TeamImageView.m */; };
+		EDB7BC3619B0145400898D94 /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
+		EDB7BC3719B0145400898D94 /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
+		EDB7BC3819B0145400898D94 /* AnonymousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF228193400030090D06D /* AnonymousViewController.m */; };
+		EDB7BC3919B0145400898D94 /* FTRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816F1994084F005D62BB /* FTRequestSerializer.m */; };
+		EDB7BC3A19B0145400898D94 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
+		EDB7BC3B19B0145400898D94 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
+		EDB7BC3C19B0145400898D94 /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
+		EDB7BC3D19B0145400898D94 /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
+		EDB7BC3E19B0145400898D94 /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
+		EDB7BC3F19B0145400898D94 /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
+		EDB7BC4019B0145400898D94 /* NSManagedObjectContext+FTAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */; };
+		EDB7BC4119B0145400898D94 /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
+		EDB7BC4219B0145400898D94 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
+		EDB7BC4319B0145400898D94 /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
+		EDB7BC4419B0145400898D94 /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
+		EDB7BC4519B0145400898D94 /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
+		EDB7BC4619B0145400898D94 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
+		EDB7BC4719B0145400898D94 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
+		EDB7BC4819B0145400898D94 /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
+		EDB7BC4919B0145400898D94 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
+		EDB7BC4A19B0145400898D94 /* AskFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F621989777900011E91 /* AskFriendTableViewCell.m */; };
+		EDB7BC4B19B0145400898D94 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
+		EDB7BC4C19B0145400898D94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47318E1F18B00E0C949 /* main.m */; };
+		EDB7BC4D19B0145400898D94 /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
+		EDB7BC4E19B0145400898D94 /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
+		EDB7BC4F19B0145400898D94 /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
+		EDB7BC5019B0145400898D94 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
+		EDB7BC5119B0145400898D94 /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
+		EDB7BC5219B0145400898D94 /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
+		EDB7BC5319B0145400898D94 /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
+		EDB7BC5419B0145400898D94 /* WalletGraphTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */; };
+		EDB7BC5519B0145400898D94 /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
+		EDB7BC5619B0145400898D94 /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
+		EDB7BC5719B0145400898D94 /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
+		EDB7BC5819B0145400898D94 /* Footbl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */; };
+		EDB7BC5919B0145400898D94 /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
+		EDB7BC5A19B0145400898D94 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
+		EDB7BC5B19B0145400898D94 /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
+		EDB7BC5C19B0145400898D94 /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
+		EDB7BC5D19B0145400898D94 /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
+		EDB7BC5E19B0145400898D94 /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
+		EDB7BC6019B0145400898D94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
+		EDB7BC6119B0145400898D94 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
+		EDB7BC6219B0145400898D94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
+		EDB7BC6319B0145400898D94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
+		EDB7BC6419B0145400898D94 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
+		EDB7BC6519B0145400898D94 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
+		EDB7BC6619B0145400898D94 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAE5BC21917E9B500DFB8D3 /* FacebookSDK.framework */; };
+		EDB7BC6819B0145400898D94 /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
+		EDB7BC6919B0145400898D94 /* tutorial_1_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF267193582F20090D06D /* tutorial_1_480@2x.png */; };
+		EDB7BC6A19B0145400898D94 /* tutorial_2_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26B193582FD0090D06D /* tutorial_2_480@2x.png */; };
+		EDB7BC6B19B0145400898D94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
+		EDB7BC6C19B0145400898D94 /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
+		EDB7BC6D19B0145400898D94 /* tutorial_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2411934EDA60090D06D /* tutorial_4@2x.png */; };
+		EDB7BC6E19B0145400898D94 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
+		EDB7BC6F19B0145400898D94 /* tutorial_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2381934ED940090D06D /* tutorial_1@2x.png */; };
+		EDB7BC7019B0145400898D94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47018E1F18B00E0C949 /* InfoPlist.strings */; };
+		EDB7BC7119B0145400898D94 /* tutorial_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2441934EDB50090D06D /* tutorial_5@2x.png */; };
+		EDB7BC7219B0145400898D94 /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
+		EDB7BC7319B0145400898D94 /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
+		EDB7BC7419B0145400898D94 /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
+		EDB7BC7519B0145400898D94 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */; };
+		EDB7BC8519B0158800898D94 /* Icon-Development-60.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */; };
+		EDB7BC8619B0158800898D94 /* Icon-Development-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */; };
+		EDB7BC8719B0158800898D94 /* Icon-Development-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6B199D0E2C002A4DBD /* Icon-Development-Small.png */; };
+		EDB7BC8819B0158800898D94 /* Icon-Development-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6C199D0E2C002A4DBD /* Icon-Development-Small@2x.png */; };
+		EDB7BC8919B0158800898D94 /* Icon-Development-Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6D199D0E2C002A4DBD /* Icon-Development-Spotlight-40.png */; };
+		EDB7BC8A19B0158800898D94 /* Icon-Development-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6E199D0E2C002A4DBD /* Icon-Development-Spotlight-40@2x.png */; };
+		EDB7BC9019B0168400898D94 /* Icon-Beta-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDB7BC8B19B0168400898D94 /* Icon-Beta-60@2x.png */; };
+		EDB7BC9119B0168400898D94 /* Icon-Beta-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EDB7BC8C19B0168400898D94 /* Icon-Beta-Small.png */; };
+		EDB7BC9219B0168400898D94 /* Icon-Beta-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDB7BC8D19B0168400898D94 /* Icon-Beta-Small@2x.png */; };
+		EDB7BC9319B0168400898D94 /* Icon-Beta-Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = EDB7BC8E19B0168400898D94 /* Icon-Beta-Spotlight-40.png */; };
+		EDB7BC9419B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDB7BC8F19B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png */; };
 		EDB98298192D5FFC00697783 /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
 		EDBC848418EDE90900CCC01A /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		EDBD2C99192F10CA002C763D /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
@@ -287,6 +421,13 @@
 			containerPortal = EDB1D45A18E1F18B00E0C949 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EDB1D46118E1F18B00E0C949;
+			remoteInfo = Footbl;
+		};
+		EDB7BC9A19B01B6900898D94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDB1D45A18E1F18B00E0C949 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED7859DE199D0C62002A4DBD;
 			remoteInfo = Footbl;
 		};
 /* End PBXContainerItemProxy section */
@@ -372,8 +513,8 @@
 		ED71846E6ADC42B088DC3378 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
-		ED785A64199D0C62002A4DBD /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED785A65199D0C63002A4DBD /* Footbl Development-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Footbl Development-Info.plist"; path = "/Users/Fernando/Developer/made@sampa/Footbl/iOS/Footbl Development-Info.plist"; sourceTree = "<absolute>"; };
+		ED785A64199D0C62002A4DBD /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED785A65199D0C63002A4DBD /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Footbl-Info.plist"; path = "/Users/Fernando/Developer/made@sampa/Footbl/iOS/Footbl-Info.plist"; sourceTree = "<absolute>"; };
 		ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60.png"; sourceTree = "<group>"; };
 		ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60@2x.png"; sourceTree = "<group>"; };
 		ED785A6B199D0E2C002A4DBD /* Icon-Development-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-Small.png"; sourceTree = "<group>"; };
@@ -499,7 +640,7 @@
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EDB1D46918E1F18B00E0C949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EDB1D46B18E1F18B00E0C949 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		EDB1D46F18E1F18B00E0C949 /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl-Info.plist"; sourceTree = "<group>"; };
+		EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl App Store-Info.plist"; sourceTree = "<group>"; };
 		EDB1D47118E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB1D47318E1F18B00E0C949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Footbl-Prefix.pch"; sourceTree = "<group>"; };
@@ -520,6 +661,13 @@
 		EDB639BB1910776300D7B041 /* _Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Bet.m; path = Models/_Bet.m; sourceTree = "<group>"; };
 		EDB639BD1910776C00D7B041 /* Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bet.h; path = Models/Bet.h; sourceTree = "<group>"; };
 		EDB639BE1910776C00D7B041 /* Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bet.m; path = Models/Bet.m; sourceTree = "<group>"; };
+		EDB7BC7D19B0145400898D94 /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDB7BC7E19B0145500898D94 /* Footbl Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Footbl Beta-Info.plist"; path = "/Users/Fernando/Dropbox/Developer/made@sampa/Footbl/iOS/Footbl Beta-Info.plist"; sourceTree = "<absolute>"; };
+		EDB7BC8B19B0168400898D94 /* Icon-Beta-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-60@2x.png"; sourceTree = "<group>"; };
+		EDB7BC8C19B0168400898D94 /* Icon-Beta-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small.png"; sourceTree = "<group>"; };
+		EDB7BC8D19B0168400898D94 /* Icon-Beta-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small@2x.png"; sourceTree = "<group>"; };
+		EDB7BC8E19B0168400898D94 /* Icon-Beta-Spotlight-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Spotlight-40.png"; sourceTree = "<group>"; };
+		EDB7BC8F19B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Spotlight-40@2x.png"; sourceTree = "<group>"; };
 		EDB98296192D5FFC00697783 /* NSNumber+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Formatter.h"; sourceTree = "<group>"; };
 		EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Formatter.m"; sourceTree = "<group>"; };
 		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -656,6 +804,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EDB7BC5F19B0145400898D94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDB7BC6019B0145400898D94 /* CoreGraphics.framework in Frameworks */,
+				EDB7BC6119B0145400898D94 /* CoreData.framework in Frameworks */,
+				EDB7BC6219B0145400898D94 /* UIKit.framework in Frameworks */,
+				EDB7BC6319B0145400898D94 /* Foundation.framework in Frameworks */,
+				EDB7BC6419B0145400898D94 /* Crashlytics.framework in Frameworks */,
+				EDB7BC6519B0145400898D94 /* libPods.a in Frameworks */,
+				EDB7BC6619B0145400898D94 /* FacebookSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -774,6 +936,11 @@
 		ED785A68199D0E20002A4DBD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EDB7BC8B19B0168400898D94 /* Icon-Beta-60@2x.png */,
+				EDB7BC8C19B0168400898D94 /* Icon-Beta-Small.png */,
+				EDB7BC8D19B0168400898D94 /* Icon-Beta-Small@2x.png */,
+				EDB7BC8E19B0168400898D94 /* Icon-Beta-Spotlight-40.png */,
+				EDB7BC8F19B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png */,
 				ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */,
 				ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */,
 				ED785A6B199D0E2C002A4DBD /* Icon-Development-Small.png */,
@@ -965,7 +1132,8 @@
 			children = (
 				EDB1D46218E1F18B00E0C949 /* Footbl.app */,
 				EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */,
-				ED785A64199D0C62002A4DBD /* Footbl.app */,
+				ED785A64199D0C62002A4DBD /* Footbl ß.app */,
+				EDB7BC7D19B0145400898D94 /* Footbl ß.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1002,8 +1170,9 @@
 			isa = PBXGroup;
 			children = (
 				EDDCF25A193541A40090D06D /* Constants.h */,
-				ED785A65199D0C63002A4DBD /* Footbl Development-Info.plist */,
-				EDB1D46F18E1F18B00E0C949 /* Footbl-Info.plist */,
+				EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */,
+				EDB7BC7E19B0145500898D94 /* Footbl Beta-Info.plist */,
+				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 				ED785A68199D0E20002A4DBD /* Images */,
 				EDB1D47C18E1F18B00E0C949 /* Images.xcassets */,
@@ -1211,46 +1380,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ED7859DE199D0C62002A4DBD /* Footbl Development */ = {
+		ED7859DE199D0C62002A4DBD /* Footbl */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl Development" */;
+			buildConfigurationList = ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
-				ED7859DF199D0C62002A4DBD /* Set Info.plist values */,
 				ED7859E0199D0C62002A4DBD /* Check Pods Manifest.lock */,
 				ED7859E1199D0C62002A4DBD /* Sources */,
 				ED785A46199D0C62002A4DBD /* Frameworks */,
 				ED785A4E199D0C62002A4DBD /* Resources */,
 				ED785A5D199D0C62002A4DBD /* Copy Pods Resources */,
-				ED785A5E199D0C62002A4DBD /* Remove temporary Info.plist */,
 				ED785A5F199D0C62002A4DBD /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Footbl Development";
+			name = Footbl;
 			productName = Footbl;
-			productReference = ED785A64199D0C62002A4DBD /* Footbl.app */;
+			productReference = ED785A64199D0C62002A4DBD /* Footbl ß.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EDB1D46118E1F18B00E0C949 /* Footbl */ = {
+		EDB1D46118E1F18B00E0C949 /* Footbl App Store */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EDB1D49418E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "Footbl" */;
+			buildConfigurationList = EDB1D49418E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "Footbl App Store" */;
 			buildPhases = (
-				ED9F078C1909AD3A00C8AC71 /* Set Info.plist values */,
 				04C577D5C001442296EE2258 /* Check Pods Manifest.lock */,
 				EDB1D45E18E1F18B00E0C949 /* Sources */,
 				EDB1D45F18E1F18B00E0C949 /* Frameworks */,
 				EDB1D46018E1F18B00E0C949 /* Resources */,
 				3599099D53CB45E594284DB3 /* Copy Pods Resources */,
-				ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */,
 				ED9F078E1909B42D00C8AC71 /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Footbl;
+			name = "Footbl App Store";
 			productName = Footbl;
 			productReference = EDB1D46218E1F18B00E0C949 /* Footbl.app */;
 			productType = "com.apple.product-type.application";
@@ -1269,11 +1434,34 @@
 			);
 			dependencies = (
 				EDB1D48918E1F18B00E0C949 /* PBXTargetDependency */,
+				EDB7BC9B19B01B6900898D94 /* PBXTargetDependency */,
 			);
 			name = FootblTests;
 			productName = FootblTests;
 			productReference = EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EDB7BBEF19B0145400898D94 /* Footbl Beta */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDB7BC7919B0145400898D94 /* Build configuration list for PBXNativeTarget "Footbl Beta" */;
+			buildPhases = (
+				EDB7BBF019B0145400898D94 /* Set Info.plist values */,
+				EDB7BBF119B0145400898D94 /* Check Pods Manifest.lock */,
+				EDB7BBF219B0145400898D94 /* Sources */,
+				EDB7BC5F19B0145400898D94 /* Frameworks */,
+				EDB7BC6719B0145400898D94 /* Resources */,
+				EDB7BC7619B0145400898D94 /* Copy Pods Resources */,
+				EDB7BC7719B0145400898D94 /* Remove temporary Info.plist */,
+				EDB7BC7819B0145400898D94 /* Run Crashlytics */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Footbl Beta";
+			productName = Footbl;
+			productReference = EDB7BC7D19B0145400898D94 /* Footbl ß.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -1288,7 +1476,7 @@
 						DevelopmentTeam = 8Y8458KNAN;
 					};
 					EDB1D48118E1F18B00E0C949 = {
-						TestTargetID = EDB1D46118E1F18B00E0C949;
+						TestTargetID = ED7859DE199D0C62002A4DBD;
 					};
 				};
 			};
@@ -1309,9 +1497,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EDB1D46118E1F18B00E0C949 /* Footbl */,
+				ED7859DE199D0C62002A4DBD /* Footbl */,
+				EDB1D46118E1F18B00E0C949 /* Footbl App Store */,
+				EDB7BBEF19B0145400898D94 /* Footbl Beta */,
 				EDB1D48118E1F18B00E0C949 /* FootblTests */,
-				ED7859DE199D0C62002A4DBD /* Footbl Development */,
 			);
 		};
 /* End PBXProject section */
@@ -1323,18 +1512,18 @@
 			files = (
 				ED785A4F199D0C62002A4DBD /* tutorial_3@2x.png in Resources */,
 				ED785A50199D0C62002A4DBD /* tutorial_1_480@2x.png in Resources */,
-				ED785A6F199D0E2C002A4DBD /* Icon-Development-60.png in Resources */,
-				ED785A70199D0E2C002A4DBD /* Icon-Development-60@2x.png in Resources */,
+				EDB7BC8519B0158800898D94 /* Icon-Development-60.png in Resources */,
+				EDB7BC8619B0158800898D94 /* Icon-Development-60@2x.png in Resources */,
 				ED785A51199D0C62002A4DBD /* tutorial_2_480@2x.png in Resources */,
 				ED785A52199D0C62002A4DBD /* Images.xcassets in Resources */,
-				ED785A74199D0E2C002A4DBD /* Icon-Development-Spotlight-40@2x.png in Resources */,
+				EDB7BC8A19B0158800898D94 /* Icon-Development-Spotlight-40@2x.png in Resources */,
 				ED785A53199D0C62002A4DBD /* tutorial_5_480@2x.png in Resources */,
 				ED785A54199D0C62002A4DBD /* tutorial_4@2x.png in Resources */,
 				ED785A55199D0C62002A4DBD /* Localizable.strings in Resources */,
-				ED785A71199D0E2C002A4DBD /* Icon-Development-Small.png in Resources */,
+				EDB7BC8719B0158800898D94 /* Icon-Development-Small.png in Resources */,
 				ED785A56199D0C62002A4DBD /* tutorial_1@2x.png in Resources */,
-				ED785A72199D0E2C002A4DBD /* Icon-Development-Small@2x.png in Resources */,
-				ED785A73199D0E2C002A4DBD /* Icon-Development-Spotlight-40.png in Resources */,
+				EDB7BC8819B0158800898D94 /* Icon-Development-Small@2x.png in Resources */,
+				EDB7BC8919B0158800898D94 /* Icon-Development-Spotlight-40.png in Resources */,
 				ED785A57199D0C62002A4DBD /* InfoPlist.strings in Resources */,
 				ED785A58199D0C62002A4DBD /* tutorial_5@2x.png in Resources */,
 				ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */,
@@ -1370,6 +1559,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EDB7BC6719B0145400898D94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDB7BC6819B0145400898D94 /* tutorial_3@2x.png in Resources */,
+				EDB7BC6919B0145400898D94 /* tutorial_1_480@2x.png in Resources */,
+				EDB7BC6A19B0145400898D94 /* tutorial_2_480@2x.png in Resources */,
+				EDB7BC6B19B0145400898D94 /* Images.xcassets in Resources */,
+				EDB7BC9019B0168400898D94 /* Icon-Beta-60@2x.png in Resources */,
+				EDB7BC6C19B0145400898D94 /* tutorial_5_480@2x.png in Resources */,
+				EDB7BC6D19B0145400898D94 /* tutorial_4@2x.png in Resources */,
+				EDB7BC9319B0168400898D94 /* Icon-Beta-Spotlight-40.png in Resources */,
+				EDB7BC6E19B0145400898D94 /* Localizable.strings in Resources */,
+				EDB7BC6F19B0145400898D94 /* tutorial_1@2x.png in Resources */,
+				EDB7BC7019B0145400898D94 /* InfoPlist.strings in Resources */,
+				EDB7BC7119B0145400898D94 /* tutorial_5@2x.png in Resources */,
+				EDB7BC9419B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png in Resources */,
+				EDB7BC7219B0145400898D94 /* tutorial_3_480@2x.png in Resources */,
+				EDB7BC7319B0145400898D94 /* tutorial_2@2x.png in Resources */,
+				EDB7BC9219B0168400898D94 /* Icon-Beta-Small@2x.png in Resources */,
+				EDB7BC7419B0145400898D94 /* tutorial_4_480@2x.png in Resources */,
+				EDB7BC9119B0168400898D94 /* Icon-Beta-Small.png in Resources */,
+				EDB7BC7519B0145400898D94 /* Pods-acknowledgements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1436,20 +1651,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-FootblTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED7859DF199D0C62002A4DBD /* Set Info.plist values */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Set Info.plist values";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME} ß\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
-		};
 		ED7859E0199D0C62002A4DBD /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1480,20 +1681,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED785A5E199D0C62002A4DBD /* Remove temporary Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Remove temporary Info.plist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
-		};
 		ED785A5F199D0C62002A4DBD /* Run Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1508,7 +1695,21 @@
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
-		ED9F078C1909AD3A00C8AC71 /* Set Info.plist values */ = {
+		ED9F078E1909B42D00C8AC71 /* Run Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Crashlytics";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+		};
+		EDB7BBF019B0145400898D94 /* Set Info.plist values */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1520,9 +1721,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\nGIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME} ß\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"\nfi";
+			shellScript = "GIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\nNEW_NAME=\"${PRODUCT_NAME}\"\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleDisplayName $NEW_NAME\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"";
 		};
-		ED9F078D1909B06500C8AC71 /* Remove temporary Info.plist */ = {
+		EDB7BBF119B0145400898D94 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EDB7BC7619B0145400898D94 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDB7BC7719B0145400898D94 /* Remove temporary Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1534,9 +1765,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"App Store\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
+			shellScript = "cp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"";
 		};
-		ED9F078E1909B42D00C8AC71 /* Run Crashlytics */ = {
+		EDB7BC7819B0145400898D94 /* Run Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1791,13 +2022,133 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EDB7BBF219B0145400898D94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDB7BBF319B0145400898D94 /* LoginViewController.m in Sources */,
+				EDB7BBF419B0145400898D94 /* _User.m in Sources */,
+				EDB7BBF519B0145400898D94 /* User.m in Sources */,
+				EDB7BBF619B0145400898D94 /* ProfileTableViewCell.m in Sources */,
+				EDB7BBF719B0145400898D94 /* TutorialViewController.m in Sources */,
+				EDB7BBF819B0145400898D94 /* WalletGraphView.m in Sources */,
+				EDB7BBF919B0145400898D94 /* ErrorHandler.m in Sources */,
+				EDB7BBFA19B0145400898D94 /* ForceUpdateViewController.m in Sources */,
+				EDB7BBFB19B0145400898D94 /* GroupDetailViewController.m in Sources */,
+				EDB7BBFC19B0145400898D94 /* MatchesNavigationBarView.m in Sources */,
+				EDB7BBFD19B0145400898D94 /* _FTModel.m in Sources */,
+				EDB7BBFE19B0145400898D94 /* TemplateTableViewCell.m in Sources */,
+				EDB7BBFF19B0145400898D94 /* GroupAddMemberTableViewCell.m in Sources */,
+				EDB7BC0019B0145400898D94 /* Championship.m in Sources */,
+				EDB7BC0119B0145400898D94 /* GroupChampionshipTableViewCell.m in Sources */,
+				EDB7BC0219B0145400898D94 /* _Group.m in Sources */,
+				EDB7BC0319B0145400898D94 /* FavoritesViewController.m in Sources */,
+				EDB7BC0419B0145400898D94 /* FriendsHelper.m in Sources */,
+				EDB7BC0519B0145400898D94 /* TransferTableViewCell.m in Sources */,
+				EDB7BC0619B0145400898D94 /* GroupsViewController.m in Sources */,
+				EDB7BC0719B0145400898D94 /* Match.m in Sources */,
+				EDB7BC0819B0145400898D94 /* FeaturedViewController.m in Sources */,
+				EDB7BC0919B0145400898D94 /* ProfileBetsViewController.m in Sources */,
+				EDB7BC0A19B0145400898D94 /* NSURLRequest+FTAuthentication.m in Sources */,
+				EDB7BC0B19B0145400898D94 /* FTAuthenticationManager.m in Sources */,
+				EDB7BC0C19B0145400898D94 /* _CreditRequest.m in Sources */,
+				EDB7BC0D19B0145400898D94 /* Entry.m in Sources */,
+				EDB7BC0E19B0145400898D94 /* AppDelegate.m in Sources */,
+				EDB7BC0F19B0145400898D94 /* GroupTableViewCell.m in Sources */,
+				EDB7BC1019B0145400898D94 /* NSString+Hex.m in Sources */,
+				EDB7BC1119B0145400898D94 /* UIImage+Color.m in Sources */,
+				EDB7BC1219B0145400898D94 /* Team.m in Sources */,
+				EDB7BC1319B0145400898D94 /* EditProfileViewController.m in Sources */,
+				EDB7BC1419B0145400898D94 /* WhatsAppActivity.m in Sources */,
+				EDB7BC1519B0145400898D94 /* TransfersViewController.m in Sources */,
+				EDB7BC1619B0145400898D94 /* AuthenticationViewController.m in Sources */,
+				EDB7BC1719B0145400898D94 /* Bet.m in Sources */,
+				EDB7BC1819B0145400898D94 /* _Entry.m in Sources */,
+				EDB7BC1919B0145400898D94 /* GroupChampionshipsViewController.m in Sources */,
+				EDB7BC1A19B0145400898D94 /* TweaksHelper.m in Sources */,
+				EDB7BC1B19B0145400898D94 /* FavoriteTableViewCell.m in Sources */,
+				EDB7BC1C19B0145400898D94 /* NSParagraphStyle+AlignmentCenter.m in Sources */,
+				EDB7BC1D19B0145400898D94 /* ProfileSearchViewController.m in Sources */,
+				EDB7BC1E19B0145400898D94 /* Match+Sharing.m in Sources */,
+				EDB7BC1F19B0145400898D94 /* NSString+Validations.m in Sources */,
+				EDB7BC2019B0145400898D94 /* UILabel+MaxFontSize.m in Sources */,
+				EDB7BC2119B0145400898D94 /* GroupInfoViewController.m in Sources */,
+				EDB7BC2219B0145400898D94 /* SettingsTextViewController.m in Sources */,
+				EDB7BC2319B0145400898D94 /* UIView+Shake.m in Sources */,
+				EDB7BC2419B0145400898D94 /* GroupInfoBaseViewController.m in Sources */,
+				EDB7BC2519B0145400898D94 /* WhatsAppAPI.m in Sources */,
+				EDB7BC2619B0145400898D94 /* NSURLRequest+FTRequestOptions.m in Sources */,
+				EDB7BC2719B0145400898D94 /* FootblPopupViewController.m in Sources */,
+				EDB7BC2819B0145400898D94 /* AskFriendsViewController.m in Sources */,
+				EDB7BC2919B0145400898D94 /* ProfileViewController.m in Sources */,
+				EDB7BC2A19B0145400898D94 /* NSString+SHA1.m in Sources */,
+				EDB7BC2B19B0145400898D94 /* SignupViewController.m in Sources */,
+				EDB7BC2C19B0145400898D94 /* FTOperationManager.m in Sources */,
+				EDB7BC2D19B0145400898D94 /* WalletTableViewCell.m in Sources */,
+				EDB7BC2E19B0145400898D94 /* GroupAddMembersViewController.m in Sources */,
+				EDB7BC2F19B0145400898D94 /* _Bet.m in Sources */,
+				EDB7BC3019B0145400898D94 /* Membership.m in Sources */,
+				EDB7BC3119B0145400898D94 /* FTCoreDataStore.m in Sources */,
+				EDB7BC3219B0145400898D94 /* ChangePasswordViewController.m in Sources */,
+				EDB7BC3319B0145400898D94 /* FootblPopupAnimatedTransition.m in Sources */,
+				EDB7BC3419B0145400898D94 /* ProfileChampionshipTableViewCell.m in Sources */,
+				EDB7BC3519B0145400898D94 /* TeamImageView.m in Sources */,
+				EDB7BC3619B0145400898D94 /* MatchesViewController.m in Sources */,
+				EDB7BC3719B0145400898D94 /* GroupMembershipTableViewCell.m in Sources */,
+				EDB7BC3819B0145400898D94 /* AnonymousViewController.m in Sources */,
+				EDB7BC3919B0145400898D94 /* FTRequestSerializer.m in Sources */,
+				EDB7BC3A19B0145400898D94 /* WalletHighestTableViewCell.m in Sources */,
+				EDB7BC3B19B0145400898D94 /* FeaturedButton.m in Sources */,
+				EDB7BC3C19B0145400898D94 /* MatchTableViewCell.m in Sources */,
+				EDB7BC3D19B0145400898D94 /* MyLeaguesViewController.m in Sources */,
+				EDB7BC3E19B0145400898D94 /* TemplateViewController.m in Sources */,
+				EDB7BC3F19B0145400898D94 /* UILabel+Shake.m in Sources */,
+				EDB7BC4019B0145400898D94 /* NSManagedObjectContext+FTAddons.m in Sources */,
+				EDB7BC4119B0145400898D94 /* _Team.m in Sources */,
+				EDB7BC4219B0145400898D94 /* RechargeViewController.m in Sources */,
+				EDB7BC4319B0145400898D94 /* UIFont+MaxFontSize.m in Sources */,
+				EDB7BC4419B0145400898D94 /* FootblLabel.m in Sources */,
+				EDB7BC4519B0145400898D94 /* FTModel.m in Sources */,
+				EDB7BC4619B0145400898D94 /* UIView+Frame.m in Sources */,
+				EDB7BC4719B0145400898D94 /* SettingsViewController.m in Sources */,
+				EDB7BC4819B0145400898D94 /* FootblNavigationController.m in Sources */,
+				EDB7BC4919B0145400898D94 /* LogsViewController.m in Sources */,
+				EDB7BC4A19B0145400898D94 /* AskFriendTableViewCell.m in Sources */,
+				EDB7BC4B19B0145400898D94 /* SettingsTableViewCell.m in Sources */,
+				EDB7BC4C19B0145400898D94 /* main.m in Sources */,
+				EDB7BC4D19B0145400898D94 /* FTImageUploader.m in Sources */,
+				EDB7BC4E19B0145400898D94 /* NSNumber+Formatter.m in Sources */,
+				EDB7BC4F19B0145400898D94 /* CreditRequest.m in Sources */,
+				EDB7BC5019B0145400898D94 /* NewGroupViewController.m in Sources */,
+				EDB7BC5119B0145400898D94 /* FootblAppearance.m in Sources */,
+				EDB7BC5219B0145400898D94 /* MatchTableViewCell+Setup.m in Sources */,
+				EDB7BC5319B0145400898D94 /* FootblTabBarController.m in Sources */,
+				EDB7BC5419B0145400898D94 /* WalletGraphTableViewCell.m in Sources */,
+				EDB7BC5519B0145400898D94 /* _Championship.m in Sources */,
+				EDB7BC5619B0145400898D94 /* BetsViewController.m in Sources */,
+				EDB7BC5719B0145400898D94 /* _Membership.m in Sources */,
+				EDB7BC5819B0145400898D94 /* Footbl.xcdatamodeld in Sources */,
+				EDB7BC5919B0145400898D94 /* LoadingHelper.m in Sources */,
+				EDB7BC5A19B0145400898D94 /* Group.m in Sources */,
+				EDB7BC5B19B0145400898D94 /* RatingHelper.m in Sources */,
+				EDB7BC5C19B0145400898D94 /* _Match.m in Sources */,
+				EDB7BC5D19B0145400898D94 /* SDImageCache+ShippedCache.m in Sources */,
+				EDB7BC5E19B0145400898D94 /* ImportImageHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		EDB1D48918E1F18B00E0C949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EDB1D46118E1F18B00E0C949 /* Footbl */;
+			target = EDB1D46118E1F18B00E0C949 /* Footbl App Store */;
 			targetProxy = EDB1D48818E1F18B00E0C949 /* PBXContainerItemProxy */;
+		};
+		EDB7BC9B19B01B6900898D94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED7859DE199D0C62002A4DBD /* Footbl */;
+			targetProxy = EDB7BC9A19B01B6900898D94 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1974,86 +2325,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		ED6E0197193DAFD2006B9783 /* App Store */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "App Store";
-		};
-		ED6E0198193DAFD2006B9783 /* App Store */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7be74779-dc36-4c10-9c29-e90cfb830f92";
-				WRAPPER_EXTENSION = app;
-			};
-			name = "App Store";
-		};
-		ED6E0199193DAFD2006B9783 /* App Store */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/FootblTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = "App Store";
-		};
 		ED785A61199D0C62002A4DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2062,12 +2340,11 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
-					"FT_DEVELOPMENT_TARGET=1",
+					"FT_SERVER_ENVIRONMENT=1",
 				);
-				INFOPLIST_FILE = "Footbl Development-Info.plist";
-				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "77200b0a-4f62-48b0-b0fb-c4a9a55295ca";
+				INFOPLIST_FILE = "Footbl-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "c9e55266-aa33-4f00-9e68-a115eb94a669";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2077,8 +2354,8 @@
 			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2087,40 +2364,14 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOAPODS=1",
-					"FT_DEVELOPMENT_TARGET=1",
+					"FT_SERVER_ENVIRONMENT=1",
 				);
-				INFOPLIST_FILE = "Footbl Development-Info.plist";
-				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "739780f7-faee-41b4-a67c-ba9ea2568f3d";
+				INFOPLIST_FILE = "Footbl-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
-		};
-		ED785A63199D0C62002A4DBD /* App Store */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"FT_DEVELOPMENT_TARGET=1",
-				);
-				INFOPLIST_FILE = "Footbl Development-Info.plist";
-				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "7be74779-dc36-4c10-9c29-e90cfb830f92";
-				WRAPPER_EXTENSION = app;
-			};
-			name = "App Store";
 		};
 		EDB1D49218E1F18B00E0C949 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2143,10 +2394,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2180,7 +2427,6 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "FB_TWEAK_ENABLED=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2207,8 +2453,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
+				PRODUCT_NAME = Footbl;
 				PROVISIONING_PROFILE = "77200b0a-4f62-48b0-b0fb-c4a9a55295ca";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2228,9 +2478,13 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "Footbl/Footbl-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "739780f7-faee-41b4-a67c-ba9ea2568f3d";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
+				PRODUCT_NAME = Footbl;
+				PROVISIONING_PROFILE = "7be74779-dc36-4c10-9c29-e90cfb830f92";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2239,7 +2493,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2248,13 +2502,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = "FootblTests/FootblTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -2263,7 +2513,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2274,20 +2524,193 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/FootblTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
+		EDB7BC7A19B0145400898D94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "c9e55266-aa33-4f00-9e68-a115eb94a669";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EDB7BC7B19B0145400898D94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EDB7BC9519B0193A00898D94 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = QA;
+		};
+		EDB7BC9619B0193A00898D94 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
+				PRODUCT_NAME = Footbl;
+				PROVISIONING_PROFILE = "739780f7-faee-41b4-a67c-ba9ea2568f3d";
+				WRAPPER_EXTENSION = app;
+			};
+			name = QA;
+		};
+		EDB7BC9719B0193A00898D94 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3459639DA0144D4BCC46DDC /* Pods-FootblTests.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				INFOPLIST_FILE = "FootblTests/FootblTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = QA;
+		};
+		EDB7BC9819B0193A00898D94 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=1",
+				);
+				INFOPLIST_FILE = "Footbl-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = QA;
+		};
+		EDB7BC9919B0193A00898D94 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED71846E6ADC42B088DC3378 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Fernando Saragoca (8Y8458KNAN)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FT_SERVER_ENVIRONMENT=3",
+				);
+				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				PRODUCT_NAME = "Footbl ß";
+				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = QA;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl Development" */ = {
+		ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED785A61199D0C62002A4DBD /* Debug */,
 				ED785A62199D0C62002A4DBD /* Release */,
-				ED785A63199D0C62002A4DBD /* App Store */,
+				EDB7BC9819B0193A00898D94 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2297,17 +2720,17 @@
 			buildConfigurations = (
 				EDB1D49218E1F18B00E0C949 /* Debug */,
 				EDB1D49318E1F18B00E0C949 /* Release */,
-				ED6E0197193DAFD2006B9783 /* App Store */,
+				EDB7BC9519B0193A00898D94 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EDB1D49418E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "Footbl" */ = {
+		EDB1D49418E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "Footbl App Store" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EDB1D49518E1F18B00E0C949 /* Debug */,
 				EDB1D49618E1F18B00E0C949 /* Release */,
-				ED6E0198193DAFD2006B9783 /* App Store */,
+				EDB7BC9619B0193A00898D94 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2317,7 +2740,17 @@
 			buildConfigurations = (
 				EDB1D49818E1F18B00E0C949 /* Debug */,
 				EDB1D49918E1F18B00E0C949 /* Release */,
-				ED6E0199193DAFD2006B9783 /* App Store */,
+				EDB7BC9719B0193A00898D94 /* QA */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EDB7BC7919B0145400898D94 /* Build configuration list for PBXNativeTarget "Footbl Beta" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDB7BC7A19B0145400898D94 /* Debug */,
+				EDB7BC7B19B0145400898D94 /* Release */,
+				EDB7BC9919B0193A00898D94 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -46,7 +46,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
     if (self) {
         _responseLimit = 20;
         self.requestSerializer = [FTRequestSerializer serializer];
-        self.environment = FTEnvironmentProduction;
+        self.environment = FT_SERVER_ENVIRONMENT;
         if (FBTweakValue(@"System", @"Networking", @"Max ops.", 0, 0, 100) > 0) {
             self.operationQueue.maxConcurrentOperationCount = FBTweakValue(@"System", @"Networking", @"Max ops.", 0, 0, 100);
         }

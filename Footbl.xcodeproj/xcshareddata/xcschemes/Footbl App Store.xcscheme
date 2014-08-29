@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-               BuildableName = "Footbl.app"
-               BlueprintName = "Footbl"
+               BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
+               BuildableName = "Footbl App Store.app"
+               BlueprintName = "Footbl App Store"
                ReferencedContainer = "container:Footbl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,13 +28,23 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EDB1D48118E1F18B00E0C949"
+               BuildableName = "FootblTests.xctest"
+               BlueprintName = "FootblTests"
+               ReferencedContainer = "container:Footbl.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl.app"
-            BlueprintName = "Footbl"
+            BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
+            BuildableName = "Footbl App Store.app"
+            BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +61,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl.app"
-            BlueprintName = "Footbl"
+            BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
+            BuildableName = "Footbl App Store.app"
+            BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +79,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl.app"
-            BlueprintName = "Footbl"
+            BlueprintIdentifier = "EDB1D46118E1F18B00E0C949"
+            BuildableName = "Footbl App Store.app"
+            BlueprintName = "Footbl App Store"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,7 +90,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "QA"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
