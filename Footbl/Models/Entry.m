@@ -37,6 +37,18 @@
     }];
 }
 
++ (void)getWithObject:(FTModel *)object success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [self resourcePathWithObject:object];
+    [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:nil untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+            for (Entry *entry in untouchedObjects) {
+                entry.championship.enabled = @NO;
+            }
+            [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
+        } completionBlock:success];
+    } failure:failure];
+}
+
 #pragma mark - Instance Methods
 
 - (NSString *)resourcePath {
@@ -48,6 +60,7 @@
     
     self.championship = [Championship findOrCreateWithObject:data[@"championship"] inContext:self.managedObjectContext];
     self.championship.enabled = @YES;
+    self.championship.updatedAt = [NSDate date];
 }
 
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

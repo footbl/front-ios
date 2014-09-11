@@ -54,14 +54,19 @@
         [[LoadingHelper sharedInstance] showHud];
     }
     
-    [Championship getWithObject:nil success:^(id response) {
-        [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    };
+    
+    
+    [Championship getWithObject:nil success:^(id response) {
+        [Entry getWithObject:[User currentUser].editableObject success:^(id response) {
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:failure];
+    } failure:failure];
 }
 
 - (void)configureCell:(GroupChampionshipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -99,15 +104,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser].editableObject, @"championship" : championship.slug} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser].editableObject, @"championship" : championship.slug} success:^(id response) {
+        [self reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [championship.entry deleteWithSuccess:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [championship.entry deleteWithSuccess:^(id response) {
+        [self reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
+        [self reloadData];
     }];
 }
 

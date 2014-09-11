@@ -50,6 +50,7 @@
     } else {
         self.displayName = NSLocalizedString(string, @"");
     }
+    self.enabledValue = self.entry ? YES : NO;
 }
 
 @end
