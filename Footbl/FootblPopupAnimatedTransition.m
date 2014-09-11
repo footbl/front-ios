@@ -23,8 +23,6 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if (self.isPresenting) {
-        [[transitionContext containerView] addSubview:fromViewController.view];
-        
         UIView *blackView = [[UIView alloc] initWithFrame:fromViewController.view.frame];
         blackView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         [[transitionContext containerView] addSubview:blackView];
@@ -50,7 +48,6 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
         }];
     } else {
         UIView *blackView = objc_getAssociatedObject(fromViewController, (__bridge const void *)(kBlackViewAssociationKey));
-        [[transitionContext containerView] addSubview:toViewController.view];
         [[transitionContext containerView] addSubview:blackView];
         [[transitionContext containerView] addSubview:fromViewController.view];
         
