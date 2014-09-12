@@ -21,12 +21,12 @@ NSString * NSStringFromBuildType(SPBuildType buildType) {
 }
 
 NSString * SPGetApplicationName() {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleNameKey];
+    return [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleNameKey];
 }
 
 NSString * SPGetApplicationVersion() {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
-    NSString *shortVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *version = [NSBundle mainBundle].infoDictionary[(NSString *)kCFBundleVersionKey];
+    NSString *shortVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     if (![version isEqualToString:shortVersion]) {
         version = [NSString stringWithFormat:@"%@ (%@)", shortVersion, version];
     }

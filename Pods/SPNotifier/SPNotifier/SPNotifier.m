@@ -11,7 +11,7 @@
 
 #define BASE_URL @"http://notify.madeatsampa.com/api/v1"
 #define ACTIVITY_URL @"http://notify-activity.madeatsampa.com/api/v1"
-#define FRAMEWORK_VERSION @"0.1.2"
+#define FRAMEWORK_VERSION @"0.2.2"
 #define TOKEN_KEY @"notification_token_made_at_sampa"
 
 static NSString * AFNormalizedDeviceTokenStringWithDeviceToken(id deviceToken) {

@@ -96,7 +96,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 FXKeychain
 
-Version 1.5, January 30th, 2014
+Version 1.5.1, May 30th, 2014
 
 Copyright (C) 2012 Charcoal Design
 
@@ -536,7 +536,7 @@ THE SOFTWARE.
 
 iRate
 
-Version 1.10.2, April 13th, 2014
+Version 1.10.3, April 14th, 2014
 
 Copyright (C) 2011 Charcoal Design
 

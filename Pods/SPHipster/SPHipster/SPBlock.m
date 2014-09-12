@@ -31,14 +31,14 @@ void perform_block_after_delay_k(CGFloat seconds, NSUInteger *key, dispatch_bloc
         
         NSNumber *hash = @([performableBlock hash]);
         if (key) {
-            *key = [hash unsignedIntegerValue];
+            *key = hash.unsignedIntegerValue;
         }
         
-        [blocksDictionary() setObject:@YES forKey:hash];
+        blocksDictionary()[hash] = @YES;
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            if ([blocksDictionary() objectForKey:hash]) {
+            if (blocksDictionary()[hash]) {
                 dispatch_async(dispatch_get_main_queue(), performableBlock);
                 [blocksDictionary() removeObjectForKey:hash];
             }

@@ -7,7 +7,7 @@
 //
 
 #import <SPHipster/SPLog.h>
-#import <TransformerKit/TransformerKit.h>
+#import <TransformerKit/TTTDateTransformers.h>
 #import "AppDelegate.h"
 #import "FTModel.h"
 

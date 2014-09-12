@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
-#import <TransformerKit/TransformerKit.h>
+#import <TransformerKit/TTTDateTransformers.h>
 #import "Bet.h"
 #import "Championship.h"
 #import "NSNumber+Formatter.h"

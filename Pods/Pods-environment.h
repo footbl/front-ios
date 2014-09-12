@@ -57,62 +57,68 @@
 // APAddressBook
 #define COCOAPODS_POD_AVAILABLE_APAddressBook
 #define COCOAPODS_VERSION_MAJOR_APAddressBook 0
-#define COCOAPODS_VERSION_MINOR_APAddressBook 0
-#define COCOAPODS_VERSION_PATCH_APAddressBook 7
+#define COCOAPODS_VERSION_MINOR_APAddressBook 1
+#define COCOAPODS_VERSION_PATCH_APAddressBook 2
+
+// APAddressBook/Core
+#define COCOAPODS_POD_AVAILABLE_APAddressBook_Core
+#define COCOAPODS_VERSION_MAJOR_APAddressBook_Core 0
+#define COCOAPODS_VERSION_MINOR_APAddressBook_Core 1
+#define COCOAPODS_VERSION_PATCH_APAddressBook_Core 2
 
 // CargoBay
 #define COCOAPODS_POD_AVAILABLE_CargoBay
 #define COCOAPODS_VERSION_MAJOR_CargoBay 2
-#define COCOAPODS_VERSION_MINOR_CargoBay 0
-#define COCOAPODS_VERSION_PATCH_CargoBay 3
+#define COCOAPODS_VERSION_MINOR_CargoBay 1
+#define COCOAPODS_VERSION_PATCH_CargoBay 0
 
 // Cloudinary
 #define COCOAPODS_POD_AVAILABLE_Cloudinary
 #define COCOAPODS_VERSION_MAJOR_Cloudinary 1
 #define COCOAPODS_VERSION_MINOR_Cloudinary 0
-#define COCOAPODS_VERSION_PATCH_Cloudinary 11
+#define COCOAPODS_VERSION_PATCH_Cloudinary 12
 
 // FXKeychain
 #define COCOAPODS_POD_AVAILABLE_FXKeychain
 #define COCOAPODS_VERSION_MAJOR_FXKeychain 1
 #define COCOAPODS_VERSION_MINOR_FXKeychain 5
-#define COCOAPODS_VERSION_PATCH_FXKeychain 0
+#define COCOAPODS_VERSION_PATCH_FXKeychain 1
 
 // FlurrySDK
 #define COCOAPODS_POD_AVAILABLE_FlurrySDK
 #define COCOAPODS_VERSION_MAJOR_FlurrySDK 5
-#define COCOAPODS_VERSION_MINOR_FlurrySDK 2
+#define COCOAPODS_VERSION_MINOR_FlurrySDK 3
 #define COCOAPODS_VERSION_PATCH_FlurrySDK 0
 
 // FlurrySDK/FlurrySDK
 #define COCOAPODS_POD_AVAILABLE_FlurrySDK_FlurrySDK
 #define COCOAPODS_VERSION_MAJOR_FlurrySDK_FlurrySDK 5
-#define COCOAPODS_VERSION_MINOR_FlurrySDK_FlurrySDK 2
+#define COCOAPODS_VERSION_MINOR_FlurrySDK_FlurrySDK 3
 #define COCOAPODS_VERSION_PATCH_FlurrySDK_FlurrySDK 0
 
 // GoogleAnalytics-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_GoogleAnalytics_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_GoogleAnalytics_iOS_SDK 3
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK 0
-#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 3
+#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 9
 
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD
 #define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
-#define COCOAPODS_VERSION_MINOR_MBProgressHUD 8
+#define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
 #define COCOAPODS_VERSION_PATCH_MBProgressHUD 0
 
 // RMStore
 #define COCOAPODS_POD_AVAILABLE_RMStore
 #define COCOAPODS_VERSION_MAJOR_RMStore 0
 #define COCOAPODS_VERSION_MINOR_RMStore 5
-#define COCOAPODS_VERSION_PATCH_RMStore 0
+#define COCOAPODS_VERSION_PATCH_RMStore 2
 
 // RMStore/Core
 #define COCOAPODS_POD_AVAILABLE_RMStore_Core
 #define COCOAPODS_VERSION_MAJOR_RMStore_Core 0
 #define COCOAPODS_VERSION_MINOR_RMStore_Core 5
-#define COCOAPODS_VERSION_PATCH_RMStore_Core 0
+#define COCOAPODS_VERSION_PATCH_RMStore_Core 2
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
@@ -129,32 +135,32 @@
 // SPHipster
 #define COCOAPODS_POD_AVAILABLE_SPHipster
 #define COCOAPODS_VERSION_MAJOR_SPHipster 0
-#define COCOAPODS_VERSION_MINOR_SPHipster 3
+#define COCOAPODS_VERSION_MINOR_SPHipster 5
 #define COCOAPODS_VERSION_PATCH_SPHipster 0
 
 // SPHipster/Categories
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Categories
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Categories 0
-#define COCOAPODS_VERSION_MINOR_SPHipster_Categories 3
+#define COCOAPODS_VERSION_MINOR_SPHipster_Categories 5
 #define COCOAPODS_VERSION_PATCH_SPHipster_Categories 0
 
 // SPHipster/Core
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Core
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Core 0
-#define COCOAPODS_VERSION_MINOR_SPHipster_Core 3
+#define COCOAPODS_VERSION_MINOR_SPHipster_Core 5
 #define COCOAPODS_VERSION_PATCH_SPHipster_Core 0
 
 // SPHipster/Extras
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Extras
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Extras 0
-#define COCOAPODS_VERSION_MINOR_SPHipster_Extras 3
+#define COCOAPODS_VERSION_MINOR_SPHipster_Extras 5
 #define COCOAPODS_VERSION_PATCH_SPHipster_Extras 0
 
 // SPNotifier
 #define COCOAPODS_POD_AVAILABLE_SPNotifier
 #define COCOAPODS_VERSION_MAJOR_SPNotifier 0
 #define COCOAPODS_VERSION_MINOR_SPNotifier 2
-#define COCOAPODS_VERSION_PATCH_SPNotifier 1
+#define COCOAPODS_VERSION_PATCH_SPNotifier 2
 
 // SVPullToRefresh
 #define COCOAPODS_POD_AVAILABLE_SVPullToRefresh
@@ -171,8 +177,50 @@
 // TransformerKit
 #define COCOAPODS_POD_AVAILABLE_TransformerKit
 #define COCOAPODS_VERSION_MAJOR_TransformerKit 0
-#define COCOAPODS_VERSION_MINOR_TransformerKit 3
-#define COCOAPODS_VERSION_PATCH_TransformerKit 1
+#define COCOAPODS_VERSION_MINOR_TransformerKit 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit 3
+
+// TransformerKit/Core
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Core
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Core 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Core 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Core 3
+
+// TransformerKit/Cryptography
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Cryptography
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Cryptography 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Cryptography 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Cryptography 3
+
+// TransformerKit/Data
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Data
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Data 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Data 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Data 3
+
+// TransformerKit/Date
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Date
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Date 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Date 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Date 3
+
+// TransformerKit/Image
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_Image
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_Image 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_Image 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_Image 3
+
+// TransformerKit/JSON
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_JSON
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_JSON 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_JSON 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_JSON 3
+
+// TransformerKit/String
+#define COCOAPODS_POD_AVAILABLE_TransformerKit_String
+#define COCOAPODS_VERSION_MAJOR_TransformerKit_String 0
+#define COCOAPODS_VERSION_MINOR_TransformerKit_String 5
+#define COCOAPODS_VERSION_PATCH_TransformerKit_String 3
 
 // Tweaks
 #define COCOAPODS_POD_AVAILABLE_Tweaks
@@ -190,5 +238,5 @@
 #define COCOAPODS_POD_AVAILABLE_iRate
 #define COCOAPODS_VERSION_MAJOR_iRate 1
 #define COCOAPODS_VERSION_MINOR_iRate 10
-#define COCOAPODS_VERSION_PATCH_iRate 2
+#define COCOAPODS_VERSION_PATCH_iRate 3
 

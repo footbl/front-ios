@@ -27,7 +27,6 @@
 
 #import <AssertMacros.h>
 
-
 NSString * const CargoBayErrorDomain = @"com.mattt.CargoBay.ErrorDomain";
 
 NSString * const kCargoBaySandboxReceiptVerificationURLString = @"https://sandbox.itunes.apple.com/verifyReceipt";
@@ -547,7 +546,10 @@ BOOL CBCheckReceiptSecurity(NSString *purchaseInfoString, NSString *signatureStr
 
         SecKeyRef receiptSigningKey = SecTrustCopyPublicKey(trust);
         __Require(receiptSigningKey, _out);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-function-declaration"
         __Require_noErr(SecKeyRawVerify(receiptSigningKey, kSecPaddingPKCS1SHA1, dataToBeVerified, sizeof(dataToBeVerified), signatureBlob->_signature, sizeof(signatureBlob->_signature)), _out);
+#pragma clang diagnostic pop
 
         // TODO: Implements optional verification step.
         // Optional: Verify that the receipt certificate has the 1.2.840.113635.100.6.5.1 Null OID.
@@ -582,6 +584,7 @@ _out:
 
 #pragma mark -
 
+#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
 NSData * CBTransactionReceiptFromPaymentTransaction(SKPaymentTransaction *transaction) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -596,6 +599,7 @@ NSData * CBTransactionReceiptFromPaymentTransaction(SKPaymentTransaction *transa
     return transaction.transactionReceipt;
 #pragma clang diagnostic pop
 }
+#endif
 
 NSDictionary * CBPurchaseInfoFromTransactionReceipt(NSData *transactionReceiptData, NSError * __autoreleasing *error) {
     NSDictionary *transactionReceiptDictionary = [NSPropertyListSerialization propertyListWithData:transactionReceiptData options:NSPropertyListImmutable format:nil error:error];
@@ -1080,34 +1084,27 @@ restoreCompletedTransactionsFailedWithError:(NSError *)error
         return nil;
     }
 
-    self.success = ^(NSArray *products, NSArray *invalidIdentifiers) {
-        if (success) {
-            success(products, invalidIdentifiers);
-        }
-    };
-    
-    self.failure = ^(NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    };
-    
+    self.success = success;
+    self.failure = failure;
+
     return self;
 }
 
 #pragma mark - SKRequestDelegate
 
-- (void)request:(__unused SKRequest *)request
+- (void)request:(SKRequest *)request
 didFailWithError:(NSError *)error
 {
     if (self.failure) {
         self.failure(error);
     }
-    
+
+    request.delegate = nil;
     [[self class] unregisterDelegate:self];
 }
 
-- (void)requestDidFinish:(__unused SKRequest *)request {
+- (void)requestDidFinish:(SKRequest *)request {
+    request.delegate = nil;
     [[self class] unregisterDelegate:self];
 }
 

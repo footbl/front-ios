@@ -30,7 +30,7 @@
 
 - (NSMutableIndexSet *)deletedSectionIndexes {
     if (_deletedSectionIndexes == nil) {
-        [self setDeletedSectionIndexes:[NSMutableIndexSet new]];
+        self.deletedSectionIndexes = [NSMutableIndexSet new];
     }
     
     return _deletedSectionIndexes;
@@ -38,7 +38,7 @@
 
 - (NSMutableIndexSet *)insertedSectionIndexes {
     if (_insertedSectionIndexes == nil) {
-        [self setInsertedSectionIndexes:[NSMutableIndexSet new]];
+        self.insertedSectionIndexes = [NSMutableIndexSet new];
     }
     
     return _insertedSectionIndexes;
@@ -46,7 +46,7 @@
 
 - (NSMutableArray *)deletedRowIndexPaths {
     if (_deletedRowIndexPaths == nil) {
-        [self setDeletedRowIndexPaths:[NSMutableArray new]];
+        self.deletedRowIndexPaths = [NSMutableArray new];
     }
     
     return _deletedRowIndexPaths;
@@ -54,7 +54,7 @@
 
 - (NSMutableArray *)insertedRowIndexPaths {
     if (_insertedRowIndexPaths == nil) {
-        [self setInsertedRowIndexPaths:[NSMutableArray new]];
+        self.insertedRowIndexPaths = [NSMutableArray new];
     }
     
     return _insertedRowIndexPaths;
@@ -62,7 +62,7 @@
 
 - (NSMutableArray *)updatedRowIndexPaths {
     if (_updatedRowIndexPaths == nil) {
-        [self setUpdatedRowIndexPaths:[NSMutableArray new]];
+        self.updatedRowIndexPaths = [NSMutableArray new];
     }
     
     return _updatedRowIndexPaths;
@@ -75,12 +75,12 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+    return self.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+    return sectionInfo.numberOfObjects;
 }
 
 #pragma mark - NSFetchedResultsController delegate
@@ -92,11 +92,13 @@
     
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
-			[[self insertedSectionIndexes] addIndex:sectionIndex];
+			[self.insertedSectionIndexes addIndex:sectionIndex];
 			break;
 		case NSFetchedResultsChangeDelete:
-			[[self deletedSectionIndexes] addIndex:sectionIndex];
+			[self.deletedSectionIndexes addIndex:sectionIndex];
 			break;
+        default:
+            break;
 	}
 }
 
@@ -106,27 +108,27 @@
     }
     
     if (type == NSFetchedResultsChangeInsert) {
-        if ([[self insertedSectionIndexes] containsIndex:newIndexPath.section]) {
+        if ([self.insertedSectionIndexes containsIndex:newIndexPath.section]) {
             return;
         }
         
-        [[self insertedRowIndexPaths] addObject:newIndexPath];
+        [self.insertedRowIndexPaths addObject:newIndexPath];
     } else if (type == NSFetchedResultsChangeDelete) {
-        if ([[self deletedSectionIndexes] containsIndex:indexPath.section]) {
+        if ([self.deletedSectionIndexes containsIndex:indexPath.section]) {
             return;
         }
         
-        [[self deletedRowIndexPaths] addObject:indexPath];
+        [self.deletedRowIndexPaths addObject:indexPath];
     } else if (type == NSFetchedResultsChangeMove) {
-        if ([[self insertedSectionIndexes] containsIndex:newIndexPath.section] == NO) {
-            [[self insertedRowIndexPaths] addObject:newIndexPath];
+        if ([self.insertedSectionIndexes containsIndex:newIndexPath.section] == NO) {
+            [self.insertedRowIndexPaths addObject:newIndexPath];
         }
         
-        if ([[self deletedSectionIndexes] containsIndex:indexPath.section] == NO) {
-            [[self deletedRowIndexPaths] addObject:indexPath];
+        if ([self.deletedSectionIndexes containsIndex:indexPath.section] == NO) {
+            [self.deletedRowIndexPaths addObject:indexPath];
         }
     } else if (type == NSFetchedResultsChangeUpdate) {
-        [[self updatedRowIndexPaths] addObject:indexPath];
+        [self.updatedRowIndexPaths addObject:indexPath];
     }
 }
 
@@ -135,41 +137,41 @@
         return;
     }
     
-    NSInteger totalChanges = [[self deletedSectionIndexes] count] + [[self insertedSectionIndexes] count] + [[self deletedRowIndexPaths] count] + [[self insertedRowIndexPaths] count] + [[self updatedRowIndexPaths] count];
+    NSInteger totalChanges = self.deletedSectionIndexes.count + self.insertedSectionIndexes.count + self.deletedRowIndexPaths.count + self.insertedRowIndexPaths.count + self.updatedRowIndexPaths.count;
     
     if (totalChanges > 50) {
-        [self setInsertedSectionIndexes:nil];
-        [self setDeletedSectionIndexes:nil];
-        [self setDeletedRowIndexPaths:nil];
-        [self setInsertedRowIndexPaths:nil];
-        [self setUpdatedRowIndexPaths:nil];
-        [[self tableView] reloadData];
+        self.insertedSectionIndexes = nil;
+        self.deletedSectionIndexes = nil;
+        self.insertedRowIndexPaths = nil;
+        self.deletedRowIndexPaths = nil;
+        self.updatedRowIndexPaths = nil;
+        [self.tableView reloadData];
         return;
     }
     
-    [[self tableView] beginUpdates];
+    [self.tableView beginUpdates];
     
-    [[self tableView] deleteRowsAtIndexPaths:[self deletedRowIndexPaths] withRowAnimation:UITableViewRowAnimationLeft];
-    [[self tableView] deleteSections:[self deletedSectionIndexes] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [[self tableView] insertSections:[self insertedSectionIndexes] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [[self tableView] insertRowsAtIndexPaths:[self insertedRowIndexPaths] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView deleteRowsAtIndexPaths:[self deletedRowIndexPaths] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView deleteSections:[self deletedSectionIndexes] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertSections:[self insertedSectionIndexes] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:[self insertedRowIndexPaths] withRowAnimation:UITableViewRowAnimationLeft];
     
     @try {
-        for (NSIndexPath *indexPath in [self updatedRowIndexPaths]) {
-            [self configureCell:[[self tableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        for (NSIndexPath *indexPath in self.updatedRowIndexPaths) {
+            [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
         }
     }
     @catch (NSException *exception) {
-        [[self tableView] reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     
-    [[self tableView] endUpdates];
+    [self.tableView endUpdates];
     
-    [self setInsertedSectionIndexes:nil];
-    [self setDeletedSectionIndexes:nil];
-    [self setDeletedRowIndexPaths:nil];
-    [self setInsertedRowIndexPaths:nil];
-    [self setUpdatedRowIndexPaths:nil];
+    self.insertedSectionIndexes = nil;
+    self.deletedSectionIndexes = nil;
+    self.insertedRowIndexPaths = nil;
+    self.deletedRowIndexPaths = nil;
+    self.updatedRowIndexPaths = nil;
 }
 
 #pragma mark - View Lifecycle

@@ -27,11 +27,11 @@ void SPLogSwitchToLocalFiles() {
     path = [[path stringByAppendingPathComponent:[formatter stringFromDate:[NSDate date]]] stringByAppendingPathExtension:@"log"];
     [@"" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
-    dup2([fileHandle fileDescriptor], STDERR_FILENO);
+    dup2(fileHandle.fileDescriptor, STDERR_FILENO);
 }
 
 NSString * SPGenerateLogString(const char *file, int lineNumber, const char *functionName, SPDebugLogLevel logLevel) {
-    NSString *fileName = [[NSString stringWithUTF8String:file] lastPathComponent];
+    NSString *fileName = [NSString stringWithUTF8String:file].lastPathComponent;
     NSString *logType;
     switch (logLevel) {
         case SPDebugLogLevelVerbose:

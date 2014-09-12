@@ -21,84 +21,106 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - APAddressBook (0.0.7)
-  - CargoBay (2.0.3):
-    - AFNetworking (~> 2.1)
-  - Cloudinary (1.0.11)
-  - FlurrySDK (5.2.0):
+  - APAddressBook (0.1.2):
+    - APAddressBook/Core
+  - APAddressBook/Core (0.1.2)
+  - CargoBay (2.1.0):
+    - AFNetworking (~> 2.2)
+  - Cloudinary (1.0.12)
+  - FlurrySDK (5.3.0):
     - FlurrySDK/FlurrySDK
-  - FlurrySDK/FlurrySDK (5.2.0)
-  - FXKeychain (1.5)
-  - GoogleAnalytics-iOS-SDK (3.0.3)
-  - iRate (1.10.2)
+  - FlurrySDK/FlurrySDK (5.3.0)
+  - FXKeychain (1.5.1)
+  - GoogleAnalytics-iOS-SDK (3.0.9)
+  - iRate (1.10.3)
   - KIF (3.0.7):
     - KIF/XCTest
   - KIF/XCTest (3.0.7)
-  - MBProgressHUD (0.8)
-  - RMStore (0.5):
+  - MBProgressHUD (0.9)
+  - RMStore (0.5.2):
     - RMStore/Core
-  - RMStore/Core (0.5)
+  - RMStore/Core (0.5.2)
   - SDWebImage (3.7.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.1)
-  - SPHipster (0.3):
+  - SPHipster (0.5):
     - SPHipster/Categories
     - SPHipster/Core
     - SPHipster/Extras
-  - SPHipster/Categories (0.3):
+  - SPHipster/Categories (0.5):
     - SPHipster/Core
-  - SPHipster/Core (0.3)
-  - SPHipster/Extras (0.3):
+  - SPHipster/Core (0.5)
+  - SPHipster/Extras (0.5):
     - SPHipster/Core
-  - SPNotifier (0.2.1):
+  - SPNotifier (0.2.2):
     - AFNetworking (~> 2.0)
   - StyledPageControl (1.0)
   - SVPullToRefresh (0.4.1)
-  - TransformerKit (0.3.1)
+  - TransformerKit (0.5.3):
+    - TransformerKit/Core
+    - TransformerKit/Cryptography
+    - TransformerKit/Data
+    - TransformerKit/Date
+    - TransformerKit/Image
+    - TransformerKit/JSON
+    - TransformerKit/String
+  - TransformerKit/Core (0.5.3)
+  - TransformerKit/Cryptography (0.5.3):
+    - TransformerKit/Core
+  - TransformerKit/Data (0.5.3):
+    - TransformerKit/Core
+  - TransformerKit/Date (0.5.3):
+    - TransformerKit/Core
+  - TransformerKit/Image (0.5.3):
+    - TransformerKit/Core
+  - TransformerKit/JSON (0.5.3):
+    - TransformerKit/Core
+  - TransformerKit/String (0.5.3):
+    - TransformerKit/Core
   - Tweaks (1.1.0)
   - UIAlertView-Blocks (1.0)
 
 DEPENDENCIES:
   - AFNetworkActivityLogger
   - AFNetworking (~> 2.0)
-  - APAddressBook
-  - CargoBay
-  - Cloudinary
-  - FlurrySDK
-  - FXKeychain
-  - GoogleAnalytics-iOS-SDK (= 3.0.3)
-  - iRate
+  - APAddressBook (= 0.1.2)
+  - CargoBay (= 2.1.0)
+  - Cloudinary (= 1.0.12)
+  - FlurrySDK (= 5.3.0)
+  - FXKeychain (= 1.5.1)
+  - GoogleAnalytics-iOS-SDK (= 3.0.9)
+  - iRate (= 1.10.3)
   - KIF (~> 3.0)
-  - MBProgressHUD
-  - RMStore
-  - SDWebImage
-  - SPHipster
-  - SPNotifier
-  - StyledPageControl
-  - SVPullToRefresh
-  - TransformerKit
-  - Tweaks
-  - UIAlertView-Blocks
+  - MBProgressHUD (= 0.9)
+  - RMStore (= 0.5.2)
+  - SDWebImage (= 3.7.1)
+  - SPHipster (= 0.5)
+  - SPNotifier (= 0.2.2)
+  - StyledPageControl (= 1.0)
+  - SVPullToRefresh (= 0.4.1)
+  - TransformerKit (= 0.5.3)
+  - Tweaks (= 1.1.0)
+  - UIAlertView-Blocks (= 1.0)
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: d6a2d2755fada3a1fbf1f490ec0dd92224e092a4
   AFNetworking: 8dde8c8a6597ad95dac332a593c27e541bc87371
-  APAddressBook: 68f34e35b5a037caca73e101c49b33c9eba224a9
-  CargoBay: 186add8173f99bd8f0379cc1da9c7c6bd1bef82b
-  Cloudinary: abf126e40806d7748750c3cf9270bd7f874e8262
-  FlurrySDK: 5322b9eb0d0b538f1a1983a6717f3a2e2ba03047
-  FXKeychain: 8430d308099e8248f504b734a65fa52d4b03831e
-  GoogleAnalytics-iOS-SDK: ee5322bf919d731d34ff3c8d891301e8f1e0e873
-  iRate: 7d204971bab2f727195b868e32e05216fe257681
+  APAddressBook: 11c6a76dd2e7fb2187b0775fec15ed0d0461b474
+  CargoBay: b9b7c2b6a466192fb218935c0dd771d16268a035
+  Cloudinary: 1f3859b17f1c111671a1acf1f0e2648c34d3a207
+  FlurrySDK: e1142ae33e294f8307bd6d2209cc082e79b66e90
+  FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
+  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
+  iRate: 40ebea2bb1e88866cef7393bd0abeae232cc5d38
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225
-  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
-  RMStore: 6df6d5d71ebadbeede7963f7dd83f9c5a52acbbf
+  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  RMStore: 2b0b5e5cba616ee33ad8f0eda85d31de9286817c
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SPHipster: 96bcd75c046bf0d98e08891de3133cf069de4183
-  SPNotifier: 23f1975c68c449ec81433a167dda3dbe429d8f85
+  SPHipster: 9a9e9c7fec44727ec5f0ade10406469ad8d04a7f
+  SPNotifier: dae5b3cb09eb78ab0b3a14a93ad53c612cc2df0d
   StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
-  TransformerKit: 06b091aea93e66436d35abe7b9e12fb144acad29
+  TransformerKit: a8aebc6772d867a727bec50134aa706cf0ce5949
   Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
   UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
 

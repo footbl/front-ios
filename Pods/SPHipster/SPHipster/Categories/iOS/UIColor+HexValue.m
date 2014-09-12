@@ -18,7 +18,7 @@
     unsigned int hexint = 0;
     
     NSScanner *scanner = [NSScanner scannerWithString:hex];
-    [scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
+    scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@"#"];
     [scanner scanHexInt:&hexint];
     
     UIColor *color = [UIColor colorWithRed:((CGFloat)((hexint & 0xFF0000) >> 16)) / 255.f green:((CGFloat)((hexint & 0xFF00) >> 8)) / 255.f blue:((CGFloat)(hexint & 0xFF)) / 255.f alpha:alpha];

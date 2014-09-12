@@ -26,7 +26,6 @@
 @implementation SPWindmillView
 
 static NSString * kRotationAnimationKey = @"kRotationAnimationKey";
-static NSString * kSampaName = @"MADE@SAMPA";
 
 #pragma mark - Getters/Setters
 
@@ -35,8 +34,8 @@ static NSString * kSampaName = @"MADE@SAMPA";
 - (void)setLogoSize:(CGFloat)logoSize {
     _logoSize = logoSize;
 
-    [[self windmill] setFrame:CGRectMake(0, 0, [self logoSize], [self logoSize])];
-    [[self windmill] setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2)];
+    self.windmill.frame = CGRectMake(0, 0, self.logoSize, self.logoSize);
+    self.windmill.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     
     [self setNeedsDisplay];
 }
@@ -50,8 +49,8 @@ static NSString * kSampaName = @"MADE@SAMPA";
 - (void)setRotationsPerSecond:(CGFloat)rotationsPerSecond {
     _rotationsPerSecond = rotationsPerSecond;
     
-    [[self rotationAnimation] setDuration:1 / [self rotationsPerSecond]];
-    [[[self windmill] layer] addAnimation:[self rotationAnimation] forKey:kRotationAnimationKey];
+    self.rotationAnimation.duration = 1 / self.rotationsPerSecond;
+    [self.windmill.layer addAnimation:self.rotationAnimation forKey:kRotationAnimationKey];
 }
 
 - (void)setMargin:(CGFloat)margin {
@@ -69,14 +68,14 @@ static NSString * kSampaName = @"MADE@SAMPA";
 - (void)setTextAttributes:(NSMutableDictionary *)textAttributes {
     _textAttributes = textAttributes;
     
-    [self setUpdatedTextAttributes:YES];
+    self.updatedTextAttributes = YES;
     
     [self setNeedsDisplay];
 }
 
 - (void)setFrame:(CGRect)frame {
-    if ([self logoSize] == MIN(self.frame.size.width, self.frame.size.height)) {
-        [self setLogoSize:MIN(frame.size.width, frame.size.height)];
+    if (self.logoSize == MIN(self.frame.size.width, self.frame.size.height)) {
+        self.logoSize = MIN(frame.size.width, frame.size.height);
     }
     
     [super setFrame:frame];
@@ -85,9 +84,9 @@ static NSString * kSampaName = @"MADE@SAMPA";
 - (NSMutableDictionary *)textAttributes {
     if (_textAttributes == nil) {
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-        [paragraphStyle setAlignment:NSTextAlignmentCenter];
+        paragraphStyle.alignment = NSTextAlignmentCenter;
         _textAttributes = [@{NSForegroundColorAttributeName : [UIColor colorWithRed:0.494 green:0.506 blue:0.580 alpha:1.000],
-                             NSFontAttributeName : [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:[self preferredTextSize]],
+                             NSFontAttributeName : self.madeAtSampaFont,
                              NSParagraphStyleAttributeName : paragraphStyle} mutableCopy];
     }
     
@@ -122,82 +121,87 @@ static NSString * kSampaName = @"MADE@SAMPA";
 }
 
 - (void)sharedInitialization {
-    [self setBackgroundColor:[UIColor clearColor]];
-    [self setColorScheme:SPWindmillViewColorSchemeOriginal];
-    [self setMargin:0];
-    [self setLineWidth:1];
-    [self setLogoSize:MIN(self.frame.size.width, self.frame.size.height)];
-    [self setShouldDrawLabel:YES];
-    [self setUpdatedTextAttributes:NO];
+    self.backgroundColor = [UIColor clearColor];
+    self.colorScheme = SPWindmillViewColorSchemeOriginal;
+    self.margin = 0;
+    self.lineWidth = 1;
+    self.logoSize = MIN(self.frame.size.width, self.frame.size.height);
+    self.shouldDrawLabel = YES;
+    self.updatedTextAttributes = NO;
+    self.textStyle = SPWindmillViewTextStyleUpperCase;
+    self.fontStyle = SPWindmillViewFontStyleCondensed;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startRotationAnimation) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopRotationAnimation) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAnimation) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopAnimation) name:UIApplicationDidEnterBackgroundNotification object:nil];
     
-    CGFloat speed = pow([self logoSize], -0.15);
-    [self setRotationsPerSecond:speed * (speed * 1.8)];
+    self.rotationsPerSecond = 0.8;
     
-    _windmill = [[SPDrawView alloc] initWithFrame:CGRectMake(0, 0, [self logoSize], [self logoSize])];
-    [[self windmill] setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    [[self windmill] setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2)];
-    [[self windmill] setDrawRectBlock:^(CGRect rect) {
-        [self drawWindmillRect:rect];
+    _windmill = [[SPDrawView alloc] initWithFrame:CGRectMake(0, 0, self.logoSize, self.logoSize)];
+    self.windmill.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.windmill.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    __weak SPWindmillView *weakWindmill = self;
+    [self.windmill setDrawRectBlock:^(CGRect rect) {
+        [weakWindmill drawWindmillRect:rect];
     }];
-    [self addSubview:[self windmill]];
+    [self addSubview:self.windmill];
     
     _rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    [[self rotationAnimation] setFromValue:@(0)];
-    [[self rotationAnimation] setToValue:@(2 * M_PI)];
-    [[self rotationAnimation] setDuration:1 / [self rotationsPerSecond]];
-    [[self rotationAnimation] setRepeatCount:HUGE_VALF];
-    [[[self windmill] layer] addAnimation:[self rotationAnimation] forKey:kRotationAnimationKey];
+    self.rotationAnimation.fromValue = @0;
+    self.rotationAnimation.toValue = @(2 * M_PI);
+    self.rotationAnimation.duration = 1 / self.rotationsPerSecond;
+    self.rotationAnimation.repeatCount = HUGE_VALF;
+    [self.windmill.layer addAnimation:self.rotationAnimation forKey:kRotationAnimationKey];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.windmill.frame) + 10, self.frame.size.width, 40)];
-    [[self titleLabel] setAttributedText:[[NSAttributedString alloc] initWithString:kSampaName attributes:[self textAttributes]]];
-    [self addSubview:[self titleLabel]];
+    [self.titleLabel setAttributedText:[[NSAttributedString alloc] initWithString:self.madeAtSampaString attributes:self.textAttributes]];
+    [self addSubview:self.titleLabel];
 }
 
 - (void)drawRect:(CGRect)rect {
-    if (![self updatedTextAttributes]) {
+    if (!self.updatedTextAttributes) {
         _textAttributes = nil;
     }
-
-    CGSize size = [kSampaName sizeWithAttributes:[self textAttributes]];
-    [[self titleLabel] setAttributedText:[[NSAttributedString alloc] initWithString:kSampaName attributes:[self textAttributes]]];
-    [[self titleLabel] setFrame:CGRectMake(0, CGRectGetMaxY(self.windmill.frame) - [self margin], self.frame.size.width, size.height)];
     
-    if ([self shouldDrawLabel]) {
-        [[self titleLabel] setAlpha:1];
-        [[self windmill] setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - size.height / 2)];
+    self.windmill.frame = CGRectMake(0, 0, self.logoSize, self.logoSize);
+
+    CGSize size = [self.madeAtSampaString sizeWithAttributes:self.textAttributes];
+    self.titleLabel.attributedText = [[NSAttributedString alloc] initWithString:self.madeAtSampaString attributes:self.textAttributes];
+    
+    if (self.shouldDrawLabel) {
+        self.titleLabel.alpha = 1;
+        self.windmill.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - size.height / 2);
     } else {
-        [[self titleLabel] setAlpha:0];
-        [[self windmill] setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2)];
+        self.titleLabel.alpha = 0;
+        self.windmill.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     }
+    
+    self.titleLabel.frame = CGRectMake((self.frame.size.width - size.width) / 2, CGRectGetMaxY(self.windmill.frame), size.width, size.height);
 }
 
 - (void)setNeedsDisplay {
     [super setNeedsDisplay];
-    [[self windmill] setNeedsDisplay];
+    [self.windmill setNeedsDisplay];
 }
 
-- (void)startRotationAnimation {
-    [[[self windmill] layer] addAnimation:[self rotationAnimation] forKey:kRotationAnimationKey];
+- (void)startAnimation {
+    [self.windmill.layer addAnimation:self.rotationAnimation forKey:kRotationAnimationKey];
 }
 
-- (void)stopRotationAnimation {
-    [[[self windmill] layer] removeAnimationForKey:kRotationAnimationKey];
+- (void)stopAnimation {
+    [self.windmill.layer removeAnimationForKey:kRotationAnimationKey];
 }
 
 - (CGFloat)preferredTextSize {
-    return MAX(12, round([self logoSize] / 8));
+    return MAX(12, round(self.logoSize / 8));
 }
 
 - (void)drawWindmillRect:(CGRect)rect {
     UIColor *squareColor, *rhombusAColor, *rhombusBColor, *lineColor;
     [self loadColorForSquare:&squareColor rhombusA:&rhombusAColor rhombusB:&rhombusBColor line:&lineColor];
     
-    CGFloat spacing = ([self logoSize] - [self margin] * 2) / 4;
-    CGFloat margin = [self margin];
-    CGFloat lineWidth = [self lineWidth];
+    CGFloat spacing = (self.logoSize - self.margin * 2) / 4;
+    CGFloat margin = self.margin;
+    CGFloat lineWidth = self.lineWidth;
     
     if (!lineColor || lineColor == [UIColor clearColor]) {
         lineWidth = 0;
@@ -213,7 +217,7 @@ static NSString * kSampaName = @"MADE@SAMPA";
     
     void(^paint)(UIBezierPath *path, UIColor *color) = ^(UIBezierPath *path, UIColor *color) {
         if (lineColor && lineColor != [UIColor clearColor]) {
-            [path setLineWidth:[self lineWidth]];
+            path.lineWidth = self.lineWidth;
             [lineColor setStroke];
             [path stroke];
         }
@@ -222,17 +226,17 @@ static NSString * kSampaName = @"MADE@SAMPA";
         [path fill];
     };
     
-    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + [self lineWidth] * 0.5, margin + spacing, spacing * 2, spacing)) lineWidth:[self lineWidth]], rhombusAColor);
+    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + self.lineWidth * 0.5, margin + spacing, spacing * 2, spacing)) lineWidth:self.lineWidth], rhombusAColor);
     
-    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing * 2, margin + [self lineWidth] * 0.5, spacing, spacing * 2)) lineWidth:[self lineWidth]], rhombusBColor);
+    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing * 2, margin + self.lineWidth * 0.5, spacing, spacing * 2)) lineWidth:self.lineWidth], rhombusBColor);
     
-    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing * 2 - [self lineWidth] * 0.5, margin + spacing * 2, spacing * 2, spacing)) lineWidth:[self lineWidth]], rhombusAColor);
+    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing * 2 - self.lineWidth * 0.5, margin + spacing * 2, spacing * 2, spacing)) lineWidth:self.lineWidth], rhombusAColor);
     
-    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing, margin + spacing * 2 - [self lineWidth] * 0.5, spacing, spacing * 2)) lineWidth:[self lineWidth]], rhombusBColor);
+    paint([UIBezierPath bezierPathWithRhombusRect:CGRectIntegral(CGRectMake(margin + spacing, margin + spacing * 2 - self.lineWidth * 0.5, spacing, spacing * 2)) lineWidth:self.lineWidth], rhombusBColor);
 }
 
 - (void)loadColorForSquare:(UIColor *__autoreleasing *)squareColor rhombusA:(UIColor *__autoreleasing *)rhombusA rhombusB:(UIColor *__autoreleasing *)rhombusB line:(UIColor *__autoreleasing *)line {
-    switch ([self colorScheme]) {
+    switch (self.colorScheme) {
         case SPWindmillViewColorSchemeOrange:
             *squareColor = [UIColor colorWithRed:0.992 green:0.471 blue:0.165 alpha:1.000];
             *rhombusA = [UIColor colorWithRed:0.992 green:0.624 blue:0.349 alpha:1.000];
@@ -268,6 +272,62 @@ static NSString * kSampaName = @"MADE@SAMPA";
             *rhombusA = [UIColor colorWithRed:0.494 green:0.506 blue:0.580 alpha:1.000];
             *rhombusB = [UIColor colorWithRed:0.388 green:0.694 blue:0.831 alpha:1.000];
             *line = [UIColor clearColor];
+            break;
+        case SPWindmillViewColorSchemeZZZPurple:
+            *squareColor = [UIColor colorWithRed:0.318 green:0.318 blue:0.690 alpha:1.000];
+            *rhombusA = [UIColor colorWithRed:0.255 green:0.247 blue:0.380 alpha:1.000];
+            *rhombusB = [UIColor colorWithRed:0.522 green:0.506 blue:0.796 alpha:1.000];
+            *line = [UIColor clearColor];
+            break;
+        case SPWindmillViewColorSchemeZZZRed:
+            *squareColor = [UIColor colorWithRed:0.922 green:0.353 blue:0.353 alpha:1.000];
+            *rhombusA = [UIColor colorWithRed:0.710 green:0.196 blue:0.196 alpha:1.000];
+            *rhombusB = [UIColor colorWithRed:0.737 green:0.455 blue:0.455 alpha:1.000];
+            *line = [UIColor clearColor];
+            break;
+        case SPWindmillViewColorSchemeZZZGreen:
+            *squareColor = [UIColor colorWithRed:0.561 green:0.878 blue:0.333 alpha:1.000];
+            *rhombusA = [UIColor colorWithRed:0.259 green:0.463 blue:0.114 alpha:1.000];
+            *rhombusB = [UIColor colorWithRed:0.278 green:0.357 blue:0.220 alpha:1.000];
+            *line = [UIColor clearColor];
+            break;
+        case SPWindmillViewColorSchemeZZZBlue:
+            *squareColor = [UIColor colorWithRed:0.349 green:0.729 blue:0.922 alpha:1.000];
+            *rhombusA = [UIColor colorWithRed:0.306 green:0.482 blue:0.569 alpha:1.000];
+            *rhombusB = [UIColor colorWithRed:0.173 green:0.459 blue:0.600 alpha:1.000];
+            *line = [UIColor clearColor];
+            break;
+        case SPWindmillViewColorSchemeZZZYellow:
+            *squareColor = [UIColor colorWithRed:0.922 green:0.871 blue:0.349 alpha:1.000];
+            *rhombusA = [UIColor colorWithRed:0.745 green:0.682 blue:0.027 alpha:1.000];
+            *rhombusB = [UIColor colorWithRed:0.612 green:0.584 blue:0.282 alpha:1.000];
+            *line = [UIColor clearColor];
+            break;
+    }
+}
+
+- (NSString *)madeAtSampaString {
+    switch (self.textStyle) {
+        case SPWindmillViewTextStyleLowerCase:
+            return @"made@sampa";
+            break;
+        case SPWindmillViewTextStyleUpperCase:
+            return @"MADE@SAMPA";
+            break; 
+        default:
+            break;
+    }
+}
+
+- (UIFont *)madeAtSampaFont {
+    switch (self.fontStyle) {
+        case SPWindmillViewFontStyleCondensed:
+            return [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:self.preferredTextSize];
+            break;
+        case SPWindmillViewFontStyleRegular:
+            return [UIFont fontWithName:@"AvenirNext-Regular" size:self.preferredTextSize];
+            break;
+        default:
             break;
     }
 }

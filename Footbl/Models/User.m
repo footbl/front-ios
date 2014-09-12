@@ -8,7 +8,7 @@
 
 #import <CargoBay/CargoBay.h>
 #import <RMStore/RMStore.h>
-#import <TransformerKit/TransformerKit.h>
+#import <TransformerKit/TTTDateTransformers.h>
 #import "Bet.h"
 #import "Group.h"
 #import "NSNumber+Formatter.h"
@@ -410,10 +410,12 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
             [[RMStore defaultStore] addPayment:product.productIdentifier success:^(SKPaymentTransaction *transaction) {
                 [[CargoBay sharedManager] verifyTransaction:transaction password:nil success:^(NSDictionary *receipt) {
                     NSMutableDictionary *parameters = [NSMutableDictionary new];
+                    /*
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                     parameters[@"receipt"] = CBBase64EncodedStringFromData(transaction.transactionReceipt);
 #pragma clang diagnostic pop
+                    */
                     [[FTOperationManager sharedManager] POST:[self.resourcePath stringByAppendingPathComponent:@"recharge"] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [self getWithSuccess:success failure:failure];
                     } failure:failure];

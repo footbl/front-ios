@@ -46,7 +46,7 @@
 }
 
 - (void)sharedInitialization {
-    [self setBackgroundColor:[UIColor clearColor]];
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setDrawRectBlock:(void (^)(CGRect rect))drawBlock {
@@ -58,7 +58,7 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     
-    if ([self drawRectBlock]) [self drawRectBlock](rect);
+    if (self.drawRectBlock) self.drawRectBlock(rect);
 }
 
 @end
