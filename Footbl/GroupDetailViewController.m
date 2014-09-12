@@ -85,7 +85,7 @@
     }
     
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     
     if (self.group.isDefaultValue) {
         [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
@@ -125,7 +125,7 @@
         }
         
         self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
         [self.group.editableObject getWorldMembersWithPage:self.nextPage.integerValue success:^(NSNumber *nextPage) {
             [weakTableView.infiniteScrollingView stopAnimating];
             self.tableView.showsInfiniteScrolling = (nextPage != nil);
@@ -162,7 +162,7 @@
         cell.walletLabel.text = @"";
     }
     
-    [cell.profileImageView setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
+    [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
     
     if (FBTweakValue(@"UI", @"Group", @"Medals", FT_ENABLE_MEDALS)) {
         switch (indexPath.row) {
@@ -268,7 +268,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }];
     
     self.refreshControl = [UIRefreshControl new];
@@ -295,7 +295,7 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];

@@ -175,7 +175,7 @@
         case 0:
             cell.usernameLabel.text = self.dataSource[indexPath.row][@"username"];
             cell.nameLabel.text = self.dataSource[indexPath.row][@"name"];
-            [cell.profileImageView setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"]] placeholderImage:cell.placeholderImage];
+            [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"]] placeholderImage:cell.placeholderImage];
             break;
         case 1: {
             APContact *contact = self.dataSource[indexPath.row];
@@ -190,7 +190,7 @@
             if (contact.thumbnail) {
                 cell.profileImageView.image = contact.thumbnail;
             } else {
-                [cell.profileImageView cancelCurrentImageLoad];
+                [cell.profileImageView sd_cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             }
             break;
@@ -202,10 +202,10 @@
             cell.usernameLabel.frame = usernameFrame;
             cell.nameLabel.text = @"";
             if ([self.dataSource[indexPath.row][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
-                [cell.profileImageView cancelCurrentImageLoad];
+                [cell.profileImageView sd_cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             } else {
-                [cell.profileImageView setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
             }
             break;
         default:

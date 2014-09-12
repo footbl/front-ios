@@ -209,15 +209,15 @@
     
     if (user) {
         cell.nameLabel.text = user.name;
-        [cell.profileImageView setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
+        [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
     } else if (request.facebookId.length > 0) {
         NSDictionary *friend = [self.fbFriends filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id = %@", request.facebookId]].firstObject;
         cell.nameLabel.text = friend[@"name"];
         if ([friend[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
-            [cell.profileImageView cancelCurrentImageLoad];
+            [cell.profileImageView sd_cancelCurrentImageLoad];
             [cell restoreProfileImagePlaceholder];
         } else {
-            [cell.profileImageView setImageWithURL:[NSURL URLWithString:friend[@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+            [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:friend[@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
         }
     }
 }

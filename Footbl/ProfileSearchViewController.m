@@ -66,7 +66,7 @@
     cell.nameLabel.text = userRepresentation[@"name"];
     cell.usernameLabel.text = userRepresentation[@"username"];
     cell.verified = [userRepresentation[@"verified"] boolValue];
-    [cell.profileImageView setImageWithURL:[NSURL URLWithString:userRepresentation[@"picture"]] placeholderImage:cell.placeholderImage];
+    [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:userRepresentation[@"picture"]] placeholderImage:cell.placeholderImage];
 }
 
 #pragma mark - Delegates & Data sources

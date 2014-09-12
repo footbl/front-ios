@@ -76,7 +76,7 @@
                       @"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/USA_tsrfvq.png",
                       @"http://res.cloudinary.com/he5zfntay/image/upload/w_200,h_200,c_fit/WORLD_CUP_2_xdz6tm.png"];
     for (NSString *imageUrl in urls) {
-        [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:imageUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             if (error) {
                 SPLogError(@"Failed to download image: %@", imageUrl);
             }

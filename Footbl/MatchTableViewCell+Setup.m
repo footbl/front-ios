@@ -27,11 +27,11 @@
     self.selectionBlock = selectionBlock;
     
     self.hostNameLabel.text = match.host.displayName;
-    [self.hostImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    [self.hostDisabledImageView setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [self.hostDisabledImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     self.guestNameLabel.text = match.guest.displayName;
-    [self.guestImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-    [self.guestDisabledImageView setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
+    [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     self.hostScoreLabel.text = match.hostScore.stringValue;
     self.guestScoreLabel.text = match.guestScore.stringValue;
     

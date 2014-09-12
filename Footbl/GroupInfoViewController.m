@@ -127,7 +127,7 @@
     
     self.nameTextField.text = self.group.name;
     self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
-    [self.groupImageButton setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
+    [self.groupImageButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
 }
 
 #pragma mark - Delegates & Data sources

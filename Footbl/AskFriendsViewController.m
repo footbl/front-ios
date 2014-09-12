@@ -167,10 +167,10 @@
     cell.nameLabel.text = friend[@"name"];
     cell.profileImageViewHidden = NO;
     if ([friend[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
-        [cell.profileImageView cancelCurrentImageLoad];
+        [cell.profileImageView sd_cancelCurrentImageLoad];
         [cell restoreProfileImagePlaceholder];
     } else {
-        [cell.profileImageView setImageWithURL:[NSURL URLWithString:friend[@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+        [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:friend[@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
     }
     
     if (self.selectAllActived || ([self.selectedFriendsSet containsObject:friend] && ![[self.tableView indexPathsForSelectedRows] containsObject:indexPath])) {

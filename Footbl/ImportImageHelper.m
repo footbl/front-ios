@@ -59,7 +59,7 @@
         }
         
         NSString *picturePath = result[@"picture"][@"data"][@"url"];
-        [SDWebImageManager.sharedManager downloadWithURL:[NSURL URLWithString:picturePath] options:SDWebImageCacheMemoryOnly | SDWebImageHighPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:picturePath] options:SDWebImageCacheMemoryOnly | SDWebImageHighPriority progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             if (error) {
                 if (completionBlock) completionBlock(nil, error);
                 return;

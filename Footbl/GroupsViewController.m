@@ -77,7 +77,7 @@
     if (group.isDefaultValue) {
         [cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
     } else {
-        [cell.groupImageView setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [cell.groupImageView sd_setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }
     [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
     

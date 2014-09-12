@@ -63,7 +63,7 @@
     cell.nameLabel.text = user.name;
     cell.usernameLabel.text = user.username;
     cell.verified = user.verifiedValue;
-    [cell.profileImageView setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
+    [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
 }
 
 - (void)reloadData {
