@@ -150,8 +150,8 @@
     cell.usernameLabel.text = membership.user.username;
     cell.nameLabel.text = membership.user.name;
     
-    if ([membership.user.history count] > 1 && membership.user.history[1][@"ranking"]) {
-        cell.rankingProgress = @([membership.user.history[1][@"ranking"] integerValue] - membership.rankingValue);
+    if (membership.previousRanking && membership.ranking) {
+        cell.rankingProgress = @(membership.previousRanking.integerValue - membership.ranking.integerValue);
     } else {
         cell.rankingProgress = @(0);
     }
