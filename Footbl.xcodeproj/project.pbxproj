@@ -2380,7 +2380,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
+					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
@@ -2405,7 +2405,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
+					"FT_SERVER_ENVIRONMENT=3",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
@@ -2715,7 +2715,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
+					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
