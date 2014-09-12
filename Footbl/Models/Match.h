@@ -30,8 +30,6 @@ extern MatchResult MatchResultFromString(NSString *result);
 @interface Match : _Match
 
 @property (assign, nonatomic, getter = isBetSyncing) BOOL betSyncing;
-@property (strong, nonatomic) NSNumber *tempBetValue;
-@property (assign, nonatomic) MatchResult tempBetResult;
 @property (assign, nonatomic) NSUInteger betBlockKey;
 
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value;

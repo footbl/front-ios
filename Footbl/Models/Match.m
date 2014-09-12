@@ -44,8 +44,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
 @implementation Match
 
 @synthesize betSyncing = _betSyncing;
-@synthesize tempBetResult = _tempBetResult;
-@synthesize tempBetValue = _tempBetValue;
 @synthesize betBlockKey = _betBlockKey;
 
 #pragma mark - Class Methods
@@ -69,6 +67,15 @@ extern MatchResult MatchResultFromString(NSString *result) {
     } failure:failure];
 }
 
++ (NSMutableDictionary *)temporaryBetsDictionary {
+    static NSMutableDictionary *temporaryBetsDictionary;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        temporaryBetsDictionary = [NSMutableDictionary new];
+    });
+    return temporaryBetsDictionary;
+}
+
 #pragma mark - Instance Methods
 
 - (Bet *)myBet {
@@ -83,7 +90,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
     _betBlockKey = betBlockKey;
     
     if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
-        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetBlockKey:betBlockKey];
+        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:[self objectID]] setBetBlockKey:betBlockKey];
     }
 }
 
@@ -91,16 +98,16 @@ extern MatchResult MatchResultFromString(NSString *result) {
     _betSyncing = betSyncing;
     
     if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
-        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetSyncing:betSyncing];
+        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:[self objectID]] setBetSyncing:betSyncing];
     }
 }
 
 - (void)setBetTemporaryResult:(MatchResult)result value:(NSNumber *)value {
-    if (self.managedObjectContext != [FTCoreDataStore mainQueueContext]) {
-        [(Match *)[[FTCoreDataStore mainQueueContext] objectWithID:self.objectID] setBetTemporaryResult:result value:value];
+    if (value) {
+        [Match temporaryBetsDictionary][self.rid] = @{@"result" : @(result), @"value" : value};
+    } else {
+        [[Match temporaryBetsDictionary] removeObjectForKey:self.rid];
     }
-    self.tempBetResult = result;
-    self.tempBetValue = value;
     
     if (value && ![[User currentUser].pendingMatchesToSyncBet containsObject:self]) {
         [[User currentUser].pendingMatchesToSyncBet addObject:self];
@@ -140,7 +147,7 @@ extern MatchResult MatchResultFromString(NSString *result) {
 }
 
 - (MatchResult)myBetResult {
-    return self.tempBetValue ? self.tempBetResult : (MatchResult)self.myBet.resultValue;
+    return [Match temporaryBetsDictionary][self.rid] ? [[Match temporaryBetsDictionary][self.rid][@"result"] integerValue] : self.myBet.resultValue;
 }
 
 - (MatchResult)result {
@@ -173,9 +180,9 @@ extern MatchResult MatchResultFromString(NSString *result) {
     }
     
     float jackpot = self.jackpotValue;
-    if (self.myBetValue) {
+    if ([Match temporaryBetsDictionary][self.slug]) {
         jackpot -= self.myBet.bidValue;
-        jackpot += self.myBetValue.floatValue;
+        jackpot += [[Match temporaryBetsDictionary][self.slug][@"value"] integerValue];
     }
     return @(jackpot);
 }
@@ -187,8 +194,8 @@ extern MatchResult MatchResultFromString(NSString *result) {
         return @(FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL));
     }
     
-    if (self.tempBetValue) {
-        return self.tempBetValue;
+    if ([Match temporaryBetsDictionary][self.rid]) {
+        return [Match temporaryBetsDictionary][self.rid][@"value"];
     } else {
         return self.myBet.bid;
     }
@@ -239,11 +246,13 @@ extern MatchResult MatchResultFromString(NSString *result) {
     }
     
     float sumOfBets = self.potHostValue;
-    if (self.myBet.resultValue == MatchResultHost) {
-        sumOfBets -= self.myBet.bidValue;
-    }
-    if (self.myBetResult == MatchResultHost) {
-        sumOfBets += self.myBetValue.floatValue;
+    if ([Match temporaryBetsDictionary][self.rid]) {
+        if (self.myBet.resultValue == MatchResultHost) {
+            sumOfBets -= self.myBet.bidValue;
+        }
+        if ([[Match temporaryBetsDictionary][self.rid][@"result"] integerValue] == MatchResultHost) {
+            sumOfBets += [[Match temporaryBetsDictionary][self.rid][@"value"] integerValue];
+        }
     }
     return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
@@ -254,11 +263,13 @@ extern MatchResult MatchResultFromString(NSString *result) {
     }
     
     float sumOfBets = self.potDrawValue;
-    if (self.myBet.resultValue == MatchResultDraw) {
-        sumOfBets -= self.myBet.bidValue;
-    }
-    if (self.myBetResult == MatchResultDraw) {
-        sumOfBets += self.myBetValue.floatValue;
+    if ([Match temporaryBetsDictionary][self.rid]) {
+        if (self.myBet.resultValue == MatchResultDraw) {
+            sumOfBets -= self.myBet.bidValue;
+        }
+        if ([[Match temporaryBetsDictionary][self.rid][@"result"] integerValue] == MatchResultDraw) {
+            sumOfBets += [[Match temporaryBetsDictionary][self.rid][@"value"] integerValue];
+        }
     }
     return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
@@ -269,11 +280,13 @@ extern MatchResult MatchResultFromString(NSString *result) {
     }
     
     float sumOfBets = self.potGuestValue;
-    if (self.myBet.resultValue == MatchResultGuest) {
-        sumOfBets -= self.myBet.bidValue;
-    }
-    if (self.myBetResult == MatchResultGuest) {
-        sumOfBets += self.myBetValue.floatValue;
+    if ([Match temporaryBetsDictionary][self.rid]) {
+        if (self.myBet.resultValue == MatchResultGuest) {
+            sumOfBets -= self.myBet.bidValue;
+        }
+        if ([[Match temporaryBetsDictionary][self.rid][@"result"] integerValue] == MatchResultGuest) {
+            sumOfBets += [[Match temporaryBetsDictionary][self.rid][@"value"] integerValue];
+        }
     }
     return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }

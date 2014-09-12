@@ -12,7 +12,7 @@ extern NSString * const kUserManagedObjectRepresentationKey;
 
 @interface User : _User
 
-@property (strong, nonatomic) NSMutableArray *pendingMatchesToSyncBet;
+@property (strong, nonatomic) NSMutableSet *pendingMatchesToSyncBet;
 
 + (instancetype)currentUser;
 + (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;

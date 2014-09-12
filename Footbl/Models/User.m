@@ -116,9 +116,9 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 
 @synthesize pendingMatchesToSyncBet = _pendingMatchesToSyncBet;
 
-- (NSMutableArray *)pendingMatchesToSyncBet {
+- (NSMutableSet *)pendingMatchesToSyncBet {
     if (!_pendingMatchesToSyncBet) {
-        _pendingMatchesToSyncBet = [NSMutableArray new];
+        _pendingMatchesToSyncBet = [NSMutableSet new];
     }
     return _pendingMatchesToSyncBet;
 }
@@ -287,9 +287,11 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
             funds += bet.bidValue;
             funds -= bet.match.myBetValue.floatValue;
         }
+        NSMutableSet *rids = [NSMutableSet new];
         for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
+            if (!match.myBet && ![rids containsObject:match.rid]) {
                 funds -= match.myBetValue.floatValue;
+                [rids addObject:match.rid];
             }
         }
     }
@@ -307,9 +309,11 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         for (Bet *bet in self.activeBets) {
             stake += bet.match.myBetValue.floatValue;
         }
+        NSMutableSet *rids = [NSMutableSet new];
         for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
+            if (!match.myBet && ![rids containsObject:match.rid]) {
                 stake += match.myBetValue.floatValue;
+                [rids addObject:match.rid];
             }
         }
     } else {
@@ -329,9 +333,11 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         for (Bet *bet in self.activeBets) {
             toReturn += bet.match.myBetReturn.floatValue;
         }
+        NSMutableSet *rids = [NSMutableSet new];
         for (Match *match in self.pendingMatchesToSyncBet) {
-            if (!match.myBet) {
+            if (!match.myBet && ![rids containsObject:match.rid]) {
                 toReturn += match.myBetReturn.floatValue;
+                [rids addObject:match.rid];
             }
         }
     } else {

@@ -193,16 +193,15 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             result = 0;
         }
         
-        if (MAX(bet.bidValue, match.tempBetValue.integerValue) < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-            [alert show];
+        if (match.myBetValue.integerValue < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
+            if (!weakCell.isStepperSelected) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+                [alert show];
+            }
             return;
         }
-        
-        match.tempBetValue = @(currentBet);
-        match.tempBetResult = result;
-        
-        if ([User currentUser].localFunds.integerValue < 1 && weakCell.isStepperSelected) {
+            
+        if (match.myBetValue.integerValue < currentBet && [User currentUser].localFunds.integerValue < 1 && weakCell.isStepperSelected) {
             weakCell.stepperUserInteractionEnabled = NO;
         }
         

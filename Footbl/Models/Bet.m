@@ -56,7 +56,7 @@ static CGFloat kBetSyncWaitTime = 3;
         [self createWithParameters:parameters success:^(Bet *bet) {
             bet.match = match.editableObject;
             bet.user = [User currentUser].editableObject;
-            [[User currentUser].editableObject getWithSuccess:^(id response) {
+            [match getWithSuccess:^(id response) {
                 match.editableObject.betSyncing = NO;
                 [match setBetTemporaryResult:0 value:nil];
                 if (success) success(bet);
@@ -108,20 +108,13 @@ static CGFloat kBetSyncWaitTime = 3;
         NSMutableDictionary *parameters = [NSMutableDictionary new];
         parameters[@"result"] = MatchResultToString(result);
         parameters[@"bid"] = bid;
-        parameters[kFTRequestParamResourcePathObject] = self.match;
         
         [self updateWithParameters:parameters success:^(id response) {
-            [[FTCoreDataStore privateQueueContext] performBlock:^{
-               self.match.editableObject.localUpdatedAt = [NSDate date];
-                [[User currentUser].editableObject getWithSuccess:^(id response) {
+                [self.match.editableObject getWithSuccess:^(Match *match) {
                     self.match.editableObject.betSyncing = NO;
                     [self.match.editableObject setBetTemporaryResult:0 value:nil];
-                    [[FTCoreDataStore privateQueueContext] performSave];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                       if (success) success(self);
-                    });
-                } failure:failure];
-            }];
+                    if (success) success(self);
+            } failure:failure];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (operation.response.statusCode == 500) {
                 error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error: insufient funds", @"")}];
@@ -137,6 +130,7 @@ static CGFloat kBetSyncWaitTime = 3;
     
     self.match = [Match findOrCreateWithObject:data[@"match"] inContext:self.managedObjectContext];
     self.result = @(MatchResultFromString(data[@"result"]));
+    self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
 }
 
 - (void)deleteWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -156,13 +150,23 @@ static CGFloat kBetSyncWaitTime = 3;
     NSUInteger key;
     perform_block_after_delay_k(kBetSyncWaitTime, &key, ^{
         self.match.editableObject.betSyncing = YES;
+        
+        NSUInteger bidValue = self.bidValue;
+        User *user = self.user;
 
         [super deleteWithSuccess:^(id response) {
-            [[User currentUser].editableObject getWithSuccess:^(id response) {
-                [match setBetTemporaryResult:0 value:nil];
-                match.betSyncing = NO;
-                if (success) success(nil);
-            } failure:failure];
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                user.fundsValue += bidValue;
+                user.stakeValue -= bidValue;
+                [[FTCoreDataStore privateQueueContext] performSave];
+                [match getWithSuccess:^(id response) {
+                    [match setBetTemporaryResult:0 value:nil];
+                    match.betSyncing = NO;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (success) success(nil);
+                    });
+                } failure:failure];
+            }];
         } failure:customFailureBlock];
     });
     self.match.editableObject.betBlockKey = key;

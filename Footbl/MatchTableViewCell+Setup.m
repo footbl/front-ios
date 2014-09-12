@@ -26,6 +26,8 @@
 - (void)setMatch:(Match *)match bet:(Bet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
     
+    BOOL isMe = (bet.user.isMeValue || !bet);
+    
     self.hostNameLabel.text = match.host.displayName;
     [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.hostDisabledImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
@@ -40,17 +42,19 @@
         self.totalProfitView.hidden = YES;
     }
     
-    self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
-    self.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
-    self.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
+    if (isMe && !match.editableObject.isBetSyncing) {
+        self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
+        self.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
+        self.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
+    }
     
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.hostNameLabel, self.guestNameLabel, self.drawLabel]];
     
     [self setDateText:match.dateString];
     
     MatchResult result = bet.resultValue;
-    if (match.tempBetValue) {
-        result = match.tempBetResult;
+    if (isMe) {
+        result = match.myBetResult;
     }
     
     switch (result) {
@@ -68,10 +72,13 @@
             break;
     }
     
-    if (bet.user.isMeValue || !bet) {
-        self.stakeValueLabel.text = match.myBetValueString;
-        self.returnValueLabel.text = match.myBetReturnString;
-        self.profitValueLabel.text = match.myBetProfitString;
+    
+    if (isMe) {
+        if (!match.editableObject.isBetSyncing) {
+            self.stakeValueLabel.text = match.myBetValueString;
+            self.returnValueLabel.text = match.myBetReturnString;
+            self.profitValueLabel.text = match.myBetProfitString;
+        }
     } else if (bet) {
         self.stakeValueLabel.text = bet.valueString;
         self.returnValueLabel.text = bet.toReturnString;
@@ -89,12 +96,14 @@
         self.colorScheme = MatchTableViewCellColorSchemeDefault;
     }
     
-    if (match.localJackpot.integerValue > 0) {
-        [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
-        self.footerLabel.hidden = NO;
-    } else {
-        [self setFooterText:@""];
-        self.footerLabel.hidden = YES;
+    if (isMe && !match.isBetSyncing) {
+        if (match.localJackpot.integerValue > 0) {
+            [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
+            self.footerLabel.hidden = NO;
+        } else {
+            [self setFooterText:@""];
+            self.footerLabel.hidden = YES;
+        }
     }
     
     switch (match.status) {

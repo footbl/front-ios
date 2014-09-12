@@ -13,6 +13,7 @@
 #import "FTAuthenticationManager.h"
 #import "Entry.h"
 #import "LoadingHelper.h"
+#import "Match.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
@@ -240,6 +241,12 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
 }
 
 - (void)reloadWallet {
+    for (Match *match in [User currentUser].pendingMatchesToSyncBet) {
+        if (match.isBetSyncing) {
+            return;
+        }
+    }
+    
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
     
     if ([User currentUser]) {

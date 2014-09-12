@@ -26,13 +26,9 @@
     UIImage *screenshot = cell.imageRepresentation;
     
     NSString *text = @"";
-    BOOL hasBet = self.myBet || self.tempBetValue;
-    NSNumber *value = self.myBet.bid;
-    MatchResult result = (MatchResult)self.myBet.resultValue;
-    if (self.tempBetValue) {
-        result = self.tempBetResult;
-        value = self.tempBetValue;
-    }
+    BOOL hasBet = self.myBetValue;
+    NSNumber *value = self.myBetValue;
+    MatchResult result = (MatchResult)self.myBetResult;
     Team *team;
     Team *againstTeam;
     if (hasBet && result == MatchResultHost) {
