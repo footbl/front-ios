@@ -61,7 +61,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         user.isMe = @YES;
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:user.objectID.URIRepresentation.absoluteString forKey:kUserManagedObjectRepresentationKey];
+    [[NSUserDefaults standardUserDefaults] setObject:[user objectID].URIRepresentation.absoluteString forKey:kUserManagedObjectRepresentationKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     return user;

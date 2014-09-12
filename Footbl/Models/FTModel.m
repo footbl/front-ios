@@ -185,7 +185,7 @@ NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
         return self;
     }
     
-    return (FTModel *)[[FTCoreDataStore privateQueueContext] objectWithID:self.objectID];
+    return (FTModel *)[[FTCoreDataStore privateQueueContext] objectWithID:[self objectID]];
 }
 
 #pragma mark - Find or Create
