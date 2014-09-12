@@ -30,6 +30,8 @@
 
 @end
 
+static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControllerKey";
+
 #pragma mark BetsViewController
 
 @implementation BetsViewController
@@ -60,10 +62,12 @@
     _scrollViewCurrentPage = scrollViewCurrentPage;
 
     for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-        matchesViewController.tableView.scrollsToTop = NO;
+        if ([matchesViewController respondsToSelector:@selector(tableView)]) {
+            matchesViewController.tableView.scrollsToTop = NO;
+        }
     }
     
-    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+    if (self.fetchedResultsController.fetchedObjects.count >= self.scrollViewCurrentPage + 1) {
         Championship *championship = self.fetchedResultsController.fetchedObjects[self.scrollViewCurrentPage];
         MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.slug];
         matchesViewController.tableView.scrollsToTop = YES;
@@ -111,7 +115,9 @@
 - (NSTimeInterval)updateInterval {
     NSTimeInterval interval = [super updateInterval];
     for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-        interval = MIN(interval, [matchesViewController updateInterval]);
+        if ([matchesViewController respondsToSelector:@selector(updateInterval)]) {
+            interval = MIN(interval, [matchesViewController updateInterval]);
+        }
     }
     
     return 60;
@@ -142,15 +148,53 @@
             matchesViewController.headerSliderBackImageView.hidden = YES;
         }
         
-        if (index + 1 == championships.count) {
-            matchesViewController.headerSliderForwardImageView.hidden = YES;
-        }
-        
         matchesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * index, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
         contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.frameHeight);
         [championshipsToRemove removeObjectForKey:championship.slug];
         index ++;
     }
+    
+    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+        UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
+        if (!managedLeaguesViewController) {
+            managedLeaguesViewController = [UIViewController new];
+            
+            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.view.frameWidth, 30)];
+            headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+            headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
+            [managedLeaguesViewController.view addSubview:headerView];
+            
+            UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
+            headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
+            headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
+            headerLabel.textAlignment = NSTextAlignmentCenter;
+            headerLabel.text = NSLocalizedString(@"My Leagues", @"");
+            [headerView addSubview:headerLabel];
+            
+            UIImageView *headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
+            headerSliderBackImageView.center = CGPointMake(15, headerLabel.center.y);
+            [headerView addSubview:headerSliderBackImageView];
+            
+            UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
+            placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+            placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
+            placeholderLabel.textAlignment = NSTextAlignmentCenter;
+            placeholderLabel.text = NSLocalizedString(@"Leagues placeholder", @"");
+            placeholderLabel.numberOfLines = 0;
+            [managedLeaguesViewController.view addSubview:placeholderLabel];
+            
+            [self addChildViewController:managedLeaguesViewController];
+            [self.scrollView addSubview:managedLeaguesViewController.view];
+            self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
+        }
+        
+        [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
+        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * index, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+        contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
+        index ++;
+    }
+    
     self.scrollView.contentSize = contentSize;
     self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.frameWidth), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
     
@@ -168,19 +212,31 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     [self reloadWallet];
 
     if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         return;
     }
     
-    [Entry getWithObject:[User currentUser] success:^(id response) {
-        for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-            [matchesViewController reloadData];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    void(^reloadEntriesBlock)() = ^() {
+        [Entry getWithObject:[User currentUser] success:^(id response) {
+            for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+                if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
+                    [matchesViewController reloadData];
+                }
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+    };
+    
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), reloadEntriesBlock);
+    } else {
+        reloadEntriesBlock();
+    }
 }
 
 - (void)reloadWallet {
@@ -318,7 +374,9 @@
     [super viewWillDisappear:animated];
     
     for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-        matchesViewController.tableView.scrollsToTop = NO;
+        if ([matchesViewController respondsToSelector:@selector(tableView)]) {
+            matchesViewController.tableView.scrollsToTop = NO;
+        }
     }
 }
 
