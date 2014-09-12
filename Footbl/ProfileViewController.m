@@ -198,7 +198,7 @@
                 case 2: {
                     WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
                     if (self.user) {
-                        [walletCell setHighestValue:self.user.highestWallet withDate:self.user.highestWalletDate];
+                        [walletCell setHighestValue:@(self.user.highestWallet.integerValue) withDate:self.user.highestWalletDate];
                     } else {
                         [walletCell setHighestValue:@0 withDate:[NSDate date]];
                     }
