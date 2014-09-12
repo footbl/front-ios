@@ -392,7 +392,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                     parameters[@"receipt"] = CBBase64EncodedStringFromData(transaction.transactionReceipt);
 #pragma clang diagnostic pop
-                    [[FTOperationManager sharedManager] GET:[self.resourcePath stringByAppendingPathComponent:@"recharge"] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [[FTOperationManager sharedManager] POST:[self.resourcePath stringByAppendingPathComponent:@"recharge"] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                         [self getWithSuccess:success failure:failure];
                     } failure:failure];
                 } failure:^(NSError *error) {

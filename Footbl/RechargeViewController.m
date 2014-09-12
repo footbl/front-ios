@@ -40,10 +40,10 @@
     }
     
     [[LoadingHelper sharedInstance] showHud];
-    
 
     [[User currentUser].editableObject rechargeWithSuccess:^(id response) {
         [[LoadingHelper sharedInstance] hideHud];
+        [self dismissViewController];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         SPLogError(@"%@", error);
         [[LoadingHelper sharedInstance] hideHud];
