@@ -2527,7 +2527,7 @@
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "7be74779-dc36-4c10-9c29-e90cfb830f92";
+				PROVISIONING_PROFILE = "c469c95f-7cac-4e8a-98f9-26ad4feeaf0b";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
