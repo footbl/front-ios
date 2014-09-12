@@ -135,17 +135,39 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 
 - (void)getWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [super getWithSuccess:^(id response) {
-        /*
-        [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/fans", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            self.numberOfFans = @([responseObject count]);
-        } failure:nil];
+        __block BOOL canCallBlock = NO;
+        [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired | FTRequestOptionGroupRequests operations:^{
+            [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/fans", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                self.numberOfFans = @([responseObject count]);
+                if (canCallBlock) {
+                    if (success) success(self);
+                } else {
+                    canCallBlock = YES;
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                if (canCallBlock) {
+                    if (failure) failure(operation, error);
+                } else {
+                    canCallBlock = YES;
+                }
+            }];
+        }];
+        
         
         [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@/entries", self.rid] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.numberOfLeagues = @([responseObject count]);
-        } failure:nil];
-        */
-        
-        if (success) success(response);
+            if (canCallBlock) {
+                if (success) success(self);
+            } else {
+                canCallBlock = YES;
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (canCallBlock) {
+                if (failure) failure(operation, error);
+            } else {
+                canCallBlock = YES;
+            }
+        }];
     } failure:failure];
 }
 

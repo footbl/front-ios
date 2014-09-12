@@ -140,7 +140,7 @@
         [[ErrorHandler sharedInstance] displayError:error];
     };
     
-    [[User currentUser].editableObject getWithSuccess:^(id response) {
+    [self.user.editableObject getWithSuccess:^(id response) {
         [self reloadContent];
         
         if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
@@ -168,10 +168,14 @@
                         profileCell.starImageView.highlightedImage = nil;
                     }
                     profileCell.aboutText = self.user.about;
-#warning Fix number of followers
-                    /*
-                    profileCell.followersLabel.text = self.user.numberOfFans.shortStringValue;
-                    */
+
+                    if (self.user.numberOfFansValue >= MAX_FOLLOWERS_COUNT) {
+                        profileCell.followersLabel.text = [self.user.numberOfFans.shortStringValue stringByAppendingString:@"+"];
+                    } else if (self.user.numberOfFansValue > 0) {
+                        profileCell.followersLabel.text = self.user.numberOfFans.shortStringValue;
+                    } else {
+                        profileCell.followersLabel.text = @"";
+                    }
                     [profileCell.profileImageView setImageWithURL:[NSURL URLWithString:self.user.picture] placeholderImage:profileCell.placeholderImage];
                     
                     NSDateFormatter *formatter = [NSDateFormatter new];
@@ -184,8 +188,11 @@
                     walletCell.valueText = self.user.totalWallet.walletStringValue;
                     walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
-#warning Fix number of leagues
-                    walletCell.leaguesLabel.text = NSLocalizedString(@"Betting in 1 league", @"");
+                    if (self.user.numberOfLeaguesValue <= 1) {
+                        walletCell.leaguesLabel.text = NSLocalizedString(@"Betting in 1 league", @"");
+                    } else {
+                        walletCell.leaguesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Betting in %i leagues", @"Betting in {number of leagues} leagues"), self.user.numberOfLeaguesValue];
+                    }
                     break;
                 }
                 case 2: {
