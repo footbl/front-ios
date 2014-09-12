@@ -41,7 +41,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         NSManagedObjectID *objectID = [[FTCoreDataStore mainQueueContext].persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
         NSError *error = nil;
         User *user = (User *)[[FTCoreDataStore mainQueueContext] existingObjectWithID:objectID error:&error];
-        if (user) {
+        if (user && !user.isFault && !user.isDeleted) {
             return user;
         }
     }
@@ -56,7 +56,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         abort();
     }
     User *user = fetchResult.firstObject;
-    if (!user) {
+    if (!user || user.isDeleted) {
         user = [User findOrCreateWithObject:@"me" inContext:[FTCoreDataStore privateQueueContext]];
         user.isMe = @YES;
     }
