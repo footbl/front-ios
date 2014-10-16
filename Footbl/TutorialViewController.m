@@ -99,8 +99,10 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
             imageName = [imageName stringByAppendingString:@"_480"];
         }
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-        imageView.frameX = i * self.scrollView.frameWidth;
+        imageView.frame = self.view.bounds;
+        imageView.frameX = i * self.view.frameWidth;
         imageView.frameY -= 20;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.scrollView addSubview:imageView];
         self.scrollView.contentSize = CGSizeMake(imageView.frameX + self.scrollView.frameWidth, 0);
     }
