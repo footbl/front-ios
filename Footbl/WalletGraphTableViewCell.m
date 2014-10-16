@@ -39,6 +39,7 @@
         self.roundsLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:12];
         self.roundsLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
         self.roundsLabel.textAlignment = NSTextAlignmentCenter;
+        self.roundsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.roundsLabel];
         
         self.graphView = [[WalletGraphView alloc] initWithFrame:CGRectMake(0, 38, CGRectGetWidth(self.frame), 103)];
