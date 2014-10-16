@@ -205,12 +205,20 @@
     
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.backgroundImageView.image = [UIImage imageNamed:@"signup_bg"];
-    self.backgroundImageView.contentMode = UIViewContentModeTop;
+    if (self.backgroundImageView.image.size.height < CGRectGetHeight(self.view.frame)) {
+        self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    } else {
+        self.backgroundImageView.contentMode = UIViewContentModeTop;
+    }
     [self.view addSubview:self.backgroundImageView];
     
     UIImageView *signupImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     signupImageView.image = [UIImage imageNamed:@"signup_step2_bg"];
-    signupImageView.contentMode = UIViewContentModeTop;
+    if (signupImageView.image.size.height < CGRectGetHeight(self.view.frame)) {
+        signupImageView.contentMode = UIViewContentModeScaleAspectFill;
+    } else {
+        signupImageView.contentMode = UIViewContentModeTop;
+    }
     signupImageView.alpha = 1;
     [self.view addSubview:signupImageView];
     

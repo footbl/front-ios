@@ -139,7 +139,11 @@
     
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.backgroundImageView.image = [UIImage imageNamed:@"signup_bg"];
-    self.backgroundImageView.contentMode = UIViewContentModeTop;
+    if (self.backgroundImageView.image.size.height < CGRectGetHeight(self.view.frame)) {
+        self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    } else {
+        self.backgroundImageView.contentMode = UIViewContentModeTop;
+    }
     [self.view addSubview:self.backgroundImageView];
     
     BOOL tallView = self.view.frameHeight > 500;
