@@ -46,6 +46,7 @@
         [self.selectionButton setImage:[UIImage imageNamed:@"groups_selectleague_checked"] forState:UIControlStateHighlighted];
         [self.selectionButton setImage:[UIImage imageNamed:@"groups_selectleague_checked"] forState:UIControlStateSelected];
         self.selectionButton.userInteractionEnabled = NO;
+        self.selectionButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:self.selectionButton];
     }
     return self;
