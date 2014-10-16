@@ -392,6 +392,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     self.tableView.delegate = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+    self.tableView.rowHeight = 44;
     [self.tableView registerClass:[SettingsTableViewCell class] forCellReuseIdentifier:@"SettingsCell"];
     [self.view addSubview:self.tableView];
 }
