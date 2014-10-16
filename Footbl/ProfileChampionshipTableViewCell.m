@@ -49,6 +49,7 @@
         self.rankingLabel = [[UILabel alloc] initWithFrame:CGRectMake(224, 0, 80, 67)];
         self.rankingLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:14];
         self.rankingLabel.textAlignment = NSTextAlignmentRight;
+        self.rankingLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
         
