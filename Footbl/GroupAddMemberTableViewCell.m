@@ -28,10 +28,11 @@
         self.profileImageView.layer.cornerRadius = CGRectGetWidth(self.profileImageView.frame) / 2;
         [self.contentView addSubview:self.profileImageView];
         
-        self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 14, 185, 22)];
+        self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 14, CGRectGetWidth(self.contentView.frame) - 75 - 60, 22)];
         self.usernameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.usernameLabel.textAlignment = NSTextAlignmentLeft;
         self.usernameLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.usernameLabel];
         
         CGRect nameFrame = self.usernameLabel.frame;
@@ -40,6 +41,7 @@
         self.nameLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
+        self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.nameLabel];
         
         self.selectionButton = [[UIButton alloc] initWithFrame:CGRectMake(268, 11, 44, 44)];
@@ -47,6 +49,7 @@
         [self.selectionButton setImage:[UIImage imageNamed:@"groups_selectleague_checked"] forState:UIControlStateHighlighted];
         [self.selectionButton setImage:[UIImage imageNamed:@"groups_selectleague_checked"] forState:UIControlStateSelected];
         self.selectionButton.userInteractionEnabled = NO;
+        self.selectionButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:self.selectionButton];
         
         [self restoreProfileImagePlaceholder];
@@ -55,7 +58,7 @@
 }
 
 - (void)restoreFrames {
-    self.usernameLabel.frame = CGRectMake(75, 14, 185, 22);
+    self.usernameLabel.frame = CGRectMake(75, 14, CGRectGetWidth(self.contentView.frame) - 75 - 60, 22);
     CGRect nameFrame = self.usernameLabel.frame;
     nameFrame.origin.y += 19;
     self.nameLabel.frame = nameFrame;
