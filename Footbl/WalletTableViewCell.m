@@ -53,6 +53,7 @@
         self.leaguesLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:12];
         self.leaguesLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:0.60];
         self.leaguesLabel.textAlignment = NSTextAlignmentCenter;
+        self.leaguesLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.leaguesLabel];
         
         self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
