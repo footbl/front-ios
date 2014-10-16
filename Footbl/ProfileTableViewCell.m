@@ -134,6 +134,7 @@
         self.aboutLabel.textColor = self.nameLabel.textColor;
         self.aboutLabel.numberOfLines = 2;
         self.aboutLabel.adjustsFontSizeToFitWidth = YES;
+        self.aboutLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.aboutLabel.minimumScaleFactor = 0.8;
         [self.scrollView addSubview:self.aboutLabel];
         
@@ -144,9 +145,11 @@
         
         self.starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star_inactive"] highlightedImage:[UIImage imageNamed:@"star_active"]];
         self.starImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 40, CGRectGetMidY(self.nameLabel.frame));
+        self.starImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:self.starImageView];
         
         self.followersLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+        self.followersLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.followersLabel.center = CGPointMake(CGRectGetMidX(self.starImageView.frame), CGRectGetMidY(self.starImageView.frame) + 25);
         self.followersLabel.textColor = self.nameLabel.textColor;
         self.followersLabel.font = self.nameLabel.font;
@@ -154,7 +157,7 @@
         [self.contentView addSubview:self.followersLabel];
         
         gradientView = [[UIView alloc] initWithFrame:CGRectMake(self.starImageView.frameX - 10, 0, self.contentView.frameWidth - self.starImageView.frameX + 10, self.contentView.frameHeight)];
-        gradientView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        gradientView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
         
         gradientLayer = [CAGradientLayer new];
         gradientLayer.colors = @[(id)[self.contentView.backgroundColor colorWithAlphaComponent:0].CGColor, (id)self.contentView.backgroundColor.CGColor];
@@ -177,6 +180,7 @@
         self.pageControl.hidesForSinglePage = YES;
         self.pageControl.gapWidth = 5;
         self.pageControl.userInteractionEnabled = NO;
+        self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.pageControl];
         
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 92.5, CGRectGetWidth(self.contentView.frame), 0.5)];
@@ -185,6 +189,12 @@
         [self.contentView addSubview:separatorView];
     }
     return self;
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frameWidth * 2, self.scrollView.contentSize.height);
 }
 
 - (UIImage *)placeholderImage {
