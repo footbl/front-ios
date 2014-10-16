@@ -22,6 +22,7 @@
         self.contentView.backgroundColor = self.backgroundColor;
         
         self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, CGRectGetWidth(self.contentView.frame) - 30, CGRectGetHeight(self.contentView.frame))];
+        self.infoLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.infoLabel];
     }
     return self;
