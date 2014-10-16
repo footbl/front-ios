@@ -103,10 +103,12 @@
 - (void)setFooterViewVisible:(BOOL)visible {
     if (visible) {
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
+        footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         UIButton *button = [[UIButton alloc] initWithFrame:footerView.frame];
         button.backgroundColor = self.view.backgroundColor;
         [button setImage:[UIImage imageNamed:@"groups_createnewgroup"] forState:UIControlStateNormal];
         button.titleLabel.numberOfLines = 0;
+        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         NSMutableAttributedString *buttonTitle = [NSMutableAttributedString new];
         [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button title", @"") attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16], NSForegroundColorAttributeName : [UIColor colorWithRed:137/255.f green:148/255.f blue:140/255.f alpha:1.00]}]];
@@ -115,8 +117,17 @@
         
         [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
         
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
+        if ([UIScreen mainScreen].bounds.size.width == 320) { // iPhone 3.5" & iPhone 4"
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
+        } else if ([UIScreen mainScreen].bounds.size.width == 414) { // iPhone 5.5"
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 48);
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 20);
+        } else {
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 11);
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
+        }
+        
         [button addTarget:self action:@selector(newGroupAction:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:button];
         self.tableView.tableFooterView = footerView;
