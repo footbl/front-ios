@@ -77,6 +77,7 @@
         self.walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:20];
         self.walletLabel.textAlignment = NSTextAlignmentRight;
         self.walletLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.walletLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:self.walletLabel];
         
         self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_arrow"]];
