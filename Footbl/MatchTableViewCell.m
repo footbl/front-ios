@@ -252,11 +252,13 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.contentView addSubview:self.dateLabel];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, CGRectGetMidY(self.dateLabel.frame), CGRectGetWidth(self.contentView.frame) - 24, 0.5)];
+        line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
         
-        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, 300, 319)];
+        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, self.contentView.frameWidth - 20, 319)];
         self.cardContentView.backgroundColor = [UIColor whiteColor];
+        self.cardContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.cardContentView.layer.cornerRadius = 4;
         self.cardContentView.layer.shadowColor = [[FootblAppearance colorForView:FootblColorCellSeparator] colorWithAlphaComponent:1.0].CGColor;
         self.cardContentView.layer.shadowOpacity = 0.2;
@@ -269,9 +271,11 @@ static CGFloat kDisabledAlpha = 0.4;
         UIView *headerContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 40)];
         headerContentView.layer.cornerRadius = self.cardContentView.layer.cornerRadius;
         headerContentView.clipsToBounds = YES;
+        headerContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.cardContentView addSubview:headerContentView];
         
         self.liveHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 27)];
+        self.liveHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [headerContentView addSubview:self.liveHeaderView];
         
         self.hostScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
@@ -284,17 +288,20 @@ static CGFloat kDisabledAlpha = 0.4;
         self.liveLabel.textAlignment = NSTextAlignmentCenter;
         self.liveLabel.textColor = [UIColor whiteColor];
         self.liveLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
+        self.liveLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.liveHeaderView addSubview:self.liveLabel];
         
         self.guestScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(197, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
         self.guestScoreLabel.textAlignment = NSTextAlignmentCenter;
         self.guestScoreLabel.textColor = [UIColor whiteColor];
         self.guestScoreLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
+        self.guestScoreLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.liveHeaderView addSubview:self.guestScoreLabel];
         
         [@[@62, @256] enumerateObjectsUsingBlock:^(NSNumber *offsetY, NSUInteger idx, BOOL *stop) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, CGRectGetWidth(self.cardContentView.frame), 0.5)];
             separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+            separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             separatorView.tag = (idx == 0 ? kFirstSeparatorTag : kSecondSeparatorTag);
             [self.cardContentView addSubview:separatorView];
         }];
@@ -345,6 +352,7 @@ static CGFloat kDisabledAlpha = 0.4;
             UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(baseView.frameX - baseView.frameWidth, baseView.frameY, baseView.frameWidth * 2, baseView.frameHeight)];
             stepper.maximumValue = INT_MAX;
             stepper.tintColor = [UIColor clearColor];
+            stepper.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             [stepper addTarget:self action:@selector(stepperAction:) forControlEvents:UIControlEventValueChanged];
             [self.cardContentView addSubview:stepper];
             return stepper;
@@ -353,15 +361,21 @@ static CGFloat kDisabledAlpha = 0.4;
         // Bets
         self.stakeValueLabel = label(CGRectMake(12, 7, 89, 36), [UIColor ftRedStakeColor]);
         self.returnValueLabel = label(CGRectMake(104, 7, 89, 36), [UIColor ftBlueReturnColor]);
+        self.returnValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         self.profitValueLabel = label(CGRectMake(197, 7, 89, 36), [UIColor ftGreenMoneyColor]);
+        self.profitValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.stakeTitleLabel = subtitleLabel(CGRectMake(10, 36, 89, 14), NSLocalizedString(@"Stake", @"").lowercaseString);
         self.returnTitleLabel = subtitleLabel(CGRectMake(104, 36, 89, 14), NSLocalizedString(@"To return", @"").lowercaseString);
+        self.returnTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         self.profitTitleLabel = subtitleLabel(CGRectMake(197, 36, 89, 14), NSLocalizedString(@"Profit", @"").lowercaseString);
+        self.profitTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         
         // Teams & Pots
         self.hostPotLabel = potLabel(CGRectMake(17, 99, 86, 18));
         self.drawPotLabel = potLabel(CGRectMake(113, 99, 74, 18));
+        self.drawPotLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         self.guestPotLabel = potLabel(CGRectMake(197, 99, 86, 18));
+        self.guestPotLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         
         self.hostNameLabel = label(CGRectMake(17, 75, 86, 28), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
         self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:self.defaultTeamNameFontSize];
@@ -370,10 +384,12 @@ static CGFloat kDisabledAlpha = 0.4;
         self.drawLabel = label(CGRectMake(113, 75, 74, 28), self.hostNameLabel.textColor);
         self.drawLabel.font = self.hostNameLabel.font;
         self.drawLabel.text = NSLocalizedString(@"Draw", @"");
+        self.drawLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.cardContentView addSubview:self.drawLabel];
         
         self.guestNameLabel = label(CGRectMake(197, 75, 86, 28), self.hostNameLabel.textColor);
         self.guestNameLabel.font = self.hostNameLabel.font;
+        self.guestNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.cardContentView addSubview:self.guestNameLabel];
         
         // Images
@@ -386,19 +402,23 @@ static CGFloat kDisabledAlpha = 0.4;
         self.guestDisabledImageView = teamImageView(CGRectMake(192, 130, 96, 96));
         self.guestDisabledImageView.tintColor = [UIColor grayColor];
         self.guestDisabledImageView.alpha = kDisabledAlpha;
+        self.guestDisabledImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.guestDisabledImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
+        self.guestImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.guestImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         self.versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
         self.versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];
         self.versusLabel.text = @"X";
         self.versusLabel.userInteractionEnabled = YES;
+        self.versusLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.versusLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         // Footer
-        self.footerLabel = potLabel(CGRectMake(0, 256, 300, 53));
+        self.footerLabel = potLabel(CGRectMake(0, 256, self.cardContentView.frameWidth, 53));
         self.footerLabel.font = [UIFont fontWithName:self.footerLabel.font.fontName size:18];
+        self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.footerLabel.clipsToBounds = YES;
         
         self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 256, 86, 55)];
@@ -411,7 +431,9 @@ static CGFloat kDisabledAlpha = 0.4;
 
         self.hostStepper = stepperBlock(self.hostImageView);
         self.drawStepper = stepperBlock(self.versusLabel);
+        self.drawStepper.autoresizingMask = self.versusLabel.autoresizingMask;
         self.guestStepper = stepperBlock(self.guestImageView);
+        self.guestStepper.autoresizingMask = self.guestImageView.autoresizingMask;
         
         self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 380, CGRectGetWidth(self.frame) + 2, 33)];
         self.totalProfitView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -423,9 +445,11 @@ static CGFloat kDisabledAlpha = 0.4;
         
         self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
         self.totalProfitArrowImageView.center = CGPointMake(CGRectGetMidX(self.totalProfitView.frame), CGRectGetMinY(self.totalProfitView.frame) - (self.totalProfitArrowImageView.image.size.height / 2) + 0.5);
+        self.totalProfitArrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.contentView addSubview:self.totalProfitArrowImageView];
         
         self.totalProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.totalProfitView.frame) - 20, CGRectGetHeight(self.totalProfitView.frame))];
+        self.totalProfitLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.totalProfitLabel.textColor = [UIColor whiteColor];
         self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
         self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
@@ -443,6 +467,8 @@ static CGFloat kDisabledAlpha = 0.4;
 - (UIImage *)imageRepresentation {
     BOOL footerLabelHidden = self.footerLabel.isHidden;
     BOOL shareButtonHidden = self.shareButton.isHidden;
+    
+    self.cardContentView.frameWidth = 300;
     
     UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth + 10, self.cardContentView.frameHeight + 10)];
     CGPoint cardCenter = self.cardContentView.center;
@@ -486,6 +512,7 @@ static CGFloat kDisabledAlpha = 0.4;
     
     [self.contentView addSubview:self.cardContentView];
     self.cardContentView.center = cardCenter;
+    self.cardContentView.frameWidth = self.contentView.frameWidth - 20;
     
     self.footerLabel.hidden = footerLabelHidden;
     self.shareButton.hidden = shareButtonHidden;
