@@ -608,6 +608,7 @@
 		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
 		ED81E83B18EA769400212D3C /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
 		ED81E83C18EA769400212D3C /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
+		ED8351A819F1A04000FE1824 /* Footbl Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl Beta-Info.plist"; sourceTree = SOURCE_ROOT; };
 		ED83A99919B12C5A0089CC5F /* FTBuildType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBuildType.h; sourceTree = "<group>"; };
 		ED83A99A19B12C5A0089CC5F /* FTBuildType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBuildType.m; sourceTree = "<group>"; };
 		ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
@@ -667,7 +668,6 @@
 		EDB639BD1910776C00D7B041 /* Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bet.h; path = Models/Bet.h; sourceTree = "<group>"; };
 		EDB639BE1910776C00D7B041 /* Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bet.m; path = Models/Bet.m; sourceTree = "<group>"; };
 		EDB7BC7D19B0145400898D94 /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDB7BC7E19B0145500898D94 /* Footbl Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Footbl Beta-Info.plist"; path = "/Users/Fernando/Dropbox/Developer/made@sampa/Footbl/iOS/Footbl Beta-Info.plist"; sourceTree = "<absolute>"; };
 		EDB7BC8B19B0168400898D94 /* Icon-Beta-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-60@2x.png"; sourceTree = "<group>"; };
 		EDB7BC8C19B0168400898D94 /* Icon-Beta-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small.png"; sourceTree = "<group>"; };
 		EDB7BC8D19B0168400898D94 /* Icon-Beta-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small@2x.png"; sourceTree = "<group>"; };
@@ -1178,7 +1178,7 @@
 			children = (
 				EDDCF25A193541A40090D06D /* Constants.h */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */,
-				EDB7BC7E19B0145500898D94 /* Footbl Beta-Info.plist */,
+				ED8351A819F1A04000FE1824 /* Footbl Beta-Info.plist */,
 				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 				ED785A68199D0E20002A4DBD /* Images */,
@@ -2385,7 +2385,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "d684b2da-9c3f-4376-aefd-d54986a7705a";
+				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2409,7 +2409,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "db05f73c-729d-491f-b110-99d02694eaaf";
+				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2487,7 +2487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2502,7 +2502,7 @@
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "48e5967b-4ed7-4880-9dd7-06837ba956db";
+				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2592,7 +2592,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "c9e55266-aa33-4f00-9e68-a115eb94a669";
+				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2616,7 +2616,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2720,7 +2720,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "db05f73c-729d-491f-b110-99d02694eaaf";
+				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -2745,7 +2745,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl ß";
-				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
