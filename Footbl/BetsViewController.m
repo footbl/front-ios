@@ -326,6 +326,7 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     self.championshipsViewControllers = [NSMutableDictionary new];
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+    self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navigationBarTitleView];
     

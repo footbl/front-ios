@@ -57,45 +57,52 @@
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
         
-        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93, 25, 72, 35)];
+        CGFloat stakeWidth = 72 + (CGRectGetWidth(frame) - 320) * 0.4;
+        
+        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93 + (CGRectGetWidth(frame) - 320) * 0.15, 25, stakeWidth, 35)];
         self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
         self.stakeValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.stakeValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.stakeValueLabel];
         
-        self.stakeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(91, 58, 72, 14)];
+        self.stakeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(91 + (CGRectGetWidth(frame) - 320) * 0.15, 58, stakeWidth, 14)];
         self.stakeTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Stake", @"") attributes:titleAttributes];
         [self addSubview:self.stakeTitleLabel];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftBlueReturnColor];
         
-        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 25, 72, 35)];
+        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, 25, stakeWidth, 35)];
         self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
         self.returnValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.returnValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.returnValueLabel];
         
-        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(159, 58, 72, 14)];
+        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, 58, stakeWidth, 14)];
         self.returnTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"To return", @"") attributes:titleAttributes];
         [self addSubview:self.returnTitleLabel];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
         
-        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 25, 72, 35)];
+        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 80, 25, 72, 35)];
         self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
         self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.profitValueLabel.textAlignment = NSTextAlignmentCenter;
+        self.profitValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:self.profitValueLabel];
         
-        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(239, 58, 72, 14)];
+        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 81, 58, 72, 14)];
         self.profitTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Profit", @"") attributes:titleAttributes];
+        self.profitTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:self.profitTitleLabel];
         
-        for (NSNumber *offsetX in @[@89.5, @235]) {
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(offsetX.floatValue, 27, 0.5, 29)];
-            separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
-            [self addSubview:separatorView];
-        }
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(89.5, 27, 0.5, 29)];
+        separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+        [self addSubview:separatorView];
+        
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 85, 27, 0.5, 29)];
+        separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [self addSubview:separatorView];
     }
     return self;
 }
