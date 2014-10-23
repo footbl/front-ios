@@ -40,7 +40,7 @@
 }
 
 - (void)checkForUpdate {
-    if (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10)) {
+    if (self.isVisible && (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10))) {
         [self reloadData];
         [self.updateTimer invalidate];
         self.updateTimer = nil;

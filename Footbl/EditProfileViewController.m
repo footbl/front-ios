@@ -46,6 +46,8 @@
 }
 
 - (void)reloadData {
+    [super reloadData];
+    
     self.navigationItem.rightBarButtonItem.enabled = self.nameTextField.text.isValidName && self.aboutMeTextView.text.isValidAboutMe;
 }
 
