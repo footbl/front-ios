@@ -119,10 +119,6 @@
     self.bets = [self.user.bets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]]];
 
     [self.tableView reloadData];
-    
-    if (!self.user.isMeValue && [self.user isFanOfUser:[User currentUser]]) {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
 }
 
 - (void)reloadData {
@@ -181,6 +177,12 @@
                     NSDateFormatter *formatter = [NSDateFormatter new];
                     formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
                     profileCell.dateLabel.text = [formatter stringFromDate:self.user.createdAt];
+                    
+                    if (!self.user.isMeValue && [self.user isFanOfUser:[User currentUser]]) {
+                        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                    } else {
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+                    }
                     break;
                 }
                 case 1: {
@@ -443,7 +445,7 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser].editableObject starUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[User currentUser].editableObject starUser:self.user.editableObject success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
         }];
     }
@@ -455,7 +457,7 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [[User currentUser].editableObject unstarUser:self.user success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[User currentUser].editableObject unstarUser:self.user.editableObject success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
         }];
     }
@@ -468,7 +470,9 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    [[User currentUser].editableObject getStarredWithSuccess:nil failure:nil];
+    if (self.user.isMeValue) {
+        [self.user.editableObject getStarredWithSuccess:nil failure:nil];
+    }
     
     self.anonymousViewController = [AnonymousViewController new];
     

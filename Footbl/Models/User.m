@@ -231,7 +231,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 - (void)starUser:(User *)user success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTCoreDataStore privateQueueContext] performBlock:^{
         [self addFanOfUsersObject:user];
-        user.numberOfFans = @(MAX(user.editableObject.numberOfFansValue + 1, MAX_FOLLOWERS_COUNT));
+        user.numberOfFans = @(MIN(user.editableObject.numberOfFansValue + 1, MAX_FOLLOWERS_COUNT));
         [[FTCoreDataStore privateQueueContext] performSave];
     }];
     
