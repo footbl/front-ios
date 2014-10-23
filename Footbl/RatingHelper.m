@@ -36,7 +36,7 @@
     [iRate sharedInstance].appStoreID = APP_STORE_APP_ID;
     [iRate sharedInstance].applicationName = NSLocalizedString(@"Footbl", @"");
     [iRate sharedInstance].appStoreGenreID = 1000;
-    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].daysUntilPrompt = 2;
     [iRate sharedInstance].usesUntilPrompt = 3;
     [iRate sharedInstance].verboseLogging = (SPGetBuildType() != SPBuildTypeAppStore);
     [iRate sharedInstance].delegate = self;
@@ -50,7 +50,7 @@
 
 - (BOOL)iRateShouldPromptForRating {
     User *user = [User currentUser];
-    if (user.fundsValue + user.stakeValue > 120 && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
+    if (user.fundsValue + user.stakeValue > 100 && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
         return YES;
     }
     
