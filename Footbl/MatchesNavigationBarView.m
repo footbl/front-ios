@@ -12,6 +12,8 @@
 
 @implementation MatchesNavigationBarView
 
+NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarTitleAnimateKey";
+
 #pragma mark - Getters/Setters
 
 - (void)setTitleHidden:(BOOL)titleHidden {
@@ -151,6 +153,7 @@
             frame.origin.y = originalY;
             label.frame = frame;
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMatchesNavigationBarTitleAnimateKey object:nil];
     }];
 }
 

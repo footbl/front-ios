@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const kMatchesNavigationBarTitleAnimateKey;
+
 @interface MatchesNavigationBarView : UIView
 
 @property (strong, nonatomic) UIView *separatorView;

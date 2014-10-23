@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSMutableDictionary *championshipsViewControllers;
 @property (assign, nonatomic) CGFloat gestureRecognizerInitialPositionX;
 @property (assign, nonatomic) NSInteger scrollViewCurrentPage;
+@property (assign, nonatomic) NSInteger scrollViewLenght;
 
 @end
 
@@ -126,7 +127,7 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
 
 - (void)reloadScrollView {
     NSMutableDictionary *championshipsToRemove = self.championshipsViewControllers.mutableCopy;
-    NSInteger index = 0;
+    self.scrollViewLenght = 0;
     NSArray *championships = self.fetchedResultsController.fetchedObjects;
     CGSize contentSize = self.scrollView.frame.size;
     
@@ -145,55 +146,26 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
         matchesViewController.headerSliderBackImageView.hidden = NO;
         matchesViewController.headerSliderForwardImageView.hidden = NO;
         
-        if (index == 0) {
+        if (self.scrollViewLenght == 0) {
             matchesViewController.headerSliderBackImageView.hidden = YES;
         }
         
-        matchesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * index, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+        matchesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLenght, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
         contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.frameHeight);
         [championshipsToRemove removeObjectForKey:championship.slug];
-        index ++;
+        self.scrollViewLenght ++;
     }
     
     if (self.fetchedResultsController.fetchedObjects.count > 0) {
         UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
         if (!managedLeaguesViewController) {
-            managedLeaguesViewController = [UIViewController new];
-            
-            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.view.frameWidth, 30)];
-            headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
-            headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
-            [managedLeaguesViewController.view addSubview:headerView];
-            
-            UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
-            headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
-            headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
-            headerLabel.textAlignment = NSTextAlignmentCenter;
-            headerLabel.text = NSLocalizedString(@"My Leagues", @"");
-            [headerView addSubview:headerLabel];
-            
-            UIImageView *headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
-            headerSliderBackImageView.center = CGPointMake(15, headerLabel.center.y);
-            [headerView addSubview:headerSliderBackImageView];
-            
-            UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
-            placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
-            placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
-            placeholderLabel.textAlignment = NSTextAlignmentCenter;
-            placeholderLabel.text = NSLocalizedString(@"Leagues placeholder", @"");
-            placeholderLabel.numberOfLines = 0;
-            [managedLeaguesViewController.view addSubview:placeholderLabel];
-            
-            [self addChildViewController:managedLeaguesViewController];
-            [self.scrollView addSubview:managedLeaguesViewController.view];
-            self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
+            [self reloadManagedLeaguesViewController];
         }
         
         [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
-        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * index, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLenght, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
         contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
-        index ++;
+        self.scrollViewLenght ++;
     }
     
     self.scrollView.contentSize = contentSize;
@@ -276,6 +248,51 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     }
     
     [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
+}
+
+- (void)reloadManagedLeaguesViewController {
+    UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
+    [managedLeaguesViewController.view removeFromSuperview];
+    [managedLeaguesViewController removeFromParentViewController];
+    self.scrollViewLenght --;
+    
+    managedLeaguesViewController = [UIViewController new];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBarTitleView.frameHeight, self.view.frameWidth, 30)];
+    headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+    headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
+    [managedLeaguesViewController.view addSubview:headerView];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
+    headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
+    headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
+    headerLabel.textAlignment = NSTextAlignmentCenter;
+    headerLabel.text = NSLocalizedString(@"My Leagues", @"");
+    [headerView addSubview:headerLabel];
+    
+    UIImageView *headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
+    headerSliderBackImageView.center = CGPointMake(15, headerLabel.center.y);
+    [headerView addSubview:headerSliderBackImageView];
+    
+    UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
+    placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+    placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
+    placeholderLabel.textAlignment = NSTextAlignmentCenter;
+    placeholderLabel.text = NSLocalizedString(@"Leagues placeholder", @"");
+    placeholderLabel.numberOfLines = 0;
+    [managedLeaguesViewController.view addSubview:placeholderLabel];
+    
+    [self addChildViewController:managedLeaguesViewController];
+    [self.scrollView addSubview:managedLeaguesViewController.view];
+    self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
+    
+    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLenght, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+    CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
+    self.scrollViewLenght ++;
+
+    self.scrollView.contentSize = contentSize;
+    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.frameWidth), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
 }
 
 - (void)panGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -364,6 +381,10 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadWallet];
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMatchesNavigationBarTitleAnimateKey object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self reloadManagedLeaguesViewController];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -391,6 +412,12 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kFTNotificationAuthenticationChanged];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:NSManagedObjectContextDidSaveNotification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kMatchesNavigationBarTitleAnimateKey];
 }
 
 @end
