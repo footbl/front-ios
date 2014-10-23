@@ -21,7 +21,7 @@
 #define FT_API_PAGE_LIMIT 20
 
 // Updates
-#define UPDATE_INTERVAL 60 * 3
+#define UPDATE_INTERVAL 60 * 5
 #define UPDATE_INTERVAL_NEVER 60 * 60 * 24 * 365
 
 // Groups
