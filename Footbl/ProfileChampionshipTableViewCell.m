@@ -6,11 +6,39 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "UIView+Frame.h"
 #import "ProfileChampionshipTableViewCell.h"
 
 #pragma mark ProfileChampionshipTableViewCell
 
 @implementation ProfileChampionshipTableViewCell
+
+#pragma mark - Getters/Setters
+
+- (void)setRankingProgress:(NSNumber *)rankingProgress {
+    _rankingProgress = rankingProgress;
+    
+    CGFloat width = [self.rankingLabel sizeThatFits:self.rankingLabel.bounds.size].width;
+    CGFloat rankingCenterX = self.rankingLabel.frameX + self.rankingLabel.frameWidth - (width / 2);
+    self.progressLabel.text = [NSString stringWithFormat:@"%i", (int)fabs(self.rankingProgress.integerValue)];
+    
+    if (rankingProgress.integerValue > 0) {
+        self.rankingLabel.frameY = -3;
+        self.arrowImageView.image = [UIImage imageNamed:@"up_arrow"];
+        self.arrowImageView.center = CGPointMake(rankingCenterX - 8, self.rankingLabel.center.y + 15.5);
+    } else if (rankingProgress.integerValue < 0) {
+        self.rankingLabel.frameY = -3;
+        self.arrowImageView.image = [UIImage imageNamed:@"down_arrow"];
+        self.arrowImageView.center = CGPointMake(rankingCenterX - 8, self.rankingLabel.center.y + 16);
+    } else {
+        self.rankingLabel.frameY = 0;
+        self.arrowImageView.image = nil;
+        self.progressLabel.text = @"";
+    }
+    
+    self.progressLabel.center = CGPointMake(self.rankingLabel.center.x + 7, self.rankingLabel.center.y + 16);
+    self.progressLabel.frameX = self.arrowImageView.center.x + 7;
+}
 
 #pragma mark - Instance Methods
 
@@ -52,6 +80,15 @@
         self.rankingLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
+        
+        self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_arrow"]];
+        [self.contentView addSubview:self.arrowImageView];
+        
+        self.progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.rankingLabel.frameY, 100, self.rankingLabel.frameHeight)];
+        self.progressLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
+        self.progressLabel.textAlignment = NSTextAlignmentLeft;
+        self.progressLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4];
+        [self.contentView addSubview:self.progressLabel];
         
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];

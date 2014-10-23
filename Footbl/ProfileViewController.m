@@ -247,6 +247,13 @@
                     } else {
                         championshipCell.rankingLabel.text = @"";
                     }
+                    
+                    if (FBTweakValue(@"UX", @"Profile", @"Rank progress", NO) && self.user.ranking && self.user.previousRanking) {
+                        championshipCell.rankingProgress = @(self.user.previousRanking.integerValue - self.user.ranking.integerValue);
+                    } else {
+                        championshipCell.rankingProgress = @(0);
+                    }
+                    
                     break;
                 }
             }

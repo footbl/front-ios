@@ -14,5 +14,8 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *informationLabel;
 @property (strong, nonatomic) UILabel *rankingLabel;
+@property (strong, nonatomic) UIImageView *arrowImageView;
+@property (strong, nonatomic) UILabel *progressLabel;
+@property (strong, nonatomic) NSNumber *rankingProgress;
 
 @end
