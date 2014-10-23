@@ -58,6 +58,12 @@
     
 }
 
+- (IBAction)joinGroupAction:(id)sender {
+    NewGroupViewController *newGroupViewController = [NewGroupViewController new];
+    newGroupViewController.invitationMode = YES;
+    [self presentViewController:[[FootblNavigationController alloc] initWithRootViewController:newGroupViewController] animated:YES completion:nil];
+}
+
 - (IBAction)newGroupAction:(id)sender {
     [self presentViewController:[[FootblNavigationController alloc] initWithRootViewController:[NewGroupViewController new]] animated:YES completion:nil];
 }
@@ -189,9 +195,9 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    /*
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction:)];
-    */
+    if (FBTweakValue(@"UX", @"Group", @"Join button", NO)) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
+    }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
     
     self.refreshControl = [UIRefreshControl new];
@@ -241,6 +247,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (FBTweakValue(@"UX", @"Group", @"Join button", NO)) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
     
     if (self.tableView.indexPathForSelectedRow) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;

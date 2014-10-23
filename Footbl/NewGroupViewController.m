@@ -18,8 +18,6 @@
 
 @interface NewGroupViewController ()
 
-@property (assign, nonatomic, getter = isInvitationMode) BOOL invitationMode;
-
 @end
 
 #pragma mark NewGroupViewController
@@ -158,6 +156,8 @@
     [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4] forState:UIControlStateHighlighted];
     [self.invitationModeButton addTarget:self action:@selector(invitationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.invitationModeButton];
+    
+    [self setInvitationMode:self.isInvitationMode];
 }
 
 - (void)viewDidLoad {
