@@ -183,6 +183,15 @@
 		ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
 		ED7C0FB41959BA3300275685 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED7C0FB71959C76900275685 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
+		ED7C716319F949310002E6B0 /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
+		ED7C716419F949310002E6B0 /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
+		ED7C716519F949310002E6B0 /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
+		ED7C716619F949310002E6B0 /* match_end.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716119F949310002E6B0 /* match_end.wav */; };
+		ED7C716719F949310002E6B0 /* match_end.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716119F949310002E6B0 /* match_end.wav */; };
+		ED7C716819F949310002E6B0 /* match_end.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716119F949310002E6B0 /* match_end.wav */; };
+		ED7C716919F949310002E6B0 /* match_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716219F949310002E6B0 /* match_start.wav */; };
+		ED7C716A19F949310002E6B0 /* match_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716219F949310002E6B0 /* match_start.wav */; };
+		ED7C716B19F949310002E6B0 /* match_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716219F949310002E6B0 /* match_start.wav */; };
 		ED81E81C18EA687800212D3C /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED81E81F18EA6A3900212D3C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED81E82218EA6A7500212D3C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
@@ -592,6 +601,9 @@
 		ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppAPI.m; sourceTree = "<group>"; };
 		ED7C0FB51959C76900275685 /* WhatsAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppActivity.h; sourceTree = "<group>"; };
 		ED7C0FB61959C76900275685 /* WhatsAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsAppActivity.m; sourceTree = "<group>"; };
+		ED7C716019F949310002E6B0 /* get_money.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = get_money.wav; sourceTree = "<group>"; };
+		ED7C716119F949310002E6B0 /* match_end.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = match_end.wav; sourceTree = "<group>"; };
+		ED7C716219F949310002E6B0 /* match_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = match_start.wav; sourceTree = "<group>"; };
 		ED81E81A18EA687800212D3C /* FootblTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblTabBarController.h; sourceTree = "<group>"; };
 		ED81E81B18EA687800212D3C /* FootblTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblTabBarController.m; sourceTree = "<group>"; };
 		ED81E81D18EA6A3900212D3C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
@@ -958,6 +970,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		ED7C715F19F949310002E6B0 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				ED7C716019F949310002E6B0 /* get_money.wav */,
+				ED7C716119F949310002E6B0 /* match_end.wav */,
+				ED7C716219F949310002E6B0 /* match_start.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		ED81E82618EA705E00212D3C /* Template */ = {
 			isa = PBXGroup;
 			children = (
@@ -1187,6 +1209,7 @@
 				ED19A407190ACF8700946490 /* Localizable.strings */,
 				EDB1D47318E1F18B00E0C949 /* main.m */,
 				ED493D2F190DC3A100A7869B /* Pods-acknowledgements.plist */,
+				ED7C715F19F949310002E6B0 /* Sounds */,
 				EDDCF22A1934ED530090D06D /* Tutorial */,
 			);
 			name = "Supporting Files";
@@ -1534,8 +1557,11 @@
 				EDB7BC8819B0158800898D94 /* Icon-Development-Small@2x.png in Resources */,
 				EDB7BC8919B0158800898D94 /* Icon-Development-Spotlight-40.png in Resources */,
 				ED785A57199D0C62002A4DBD /* InfoPlist.strings in Resources */,
+				ED7C716919F949310002E6B0 /* match_start.wav in Resources */,
 				ED785A58199D0C62002A4DBD /* tutorial_5@2x.png in Resources */,
+				ED7C716619F949310002E6B0 /* match_end.wav in Resources */,
 				ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */,
+				ED7C716319F949310002E6B0 /* get_money.wav in Resources */,
 				ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */,
 				ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */,
 				ED785A5C199D0C62002A4DBD /* Pods-acknowledgements.plist in Resources */,
@@ -1554,9 +1580,12 @@
 				EDDCF23F1934EDA60090D06D /* tutorial_4@2x.png in Resources */,
 				ED19A405190ACF8700946490 /* Localizable.strings in Resources */,
 				EDDCF2361934ED940090D06D /* tutorial_1@2x.png in Resources */,
+				ED7C716A19F949310002E6B0 /* match_start.wav in Resources */,
+				ED7C716419F949310002E6B0 /* get_money.wav in Resources */,
 				EDB1D47218E1F18B00E0C949 /* InfoPlist.strings in Resources */,
 				EDDCF2421934EDB50090D06D /* tutorial_5@2x.png in Resources */,
 				EDDCF26D193583050090D06D /* tutorial_3_480@2x.png in Resources */,
+				ED7C716719F949310002E6B0 /* match_end.wav in Resources */,
 				EDDCF2391934ED9B0090D06D /* tutorial_2@2x.png in Resources */,
 				EDDCF2711935830D0090D06D /* tutorial_4_480@2x.png in Resources */,
 				ED493D30190DC3A100A7869B /* Pods-acknowledgements.plist in Resources */,
@@ -1583,13 +1612,16 @@
 				EDB7BC6C19B0145400898D94 /* tutorial_5_480@2x.png in Resources */,
 				EDB7BC6D19B0145400898D94 /* tutorial_4@2x.png in Resources */,
 				EDB7BC9319B0168400898D94 /* Icon-Beta-Spotlight-40.png in Resources */,
+				ED7C716519F949310002E6B0 /* get_money.wav in Resources */,
 				EDB7BC6E19B0145400898D94 /* Localizable.strings in Resources */,
 				EDB7BC6F19B0145400898D94 /* tutorial_1@2x.png in Resources */,
 				EDB7BC7019B0145400898D94 /* InfoPlist.strings in Resources */,
 				EDB7BC7119B0145400898D94 /* tutorial_5@2x.png in Resources */,
 				EDB7BC9419B0168400898D94 /* Icon-Beta-Spotlight-40@2x.png in Resources */,
+				ED7C716819F949310002E6B0 /* match_end.wav in Resources */,
 				EDB7BC7219B0145400898D94 /* tutorial_3_480@2x.png in Resources */,
 				EDB7BC7319B0145400898D94 /* tutorial_2@2x.png in Resources */,
+				ED7C716B19F949310002E6B0 /* match_start.wav in Resources */,
 				EDB7BC9219B0168400898D94 /* Icon-Beta-Small@2x.png in Resources */,
 				EDB7BC7419B0145400898D94 /* tutorial_4_480@2x.png in Resources */,
 				EDB7BC9119B0168400898D94 /* Icon-Beta-Small.png in Resources */,
