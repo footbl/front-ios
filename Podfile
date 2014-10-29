@@ -21,7 +21,7 @@ pod 'TransformerKit', '0.5.3'
 pod 'FXKeychain', '1.5.2'
 
 # Utilities
-pod 'APAddressBook', '0.1.2'
+pod 'APAddressBook', '0.1.4'
 pod 'CargoBay', '2.1.0'
 pod 'Cloudinary', '1.0.12'
 pod 'iRate', '1.11.3'
