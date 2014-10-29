@@ -32,7 +32,7 @@ PODS:
   - FlurrySDK (5.4.0):
     - FlurrySDK/FlurrySDK
   - FlurrySDK/FlurrySDK (5.4.0)
-  - FXKeychain (1.5.1)
+  - FXKeychain (1.5.2)
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - iRate (1.10.3)
   - KIF (3.0.7):
@@ -89,7 +89,7 @@ DEPENDENCIES:
   - CargoBay (= 2.1.0)
   - Cloudinary (= 1.0.12)
   - FlurrySDK (= 5.4.0)
-  - FXKeychain (= 1.5.1)
+  - FXKeychain (= 1.5.2)
   - GoogleAnalytics-iOS-SDK (= 3.0.9)
   - iRate (= 1.10.3)
   - KIF (~> 3.0)
@@ -111,7 +111,7 @@ SPEC CHECKSUMS:
   CargoBay: b9b7c2b6a466192fb218935c0dd771d16268a035
   Cloudinary: 1f3859b17f1c111671a1acf1f0e2648c34d3a207
   FlurrySDK: bed9e5598353f867508d164795a451e3ada92cb6
-  FXKeychain: beb642a4218ba783507af08865eda05e9b26a612
+  FXKeychain: c97c352f1923809032339514ec4d6b0ed151bc3b
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
   iRate: 40ebea2bb1e88866cef7393bd0abeae232cc5d38
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225

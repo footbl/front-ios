@@ -96,7 +96,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 FXKeychain
 
-Version 1.5.1, May 30th, 2014
+Version 1.5.2, October 13th, 2014
 
 Copyright (C) 2012 Charcoal Design
 

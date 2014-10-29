@@ -18,7 +18,7 @@ pod 'SDWebImage', '3.7.1'
 pod 'TransformerKit', '0.5.3'
 
 # Security
-pod 'FXKeychain', '1.5.1'
+pod 'FXKeychain', '1.5.2'
 
 # Utilities
 pod 'APAddressBook', '0.1.2'
