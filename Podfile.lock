@@ -83,7 +83,7 @@ PODS:
   - UIAlertView-Blocks (1.0)
 
 DEPENDENCIES:
-  - AFNetworkActivityLogger
+  - AFNetworkActivityLogger (= 2.0.3)
   - AFNetworking (= 2.4.1)
   - APAddressBook (= 0.1.2)
   - CargoBay (= 2.1.0)

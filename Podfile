@@ -13,7 +13,7 @@ pod 'FlurrySDK', '5.3.0'
 
 # Networking
 pod 'AFNetworking', '2.4.1'
-pod 'AFNetworkActivityLogger'
+pod 'AFNetworkActivityLogger', '2.0.3'
 pod 'SDWebImage', '3.7.1'
 pod 'TransformerKit', '0.5.3'
 
