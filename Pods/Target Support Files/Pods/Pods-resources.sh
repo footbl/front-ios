@@ -43,7 +43,8 @@ install_resource()
       ;;
   esac
 }
-          install_resource "StyledPageControl/StyledPageControlDemo/PageControlDemo/Resources/pagecontrol-thumb-normal.png"
+          install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
+                    install_resource "StyledPageControl/StyledPageControlDemo/PageControlDemo/Resources/pagecontrol-thumb-normal.png"
                     install_resource "StyledPageControl/StyledPageControlDemo/PageControlDemo/Resources/pagecontrol-thumb-normal@2x.png"
                     install_resource "StyledPageControl/StyledPageControlDemo/PageControlDemo/Resources/pagecontrol-thumb-selected.png"
                     install_resource "StyledPageControl/StyledPageControlDemo/PageControlDemo/Resources/pagecontrol-thumb-selected@2x.png"
