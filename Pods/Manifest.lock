@@ -34,7 +34,7 @@ PODS:
   - FlurrySDK/FlurrySDK (5.4.0)
   - FXKeychain (1.5.2)
   - GoogleAnalytics-iOS-SDK (3.0.9)
-  - iRate (1.10.3)
+  - iRate (1.11.3)
   - KIF (3.0.7):
     - KIF/XCTest
   - KIF/XCTest (3.0.7)
@@ -91,7 +91,7 @@ DEPENDENCIES:
   - FlurrySDK (= 5.4.0)
   - FXKeychain (= 1.5.2)
   - GoogleAnalytics-iOS-SDK (= 3.0.9)
-  - iRate (= 1.10.3)
+  - iRate (= 1.11.3)
   - KIF (~> 3.0)
   - MBProgressHUD (= 0.9)
   - RMStore (= 0.5.2)
@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   FlurrySDK: bed9e5598353f867508d164795a451e3ada92cb6
   FXKeychain: c97c352f1923809032339514ec4d6b0ed151bc3b
   GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
-  iRate: 40ebea2bb1e88866cef7393bd0abeae232cc5d38
+  iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   RMStore: 2b0b5e5cba616ee33ad8f0eda85d31de9286817c
