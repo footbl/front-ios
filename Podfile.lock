@@ -2,23 +2,25 @@ PODS:
   - AFNetworkActivityLogger (2.0.3):
     - AFNetworking/NSURLConnection (~> 2.0)
     - AFNetworking/NSURLSession (~> 2.0)
-  - AFNetworking (2.2.1):
+  - AFNetworking (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.1):
+  - AFNetworking/NSURLConnection (2.4.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.1):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.1)
-  - AFNetworking/Security (2.2.1)
-  - AFNetworking/Serialization (2.2.1)
-  - AFNetworking/UIKit (2.2.1):
+  - AFNetworking/NSURLSession (2.4.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.4.1)
+  - AFNetworking/Security (2.4.1)
+  - AFNetworking/Serialization (2.4.1)
+  - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - APAddressBook (0.1.2):
@@ -82,7 +84,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworkActivityLogger
-  - AFNetworking (~> 2.0)
+  - AFNetworking (= 2.4.1)
   - APAddressBook (= 0.1.2)
   - CargoBay (= 2.1.0)
   - Cloudinary (= 1.0.12)
@@ -104,7 +106,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: d6a2d2755fada3a1fbf1f490ec0dd92224e092a4
-  AFNetworking: 8dde8c8a6597ad95dac332a593c27e541bc87371
+  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   APAddressBook: 11c6a76dd2e7fb2187b0775fec15ed0d0461b474
   CargoBay: b9b7c2b6a466192fb218935c0dd771d16268a035
   Cloudinary: 1f3859b17f1c111671a1acf1f0e2648c34d3a207
