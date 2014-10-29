@@ -96,7 +96,7 @@
         self.colorScheme = MatchTableViewCellColorSchemeDefault;
     }
     
-    if (isMe && !match.isBetSyncing) {
+    if ((isMe && !match.isBetSyncing) || !isMe) {
         if (match.localJackpot.integerValue > 0) {
             [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
             self.footerLabel.hidden = NO;
