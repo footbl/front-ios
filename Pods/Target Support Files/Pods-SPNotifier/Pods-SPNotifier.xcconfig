@@ -1,0 +1,1 @@
+PODS_SPNOTIFIER_OTHER_LDFLAGS = -framework "Foundation"

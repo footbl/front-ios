@@ -1,3 +1,6 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@git.madeatsampa.com:madeatsampa/sppodspec.git'
+
 platform :ios, '7.0'
 
 # madeatsampa

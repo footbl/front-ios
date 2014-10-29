@@ -1,0 +1,1 @@
+../../../SPHipster/SPHipster/Categories/iOS/UIApplication+SPAddons.h

@@ -1,1 +1,0 @@
-../../SPHipster/SPHipster/Categories/iOS/UIView+Frame.h
