@@ -39,9 +39,9 @@ PODS:
     - KIF/XCTest
   - KIF/XCTest (3.0.7)
   - MBProgressHUD (0.9)
-  - RMStore (0.5.2):
+  - RMStore (0.6.0):
     - RMStore/Core
-  - RMStore/Core (0.5.2)
+  - RMStore/Core (0.6.0)
   - SDWebImage (3.7.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.1)
@@ -94,7 +94,7 @@ DEPENDENCIES:
   - iRate (= 1.11.3)
   - KIF (~> 3.0)
   - MBProgressHUD (= 0.9)
-  - RMStore (= 0.5.2)
+  - RMStore (= 0.6.0)
   - SDWebImage (= 3.7.1)
   - SPHipster (= 0.5.3)
   - SPNotifier (= 0.2.2)
@@ -116,7 +116,7 @@ SPEC CHECKSUMS:
   iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
   KIF: 685ab7b49c1092732b7cb3106cc957366b01e225
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  RMStore: 2b0b5e5cba616ee33ad8f0eda85d31de9286817c
+  RMStore: e56d74f57a8e0ae0eaa04643d44f7686e646cfba
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SPHipster: bda4f8c802d57ac2750a3724a8c583b5aa21ddb8
   SPNotifier: dae5b3cb09eb78ab0b3a14a93ad53c612cc2df0d
