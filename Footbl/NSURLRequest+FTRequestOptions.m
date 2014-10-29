@@ -20,7 +20,7 @@
 }
 
 - (void)setOptions:(FTRequestOptions)options {
-    objc_setAssociatedObject(self, @selector(options), @(options), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(options), @(options), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSInteger)page {
@@ -28,7 +28,7 @@
 }
 
 - (void)setPage:(NSInteger)page {
-    objc_setAssociatedObject(self, @selector(page), @(page), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(page), @(page), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
