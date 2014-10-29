@@ -33,7 +33,7 @@ pod 'Tweaks', '1.1.0'
 pod 'UIAlertView-Blocks', '1.0'
 
 target 'FootblTests', :exclusive => true do
-    pod 'KIF', '~> 3.0'
+    pod 'KIF', '3.0.8'
 end
 
 post_install do |installer_representation|
