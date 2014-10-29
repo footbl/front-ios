@@ -151,7 +151,6 @@
 		ED785A48199D0C62002A4DBD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		ED785A49199D0C62002A4DBD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
 		ED785A4A199D0C62002A4DBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
-		ED785A4B199D0C62002A4DBD /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED785A4C199D0C62002A4DBD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
 		ED785A4F199D0C62002A4DBD /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
 		ED785A50199D0C62002A4DBD /* tutorial_1_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF267193582F20090D06D /* tutorial_1_480@2x.png */; };
@@ -210,7 +209,6 @@
 		ED9DC8DE18E3271900DF458C /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
 		ED9DC8DF18E3271900DF458C /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
 		ED9DC8E018E3271900DF458C /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
-		ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDAE5BC11917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
 		EDAF0E9D191AB8FE005218FB /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
@@ -345,7 +343,6 @@
 		EDB7BC6119B0145400898D94 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		EDB7BC6219B0145400898D94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
 		EDB7BC6319B0145400898D94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
-		EDB7BC6419B0145400898D94 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */; };
 		EDB7BC6519B0145400898D94 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
 		EDB7BC6819B0145400898D94 /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
 		EDB7BC6919B0145400898D94 /* tutorial_1_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF267193582F20090D06D /* tutorial_1_480@2x.png */; };
@@ -636,7 +633,6 @@
 		ED9DC8DB18E3271900DF458C /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Match.m; path = Models/Match.m; sourceTree = "<group>"; };
 		ED9DC8DC18E3271900DF458C /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Team.h; path = Models/Team.h; sourceTree = "<group>"; };
 		ED9DC8DD18E3271900DF458C /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Team.m; path = Models/Team.m; sourceTree = "<group>"; };
-		ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		ED9F07921909C05900C8AC71 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ED9F07931909C05900C8AC71 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
@@ -782,7 +778,6 @@
 				ED785A48199D0C62002A4DBD /* CoreData.framework in Frameworks */,
 				ED785A49199D0C62002A4DBD /* UIKit.framework in Frameworks */,
 				ED785A4A199D0C62002A4DBD /* Foundation.framework in Frameworks */,
-				ED785A4B199D0C62002A4DBD /* Crashlytics.framework in Frameworks */,
 				ED785A4C199D0C62002A4DBD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,7 +790,6 @@
 				EDB1D46C18E1F18B00E0C949 /* CoreData.framework in Frameworks */,
 				EDB1D46A18E1F18B00E0C949 /* UIKit.framework in Frameworks */,
 				EDB1D46618E1F18B00E0C949 /* Foundation.framework in Frameworks */,
-				ED9F07901909B4D300C8AC71 /* Crashlytics.framework in Frameworks */,
 				4F5916A7F0B341CDAE3328BC /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -820,7 +814,6 @@
 				EDB7BC6119B0145400898D94 /* CoreData.framework in Frameworks */,
 				EDB7BC6219B0145400898D94 /* UIKit.framework in Frameworks */,
 				EDB7BC6319B0145400898D94 /* Foundation.framework in Frameworks */,
-				EDB7BC6419B0145400898D94 /* Crashlytics.framework in Frameworks */,
 				EDB7BC6519B0145400898D94 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1174,7 +1167,6 @@
 			children = (
 				EDB1D46B18E1F18B00E0C949 /* CoreData.framework */,
 				EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */,
-				ED9F078F1909B4D300C8AC71 /* Crashlytics.framework */,
 				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
 				21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */,
 				367ED0AE31BD4C60B34A5B8E /* libPods.a */,
@@ -1733,7 +1725,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 		ED83A99719B1278A0089CC5F /* Set Info.plist values */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1775,7 +1767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 		EDB7BBF019B0145400898D94 /* Set Info.plist values */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1847,7 +1839,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 /* End PBXShellScriptBuildPhase section */
 
