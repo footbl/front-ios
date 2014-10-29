@@ -9,7 +9,7 @@ pod 'SPNotifier', '0.2.2'
 
 # Analytics
 pod 'GoogleAnalytics-iOS-SDK', '3.0.9'
-pod 'FlurrySDK', '5.3.0'
+pod 'FlurrySDK', '5.4.0'
 
 # Networking
 pod 'AFNetworking', '2.4.1'
