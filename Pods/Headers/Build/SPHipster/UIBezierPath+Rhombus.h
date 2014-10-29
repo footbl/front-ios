@@ -1,1 +1,1 @@
-../../../SPHipster/SPHipster/Categories/iOS/UIBezierPath+Rhombus.h
+../../../SPHipster/SPHipster/UIBezierPath+Rhombus.h

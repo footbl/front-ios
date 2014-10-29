@@ -45,14 +45,14 @@ PODS:
   - SDWebImage (3.7.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.1)
-  - SPHipster (0.5):
+  - SPHipster (0.5.3):
     - SPHipster/Categories
     - SPHipster/Core
     - SPHipster/Extras
-  - SPHipster/Categories (0.5):
+  - SPHipster/Categories (0.5.3):
     - SPHipster/Core
-  - SPHipster/Core (0.5)
-  - SPHipster/Extras (0.5):
+  - SPHipster/Core (0.5.3)
+  - SPHipster/Extras (0.5.3):
     - SPHipster/Core
   - SPNotifier (0.2.2):
     - AFNetworking (~> 2.0)
@@ -96,7 +96,7 @@ DEPENDENCIES:
   - MBProgressHUD (= 0.9)
   - RMStore (= 0.5.2)
   - SDWebImage (= 3.7.1)
-  - SPHipster (= 0.5)
+  - SPHipster (= 0.5.3)
   - SPNotifier (= 0.2.2)
   - StyledPageControl (= 1.0)
   - SVPullToRefresh (= 0.4.1)
@@ -118,7 +118,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   RMStore: 2b0b5e5cba616ee33ad8f0eda85d31de9286817c
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SPHipster: 9a9e9c7fec44727ec5f0ade10406469ad8d04a7f
+  SPHipster: bda4f8c802d57ac2750a3724a8c583b5aa21ddb8
   SPNotifier: dae5b3cb09eb78ab0b3a14a93ad53c612cc2df0d
   StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
   SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190

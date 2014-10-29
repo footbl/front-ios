@@ -4,7 +4,7 @@ source 'git@git.madeatsampa.com:madeatsampa/sppodspec.git'
 platform :ios, '7.0'
 
 # madeatsampa
-pod 'SPHipster', '0.5'
+pod 'SPHipster', '0.5.3'
 pod 'SPNotifier', '0.2.2'
 
 # Analytics

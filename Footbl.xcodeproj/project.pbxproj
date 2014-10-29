@@ -40,7 +40,6 @@
 		ED42F7271A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
 		ED493D2E190DB40000A7869B /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED493D39190ED2BF00A7869B /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D38190ED2BF00A7869B /* TeamImageView.m */; };
-		ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
 		ED493D40190EF49900A7869B /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
 		ED4F3B291975882400869E85 /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		ED53816D199406CF005D62BB /* FTOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816C199406CF005D62BB /* FTOperationManager.m */; };
@@ -126,7 +125,6 @@
 		ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
 		ED785A2E199D0C62002A4DBD /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
-		ED785A2F199D0C62002A4DBD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
 		ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
@@ -322,7 +320,6 @@
 		EDB7BC4319B0145400898D94 /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		EDB7BC4419B0145400898D94 /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
 		EDB7BC4519B0145400898D94 /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
-		EDB7BC4619B0145400898D94 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3C190EDF1300A7869B /* UIView+Frame.m */; };
 		EDB7BC4719B0145400898D94 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		EDB7BC4819B0145400898D94 /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		EDB7BC4919B0145400898D94 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
@@ -511,8 +508,6 @@
 		ED493D2D190DB40000A7869B /* SettingsTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTextViewController.m; sourceTree = "<group>"; };
 		ED493D37190ED2BF00A7869B /* TeamImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamImageView.h; sourceTree = "<group>"; };
 		ED493D38190ED2BF00A7869B /* TeamImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamImageView.m; sourceTree = "<group>"; };
-		ED493D3B190EDF1300A7869B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
-		ED493D3C190EDF1300A7869B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		ED493D3E190EF49900A7869B /* UILabel+MaxFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MaxFontSize.h"; sourceTree = "<group>"; };
 		ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MaxFontSize.m"; sourceTree = "<group>"; };
 		ED4F3B271975882400869E85 /* UIFont+MaxFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MaxFontSize.h"; sourceTree = "<group>"; };
@@ -1274,8 +1269,6 @@
 				ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */,
 				EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */,
 				EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */,
-				ED493D3B190EDF1300A7869B /* UIView+Frame.h */,
-				ED493D3C190EDF1300A7869B /* UIView+Frame.m */,
 				ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */,
 				ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */,
 			);
@@ -1956,7 +1949,6 @@
 				ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */,
 				ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */,
 				ED785A2E199D0C62002A4DBD /* FTModel.m in Sources */,
-				ED785A2F199D0C62002A4DBD /* UIView+Frame.m in Sources */,
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
 				ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */,
 				ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */,
@@ -2072,7 +2064,6 @@
 				ED4F3B291975882400869E85 /* UIFont+MaxFontSize.m in Sources */,
 				ED3A0F581988B42E00011E91 /* FootblLabel.m in Sources */,
 				EDC67206199924A500D06E66 /* FTModel.m in Sources */,
-				ED493D3D190EDF1300A7869B /* UIView+Frame.m in Sources */,
 				ED9F07941909C05900C8AC71 /* SettingsViewController.m in Sources */,
 				ED81E82E18EA70C700212D3C /* FootblNavigationController.m in Sources */,
 				ED19A40A190AF85800946490 /* LogsViewController.m in Sources */,
@@ -2196,7 +2187,6 @@
 				EDB7BC4319B0145400898D94 /* UIFont+MaxFontSize.m in Sources */,
 				EDB7BC4419B0145400898D94 /* FootblLabel.m in Sources */,
 				EDB7BC4519B0145400898D94 /* FTModel.m in Sources */,
-				EDB7BC4619B0145400898D94 /* UIView+Frame.m in Sources */,
 				EDB7BC4719B0145400898D94 /* SettingsViewController.m in Sources */,
 				EDB7BC4819B0145400898D94 /* FootblNavigationController.m in Sources */,
 				EDB7BC4919B0145400898D94 /* LogsViewController.m in Sources */,

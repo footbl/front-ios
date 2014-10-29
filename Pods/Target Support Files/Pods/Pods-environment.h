@@ -136,25 +136,25 @@
 #define COCOAPODS_POD_AVAILABLE_SPHipster
 #define COCOAPODS_VERSION_MAJOR_SPHipster 0
 #define COCOAPODS_VERSION_MINOR_SPHipster 5
-#define COCOAPODS_VERSION_PATCH_SPHipster 0
+#define COCOAPODS_VERSION_PATCH_SPHipster 3
 
 // SPHipster/Categories
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Categories
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Categories 0
 #define COCOAPODS_VERSION_MINOR_SPHipster_Categories 5
-#define COCOAPODS_VERSION_PATCH_SPHipster_Categories 0
+#define COCOAPODS_VERSION_PATCH_SPHipster_Categories 3
 
 // SPHipster/Core
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Core
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Core 0
 #define COCOAPODS_VERSION_MINOR_SPHipster_Core 5
-#define COCOAPODS_VERSION_PATCH_SPHipster_Core 0
+#define COCOAPODS_VERSION_PATCH_SPHipster_Core 3
 
 // SPHipster/Extras
 #define COCOAPODS_POD_AVAILABLE_SPHipster_Extras
 #define COCOAPODS_VERSION_MAJOR_SPHipster_Extras 0
 #define COCOAPODS_VERSION_MINOR_SPHipster_Extras 5
-#define COCOAPODS_VERSION_PATCH_SPHipster_Extras 0
+#define COCOAPODS_VERSION_PATCH_SPHipster_Extras 3
 
 // SPNotifier
 #define COCOAPODS_POD_AVAILABLE_SPNotifier
