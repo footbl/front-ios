@@ -23,20 +23,19 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.tintColor = [UIColor ftGreenMoneyColor];
         
-        self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(11, 11, 35, 35)];
+        self.profileImageView = [UIImageView new];
         self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImageView.clipsToBounds = YES;
-        self.profileImageView.layer.cornerRadius = CGRectGetWidth(self.profileImageView.frame) / 2;
         [self.contentView addSubview:self.profileImageView];
         
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(57, 0, CGRectGetWidth(self.frame) - 111, CGRectGetHeight(self.frame))];
+        self.nameLabel = [UILabel new];
         self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.nameLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97/255.f alpha:1.00];
         [self.contentView addSubview:self.nameLabel];
         
-        self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - 76, 0, 60, 58)];
+        self.valueLabel = [UILabel new];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
         self.valueLabel.textAlignment = NSTextAlignmentRight;
         self.valueLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
@@ -77,6 +76,13 @@
         self.valueLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
     }
+}
+
+- (void)drawRect:(CGRect)rect {
+    self.profileImageView.frame = CGRectMake(11, 11, 35, 35);
+    self.nameLabel.frame = CGRectMake(57, 0, CGRectGetWidth(self.frame) - 111, CGRectGetHeight(self.frame));
+    self.valueLabel.frame = CGRectMake(CGRectGetWidth(self.frame) - 76, 0, 60, 58);
+    self.profileImageView.layer.cornerRadius = CGRectGetWidth(self.profileImageView.frame) / 2;
 }
 
 @end
