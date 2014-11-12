@@ -517,7 +517,7 @@
 		ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMembershipTableViewCell.m; sourceTree = "<group>"; };
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
-		ED785A64199D0C62002A4DBD /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED785A64199D0C62002A4DBD /* Footbl Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED785A65199D0C63002A4DBD /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl-Info.plist"; sourceTree = SOURCE_ROOT; };
 		ED785A69199D0E2C002A4DBD /* Icon-Development-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60.png"; sourceTree = "<group>"; };
 		ED785A6A199D0E2C002A4DBD /* Icon-Development-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Development-60@2x.png"; sourceTree = "<group>"; };
@@ -669,7 +669,7 @@
 		EDB639BB1910776300D7B041 /* _Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Bet.m; path = Models/_Bet.m; sourceTree = "<group>"; };
 		EDB639BD1910776C00D7B041 /* Bet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bet.h; path = Models/Bet.h; sourceTree = "<group>"; };
 		EDB639BE1910776C00D7B041 /* Bet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bet.m; path = Models/Bet.m; sourceTree = "<group>"; };
-		EDB7BC7D19B0145400898D94 /* Footbl ß.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl ß.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDB7BC7D19B0145400898D94 /* Footbl Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB7BC8B19B0168400898D94 /* Icon-Beta-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-60@2x.png"; sourceTree = "<group>"; };
 		EDB7BC8C19B0168400898D94 /* Icon-Beta-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small.png"; sourceTree = "<group>"; };
 		EDB7BC8D19B0168400898D94 /* Icon-Beta-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Beta-Small@2x.png"; sourceTree = "<group>"; };
@@ -1156,8 +1156,8 @@
 			children = (
 				EDB1D46218E1F18B00E0C949 /* Footbl.app */,
 				EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */,
-				ED785A64199D0C62002A4DBD /* Footbl ß.app */,
-				EDB7BC7D19B0145400898D94 /* Footbl ß.app */,
+				ED785A64199D0C62002A4DBD /* Footbl Development.app */,
+				EDB7BC7D19B0145400898D94 /* Footbl Beta.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1420,7 +1420,7 @@
 			);
 			name = Footbl;
 			productName = Footbl;
-			productReference = ED785A64199D0C62002A4DBD /* Footbl ß.app */;
+			productReference = ED785A64199D0C62002A4DBD /* Footbl Development.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EDB1D46118E1F18B00E0C949 /* Footbl App Store */ = {
@@ -1483,7 +1483,7 @@
 			);
 			name = "Footbl Beta";
 			productName = Footbl;
-			productReference = EDB7BC7D19B0145400898D94 /* Footbl ß.app */;
+			productReference = EDB7BC7D19B0145400898D94 /* Footbl Beta.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2404,7 +2404,7 @@
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Development";
 				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2428,7 +2428,7 @@
 					"FT_SERVER_ENVIRONMENT=3",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Development";
 				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2608,7 +2608,7 @@
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Beta";
 				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2631,7 +2631,7 @@
 					"FT_SERVER_ENVIRONMENT=3",
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Beta";
 				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2734,7 +2734,7 @@
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Development";
 				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2758,7 +2758,7 @@
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl ß";
+				PRODUCT_NAME = "Footbl Beta";
 				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
 				WRAPPER_EXTENSION = app;
 			};
