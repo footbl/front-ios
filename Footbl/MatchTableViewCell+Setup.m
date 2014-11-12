@@ -72,7 +72,6 @@
             break;
     }
     
-    
     if (isMe) {
         if (!match.editableObject.isBetSyncing) {
             self.stakeValueLabel.text = match.myBetValueString;
@@ -121,7 +120,11 @@
             break;
     }
     
-    self.shareButton.hidden = !(bet.user.isMeValue || selectionBlock);
+    if (isMe && match.myBetValue && match.myBetValue.integerValue > 0) {
+        self.shareButton.alpha = 1;
+    } else {
+        self.shareButton.alpha = 0;
+    }
     
     self.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
         [match shareUsingMatchCell:matchBlockCell viewController:viewController];
