@@ -36,7 +36,7 @@
         self.nameLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97/255.f alpha:1.00];
         [self.contentView addSubview:self.nameLabel];
         
-        self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 0, 60, 58)];
+        self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.frame) - 76, 0, 60, 58)];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
         self.valueLabel.textAlignment = NSTextAlignmentRight;
         self.valueLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
