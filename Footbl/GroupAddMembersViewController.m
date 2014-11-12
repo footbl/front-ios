@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSMutableSet *footblSelectedMembers;
 @property (strong, nonatomic) NSMutableSet *facebookSelectedMembers;
 @property (strong, nonatomic) NSMutableSet *addressBookSelectedMembers;
+@property (assign, nonatomic, getter = isSelectAllActived) BOOL selectAllActived;
 
 @end
 
@@ -170,6 +171,7 @@
 
 - (void)configureCell:(GroupAddMemberTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     [cell restoreFrames];
+    cell.profileImageViewHidden = NO;
     
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
@@ -195,19 +197,35 @@
             }
             break;
         }
-        case 2:
-            cell.usernameLabel.text = self.dataSource[indexPath.row][@"name"];
+        case 2: {
+            if (indexPath.row == 0 && self.searchBar.text.length == 0) {
+                cell.usernameLabel.text = NSLocalizedString(@"Select all", @"");
+                cell.profileImageView.image = nil;
+                cell.nameLabel.text = @"";
+                [cell.profileImageView sd_cancelCurrentImageLoad];
+                cell.profileImageViewHidden = YES;
+                
+                if (self.isSelectAllActived) {
+                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                } else if ([[self.tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+                    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+                }
+                return;
+            }
+            
+            cell.usernameLabel.text = self.dataSource[indexPath.row + 1][@"name"];
             CGRect usernameFrame = cell.usernameLabel.frame;
             usernameFrame.origin.y += 8;
             cell.usernameLabel.frame = usernameFrame;
             cell.nameLabel.text = @"";
-            if ([self.dataSource[indexPath.row][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+            if ([self.dataSource[indexPath.row + 1][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
                 [cell.profileImageView sd_cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             } else {
-                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row + 1][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
             }
             break;
+        }
         default:
             break;
     }
@@ -307,7 +325,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    if (self.searchBar.text.length > 0) {
+        return self.dataSource.count;
+    }
+    
+    if (self.dataSource.count > 0) {
+        return self.dataSource.count + 1;
+    }
+    
+    return 0;
 }
 
 - (GroupAddMemberTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -319,33 +345,61 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selectedMembers addObject:self.dataSource[indexPath.row]];
+    if (indexPath.row == 0 && self.searchBar.text.length == 0 && self.segmentedControl.selectedSegmentIndex == 2) {
+        [self.selectedMembers addObjectsFromArray:self.facebookDataSource];
+        [self.facebookSelectedMembers removeAllObjects];
+        [self.facebookSelectedMembers addObjectsFromArray:self.facebookDataSource];
+        [self.tableView reloadData];
+        self.selectAllActived = YES;
+        return;
+    }
+
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
+            [self.selectedMembers addObject:self.dataSource[indexPath.row]];
             [self.footblSelectedMembers addObject:self.dataSource[indexPath.row]];
             break;
         case 1:
+            [self.selectedMembers addObject:self.dataSource[indexPath.row]];
             [self.addressBookSelectedMembers addObject:self.dataSource[indexPath.row]];
             break;
         case 2:
-            [self.facebookSelectedMembers addObject:self.dataSource[indexPath.row]];
+            [self.selectedMembers addObject:self.dataSource[indexPath.row - 1]];
+            [self.facebookSelectedMembers addObject:self.dataSource[indexPath.row - 1]];
             break;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
+    if (self.segmentedControl.selectedSegmentIndex == 2) {
+        self.selectAllActived = NO;
+    }
+    
+    if (indexPath.row == 0 && self.searchBar.text.length == 0 && self.segmentedControl.selectedSegmentIndex == 2) {
+        for (id object in self.facebookSelectedMembers) {
+            [self.selectedMembers removeObject:object];
+        }
+        [self.facebookSelectedMembers removeAllObjects];
+        [self.tableView reloadData];
+        return;
+    }
+    
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
+            [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
             [self.footblSelectedMembers removeObject:self.dataSource[indexPath.row]];
             break;
         case 1:
+            [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
             [self.addressBookSelectedMembers removeObject:self.dataSource[indexPath.row]];
             break;
         case 2:
-            [self.facebookSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            [self.selectedMembers removeObject:self.dataSource[indexPath.row - 1]];
+            [self.facebookSelectedMembers removeObject:self.dataSource[indexPath.row - 1]];
             break;
     }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - UISearchBar delegate

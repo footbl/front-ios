@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UILabel *usernameLabel;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UIButton *selectionButton;
+@property (assign, nonatomic, getter = isProfileImageViewHidden) BOOL profileImageViewHidden;
 
 - (void)restoreProfileImagePlaceholder;
 - (UIImage *)placeholderImage;

@@ -12,6 +12,20 @@
 
 @implementation GroupAddMemberTableViewCell
 
+#pragma mark - Getters/Setters
+
+- (void)setProfileImageViewHidden:(BOOL)profileImageViewHidden {
+    _profileImageViewHidden = profileImageViewHidden;
+    
+    self.profileImageView.hidden = self.profileImageViewHidden;
+    CGRect nameFrame = self.nameLabel.frame;
+    if (self.isProfileImageViewHidden) {
+        self.usernameLabel.frame = CGRectMake(20, 21, CGRectGetWidth(nameFrame), CGRectGetHeight(nameFrame));
+    } else {
+        self.usernameLabel.frame = CGRectMake(74, 14, CGRectGetWidth(nameFrame), CGRectGetHeight(nameFrame));
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
