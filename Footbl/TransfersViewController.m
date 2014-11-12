@@ -245,7 +245,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 100) {
+    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
