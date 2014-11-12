@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "Bet.h"
 #import "LoadingHelper.h"
 #import "MatchTableViewCell+Setup.h"
@@ -16,6 +17,7 @@
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (assign, nonatomic) NSInteger numberOfMatches;
+@property (strong, nonatomic) NSNumber *nextPage;
 
 @end
 
@@ -45,12 +47,25 @@
     return _fetchedResultsController;
 }
 
+- (void)setNextPage:(NSNumber *)nextPage {
+    _nextPage = nextPage;
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Instance Methods
+
+- (NSTimeInterval)updateInterval {
+    return UPDATE_INTERVAL_NEVER;
+}
 
 - (void)reloadData {
     [super reloadData];
     
-    [Bet getWithObject:self.user.editableObject success:^(id response) {
+    [Bet getWithObject:self.user.editableObject page:0 success:^(NSNumber *nextPage) {
+        [self setupInfiniteScrolling];
+        self.tableView.showsInfiniteScrolling = (nextPage != nil);
+        self.nextPage = nextPage;
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -65,6 +80,37 @@
     [cell setMatch:bet.match bet:bet viewController:self selectionBlock:nil];
 }
 
+- (void)setupInfiniteScrolling {
+    if (self.tableView.infiniteScrollingView) {
+        return;
+    }
+    
+    __weak typeof(self.tableView)weakTableView = self.tableView;
+    [weakTableView addInfiniteScrollingWithActionHandler:^{
+        [super reloadData];
+        
+        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+            [[LoadingHelper sharedInstance] showHud];
+        }
+        
+        [Bet getWithObject:self.user.editableObject page:self.nextPage.integerValue success:^(NSNumber *nextPage) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            [[LoadingHelper sharedInstance] hideHud];
+            if (nextPage) {
+                self.nextPage = nextPage;
+                self.tableView.showsInfiniteScrolling = YES;
+            } else {
+                self.nextPage = @(self.nextPage.integerValue + 1);
+                self.tableView.showsInfiniteScrolling = NO;
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            [[LoadingHelper sharedInstance] hideHud];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+    }];
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UITableView data source
@@ -75,7 +121,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+    return MIN([sectionInfo numberOfObjects], MAX(1, self.nextPage.integerValue) * 20);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,6 +144,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView reloadData];
 }
 
 #pragma mark - View Lifecycle

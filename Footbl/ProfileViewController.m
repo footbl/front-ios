@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVPullToRefresh/SVPullToRefresh.h>
 #import "AnonymousViewController.h"
 #import "Bet.h"
 #import "Championship.h"
@@ -33,6 +34,7 @@
 @property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSArray *bets;
+@property (strong, nonatomic) NSNumber *nextPage;
 
 @end
 
@@ -76,6 +78,12 @@
     }
 }
 
+- (void)setNextPage:(NSNumber *)nextPage {
+    _nextPage = nextPage;
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Instance Methods
 
 - (id)init {
@@ -108,6 +116,10 @@
     [self.navigationController pushViewController:[TransfersViewController new] animated:YES];
 }
 
+- (NSTimeInterval)updateInterval {
+    return UPDATE_INTERVAL_NEVER;
+}
+
 - (void)reloadContent {
     if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         self.user = nil;
@@ -116,7 +128,10 @@
         return;
     }
     
-    self.bets = [self.user.bets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]]];
+    if (!self.user.isMeValue) {
+        self.bets = [self.user.bets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]]];
+        self.bets = [self.bets subarrayWithRange:NSMakeRange(0, MIN(self.bets.count, MAX(1, self.nextPage.integerValue) * 20))];
+    }
 
     [self.tableView reloadData];
 }
@@ -143,12 +158,41 @@
             [self reloadContent];
             [self.refreshControl endRefreshing];
         } else {
-            [Bet getWithObject:self.user.editableObject success:^(id response) {
-                [self reloadContent];
+            [Bet getWithObject:self.user.editableObject page:0 success:^(NSNumber *nextPage) {
+                [self setupInfiniteScrolling];
+                self.tableView.showsInfiniteScrolling = (nextPage != nil);
+                self.nextPage = nextPage;
                 [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
             } failure:failure];
         }
     } failure:failure];
+}
+
+- (void)setupInfiniteScrolling {
+    if (self.tableView.infiniteScrollingView) {
+        return;
+    }
+    
+    __weak typeof(self.tableView)weakTableView = self.tableView;
+    [weakTableView addInfiniteScrollingWithActionHandler:^{
+        [super reloadData];
+        
+        [Bet getWithObject:self.user.editableObject page:self.nextPage.integerValue success:^(NSNumber *nextPage) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            self.nextPage = nextPage;
+            if (nextPage) {
+                self.nextPage = nextPage;
+                self.tableView.showsInfiniteScrolling = YES;
+            } else {
+                self.nextPage = @(self.nextPage.integerValue + 1);
+                self.tableView.showsInfiniteScrolling = NO;
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [weakTableView.infiniteScrollingView stopAnimating];
+            [[ErrorHandler sharedInstance] displayError:error];
+        }];
+    }];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

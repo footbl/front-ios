@@ -16,6 +16,7 @@
 @interface Bet : _Bet
 
 + (void)createWithMatch:(Match *)match bid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)getWithObject:(User *)user page:(NSInteger)page success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)updateWithBid:(NSNumber *)bid result:(MatchResult)result success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
 - (NSString *)valueString;

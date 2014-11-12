@@ -82,6 +82,23 @@ static CGFloat kBetSyncWaitTime = 3;
     } failure:failure];
 }
 
++ (void)getWithObject:(User *)user page:(NSInteger)page success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
+        NSString *path = [NSString stringWithFormat:@"users/%@/bets", user.slug];
+        [[FTOperationManager sharedManager] GET:path parameters:@{@"page": @(page)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:user.bets enumeratingObjectsWithBlock:^(Bet *bet, NSDictionary *data) {
+                bet.user = user;
+            } untouchedObjectsBlock:nil completionBlock:^(NSArray *objects) {
+                if (objects.count == MAX_GROUP_NAME_SIZE) {
+                    if (success) success(@(page + 1));
+                } else {
+                    if (success) success(nil);
+                }
+            }];
+        } failure:failure];
+    }];
+}
+
 #pragma mark - Instance Methods
 
 - (NSString *)resourcePath {
