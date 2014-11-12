@@ -310,7 +310,7 @@
     self.searchBar.backgroundImage = [UIImage new];
     self.tableView.tableHeaderView = self.searchBar;
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 450, CGRectGetWidth(self.view.frame), 0.5)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 118, CGRectGetWidth(self.view.frame), 0.5)];
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     separatorView.backgroundColor = [UIColor colorWithRed:0.69 green:0.92 blue:0.8 alpha:1];
     [self.view addSubview:separatorView];

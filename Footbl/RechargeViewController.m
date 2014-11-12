@@ -81,7 +81,8 @@
     walletLabel.text = [[User currentUser].totalWallet.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
     [self.view addSubview:walletLabel];
     
-    FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(183, 224, 86, 72)];
+    FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(self.view.frameWidth - 137, 224, 86, 72)];
+    afterRechargeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     afterRechargeLabel.textAlignment = NSTextAlignmentCenter;
     afterRechargeLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
     afterRechargeLabel.firstLineTextColor = [UIColor colorWithRed:52./255.f green:206/255.f blue:122/255.f alpha:1.00];
@@ -92,11 +93,11 @@
     [self.view addSubview:afterRechargeLabel];
     
     UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"recharge_arrow"]];
-    arrowImageView.center = CGPointMake(CGRectGetMidX(self.view.frame) - 1, CGRectGetMidY(self.view.frame) - 12);
-    arrowImageView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    arrowImageView.center = CGPointMake(CGRectGetMidX(self.view.frame) - 1, CGRectGetMidY(afterRechargeLabel.frame) - 12);
+    arrowImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.view addSubview:arrowImageView];
     
-    for (NSNumber *y in @[@317, @381, @444]) {
+    for (NSNumber *y in @[@(self.view.frameHeight - 253), @(self.view.frameHeight - 189), @(self.view.frameHeight - 126)]) {
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(8, y.floatValue, self.view.frameWidth - 16, 0.5)];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         separatorView.backgroundColor = [UIColor colorWithRed:0.69 green:0.92 blue:0.8 alpha:1];
