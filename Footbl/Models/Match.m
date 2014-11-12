@@ -61,12 +61,6 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
             match.championship = championship.editableObject;
-            if ([data[@"bet"] isKindOfClass:[NSDictionary class]]) {
-                Bet *bet = [Bet findOrCreateWithObject:data[@"bet"] inContext:[FTCoreDataStore privateQueueContext]];
-                bet.match = match;
-            } else if (match.myBet) {
-                [[FTCoreDataStore privateQueueContext] deleteObject:match.myBet];
-            }
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[FTCoreDataStore privateQueueContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"championship = %@", championship]]];
         } completionBlock:success];
@@ -129,6 +123,13 @@ extern MatchResult MatchResultFromString(NSString *result) {
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     
+    if ([data[@"bet"] isKindOfClass:[NSDictionary class]]) {
+        Bet *bet = [Bet findOrCreateWithObject:data[@"bet"] inContext:self.managedObjectContext];
+        bet.match = self;
+        bet.user = [User currentUser].editableObject;
+    } else if (data[@"bet"] && self.myBet) {
+        [[FTCoreDataStore privateQueueContext] deleteObject:self.myBet];
+    }
     self.guest = [Team findOrCreateWithObject:data[@"guest"] inContext:self.managedObjectContext];
     self.host = [Team findOrCreateWithObject:data[@"host"] inContext:self.managedObjectContext];
     
