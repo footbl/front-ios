@@ -35,6 +35,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 @property (assign, nonatomic) CGPoint tableViewOffset;
 @property (assign, nonatomic) NSInteger numberOfMatches;
 @property (copy, nonatomic) NSString *totalProfitText;
+@property (strong, nonatomic) NSNumber *totalProfit;
 @property (strong, nonatomic) NSIndexPath *totalProfitIndexPath;
 
 - (BetsViewController *)betsViewController;
@@ -142,6 +143,15 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     cell.totalProfitArrowImageView.hidden = hideTotalProfit;
     cell.totalProfitView.hidden = hideTotalProfit;
     cell.totalProfitLabel.text = self.totalProfitText;
+    if (self.totalProfit.floatValue <= 0) {
+        cell.totalProfitView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+        cell.totalProfitView.layer.borderColor = [[UIColor colorWithWhite:0.8 alpha:1.0] CGColor];
+        cell.totalProfitArrowImageView.tintColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    } else {
+        cell.totalProfitView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+        cell.totalProfitView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
+        cell.totalProfitArrowImageView.tintColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+    }
     
     __block NSUInteger cancelBlockId;
     __block Bet *bet = match.myBet;
@@ -342,6 +352,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                         text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
                     }
                     self.totalProfitText = text;
+                    self.totalProfit = @(sum);
                 }
             };
             
