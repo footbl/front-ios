@@ -281,7 +281,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 }
 
 - (NSNumber *)localFunds {
-    NSInteger funds = self.funds.integerValue;
+    NSInteger funds = self.editableObject.funds.integerValue;
     if (self.isMeValue) {
         for (Bet *bet in self.activeBets) {
             funds += bet.bidValue;
