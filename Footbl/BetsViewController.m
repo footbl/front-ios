@@ -163,7 +163,7 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
         }
         
         [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
-        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLength, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
         contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
         self.scrollViewLength ++;
     }
@@ -193,23 +193,15 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
         return;
     }
     
-    void(^reloadEntriesBlock)() = ^() {
-        [Entry getWithObject:[User currentUser] success:^(id response) {
-            for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-                if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
-                    [matchesViewController reloadData];
-                }
+    [Entry getWithObject:[User currentUser] success:^(id response) {
+        for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+            if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
+                [matchesViewController reloadData];
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [[ErrorHandler sharedInstance] displayError:error];
-        }];
-    };
-    
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), reloadEntriesBlock);
-    } else {
-        reloadEntriesBlock();
-    }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)reloadWallet {
@@ -286,7 +278,7 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     [self.scrollView addSubview:managedLeaguesViewController.view];
     self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
     
-    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLength, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
+    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
     CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
 
     self.scrollView.contentSize = contentSize;
