@@ -61,6 +61,12 @@ extern MatchResult MatchResultFromString(NSString *result) {
     [[FTOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[self class] loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(Match *match, NSDictionary *data) {
             match.championship = championship.editableObject;
+            if ([data[@"bet"] isKindOfClass:[NSDictionary class]]) {
+                Bet *bet = [Bet findOrCreateWithObject:data[@"bet"] inContext:[FTCoreDataStore privateQueueContext]];
+                bet.match = match;
+            } else if (match.myBet) {
+                [[FTCoreDataStore privateQueueContext] deleteObject:match.myBet];
+            }
         } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
             [[FTCoreDataStore privateQueueContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"championship = %@", championship]]];
         } completionBlock:success];

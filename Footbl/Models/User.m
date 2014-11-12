@@ -273,7 +273,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
 #pragma mark - Wallet
 
 - (NSSet *)activeBets {
-    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"bid > %@ AND match.finished = %@", @0, @NO]];
+    return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"bid > %@ AND match.finished = %@ AND match != nil", @0, @NO]];
 }
 
 - (BOOL)canRecharge {

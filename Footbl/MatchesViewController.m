@@ -322,34 +322,32 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     [[User currentUser].editableObject getWithSuccess:^(User *user) {
         [self reloadWallet];
         [Match getWithObject:self.championship.editableObject success:^(id response) {
-            [Bet getWithObject:[User currentUser].editableObject success:^(id response) {
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-                [self reloadWallet];
+            [self.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+            [self reloadWallet];
+            
+            void(^computeProfit)() = ^() {
+                NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
+                float sum = 0;
+                for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
+                    sum += [betProfit floatValue];
+                }
+                NSNumber *numberOfMatches = @(updatedMatches.count);
                 
-                void(^computeProfit)() = ^() {
-                    NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
-                    float sum = 0;
-                    for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
-                        sum += [betProfit floatValue];
+                if (updatedMatches.count > 0 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
+                    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
+                    if (sum > 0) {
+                        text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                    } else if (sum < 0) {
+                        text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
                     }
-                    NSNumber *numberOfMatches = @(updatedMatches.count);
-                    
-                    if (updatedMatches.count > 0 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
-                        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
-                        if (sum > 0) {
-                            text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
-                        } else if (sum < 0) {
-                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
-                        }
-                        self.totalProfitText = text;
-                    }
-                };
-                
-                computeProfit();
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-            } failure:failure];
+                    self.totalProfitText = text;
+                }
+            };
+            
+            computeProfit();
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
         } failure:failure];
     } failure:failure];
 }
