@@ -127,10 +127,10 @@ static CGFloat kBetSyncWaitTime = 3;
         parameters[@"bid"] = bid;
         
         [self updateWithParameters:parameters success:^(id response) {
-                [self.match.editableObject getWithSuccess:^(Match *match) {
-                    self.match.editableObject.betSyncing = NO;
-                    [self.match.editableObject setBetTemporaryResult:0 value:nil];
-                    if (success) success(self);
+            [self.match.editableObject getWithSuccess:^(Match *match) {
+                self.match.editableObject.betSyncing = NO;
+                [self.match.editableObject setBetTemporaryResult:0 value:nil];
+                if (success) success(self);
             } failure:failure];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if (operation.response.statusCode == 500) {
