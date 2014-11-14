@@ -92,6 +92,12 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     [FXKeychain defaultKeychain][kUserPasswordKey] = password;
 }
 
+- (void)setPushNotificationToken:(NSString *)pushNotificationToken {
+    _pushNotificationToken = pushNotificationToken;
+    
+    [self updateUserWithUsername:nil name:nil email:self.email password:self.password fbToken:[FBSession activeSession].accessTokenData.accessToken profileImage:nil about:nil success:nil failure:nil];
+}
+
 - (void)setToken:(NSString *)token {
     _token = token;
     
@@ -150,6 +156,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
                 [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
                 [User getMeWithSuccess:^(id response) {
                     [[FTOperationManager sharedManager].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+                    [self registerForRemoteNotifications];
                     if (shouldSendNotification) {
                         [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
                     }
@@ -173,6 +180,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
                 self.token = responseObject[@"token"];
                 [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
                 [User getMeWithSuccess:^(id response) {
+                    [self registerForRemoteNotifications];
                     if (shouldSendNotification) {
                         [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
                     }
@@ -195,6 +203,18 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
             }];
         }];
     } failure:failure];
+}
+
+- (void)registerForRemoteNotifications {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+    }
+#else
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+#endif
 }
 
 - (void)authenticateFacebookWithCompletion:(void (^)(FBSession *session, FBSessionState status, NSError *error))completionBlock {

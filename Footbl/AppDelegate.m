@@ -166,6 +166,12 @@
     [[FTCoreDataStore mainQueueContext] performSave];
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
+}
+#endif
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     BOOL isAnonymous = [FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous;
     NSArray *tags = @[isAnonymous ? @"Anonymous" : @"Authenticated"];
@@ -181,9 +187,13 @@
             break;
     }
     
-    [FTAuthenticationManager sharedManager].pushNotificationToken = deviceToken.description;
-
-    SPLogVerbose(@"APNS: %@", [FTAuthenticationManager sharedManager].pushNotificationToken);
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    [FTAuthenticationManager sharedManager].pushNotificationToken = token;
+    SPLogVerbose(@"APNS: %@", token);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
