@@ -2396,12 +2396,12 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=3",
+					"FT_SERVER_ENVIRONMENT=1",
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "1fe79d4c-1f79-4985-bb91-7c1bf2a961d4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2425,7 +2425,7 @@
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
+				PROVISIONING_PROFILE = "63f6d681-34de-442d-b7ef-b44c64813f56";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2451,7 +2451,7 @@
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2476,7 +2476,7 @@
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "7a8d19f4-469c-4751-9857-14df5ffdaa1e";
+				PROVISIONING_PROFILE = "a70419cf-e040-4778-b437-f61873675559";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2502,7 +2502,7 @@
 				);
 				INFOPLIST_FILE = "Footbl/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "7a8d19f4-469c-4751-9857-14df5ffdaa1e";
+				PROVISIONING_PROFILE = "34be5c44-4b13-43d8-91fc-69a2343eca09";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -2527,7 +2527,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "1fe79d4c-1f79-4985-bb91-7c1bf2a961d4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2551,7 +2551,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
+				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2576,7 +2576,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "2539622e-977b-4c86-bd8b-9d50345c91f7";
+				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -2756,12 +2756,12 @@
 				GCC_PREFIX_HEADER = "Footbl/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=3",
+					"FT_SERVER_ENVIRONMENT=1",
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "7220770d-34da-4e0e-b932-12c2f2fb936d";
+				PROVISIONING_PROFILE = "63f6d681-34de-442d-b7ef-b44c64813f56";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
