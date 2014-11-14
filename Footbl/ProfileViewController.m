@@ -143,6 +143,10 @@
         return;
     }
     
+    if (!self.user.isMeValue && self.bets.count == 0 && !self.refreshControl.isRefreshing) {
+        [self.refreshControl beginRefreshing];
+    }
+    
     [self reloadContent];
     
     void(^failure)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
