@@ -329,11 +329,11 @@
         return self.dataSource.count;
     }
     
-    if (self.dataSource.count > 0) {
+    if (self.dataSource.count > 0 && self.segmentedControl.selectedSegmentIndex == 2) {
         return self.dataSource.count + 1;
     }
     
-    return 0;
+    return self.dataSource.count;
 }
 
 - (GroupAddMemberTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
