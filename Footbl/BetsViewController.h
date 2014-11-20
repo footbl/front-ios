@@ -20,5 +20,6 @@
 @property (strong, nonatomic) UILabel *placeholderLabel;
 
 - (void)reloadWallet;
+- (IBAction)rechargeWalletAction:(id)sender;
 
 @end

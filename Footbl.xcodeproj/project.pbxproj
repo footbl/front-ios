@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
+		ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
+		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
+		ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
+		ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
+		ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED42F7251A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
 		ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED7859E3199D0C62002A4DBD /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
@@ -477,6 +483,10 @@
 		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED324332192D396500F54D57 /* Match+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Match+Sharing.h"; sourceTree = "<group>"; };
 		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
+		ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeTipPopupViewController.h; sourceTree = "<group>"; };
+		ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeTipPopupViewController.m; sourceTree = "<group>"; };
+		ED3399F81A1E4EBF0037F01B /* RechargeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeButton.h; sourceTree = "<group>"; };
+		ED3399F91A1E4EBF0037F01B /* RechargeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeButton.m; sourceTree = "<group>"; };
 		ED3A0F4D1988187200011E91 /* TransfersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransfersViewController.h; sourceTree = "<group>"; };
 		ED3A0F4E1988187200011E91 /* TransfersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransfersViewController.m; sourceTree = "<group>"; };
 		ED3A0F501988594600011E91 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -907,6 +917,8 @@
 			children = (
 				ED3A0F5A1988BAF800011E91 /* FootblPopupViewController.h */,
 				ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */,
+				ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */,
+				ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */,
 			);
 			name = Popup;
 			sourceTree = "<group>";
@@ -1272,6 +1284,8 @@
 				ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */,
 				EDB9C6E9192A88F6002A913D /* Helpers */,
 				EDB1D4A118E1F3EA00E0C949 /* Models */,
+				ED3399F81A1E4EBF0037F01B /* RechargeButton.h */,
+				ED3399F91A1E4EBF0037F01B /* RechargeButton.m */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
 				ED493D38190ED2BF00A7869B /* TeamImageView.m */,
 				ED1A697B197988540084FB14 /* WalletGraphView.h */,
@@ -1893,7 +1907,9 @@
 				ED785A07199D0C62002A4DBD /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED785A08199D0C62002A4DBD /* ProfileSearchViewController.m in Sources */,
 				ED785A09199D0C62002A4DBD /* Match+Sharing.m in Sources */,
+				ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
 				ED785A0A199D0C62002A4DBD /* NSString+Validations.m in Sources */,
+				ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */,
 				ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */,
 				ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */,
@@ -2008,7 +2024,9 @@
 				ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */,
 				ED8DB3B21A14C95C00605CCE /* Match+Sharing.m in Sources */,
+				ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
 				ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */,
+				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
 				ED8DB3B51A14C95C00605CCE /* GroupInfoViewController.m in Sources */,
 				ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */,
@@ -2123,7 +2141,9 @@
 				ED97AF871A14C7E40079ADB4 /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED97AF881A14C7E40079ADB4 /* ProfileSearchViewController.m in Sources */,
 				ED97AF891A14C7E40079ADB4 /* Match+Sharing.m in Sources */,
+				ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
 				ED97AF8A1A14C7E40079ADB4 /* NSString+Validations.m in Sources */,
+				ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED97AF8B1A14C7E40079ADB4 /* UILabel+MaxFontSize.m in Sources */,
 				ED97AF8C1A14C7E40079ADB4 /* GroupInfoViewController.m in Sources */,
 				ED97AF8D1A14C7E40079ADB4 /* SettingsTextViewController.m in Sources */,

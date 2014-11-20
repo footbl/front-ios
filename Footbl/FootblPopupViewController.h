@@ -11,6 +11,8 @@
 @interface FootblPopupViewController : UIViewController
 
 @property (strong, nonatomic) UIImageView *headerImageView;
+@property (assign, nonatomic) CGRect frame;
+@property (strong, nonatomic) UIColor *backgroundColor;
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController;
 - (void)dismissViewController;

@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "BetsViewController.h"
 #import "ForceUpdateViewController.h"
 #import "RatingHelper.h"
+#import "RechargeTipPopupViewController.h"
 #import "TweaksHelper.h"
 
 #pragma mark TweaksHelper
@@ -29,6 +31,21 @@
     
     FBTweakAction(@"Actions", @"Review on App Store", @"Show alert", ^{
         [[RatingHelper sharedInstance] showAlert];
+    });
+    
+    FBTweakAction(@"Actions", @"Recharge tip", @"Show popup", ^{
+        UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        [viewController dismissViewControllerAnimated:YES completion:^{
+            RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
+            rechargeTipPopup.selectionBlock = ^{
+                UITabBarController *tabBarController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                BetsViewController *betsViewController = [[tabBarController.viewControllers[1] viewControllers] firstObject];
+                [betsViewController rechargeWalletAction:nil];
+            };
+            FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
+            [viewController presentViewController:popupViewController animated:YES completion:nil];
+            [viewController setNeedsStatusBarAppearanceUpdate];
+        }];
     });
 }
 

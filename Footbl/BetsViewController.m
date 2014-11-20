@@ -17,6 +17,7 @@
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
+#import "RechargeTipPopupViewController.h"
 #import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
@@ -321,6 +322,16 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     [super controllerDidChangeContent:controller];
     
     [self reloadScrollView];
+    
+    if ([RechargeTipPopupViewController shouldBePresented]) {
+        RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
+        rechargeTipPopup.selectionBlock = ^{
+            [self rechargeWalletAction:nil];
+        };
+        FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
+        [self presentViewController:popupViewController animated:YES completion:nil];
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
 }
 
 #pragma mark - View Lifecycle

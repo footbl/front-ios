@@ -8,6 +8,7 @@
 
 #import <objc/runtime.h>
 #import "FootblPopupAnimatedTransition.h"
+#import "FootblPopupViewController.h"
 #import "UIView+Frame.h"
 
 #pragma mark FootblPopupAnimatedTransition
@@ -20,7 +21,7 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    FootblPopupViewController *toViewController = (FootblPopupViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if (self.isPresenting) {
         UIView *blackView = [[UIView alloc] initWithFrame:fromViewController.view.frame];
@@ -29,21 +30,31 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
         objc_setAssociatedObject(toViewController, (__bridge const void *)(kBlackViewAssociationKey), blackView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
         CGRect finalFrame = CGRectMake(10, 26, fromViewController.view.frameWidth - 20, fromViewController.view.frameHeight - 58);
+        if ([toViewController respondsToSelector:@selector(frame)] && toViewController.frame.size.width > 0) {
+            finalFrame = [(UIView *)toViewController frame];
+        }
         
         toViewController.view.frame = CGRectMake(finalFrame.origin.x, [UIApplication sharedApplication].keyWindow.frameHeight + finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
         toViewController.view.layer.cornerRadius = 3;
         toViewController.view.clipsToBounds = YES;
         [[transitionContext containerView] addSubview:toViewController.view];
         
+        CGRect shadowPathRect = CGRectMake(-0.5, -0.5, finalFrame.size.width + 1, finalFrame.size.height + 1);
+        toViewController.view.layer.shadowPath = [[UIBezierPath bezierPathWithRoundedRect:shadowPathRect cornerRadius:toViewController.view.layer.cornerRadius] CGPath];
+        toViewController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+        toViewController.view.layer.shadowOpacity = 0.39;
+        toViewController.view.layer.shadowOffset = CGSizeMake(0, 2);
+        toViewController.view.layer.shadowRadius = toViewController.view.layer.cornerRadius;
+        toViewController.view.clipsToBounds = NO;
+        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            blackView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+            if ([toViewController respondsToSelector:@selector(backgroundColor)] && toViewController.backgroundColor) {
+                blackView.backgroundColor = toViewController.backgroundColor;
+            } else {
+                blackView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+            }
             toViewController.view.frame = finalFrame;
         } completion:^(BOOL finished) {
-            toViewController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
-            toViewController.view.layer.shadowOpacity = 0.39;
-            toViewController.view.layer.shadowOffset = CGSizeMake(0, 2);
-            toViewController.view.layer.shadowRadius = 5;
-            toViewController.view.clipsToBounds = NO;
             [transitionContext completeTransition:YES];
         }];
     } else {
