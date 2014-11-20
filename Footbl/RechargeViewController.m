@@ -64,10 +64,10 @@
     
     FootblLabel *rechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(30, self.headerImageView.frameHeight + 3, self.view.frameWidth - 60, 95)];
     rechargeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    rechargeLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];;
+    rechargeLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
     rechargeLabel.textAlignment = NSTextAlignmentCenter;
-    rechargeLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];;
-    rechargeLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:18];;
+    rechargeLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+    rechargeLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:18];
     rechargeLabel.firstLineTextColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     rechargeLabel.text = NSLocalizedString(@"Recharge your wallet\nMake more bets and increase your profit!", @"");
     [self.view addSubview:rechargeLabel];
