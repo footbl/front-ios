@@ -323,7 +323,7 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     
     [self reloadScrollView];
     
-    if ([RechargeTipPopupViewController shouldBePresented]) {
+    if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", NO) && [RechargeTipPopupViewController shouldBePresented]) {
         RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
         rechargeTipPopup.selectionBlock = ^{
             [self rechargeWalletAction:nil];
