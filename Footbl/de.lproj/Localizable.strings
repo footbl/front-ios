@@ -741,3 +741,8 @@ Make more bets and increase your profit! */
 /* Join */
 "Join" = "Beitreten";
 
+/* Tip!
+
+Recharge your wallet by tapping the + above. */
+"Tip!\n\nRecharge your wallet by tapping the + above." = "Tipp!\n\nLaden Sie Ihre Brieftasche, indem Sie die + oben.";
+
