@@ -163,7 +163,7 @@
         if (self.textField.text.isValidUsername) {
             self.view.userInteractionEnabled = NO;
             [self.activityIndicatorView startAnimating];
-            [User searchUsingEmails:nil usernames:@[[self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)]] ids:nil fbIds:nil success:^(NSArray *response) {
+            [User searchUsingEmails:nil usernames:@[[self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)]] ids:nil fbIds:nil name:nil success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {
@@ -400,7 +400,7 @@
             
             [self.activityIndicatorView startAnimating];
             
-            [User searchUsingEmails:@[self.textField.text] usernames:nil ids:nil fbIds:nil success:^(NSArray *response) {
+            [User searchUsingEmails:@[self.textField.text] usernames:nil ids:nil fbIds:nil name:nil success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {

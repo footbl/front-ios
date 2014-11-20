@@ -99,7 +99,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                 for (int i = 0; i < emails.count; i += 100) {
                     operationsCount ++;
                     NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
-                    [User searchUsingEmails:range usernames:nil ids:nil fbIds:nil success:^(id response) {
+                    [User searchUsingEmails:range usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
                         finishedBlock(response);
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                         SPLogError(@"%@", error);
@@ -111,7 +111,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     for (int i = 0; i < fbIds.count; i += 100) {
                         operationsCount ++;
                         NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
-                        [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range success:^(id response) {
+                        [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range name:nil success:^(id response) {
                             finishedBlock(response);
                         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                             SPLogError(@"%@", error);
@@ -208,6 +208,68 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         self.cache[kCacheKey] = @{@"data" : [result sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]], @"updatedAt" : [NSDate date]};
         if (completionBlock) completionBlock(self.cache[kCacheKey][@"data"], nil);
     }];
+}
+
+
+- (void)searchFriendsWithQuery:(NSString *)searchText completionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
+    return [self searchFriendsWithQuery:searchText existingUsers:nil completionBlock:completionBlock];
+}
+
+- (void)searchFriendsWithQuery:(NSString *)searchText existingUsers:(NSSet *)users completionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
+    NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    //Global server search
+    __block NSInteger operationsCount = 0;
+    __block NSInteger operationsFinished = 0;
+    __block NSMutableArray *searchResults = [NSMutableArray new];
+
+    void(^finishedBlock)(id response) = ^(id response) {
+        operationsFinished ++;
+        if (response && [response isKindOfClass:[NSArray class]]) {
+            [searchResults addObjectsFromArray:response];
+        }
+        
+        if (operationsFinished == operationsCount) {
+            NSMutableSet *resultSet = [NSMutableSet new];
+            NSMutableArray *result = [NSMutableArray new];
+            for (NSDictionary *user in searchResults) {
+                // Checks against being the own user, user already in the array and user already in the existing users passed in
+                if (![resultSet containsObject:user[kFTResponseParamIdentifier]] && ![user[kFTResponseParamIdentifier] isEqualToString:[User currentUser].rid] && ![users containsObject:user[kFTResponseParamIdentifier]]) {
+                    [resultSet addObject:user[kFTResponseParamIdentifier]];
+                    [result addObject:user];
+                }
+            }
+            [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+            if (completionBlock) completionBlock(result, nil);
+        }
+    };
+    
+    //Emails
+    [User searchUsingEmails:@[trimmedSearchText] usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
+        finishedBlock(response);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        SPLogError(@"%@", error);
+        finishedBlock(@[]);
+    }];
+    operationsCount++;
+    
+    //Usernames
+    [User searchUsingEmails:nil usernames:@[trimmedSearchText] ids:nil fbIds:nil name:nil success:^(id response) {
+        finishedBlock(response);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        SPLogError(@"%@", error);
+        finishedBlock(@[]);
+    }];
+    operationsCount++;
+    
+     //Name
+     [User searchUsingEmails:nil usernames:nil ids:nil fbIds:nil name:searchText success:^(id response) {
+         finishedBlock(response);
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         SPLogError(@"%@", error);
+         finishedBlock(@[]);
+     }];
+     operationsCount++;
 }
 
 @end

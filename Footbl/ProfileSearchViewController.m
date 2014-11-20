@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <CommonCrypto/CommonDigest.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPBlock.h>
 #import "FavoriteTableViewCell.h"
@@ -20,10 +21,19 @@
 @interface ProfileSearchViewController ()
 
 @property (strong, nonatomic) NSArray *dataSource;
+@property (strong, nonatomic) NSSet *dataSourceUsers;
 @property (strong, nonatomic) NSArray *footblDataSource;
+@property (strong, nonatomic) NSMutableArray *sectionsData;
+@property (strong, nonatomic) NSMutableArray *globalSearch;
+@property (assign, nonatomic) NSUInteger currentStringHash;
 @property (assign, nonatomic) BOOL shouldShowKeyboard;
 
 @end
+
+static const NSString *kLocalSearch = @"local";
+static const NSString *kGlobalSearch = @"global";
+static const NSString *kSectionTitle = @"title";
+static const NSString *kSectionIdentifier = @"identifier";
 
 #pragma mark ProfileSearchViewController
 
@@ -40,6 +50,14 @@
         [[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
             self.footblDataSource = friends;
             self.dataSource = nil;
+            
+            //Caches kFTResponseParamIdentifier from users in a set
+            NSMutableArray *userIDs = [NSMutableArray new];
+            for (NSDictionary *user in friends) {
+                [userIDs addObject:user[kFTResponseParamIdentifier]];
+            }
+            self.dataSourceUsers = [[NSSet alloc] initWithArray:userIDs];
+            
             [self.tableView reloadData];
         }];
     }
@@ -55,6 +73,22 @@
     return _dataSource;
 }
 
+- (NSMutableArray *)globalSearch {
+    if (!_globalSearch) {
+        _globalSearch = [NSMutableArray new];
+    }
+    
+    return _globalSearch;
+}
+
+- (NSMutableArray *)sectionsData {
+    if (!_sectionsData) {
+        _sectionsData = [NSMutableArray new];
+    }
+    
+    return  _sectionsData;
+}
+
 #pragma mark - Instance Methods
 
 - (IBAction)featuredAction:(id)sender {
@@ -62,7 +96,16 @@
 }
 
 - (void)configureCell:(FavoriteTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *userRepresentation = self.dataSource[indexPath.row];
+    NSDictionary *userRepresentation;
+    NSDictionary *sectionData = self.sectionsData[indexPath.section];
+    if ([sectionData objectForKey:kSectionIdentifier] == kLocalSearch) {
+        userRepresentation = self.dataSource[indexPath.row];
+    }
+    
+    if ([sectionData objectForKey:kSectionIdentifier] == kGlobalSearch) {
+        userRepresentation = self.globalSearch[indexPath.row];
+    }
+    
     cell.nameLabel.text = userRepresentation[@"name"];
     cell.usernameLabel.text = userRepresentation[@"username"];
     cell.verified = [userRepresentation[@"verified"] boolValue];
@@ -74,11 +117,43 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    [self.sectionsData removeAllObjects];
+    NSDictionary *localFriendsSection = @{kSectionTitle : NSLocalizedString(@"Facebook friends", @""), kSectionIdentifier : kLocalSearch};
+    if (self.dataSource.count > 0) {
+        [self.sectionsData addObject:localFriendsSection];
+    }
+    
+    NSDictionary *globalSearchSection = @{kSectionTitle : NSLocalizedString(@"Footbl users", @""), kSectionIdentifier : kGlobalSearch};
+    if (self.globalSearch.count > 0) {
+        [self.sectionsData addObject:globalSearchSection];
+    }
+    
+    return self.sectionsData.count;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSDictionary *sectionData = self.sectionsData[section];
+    return [sectionData objectForKey:kSectionTitle];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    
+    header.textLabel.font = [UIFont fontWithName:kFontNameSystemMedium size:14];
+    header.textLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    NSDictionary *sectionData = self.sectionsData[section];
+    if ([sectionData objectForKey:kSectionIdentifier] == kLocalSearch) {
+        return self.dataSource.count;
+    }
+    
+    if ([sectionData objectForKey:kSectionIdentifier] == kGlobalSearch) {
+        return self.globalSearch.count;
+    }
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -113,27 +188,42 @@
 #pragma mark - UISearchBar delegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSString *text = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (text.length == 0) {
-        self.dataSource = nil;
-    } else {
-        self.dataSource = [self.footblDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@ OR username BEGINSWITH[cd] %@", text, text]];
+    // Decides where to enqueue or cancel API request
+    NSUInteger stringHash = [searchText hash];
+    if (stringHash != self.currentStringHash) {
+        //Cancels last pending block action from triggering
+        if (self.currentStringHash != 0) {
+            cancel_block(self.currentStringHash);
+        }
+        
+        NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        if (trimmedSearchText.length == 0) {
+            self.dataSource = nil;
+        } else {
+            //Local search
+            self.dataSource = [self.footblDataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@ OR username BEGINSWITH[cd] %@", trimmedSearchText, trimmedSearchText]];
+            
+            //Global search
+            perform_block_after_delay_k(0.5, &stringHash, ^{
+                [[FriendsHelper sharedInstance] searchFriendsWithQuery:searchText existingUsers:self.dataSourceUsers completionBlock:^(NSArray *friends, NSError *error) {
+                    [self.globalSearch addObjectsFromArray:friends];
+                    [self.tableView reloadData];
+                }];
+            });
+            
+            self.currentStringHash = stringHash;
+        }
+        
+        [self.globalSearch removeAllObjects];
+        [self.tableView reloadData];
     }
-    [self.tableView reloadData];
 }
 
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.searchBar resignFirstResponder];
-    
-    /*
-    if (scrollView.contentOffset.y > -18) {
-        self.separatorView.alpha = 1;
-    } else {
-        self.separatorView.alpha = 0;
-    }
-    */
 }
 
 #pragma mark - View Lifecycle

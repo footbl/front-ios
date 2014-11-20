@@ -38,7 +38,7 @@ SPBuildType SPGetBuildType() {
 #if TARGET_IPHONE_SIMULATOR
     return SPBuildTypeDebug;
 #else
-    static BOOL isDevelopment = NO;
+    static BOOL isDevelopment = YES;
     static BOOL isAppStore = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

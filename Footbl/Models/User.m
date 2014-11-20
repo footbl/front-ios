@@ -69,7 +69,7 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
     return user;
 }
 
-+ (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
++ (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds name:(NSString *)name success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     if (emails) {
         parameters[@"emails"] = emails;
@@ -82,6 +82,9 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
     }
     if (fbIds) {
         parameters[@"facebookIds"] = fbIds;
+    }
+    if (name) {
+        parameters[@"name"] = name;
     }
     
     [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAutoPage | FTRequestOptionGroupRequests operations:^{

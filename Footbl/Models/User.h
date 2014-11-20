@@ -15,7 +15,7 @@ extern NSString * const kUserManagedObjectRepresentationKey;
 @property (strong, nonatomic) NSMutableSet *pendingMatchesToSyncBet;
 
 + (instancetype)currentUser;
-+ (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)searchUsingEmails:(NSArray *)emails usernames:(NSArray *)usernames ids:(NSArray *)ids fbIds:(NSArray *)fbIds name:(NSString *)name success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)getMeWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)getFeaturedWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (void)getStarredWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
