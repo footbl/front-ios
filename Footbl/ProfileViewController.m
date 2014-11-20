@@ -39,6 +39,8 @@
 
 @end
 
+#define MY_LEAGUES_ENABLED FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)
+
 #pragma mark ProfileViewController
 
 @implementation ProfileViewController
@@ -59,11 +61,7 @@
     _shouldShowSettings = shouldShowSettings;
     
     if (self.shouldShowSettings) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
-        } else {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Settings", @"") style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction:)];
-        }
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
     } else {
         self.navigationItem.rightBarButtonItem = nil;
     }
@@ -163,7 +161,7 @@
     [self.user.editableObject getWithSuccess:^(id response) {
         [self reloadContent];
         
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+        if (self.shouldShowSettings) {
             [self reloadContent];
             [self.refreshControl endRefreshing];
         } else {
@@ -273,8 +271,7 @@
             switch (indexPath.row) {
                 case 1: {
                     cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
-                    [self configureCellAppearance:cell];
-                    
+                    [self configureCellAppearance:cell atIndexPath:indexPath];
                     break;
                 }
                 default: {
@@ -287,35 +284,35 @@
                         championshipCell.rankingLabel.text = @"";
                     }
                     
-                    if (FBTweakValue(@"UX", @"Profile", @"Rank progress", NO) && self.user.ranking && self.user.previousRanking) {
+                    if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", NO) && self.user.ranking && self.user.previousRanking) {
                         championshipCell.rankingProgress = @(self.user.previousRanking.integerValue - self.user.ranking.integerValue);
                     } else {
                         championshipCell.rankingProgress = @(0);
                     }
-                    
                     break;
                 }
             }
             break;
         }
         case 2: {
-            switch (indexPath.row) {
-                case 0: {
-                    if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+            if (self.shouldShowSettings) {
+                [self configureCellAppearance:cell atIndexPath:indexPath];
+                switch (indexPath.row) {
+                    case 0:
+                        if (MY_LEAGUES_ENABLED) {
+                            cell.textLabel.text = NSLocalizedString(@"My Leagues", @"");
+                            break;
+                        }
+                    case 1:
                         cell.textLabel.text = NSLocalizedString(@"Settings", @"");
-                        [self configureCellAppearance:cell];
-                    }
-                    break;
+                        break;
+                    default:
+                        break;
                 }
-                case 1: {
-                    if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)){
-                        cell.textLabel.text = NSLocalizedString(@"My Leagues", @"");
-                        [self configureCellAppearance:cell];
-                    }
-                    break;
-                }
-                default:
-                    break;
+            } else {
+                Bet *bet = self.bets[indexPath.row];
+                [(MatchTableViewCell *)cell setMatch:bet.match bet:bet viewController:self selectionBlock:nil];
+                break;
             }
         }
         default:
@@ -323,7 +320,7 @@
     }
 }
 
-- (void)configureCellAppearance:(UITableViewCell *)cell {
+- (void)configureCellAppearance:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
     cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     
@@ -331,15 +328,17 @@
     if (![cell.contentView viewWithTag:separatorTag]) {
         UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
         arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
+        arrowImageView.tag = separatorTag;
         [cell.contentView addSubview:arrowImageView];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        separatorView.tag = separatorTag;
-        [cell.contentView addSubview:separatorView];
-        
-        separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
+        if (indexPath.row == 0 && indexPath.section == 2 && self.shouldShowSettings) {
+            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
+            separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+            separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            [cell.contentView addSubview:separatorView];
+        }
+
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [cell.contentView addSubview:separatorView];
@@ -368,7 +367,7 @@
     if (section == 1) {
         return 10;
     } else if (section == 2) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+        if (self.shouldShowSettings) {
             return 10;
         } else if (self.bets.count > 0) {
             return 7;
@@ -385,16 +384,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", YES) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
+            return 3 + ([self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
-            return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 1 : 0);
+            return 1 + (self.shouldShowSettings ? 1 : 0);
         case 2: {
             NSUInteger rowCount = 0;
-            if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)){
-                rowCount++;
+            if (MY_LEAGUES_ENABLED && self.shouldShowSettings) {
+                rowCount ++;
             }
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
-                rowCount++;
+            
+            if (self.shouldShowSettings) {
+                rowCount ++;
+            } else {
+                rowCount = self.bets.count;
             }
             
             return rowCount;
@@ -437,7 +439,7 @@
             
             break;
         case 2:
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+            if (self.shouldShowSettings) {
                 identifier = @"Cell";
             } else {
                 identifier = @"MatchCell";
@@ -476,7 +478,7 @@
                     return 67;
             }
         case 2: {
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+            if (self.shouldShowSettings) {
                 return 50;
             }
             
@@ -496,22 +498,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.shouldShowSettings) {
-        if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-            if (indexPath.section == 1 && indexPath.row == 1) {
-                [self betsAction:nil];
-                [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            } else if (indexPath.section == 2 && indexPath.row == 0) {
-                if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES) && !self.shouldShowSettings) {
-                    [self myLeaguesAction:nil];
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                } else {
-                    [self settingsAction:nil];
-                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-                }
-            } else if (indexPath.section == 2 && indexPath.row == 1) {
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            [self betsAction:nil];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        } else if (indexPath.section == 2 && indexPath.row == 0) {
+            if (MY_LEAGUES_ENABLED) {
                 [self myLeaguesAction:nil];
-                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            } else {
+                [self settingsAction:nil];
             }
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        } else if (indexPath.section == 2 && indexPath.row == 1) {
+            [self settingsAction:nil];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
         }
     }
     
@@ -588,7 +587,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.allowsMultipleSelection = YES;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 10 : 5)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.shouldShowSettings ? 10 : 5)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
