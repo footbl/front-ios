@@ -18,7 +18,6 @@
 #import "EditProfileViewController.h"
 #import "ImportImageHelper.h"
 #import "LogsViewController.h"
-#import "MyLeaguesViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
 #import "SettingsViewController.h"
@@ -106,11 +105,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                           kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"My Account", @""),
                                                             kSettingsDataSourceValueKey : @"",
                                                             kSettingsDataSourceTypeKey : @(SettingsTypeMore),
-                                                            kSettingsDataSourceExtraKey : accountDataSource},
-                                                          @{kSettingsDataSourceTitleKey : NSLocalizedString(@"My Leagues", @""),
-                                                            kSettingsDataSourceValueKey : @"",
-                                                            kSettingsDataSourceTypeKey : @(SettingsTypeAction),
-                                                            kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(myLeaguesAction:))}
+                                                            kSettingsDataSourceExtraKey : accountDataSource}
                                                           ]},
                         @{kSettingsDataSourceTitleKey : @"",
                           kSettingsDataSourceItemsKey : @[@{kSettingsDataSourceTitleKey : NSLocalizedString(@"Tell a friend", @""),
@@ -191,10 +186,6 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)legalAction:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:NSLocalizedString(@"Legal URL", @"")]];
-}
-
-- (void)myLeaguesAction:(id)sender {
-    [self.navigationController pushViewController:[MyLeaguesViewController new] animated:YES];
 }
 
 - (void)updateAccountAction:(id)sender {

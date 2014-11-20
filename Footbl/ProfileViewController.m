@@ -17,6 +17,7 @@
 #import "LoadingHelper.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell+Setup.h"
+#import "MyLeaguesViewController.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileBetsViewController.h"
@@ -114,6 +115,10 @@
 
 - (IBAction)transfersAction:(id)sender {
     [self.navigationController pushViewController:[TransfersViewController new] animated:YES];
+}
+
+- (IBAction)myLeaguesAction:(id)sender {
+    [self.navigationController pushViewController:[MyLeaguesViewController new] animated:YES];
 }
 
 - (NSTimeInterval)updateInterval {
@@ -268,21 +273,7 @@
             switch (indexPath.row) {
                 case 1: {
                     cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
-                    cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
-                    cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
-                    
-                    NSInteger separatorTag = 1251123;
-                    if (![cell.contentView viewWithTag:separatorTag]) {
-                        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-                        arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
-                        [cell.contentView addSubview:arrowImageView];
-                        
-                        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
-                        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-                        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                        separatorView.tag = separatorTag;
-                        [cell.contentView addSubview:separatorView];
-                    }
+                    [self configureCellAppearance:cell];
                     
                     break;
                 }
@@ -308,38 +299,50 @@
             break;
         }
         case 2: {
-            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
-                cell.textLabel.text = NSLocalizedString(@"Settings", @"");
-                cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
-                cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
-                
-                NSInteger separatorTag = 1251123;
-                if (![cell.contentView viewWithTag:separatorTag]) {
-                    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-                    arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
-                    [cell.contentView addSubview:arrowImageView];
-                    
-                    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
-                    separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-                    separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                    separatorView.tag = separatorTag;
-                    [cell.contentView addSubview:separatorView];
-                    
-                    separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
-                    separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-                    separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                    [cell.contentView addSubview:separatorView];
+            switch (indexPath.row) {
+                case 0: {
+                    if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+                        cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+                        [self configureCellAppearance:cell];
+                    }
+                    break;
                 }
-                
-                break;
+                case 1: {
+                    if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)){
+                        cell.textLabel.text = NSLocalizedString(@"My Leagues", @"");
+                        [self configureCellAppearance:cell];
+                    }
+                    break;
+                }
+                default:
+                    break;
             }
-            
-            Bet *bet = self.bets[indexPath.row];
-            [(MatchTableViewCell *)cell setMatch:bet.match bet:bet viewController:self selectionBlock:nil];
-            break;
         }
         default:
             break;
+    }
+}
+
+- (void)configureCellAppearance:(UITableViewCell *)cell {
+    cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+    cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
+    
+    NSInteger separatorTag = 1251123;
+    if (![cell.contentView viewWithTag:separatorTag]) {
+        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
+        arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
+        [cell.contentView addSubview:arrowImageView];
+        
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
+        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        separatorView.tag = separatorTag;
+        [cell.contentView addSubview:separatorView];
+        
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
+        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
+        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [cell.contentView addSubview:separatorView];
     }
 }
 
@@ -385,8 +388,17 @@
             return 3 + (FBTweakValue(@"UX", @"Profile", @"Graph", YES) && [self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
             return 1 + (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 1 : 0);
-        case 2:
-            return FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings ? 1 : self.bets.count;
+        case 2: {
+            NSUInteger rowCount = 0;
+            if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)){
+                rowCount++;
+            }
+            if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES) && self.shouldShowSettings) {
+                rowCount++;
+            }
+            
+            return rowCount;
+        }
         default:
             return 1;
     }
@@ -489,7 +501,15 @@
                 [self betsAction:nil];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             } else if (indexPath.section == 2 && indexPath.row == 0) {
-                [self settingsAction:nil];
+                if (FBTweakValue(@"UX", @"Profile", @"My Leagues", YES) && !self.shouldShowSettings) {
+                    [self myLeaguesAction:nil];
+                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                } else {
+                    [self settingsAction:nil];
+                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                }
+            } else if (indexPath.section == 2 && indexPath.row == 1) {
+                [self myLeaguesAction:nil];
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
             }
         }
