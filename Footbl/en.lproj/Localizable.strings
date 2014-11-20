@@ -736,7 +736,7 @@ Make more bets and increase your profit! */
 "NOTIFICATION_RECEIVED_CASH" = "%@ sent you some cash. Ka-ching!";
 
 /* Leagues placeholder */
-"Leagues placeholder" = "Add new leagues on Profile > Settings > My Leagues";
+"Leagues placeholder" = "Add new leagues on Profile > My Leagues";
 
 /* Join */
 "Join" = "Join";
