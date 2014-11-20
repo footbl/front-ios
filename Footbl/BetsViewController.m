@@ -17,6 +17,7 @@
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
+#import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
@@ -345,7 +346,9 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *button = [[UIButton alloc] initWithFrame:self.navigationBarTitleView.moneyButton.frame];
+    [button addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationBarTitleView.moneyButton.superview addSubview:button];
     [self.view addSubview:self.navigationBarTitleView];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
@@ -398,6 +401,11 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     
     self.scrollViewCurrentPage = self.scrollViewCurrentPage;
     [self reloadWallet];
+    
+    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", NO) && [User currentUser].canRecharge) {
+        self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
+        self.navigationBarTitleView.moneyButton.animating = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

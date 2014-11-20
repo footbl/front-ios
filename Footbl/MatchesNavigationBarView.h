@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class RechargeButton;
+
 extern NSString * const kMatchesNavigationBarTitleAnimateKey;
 
 @interface MatchesNavigationBarView : UIView
 
 @property (strong, nonatomic) UIView *separatorView;
-@property (strong, nonatomic) UIButton *moneyButton;
+@property (strong, nonatomic) RechargeButton *moneyButton;
 @property (strong, nonatomic) UILabel *walletTitleLabel;
 @property (strong, nonatomic) UILabel *walletValueLabel;
 @property (strong, nonatomic) UILabel *stakeTitleLabel;

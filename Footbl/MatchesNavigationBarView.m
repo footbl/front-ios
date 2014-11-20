@@ -7,6 +7,7 @@
 //
 
 #import "MatchesNavigationBarView.h"
+#import "RechargeButton.h"
 
 #pragma mark MatchesNavigationBarView
 
@@ -41,7 +42,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
                                                   NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                                   NSKernAttributeName : @(-0.15)} mutableCopy];
         
-        self.moneyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 102, CGRectGetHeight(self.frame))];
+        self.moneyButton = [[RechargeButton alloc] initWithFrame:CGRectMake(0, 0, 102, CGRectGetHeight(self.frame))];
         [self.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
         [self.moneyButton setImageEdgeInsets:UIEdgeInsetsMake(4, 0, 0, 62)];
         self.moneyButton.adjustsImageWhenDisabled = NO;

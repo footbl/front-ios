@@ -24,7 +24,9 @@
         self.numberOfAnimations = NSIntegerMax;
     }
     
-    [self runAnimation];
+    if (self.isAnimating) {
+        [self runAnimation];
+    }
 }
 
 #pragma mark - Instance Methods
@@ -37,6 +39,8 @@
     } completion:^(BOOL finished) {
         if (alpha < 1 || (self.numberOfAnimations > 0 && self.isAnimating)) {
             [self runAnimation];
+        } else {
+            self.animating = NO;
         }
     }];
 }

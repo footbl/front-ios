@@ -19,6 +19,7 @@
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
+#import "RechargeButton.h"
 #import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
