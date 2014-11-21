@@ -7,21 +7,11 @@
 //
 
 #import <SDWebImage/UIButton+WebCache.h>
-#import <SDWebImage/UIImageView+WebCache.h>
-#import <SVPullToRefresh/SVPullToRefresh.h>
-#import "Championship.h"
 #import "FootblNavigationController.h"
 #import "Group.h"
 #import "GroupDetailViewController.h"
 #import "GroupInfoViewController.h"
-#import "GroupMembershipTableViewCell.h"
 #import "GroupRankingViewController.h"
-#import "LoadingHelper.h"
-#import "Membership.h"
-#import "NSNumber+Formatter.h"
-#import "NSString+Hex.h"
-#import "ProfileViewController.h"
-#import "User.h"
 
 @interface GroupDetailViewController ()
 
