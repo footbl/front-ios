@@ -746,3 +746,13 @@ Make more bets and increase your profit! */
 Recharge your wallet by tapping the + above. */
 "Tip!\n\nRecharge your wallet by tapping the + above." = "Dica!\n\nRecarregue sua carteira tocando no + acima.";
 
+/* Collect Daily Bonus */
+"Collect" = "Pegar";
+
+/* Come back tomorrow for more
+As long as you have less than $100. */
+"Come back tomorrow for more\nAs long as you have less than $100." = "Volte amanhã para mais\nDesde que tenha menos de $100.";
+
+/* Daily bonus! */
+"Daily bonus!" = "Bônus diário!";
+
