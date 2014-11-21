@@ -11,6 +11,7 @@
 #import "FootblPopupViewController.h"
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
+#import "UIImage+Color.h"
 #import "User.h"
 
 @interface RechargeTipPopupViewController ()
@@ -78,7 +79,8 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
     [self.dismissButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
     [self.dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.dismissButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.3] forState:UIControlStateHighlighted];
+    [self.dismissButton setBackgroundImage:[UIImage imageWithColor:self.headerImageView.backgroundColor] forState:UIControlStateNormal];
+    [self.dismissButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0.18 green:0.65 blue:0.39 alpha:1]] forState:UIControlStateHighlighted];
     [self.dismissButton.titleLabel setFont:[UIFont fontWithName:kFontNameAvenirNextDemiBold size:18]];
     self.headerImageView.userInteractionEnabled = YES;
     [self.headerImageView addSubview:self.dismissButton];
