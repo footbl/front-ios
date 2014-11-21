@@ -40,9 +40,11 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
         NSURL *objectURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:kUserManagedObjectRepresentationKey]];
         NSManagedObjectID *objectID = [[FTCoreDataStore mainQueueContext].persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURL];
         NSError *error = nil;
-        User *user = (User *)[[FTCoreDataStore mainQueueContext] existingObjectWithID:objectID error:&error];
-        if (user && !user.isFault && !user.isDeleted) {
-            return user;
+        if (objectID) {
+            User *user = (User *)[[FTCoreDataStore mainQueueContext] existingObjectWithID:objectID error:&error];
+            if (user && !user.isFault && !user.isDeleted) {
+                return user;
+            }
         }
     }
     
