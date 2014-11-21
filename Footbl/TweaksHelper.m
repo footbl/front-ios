@@ -7,6 +7,7 @@
 //
 
 #import "BetsViewController.h"
+#import "DailyBonusPopupViewController.h"
 #import "ForceUpdateViewController.h"
 #import "RatingHelper.h"
 #import "RechargeTipPopupViewController.h"
@@ -43,6 +44,16 @@
                 [betsViewController rechargeWalletAction:nil];
             };
             FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
+            [viewController presentViewController:popupViewController animated:YES completion:nil];
+            [viewController setNeedsStatusBarAppearanceUpdate];
+        }];
+    });
+    
+    FBTweakAction(@"Actions", @"Daily Bonus", @"Show popup", ^{
+        UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        [viewController dismissViewControllerAnimated:YES completion:^{
+            DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
+            FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:dailyBonusPopup];
             [viewController presentViewController:popupViewController animated:YES completion:nil];
             [viewController setNeedsStatusBarAppearanceUpdate];
         }];

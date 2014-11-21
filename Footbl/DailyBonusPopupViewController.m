@@ -49,6 +49,14 @@
     
     [self.activityIndicatorView startAnimating];
     
+    if (!self.prize && SPGetBuildType() != SPBuildTypeAppStore) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.activityIndicatorView stopAnimating];
+            [self dismissViewController];
+        });
+        return;
+    }
+    
     [self.prize markAsReadWithSuccess:^(id response) {
         [self.activityIndicatorView stopAnimating];
         [self dismissViewController];
@@ -99,7 +107,11 @@
     self.moneyLabel.textAlignment = NSTextAlignmentCenter;
     self.moneyLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:42];
     self.moneyLabel.textColor = self.headerImageView.backgroundColor;
-    self.moneyLabel.text = self.prize.value.stringValue;
+    if (!self.prize && SPGetBuildType() != SPBuildTypeAppStore) {
+        self.moneyLabel.text = [@1 stringValue];
+    } else {
+        self.moneyLabel.text = self.prize.value.stringValue;
+    }
     [self.view addSubview:self.moneyLabel];
     
     self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(10, 110, self.view.frameWidth - 20, 95)];
