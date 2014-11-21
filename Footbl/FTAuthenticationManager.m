@@ -310,7 +310,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[FTCoreDataStore privateQueueContext] performBlock:^{
-        for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Entry", @"Championship", @"Membership", @"Group", @"CreditRequest", @"User"]) {
+        for (NSString *entity in @[@"Bet", @"Match", @"Team", @"Entry", @"Championship", @"Membership", @"Group", @"CreditRequest", @"Prize", @"User"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entity];
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
             NSError *error = nil;

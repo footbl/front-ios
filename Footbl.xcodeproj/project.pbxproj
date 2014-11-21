@@ -13,6 +13,7 @@
 		ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
+		ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED42F7251A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
 		ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED7859E3199D0C62002A4DBD /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
@@ -426,6 +427,12 @@
 		EDB7BC8919B0158800898D94 /* Icon-Development-Spotlight-40.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6D199D0E2C002A4DBD /* Icon-Development-Spotlight-40.png */; };
 		EDB7BC8A19B0158800898D94 /* Icon-Development-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED785A6E199D0E2C002A4DBD /* Icon-Development-Spotlight-40@2x.png */; };
 		EDCE25D419AE3D3C00045438 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
+		EDD976BA1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
+		EDD976BB1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
+		EDD976BC1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
+		EDD976BF1A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
+		EDD976C01A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
+		EDD976C11A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
 		F38BE948186B40249BCEB4CC /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */; };
 /* End PBXBuildFile section */
 
@@ -487,6 +494,8 @@
 		ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeTipPopupViewController.m; sourceTree = "<group>"; };
 		ED3399F81A1E4EBF0037F01B /* RechargeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeButton.h; sourceTree = "<group>"; };
 		ED3399F91A1E4EBF0037F01B /* RechargeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeButton.m; sourceTree = "<group>"; };
+		ED3399FD1A1E86B00037F01B /* DailyBonusPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyBonusPopupViewController.h; sourceTree = "<group>"; };
+		ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyBonusPopupViewController.m; sourceTree = "<group>"; };
 		ED3A0F4D1988187200011E91 /* TransfersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransfersViewController.h; sourceTree = "<group>"; };
 		ED3A0F4E1988187200011E91 /* TransfersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransfersViewController.m; sourceTree = "<group>"; };
 		ED3A0F501988594600011E91 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
@@ -715,6 +724,10 @@
 		EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoreDataStore.m; sourceTree = "<group>"; };
 		EDD6711C19229E2400985174 /* FriendsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsHelper.h; sourceTree = "<group>"; };
 		EDD6711D19229E2400985174 /* FriendsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsHelper.m; sourceTree = "<group>"; };
+		EDD976B81A1F889200B08842 /* Prize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prize.h; path = Models/Prize.h; sourceTree = "<group>"; };
+		EDD976B91A1F889200B08842 /* Prize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Prize.m; path = Models/Prize.m; sourceTree = "<group>"; };
+		EDD976BD1A1F889B00B08842 /* _Prize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Prize.h; path = Models/_Prize.h; sourceTree = "<group>"; };
+		EDD976BE1A1F889B00B08842 /* _Prize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Prize.m; path = Models/_Prize.m; sourceTree = "<group>"; };
 		EDDCF221193395D30090D06D /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		EDDCF222193395D30090D06D /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		EDDCF2241933B1BB0090D06D /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
@@ -915,6 +928,8 @@
 		ED3A0F591988BAD000011E91 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
+				ED3399FD1A1E86B00037F01B /* DailyBonusPopupViewController.h */,
+				ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */,
 				ED3A0F5A1988BAF800011E91 /* FootblPopupViewController.h */,
 				ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */,
 				ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */,
@@ -1128,6 +1143,8 @@
 				ED9DC8D118E3270600DF458C /* _Match.m */,
 				EDEFFA1718EF3DB0003E12B7 /* _Membership.h */,
 				EDEFFA1818EF3DB0003E12B7 /* _Membership.m */,
+				EDD976BD1A1F889B00B08842 /* _Prize.h */,
+				EDD976BE1A1F889B00B08842 /* _Prize.m */,
 				ED9DC8D218E3270600DF458C /* _Team.h */,
 				ED9DC8D318E3270600DF458C /* _Team.m */,
 				EDEFFA0E18EF30BA003E12B7 /* _User.h */,
@@ -1346,6 +1363,8 @@
 				ED9DC8DB18E3271900DF458C /* Match.m */,
 				EDEFFA1A18EF3DBD003E12B7 /* Membership.h */,
 				EDEFFA1B18EF3DBD003E12B7 /* Membership.m */,
+				EDD976B81A1F889200B08842 /* Prize.h */,
+				EDD976B91A1F889200B08842 /* Prize.m */,
 				ED9DC8DC18E3271900DF458C /* Team.h */,
 				ED9DC8DD18E3271900DF458C /* Team.m */,
 				EDEFFA0B18EF30B4003E12B7 /* User.h */,
@@ -1891,6 +1910,7 @@
 				ED785A7C199D4A92002A4DBD /* _CreditRequest.m in Sources */,
 				ED785A80199DA5CE002A4DBD /* Entry.m in Sources */,
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
+				EDD976BA1A1F889200B08842 /* Prize.m in Sources */,
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
 				ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */,
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
@@ -1918,6 +1938,7 @@
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
 				ED785A11199D0C62002A4DBD /* NSURLRequest+FTRequestOptions.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
+				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1964,6 +1985,7 @@
 				ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */,
 				ED785A3D199D0C62002A4DBD /* _Championship.m in Sources */,
+				EDD976BF1A1F889B00B08842 /* _Prize.m in Sources */,
 				ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */,
 				ED785A3F199D0C62002A4DBD /* Footbl.xcdatamodeld in Sources */,
 				ED785A40199D0C62002A4DBD /* LoadingHelper.m in Sources */,
@@ -2025,6 +2047,7 @@
 				ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */,
 				ED8DB3B21A14C95C00605CCE /* Match+Sharing.m in Sources */,
 				ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
+				EDD976BC1A1F889200B08842 /* Prize.m in Sources */,
 				ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */,
 				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
@@ -2071,6 +2094,7 @@
 				ED8DB3DD1A14C95C00605CCE /* AskFriendTableViewCell.m in Sources */,
 				ED8DB3DE1A14C95C00605CCE /* SettingsTableViewCell.m in Sources */,
 				ED8DB3DF1A14C95C00605CCE /* main.m in Sources */,
+				EDD976C11A1F889B00B08842 /* _Prize.m in Sources */,
 				ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */,
 				ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */,
 				ED8DB3E21A14C95C00605CCE /* CreditRequest.m in Sources */,
@@ -2142,6 +2166,7 @@
 				ED97AF881A14C7E40079ADB4 /* ProfileSearchViewController.m in Sources */,
 				ED97AF891A14C7E40079ADB4 /* Match+Sharing.m in Sources */,
 				ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
+				EDD976BB1A1F889200B08842 /* Prize.m in Sources */,
 				ED97AF8A1A14C7E40079ADB4 /* NSString+Validations.m in Sources */,
 				ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED97AF8B1A14C7E40079ADB4 /* UILabel+MaxFontSize.m in Sources */,
@@ -2188,6 +2213,7 @@
 				ED97AFB41A14C7E40079ADB4 /* AskFriendTableViewCell.m in Sources */,
 				ED97AFB51A14C7E40079ADB4 /* SettingsTableViewCell.m in Sources */,
 				ED97AFB61A14C7E40079ADB4 /* main.m in Sources */,
+				EDD976C01A1F889B00B08842 /* _Prize.m in Sources */,
 				ED97AFB71A14C7E40079ADB4 /* FTImageUploader.m in Sources */,
 				ED97AFB81A14C7E40079ADB4 /* NSNumber+Formatter.m in Sources */,
 				ED97AFB91A14C7E40079ADB4 /* CreditRequest.m in Sources */,

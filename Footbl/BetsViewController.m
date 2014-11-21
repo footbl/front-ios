@@ -9,6 +9,7 @@
 #import <SPHipster/SPHipster.h>
 #import "BetsViewController.h"
 #import "Championship.h"
+#import "DailyBonusPopupViewController.h"
 #import "FootblPopupAnimatedTransition.h"
 #import "FTAuthenticationManager.h"
 #import "Entry.h"
@@ -17,6 +18,7 @@
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSNumber+Formatter.h"
+#import "Prize.h"
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "RechargeViewController.h"
@@ -35,6 +37,8 @@
 @end
 
 static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControllerKey";
+static NSString * const kPrizeLatestFetch = @"kPrizeLatestFetch";
+static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 #pragma mark BetsViewController
 
@@ -405,6 +409,24 @@ static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControl
     if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", NO) && [User currentUser].canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;
+    }
+    
+    if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", NO) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
+        [Prize getWithObject:[User currentUser].editableObject success:^(NSArray *prizes) {
+            [prizes enumerateObjectsUsingBlock:^(Prize *prize, NSUInteger idx, BOOL *stop) {
+                NSInteger interval = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date] toDate:prize.createdAt options:0] day];
+                if (interval == 0) {
+                    *stop = YES;
+                    DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
+                    dailyBonusPopup.prize = prize;
+                    FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:dailyBonusPopup];
+                    [self presentViewController:popupViewController animated:YES completion:nil];
+                    [self setNeedsStatusBarAppearanceUpdate];
+                }
+            }];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kPrizeLatestFetch];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } failure:nil];
     }
 }
 
