@@ -36,7 +36,7 @@
 
 @end
 
-static NSString *kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControllerKey";
+static NSString * const kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControllerKey";
 static NSString * const kPrizeLatestFetch = @"kPrizeLatestFetch";
 static NSUInteger kPrizeFetchInterval = 60 * 5;
 
