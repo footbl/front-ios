@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
+		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -2061,6 +2063,7 @@
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
+				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
 				ED8DB3C01A14C95C00605CCE /* FTOperationManager.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,
@@ -2180,6 +2183,7 @@
 				ED97AF931A14C7E40079ADB4 /* AskFriendsViewController.m in Sources */,
 				ED97AF941A14C7E40079ADB4 /* ProfileViewController.m in Sources */,
 				ED97AF951A14C7E40079ADB4 /* NSString+SHA1.m in Sources */,
+				DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED97AF961A14C7E40079ADB4 /* SignupViewController.m in Sources */,
 				ED97AF971A14C7E40079ADB4 /* FTOperationManager.m in Sources */,
 				ED97AF981A14C7E40079ADB4 /* WalletTableViewCell.m in Sources */,
