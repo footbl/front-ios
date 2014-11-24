@@ -9,6 +9,7 @@
 #import "_Group.h"
 
 @class Championship;
+@class Membership;
 
 @interface Group : _Group
 
@@ -25,5 +26,6 @@
 - (void)uploadImage:(UIImage *)image success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 - (NSString *)sharingText;
 - (void)saveStatusInLocalDatabase;
+- (Membership *)myMembership;
 
 @end

@@ -6,6 +6,7 @@
 const struct MembershipAttributes MembershipAttributes = {
 	.hasRanking = @"hasRanking",
 	.isLocalRanking = @"isLocalRanking",
+	.notifications = @"notifications",
 	.previousRanking = @"previousRanking",
 	.ranking = @"ranking",
 };
@@ -48,6 +49,11 @@ const struct MembershipRelationships MembershipRelationships = {
 	}
 	if ([key isEqualToString:@"isLocalRankingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isLocalRanking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"notificationsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"notifications"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -103,6 +109,26 @@ const struct MembershipRelationships MembershipRelationships = {
 
 - (void)setPrimitiveIsLocalRankingValue:(BOOL)value_ {
 	[self setPrimitiveIsLocalRanking:[NSNumber numberWithBool:value_]];
+}
+
+@dynamic notifications;
+
+- (BOOL)notificationsValue {
+	NSNumber *result = [self notifications];
+	return [result boolValue];
+}
+
+- (void)setNotificationsValue:(BOOL)value_ {
+	[self setNotifications:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveNotificationsValue {
+	NSNumber *result = [self primitiveNotifications];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveNotificationsValue:(BOOL)value_ {
+	[self setPrimitiveNotifications:[NSNumber numberWithBool:value_]];
 }
 
 @dynamic previousRanking;

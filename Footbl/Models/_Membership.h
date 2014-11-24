@@ -7,6 +7,7 @@
 extern const struct MembershipAttributes {
 	__unsafe_unretained NSString *hasRanking;
 	__unsafe_unretained NSString *isLocalRanking;
+	__unsafe_unretained NSString *notifications;
 	__unsafe_unretained NSString *previousRanking;
 	__unsafe_unretained NSString *ranking;
 } MembershipAttributes;
@@ -43,6 +44,14 @@ extern const struct MembershipRelationships {
 - (void)setIsLocalRankingValue:(BOOL)value_;
 
 //- (BOOL)validateIsLocalRanking:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* notifications;
+
+@property (atomic) BOOL notificationsValue;
+- (BOOL)notificationsValue;
+- (void)setNotificationsValue:(BOOL)value_;
+
+//- (BOOL)validateNotifications:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSNumber* previousRanking;
 
@@ -83,6 +92,12 @@ extern const struct MembershipRelationships {
 
 - (BOOL)primitiveIsLocalRankingValue;
 - (void)setPrimitiveIsLocalRankingValue:(BOOL)value_;
+
+- (NSNumber*)primitiveNotifications;
+- (void)setPrimitiveNotifications:(NSNumber*)value;
+
+- (BOOL)primitiveNotificationsValue;
+- (void)setPrimitiveNotificationsValue:(BOOL)value_;
 
 - (NSNumber*)primitivePreviousRanking;
 - (void)setPrimitivePreviousRanking:(NSNumber*)value;

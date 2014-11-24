@@ -23,7 +23,7 @@
 }
 
 + (NSArray *)enabledProperties {
-    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"previousRanking", @"ranking"]];
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"previousRanking", @"ranking", @"notifications"]];
 }
 
 + (void)getWithObject:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -56,6 +56,29 @@
 }
 
 #pragma mark - Instance Methods
+
+- (void)setNotificationsEnabled:(BOOL)enabled success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    if (self.notificationsValue == enabled) {
+        return;
+    }
+    
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
+        self.editableObject.notificationsValue = enabled;
+        [[FTCoreDataStore privateQueueContext] performSave];
+    }];
+    
+    [[FTOperationManager sharedManager] PUT:self.resourcePath parameters:@{@"notifications" : @(enabled)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) success(nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            self.editableObject.notificationsValue = !enabled;
+            [[FTCoreDataStore privateQueueContext] performSave];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failure) failure(operation, error);
+            });
+        }];
+    }];
+}
 
 - (NSString *)resourcePath {
     return [[[self class] resourcePathWithObject:self.group] stringByAppendingPathComponent:self.slug];

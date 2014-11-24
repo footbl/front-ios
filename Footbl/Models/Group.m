@@ -185,6 +185,10 @@
     }];
 }
 
+- (Membership *)myMembership {
+    return [self.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.slug = %@", [User currentUser].slug]].anyObject;
+}
+
 - (void)getMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [Membership getWithObject:self.editableObject success:success failure:failure];
 }

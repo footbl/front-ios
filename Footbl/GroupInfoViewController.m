@@ -14,6 +14,7 @@
 #import "GroupAddMembersViewController.h"
 #import "GroupInfoViewController.h"
 #import "ImportImageHelper.h"
+#import "Membership.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "User.h"
@@ -58,6 +59,17 @@
     groupAddMembersViewController.group = self.group;
     FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:groupAddMembersViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (IBAction)notificationsSwitchValueChangedAction:(UISwitch *)switchView {
+    switchView.userInteractionEnabled = NO;
+    [self.group.myMembership setNotificationsEnabled:switchView.isOn success:^(id response) {
+        switchView.userInteractionEnabled = YES;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        switchView.userInteractionEnabled = YES;
+        [switchView setOn:!switchView.isOn animated:YES];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (IBAction)freeToEditSwitchValueChangedAction:(UISwitch *)switchView {
@@ -279,6 +291,37 @@
         [scrollView addSubview:self.freeToEditSwich];
         
         bottomRect = freeToEditView.frame;
+    }
+    
+    if (!self.group.isDefaultValue && FBTweakValue(@"UX", @"Group", @"Chat", NO)) {
+        UIView *notificationsView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
+        UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.frameY, 240, notificationsView.frameHeight)];
+        [notificationsButton setTitle:NSLocalizedString(@"Notifications", @"") forState:UIControlStateNormal];
+        [notificationsButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [notificationsButton setTitleColor:[[notificationsButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        notificationsButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
+        notificationsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        notificationsButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+        notificationsButton.userInteractionEnabled = NO;
+        [scrollView addSubview:notificationsButton];
+        
+        self.notificationsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(notificationsButton.frame))];
+        self.notificationsSwitch.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(notificationsButton.frame));
+        self.notificationsSwitch.on = self.group.myMembership.notificationsValue;
+        self.notificationsSwitch.onTintColor = [UIColor ftGreenGrassColor];
+        [self.notificationsSwitch addTarget:self action:@selector(notificationsSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
+        [scrollView addSubview:self.notificationsSwitch];
+        
+        if (!self.group.myMembership) {
+            self.notificationsSwitch.enabled = NO;
+        }
+        
+        [self.group getMembersWithSuccess:^(id response) {
+            [self.notificationsSwitch setOn:self.group.myMembership.notificationsValue animated:YES];
+            self.notificationsSwitch.enabled = YES;
+        } failure:nil];
+        
+        bottomRect = notificationsView.frame;
     }
     
     UIView *leaveGroupView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));

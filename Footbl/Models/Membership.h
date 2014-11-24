@@ -10,4 +10,6 @@
 
 @interface Membership : _Membership
 
+- (void)setNotificationsEnabled:(BOOL)enabled success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+
 @end

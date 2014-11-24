@@ -17,5 +17,6 @@
 @property (strong, nonatomic) UIButton *leaveGroupButton;
 @property (strong, nonatomic) UIButton *addNewMembersGroupButton;
 @property (strong, nonatomic) UISwitch *freeToEditSwich;
+@property (strong, nonatomic) UISwitch *notificationsSwitch;
 
 @end
