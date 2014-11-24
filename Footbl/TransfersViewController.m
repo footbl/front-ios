@@ -93,6 +93,9 @@
         return;
     }
     
+    [[LoadingHelper sharedInstance] showHud];
+    self.sendButton.userInteractionEnabled = NO;
+    
     FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -101,6 +104,9 @@
     [CreditRequest payRequests:self.pendingTransfers success:^(id response) {
         [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
             [CreditRequest getRequestsWithObject:[User currentUser].editableObject success:^(id response) {
+                self.sendButton.userInteractionEnabled = YES;
+                [self.pendingTransfers removeAllObjects];
+                [self reloadWallet];
                 [[LoadingHelper sharedInstance] hideHud];
             } failure:failure];
         } failure:failure];
