@@ -262,7 +262,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 0) {
+    if (request.payedValue) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+
+    if (self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.animationType = MBProgressHUDAnimationZoom;
