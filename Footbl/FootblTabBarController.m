@@ -45,7 +45,7 @@
     [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationTabBar] : 0 animations:^{
         CGRect tabBarFrame = self.tabBar.frame;
         if (self.isTabBarHidden) {
-            tabBarFrame.origin.y = CGRectGetHeight(self.view.frame);
+            tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) + 0.5;
         } else {
             tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) - CGRectGetHeight(tabBarFrame);
         }
