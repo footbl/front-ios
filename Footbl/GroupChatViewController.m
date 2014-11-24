@@ -13,6 +13,7 @@
 #import "GroupChatViewController.h"
 #import "ErrorHandler.h"
 #import "Message.h"
+#import "ProfileViewController.h"
 #import "User.h"
 
 @interface GroupChatViewController ()
@@ -255,6 +256,19 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Message *previousMessage;
+    if (indexPath.row > 0) {
+        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+        previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
+    }
+    
+    if (!(previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval))) {
+        ProfileViewController *profileViewController = [ProfileViewController new];
+        profileViewController.user = message.user;
+        [self.navigationController pushViewController:profileViewController animated:YES];
+    }
 }
 
 #pragma mark - UITextView delegate
