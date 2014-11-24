@@ -53,6 +53,7 @@
 }
 
 - (void)setProfileName:(NSString *)name message:(NSString *)message pictureURL:(NSURL *)pictureURL date:(NSDate *)date shouldUseRightAlignment:(BOOL)shouldUseRightAlignment {
+    self.messageLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     self.messageLabel.text = message;
     
     self.profileImageView.frameX = self.separatorInset.left;

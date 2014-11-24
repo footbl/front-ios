@@ -7,6 +7,7 @@
 //
 
 @import AudioToolbox;
+#import <TransformerKit/TTTDateTransformers.h>
 #import "Group.h"
 #import "Message.h"
 #import "User.h"
@@ -22,7 +23,8 @@
 #pragma mark - Class Methods
 
 + (NSArray *)enabledProperties {
-    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"message"]];
+    [super enabledProperties];
+    return @[@"date", @"updatedAt", @"message"];
 }
 
 + (NSString *)resourcePath {
@@ -38,7 +40,7 @@
                 message.group = group.editableObject;
             } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
                 if (shouldDeleteUntouchedObjects) {
-                    [[FTCoreDataStore privateQueueContext] deleteObjects:untouchedObjects];
+                    [[FTCoreDataStore privateQueueContext] deleteObjects:[untouchedObjects filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"deliveryFailed = %@", @NO]]];
                 }
             } completionBlock:^(NSArray *objects) {
                 if (objects.count == FT_API_PAGE_LIMIT) {
@@ -102,7 +104,7 @@
             }];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[FTCoreDataStore privateQueueContext] performBlock:^{
-                [[FTCoreDataStore privateQueueContext] deleteObject:message];
+                message.deliveryFailed = @YES;
                 [[FTCoreDataStore privateQueueContext] performSave];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (failure) failure(operation, error);
@@ -131,12 +133,49 @@
 
 #pragma mark - Instance Methods
 
+- (void)deliverWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSString *path = [Message resourcePathWithObject:self.group];
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
+        [[FTOperationManager sharedManager] POST:path parameters:@{@"message" : self.message} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                self.rid = responseObject[kFTResponseParamIdentifier];
+                self.slug = responseObject[kFTResponseParamIdentifier];
+                [self updateWithData:responseObject];
+                self.deliveryFailed = @NO;
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [Message markAsReadFromGroup:self.group success:nil failure:nil];
+                    if (success) success(self);
+                });
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                self.deliveryFailed = @YES;
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) failure(operation, error);
+                });
+            }];
+        }];
+    }];
+}
+
 - (NSString *)resourcePath {
     return [[[self class] resourcePathWithObject:self.group] stringByAppendingPathComponent:self.slug];
 }
 
 - (void)updateWithData:(NSDictionary *)data {
-    [super updateWithData:data];
+    [super updateWithData:@{}];
+    
+    if (data[kFTResponseParamIdentifier]) {
+        self.rid = data[kFTResponseParamIdentifier];
+        self.slug = data[kFTResponseParamIdentifier];
+    }
+    
+    if (!self.createdAt) {
+        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+        self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
+    }
     
     self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
     self.typeString = data[@"type"];

@@ -13,5 +13,6 @@
 + (void)getWithGroup:(Group *)group page:(NSUInteger)page shouldDeleteUntouchedObjects:(BOOL)shouldDeleteUntouchedObjects success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)markAsReadFromGroup:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 + (void)handleRemoteNotification:(NSDictionary *)notification;
+- (void)deliverWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
 
 @end

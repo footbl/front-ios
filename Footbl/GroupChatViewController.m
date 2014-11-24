@@ -8,6 +8,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
+#import <UIAlertView-Blocks/UIActionSheet+Blocks.h>
 #import "ChatTableViewCell.h"
 #import "Group.h"
 #import "GroupChatViewController.h"
@@ -103,6 +104,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [self reloadViewsAnimated:YES];
     
     [Message createWithParameters:@{kFTRequestParamResourcePathObject : self.group.editableObject, @"message" : text} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.tableView reloadData];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
@@ -157,10 +159,14 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     } else {
         [cell setProfileName:message.user.name message:message.message pictureURL:[NSURL URLWithString:message.user.picture] date:message.createdAt shouldUseRightAlignment:message.user.isMeValue];
     }
+    
+    if (message.deliveryFailedValue) {
+        cell.messageLabel.textColor = [UIColor colorWithRed:216/255.f green:80./255.f blue:80./255.f alpha:1.00];
+    }
 }
 
 - (void)timerReloadData {
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:^(NSNumber *nextPage) {
+    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:^(NSNumber *nextPage) {
         self.nextPage = nextPage;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
@@ -272,6 +278,23 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if (indexPath.row > 0) {
         NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
         previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
+    }
+    
+    if (message.deliveryFailedValue) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:message.message cancelButtonItem:[RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"")] destructiveButtonItem:[RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"") action:^{
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                [[FTCoreDataStore privateQueueContext] deleteObject:message.editableObject];
+                [[FTCoreDataStore privateQueueContext] performSave];
+            }];
+        }] otherButtonItems:[RIButtonItem itemWithLabel:NSLocalizedString(@"Send", @"") action:^{
+            [message.editableObject deliverWithSuccess:^(id response) {
+                [self.tableView reloadData];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [[ErrorHandler sharedInstance] displayError:error];
+            }];
+        }], nil];
+        [actionSheet showInView:self.view];
+        return;
     }
     
     if (!(previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval))) {

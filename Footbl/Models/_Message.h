@@ -5,6 +5,7 @@
 #import "FTModel.h"
 
 extern const struct MessageAttributes {
+	__unsafe_unretained NSString *deliveryFailed;
 	__unsafe_unretained NSString *message;
 	__unsafe_unretained NSString *typeString;
 } MessageAttributes;
@@ -26,6 +27,14 @@ extern const struct MessageRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) MessageID* objectID;
 
+@property (nonatomic, strong) NSNumber* deliveryFailed;
+
+@property (atomic) BOOL deliveryFailedValue;
+- (BOOL)deliveryFailedValue;
+- (void)setDeliveryFailedValue:(BOOL)value_;
+
+//- (BOOL)validateDeliveryFailed:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* message;
 
 //- (BOOL)validateMessage:(id*)value_ error:(NSError**)error_;
@@ -45,6 +54,12 @@ extern const struct MessageRelationships {
 @end
 
 @interface _Message (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSNumber*)primitiveDeliveryFailed;
+- (void)setPrimitiveDeliveryFailed:(NSNumber*)value;
+
+- (BOOL)primitiveDeliveryFailedValue;
+- (void)setPrimitiveDeliveryFailedValue:(BOOL)value_;
 
 - (NSString*)primitiveMessage;
 - (void)setPrimitiveMessage:(NSString*)value;
