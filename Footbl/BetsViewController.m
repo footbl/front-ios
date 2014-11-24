@@ -17,6 +17,7 @@
 #import "Match.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
+#import "NSDate+Utils.h"
 #import "NSNumber+Formatter.h"
 #import "Prize.h"
 #import "RechargeButton.h"
@@ -414,8 +415,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", NO) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
         [Prize getWithObject:[User currentUser].editableObject success:^(NSArray *prizes) {
             [prizes enumerateObjectsUsingBlock:^(Prize *prize, NSUInteger idx, BOOL *stop) {
-                NSInteger interval = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:[NSDate date] toDate:prize.createdAt options:0] day];
-                if (interval == 0) {
+                if (prize.createdAt.isToday) {
                     *stop = YES;
                     DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
                     dailyBonusPopup.prize = prize;
