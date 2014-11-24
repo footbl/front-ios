@@ -45,9 +45,6 @@
         }
         
         fetchRequest.includesSubentities = YES;
-        if (self.group.isDefaultValue && !self.tableView.infiniteScrollingView) {
-            fetchRequest.fetchLimit = 20;
-        }
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
         _fetchedResultsController.delegate = self;
         
@@ -59,6 +56,16 @@
     }
     
     return _fetchedResultsController;
+}
+
+- (void)setContext:(GroupDetailContext)context {
+    if (_context == context) {
+        return;
+    }
+    
+    _context = context;
+    
+    [self reloadData];
 }
 
 #pragma mark - Instance Methods
@@ -179,7 +186,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+    if (self.group.isDefaultValue) {
+        return MIN([sectionInfo numberOfObjects], (self.nextPage.integerValue + 1) * FT_API_PAGE_LIMIT);
+    } else {
+        return [sectionInfo numberOfObjects];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,12 +211,7 @@
 #pragma mark - NSFetchedResultsController delegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.fetchedResultsController = nil;
-        [self.tableView reloadData];
-    });
+    [self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
