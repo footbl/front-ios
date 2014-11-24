@@ -415,7 +415,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", NO) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
         [Prize getWithObject:[User currentUser].editableObject success:^(NSArray *prizes) {
             [prizes enumerateObjectsUsingBlock:^(Prize *prize, NSUInteger idx, BOOL *stop) {
-                if (prize.createdAt.isToday) {
+                if (prize.createdAt.isToday && [prize.typeString isEqualToString:@"daily"]) {
                     *stop = YES;
                     DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
                     dailyBonusPopup.prize = prize;
