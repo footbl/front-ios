@@ -52,13 +52,23 @@
 }
 
 + (void)markAsReadFromGroup:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    NSNumber *unreadCount = [group.unreadMessagesCount copy];
+    [[FTCoreDataStore privateQueueContext] performBlock:^{
+        group.editableObject.unreadMessagesCount = @0;
+        [[FTCoreDataStore privateQueueContext] performSave];
+    }];
+    
     [[FTOperationManager sharedManager] PUT:[[[self class] resourcePathWithObject:group] stringByAppendingPathComponent:@"all/mark-as-read"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[FTCoreDataStore privateQueueContext] performBlock:^{
-            group.editableObject.unreadMessagesCount = @0;
-            [[FTCoreDataStore privateQueueContext] performSave];
-        }];
         if (success) success(nil);
-    } failure:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            group.editableObject.unreadMessagesCount = unreadCount;
+            [[FTCoreDataStore privateQueueContext] performSave];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (failure) failure(operation, error);
+            });
+        }];
+    }];
 }
 
 + (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
