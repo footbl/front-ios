@@ -166,6 +166,9 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         self.groupChatViewController.view.hidden = YES;
         self.groupRankingViewController.view.hidden = NO;
     }
+    
+    self.groupAroundMeViewController.context = self.context;
+    self.groupRankingViewController.context = self.context;
 }
 
 - (void)setupTitleView {
