@@ -172,12 +172,14 @@
         self.slug = data[kFTResponseParamIdentifier];
     }
     
+    NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
     if (!self.createdAt) {
-        NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
         self.createdAt = [transformer reverseTransformedValue:data[@"createdAt"]];
     }
+    self.updatedAt = [transformer reverseTransformedValue:data[@"updatedAt"]];
     
     self.user = [User findOrCreateWithObject:data[@"user"] inContext:self.managedObjectContext];
+    self.message = data[@"message"];
     self.typeString = data[@"type"];
 }
 

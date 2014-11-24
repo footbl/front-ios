@@ -166,7 +166,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)timerReloadData {
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:^(NSNumber *nextPage) {
+    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:^(NSNumber *nextPage) {
         self.nextPage = nextPage;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
