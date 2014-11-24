@@ -454,6 +454,9 @@
 		EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
+		EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
+		EDA4BBFA1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
+		EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
 		EDB1D48418E1F18B00E0C949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D48318E1F18B00E0C949 /* XCTest.framework */; };
 		EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -711,6 +714,8 @@
 		EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		EDA4BBF21A22C17C00A41004 /* ChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHelper.h; sourceTree = "<group>"; };
 		EDA4BBF31A22C17C00A41004 /* ChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatHelper.m; sourceTree = "<group>"; };
+		EDA4BBF71A238CA200A41004 /* TransfersHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransfersHelper.h; sourceTree = "<group>"; };
+		EDA4BBF81A238CA200A41004 /* TransfersHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransfersHelper.m; sourceTree = "<group>"; };
 		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
 		EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMemberTableViewCell.m; sourceTree = "<group>"; };
 		EDAF0E9B191AB8FE005218FB /* NSString+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Validations.h"; sourceTree = "<group>"; };
@@ -1478,6 +1483,8 @@
 				ED115ED71932B5FD00F5A722 /* LoadingHelper.m */,
 				EDDF974D1981E7FB00B97F15 /* RatingHelper.h */,
 				EDDF974E1981E7FB00B97F15 /* RatingHelper.m */,
+				EDA4BBF71A238CA200A41004 /* TransfersHelper.h */,
+				EDA4BBF81A238CA200A41004 /* TransfersHelper.m */,
 				EDE555BF1980240E0051AAF5 /* TweaksHelper.h */,
 				EDE555C01980240E0051AAF5 /* TweaksHelper.m */,
 			);
@@ -2089,6 +2096,7 @@
 				ED785A3B199D0C62002A4DBD /* FootblTabBarController.m in Sources */,
 				ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */,
+				EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED785A3D199D0C62002A4DBD /* _Championship.m in Sources */,
 				EDD976BF1A1F889B00B08842 /* _Prize.m in Sources */,
 				ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */,
@@ -2217,6 +2225,7 @@
 				ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */,
 				ED8DB3E71A14C95C00605CCE /* FTBuildType.m in Sources */,
 				ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
+				EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */,
 				ED8DB3E91A14C95C00605CCE /* _Championship.m in Sources */,
 				ED8DB3EA1A14C95C00605CCE /* _Membership.m in Sources */,
@@ -2345,6 +2354,7 @@
 				ED97AFBD1A14C7E40079ADB4 /* FootblTabBarController.m in Sources */,
 				ED97AFBE1A14C7E40079ADB4 /* FTBuildType.m in Sources */,
 				ED904B5E1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
+				EDA4BBFA1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED97AFBF1A14C7E40079ADB4 /* WalletGraphTableViewCell.m in Sources */,
 				ED97AFC01A14C7E40079ADB4 /* _Championship.m in Sources */,
 				ED97AFC11A14C7E40079ADB4 /* _Membership.m in Sources */,
@@ -2967,6 +2977,7 @@
 				DB5422BA1A23146A0047B816 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */ = {
 			isa = XCConfigurationList;

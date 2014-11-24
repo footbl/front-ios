@@ -24,6 +24,7 @@
 #import "ProfileTableViewCell.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
+#import "TransfersHelper.h"
 #import "TransfersViewController.h"
 #import "User.h"
 #import "WalletGraphTableViewCell.h"
@@ -610,6 +611,16 @@
     
     self.shouldShowSettings = self.shouldShowSettings;
     self.shouldShowFavorites = self.shouldShowFavorites;
+    
+    if (self.shouldShowSettings) {
+        [TransfersHelper fetchCountWithBlock:^(NSUInteger count) {
+            if (count == 0) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox_empty"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
+            } else {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
+            }
+        }];
+    }
     
     for (UIView *view in self.tabBarController.tabBar.subviews) {
         if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) < 2) {
