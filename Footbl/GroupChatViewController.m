@@ -73,18 +73,18 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     _nextPage = nextPage;
     
     CGFloat contentOffsetAdjust = 0;
-    if (self.tableView.tableHeaderView && !_nextPage) {
-        self.tableView.tableHeaderView = nil;
+    if (self.tableView.tableHeaderView.frameHeight == self.headerView.frameHeight && !_nextPage) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
         [self.tableView reloadData];
         return;
-    } else if (!self.tableView.tableHeaderView && _nextPage) {
+    } else if (self.tableView.tableHeaderView.frameHeight != self.headerView.frameHeight && _nextPage) {
         contentOffsetAdjust = self.headerView.frameHeight;
     }
     
     if (self.nextPage) {
         self.tableView.tableHeaderView = self.headerView;
     } else {
-        self.tableView.tableHeaderView = nil;
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
     }
     
     if (contentOffsetAdjust != 0) {
@@ -407,6 +407,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
     [self.tableView registerClass:[ChatTableViewCell class] forCellReuseIdentifier:@"ChatCell"];
     [self.view addSubview:self.tableView];
