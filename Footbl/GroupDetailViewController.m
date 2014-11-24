@@ -206,7 +206,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [(FootblTabBarController *)self.tabBarController setTabBarHidden:NO animated:YES];
+    if (self.navigationController.viewControllers.count <= 2) {
+        [(FootblTabBarController *)self.tabBarController setTabBarHidden:NO animated:YES];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
