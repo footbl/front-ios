@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
 #import "CreditRequest.h"
@@ -262,6 +263,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.animationType = MBProgressHUDAnimationZoom;
+        hud.labelText = NSLocalizedString(@"You need more cash!", @"");
+        [hud hide:YES afterDelay:3];
+        
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
