@@ -10,6 +10,7 @@ const struct GroupAttributes GroupAttributes = {
 	.name = @"name",
 	.picture = @"picture",
 	.removed = @"removed",
+	.unreadMessagesCount = @"unreadMessagesCount",
 };
 
 const struct GroupRelationships GroupRelationships = {
@@ -61,6 +62,11 @@ const struct GroupRelationships GroupRelationships = {
 	}
 	if ([key isEqualToString:@"removedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"removed"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"unreadMessagesCountValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"unreadMessagesCount"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -150,6 +156,26 @@ const struct GroupRelationships GroupRelationships = {
 
 - (void)setPrimitiveRemovedValue:(BOOL)value_ {
 	[self setPrimitiveRemoved:[NSNumber numberWithBool:value_]];
+}
+
+@dynamic unreadMessagesCount;
+
+- (int16_t)unreadMessagesCountValue {
+	NSNumber *result = [self unreadMessagesCount];
+	return [result shortValue];
+}
+
+- (void)setUnreadMessagesCountValue:(int16_t)value_ {
+	[self setUnreadMessagesCount:[NSNumber numberWithShort:value_]];
+}
+
+- (int16_t)primitiveUnreadMessagesCountValue {
+	NSNumber *result = [self primitiveUnreadMessagesCount];
+	return [result shortValue];
+}
+
+- (void)setPrimitiveUnreadMessagesCountValue:(int16_t)value_ {
+	[self setPrimitiveUnreadMessagesCount:[NSNumber numberWithShort:value_]];
 }
 
 @dynamic members;

@@ -11,6 +11,7 @@ extern const struct GroupAttributes {
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *removed;
+	__unsafe_unretained NSString *unreadMessagesCount;
 } GroupAttributes;
 
 extern const struct GroupRelationships {
@@ -71,6 +72,14 @@ extern const struct GroupRelationships {
 - (void)setRemovedValue:(BOOL)value_;
 
 //- (BOOL)validateRemoved:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* unreadMessagesCount;
+
+@property (atomic) int16_t unreadMessagesCountValue;
+- (int16_t)unreadMessagesCountValue;
+- (void)setUnreadMessagesCountValue:(int16_t)value_;
+
+//- (BOOL)validateUnreadMessagesCount:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSSet *members;
 
@@ -133,6 +142,12 @@ extern const struct GroupRelationships {
 
 - (BOOL)primitiveRemovedValue;
 - (void)setPrimitiveRemovedValue:(BOOL)value_;
+
+- (NSNumber*)primitiveUnreadMessagesCount;
+- (void)setPrimitiveUnreadMessagesCount:(NSNumber*)value;
+
+- (int16_t)primitiveUnreadMessagesCountValue;
+- (void)setPrimitiveUnreadMessagesCountValue:(int16_t)value_;
 
 - (NSMutableSet*)primitiveMembers;
 - (void)setPrimitiveMembers:(NSMutableSet*)value;

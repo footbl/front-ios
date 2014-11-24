@@ -324,6 +324,10 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     
     NSIndexPath *lastVisibleCellIndexPath = [self.tableView indexPathForCell:self.tableView.visibleCells.lastObject];
     
+    if (shouldReload) {
+        [Message markAsReadFromGroup:self.group success:nil failure:nil];
+    }
+    
     if (self.hasCreatedMessage || ([self.tableView numberOfRowsInSection:lastVisibleCellIndexPath.section] - lastVisibleCellIndexPath.row <= 2 && shouldReload)) {
         [self scrollToLastMessageAnimated:YES];
         self.createdMessage = NO;
@@ -395,6 +399,8 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     [self.headerView addSubview:nextPageButton];
     
     [self reloadViewsAnimated:NO];
+    
+    [Message markAsReadFromGroup:self.group success:nil failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -420,6 +426,7 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (self.navigationController.viewControllers.count == 1) {
+        self.fetchedResultsController = nil;
         [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:nil failure:nil];
     }
 }

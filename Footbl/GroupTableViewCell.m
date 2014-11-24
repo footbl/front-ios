@@ -34,6 +34,16 @@
         self.groupImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.groupImageView];
         
+        self.unreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(81, 56, 24, 24)];
+        self.unreadCountLabel.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+        self.unreadCountLabel.layer.cornerRadius = self.unreadCountLabel.frameHeight / 2;
+        self.unreadCountLabel.clipsToBounds = YES;
+        self.unreadCountLabel.textColor = [UIColor whiteColor];
+        self.unreadCountLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:13];
+        self.unreadCountLabel.textAlignment = NSTextAlignmentCenter;
+        self.unreadCountLabel.hidden = YES;
+        [self.contentView addSubview:self.unreadCountLabel];
+        
         /*
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(107, 19, 220, 22)];
         */
@@ -75,11 +85,28 @@
     return self;
 }
 
+- (void)setUnreadCount:(NSNumber *)number {
+    if (number.integerValue <= 0) {
+        self.unreadCountLabel.hidden = YES;
+        return;
+    }
+    
+    self.unreadCountLabel.hidden = NO;
+    if (number.integerValue >= 20) {
+        self.unreadCountLabel.font = [UIFont fontWithName:self.unreadCountLabel.font.familyName size:10];
+        self.unreadCountLabel.text = @"20+";
+    } else {
+        self.unreadCountLabel.font = [UIFont fontWithName:self.unreadCountLabel.font.familyName size:13];
+        self.unreadCountLabel.text = number.stringValue;
+    }
+}
+
 - (void)setIndicatorHidden:(BOOL)hidden animated:(BOOL)animated {
     CGFloat paddingLeft = hidden ? 0 : 13;
     self.indicatorView.alpha = !hidden;
     
     self.groupImageView.frameX = 18 + paddingLeft;
+    self.unreadCountLabel.frameX = 56 + paddingLeft;
     self.nameLabel.frameX = 94 + paddingLeft;
     self.championshipLabel.frameX = self.nameLabel.frameX;
     self.roundsLabel.frameX = self.nameLabel.frameX;
@@ -89,6 +116,7 @@
     [super setHighlighted:highlighted animated:animated];
     
     self.indicatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.6];
+    self.unreadCountLabel.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

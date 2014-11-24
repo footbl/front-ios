@@ -52,9 +52,13 @@
 }
 
 + (void)markAsReadFromGroup:(Group *)group success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[FTOperationManager sharedManager] GET:[[[self class] resourcePathWithObject:group] stringByAppendingPathComponent:@"all/mark-as-read"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[FTOperationManager sharedManager] PUT:[[[self class] resourcePathWithObject:group] stringByAppendingPathComponent:@"all/mark-as-read"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[FTCoreDataStore privateQueueContext] performBlock:^{
+            group.editableObject.unreadMessagesCount = @0;
+            [[FTCoreDataStore privateQueueContext] performSave];
+        }];
         if (success) success(nil);
-    } failure:failure];
+    } failure:nil];
 }
 
 + (void)createWithParameters:(NSDictionary *)parameters success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
@@ -75,24 +79,26 @@
     }];
     
     NSString *path = [self resourcePathWithObject:group];
-    [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[FTCoreDataStore privateQueueContext] performBlock:^{
-            message.rid = responseObject[kFTResponseParamIdentifier];
-            message.slug = responseObject[kFTResponseParamIdentifier];
-            [message updateWithData:responseObject];
-            [[FTCoreDataStore privateQueueContext] performSave];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (success) success(message);
-            });
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
+        [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                message.rid = responseObject[kFTResponseParamIdentifier];
+                message.slug = responseObject[kFTResponseParamIdentifier];
+                [message updateWithData:responseObject];
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (success) success(message);
+                });
+            }];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                [[FTCoreDataStore privateQueueContext] deleteObject:message];
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (failure) failure(operation, error);
+                });
+            }];
         }];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       [[FTCoreDataStore privateQueueContext] performBlock:^{
-           [[FTCoreDataStore privateQueueContext] deleteObject:message];
-           [[FTCoreDataStore privateQueueContext] performSave];
-           dispatch_async(dispatch_get_main_queue(), ^{
-               if (failure) failure(operation, error);
-           });
-       }];
     }];
 }
 
@@ -102,11 +108,13 @@
         NSString *groupSlug = [[[[notification objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"loc-args"] lastObject];
         Group *group = [Group findWithObject:groupSlug inContext:[FTCoreDataStore privateQueueContext]];
         Message *lastMessage = [group.messages sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]]].firstObject;
-        [Message getWithGroup:group page:0 shouldDeleteUntouchedObjects:NO success:^(NSArray *messages) {
-            NSSet *newMessages = [group.messages filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"createdAt > %@ AND user.slug != %@", lastMessage.createdAt, [User currentUser].slug]];
-            if (newMessages.count > 0) {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            }
+        [group getUnreadMessageCountWithSuccess:^(id response) {
+            [Message getWithGroup:group page:0 shouldDeleteUntouchedObjects:NO success:^(NSArray *messages) {
+                NSSet *newMessages = [group.messages filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"createdAt > %@ AND user.slug != %@", lastMessage.createdAt, [User currentUser].slug]];
+                if (newMessages.count > 0) {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }
+            } failure:nil];
         } failure:nil];
     }
 }

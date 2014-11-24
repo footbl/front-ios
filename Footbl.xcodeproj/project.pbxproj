@@ -434,6 +434,9 @@
 		EDA4BBEF1A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
 		EDA4BBF01A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
 		EDA4BBF11A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
+		EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
+		EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
+		EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDB1D48418E1F18B00E0C949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D48318E1F18B00E0C949 /* XCTest.framework */; };
 		EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -687,6 +690,8 @@
 		EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		EDA4BBED1A2269C700A41004 /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
 		EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
+		EDA4BBF21A22C17C00A41004 /* ChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHelper.h; sourceTree = "<group>"; };
+		EDA4BBF31A22C17C00A41004 /* ChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatHelper.m; sourceTree = "<group>"; };
 		EDAE5BBF1917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMemberTableViewCell.h; sourceTree = "<group>"; };
 		EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMemberTableViewCell.m; sourceTree = "<group>"; };
 		EDAF0E9B191AB8FE005218FB /* NSString+Validations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Validations.h"; sourceTree = "<group>"; };
@@ -1440,6 +1445,8 @@
 		EDB9C6E9192A88F6002A913D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EDA4BBF21A22C17C00A41004 /* ChatHelper.h */,
+				EDA4BBF31A22C17C00A41004 /* ChatHelper.m */,
 				EDDCF257193540870090D06D /* ErrorHandler.h */,
 				EDDCF258193540870090D06D /* ErrorHandler.m */,
 				EDD6711C19229E2400985174 /* FriendsHelper.h */,
@@ -1973,6 +1980,7 @@
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
 				ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */,
 				ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */,
+				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
 				ED785A03199D0C62002A4DBD /* Bet.m in Sources */,
 				ED785A84199DA5D7002A4DBD /* _Entry.m in Sources */,
@@ -2099,6 +2107,7 @@
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				ED8DB3AB1A14C95C00605CCE /* Bet.m in Sources */,
+				EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED8DB3AC1A14C95C00605CCE /* _Entry.m in Sources */,
 				ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */,
 				ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */,
@@ -2225,6 +2234,7 @@
 				ED97AF801A14C7E40079ADB4 /* TransfersViewController.m in Sources */,
 				ED97AF811A14C7E40079ADB4 /* AuthenticationViewController.m in Sources */,
 				ED97AF821A14C7E40079ADB4 /* Bet.m in Sources */,
+				EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED97AF831A14C7E40079ADB4 /* _Entry.m in Sources */,
 				ED97AF841A14C7E40079ADB4 /* GroupChampionshipsViewController.m in Sources */,
 				ED97AF851A14C7E40079ADB4 /* TweaksHelper.m in Sources */,

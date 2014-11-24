@@ -100,12 +100,28 @@
     
     self.owner = [User findOrCreateWithObject:data[@"owner"] inContext:self.managedObjectContext];
     
+    [self getUnreadMessageCountWithSuccess:nil failure:nil];
+    
     NSDictionary *localDatabase = [[NSUserDefaults standardUserDefaults] objectForKey:@"groups"];
     if (self.isNewValue) {
         if (localDatabase[self.rid]) {
             self.isNew = localDatabase[self.rid];
         }
     }
+}
+
+- (void)getUnreadMessageCountWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure; {
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired | FTRequestOptionGroupRequests operations:^{
+        [[FTOperationManager sharedManager] GET:[self.resourcePath stringByAppendingPathComponent:@"messages"] parameters:@{@"unreadMessages" : @(YES)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+               self.editableObject.unreadMessagesCount = @([responseObject count]);
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (success) success(self);
+                });
+            }];
+        } failure:failure];
+    }];
 }
 
 - (void)addMembers:(NSArray *)members success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

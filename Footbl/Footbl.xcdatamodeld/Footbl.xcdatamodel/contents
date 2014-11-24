@@ -47,6 +47,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="unreadMessagesCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="group" inverseEntity="Membership" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="group" inverseEntity="Message" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="ownedGroups" inverseEntity="User" syncable="YES"/>
@@ -125,12 +126,12 @@
         <element name="CreditRequest" positionX="9" positionY="180" width="128" height="120"/>
         <element name="Entry" positionX="18" positionY="189" width="128" height="58"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
-        <element name="Group" positionX="-36" positionY="108" width="128" height="178"/>
+        <element name="Group" positionX="-36" positionY="108" width="128" height="195"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
+        <element name="Message" positionX="-27" positionY="135" width="128" height="103"/>
         <element name="Prize" positionX="-27" positionY="135" width="128" height="90"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
         <element name="User" positionX="-27" positionY="117" width="128" height="403"/>
-        <element name="Message" positionX="-27" positionY="135" width="128" height="103"/>
     </elements>
 </model>

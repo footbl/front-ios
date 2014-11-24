@@ -15,6 +15,7 @@
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
+#import "ChatHelper.h"
 #import "FriendsHelper.h"
 #import "FootblTabBarController.h"
 #import "Group.h"
@@ -158,6 +159,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [ChatHelper sharedHelper].tabBarItem = self.footblTabBarController.tabBar.items.firstObject;
+    [[ChatHelper sharedHelper] fetchUnreadMessages];
     [SPNotifier resetBadge];
 }
 
