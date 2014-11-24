@@ -74,7 +74,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     NSNumber *unreadCount = self.unreadCount;
     if (unreadCount.integerValue == 0) {
-        self.tabBarItem.badgeValue = @"";
+        self.tabBarItem.badgeValue = nil;
     } else {
         self.tabBarItem.badgeValue = unreadCount.stringValue;
     }
