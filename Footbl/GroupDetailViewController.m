@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 @end
 
 #define GROUP_CHAT_ENABLED FBTweakValue(@"UX", @"Group", @"Chat", NO)
-#define AROUND_ME_ENABLED FBTweakValue(@"UX", @"Group", @"Around me ranking", YES)
+#define AROUND_ME_ENABLED FBTweakValue(@"UX", @"Group", @"Around me ranking", NO)
 
 #pragma mark GroupDetailViewController
 
