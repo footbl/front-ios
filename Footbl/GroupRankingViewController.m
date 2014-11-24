@@ -61,7 +61,6 @@
     return _fetchedResultsController;
 }
 
-
 #pragma mark - Instance Methods
 
 - (NSTimeInterval)updateInterval {
