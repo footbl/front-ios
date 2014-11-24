@@ -322,6 +322,14 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     [self setValue:nil forKey:@"deletedRowIndexPaths"];
     [self setValue:nil forKey:@"updatedRowIndexPaths"];
     
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        self.placeholderLabel.hidden = NO;
+        self.tableView.hidden = YES;
+    } else {
+        self.placeholderLabel.hidden = YES;
+        self.tableView.hidden = NO;
+    }
+    
     NSIndexPath *lastVisibleCellIndexPath = [self.tableView indexPathForCell:self.tableView.visibleCells.lastObject];
     
     if (shouldReload) {
@@ -355,6 +363,16 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
     [self.tableView registerClass:[ChatTableViewCell class] forCellReuseIdentifier:@"ChatCell"];
     [self.view addSubview:self.tableView];
+    
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
+    self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
+    self.placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
+    self.placeholderLabel.textAlignment = NSTextAlignmentCenter;
+    self.placeholderLabel.text = NSLocalizedString(@"Chat placeholder", @"");
+    self.placeholderLabel.numberOfLines = 0;
+    self.placeholderLabel.hidden = YES;
+    [self.view addSubview:self.placeholderLabel];
     
     self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 97, self.view.frameWidth, 49)];
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -405,6 +423,11 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        self.placeholderLabel.hidden = NO;
+        self.tableView.hidden = YES;
+    }
     
     if (self.shouldScrollToBottom) {
         [self scrollToLastMessageAnimated:NO];

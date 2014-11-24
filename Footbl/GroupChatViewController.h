@@ -21,5 +21,6 @@
 @property (strong, nonatomic) UIButton *sendButton;
 @property (strong, nonatomic) UITextView *messageTextView;
 @property (strong, nonatomic) UIView *messageBorderView;
+@property (strong, nonatomic) UILabel *placeholderLabel;
 
 @end
