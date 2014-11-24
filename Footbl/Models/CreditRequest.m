@@ -16,7 +16,7 @@
 #pragma mark - Class Methods
 
 + (NSArray *)enabledProperties {
-    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"payed", @"value"]];
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"payed"]];
 }
 
 + (NSString *)resourcePath {
