@@ -131,7 +131,7 @@
         return;
     }
     
-    if (!self.user.isMeValue) {
+    if (!self.user.isMeValue || !self.shouldShowSettings) {
         self.bets = [self.user.bets sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"match.date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"match.rid" ascending:NO]]];
         self.bets = [self.bets subarrayWithRange:NSMakeRange(0, MIN(self.bets.count, MAX(1, self.nextPage.integerValue) * 20))];
     }
