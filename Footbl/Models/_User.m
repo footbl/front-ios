@@ -28,10 +28,9 @@ const struct UserRelationships UserRelationships = {
 	.fanByUsers = @"fanByUsers",
 	.fanOfUsers = @"fanOfUsers",
 	.memberships = @"memberships",
+	.messages = @"messages",
 	.ownedGroups = @"ownedGroups",
-};
-
-const struct UserFetchedProperties UserFetchedProperties = {
+	.prizes = @"prizes",
 };
 
 @implementation UserID
@@ -59,7 +58,7 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"featuredValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"featured"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -109,26 +108,11 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic about;
-
-
-
-
-
 
 @dynamic email;
 
-
-
-
-
-
 @dynamic featured;
-
-
 
 - (BOOL)featuredValue {
 	NSNumber *result = [self featured];
@@ -148,13 +132,7 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveFeatured:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic funds;
-
-
 
 - (float)fundsValue {
 	NSNumber *result = [self funds];
@@ -174,20 +152,9 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveFunds:[NSNumber numberWithFloat:value_]];
 }
 
-
-
-
-
 @dynamic history;
 
-
-
-
-
-
 @dynamic isMe;
-
-
 
 - (BOOL)isMeValue {
 	NSNumber *result = [self isMe];
@@ -207,20 +174,9 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveIsMe:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic name;
 
-
-
-
-
-
 @dynamic numberOfFans;
-
-
 
 - (int64_t)numberOfFansValue {
 	NSNumber *result = [self numberOfFans];
@@ -240,13 +196,7 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveNumberOfFans:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic numberOfLeagues;
-
-
 
 - (int64_t)numberOfLeaguesValue {
 	NSNumber *result = [self numberOfLeagues];
@@ -266,20 +216,9 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveNumberOfLeagues:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic picture;
 
-
-
-
-
-
 @dynamic previousRanking;
-
-
 
 - (int64_t)previousRankingValue {
 	NSNumber *result = [self previousRanking];
@@ -299,13 +238,7 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitivePreviousRanking:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic ranking;
-
-
 
 - (int64_t)rankingValue {
 	NSNumber *result = [self ranking];
@@ -325,13 +258,7 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveRanking:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic stake;
-
-
 
 - (int64_t)stakeValue {
 	NSNumber *result = [self stake];
@@ -351,20 +278,9 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveStake:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic username;
 
-
-
-
-
-
 @dynamic verified;
-
-
 
 - (BOOL)verifiedValue {
 	NSNumber *result = [self verified];
@@ -384,95 +300,95 @@ const struct UserFetchedProperties UserFetchedProperties = {
 	[self setPrimitiveVerified:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic bets;
 
-	
 - (NSMutableSet*)betsSet {
 	[self willAccessValueForKey:@"bets"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"bets"];
-  
+
 	[self didAccessValueForKey:@"bets"];
 	return result;
 }
-	
 
 @dynamic chargeRequests;
 
-	
-
 @dynamic creditRequests;
 
-	
 - (NSMutableSet*)creditRequestsSet {
 	[self willAccessValueForKey:@"creditRequests"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"creditRequests"];
-  
+
 	[self didAccessValueForKey:@"creditRequests"];
 	return result;
 }
-	
 
 @dynamic fanByUsers;
 
-	
 - (NSMutableSet*)fanByUsersSet {
 	[self willAccessValueForKey:@"fanByUsers"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"fanByUsers"];
-  
+
 	[self didAccessValueForKey:@"fanByUsers"];
 	return result;
 }
-	
 
 @dynamic fanOfUsers;
 
-	
 - (NSMutableSet*)fanOfUsersSet {
 	[self willAccessValueForKey:@"fanOfUsers"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"fanOfUsers"];
-  
+
 	[self didAccessValueForKey:@"fanOfUsers"];
 	return result;
 }
-	
 
 @dynamic memberships;
 
-	
 - (NSMutableSet*)membershipsSet {
 	[self willAccessValueForKey:@"memberships"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"memberships"];
-  
+
 	[self didAccessValueForKey:@"memberships"];
 	return result;
 }
-	
+
+@dynamic messages;
+
+- (NSMutableSet*)messagesSet {
+	[self willAccessValueForKey:@"messages"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"messages"];
+
+	[self didAccessValueForKey:@"messages"];
+	return result;
+}
 
 @dynamic ownedGroups;
 
-	
 - (NSMutableSet*)ownedGroupsSet {
 	[self willAccessValueForKey:@"ownedGroups"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"ownedGroups"];
-  
+
 	[self didAccessValueForKey:@"ownedGroups"];
 	return result;
 }
-	
 
+@dynamic prizes;
 
+- (NSMutableSet*)prizesSet {
+	[self willAccessValueForKey:@"prizes"];
 
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"prizes"];
 
-
+	[self didAccessValueForKey:@"prizes"];
+	return result;
+}
 
 @end
+

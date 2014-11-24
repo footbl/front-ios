@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C68k" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Bet" representedClassName="Bet" parentEntity="FTModel" syncable="YES">
         <attribute name="bid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="result" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -48,6 +48,7 @@
         <attribute name="picture" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="group" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="group" inverseEntity="Message" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="ownedGroups" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Match" representedClassName="Match" parentEntity="FTModel" syncable="YES">
@@ -73,6 +74,12 @@
         <attribute name="ranking" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="memberships" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" parentEntity="FTModel" syncable="YES">
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="messages" inverseEntity="Group" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="messages" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Prize" representedClassName="Prize" parentEntity="FTModel" syncable="YES">
         <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
@@ -108,6 +115,7 @@
         <relationship name="fanByUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fanOfUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="fanOfUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="fanByUsers" inverseEntity="User" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Membership" inverseName="user" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
         <relationship name="ownedGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="owner" inverseEntity="Group" syncable="YES"/>
         <relationship name="prizes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Prize" inverseName="user" inverseEntity="Prize" syncable="YES"/>
     </entity>
@@ -117,11 +125,12 @@
         <element name="CreditRequest" positionX="9" positionY="180" width="128" height="120"/>
         <element name="Entry" positionX="18" positionY="189" width="128" height="58"/>
         <element name="FTModel" positionX="-36" positionY="135" width="128" height="103"/>
-        <element name="Group" positionX="-36" positionY="108" width="128" height="165"/>
+        <element name="Group" positionX="-36" positionY="108" width="128" height="178"/>
         <element name="Match" positionX="-54" positionY="-9" width="128" height="270"/>
         <element name="Membership" positionX="-18" positionY="126" width="128" height="118"/>
         <element name="Prize" positionX="-27" positionY="135" width="128" height="90"/>
         <element name="Team" positionX="-36" positionY="9" width="128" height="120"/>
-        <element name="User" positionX="-27" positionY="117" width="128" height="390"/>
+        <element name="User" positionX="-27" positionY="117" width="128" height="403"/>
+        <element name="Message" positionX="-27" positionY="135" width="128" height="103"/>
     </elements>
 </model>

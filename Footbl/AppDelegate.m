@@ -20,6 +20,7 @@
 #import "Group.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
+#import "Message.h"
 #import "TutorialViewController.h"
 #import "RatingHelper.h"
 #import "SDImageCache+ShippedCache.h"
@@ -202,6 +203,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [SPNotifier handleNotification:userInfo];
+    [Message handleRemoteNotification:userInfo];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

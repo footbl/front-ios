@@ -14,10 +14,8 @@ const struct GroupAttributes GroupAttributes = {
 
 const struct GroupRelationships GroupRelationships = {
 	.members = @"members",
+	.messages = @"messages",
 	.owner = @"owner",
-};
-
-const struct GroupFetchedProperties GroupFetchedProperties = {
 };
 
 @implementation GroupID
@@ -45,7 +43,7 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"freeToEditValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"freeToEdit"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -70,12 +68,7 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic freeToEdit;
-
-
 
 - (BOOL)freeToEditValue {
 	NSNumber *result = [self freeToEdit];
@@ -95,13 +88,7 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	[self setPrimitiveFreeToEdit:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic isDefault;
-
-
 
 - (BOOL)isDefaultValue {
 	NSNumber *result = [self isDefault];
@@ -121,13 +108,7 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	[self setPrimitiveIsDefault:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic isNew;
-
-
 
 - (BOOL)isNewValue {
 	NSNumber *result = [self isNew];
@@ -147,27 +128,11 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	[self setPrimitiveIsNew:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic name;
-
-
-
-
-
 
 @dynamic picture;
 
-
-
-
-
-
 @dynamic removed;
-
-
 
 - (BOOL)removedValue {
 	NSNumber *result = [self removed];
@@ -187,30 +152,29 @@ const struct GroupFetchedProperties GroupFetchedProperties = {
 	[self setPrimitiveRemoved:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic members;
 
-	
 - (NSMutableSet*)membersSet {
 	[self willAccessValueForKey:@"members"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"members"];
-  
+
 	[self didAccessValueForKey:@"members"];
 	return result;
 }
-	
+
+@dynamic messages;
+
+- (NSMutableSet*)messagesSet {
+	[self willAccessValueForKey:@"messages"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"messages"];
+
+	[self didAccessValueForKey:@"messages"];
+	return result;
+}
 
 @dynamic owner;
 
-	
-
-
-
-
-
-
 @end
+

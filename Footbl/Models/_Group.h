@@ -15,130 +15,78 @@ extern const struct GroupAttributes {
 
 extern const struct GroupRelationships {
 	__unsafe_unretained NSString *members;
+	__unsafe_unretained NSString *messages;
 	__unsafe_unretained NSString *owner;
 } GroupRelationships;
 
-extern const struct GroupFetchedProperties {
-} GroupFetchedProperties;
-
 @class Membership;
+@class Message;
 @class User;
 
-
-
-
-
-
-
-
-@interface GroupID : NSManagedObjectID {}
+@interface GroupID : FTModelID {}
 @end
 
 @interface _Group : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (GroupID*)objectID;
-
-
-
-
+@property (nonatomic, readonly, strong) GroupID* objectID;
 
 @property (nonatomic, strong) NSNumber* freeToEdit;
 
-
-
-@property BOOL freeToEditValue;
+@property (atomic) BOOL freeToEditValue;
 - (BOOL)freeToEditValue;
 - (void)setFreeToEditValue:(BOOL)value_;
 
 //- (BOOL)validateFreeToEdit:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSNumber* isDefault;
 
-
-
-@property BOOL isDefaultValue;
+@property (atomic) BOOL isDefaultValue;
 - (BOOL)isDefaultValue;
 - (void)setIsDefaultValue:(BOOL)value_;
 
 //- (BOOL)validateIsDefault:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSNumber* isNew;
 
-
-
-@property BOOL isNewValue;
+@property (atomic) BOOL isNewValue;
 - (BOOL)isNewValue;
 - (void)setIsNewValue:(BOOL)value_;
 
 //- (BOOL)validateIsNew:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSString* name;
-
-
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSString* picture;
-
-
 
 //- (BOOL)validatePicture:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSNumber* removed;
 
-
-
-@property BOOL removedValue;
+@property (atomic) BOOL removedValue;
 - (BOOL)removedValue;
 - (void)setRemovedValue:(BOOL)value_;
 
 //- (BOOL)validateRemoved:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSSet *members;
 
 - (NSMutableSet*)membersSet;
 
+@property (nonatomic, strong) NSSet *messages;
 
-
+- (NSMutableSet*)messagesSet;
 
 @property (nonatomic, strong) User *owner;
 
 //- (BOOL)validateOwner:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @end
 
-@interface _Group (CoreDataGeneratedAccessors)
-
+@interface _Group (MembersCoreDataGeneratedAccessors)
 - (void)addMembers:(NSSet*)value_;
 - (void)removeMembers:(NSSet*)value_;
 - (void)addMembersObject:(Membership*)value_;
@@ -146,8 +94,15 @@ extern const struct GroupFetchedProperties {
 
 @end
 
-@interface _Group (CoreDataGeneratedPrimitiveAccessors)
+@interface _Group (MessagesCoreDataGeneratedAccessors)
+- (void)addMessages:(NSSet*)value_;
+- (void)removeMessages:(NSSet*)value_;
+- (void)addMessagesObject:(Message*)value_;
+- (void)removeMessagesObject:(Message*)value_;
 
+@end
+
+@interface _Group (CoreDataGeneratedPrimitiveAccessors)
 
 - (NSNumber*)primitiveFreeToEdit;
 - (void)setPrimitiveFreeToEdit:(NSNumber*)value;
@@ -155,17 +110,11 @@ extern const struct GroupFetchedProperties {
 - (BOOL)primitiveFreeToEditValue;
 - (void)setPrimitiveFreeToEditValue:(BOOL)value_;
 
-
-
-
 - (NSNumber*)primitiveIsDefault;
 - (void)setPrimitiveIsDefault:(NSNumber*)value;
 
 - (BOOL)primitiveIsDefaultValue;
 - (void)setPrimitiveIsDefaultValue:(BOOL)value_;
-
-
-
 
 - (NSNumber*)primitiveIsNew;
 - (void)setPrimitiveIsNew:(NSNumber*)value;
@@ -173,20 +122,11 @@ extern const struct GroupFetchedProperties {
 - (BOOL)primitiveIsNewValue;
 - (void)setPrimitiveIsNewValue:(BOOL)value_;
 
-
-
-
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;
 
-
-
-
 - (NSString*)primitivePicture;
 - (void)setPrimitivePicture:(NSString*)value;
-
-
-
 
 - (NSNumber*)primitiveRemoved;
 - (void)setPrimitiveRemoved:(NSNumber*)value;
@@ -194,17 +134,13 @@ extern const struct GroupFetchedProperties {
 - (BOOL)primitiveRemovedValue;
 - (void)setPrimitiveRemovedValue:(BOOL)value_;
 
-
-
-
-
 - (NSMutableSet*)primitiveMembers;
 - (void)setPrimitiveMembers:(NSMutableSet*)value;
 
-
+- (NSMutableSet*)primitiveMessages;
+- (void)setPrimitiveMessages:(NSMutableSet*)value;
 
 - (User*)primitiveOwner;
 - (void)setPrimitiveOwner:(User*)value;
-
 
 @end

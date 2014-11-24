@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) Group *group;
 @property (strong, nonatomic) UIButton *rightNavigationBarButton;
+@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 
 @end
