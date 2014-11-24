@@ -44,6 +44,12 @@
     return [[[self class] resourcePathWithObject:self.user] stringByAppendingPathComponent:self.slug];
 }
 
+- (void)updateWithData:(NSDictionary *)data {
+    [super updateWithData:data];
+    
+    self.typeString = data[@"type"];
+}
+
 - (void)markAsReadWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] PUT:[self.resourcePath stringByAppendingPathComponent:@"mark-as-read"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.user.editableObject getWithSuccess:^(id response) {
