@@ -23,6 +23,7 @@
 @property (assign, nonatomic, getter=hasCreatedMessage) BOOL createdMessage;
 @property (strong, nonatomic) NSNumber *nextPage;
 @property (assign, nonatomic) BOOL shouldScrollToBottom;
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -31,6 +32,7 @@
 @implementation GroupChatViewController
 
 static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
+static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 #pragma mark - Class Methods
 
@@ -155,6 +157,14 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     } else {
         [cell setProfileName:message.user.name message:message.message pictureURL:[NSURL URLWithString:message.user.picture] date:message.createdAt shouldUseRightAlignment:message.user.isMeValue];
     }
+}
+
+- (void)timerReloadData {
+    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:^(NSNumber *nextPage) {
+        self.nextPage = nextPage;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
 }
 
 - (void)reloadData {
@@ -433,6 +443,8 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     [self reloadViewsAnimated:NO];
     
     [Message markAsReadFromGroup:self.group success:nil failure:nil];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:kChatForceUpdateTimeInterval target:self selector:@selector(timerReloadData) userInfo:nil repeats:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -464,6 +476,8 @@ static NSUInteger const kChatSectionMaximumTimeInterval = 60 * 30;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (self.navigationController.viewControllers.count == 1) {
         self.fetchedResultsController = nil;
+        [self.timer invalidate];
+        self.timer = nil;
         [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:nil failure:nil];
     }
 }
