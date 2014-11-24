@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) UILabel *walletLabel;
 @property (strong, nonatomic) UILabel *stakeLabel;
+@property (strong, nonatomic) UILabel *hintLabel;
 @property (strong, nonatomic) UIButton *sendButton;
 @property (strong, nonatomic) UITableView *tableView;
 

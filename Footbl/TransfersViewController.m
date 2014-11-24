@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/UIView+Frame.h>
 #import "CreditRequest.h"
 #import "FootblTabBarController.h"
 #import "FriendsHelper.h"
@@ -82,6 +83,8 @@
             self.sendButton.hidden = YES;
             break;
     }
+    
+    [self reloadWallet];
 }
 
 - (IBAction)sendMoneyAction:(id)sender {
@@ -142,6 +145,19 @@
     [self setupLabels];
     
     self.sendButton.enabled = (self.pendingTransfers.count > 0);
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+            self.hintLabel.text = NSLocalizedString(@"No friends asked you for cash", @"");
+        } else {
+            self.hintLabel.text = NSLocalizedString(@"These friends need some cash:", @"");
+        }
+    } else {
+        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+            self.hintLabel.text = NSLocalizedString(@"No friends sent you cash", @"");
+        } else {
+            self.hintLabel.text = NSLocalizedString(@"These friends sent you some cash (✓):", @"");
+        }
+    }
 }
 
 - (void)reloadData {
@@ -264,6 +280,14 @@
     [self reloadWallet];
 }
 
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [super controllerDidChangeContent:controller];
+    
+    [self reloadWallet];
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
@@ -275,7 +299,8 @@
     
     self.pendingTransfers = [NSMutableArray new];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 100)];
+    CGFloat hintHeight = 30;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 100 + hintHeight)];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerView.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
     [self.view addSubview:headerView];
@@ -288,15 +313,26 @@
     [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
     [headerView addSubview:self.segmentedControl];
     
-    self.walletLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.segmentedControl.frame) + 8, CGRectGetWidth(self.view.frame) / 2, CGRectGetHeight(headerView.frame) - CGRectGetMaxY(self.segmentedControl.frame))];
+    self.walletLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.segmentedControl.frame) + 8, CGRectGetWidth(self.view.frame) / 2, CGRectGetHeight(headerView.frame) - CGRectGetMaxY(self.segmentedControl.frame) - hintHeight)];
     self.walletLabel.numberOfLines = 2;
     [headerView addSubview:self.walletLabel];
     
-    self.stakeLabel = [[UILabel alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame) / 2) - 5, CGRectGetMaxY(self.segmentedControl.frame) + 8, CGRectGetWidth(self.view.frame) / 2, CGRectGetHeight(headerView.frame) - CGRectGetMaxY(self.segmentedControl.frame))];
+    self.stakeLabel = [[UILabel alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame) / 2) - 5, CGRectGetMaxY(self.segmentedControl.frame) + 8, CGRectGetWidth(self.view.frame) / 2, CGRectGetHeight(headerView.frame) - CGRectGetMaxY(self.segmentedControl.frame) - hintHeight)];
     self.stakeLabel.numberOfLines = 2;
     [headerView addSubview:self.stakeLabel];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(headerView.frame) - 0.5, CGRectGetWidth(self.view.frame), 0.5)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(headerView.frame) - hintHeight - 0.5, CGRectGetWidth(self.view.frame), 0.5)];
+    separatorView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1];
+    separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [headerView addSubview:separatorView];
+    
+    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.frameHeight - hintHeight, headerView.frameWidth, hintHeight)];
+    self.hintLabel.textAlignment = NSTextAlignmentCenter;
+    self.hintLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:14];
+    self.hintLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    [headerView addSubview:self.hintLabel];
+    
+    separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(headerView.frame) - 0.5, CGRectGetWidth(self.view.frame), 0.5)];
     separatorView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1];
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:separatorView];
