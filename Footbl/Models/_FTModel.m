@@ -10,12 +10,6 @@ const struct FTModelAttributes FTModelAttributes = {
 	.updatedAt = @"updatedAt",
 };
 
-const struct FTModelRelationships FTModelRelationships = {
-};
-
-const struct FTModelFetchedProperties FTModelFetchedProperties = {
-};
-
 @implementation FTModelID
 @end
 
@@ -41,45 +35,17 @@ const struct FTModelFetchedProperties FTModelFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic createdAt;
-
-
-
-
-
 
 @dynamic rid;
 
-
-
-
-
-
 @dynamic slug;
-
-
-
-
-
 
 @dynamic updatedAt;
 
-
-
-
-
-
-
-
-
-
-
 @end
+

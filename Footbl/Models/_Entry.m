@@ -3,14 +3,8 @@
 
 #import "_Entry.h"
 
-const struct EntryAttributes EntryAttributes = {
-};
-
 const struct EntryRelationships EntryRelationships = {
 	.championship = @"championship",
-};
-
-const struct EntryFetchedProperties EntryFetchedProperties = {
 };
 
 @implementation EntryID
@@ -38,21 +32,11 @@ const struct EntryFetchedProperties EntryFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic championship;
 
-	
-
-
-
-
-
-
 @end
+

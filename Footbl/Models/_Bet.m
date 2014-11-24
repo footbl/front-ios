@@ -13,9 +13,6 @@ const struct BetRelationships BetRelationships = {
 	.user = @"user",
 };
 
-const struct BetFetchedProperties BetFetchedProperties = {
-};
-
 @implementation BetID
 @end
 
@@ -41,7 +38,7 @@ const struct BetFetchedProperties BetFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"bidValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"bid"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -56,12 +53,7 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic bid;
-
-
 
 - (int64_t)bidValue {
 	NSNumber *result = [self bid];
@@ -81,13 +73,7 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	[self setPrimitiveBid:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic result;
-
-
 
 - (int64_t)resultValue {
 	NSNumber *result = [self result];
@@ -107,21 +93,9 @@ const struct BetFetchedProperties BetFetchedProperties = {
 	[self setPrimitiveResult:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic match;
-
-	
 
 @dynamic user;
 
-	
-
-
-
-
-
-
 @end
+

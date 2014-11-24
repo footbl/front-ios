@@ -5,6 +5,7 @@
 
 const struct MembershipAttributes MembershipAttributes = {
 	.hasRanking = @"hasRanking",
+	.isLocalRanking = @"isLocalRanking",
 	.previousRanking = @"previousRanking",
 	.ranking = @"ranking",
 };
@@ -12,9 +13,6 @@ const struct MembershipAttributes MembershipAttributes = {
 const struct MembershipRelationships MembershipRelationships = {
 	.group = @"group",
 	.user = @"user",
-};
-
-const struct MembershipFetchedProperties MembershipFetchedProperties = {
 };
 
 @implementation MembershipID
@@ -42,9 +40,14 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"hasRankingValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"hasRanking"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isLocalRankingValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isLocalRanking"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -62,12 +65,7 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic hasRanking;
-
-
 
 - (BOOL)hasRankingValue {
 	NSNumber *result = [self hasRanking];
@@ -87,13 +85,27 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 	[self setPrimitiveHasRanking:[NSNumber numberWithBool:value_]];
 }
 
+@dynamic isLocalRanking;
 
+- (BOOL)isLocalRankingValue {
+	NSNumber *result = [self isLocalRanking];
+	return [result boolValue];
+}
 
+- (void)setIsLocalRankingValue:(BOOL)value_ {
+	[self setIsLocalRanking:[NSNumber numberWithBool:value_]];
+}
 
+- (BOOL)primitiveIsLocalRankingValue {
+	NSNumber *result = [self primitiveIsLocalRanking];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsLocalRankingValue:(BOOL)value_ {
+	[self setPrimitiveIsLocalRanking:[NSNumber numberWithBool:value_]];
+}
 
 @dynamic previousRanking;
-
-
 
 - (int64_t)previousRankingValue {
 	NSNumber *result = [self previousRanking];
@@ -113,13 +125,7 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 	[self setPrimitivePreviousRanking:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic ranking;
-
-
 
 - (int64_t)rankingValue {
 	NSNumber *result = [self ranking];
@@ -139,21 +145,9 @@ const struct MembershipFetchedProperties MembershipFetchedProperties = {
 	[self setPrimitiveRanking:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic group;
-
-	
 
 @dynamic user;
 
-	
-
-
-
-
-
-
 @end
+

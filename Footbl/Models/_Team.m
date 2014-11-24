@@ -14,9 +14,6 @@ const struct TeamRelationships TeamRelationships = {
 	.hostMatches = @"hostMatches",
 };
 
-const struct TeamFetchedProperties TeamFetchedProperties = {
-};
-
 @implementation TeamID
 @end
 
@@ -42,64 +39,37 @@ const struct TeamFetchedProperties TeamFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
 
 	return keyPaths;
 }
 
-
-
-
 @dynamic acronym;
-
-
-
-
-
 
 @dynamic name;
 
-
-
-
-
-
 @dynamic picture;
-
-
-
-
-
 
 @dynamic guestMatches;
 
-	
 - (NSMutableSet*)guestMatchesSet {
 	[self willAccessValueForKey:@"guestMatches"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"guestMatches"];
-  
+
 	[self didAccessValueForKey:@"guestMatches"];
 	return result;
 }
-	
 
 @dynamic hostMatches;
 
-	
 - (NSMutableSet*)hostMatchesSet {
 	[self willAccessValueForKey:@"hostMatches"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"hostMatches"];
-  
+
 	[self didAccessValueForKey:@"hostMatches"];
 	return result;
 }
-	
-
-
-
-
-
 
 @end
+

@@ -4,52 +4,30 @@
 #import <CoreData/CoreData.h>
 #import "FTModel.h"
 
-extern const struct EntryAttributes {
-} EntryAttributes;
-
 extern const struct EntryRelationships {
 	__unsafe_unretained NSString *championship;
 } EntryRelationships;
 
-extern const struct EntryFetchedProperties {
-} EntryFetchedProperties;
-
 @class Championship;
 
-
-@interface EntryID : NSManagedObjectID {}
+@interface EntryID : FTModelID {}
 @end
 
 @interface _Entry : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (EntryID*)objectID;
-
-
-
-
+@property (nonatomic, readonly, strong) EntryID* objectID;
 
 @property (nonatomic, strong) Championship *championship;
 
 //- (BOOL)validateChampionship:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
-@end
-
-@interface _Entry (CoreDataGeneratedAccessors)
-
 @end
 
 @interface _Entry (CoreDataGeneratedPrimitiveAccessors)
 
-
-
 - (Championship*)primitiveChampionship;
 - (void)setPrimitiveChampionship:(Championship*)value;
-
 
 @end

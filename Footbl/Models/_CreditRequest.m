@@ -14,9 +14,6 @@ const struct CreditRequestRelationships CreditRequestRelationships = {
 	.creditedUser = @"creditedUser",
 };
 
-const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
-};
-
 @implementation CreditRequestID
 @end
 
@@ -42,7 +39,7 @@ const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"payedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"payed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -57,19 +54,9 @@ const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic facebookId;
 
-
-
-
-
-
 @dynamic payed;
-
-
 
 - (BOOL)payedValue {
 	NSNumber *result = [self payed];
@@ -89,13 +76,7 @@ const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
 	[self setPrimitivePayed:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic value;
-
-
 
 - (int64_t)valueValue {
 	NSNumber *result = [self value];
@@ -115,21 +96,9 @@ const struct CreditRequestFetchedProperties CreditRequestFetchedProperties = {
 	[self setPrimitiveValue:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic chargedUser;
-
-	
 
 @dynamic creditedUser;
 
-	
-
-
-
-
-
-
 @end
+

@@ -14,79 +14,45 @@ extern const struct BetRelationships {
 	__unsafe_unretained NSString *user;
 } BetRelationships;
 
-extern const struct BetFetchedProperties {
-} BetFetchedProperties;
-
 @class Match;
 @class User;
 
-
-
-
-@interface BetID : NSManagedObjectID {}
+@interface BetID : FTModelID {}
 @end
 
 @interface _Bet : FTModel {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (BetID*)objectID;
-
-
-
-
+@property (nonatomic, readonly, strong) BetID* objectID;
 
 @property (nonatomic, strong) NSNumber* bid;
 
-
-
-@property int64_t bidValue;
+@property (atomic) int64_t bidValue;
 - (int64_t)bidValue;
 - (void)setBidValue:(int64_t)value_;
 
 //- (BOOL)validateBid:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) NSNumber* result;
 
-
-
-@property int64_t resultValue;
+@property (atomic) int64_t resultValue;
 - (int64_t)resultValue;
 - (void)setResultValue:(int64_t)value_;
 
 //- (BOOL)validateResult:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
 @property (nonatomic, strong) Match *match;
 
 //- (BOOL)validateMatch:(id*)value_ error:(NSError**)error_;
-
-
-
 
 @property (nonatomic, strong) User *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
 
-
-
-
-
-@end
-
-@interface _Bet (CoreDataGeneratedAccessors)
-
 @end
 
 @interface _Bet (CoreDataGeneratedPrimitiveAccessors)
-
 
 - (NSNumber*)primitiveBid;
 - (void)setPrimitiveBid:(NSNumber*)value;
@@ -94,26 +60,16 @@ extern const struct BetFetchedProperties {
 - (int64_t)primitiveBidValue;
 - (void)setPrimitiveBidValue:(int64_t)value_;
 
-
-
-
 - (NSNumber*)primitiveResult;
 - (void)setPrimitiveResult:(NSNumber*)value;
 
 - (int64_t)primitiveResultValue;
 - (void)setPrimitiveResultValue:(int64_t)value_;
 
-
-
-
-
 - (Match*)primitiveMatch;
 - (void)setPrimitiveMatch:(Match*)value;
 
-
-
 - (User*)primitiveUser;
 - (void)setPrimitiveUser:(User*)value;
-
 
 @end

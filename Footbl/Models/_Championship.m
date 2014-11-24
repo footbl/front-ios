@@ -20,9 +20,6 @@ const struct ChampionshipRelationships ChampionshipRelationships = {
 	.matches = @"matches",
 };
 
-const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
-};
-
 @implementation ChampionshipID
 @end
 
@@ -48,7 +45,7 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"currentRoundValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"currentRound"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -73,19 +70,9 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic country;
 
-
-
-
-
-
 @dynamic currentRound;
-
-
 
 - (int64_t)currentRoundValue {
 	NSNumber *result = [self currentRound];
@@ -105,20 +92,9 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	[self setPrimitiveCurrentRound:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic displayName;
 
-
-
-
-
-
 @dynamic edition;
-
-
 
 - (int64_t)editionValue {
 	NSNumber *result = [self edition];
@@ -138,13 +114,7 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	[self setPrimitiveEdition:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic enabled;
-
-
 
 - (BOOL)enabledValue {
 	NSNumber *result = [self enabled];
@@ -164,27 +134,11 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	[self setPrimitiveEnabled:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic name;
-
-
-
-
-
 
 @dynamic picture;
 
-
-
-
-
-
 @dynamic rounds;
-
-
 
 - (int64_t)roundsValue {
 	NSNumber *result = [self rounds];
@@ -204,37 +158,20 @@ const struct ChampionshipFetchedProperties ChampionshipFetchedProperties = {
 	[self setPrimitiveRounds:[NSNumber numberWithLongLong:value_]];
 }
 
-
-
-
-
 @dynamic type;
-
-
-
-
-
 
 @dynamic entry;
 
-	
-
 @dynamic matches;
 
-	
 - (NSMutableSet*)matchesSet {
 	[self willAccessValueForKey:@"matches"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"matches"];
-  
+
 	[self didAccessValueForKey:@"matches"];
 	return result;
 }
-	
-
-
-
-
-
 
 @end
+

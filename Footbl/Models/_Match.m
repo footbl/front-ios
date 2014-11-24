@@ -24,9 +24,6 @@ const struct MatchRelationships MatchRelationships = {
 	.host = @"host",
 };
 
-const struct MatchFetchedProperties MatchFetchedProperties = {
-};
-
 @implementation MatchID
 @end
 
@@ -52,7 +49,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
+
 	if ([key isEqualToString:@"elapsedValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"elapsed"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -102,19 +99,9 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	return keyPaths;
 }
 
-
-
-
 @dynamic date;
 
-
-
-
-
-
 @dynamic elapsed;
-
-
 
 - (int32_t)elapsedValue {
 	NSNumber *result = [self elapsed];
@@ -134,13 +121,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveElapsed:[NSNumber numberWithInt:value_]];
 }
 
-
-
-
-
 @dynamic finished;
-
-
 
 - (BOOL)finishedValue {
 	NSNumber *result = [self finished];
@@ -160,13 +141,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveFinished:[NSNumber numberWithBool:value_]];
 }
 
-
-
-
-
 @dynamic guestScore;
-
-
 
 - (int32_t)guestScoreValue {
 	NSNumber *result = [self guestScore];
@@ -186,13 +161,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveGuestScore:[NSNumber numberWithInt:value_]];
 }
 
-
-
-
-
 @dynamic hostScore;
-
-
 
 - (int32_t)hostScoreValue {
 	NSNumber *result = [self hostScore];
@@ -212,13 +181,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveHostScore:[NSNumber numberWithInt:value_]];
 }
 
-
-
-
-
 @dynamic jackpot;
-
-
 
 - (float)jackpotValue {
 	NSNumber *result = [self jackpot];
@@ -238,20 +201,9 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveJackpot:[NSNumber numberWithFloat:value_]];
 }
 
-
-
-
-
 @dynamic localUpdatedAt;
 
-
-
-
-
-
 @dynamic potDraw;
-
-
 
 - (float)potDrawValue {
 	NSNumber *result = [self potDraw];
@@ -271,13 +223,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitivePotDraw:[NSNumber numberWithFloat:value_]];
 }
 
-
-
-
-
 @dynamic potGuest;
-
-
 
 - (float)potGuestValue {
 	NSNumber *result = [self potGuest];
@@ -297,13 +243,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitivePotGuest:[NSNumber numberWithFloat:value_]];
 }
 
-
-
-
-
 @dynamic potHost;
-
-
 
 - (float)potHostValue {
 	NSNumber *result = [self potHost];
@@ -323,13 +263,7 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitivePotHost:[NSNumber numberWithFloat:value_]];
 }
 
-
-
-
-
 @dynamic round;
-
-
 
 - (int32_t)roundValue {
 	NSNumber *result = [self round];
@@ -349,38 +283,22 @@ const struct MatchFetchedProperties MatchFetchedProperties = {
 	[self setPrimitiveRound:[NSNumber numberWithInt:value_]];
 }
 
-
-
-
-
 @dynamic bets;
 
-	
 - (NSMutableSet*)betsSet {
 	[self willAccessValueForKey:@"bets"];
-  
+
 	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"bets"];
-  
+
 	[self didAccessValueForKey:@"bets"];
 	return result;
 }
-	
 
 @dynamic championship;
 
-	
-
 @dynamic guest;
-
-	
 
 @dynamic host;
 
-	
-
-
-
-
-
-
 @end
+
