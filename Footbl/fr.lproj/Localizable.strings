@@ -680,7 +680,7 @@ Do you want to log in instead? */
 "Received from" = "Reçu de";
 
 /* Send $ */
-"Send $" = "Envoyer $";
+"Send $" = "Envoyer ฿";
 
 /* Send to */
 "Send to" = "Envoyer à";
