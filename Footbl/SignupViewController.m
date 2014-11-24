@@ -501,6 +501,7 @@
 
     self.importProfileImageOptionsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 216, self.view.frameWidth, 216)];
     self.importProfileImageOptionsView.backgroundColor = [UIColor colorWithRed:0.92 green:0.97 blue:0.91 alpha:1];
+    self.importProfileImageOptionsView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.importProfileImageOptionsView.hidden = YES;
     [self.view addSubview:self.importProfileImageOptionsView];
     
@@ -553,6 +554,7 @@
     }];
     
     self.profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(85, 97, 150, 150)];
+    self.profileImageButton.centerX = self.view.frameWidth / 2;
     self.profileImageButton.alpha = 0;
     self.profileImageButton.backgroundColor = [UIColor whiteColor];
     self.profileImageButton.layer.cornerRadius = self.profileImageButton.frameHeight / 2;
