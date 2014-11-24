@@ -6,9 +6,26 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		DB5422B61A23146A0047B816 /* Mogenerator */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DB5422B71A23146A0047B816 /* Build configuration list for PBXAggregateTarget "Mogenerator" */;
+			buildPhases = (
+				DB5422BB1A23147E0047B816 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Mogenerator;
+			productName = Mogenerator;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
+		DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
+		DB5422A51A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
+		DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -476,6 +493,8 @@
 		4399DA2FC13F430A6531E3B0 /* Pods-FootblTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.qa.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.qa.xcconfig"; sourceTree = "<group>"; };
 		9957A72B200D668DE7AE441D /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		D5DA4E43BAD48CE7FDAEF76B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		DB5422A21A2302490047B816 /* GroupAroundMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAroundMeViewController.h; sourceTree = "<group>"; };
+		DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAroundMeViewController.m; sourceTree = "<group>"; };
 		E3FB0F8B4A8BE31B250DBC02 /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8AE988B077B17F023861F3D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
@@ -1143,6 +1162,8 @@
 				ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */,
 				EDC5F52119142241005757EB /* GroupDetailViewController.h */,
 				EDC5F52219142241005757EB /* GroupDetailViewController.m */,
+				DB5422A21A2302490047B816 /* GroupAroundMeViewController.h */,
+				DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */,
 				ED904B551A1FC27C00A56BD9 /* GroupRankingViewController.h */,
 				ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */,
 			);
@@ -1585,6 +1606,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "made@sampa";
 				TargetAttributes = {
+					DB5422B61A23146A0047B816 = {
+						CreatedOnToolsVersion = 6.0;
+					};
 					EDB1D48118E1F18B00E0C949 = {
 						TestTargetID = ED7859DE199D0C62002A4DBD;
 					};
@@ -1611,6 +1635,7 @@
 				ED97AF5A1A14C7E40079ADB4 /* Footbl Beta */,
 				ED8DB3831A14C95C00605CCE /* Footbl App Store */,
 				EDB1D48118E1F18B00E0C949 /* FootblTests */,
+				DB5422B61A23146A0047B816 /* Mogenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -1745,6 +1770,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DB5422BB1A23147E0047B816 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mogenerator -m Footbl/Footbl.xcdatamodeld -O Footbl/Models --template-var arc=true";
 		};
 		ED7859E0199D0C62002A4DBD /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1977,6 +2015,7 @@
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
 				ED7859FE199D0C62002A4DBD /* Team.m in Sources */,
 				EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
+				DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
 				ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */,
 				ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */,
@@ -2104,6 +2143,7 @@
 				ED8DB3A61A14C95C00605CCE /* Team.m in Sources */,
 				ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */,
 				ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */,
+				DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				ED8DB3AB1A14C95C00605CCE /* Bet.m in Sources */,
@@ -2231,6 +2271,7 @@
 				ED97AF7D1A14C7E40079ADB4 /* Team.m in Sources */,
 				ED97AF7E1A14C7E40079ADB4 /* EditProfileViewController.m in Sources */,
 				ED97AF7F1A14C7E40079ADB4 /* WhatsAppActivity.m in Sources */,
+				DB5422A51A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED97AF801A14C7E40079ADB4 /* TransfersViewController.m in Sources */,
 				ED97AF811A14C7E40079ADB4 /* AuthenticationViewController.m in Sources */,
 				ED97AF821A14C7E40079ADB4 /* Bet.m in Sources */,
@@ -2509,6 +2550,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DB5422B81A23146A0047B816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DB5422B91A23146A0047B816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DB5422BA1A23146A0047B816 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = QA;
+		};
 		ED785A61199D0C62002A4DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8AE988B077B17F023861F3D /* Pods.debug.xcconfig */;
@@ -2897,6 +2959,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DB5422B71A23146A0047B816 /* Build configuration list for PBXAggregateTarget "Mogenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB5422B81A23146A0047B816 /* Debug */,
+				DB5422B91A23146A0047B816 /* Release */,
+				DB5422BA1A23146A0047B816 /* QA */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

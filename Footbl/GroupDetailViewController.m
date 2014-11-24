@@ -15,17 +15,28 @@
 #import "GroupDetailViewController.h"
 #import "GroupInfoViewController.h"
 #import "GroupRankingViewController.h"
+#import "GroupAroundMeViewController.h"
 
 @interface GroupDetailViewController ()
 
+typedef NS_ENUM(NSUInteger, GroupDetailType) {
+    GroupDetailTypeNone = 0,
+    GroupDetailTypeChat = 1,
+    GroupDetailTypeAroundMe = 2,
+};
+
 @property (strong, nonatomic) GroupRankingViewController *groupRankingViewController;
 @property (strong, nonatomic) GroupChatViewController *groupChatViewController;
+@property (strong, nonatomic) GroupAroundMeViewController *groupAroundMeViewController;
 @property (strong, nonatomic) UIView *segmentedControlBackgroundView;
 @property (strong, nonatomic) UIView *separatorView;
+@property (nonatomic) GroupDetailType groupType;
+@property (nonatomic) GroupDetailContext context;
 
 @end
 
 #define GROUP_CHAT_ENABLED FBTweakValue(@"UX", @"Group", @"Chat", NO)
+#define AROUND_ME_ENABLED FBTweakValue(@"UX", @"Group", @"Around me ranking", YES)
 
 #pragma mark GroupDetailViewController
 
@@ -36,7 +47,7 @@
 #pragma mark - Getters/Setters
 
 - (GroupChatViewController *)groupChatViewController {
-    if (!_groupChatViewController && GROUP_CHAT_ENABLED && !self.group.isDefaultValue) {
+    if (!_groupChatViewController && self.groupType == GroupDetailTypeChat) {
         _groupChatViewController = [GroupChatViewController new];
         _groupChatViewController.group = self.group;
         [self addChildViewController:_groupChatViewController];
@@ -52,6 +63,7 @@
     if (!_groupRankingViewController) {
         _groupRankingViewController = [GroupRankingViewController new];
         _groupRankingViewController.group = self.group;
+        _groupRankingViewController.context = self.context;
         [self addChildViewController:_groupRankingViewController];
         [self.view addSubview:_groupRankingViewController.view];
         [self.view sendSubviewToBack:_groupRankingViewController.view];
@@ -63,6 +75,60 @@
     }
     
     return _groupRankingViewController;
+}
+
+- (GroupAroundMeViewController *)groupAroundMeViewController {
+    if (!_groupAroundMeViewController) {
+        _groupAroundMeViewController = [GroupAroundMeViewController new];
+        _groupAroundMeViewController.group = self.group;
+        _groupAroundMeViewController.context = self.context;
+        [self addChildViewController:_groupAroundMeViewController];
+        [self.view addSubview:_groupAroundMeViewController.view];
+        [self.view sendSubviewToBack:_groupAroundMeViewController.view];
+        _groupAroundMeViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.frameHeight, self.view.frameWidth, self.view.frameHeight - self.segmentedControlBackgroundView.frameHeight);
+    
+    }
+    
+    return _groupAroundMeViewController;
+}
+
+- (GroupDetailType)groupType {
+    if (!self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
+        _groupType = GroupDetailTypeChat;
+    } else if (self.group.isDefaultValue && AROUND_ME_ENABLED) {
+        _groupType = GroupDetailTypeAroundMe;
+    } else {
+        _groupType = GroupDetailTypeNone;
+    }
+    
+    return _groupType;
+}
+
+- (GroupDetailContext)context {
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 0: {
+            if (self.groupType == GroupDetailTypeChat) {
+                _context = GroupDetailContextChat;
+            } else {
+                _context = GroupDetailContextRanking;
+            }
+           break;
+        }
+        case 1: {
+            if (self.groupType == GroupDetailTypeAroundMe) {
+                _context = GroupDetailContextAroundMe;
+            } else {
+                _context = GroupDetailContextRanking;
+            }
+            break;
+        }
+        default: {
+            _context = GroupDetailContextRanking;
+            break;
+        }
+    }
+    
+    return _context;
 }
 
 #pragma mark - Instance Methods
@@ -87,10 +153,16 @@
     self.navigationItem.title = self.group.name;
     [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     
-    if (!self.group.isDefaultValue && self.segmentedControl.selectedSegmentIndex == 0 && GROUP_CHAT_ENABLED) {
+    if (self.context == GroupDetailContextChat) {
+        self.groupAroundMeViewController.view.hidden = YES;
         self.groupChatViewController.view.hidden = NO;
         self.groupRankingViewController.view.hidden = YES;
+    } else if (self.context == GroupDetailContextAroundMe) {
+        self.groupAroundMeViewController.view.hidden = NO;
+        self.groupChatViewController.view.hidden = YES;
+        self.groupRankingViewController.view.hidden = YES;
     } else {
+        self.groupAroundMeViewController.view.hidden = YES;
         self.groupChatViewController.view.hidden = YES;
         self.groupRankingViewController.view.hidden = NO;
     }
@@ -135,8 +207,14 @@
     self.title = self.group.name;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.title style:UIBarButtonItemStylePlain target:nil action:nil];
     
-    if (!self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
-        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Chat", @""), NSLocalizedString(@"Ranking", @"")]];
+    if (self.groupType != GroupDetailTypeNone) {
+        NSArray *segmentItems;
+        if (self.groupType == GroupDetailTypeChat) {
+            segmentItems = @[NSLocalizedString(@"Chat", @""), NSLocalizedString(@"Ranking", @"")];
+        } else if (self.groupType == GroupDetailTypeAroundMe) {
+            segmentItems = @[NSLocalizedString(@"Top", @""), NSLocalizedString(@"Around Me", @"")];
+        }
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentItems];
         self.segmentedControl.frame = CGRectMake(15, 73, CGRectGetWidth(self.view.frame) - 30, 29);
         self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
         self.segmentedControl.selectedSegmentIndex = 0;
@@ -168,8 +246,10 @@
     
     [self reloadData];
     
-    if (!self.group.isDefaultValue && self.segmentedControl.selectedSegmentIndex == 0 && GROUP_CHAT_ENABLED) {
+    if (self.context == GroupDetailContextChat) {
         [self.groupChatViewController reloadData];
+    } else if (self.context == GroupDetailContextAroundMe){
+        [self.groupAroundMeViewController reloadData];
     } else {
         [self.groupRankingViewController reloadData];
     }
@@ -183,6 +263,7 @@
     
     [self.groupRankingViewController viewWillAppear:animated];
     [self.groupChatViewController viewWillAppear:animated];
+    [self.groupAroundMeViewController viewWillAppear:animated];
     
     [(FootblTabBarController *)self.tabBarController setTabBarHidden:YES animated:YES];
     
@@ -217,8 +298,10 @@
     if (!self.navigationController) {
         [self.groupChatViewController.view removeFromSuperview];
         [self.groupRankingViewController.view removeFromSuperview];
+        [self.groupAroundMeViewController.view removeFromSuperview];
         [self.groupRankingViewController removeFromParentViewController];
         [self.groupChatViewController removeFromParentViewController];
+        [self.groupAroundMeViewController removeFromParentViewController];
     }
 }
 

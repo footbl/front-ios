@@ -70,31 +70,33 @@
 - (void)reloadData {
     [super reloadData];
     
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
-        [[LoadingHelper sharedInstance] showHud];
-    }
+    if (self.context == GroupDetailContextRanking) {
+        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+            [[LoadingHelper sharedInstance] showHud];
+        }
 
-    if (self.group.isDefaultValue) {
-        [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
-            [self setupInfiniteScrolling];
-            self.tableView.showsInfiniteScrolling = (nextPage != nil);
-            self.nextPage = nextPage;
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-            [[ErrorHandler sharedInstance] displayError:error];
-        }];
-    } else {
-        [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-            [[ErrorHandler sharedInstance] displayError:error];
-        }];
+        if (self.group.isDefaultValue) {
+            [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
+                [self setupInfiniteScrolling];
+                self.tableView.showsInfiniteScrolling = (nextPage != nil);
+                self.nextPage = nextPage;
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+                [[ErrorHandler sharedInstance] displayError:error];
+            }];
+        } else {
+            [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self.refreshControl endRefreshing];
+                [[LoadingHelper sharedInstance] hideHud];
+                [[ErrorHandler sharedInstance] displayError:error];
+            }];
+        }
     }
 }
 

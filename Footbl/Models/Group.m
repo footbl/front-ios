@@ -210,6 +210,22 @@
     }];
 }
 
+- (void)getLocalRankingMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+    [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"localRanking" : @YES} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [User loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+            Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:[FTCoreDataStore privateQueueContext]];
+            membership.user = user;
+            membership.hasRanking = @(user.ranking != nil);
+            membership.ranking = user.ranking;
+            membership.previousRanking = user.previousRanking;
+            membership.group = self.editableObject;
+            membership.isLocalRanking = @YES;
+        } untouchedObjectsBlock:nil completionBlock:^(NSArray *objects) {
+            if (success) success(objects);
+        }];
+    } failure:failure];
+}
+
 - (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTCoreDataStore privateQueueContext] performBlock:^{
         [[FTCoreDataStore privateQueueContext] performSave];
