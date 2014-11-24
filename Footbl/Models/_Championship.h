@@ -13,7 +13,7 @@ extern const struct ChampionshipAttributes {
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *rounds;
-	__unsafe_unretained NSString *type;
+	__unsafe_unretained NSString *typeString;
 } ChampionshipAttributes;
 
 extern const struct ChampionshipRelationships {
@@ -81,9 +81,9 @@ extern const struct ChampionshipRelationships {
 
 //- (BOOL)validateRounds:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSString* type;
+@property (nonatomic, strong) NSString* typeString;
 
-//- (BOOL)validateType:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateTypeString:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) Entry *entry;
 
@@ -140,6 +140,9 @@ extern const struct ChampionshipRelationships {
 
 - (int64_t)primitiveRoundsValue;
 - (void)setPrimitiveRoundsValue:(int64_t)value_;
+
+- (NSString*)primitiveTypeString;
+- (void)setPrimitiveTypeString:(NSString*)value;
 
 - (Entry*)primitiveEntry;
 - (void)setPrimitiveEntry:(Entry*)value;

@@ -12,7 +12,7 @@ const struct ChampionshipAttributes ChampionshipAttributes = {
 	.name = @"name",
 	.picture = @"picture",
 	.rounds = @"rounds",
-	.type = @"type",
+	.typeString = @"typeString",
 };
 
 const struct ChampionshipRelationships ChampionshipRelationships = {
@@ -158,7 +158,7 @@ const struct ChampionshipRelationships ChampionshipRelationships = {
 	[self setPrimitiveRounds:[NSNumber numberWithLongLong:value_]];
 }
 
-@dynamic type;
+@dynamic typeString;
 
 @dynamic entry;
 

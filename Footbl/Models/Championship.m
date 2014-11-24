@@ -24,7 +24,7 @@
 }
 
 + (NSArray *)enabledProperties {
-    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"country", @"currentRound", @"edition", @"name", @"picture", @"rounds", @"type"]];
+    return [[super enabledProperties] arrayByAddingObjectsFromArray:@[@"country", @"currentRound", @"edition", @"name", @"picture", @"rounds"]];
 }
 
 #pragma mark - Instance Methods
@@ -50,6 +50,7 @@
     } else {
         self.displayName = NSLocalizedString(string, @"");
     }
+    self.typeString = data[@"type"];
     self.enabledValue = self.entry ? YES : NO;
 }
 
