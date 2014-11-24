@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 #pragma mark - Getters/Setters
 
 - (GroupChatViewController *)groupChatViewController {
-    if (!_groupChatViewController && self.groupType == GroupDetailTypeChat) {
+    if (!_groupChatViewController && !self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
         _groupChatViewController = [GroupChatViewController new];
         _groupChatViewController.group = self.group;
         [self addChildViewController:_groupChatViewController];
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 }
 
 - (GroupAroundMeViewController *)groupAroundMeViewController {
-    if (!_groupAroundMeViewController) {
+    if (!_groupAroundMeViewController && self.group.isDefaultValue && AROUND_ME_ENABLED) {
         _groupAroundMeViewController = [GroupAroundMeViewController new];
         _groupAroundMeViewController.group = self.group;
         _groupAroundMeViewController.context = self.context;
