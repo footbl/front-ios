@@ -756,3 +756,5 @@ As long as you have less than $100. */
 /* Daily bonus! */
 "Daily bonus!" = "Daily bonus!";
 
+"NOTIFICATION_GROUP_MESSAGE" = "%@ sent you a message!";
+
