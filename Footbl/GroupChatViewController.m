@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSNumber *nextPage;
 @property (assign, nonatomic) BOOL shouldScrollToBottom;
 @property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) BOOL canDismissKeyboard;
 
 @end
 
@@ -101,6 +102,10 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     }
     self.messageTextView.text = @"";
     self.createdMessage = YES;
+    self.canDismissKeyboard = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.canDismissKeyboard = YES;
+    });
     [self reloadViewsAnimated:YES];
     
     [Message createWithParameters:@{kFTRequestParamResourcePathObject : self.group.editableObject, @"message" : text} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -166,11 +171,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)timerReloadData {
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:^(NSNumber *nextPage) {
-        self.nextPage = nextPage;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:nil failure:nil];
 }
 
 - (void)reloadData {
@@ -225,8 +226,12 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    self.canDismissKeyboard = NO;
     self.keyboardSize = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     self.keyboardVisible = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.canDismissKeyboard = YES;
+    });
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -337,7 +342,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.keyboardVisible || self.hasCreatedMessage) {
+    if (!self.keyboardVisible || self.hasCreatedMessage || !self.canDismissKeyboard) {
         return;
     }
     
