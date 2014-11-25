@@ -788,3 +788,9 @@ As long as you have less than $100. */
 
 "You need more cash!" = "You need more cash!";
 
+/* {money} */
+"You lost $%lu in the last match =(" = "You lost $%lu in the last match =(";
+
+/* {money} */
+"You made $%lu in the last match =)" = "You made $%lu in the last match =)";
+

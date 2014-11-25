@@ -788,3 +788,9 @@ As long as you have less than $100. */
 
 "You need more cash!" = "Você precisa de mais grana!";
 
+/* {money} */
+"You lost $%lu in the last match =(" = "Você perdeu $%1$lu na última partida =(";
+
+/* {money} */
+"You made $%lu in the last match =)" = "Você fez $%1$lu na útima partida =)";
+
