@@ -285,7 +285,7 @@
                         championshipCell.rankingLabel.text = @"";
                     }
                     
-                    if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", NO) && self.user.ranking && self.user.previousRanking) {
+                    if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", YES) && self.user.ranking && self.user.previousRanking) {
                         championshipCell.rankingProgress = @(self.user.previousRanking.integerValue - self.user.ranking.integerValue);
                     } else {
                         championshipCell.rankingProgress = @(0);

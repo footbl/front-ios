@@ -293,7 +293,7 @@
         bottomRect = freeToEditView.frame;
     }
     
-    if (!self.group.isDefaultValue && FBTweakValue(@"UX", @"Group", @"Chat", NO)) {
+    if (!self.group.isDefaultValue && FBTweakValue(@"UX", @"Group", @"Chat", YES)) {
         UIView *notificationsView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
         UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.frameY, 240, notificationsView.frameHeight)];
         [notificationsButton setTitle:NSLocalizedString(@"Notifications", @"") forState:UIControlStateNormal];

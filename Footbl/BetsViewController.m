@@ -329,7 +329,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     [self reloadScrollView];
     
-    if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", NO) && [RechargeTipPopupViewController shouldBePresented]) {
+    if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
         RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
         rechargeTipPopup.selectionBlock = ^{
             [self rechargeWalletAction:nil];
@@ -407,12 +407,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.scrollViewCurrentPage = self.scrollViewCurrentPage;
     [self reloadWallet];
     
-    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", NO) && [User currentUser].canRecharge) {
+    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && [User currentUser].canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;
     }
     
-    if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", NO) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
+    if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", YES) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
         [Prize getWithObject:[User currentUser].editableObject success:^(NSArray *prizes) {
             [prizes enumerateObjectsUsingBlock:^(Prize *prize, NSUInteger idx, BOOL *stop) {
                 if (prize.type != PrizeTypeUnknown) {

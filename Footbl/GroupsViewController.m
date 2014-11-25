@@ -196,7 +196,7 @@
     
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
-    if (FBTweakValue(@"UX", @"Group", @"Join button", NO)) {
+    if (FBTweakValue(@"UX", @"Group", @"Join button", YES)) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
     }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
@@ -249,7 +249,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (FBTweakValue(@"UX", @"Group", @"Join button", NO)) {
+    if (FBTweakValue(@"UX", @"Group", @"Join button", YES)) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
     } else {
         self.navigationItem.leftBarButtonItem = nil;
