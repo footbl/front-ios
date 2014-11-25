@@ -196,14 +196,21 @@
 - (void)getWorldMembersWithPage:(NSInteger)page success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
         [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"page": @(page)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSMutableSet *memberships = [[self.editableObject.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isLocalRanking = %@", @NO]] mutableCopy];
             [User loadContent:responseObject inManagedObjectContext:self.managedObjectContext usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
-                Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:self.managedObjectContext];
+                Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:self.managedObjectContext withCache:memberships];
                 membership.user = user;
                 membership.hasRanking = @(user.ranking != nil);
                 membership.ranking = user.ranking;
                 membership.previousRanking = user.previousRanking;
                 membership.group = self.editableObject;
-            } untouchedObjectsBlock:nil completionBlock:^(NSArray *objects) {
+                membership.isLocalRanking = @NO;
+                [memberships removeObject:membership];
+            } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+                if (page == 0) {
+                    [[FTCoreDataStore privateQueueContext] deleteObjects:memberships];
+                }
+            } completionBlock:^(NSArray *objects) {
                 if (objects.count == MAX_GROUP_NAME_SIZE) {
                     if (success) success(@(page + 1));
                 } else {
@@ -215,26 +222,25 @@
 }
 
 - (void)getLocalRankingMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
-    [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"localRanking" : @YES} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND isLocalRanking = %@", self, @YES, @YES];
-        NSMutableSet *memberships = [NSMutableSet setWithArray:[[FTCoreDataStore privateQueueContext] executeFetchRequest:fetchRequest error:nil]];
-        [User loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
-            Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:[FTCoreDataStore privateQueueContext]];
-            membership.user = user;
-            membership.hasRanking = @(user.ranking != nil);
-            membership.ranking = user.ranking;
-            membership.previousRanking = user.previousRanking;
-            membership.group = self.editableObject;
-            membership.isLocalRanking = @YES;
-            [memberships removeObject:membership];
-        } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
-            [memberships makeObjectsPerformSelector:@selector(setIsLocalRanking:) withObject:@NO];
-        } completionBlock:^(NSArray *objects) {
-            if (success) success(objects);
-        }];
-    } failure:failure];
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired | FTRequestOptionGroupRequests operations:^{
+        [[FTOperationManager sharedManager] GET:@"users" parameters:@{@"localRanking" : @YES} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSMutableSet *memberships = [[self.editableObject.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"isLocalRanking = %@", @YES]] mutableCopy];
+            [User loadContent:responseObject inManagedObjectContext:[FTCoreDataStore privateQueueContext] usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+                Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:[FTCoreDataStore privateQueueContext] withCache:memberships];
+                membership.user = user;
+                membership.hasRanking = @(user.ranking != nil);
+                membership.ranking = user.ranking;
+                membership.previousRanking = user.previousRanking;
+                membership.group = self.editableObject;
+                membership.isLocalRanking = @YES;
+                [memberships removeObject:membership];
+            } untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+                [[FTCoreDataStore privateQueueContext] deleteObjects:memberships];
+            } completionBlock:^(NSArray *objects) {
+                if (success) success(objects);
+            }];
+        } failure:failure];
+    }];
 }
 
 - (void)saveWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

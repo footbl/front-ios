@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSNumber *nextPage;
+@property (assign, nonatomic) BOOL isLoading;
 
 @end
 
@@ -38,7 +39,7 @@
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
         if (self.group.isDefaultValue) {
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@", self.group, @YES];
+            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@ AND isLocalRanking = %@", self.group, @YES, @NO];
         } else {
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil", self.group];
@@ -65,7 +66,9 @@
     
     _context = context;
     
-    [self reloadData];
+    if (!self.group.isDefaultValue) {
+        [self reloadData];
+    }
 }
 
 #pragma mark - Instance Methods
@@ -78,6 +81,12 @@
     [super reloadData];
     
     if (self.context == GroupDetailContextRanking) {
+        if (self.isLoading) {
+            return;
+        }
+        
+        self.isLoading = YES;
+        
         if (self.fetchedResultsController.fetchedObjects.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
@@ -89,19 +98,23 @@
                 self.nextPage = nextPage;
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
+                self.isLoading = NO;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
                 [[ErrorHandler sharedInstance] displayError:error];
+                self.isLoading = NO;
             }];
         } else {
             [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
+                self.isLoading = NO;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
                 [[ErrorHandler sharedInstance] displayError:error];
+                self.isLoading = NO;
             }];
         }
     }
