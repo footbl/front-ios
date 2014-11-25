@@ -89,7 +89,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         [self.tableView reloadData];
         return;
     } else if (self.tableView.tableHeaderView.frameHeight != self.headerView.frameHeight && _nextPage) {
-        contentOffsetAdjust = self.headerView.frameHeight;
+        contentOffsetAdjust = self.headerView.frameHeight - 5;
     }
     
     if (self.nextPage) {
