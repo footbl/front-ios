@@ -443,7 +443,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.totalProfitView.layer.borderWidth = 0.5;
         [self.contentView addSubview:self.totalProfitView];
         
-        self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow"]];
+        self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"arrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         self.totalProfitArrowImageView.center = CGPointMake(CGRectGetMidX(self.totalProfitView.frame), CGRectGetMinY(self.totalProfitView.frame) - (self.totalProfitArrowImageView.image.size.height / 2) + 0.5);
         self.totalProfitArrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.contentView addSubview:self.totalProfitArrowImageView];
