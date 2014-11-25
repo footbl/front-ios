@@ -758,3 +758,33 @@ As long as you have less than $100. */
 
 "NOTIFICATION_GROUP_MESSAGE" = "%@ te enviou uma mensagem!";
 
+"Chat" = "Bate-papo";
+
+"Facebook friends" = "Freunde von Facebook";
+
+"Footbl users" = "Usuários do Footbl";
+
+"Load more" = "Carregar mais";
+
+"Ranking" = "Ranking";
+
+"Chat placeholder" = "Converse com seus amigos!";
+
+"Around Me" = "Perto de mim";
+
+"Delete" = "Apagar";
+
+"Notifications" = "Notificações";
+
+"Top" = "Top";
+
+"No friends asked you for cash" = "Ninguém te pediu grana";
+
+"No friends sent you cash" = "Ninguém te enviou grana";
+
+"These friends need some cash:" = "Esses amigos precisam de grana:";
+
+"These friends sent you some cash (✓):" = "Esses amigos enviaram grana (✓):";
+
+"You need more cash!" = "Você precisa de mais grana!";
+

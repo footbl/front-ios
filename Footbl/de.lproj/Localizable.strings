@@ -756,3 +756,35 @@ As long as you have less than $100. */
 /* Daily bonus! */
 "Daily bonus!" = "Tägliche Bonus!";
 
+"NOTIFICATION_GROUP_MESSAGE" = "%@ hat Ihnen eine Nachricht";
+
+"Chat" = "Schnack";
+
+"Facebook friends" = "Freunde von Facebook";
+
+"Footbl users" = "Nutzer von Footbl";
+
+"Load more" = "laden mehr";
+
+"Ranking" = "Ranking";
+
+"Chat placeholder" = "Die erste Nachricht Ihrer Freunde!";
+
+"Around Me" = "Neben mir";
+
+"Delete" = "löschen";
+
+"Notifications" = "Mitteilung";
+
+"Top" = "Top";
+
+"No friends asked you for cash" = "Niemand würden wir Sie bitten für Geld";
+
+"No friends sent you cash" = "Niemand hat Ihnen Geld";
+
+"These friends need some cash:" = "Diese Freunde brauchen Geld:";
+
+"These friends sent you some cash (✓):" = "Diese Freunde geschickt Sie Geld (✓):";
+
+"You need more cash!" = "Sie brauchen mehr Geld.";
+

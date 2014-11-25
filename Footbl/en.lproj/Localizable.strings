@@ -778,9 +778,9 @@ As long as you have less than $100. */
 
 "Top" = "Top";
 
-"No friends asked you for cash" = "No friends asked you for cash";
+"No friends asked you for cash" = "No one asked you for cash";
 
-"No friends sent you cash" = "No friends sent you cash";
+"No friends sent you cash" = "No one sent you cash";
 
 "These friends need some cash:" = "These friends need some cash:";
 
