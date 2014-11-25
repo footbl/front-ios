@@ -200,6 +200,18 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         return;
     }
     
+    [[User currentUser].editableObject getWithSuccess:^(id response) {
+        if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
+            RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
+            rechargeTipPopup.selectionBlock = ^{
+                [self rechargeWalletAction:nil];
+            };
+            FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
+            [self presentViewController:popupViewController animated:YES completion:nil];
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
+    } failure:nil];
+    
     [Entry getWithObject:[User currentUser] success:^(id response) {
         for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
             if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
@@ -328,16 +340,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [super controllerDidChangeContent:controller];
     
     [self reloadScrollView];
-    
-    if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
-        RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
-        rechargeTipPopup.selectionBlock = ^{
-            [self rechargeWalletAction:nil];
-        };
-        FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
-        [self presentViewController:popupViewController animated:YES completion:nil];
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
 }
 
 #pragma mark - View Lifecycle
