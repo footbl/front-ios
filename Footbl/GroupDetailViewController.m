@@ -307,6 +307,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         [self.groupRankingViewController removeFromParentViewController];
         [self.groupChatViewController removeFromParentViewController];
         [self.groupAroundMeViewController removeFromParentViewController];
+        [self.groupChatViewController viewDidDisappear:animated];
     }
 }
 

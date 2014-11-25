@@ -529,12 +529,15 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    if (self.navigationController.viewControllers.count == 1) {
-        self.fetchedResultsController = nil;
-        [self.timer invalidate];
-        self.timer = nil;
-        [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:nil failure:nil];
-    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    self.fetchedResultsController = nil;
+    [self.timer invalidate];
+    self.timer = nil;
+    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:nil failure:nil];
 }
 
 - (void)didReceiveMemoryWarning {
