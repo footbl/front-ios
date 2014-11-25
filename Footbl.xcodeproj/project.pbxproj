@@ -34,6 +34,9 @@
 		ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED42F7251A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
+		ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
+		ED5C4E461A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
+		ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
 		ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED7859E3199D0C62002A4DBD /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
 		ED7859E4199D0C62002A4DBD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
@@ -576,6 +579,8 @@
 		ED53817619966B7E005D62BB /* NSURLRequest+FTRequestOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+FTRequestOptions.m"; sourceTree = "<group>"; };
 		ED53817E1996BA9F005D62BB /* NSURLRequest+FTAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+FTAuthentication.h"; sourceTree = "<group>"; };
 		ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+FTAuthentication.m"; sourceTree = "<group>"; };
+		ED5C4E431A24BC3F009693DF /* FTResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTResponseSerializer.h; sourceTree = "<group>"; };
+		ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTResponseSerializer.m; sourceTree = "<group>"; };
 		ED617558191EB7FB00242F74 /* GroupMembershipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMembershipTableViewCell.h; sourceTree = "<group>"; };
 		ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMembershipTableViewCell.m; sourceTree = "<group>"; };
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
@@ -1024,6 +1029,8 @@
 				ED53816C199406CF005D62BB /* FTOperationManager.m */,
 				ED53816E1994084F005D62BB /* FTRequestSerializer.h */,
 				ED53816F1994084F005D62BB /* FTRequestSerializer.m */,
+				ED5C4E431A24BC3F009693DF /* FTResponseSerializer.h */,
+				ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */,
 				EDC6720A1999254000D06E66 /* NSManagedObjectContext+FTAddons.h */,
 				EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */,
 				ED53817E1996BA9F005D62BB /* NSURLRequest+FTAuthentication.h */,
@@ -2007,6 +2014,7 @@
 				ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */,
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
 				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
+				ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
 				ED7859F5199D0C62002A4DBD /* Match.m in Sources */,
 				ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */,
@@ -2136,6 +2144,7 @@
 				ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */,
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
+				ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */,
 				ED8DB39B1A14C95C00605CCE /* Match.m in Sources */,
 				ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */,
@@ -2265,6 +2274,7 @@
 				ED97AF6E1A14C7E40079ADB4 /* FavoritesViewController.m in Sources */,
 				ED97AF6F1A14C7E40079ADB4 /* FriendsHelper.m in Sources */,
 				ED97AF701A14C7E40079ADB4 /* TransferTableViewCell.m in Sources */,
+				ED5C4E461A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED97AF711A14C7E40079ADB4 /* GroupsViewController.m in Sources */,
 				ED97AF721A14C7E40079ADB4 /* Match.m in Sources */,
 				ED97AF731A14C7E40079ADB4 /* FeaturedViewController.m in Sources */,

@@ -12,6 +12,7 @@
 #import "FTModel.h"
 #import "FTOperationManager.h"
 #import "FTRequestSerializer.h"
+#import "FTResponseSerializer.h"
 #import "NSURLRequest+FTAuthentication.h"
 #import "NSURLRequest+FTRequestOptions.h"
 
@@ -46,7 +47,8 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
     if (self) {
         _responseLimit = 20;
         self.requestSerializer = [FTRequestSerializer serializer];
-        self.environment = FT_SERVER_ENVIRONMENT;
+        self.responseSerializer = [FTResponseSerializer serializer];
+        self.environment = FTEnvironmentProduction;
         self.operationQueue.maxConcurrentOperationCount = 10;
         if (FBTweakValue(@"System", @"Networking", @"Max ops.", 10, 0, 100) > 0) {
             self.operationQueue.maxConcurrentOperationCount = FBTweakValue(@"System", @"Networking", @"Max ops.", 10, 0, 100);
