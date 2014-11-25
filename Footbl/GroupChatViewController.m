@@ -44,7 +44,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Message"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@", self.group];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND typeString = %@", self.group, @"text"];
         fetchRequest.includesSubentities = YES;
         
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
@@ -118,7 +118,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     });
     [self reloadViewsAnimated:YES];
     
-    [Message createWithParameters:@{kFTRequestParamResourcePathObject : self.group.editableObject, @"message" : text} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [Message createWithParameters:@{kFTRequestParamResourcePathObject : self.group.editableObject, @"message" : text, @"type" : @"text"} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView reloadData];
         [[ErrorHandler sharedInstance] displayError:error];
     }];

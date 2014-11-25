@@ -87,6 +87,7 @@
         message.message = parameters[@"message"];
         message.rid = message.message;
         message.slug = message.message;
+        message.typeString = parameters[@"type"];
         [[FTCoreDataStore privateQueueContext] performSave]; 
     }];
     
@@ -136,7 +137,7 @@
 - (void)deliverWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     NSString *path = [Message resourcePathWithObject:self.group];
     [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
-        [[FTOperationManager sharedManager] POST:path parameters:@{@"message" : self.message} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[FTOperationManager sharedManager] POST:path parameters:@{@"message" : self.message, @"type" : self.typeString} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [[FTCoreDataStore privateQueueContext] performBlock:^{
                 self.rid = responseObject[kFTResponseParamIdentifier];
                 self.slug = responseObject[kFTResponseParamIdentifier];
