@@ -271,18 +271,9 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 #pragma mark - UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    Message *previousMessage;
-    if (indexPath.row > 0) {
-        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
-        previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
-    }
-    
-    if (previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
-        return 25;
-    } else {
-        return 45;
-    }
+    ChatTableViewCell *cell = [(ChatTableViewCell *)[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+    [self configureCell:cell atIndexPath:indexPath];
+    return [cell sizeThatFits:CGSizeMake(tableView.frameWidth, INT_MAX)].height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
