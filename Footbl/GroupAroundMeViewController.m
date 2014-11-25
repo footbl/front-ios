@@ -8,6 +8,7 @@
 
 #import "GroupAroundMeViewController.h"
 #import "Group.h"
+#import "User.h"
 
 @interface GroupAroundMeViewController ()
 
@@ -39,6 +40,15 @@
     
     return _fetchedResultsController;
 }
+
+- (void)setContext:(GroupDetailContext)context {
+    [super setContext:context];
+    
+    if (context == GroupDetailContextAroundMe) {
+        [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:self.group.myMembership] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    }
+}
+
 #pragma mark - Instance Methods
 
 - (void)reloadData {
@@ -53,6 +63,16 @@
 }
 
 #pragma mark - Delegates & Data sources
+
+#pragma mark - NSFetchedResultsController delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    BOOL shouldScroll = self.tableView.visibleCells.count == 0;
+    [super controllerDidChangeContent:controller];
+    if (shouldScroll) {
+        [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:self.group.myMembership] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+}
 
 #pragma mark - View Lifecycle
 
