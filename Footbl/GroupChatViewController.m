@@ -275,6 +275,22 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static BOOL iOS8;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        iOS8 = [[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersion)];
+    });
+    
+    if (iOS8) {
+        return UITableViewAutomaticDimension;
+    }
+    
+    ChatTableViewCell *cell = [(ChatTableViewCell *)[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+    [self configureCell:cell atIndexPath:indexPath];
+    return [cell sizeThatFits:CGSizeMake(tableView.frameWidth, INT_MAX)].height;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
