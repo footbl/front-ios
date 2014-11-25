@@ -44,6 +44,16 @@
     return [[[self class] resourcePathWithObject:self.user] stringByAppendingPathComponent:self.slug];
 }
 
+- (PrizeType)type {
+    if ([self.typeString isEqualToString:@"daily"]) {
+        return PrizeTypeDaily;
+    } else if ([self.typeString isEqualToString:@"update"]) {
+        return PrizeTypeUpdate;
+    } else {
+        return PrizeTypeUnknown;
+    }
+}
+
 - (void)updateWithData:(NSDictionary *)data {
     [super updateWithData:data];
     

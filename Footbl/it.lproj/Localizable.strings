@@ -794,3 +794,7 @@ As long as you have less than $100. */
 /* {money} */
 "You made $%lu in the last match =)" = "Hai fatto $%1$lu nell'ultima partita =)";
 
+"Update bonus!" = "Bonus di aggiornamento";
+
+"We hope you like this update\nMake it count!" = "Speriamo che vi piaccia questo aggiornamento\nFare buon uso";
+

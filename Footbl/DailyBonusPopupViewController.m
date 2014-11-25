@@ -13,6 +13,12 @@
 #import "Prize.h"
 #import "UIImage+Color.h"
 
+@interface DailyBonusPopupViewController ()
+
+- (BOOL)isDailyBonus;
+
+@end
+
 #pragma mark DailyBonusPopupViewController
 
 @implementation DailyBonusPopupViewController
@@ -28,11 +34,18 @@
     self.headerImageView.frameY = CGRectGetHeight(self.frame) - 50;
     self.moneyImageView.frameX = (CGRectGetWidth(self.frame) - self.moneyImageView.frameWidth - self.moneyLabel.frameWidth) / 2;
     self.moneySignLabel.frameX = self.moneyImageView.frameX;
-    self.moneyLabel.frameX = self.moneySignLabel.frameX + self.moneySignLabel.frameWidth;
     self.activityIndicatorView.centerX = (CGRectGetWidth(self.frame) / 2);
+    
+    CGFloat moneyWidth = self.moneySignLabel.frameWidth + self.moneyLabel.frameWidth;
+    self.moneySignLabel.frameX = (CGRectGetWidth(frame) - moneyWidth) / 2;
+    self.moneyLabel.frameX = self.moneySignLabel.frameX + self.moneySignLabel.frameWidth;
 }
 
 #pragma mark - Instance Methods
+
+- (BOOL)isDailyBonus {
+    return ((!self.prize && SPGetBuildType() != SPBuildTypeAppStore) || self.prize.type == PrizeTypeDaily);
+}
 
 - (IBAction)collectAction:(id)sender {
     if (self.activityIndicatorView.isAnimating) {
@@ -85,7 +98,11 @@
     headerLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    headerLabel.text = NSLocalizedString(@"Daily bonus!", @"");
+    if (self.isDailyBonus) {
+        headerLabel.text = NSLocalizedString(@"Daily bonus!", @"");
+    } else {
+        headerLabel.text = NSLocalizedString(@"Update bonus!", @"");
+    }
     [self.view addSubview:headerLabel];
     
     self.moneyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, 50, 50)];
@@ -112,6 +129,7 @@
     } else {
         self.moneyLabel.text = self.prize.value.stringValue;
     }
+    self.moneyLabel.frameWidth = [self.moneyLabel sizeThatFits:CGSizeMake(INT_MAX, self.moneyLabel.frameHeight)].width;
     [self.view addSubview:self.moneyLabel];
     
     self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(10, 110, self.view.frameWidth - 20, 95)];
@@ -121,7 +139,11 @@
     self.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:14];
     self.textLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:18];
     self.textLabel.firstLineTextColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
-    self.textLabel.text = NSLocalizedString(@"Come back tomorrow for more\nAs long as you have less than $100.", @"");
+    if (self.isDailyBonus) {
+        self.textLabel.text = NSLocalizedString(@"Come back tomorrow for more\nAs long as you have less than $100.", @"");
+    } else {
+        self.textLabel.text = NSLocalizedString(@"We hope you like this update\nMake it count!", @"");
+    }
     [self.view addSubview:self.textLabel];
     
     self.dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, 50)];

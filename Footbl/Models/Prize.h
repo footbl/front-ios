@@ -8,8 +8,15 @@
 
 #import "_Prize.h"
 
+typedef NS_ENUM(NSUInteger, PrizeType) {
+    PrizeTypeUnknown = 0,
+    PrizeTypeDaily = 1,
+    PrizeTypeUpdate = 2
+};
+
 @interface Prize : _Prize
 
 - (void)markAsReadWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (PrizeType)type;
 
 @end
