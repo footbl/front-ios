@@ -166,7 +166,17 @@ static const NSString *kSectionIdentifier = @"identifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileViewController *profileViewController = [ProfileViewController new];
-    NSDictionary *userRepresentation = self.dataSource[indexPath.row];
+    
+    NSDictionary *userRepresentation;
+    NSDictionary *sectionData = self.sectionsData[indexPath.section];
+    if ([sectionData objectForKey:kSectionIdentifier] == kLocalSearch) {
+        userRepresentation = self.dataSource[indexPath.row];
+    }
+    
+    if ([sectionData objectForKey:kSectionIdentifier] == kGlobalSearch) {
+        userRepresentation = self.globalSearch[indexPath.row];
+    }
+    
     User *user = [User findOrCreateWithObject:userRepresentation inContext:[FTCoreDataStore privateQueueContext]];
     
     NSUInteger blockKey;
