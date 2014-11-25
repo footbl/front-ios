@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 made@sampa. All rights reserved.
 //
 
+#import "GroupDetailViewController.h"
 #import "TemplateViewController.h"
 
 @class Group;
@@ -22,5 +23,6 @@
 @property (strong, nonatomic) UITextView *messageTextView;
 @property (strong, nonatomic) UIView *messageBorderView;
 @property (strong, nonatomic) UILabel *placeholderLabel;
+@property (assign, nonatomic) GroupDetailContext context;
 
 @end

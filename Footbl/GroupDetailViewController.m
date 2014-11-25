@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     if (!_groupChatViewController && !self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
         _groupChatViewController = [GroupChatViewController new];
         _groupChatViewController.group = self.group;
+        _groupChatViewController.context = self.context;
         [self addChildViewController:_groupChatViewController];
         [self.view addSubview:_groupChatViewController.view];
         [self.view sendSubviewToBack:_groupChatViewController.view];
@@ -169,6 +170,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     
     self.groupAroundMeViewController.context = self.context;
     self.groupRankingViewController.context = self.context;
+    self.groupChatViewController.context = self.context;
 }
 
 - (void)setupTitleView {

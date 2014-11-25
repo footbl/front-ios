@@ -60,6 +60,16 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     return _fetchedResultsController;
 }
 
+- (void)setContext:(GroupDetailContext)context {
+    _context = context;
+    
+    if (context == GroupDetailContextChat) {
+        [self timerReloadData];
+    } else {
+        [self.messageTextView resignFirstResponder];
+    }
+}
+
 - (void)setKeyboardVisible:(BOOL)keyboardVisible {
     if (_keyboardVisible == keyboardVisible) {
         return;
