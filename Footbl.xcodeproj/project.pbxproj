@@ -2737,7 +2737,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "1fe79d4c-1f79-4985-bb91-7c1bf2a961d4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2761,7 +2761,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2786,7 +2786,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
+				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
