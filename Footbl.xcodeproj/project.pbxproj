@@ -2786,7 +2786,7 @@
 				);
 				INFOPLIST_FILE = "Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "7b24e09b-a57f-4df2-a8d7-e451a429ae34";
+				PROVISIONING_PROFILE = "9f4af958-4c6f-462b-aba5-f5c8ebe75af2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
