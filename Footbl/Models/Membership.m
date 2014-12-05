@@ -43,16 +43,18 @@
     if (mutableParameters[kFTRequestParamResourcePathObject]) {
         [mutableParameters removeObjectForKey:kFTRequestParamResourcePathObject];
     }
-    [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[FTCoreDataStore privateQueueContext] performBlock:^{
-            FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[FTCoreDataStore privateQueueContext]];
-            [object updateWithData:responseObject];
-            [[FTCoreDataStore privateQueueContext] performSave];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (success) success(object.editableObject);
-            });
-        }];
-    } failure:failure];
+    [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionAuthenticationRequired operations:^{
+        [[FTOperationManager sharedManager] POST:path parameters:mutableParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[FTCoreDataStore privateQueueContext] performBlock:^{
+                FTModel *object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class]) inManagedObjectContext:[FTCoreDataStore privateQueueContext]];
+                [object updateWithData:responseObject];
+                [[FTCoreDataStore privateQueueContext] performSave];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (success) success(object.editableObject);
+                });
+            }];
+        } failure:failure];
+    }];
 }
 
 #pragma mark - Instance Methods
