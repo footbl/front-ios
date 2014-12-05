@@ -34,6 +34,8 @@ pod 'SVPullToRefresh', '0.4.1'
 pod 'Tweaks', '1.1.0'
 pod 'UIAlertView-Blocks', '1.0'
 
+pod 'SimulatorStatusMagic', :configurations => ['Debug']
+
 target 'FootblTests', :exclusive => true do
     pod 'KIF', '3.0.8'
 end
