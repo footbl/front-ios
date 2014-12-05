@@ -69,7 +69,8 @@
         
         [[FTOperationManager sharedManager] GET:[NSString stringWithFormat:@"groups/%@", code] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [[FTCoreDataStore privateQueueContext] performBlock:^{
-                [Membership createWithParameters:@{kFTRequestParamResourcePathObject : responseObject[@"slug"], @"user" : [User currentUser].slug} success:^(id response) {
+                Group *group = [Group findOrCreateWithObject:responseObject inContext:[FTCoreDataStore privateQueueContext]];
+                [Membership createWithParameters:@{kFTRequestParamResourcePathObject : group, @"user" : [User currentUser].slug} success:^(id response) {
                     Group *group = [Group findOrCreateWithObject:responseObject inContext:[FTCoreDataStore privateQueueContext]];
                     [[FTCoreDataStore privateQueueContext] performSave];
                     dispatch_async(dispatch_get_main_queue(), ^{
