@@ -173,6 +173,11 @@
     [cell restoreFrames];
     cell.profileImageViewHidden = NO;
     
+    NSIndexPath *newIndexPath = indexPath;
+    if (self.segmentedControl.selectedSegmentIndex == 2 && self.searchBar.text.length == 0) {
+        newIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    }
+    
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
             cell.usernameLabel.text = self.dataSource[indexPath.row][@"username"];
@@ -213,16 +218,16 @@
                 return;
             }
             
-            cell.usernameLabel.text = self.dataSource[indexPath.row - 1][@"name"];
+            cell.usernameLabel.text = self.dataSource[newIndexPath.row][@"name"];
             CGRect usernameFrame = cell.usernameLabel.frame;
             usernameFrame.origin.y += 8;
             cell.usernameLabel.frame = usernameFrame;
             cell.nameLabel.text = @"";
-            if ([self.dataSource[indexPath.row - 1][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+            if ([self.dataSource[newIndexPath.row][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
                 [cell.profileImageView sd_cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             } else {
-                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row - 1][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[newIndexPath.row][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
             }
             break;
         }
@@ -230,7 +235,7 @@
             break;
     }
     
-    if ([self.selectedMembers containsObject:self.dataSource[indexPath.row - (self.segmentedControl.selectedSegmentIndex == 2 ? 1 : 0)]] && ![[self.tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+    if ([self.selectedMembers containsObject:self.dataSource[newIndexPath.row]] && ![[self.tableView indexPathsForSelectedRows] containsObject:indexPath]) {
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
@@ -353,19 +358,23 @@
         self.selectAllActived = YES;
         return;
     }
+    
+    NSIndexPath *newIndexPath = indexPath;
+    if (self.segmentedControl.selectedSegmentIndex == 2 && self.searchBar.text.length == 0) {
+        newIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    }
 
+    [self.selectedMembers addObject:self.dataSource[newIndexPath.row]];
+    
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
-            [self.selectedMembers addObject:self.dataSource[indexPath.row]];
-            [self.footblSelectedMembers addObject:self.dataSource[indexPath.row]];
+            [self.footblSelectedMembers addObject:self.dataSource[newIndexPath.row]];
             break;
         case 1:
-            [self.selectedMembers addObject:self.dataSource[indexPath.row]];
-            [self.addressBookSelectedMembers addObject:self.dataSource[indexPath.row]];
+            [self.addressBookSelectedMembers addObject:self.dataSource[newIndexPath.row]];
             break;
         case 2:
-            [self.selectedMembers addObject:self.dataSource[indexPath.row - 1]];
-            [self.facebookSelectedMembers addObject:self.dataSource[indexPath.row - 1]];
+            [self.facebookSelectedMembers addObject:self.dataSource[newIndexPath.row]];
             break;
     }
 }
@@ -384,18 +393,22 @@
         return;
     }
     
+    NSIndexPath *newIndexPath = indexPath;
+    if (self.segmentedControl.selectedSegmentIndex == 2 && self.searchBar.text.length == 0) {
+        newIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+    }
+    
+    [self.selectedMembers removeObject:self.dataSource[newIndexPath.row]];
+    
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
-            [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
-            [self.footblSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            [self.footblSelectedMembers removeObject:self.dataSource[newIndexPath.row]];
             break;
         case 1:
-            [self.selectedMembers removeObject:self.dataSource[indexPath.row]];
-            [self.addressBookSelectedMembers removeObject:self.dataSource[indexPath.row]];
+            [self.addressBookSelectedMembers removeObject:self.dataSource[newIndexPath.row]];
             break;
         case 2:
-            [self.selectedMembers removeObject:self.dataSource[indexPath.row - 1]];
-            [self.facebookSelectedMembers removeObject:self.dataSource[indexPath.row - 1]];
+            [self.facebookSelectedMembers removeObject:self.dataSource[newIndexPath.row]];
             break;
     }
     
