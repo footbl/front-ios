@@ -213,16 +213,16 @@
                 return;
             }
             
-            cell.usernameLabel.text = self.dataSource[indexPath.row + 1][@"name"];
+            cell.usernameLabel.text = self.dataSource[indexPath.row - 1][@"name"];
             CGRect usernameFrame = cell.usernameLabel.frame;
             usernameFrame.origin.y += 8;
             cell.usernameLabel.frame = usernameFrame;
             cell.nameLabel.text = @"";
-            if ([self.dataSource[indexPath.row + 1][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+            if ([self.dataSource[indexPath.row - 1][@"picture"][@"data"][@"is_silhouette"] boolValue]) {
                 [cell.profileImageView sd_cancelCurrentImageLoad];
                 [cell restoreProfileImagePlaceholder];
             } else {
-                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row + 1][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
+                [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row - 1][@"picture"][@"data"][@"url"]] placeholderImage:cell.placeholderImage];
             }
             break;
         }
@@ -230,7 +230,7 @@
             break;
     }
     
-    if ([self.selectedMembers containsObject:self.dataSource[indexPath.row]] && ![[self.tableView indexPathsForSelectedRows] containsObject:indexPath]) {
+    if ([self.selectedMembers containsObject:self.dataSource[indexPath.row - (self.segmentedControl.selectedSegmentIndex == 2 ? 1 : 0)]] && ![[self.tableView indexPathsForSelectedRows] containsObject:indexPath]) {
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
