@@ -206,6 +206,10 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 }
 
 - (void)registerForRemoteNotifications {
+#if TARGET_IPHONE_SIMULATOR
+    return;
+#endif
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
