@@ -140,7 +140,7 @@
     self.textLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:18];
     self.textLabel.firstLineTextColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     if (self.isDailyBonus) {
-        self.textLabel.text = NSLocalizedString(@"Come back tomorrow for more\nAs long as you have less than $100.", @"");
+        self.textLabel.text = NSLocalizedString(@"Come back tomorrow for more\nEnjoy =)", @"");
     } else {
         self.textLabel.text = NSLocalizedString(@"We hope you like this update\nMake it count!", @"");
     }

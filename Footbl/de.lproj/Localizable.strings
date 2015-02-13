@@ -750,8 +750,8 @@ Recharge your wallet by tapping the + above. */
 "Collect" = "Zu sammeln";
 
 /* Come back tomorrow for more
-As long as you have less than $100. */
-"Come back tomorrow for more\nAs long as you have less than $100." = "Für mehr zurückkommen\nSolange Sie weniger als $100.";
+ Enjoy =) */
+"Come back tomorrow for more\nEnjoy =)" = "Für mehr zurückkommen\nViel Spaß =)";
 
 /* Daily bonus! */
 "Daily bonus!" = "Tägliche Bonus!";
