@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>You made $%lu in the last %@ matches =)</key>
+		<dict>
+			<key>NSStringLocalizedFormatKey</key>
+			<string>Você %1$#@total_cash@ %2$#@number_of_matches@ %1$#@face@</string>
+			<key>total_cash</key>
+			<dict>
+				<key>NSStringFormatSpecTypeKey</key>
+				<string>NSStringPluralRuleType</string>
+				<key>NSStringFormatValueTypeKey</key>
+				<string>lu</string>
+				<key>zero</key>
+				<string>não ganhou nada</string>
+				<key>other</key>
+				<string>fez $%lu</string>
+			</dict>
+			<key>number_of_matches</key>
+			<dict>
+				<key>NSStringFormatSpecTypeKey</key>
+				<string>NSStringPluralRuleType</string>
+				<key>NSStringFormatValueTypeKey</key>
+				<string>@</string>
+				<key>one</key>
+				<string>na última partida</string>
+				<key>other</key>
+				<string>nas últimas %@ partidas</string>
+			</dict>
+			<key>face</key>
+			<dict>
+				<key>NSStringFormatSpecTypeKey</key>
+				<string>NSStringPluralRuleType</string>
+				<key>NSStringFormatValueTypeKey</key>
+				<string>lu</string>
+				<key>zero</key>
+				<string>=|</string>
+				<key>other</key>
+				<string>=)</string>
+			</dict>
+		</dict>
+		<key>You lost $%lu in the last %@ matches =(</key>
+		<dict>
+			<key>NSStringLocalizedFormatKey</key>
+			<string>Você perdeu %1$#@total_cash@ %2$#@number_of_matches@ =(</string>
+			<key>total_cash</key>
+			<dict>
+				<key>NSStringFormatSpecTypeKey</key>
+				<string>NSStringPluralRuleType</string>
+				<key>NSStringFormatValueTypeKey</key>
+				<string>lu</string>
+				<key>other</key>
+				<string>$%lu</string>
+			</dict>
+			<key>number_of_matches</key>
+			<dict>
+				<key>NSStringFormatSpecTypeKey</key>
+				<string>NSStringPluralRuleType</string>
+				<key>NSStringFormatValueTypeKey</key>
+				<string>@</string>
+				<key>one</key>
+				<string>na última partida</string>
+				<key>other</key>
+				<string>nas últimas %@ partidas</string>
+			</dict>
+		</dict>
+	</dict>
+</plist>

@@ -664,15 +664,6 @@ Do you want to log in instead? */
 /* Group code: {group code} */
 "Group code: %@" = "Codice di gruppo: %@";
 
-/* {money} {number of matches} */
-"You lost $%lu in the last %@ matches =(" = "Hai perso $%1$lu nelle ultime %2$@ partite =(";
-
-/* {money} {number of matches} */
-"You made $%lu in the last %@ matches =)" = "Hai fatto $%1$lu nelle ultime %2$@ partite =)";
-
-/* {number of matches} */
-"You made $0 in the last %@ matches" = "Hai fatto $0 nelle ultime %@ partite";
-
 /* Join my group on Footbl! http://footbl.co/dl */
 "Join my group on Footbl! http://footbl.co/dl" = "Unisciti al mio gruppo su Footbl! http://footbl.co/dl";
 
@@ -787,12 +778,6 @@ Recharge your wallet by tapping the + above. */
 "These friends sent you some cash (✓):" = "Questi amici inviare denaro (✓):";
 
 "You need more cash!" = "Hai bisogno di più soldi!";
-
-/* {money} */
-"You lost $%lu in the last match =(" = "Hai perso $%1$lu nell'ultima partita =(";
-
-/* {money} */
-"You made $%lu in the last match =)" = "Hai fatto $%1$lu nell'ultima partita =)";
 
 "Update bonus!" = "Bonus di aggiornamento";
 
