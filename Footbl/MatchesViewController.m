@@ -91,7 +91,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     
     if (self.totalProfitText.length > 0) {
         Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]].lastObject;
-        self.totalProfitIndexPath = [self.fetchedResultsController indexPathForObject:match];
+		self.totalProfitIndexPath = [self.fetchedResultsController indexPathForObject:match];
     } else {
         self.totalProfitIndexPath = nil;
     }
@@ -343,22 +343,14 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
                     sum += [betProfit floatValue];
                 }
-                NSNumber *numberOfMatches = @(updatedMatches.count);
+				NSNumber *numberOfMatches = @(updatedMatches.count);
                 
                 if (updatedMatches.count > 0 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
-                    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"You made $0 in the last %@ matches", @"{number of matches}"), numberOfMatches];
-                    if (sum > 0) {
-                        if (matches == 1) {
-                            text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last match =)", @"{money}"), (long)sum];
-                        } else {
-                             text = [NSString stringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
-                        }
-                    } else if (sum < 0) {
-                        if (matches == 1) {
-                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last match =(", @"{money}"), (long)fabsf(sum)];
-                        } else {
-                            text = [NSString stringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
-                        }
+					NSString *text = nil;
+                    if (sum >= 0) {
+						 text = [NSString localizedStringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+                    } else {
+						text = [NSString localizedStringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
                     }
                     self.totalProfitText = text;
                     self.totalProfit = @(sum);
