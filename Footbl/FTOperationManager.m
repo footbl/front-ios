@@ -98,6 +98,88 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
     return _groupingDictionary;
 }
 
+#pragma mark - Overload
+
+- (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+	FTRequestSerializer *requestSerializer = (FTRequestSerializer *)self.requestSerializer;
+	BOOL autoPageEnabled = (requestSerializer.options & FTRequestOptionAutoPage);
+	
+	__block NSMutableArray *responseArray = [NSMutableArray new];
+	__block void(^pagingBlock)(AFHTTPRequestOperation *operation, NSArray *responseObject);
+	__block void(^weakPagingBlock)(AFHTTPRequestOperation *operation, NSArray *responseObject);
+	
+	pagingBlock = ^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
+		[responseArray addObjectsFromArray:responseObject];
+		if (responseObject.count == 20) {
+			NSMutableDictionary *newParamaters = [parameters mutableCopy];
+			if (!newParamaters) {
+				newParamaters = [NSMutableDictionary new];
+			}
+			newParamaters[@"page"] = @(operation.request.page + 1);
+			[self GET:URLString parameters:newParamaters success:weakPagingBlock failure:failure];
+		} else if (success) {
+			success(operation, responseArray);
+		}
+	};
+	weakPagingBlock = [pagingBlock copy];
+	
+	return [super GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if (autoPageEnabled && [responseObject isKindOfClass:[NSArray class]]) {
+			pagingBlock(operation, responseObject);
+		} else {
+			if (success) success(operation, responseObject);
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (operation.response.statusCode == 401) {
+			[self.operationQueue cancelAllOperations];
+			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
+				[super GET:URLString parameters:parameters success:success failure:failure];
+			} failure:nil];
+		} else if (failure) {
+			failure(operation, error);
+		}
+	}];
+}
+
+- (AFHTTPRequestOperation *)POST:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	return [super POST:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (operation.response.statusCode == 401) {
+			[self.operationQueue cancelAllOperations];
+			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
+				[super POST:URLString parameters:parameters success:success failure:failure];
+			} failure:nil];
+		} else if (failure) {
+			failure(operation, error);
+		}
+	}];
+}
+
+- (AFHTTPRequestOperation *)PUT:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	return [super PUT:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (operation.response.statusCode == 401) {
+			[self.operationQueue cancelAllOperations];
+			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
+				[super PUT:URLString parameters:parameters success:success failure:failure];
+			} failure:nil];
+		} else if (failure) {
+			failure(operation, error);
+		}
+	}];
+}
+
+- (AFHTTPRequestOperation *)DELETE:(NSString *)URLString parameters:(id)parameters success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure {
+	return [super DELETE:URLString parameters:parameters success:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if (operation.response.statusCode == 401) {
+			[self.operationQueue cancelAllOperations];
+			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
+				[super DELETE:URLString parameters:parameters success:success failure:failure];
+			} failure:nil];
+		} else if (failure) {
+			failure(operation, error);
+		}
+	}];
+}
+
 #pragma mark - Instance Methods
 
 - (void)performOperationWithOptions:(FTRequestOptions)options operations:(void (^)())operations {
@@ -105,38 +187,6 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
     requestSerializer.options = options;
     if (operations) operations();
     requestSerializer.options = requestSerializer.defaultOptions;
-}
-
-- (AFHTTPRequestOperation *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    FTRequestSerializer *requestSerializer = (FTRequestSerializer *)self.requestSerializer;
-    BOOL autoPageEnabled = (requestSerializer.options & FTRequestOptionAutoPage);
-    
-    __block NSMutableArray *responseArray = [NSMutableArray new];
-    __block void(^pagingBlock)(AFHTTPRequestOperation *operation, NSArray *responseObject);
-    __block void(^weakPagingBlock)(AFHTTPRequestOperation *operation, NSArray *responseObject);
-    
-    pagingBlock = ^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-        [responseArray addObjectsFromArray:responseObject];
-        if (responseObject.count == 20) {
-            NSMutableDictionary *newParamaters = [parameters mutableCopy];
-            if (!newParamaters) {
-                newParamaters = [NSMutableDictionary new];
-            }
-            newParamaters[@"page"] = @(operation.request.page + 1);
-            [self GET:URLString parameters:newParamaters success:weakPagingBlock failure:failure];
-        } else if (success) {
-            success(operation, responseArray);
-        }
-    };
-    weakPagingBlock = [pagingBlock copy];
-    
-    return [super GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (autoPageEnabled && [responseObject isKindOfClass:[NSArray class]]) {
-            pagingBlock(operation, responseObject);
-        } else {
-            if (success) success(operation, responseObject);
-        }
-    } failure:failure];
 }
 
 - (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {

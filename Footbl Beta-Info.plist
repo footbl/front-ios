@@ -8,18 +8,6 @@
 	<string>Footbl ß</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIcons</key>
-	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>Icon-Beta-Small</string>
-				<string>Icon-Beta-Spotlight-40</string>
-				<string>Icon-Beta-60</string>
-			</array>
-		</dict>
-	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>co.footbl.footbl1</string>
 	<key>CFBundleInfoDictionaryVersion</key>

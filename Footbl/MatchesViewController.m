@@ -236,7 +236,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         void(^successBlock)() = ^() {
             [self reloadWallet];
         };
-        
+		
         if (result == 0) {
             [bet.editableObject deleteWithSuccess:successBlock failure:failure];
         } else if (bet) {
