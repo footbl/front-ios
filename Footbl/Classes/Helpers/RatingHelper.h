@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NSInteger const WalletReference;
+
 @interface RatingHelper : NSObject
 
 + (instancetype)sharedInstance;

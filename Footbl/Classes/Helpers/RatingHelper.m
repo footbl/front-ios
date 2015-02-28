@@ -11,6 +11,8 @@
 #import "RatingHelper.h"
 #import "User.h"
 
+NSInteger const WalletReference = 105;
+
 @interface RatingHelper () <iRateDelegate>
 
 @end
@@ -50,10 +52,9 @@
 
 - (BOOL)iRateShouldPromptForRating {
     User *user = [User currentUser];
-    if (user.fundsValue + user.stakeValue > 100 && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
+    if (user.fundsValue + user.stakeValue >= WalletReference && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
         return YES;
     }
-    
     return NO;
 }
 

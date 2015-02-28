@@ -12,6 +12,7 @@
 #import "Bet.h"
 #import "Group.h"
 #import "NSNumber+Formatter.h"
+#import "RatingHelper.h"
 #import "User.h"
 
 NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepresentation";
@@ -442,6 +443,21 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
     } failure:^(NSError *error) {
         if (failure) failure(nil, error);
     }];
+}
+
+- (void)setFunds:(NSNumber *)funds {
+	NSInteger newWallet = self.stakeValue + funds.integerValue;
+	NSInteger oldWallet = self.stakeValue + self.fundsValue;
+	
+	[self willChangeValueForKey:@"funds"];
+	self.primitiveFunds = funds;
+	[self didChangeValueForKey:@"funds"];
+	
+	if (self.isMeValue && newWallet >= WalletReference && oldWallet < WalletReference) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[[RatingHelper sharedInstance] showAlert];
+		});
+	}
 }
 
 @end
