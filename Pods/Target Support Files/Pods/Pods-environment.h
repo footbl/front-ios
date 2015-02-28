@@ -264,7 +264,7 @@
   // SimulatorStatusMagic
   #define COCOAPODS_POD_AVAILABLE_SimulatorStatusMagic
   #define COCOAPODS_VERSION_MAJOR_SimulatorStatusMagic 1
-  #define COCOAPODS_VERSION_MINOR_SimulatorStatusMagic 2
+  #define COCOAPODS_VERSION_MINOR_SimulatorStatusMagic 3
   #define COCOAPODS_VERSION_PATCH_SimulatorStatusMagic 0
 
 #endif

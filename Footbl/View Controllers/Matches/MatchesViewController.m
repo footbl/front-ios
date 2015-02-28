@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/SPHipster.h>
 #import "Bet.h"
 #import "BetsViewController.h"
 #import "Championship.h"
@@ -294,9 +295,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
-    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].firstObject;
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
+    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
     if (!match) {
-        match = self.fetchedResultsController.fetchedObjects.lastObject;
+        match = self.fetchedResultsController.fetchedObjects.firstObject;
     }
     
     [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:match] atScrollPosition:UITableViewScrollPositionTop animated:animated];
