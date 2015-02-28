@@ -116,6 +116,7 @@
         [button setImage:[UIImage imageNamed:@"groups_createnewgroup"] forState:UIControlStateNormal];
         button.titleLabel.numberOfLines = 0;
         button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         
         NSMutableAttributedString *buttonTitle = [NSMutableAttributedString new];
         [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button title", @"") attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16], NSForegroundColorAttributeName : [UIColor colorWithRed:137/255.f green:148/255.f blue:140/255.f alpha:1.00]}]];
