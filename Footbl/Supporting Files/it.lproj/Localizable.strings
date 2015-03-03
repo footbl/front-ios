@@ -713,6 +713,9 @@ Make more bets and increase your profit! */
 /* World */
 "World" = "Mondo";
 
+/* My Friends */
+"My Friends" = "Miei Amici";
+
 /* Development only */
 "Please restart the app" = "Riavviare l'applicazione";
 
