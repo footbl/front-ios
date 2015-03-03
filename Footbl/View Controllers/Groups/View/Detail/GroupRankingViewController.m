@@ -8,7 +8,9 @@
 
 #import <SDWebImage/UIButton+WebCache.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/SPHipster.h>
 #import <SVPullToRefresh/SVPullToRefresh.h>
+#import "FriendsHelper.h"
 #import "Group.h"
 #import "GroupMembershipTableViewCell.h"
 #import "GroupRankingViewController.h"
@@ -37,7 +39,7 @@
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        if (self.group.isDefaultValue) {
+        if (self.group.isWorld) {
             fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@ AND isLocalRanking = %@", self.group, @YES, @NO];
         } else {
@@ -91,7 +93,7 @@
             [[LoadingHelper sharedInstance] showHud];
         }
 
-        if (self.group.isDefaultValue) {
+        if (self.group.isWorldValue) {
             [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
                 [self setupInfiniteScrolling];
                 self.tableView.showsInfiniteScrolling = (nextPage != nil);
@@ -105,7 +107,37 @@
                 [[ErrorHandler sharedInstance] displayError:error];
                 self.isLoading = NO;
             }];
-        } else {
+		} else if (self.group.isFriendsValue) {
+			[[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+				if (!error) {
+					NSManagedObjectContext *context = self.group.editableObject.managedObjectContext;
+					[self.group.editableObject removeMembers:self.group.members];
+					NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isLocalRanking = NO"];
+					NSMutableSet *memberships = [[self.group.editableObject.members filteredSetUsingPredicate:predicate] mutableCopy];
+					[User loadContent:friends inManagedObjectContext:context usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+						Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:context withCache:memberships];
+						membership.user = user;
+						membership.hasRanking = @(user.ranking != nil);
+						membership.ranking = user.ranking;
+						membership.previousRanking = user.previousRanking;
+						membership.group = self.group.editableObject;
+						membership.isLocalRanking = @NO;
+						[memberships removeObject:membership];
+					} untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+						[[FTCoreDataStore privateQueueContext] deleteObjects:memberships];
+					} completionBlock:^(NSArray *objects) {
+						[self.refreshControl endRefreshing];
+						[[LoadingHelper sharedInstance] hideHud];
+						self.isLoading = NO;
+					}];
+				} else {
+					[self.refreshControl endRefreshing];
+					[[LoadingHelper sharedInstance] hideHud];
+					[[ErrorHandler sharedInstance] displayError:error];
+					self.isLoading = NO;
+				}
+			}];
+		} else {
             [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
@@ -121,7 +153,7 @@
 }
 
 - (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView || !self.group.isDefaultValue) {
+    if (self.tableView.infiniteScrollingView || !self.group.isWorldValue) {
         return;
     }
     
@@ -199,7 +231,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    if (self.group.isDefaultValue) {
+    if (self.group.isWorldValue) {
         return MIN([sectionInfo numberOfObjects], (self.nextPage.integerValue + 1) * FT_API_PAGE_LIMIT);
     } else {
         return [sectionInfo numberOfObjects];

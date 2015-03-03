@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SPHipster/SPHipster.h>
 #import "AnonymousViewController.h"
 #import "Championship.h"
 #import "Group.h"
@@ -80,12 +81,12 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = group.name;
-    if (group.isDefaultValue) {
+    if (group.isWorldValue) {
         [cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
     } else {
         [cell.groupImageView sd_setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }
-    [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
+    [cell setIndicatorHidden:(!group.isNewValue || group.isWorldValue) animated:NO];
     [cell setUnreadCount:group.unreadMessagesCount];
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);

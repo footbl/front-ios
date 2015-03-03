@@ -150,7 +150,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (!self.group.isDefaultValue) {
+    if (!self.group.isWorldValue) {
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
         self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
         [self.nameTextField resignFirstResponder];
@@ -343,7 +343,7 @@
     
     self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.freeToEditValue;
     if (!self.groupImageButton.imageView.image && !self.groupImageButton.userInteractionEnabled) {
-        if (self.group.isDefaultValue) {
+        if (self.group.isWorldValue) {
             [self.groupImageButton setImage:[UIImage imageNamed:@"world_icon"] forState:UIControlStateNormal];
         } else {
             [self.groupImageButton setImage:[UIImage imageNamed:@"generic_group"] forState:UIControlStateNormal];

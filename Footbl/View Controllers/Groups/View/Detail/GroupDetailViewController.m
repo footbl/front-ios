@@ -96,7 +96,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 - (GroupDetailType)groupType {
     if (!self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
         _groupType = GroupDetailTypeChat;
-    } else if (self.group.isDefaultValue && AROUND_ME_ENABLED) {
+    } else if (self.group.isWorldValue && AROUND_ME_ENABLED) {
         _groupType = GroupDetailTypeAroundMe;
     } else {
         _groupType = GroupDetailTypeNone;

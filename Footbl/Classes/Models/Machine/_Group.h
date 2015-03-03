@@ -7,7 +7,9 @@
 extern const struct GroupAttributes {
 	__unsafe_unretained NSString *freeToEdit;
 	__unsafe_unretained NSString *isDefault;
+	__unsafe_unretained NSString *isFriends;
 	__unsafe_unretained NSString *isNew;
+	__unsafe_unretained NSString *isWorld;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *picture;
 	__unsafe_unretained NSString *removed;
@@ -49,6 +51,14 @@ extern const struct GroupRelationships {
 
 //- (BOOL)validateIsDefault:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* isFriends;
+
+@property (atomic) BOOL isFriendsValue;
+- (BOOL)isFriendsValue;
+- (void)setIsFriendsValue:(BOOL)value_;
+
+//- (BOOL)validateIsFriends:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* isNew;
 
 @property (atomic) BOOL isNewValue;
@@ -56,6 +66,14 @@ extern const struct GroupRelationships {
 - (void)setIsNewValue:(BOOL)value_;
 
 //- (BOOL)validateIsNew:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* isWorld;
+
+@property (atomic) BOOL isWorldValue;
+- (BOOL)isWorldValue;
+- (void)setIsWorldValue:(BOOL)value_;
+
+//- (BOOL)validateIsWorld:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* name;
 
@@ -125,11 +143,23 @@ extern const struct GroupRelationships {
 - (BOOL)primitiveIsDefaultValue;
 - (void)setPrimitiveIsDefaultValue:(BOOL)value_;
 
+- (NSNumber*)primitiveIsFriends;
+- (void)setPrimitiveIsFriends:(NSNumber*)value;
+
+- (BOOL)primitiveIsFriendsValue;
+- (void)setPrimitiveIsFriendsValue:(BOOL)value_;
+
 - (NSNumber*)primitiveIsNew;
 - (void)setPrimitiveIsNew:(NSNumber*)value;
 
 - (BOOL)primitiveIsNewValue;
 - (void)setPrimitiveIsNewValue:(BOOL)value_;
+
+- (NSNumber*)primitiveIsWorld;
+- (void)setPrimitiveIsWorld:(NSNumber*)value;
+
+- (BOOL)primitiveIsWorldValue;
+- (void)setPrimitiveIsWorldValue:(BOOL)value_;
 
 - (NSString*)primitiveName;
 - (void)setPrimitiveName:(NSString*)value;

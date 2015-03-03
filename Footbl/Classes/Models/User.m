@@ -181,12 +181,21 @@ NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepre
     [super updateWithData:data];
     
     if (self.isMeValue) {
-        Group *group = [Group findOrCreateWithObject:@"world" inContext:self.managedObjectContext];
-        group.name = NSLocalizedString(@"World", @"");
-        group.freeToEdit = @NO;
-        group.owner = nil;
-        group.isDefault = @YES;
-        group.picture = nil;
+        Group *worldGroup = [Group findOrCreateWithObject:@"world" inContext:self.managedObjectContext];
+        worldGroup.name = NSLocalizedString(@"World", @"");
+		worldGroup.isDefault = @YES;
+		worldGroup.isWorld = @YES;
+        worldGroup.freeToEdit = @NO;
+        worldGroup.owner = nil;
+        worldGroup.picture = nil;
+		
+		Group *friendsGroup = [Group findOrCreateWithObject:@"friends" inContext:self.managedObjectContext];
+		friendsGroup.name = NSLocalizedString(@"My Friends", @"");
+		friendsGroup.isDefault = @YES;
+		friendsGroup.isFriends = @YES;
+		friendsGroup.freeToEdit = @NO;
+		friendsGroup.owner = nil;
+		friendsGroup.picture = nil;
     }
 }
 

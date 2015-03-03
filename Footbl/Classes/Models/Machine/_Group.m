@@ -6,7 +6,9 @@
 const struct GroupAttributes GroupAttributes = {
 	.freeToEdit = @"freeToEdit",
 	.isDefault = @"isDefault",
+	.isFriends = @"isFriends",
 	.isNew = @"isNew",
+	.isWorld = @"isWorld",
 	.name = @"name",
 	.picture = @"picture",
 	.removed = @"removed",
@@ -55,8 +57,18 @@ const struct GroupRelationships GroupRelationships = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"isFriendsValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isFriends"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"isNewValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isNew"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isWorldValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isWorld"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -114,6 +126,26 @@ const struct GroupRelationships GroupRelationships = {
 	[self setPrimitiveIsDefault:[NSNumber numberWithBool:value_]];
 }
 
+@dynamic isFriends;
+
+- (BOOL)isFriendsValue {
+	NSNumber *result = [self isFriends];
+	return [result boolValue];
+}
+
+- (void)setIsFriendsValue:(BOOL)value_ {
+	[self setIsFriends:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsFriendsValue {
+	NSNumber *result = [self primitiveIsFriends];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsFriendsValue:(BOOL)value_ {
+	[self setPrimitiveIsFriends:[NSNumber numberWithBool:value_]];
+}
+
 @dynamic isNew;
 
 - (BOOL)isNewValue {
@@ -132,6 +164,26 @@ const struct GroupRelationships GroupRelationships = {
 
 - (void)setPrimitiveIsNewValue:(BOOL)value_ {
 	[self setPrimitiveIsNew:[NSNumber numberWithBool:value_]];
+}
+
+@dynamic isWorld;
+
+- (BOOL)isWorldValue {
+	NSNumber *result = [self isWorld];
+	return [result boolValue];
+}
+
+- (void)setIsWorldValue:(BOOL)value_ {
+	[self setIsWorld:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsWorldValue {
+	NSNumber *result = [self primitiveIsWorld];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsWorldValue:(BOOL)value_ {
+	[self setPrimitiveIsWorld:[NSNumber numberWithBool:value_]];
 }
 
 @dynamic name;
