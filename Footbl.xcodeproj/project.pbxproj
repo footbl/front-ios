@@ -1502,7 +1502,6 @@
 				ED785A4E199D0C62002A4DBD /* Resources */,
 				ED785A5D199D0C62002A4DBD /* Copy Pods Resources */,
 				ED83A99819B127AA0089CC5F /* Remove temporary Info.plist */,
-				ED785A5F199D0C62002A4DBD /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1522,7 +1521,6 @@
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
 				ED8DB3F91A14C95C00605CCE /* Resources */,
 				ED8DB4111A14C95C00605CCE /* Copy Pods Resources */,
-				ED8DB4131A14C95C00605CCE /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1544,7 +1542,6 @@
 				ED97AFD01A14C7E40079ADB4 /* Resources */,
 				ED97AFE81A14C7E40079ADB4 /* Copy Pods Resources */,
 				ED97AFE91A14C7E40079ADB4 /* Remove temporary Info.plist */,
-				ED97AFEA1A14C7E40079ADB4 /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1778,20 +1775,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED785A5F199D0C62002A4DBD /* Run Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Crashlytics";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
-		};
 		ED83A99719B1278A0089CC5F /* Set Info.plist values */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1850,20 +1833,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED8DB4131A14C95C00605CCE /* Run Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Crashlytics";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
-		};
 		ED97AF5B1A14C7E40079ADB4 /* Set Info.plist values */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1921,20 +1890,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
-		};
-		ED97AFEA1A14C7E40079ADB4 /* Run Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Crashlytics";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 /* End PBXShellScriptBuildPhase section */
 

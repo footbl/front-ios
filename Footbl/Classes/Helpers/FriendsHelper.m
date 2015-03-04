@@ -74,7 +74,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                 __block NSInteger operationsCount = 0;
                 __block NSInteger operationsFinished = 0;
                 __block NSMutableArray *searchResults = [NSMutableArray new];
-                
+				__block NSMutableSet *resultSet = [NSMutableSet new];
+				__block NSMutableArray *result = [NSMutableArray new];
+				
                 void(^finishedBlock)(id response) = ^(id response) {
                     operationsFinished ++;
                     if (response && [response isKindOfClass:[NSArray class]]) {
@@ -82,11 +84,11 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     }
                     
                     if (operationsFinished == operationsCount) {
-                        NSMutableSet *resultSet = [NSMutableSet new];
-                        NSMutableArray *result = [NSMutableArray new];
+						User *me = [User currentUser];
                         for (NSDictionary *user in searchResults) {
-                            if (![resultSet containsObject:user[kFTResponseParamIdentifier]] && ![user[kFTResponseParamIdentifier] isEqualToString:[User currentUser].rid]) {
-                                [resultSet addObject:user[kFTResponseParamIdentifier]];
+							NSString *slug = user[kFTResponseParamIdentifier];
+                            if (![resultSet containsObject:slug] && ![slug isEqualToString:me.rid] && ![slug isEqualToString:@"me"]) {
+                                [resultSet addObject:slug];
                                 [result addObject:user];
                             }
                         }

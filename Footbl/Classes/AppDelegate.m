@@ -7,7 +7,7 @@
 //
 
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <FlurrySDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
@@ -69,7 +69,7 @@
 
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
     
-    [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
+//    [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
     [Flurry startSession:@"3TYX4BPG48MS9B89F2VB"];
     
     [[AFNetworkActivityLogger sharedLogger] startLogging];

@@ -14,6 +14,7 @@
 #import "GroupChatViewController.h"
 #import "ErrorHandler.h"
 #import "Message.h"
+#import "ProfileBetsViewController.h"
 #import "ProfileViewController.h"
 #import "User.h"
 
@@ -104,6 +105,21 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 #pragma mark - Instance Methods
+
+- (IBAction)shareAction:(id)sender {
+	ProfileBetsViewController *viewController = [[ProfileBetsViewController alloc] init];
+	viewController.user = [User currentUser];
+	viewController.itemSelectionBlock = ^(MatchTableViewCell *cell) {
+		CGRect frame = CGRectMake(5, 5, 80, 80);
+		UIBezierPath *exclusionPath = [UIBezierPath bezierPathWithRect:frame];
+		self.messageTextView.textContainer.exclusionPaths = @[exclusionPath];
+		self.messageImageView.image = cell.imageRepresentation;
+		self.messageImageView.frame = frame;
+		[self reloadViewsAnimated:NO];
+		[self.navigationController popViewControllerAnimated:YES];
+	};
+	[self.navigationController pushViewController:viewController animated:YES];
+}
 
 - (IBAction)sendAction:(id)sender {
     NSString *text = [self.messageTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -200,23 +216,28 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 - (void)reloadViewsAnimated:(BOOL)animated {
     NSUInteger maxMessageHeight = self.view.frameHeight / 4.45;
-    NSUInteger messageHeight = MIN(maxMessageHeight, [self.messageTextView sizeThatFits:CGSizeMake(self.messageTextView.frameWidth, INT_MAX)].height);
+	NSUInteger messageHeight = MAX(self.messageImageView.frameHeight, [self.messageTextView sizeThatFits:CGSizeMake(self.messageTextView.frameWidth, INT_MAX)].height);
+    messageHeight = MIN(maxMessageHeight, messageHeight);
     self.footerView.frameHeight = messageHeight + 20;
-    
+	
+	UIImage *image = [self.shareButton imageForState:UIControlStateNormal];
+	CGFloat shareButtonWidth = image.size.width + 20;
+	self.shareButton.frameWidth = shareButtonWidth;
+	
     CGFloat buttonWidth = [self.sendButton sizeThatFits:self.footerView.bounds.size].width + 20;
     self.sendButton.frameX = self.view.frameWidth - buttonWidth;
     self.sendButton.frameWidth = buttonWidth;
-    self.messageTextView.frame = CGRectMake(0, -1, self.sendButton.frameX - 10, maxMessageHeight);
-    
-    if ([self.messageTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
-        self.sendButton.enabled = YES;
-    } else {
-        self.sendButton.enabled = NO;
-    }
+    self.messageTextView.frame = CGRectMake(0, -1, self.sendButton.frameX - shareButtonWidth, maxMessageHeight);
+	
+	NSCharacterSet *charset = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	BOOL hasText = [self.messageTextView.text stringByTrimmingCharactersInSet:charset].length > 0;
+	BOOL hasImage = (self.messageImageView.image != nil);
+	self.sendButton.enabled = (hasImage || hasText);
     
     [UIView animateWithDuration:animated ? 0.3 : 0 animations:^{
+		self.shareButton.frameHeight = self.footerView.frameHeight;
         self.sendButton.frameHeight = self.footerView.frameHeight;
-        self.messageBorderView.frame = CGRectMake(10, 10, self.sendButton.frameX - 10, self.footerView.frameHeight - 20);
+        self.messageBorderView.frame = CGRectMake(shareButtonWidth, 10, self.sendButton.frameX - shareButtonWidth, self.footerView.frameHeight - 20);
         self.footerView.frameY = self.view.frameHeight - 48 - self.keyboardSize.height - self.footerView.frameHeight;
         
         if (self.tableView.frameHeight != self.footerView.frameY - self.tableView.frameY) {
@@ -332,7 +353,13 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if ([text isEqualToString:@"\n"]) {
         [self sendAction:textView];
         return NO;
-    }
+	} else if (textView.text.length == 0 && text.length == 0) { // backspace
+		self.messageTextView.textContainer.exclusionPaths = nil;
+		self.messageImageView.frame = CGRectZero;
+		self.messageImageView.image = nil;
+		[self reloadViewsAnimated:NO];
+		return NO;
+	}
     return YES;
 }
 
@@ -453,7 +480,13 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     backgroundView.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     [self.footerView addSubview:backgroundView];
-    
+	
+	self.shareButton = [[UIButton alloc] initWithFrame:CGRectZero];
+	self.shareButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+	[self.shareButton setImage:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] forState:UIControlStateNormal];
+	[self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
+	[self.footerView addSubview:self.shareButton];
+	
     self.sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
     self.sendButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.sendButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:18];
@@ -476,7 +509,11 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     self.messageTextView.enablesReturnKeyAutomatically = YES;
     self.messageTextView.font = [UIFont fontWithName:kFontNameSystemLight size:14.0];
     [self.messageBorderView addSubview:self.messageTextView];
-    
+	
+	self.messageImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+	self.messageImageView.contentMode = UIViewContentModeScaleAspectFill;
+	[self.messageTextView addSubview:self.messageImageView];
+	
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 50)];
     UIButton *nextPageButton = [[UIButton alloc] initWithFrame:self.headerView.bounds];
     nextPageButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];

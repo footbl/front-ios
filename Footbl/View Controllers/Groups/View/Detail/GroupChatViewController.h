@@ -19,8 +19,10 @@
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) UIView *footerBackgroundView;
+@property (strong, nonatomic) UIButton *shareButton;
 @property (strong, nonatomic) UIButton *sendButton;
 @property (strong, nonatomic) UITextView *messageTextView;
+@property (strong, nonatomic) UIImageView *messageImageView;
 @property (strong, nonatomic) UIView *messageBorderView;
 @property (strong, nonatomic) UILabel *placeholderLabel;
 @property (assign, nonatomic) GroupDetailContext context;

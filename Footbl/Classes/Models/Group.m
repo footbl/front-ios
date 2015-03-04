@@ -7,6 +7,7 @@
 //
 
 #import "FTImageUploader.h"
+#import "FriendsHelper.h"
 #import "Group.h"
 #import "Membership.h"
 #import "User.h"
@@ -220,6 +221,32 @@
             }];
         } failure:failure];
     }];
+}
+
+- (void)getFriendsMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
+	[[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+		if (!error) {
+			NSManagedObjectContext *context = self.managedObjectContext;
+			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isLocalRanking = NO"];
+			NSMutableSet *memberships = [[self.editableObject.members filteredSetUsingPredicate:predicate] mutableCopy];
+			[User loadContent:friends inManagedObjectContext:context usingCache:nil enumeratingObjectsWithBlock:^(User *user, NSDictionary *data) {
+				Membership *membership = [Membership findOrCreateWithObject:user.slug inContext:context withCache:memberships];
+				membership.user = user;
+				membership.hasRanking = @(user.ranking != nil);
+				membership.ranking = user.ranking;
+				membership.previousRanking = user.previousRanking;
+				membership.group = self.editableObject;
+				membership.isLocalRanking = @NO;
+				[memberships removeObject:membership];
+			} untouchedObjectsBlock:^(NSSet *untouchedObjects) {
+				[[FTCoreDataStore privateQueueContext] deleteObjects:memberships];
+			} completionBlock:^(NSArray *objects) {
+				if (success) success(objects);
+			}];
+		} else {
+			if (failure) failure(nil, error);
+		}
+	}];
 }
 
 - (void)getLocalRankingMembersWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {

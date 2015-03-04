@@ -8,7 +8,7 @@ pod 'SPHipster', '0.5.3'
 pod 'SPNotifier', '0.2.2'
 
 # Analytics
-pod 'CrashlyticsFramework', '2.2.5'
+#pod 'CrashlyticsFramework', '2.2.5'
 pod 'GoogleAnalytics-iOS-SDK', '3.0.9'
 pod 'FlurrySDK', '5.4.0'
 
