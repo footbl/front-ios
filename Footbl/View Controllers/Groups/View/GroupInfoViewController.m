@@ -346,7 +346,7 @@
         if (self.group.isWorldValue) {
             [self.groupImageButton setImage:[UIImage imageNamed:@"world_icon"] forState:UIControlStateNormal];
         } else if (self.group.isFriendsValue) {
-			[self.groupImageButton setImage:[UIImage imageNamed:@"generic_group"] forState:UIControlStateNormal];
+			[self.groupImageButton setImage:[UIImage imageNamed:@"icon-group-friends"] forState:UIControlStateNormal];
 		} else {
             [self.groupImageButton setImage:[UIImage imageNamed:@"generic_group"] forState:UIControlStateNormal];
         }

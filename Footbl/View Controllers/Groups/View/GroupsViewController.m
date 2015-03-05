@@ -84,7 +84,7 @@
     if (group.isWorldValue) {
 		[cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
     } else if (group.isFriendsValue) {
-		[cell.groupImageView setImage:[UIImage imageNamed:@"generic_group"]];
+		[cell.groupImageView setImage:[UIImage imageNamed:@"icon-group-friends"]];
 	} else {
         [cell.groupImageView sd_setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }

@@ -518,7 +518,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 	
 	self.shareButton = [[UIButton alloc] initWithFrame:CGRectZero];
 	self.shareButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-	[self.shareButton setImage:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] forState:UIControlStateNormal];
+	[self.shareButton setImage:[UIImage imageNamed:@"button-chat-share"] forState:UIControlStateNormal];
 	[self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
 	[self.footerView addSubview:self.shareButton];
 	
