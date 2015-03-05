@@ -165,7 +165,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         }
         
         bet = match.myBet;
-        
+		NSUInteger firstBetValue = MAX(floor(bet.user.fundsValue + bet.user.stakeValue / 100), 1);
         NSInteger currentBet = match.myBetValue.integerValue;
         MatchResult result = match.myBetResult;
         
@@ -174,9 +174,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 if (result == MatchResultHost) {
                     currentBet ++;
                 } else if (currentBet == 0) {
-                    currentBet = 1;
+                    currentBet = firstBetValue;
                     result = MatchResultHost;
-                } else {
+				} else if (currentBet == firstBetValue) {
+					currentBet = 0;
+				} else {
                     currentBet --;
                 }
                 break;
@@ -184,9 +186,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 if (result == MatchResultDraw) {
                     currentBet ++;
                 } else if (currentBet == 0) {
-                    currentBet = 1;
+                    currentBet = firstBetValue;
                     result = MatchResultDraw;
-                } else {
+				} else if (currentBet == firstBetValue) {
+					currentBet = 0;
+				} else {
                     currentBet --;
                 }
                 break;
@@ -194,8 +198,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 if (result == MatchResultGuest) {
                     currentBet ++;
                 } else if (currentBet == 0) {
-                    currentBet = 1;
+                    currentBet = firstBetValue;
                     result = MatchResultGuest;
+				} else if (currentBet == firstBetValue) {
+					currentBet = 0;
                 } else {
                     currentBet --;
                 }
