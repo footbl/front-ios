@@ -393,27 +393,32 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.cardContentView addSubview:self.guestNameLabel];
         
         // Images
+		self.hostDisabledImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
         self.hostDisabledImageView = teamImageView(CGRectMake(12, 130, 96, 96));
         self.hostDisabledImageView.tintColor = [UIColor grayColor];
         self.hostDisabledImageView.alpha = kDisabledAlpha;
-        [self.hostDisabledImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
+        [self.hostDisabledImageView addGestureRecognizer:self.hostDisabledImageViewGestureRecognizer];
         self.hostImageView = teamImageView(CGRectMake(12, 130, 96, 96));
-        [self.hostImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
+		self.hostImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
+        [self.hostImageView addGestureRecognizer:self.hostImageViewGestureRecognizer];
         self.guestDisabledImageView = teamImageView(CGRectMake(192, 130, 96, 96));
         self.guestDisabledImageView.tintColor = [UIColor grayColor];
         self.guestDisabledImageView.alpha = kDisabledAlpha;
         self.guestDisabledImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [self.guestDisabledImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
+		self.guestDisabledImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
+        [self.guestDisabledImageView addGestureRecognizer:self.guestDisabledImageViewGestureRecognizer];
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
         self.guestImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [self.guestImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
-        
+		self.guestImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
+        [self.guestImageView addGestureRecognizer:self.guestImageViewGestureRecognizer];
+		
+		self.versusLabelGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
         self.versusLabel = label(CGRectMake(108, 130, 84, 96), [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:1]);
         self.versusLabel.font = [UIFont fontWithName:kFontNameLight size:55];
         self.versusLabel.text = @"X";
         self.versusLabel.userInteractionEnabled = YES;
         self.versusLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self.versusLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
+        [self.versusLabel addGestureRecognizer:self.versusLabelGestureRecognizer];
         
         // Footer
         self.footerLabel = potLabel(CGRectMake(0, 256, self.cardContentView.width, 53));
@@ -558,28 +563,29 @@ static CGFloat kDisabledAlpha = 0.4;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if (FBTweakValue(@"UX", @"Match", @"Tap & Hold", FT_ENABLE_TAP_AND_HOLD)) {
-        self.stepperUserInteractionEnabled = YES;
-        
-        self.hostStepper.userInteractionEnabled = YES;
-        self.drawStepper.userInteractionEnabled = YES;
-        self.guestStepper.userInteractionEnabled = YES;
-        
-        CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
-        if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
-            return [self.hostStepper hitTest:CGPointMake(self.hostStepper.width - 30, 10) withEvent:event];
-        } else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
-            return [self.drawStepper hitTest:CGPointMake(self.drawStepper.width - 30, 10) withEvent:event];
-        } else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
-            
-            return [self.guestStepper hitTest:CGPointMake(self.guestStepper.width - 30, 10) withEvent:event];
-        }
-    } else {
-        self.hostStepper.userInteractionEnabled = NO;
-        self.drawStepper.userInteractionEnabled = NO;
-        self.guestStepper.userInteractionEnabled = NO;
-    }
-    
+	if (!self.simpleSelection) {
+		if (FBTweakValue(@"UX", @"Match", @"Tap & Hold", FT_ENABLE_TAP_AND_HOLD)) {
+			self.stepperUserInteractionEnabled = YES;
+			
+			self.hostStepper.userInteractionEnabled = YES;
+			self.drawStepper.userInteractionEnabled = YES;
+			self.guestStepper.userInteractionEnabled = YES;
+			
+			CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
+			if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
+				return [self.hostStepper hitTest:CGPointMake(self.hostStepper.width - 30, 10) withEvent:event];
+			} else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
+				return [self.drawStepper hitTest:CGPointMake(self.drawStepper.width - 30, 10) withEvent:event];
+			} else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
+				return [self.guestStepper hitTest:CGPointMake(self.guestStepper.width - 30, 10) withEvent:event];
+			}
+		} else {
+			self.hostStepper.userInteractionEnabled = NO;
+			self.drawStepper.userInteractionEnabled = NO;
+			self.guestStepper.userInteractionEnabled = NO;
+		}
+	}
+	
     return [super hitTest:point withEvent:event];
 }
 
@@ -644,10 +650,18 @@ static CGFloat kDisabledAlpha = 0.4;
     self.footerLabel.attributedText = attributedString;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setSimpleSelection:(BOOL)simpleSelection {
+	_simpleSelection = simpleSelection;
+	
+	self.stepperUserInteractionEnabled = !simpleSelection;
+	self.shareButton.userInteractionEnabled = !simpleSelection;
+	self.shareButton.hidden = simpleSelection;
+	
+	self.hostImageViewGestureRecognizer.enabled = !simpleSelection;
+	self.hostDisabledImageViewGestureRecognizer.enabled = !simpleSelection;
+	self.guestImageViewGestureRecognizer.enabled = !simpleSelection;
+	self.guestDisabledImageViewGestureRecognizer.enabled = !simpleSelection;
+	self.versusLabelGestureRecognizer.enabled = !simpleSelection;
 }
 
 @end

@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UIView *cardContentView;
 @property (assign, nonatomic, getter = isStepperUserInteractionEnabled) BOOL stepperUserInteractionEnabled;
 @property (assign, nonatomic) MatchTableViewCellColorScheme colorScheme;
+@property (assign, nonatomic) BOOL simpleSelection;
 
 // Live
 @property (strong, nonatomic) UIView *liveHeaderView;
@@ -79,6 +80,12 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UIView *totalProfitView;
 @property (strong, nonatomic) UILabel *totalProfitLabel;
 @property (strong, nonatomic) UIImageView *totalProfitArrowImageView;
+
+@property (strong, nonatomic) UITapGestureRecognizer *guestImageViewGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *guestDisabledImageViewGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *hostImageViewGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *hostDisabledImageViewGestureRecognizer;
+@property (strong, nonatomic) UITapGestureRecognizer *versusLabelGestureRecognizer;
 
 
 - (CGFloat)defaultTeamNameFontSize;
