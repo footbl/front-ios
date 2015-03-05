@@ -83,7 +83,7 @@ static CGFloat kDisabledAlpha = 0.4;
     
     switch (self.stateLayout) {
         case MatchTableViewCellStateLayoutWaiting:
-            self.cardContentView.frameHeight = 289;
+            self.cardContentView.height = 289;
             self.liveHeaderView.alpha = 0;
             self.cardContentView.layer.borderWidth = 0;
             
@@ -91,40 +91,40 @@ static CGFloat kDisabledAlpha = 0.4;
             [self setSecondSeparatorPosition:236];
             
             // Bets
-            self.stakeValueLabel.frameY = 7;
-            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.stakeTitleLabel.frameY = 36;
-            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
-            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            self.stakeValueLabel.y = 7;
+            self.returnValueLabel.y = self.stakeValueLabel.y;
+            self.profitValueLabel.y = self.stakeValueLabel.y;
+            self.stakeTitleLabel.y = 36;
+            self.returnTitleLabel.y = self.stakeTitleLabel.y;
+            self.profitTitleLabel.y = self.stakeTitleLabel.y;
             
             // Teams & Pots
             self.hostScoreLabel.alpha = 0;
             self.guestScoreLabel.alpha = 0;
             
-            self.hostPotLabel.frameY = 99;
-            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
-            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
+            self.hostPotLabel.y = 99;
+            self.drawPotLabel.y = self.hostPotLabel.y;
+            self.guestPotLabel.y = self.hostPotLabel.y;
             
-            self.hostNameLabel.frameY = 75;
-            self.drawLabel.frameY = self.hostNameLabel.frameY;
-            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
+            self.hostNameLabel.y = 75;
+            self.drawLabel.y = self.hostNameLabel.y;
+            self.guestNameLabel.y = self.hostNameLabel.y;
             
             // Images
-            self.versusLabel.frameY = 125;
-            self.hostImageView.frameY = self.versusLabel.frameY;
-            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
-            self.guestImageView.frameY = self.versusLabel.frameY;
-            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
+            self.versusLabel.y = 125;
+            self.hostImageView.y = self.versusLabel.y;
+            self.hostDisabledImageView.y = self.versusLabel.y;
+            self.guestImageView.y = self.versusLabel.y;
+            self.guestDisabledImageView.y = self.versusLabel.y;
             
             // Footer
             self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + 26);
-            self.shareButton.frameY = 236;
+            self.shareButton.y = 236;
             self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
             break;
         case MatchTableViewCellStateLayoutLive:
         case MatchTableViewCellStateLayoutDone:
-            self.cardContentView.frameHeight = 312;
+            self.cardContentView.height = 312;
             self.cardContentView.layer.borderWidth = 1;
             self.liveHeaderView.alpha = 1;
             
@@ -133,36 +133,36 @@ static CGFloat kDisabledAlpha = 0.4;
             [self setSecondSeparatorPosition:236 + increment + 7];
             
             // Bets
-            self.stakeValueLabel.frameY = 7 + increment;
-            self.returnValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.profitValueLabel.frameY = self.stakeValueLabel.frameY;
-            self.stakeTitleLabel.frameY = 36 + increment;
-            self.returnTitleLabel.frameY = self.stakeTitleLabel.frameY;
-            self.profitTitleLabel.frameY = self.stakeTitleLabel.frameY;
+            self.stakeValueLabel.y = 7 + increment;
+            self.returnValueLabel.y = self.stakeValueLabel.y;
+            self.profitValueLabel.y = self.stakeValueLabel.y;
+            self.stakeTitleLabel.y = 36 + increment;
+            self.returnTitleLabel.y = self.stakeTitleLabel.y;
+            self.profitTitleLabel.y = self.stakeTitleLabel.y;
             
             // Teams & Pots
             self.hostScoreLabel.alpha = 1;
             self.guestScoreLabel.alpha = 1;
             
-            self.hostPotLabel.frameY = 99 + increment;
-            self.drawPotLabel.frameY = self.hostPotLabel.frameY;
-            self.guestPotLabel.frameY = self.hostPotLabel.frameY;
+            self.hostPotLabel.y = 99 + increment;
+            self.drawPotLabel.y = self.hostPotLabel.y;
+            self.guestPotLabel.y = self.hostPotLabel.y;
             
-            self.hostNameLabel.frameY = 75 + increment;
-            self.drawLabel.frameY = self.hostNameLabel.frameY;
-            self.guestNameLabel.frameY = self.hostNameLabel.frameY;
+            self.hostNameLabel.y = 75 + increment;
+            self.drawLabel.y = self.hostNameLabel.y;
+            self.guestNameLabel.y = self.hostNameLabel.y;
             
             // Images
-            self.versusLabel.frameY = 125 + increment;
-            self.hostImageView.frameY = self.versusLabel.frameY;
-            self.hostDisabledImageView.frameY = self.versusLabel.frameY;
-            self.guestImageView.frameY = self.versusLabel.frameY;
-            self.guestDisabledImageView.frameY = self.versusLabel.frameY;
+            self.versusLabel.y = 125 + increment;
+            self.hostImageView.y = self.versusLabel.y;
+            self.hostDisabledImageView.y = self.versusLabel.y;
+            self.guestImageView.y = self.versusLabel.y;
+            self.guestDisabledImageView.y = self.versusLabel.y;
             
             // Footer
             self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + increment + 2 + 26);
             self.footerLabel.backgroundColor = [UIColor clearColor];
-            self.shareButton.frameY = 236 + increment + 2;
+            self.shareButton.y = 236 + increment + 2;
             break;
     }
     
@@ -174,28 +174,28 @@ static CGFloat kDisabledAlpha = 0.4;
     }
     self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
     
-    self.hostStepper.frameY = self.hostImageView.frameY;
-    self.drawStepper.frameY = self.versusLabel.frameY;
-    self.guestStepper.frameY = self.guestImageView.frameY;
+    self.hostStepper.y = self.hostImageView.y;
+    self.drawStepper.y = self.versusLabel.y;
+    self.guestStepper.y = self.guestImageView.y;
     
     [UIView performWithoutAnimation:^{
         CGPoint footerLabelCenter = self.footerLabel.center;
         [self.footerLabel sizeToFit];
-        if ((self.footerLabel.frameWidth + 20) < 45) {
-            self.footerLabel.frameWidth = 45;
+        if ((self.footerLabel.width + 20) < 45) {
+            self.footerLabel.width = 45;
         } else {
-            self.footerLabel.frameWidth += 20;
+            self.footerLabel.width += 20;
         }
-        self.footerLabel.frameHeight += 5;
-        self.footerLabel.layer.cornerRadius = self.footerLabel.frameHeight / 2;
+        self.footerLabel.height += 5;
+        self.footerLabel.layer.cornerRadius = self.footerLabel.height / 2;
         self.footerLabel.center = footerLabelCenter;
         
         if (self.footerLabel.text.length == 0 && (self.stateLayout == MatchTableViewCellStateLayoutDone || self.stateLayout == MatchTableViewCellStateLayoutLive)) {
             self.footerLabel.hidden = YES;
-            self.shareButton.frame = CGRectMake(0, self.shareButton.frameY, self.cardContentView.frameWidth, self.shareButton.frameHeight);
+            self.shareButton.frame = CGRectMake(0, self.shareButton.y, self.cardContentView.width, self.shareButton.height);
         } else {
             self.footerLabel.hidden = NO;
-            self.shareButton.frame = CGRectMake(13, self.shareButton.frameY, 86, self.shareButton.frameHeight);
+            self.shareButton.frame = CGRectMake(13, self.shareButton.y, 86, self.shareButton.height);
         }
     }];
 }
@@ -256,7 +256,7 @@ static CGFloat kDisabledAlpha = 0.4;
         line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
         
-        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, self.contentView.frameWidth - 20, 319)];
+        self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, self.contentView.width - 20, 319)];
         self.cardContentView.backgroundColor = [UIColor whiteColor];
         self.cardContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.cardContentView.layer.cornerRadius = 4;
@@ -268,13 +268,13 @@ static CGFloat kDisabledAlpha = 0.4;
         self.cardContentView.layer.borderWidth = 0;
         [self.contentView addSubview:self.cardContentView];
         
-        UIView *headerContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 40)];
+        UIView *headerContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.width, 40)];
         headerContentView.layer.cornerRadius = self.cardContentView.layer.cornerRadius;
         headerContentView.clipsToBounds = YES;
         headerContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.cardContentView addSubview:headerContentView];
         
-        self.liveHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth, 27)];
+        self.liveHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.width, 27)];
         self.liveHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [headerContentView addSubview:self.liveHeaderView];
         
@@ -349,7 +349,7 @@ static CGFloat kDisabledAlpha = 0.4;
         };
         
         UIStepper * (^stepperBlock)(UIView *baseView) = ^(UIView *baseView) {
-            UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(baseView.frameX - baseView.frameWidth, baseView.frameY, baseView.frameWidth * 2, baseView.frameHeight)];
+            UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectMake(baseView.x - baseView.width, baseView.y, baseView.width * 2, baseView.height)];
             stepper.maximumValue = INT_MAX;
             stepper.tintColor = [UIColor clearColor];
             stepper.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -416,7 +416,7 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.versusLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)]];
         
         // Footer
-        self.footerLabel = potLabel(CGRectMake(0, 256, self.cardContentView.frameWidth, 53));
+        self.footerLabel = potLabel(CGRectMake(0, 256, self.cardContentView.width, 53));
         self.footerLabel.font = [UIFont fontWithName:self.footerLabel.font.fontName size:18];
         self.footerLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.footerLabel.clipsToBounds = YES;
@@ -468,9 +468,9 @@ static CGFloat kDisabledAlpha = 0.4;
     BOOL footerLabelHidden = self.footerLabel.isHidden;
     BOOL shareButtonHidden = self.shareButton.isHidden;
     
-    self.cardContentView.frameWidth = 300;
+    self.cardContentView.width = 300;
     
-    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.frameWidth + 10, self.cardContentView.frameHeight + 10)];
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.cardContentView.width + 10, self.cardContentView.height + 10)];
     CGPoint cardCenter = self.cardContentView.center;
     [tempView addSubview:self.cardContentView];
     self.cardContentView.center = tempView.center;
@@ -512,7 +512,7 @@ static CGFloat kDisabledAlpha = 0.4;
     
     [self.contentView addSubview:self.cardContentView];
     self.cardContentView.center = cardCenter;
-    self.cardContentView.frameWidth = self.contentView.frameWidth - 20;
+    self.cardContentView.width = self.contentView.width - 20;
     
     self.footerLabel.hidden = footerLabelHidden;
     self.shareButton.hidden = shareButtonHidden;
@@ -567,12 +567,12 @@ static CGFloat kDisabledAlpha = 0.4;
         
         CGPoint convertedPoint = [self convertPoint:point toView:self.cardContentView];
         if (CGRectContainsPoint(self.hostImageView.frame, convertedPoint)) {
-            return [self.hostStepper hitTest:CGPointMake(self.hostStepper.frameWidth - 30, 10) withEvent:event];
+            return [self.hostStepper hitTest:CGPointMake(self.hostStepper.width - 30, 10) withEvent:event];
         } else if (CGRectContainsPoint(self.versusLabel.frame, convertedPoint)) {
-            return [self.drawStepper hitTest:CGPointMake(self.drawStepper.frameWidth - 30, 10) withEvent:event];
+            return [self.drawStepper hitTest:CGPointMake(self.drawStepper.width - 30, 10) withEvent:event];
         } else if (CGRectContainsPoint(self.guestImageView.frame, convertedPoint)) {
             
-            return [self.guestStepper hitTest:CGPointMake(self.guestStepper.frameWidth - 30, 10) withEvent:event];
+            return [self.guestStepper hitTest:CGPointMake(self.guestStepper.width - 30, 10) withEvent:event];
         }
     } else {
         self.hostStepper.userInteractionEnabled = NO;
@@ -588,11 +588,11 @@ static CGFloat kDisabledAlpha = 0.4;
 }
 
 - (void)setFirstSeparatorPosition:(CGFloat)position {
-    [self.cardContentView viewWithTag:kFirstSeparatorTag].frameY = position;
+    [self.cardContentView viewWithTag:kFirstSeparatorTag].y = position;
 }
 
 - (void)setSecondSeparatorPosition:(CGFloat)position {
-    [self.cardContentView viewWithTag:kSecondSeparatorTag].frameY = position;
+    [self.cardContentView viewWithTag:kSecondSeparatorTag].y = position;
 }
 
 - (void)setDateText:(NSString *)dateText {

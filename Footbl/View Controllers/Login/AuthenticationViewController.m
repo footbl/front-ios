@@ -146,7 +146,7 @@
     }
     [self.view addSubview:self.backgroundImageView];
     
-    BOOL tallView = self.view.frameHeight > 500;
+    BOOL tallView = self.view.height > 500;
     
     UIButton *signupButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - (tallView ? 210 : 180), CGRectGetWidth(self.view.bounds), 52)];
     [signupButton setTitle:NSLocalizedString(@"Sign up", @"") forState:UIControlStateNormal];
@@ -170,11 +170,11 @@
     orLabel.frame = frame;
     orLabel.center = center;
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(22, CGRectGetMidY(orLabel.frame) + 1, orLabel.frameX - 22, 0.5)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(22, CGRectGetMidY(orLabel.frame) + 1, orLabel.x - 22, 0.5)];
     lineView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.4];
     [self.view addSubview:lineView];
     
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(orLabel.frame), CGRectGetMidY(orLabel.frame) + 1, self.view.frameWidth - (CGRectGetMaxX(orLabel.frame)) - 22, 0.5)];
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(orLabel.frame), CGRectGetMidY(orLabel.frame) + 1, self.view.width - (CGRectGetMaxX(orLabel.frame)) - 22, 0.5)];
     lineView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.4];
     [self.view addSubview:lineView];
 

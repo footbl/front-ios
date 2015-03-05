@@ -62,7 +62,7 @@
     
     self.headerImageView.image = [UIImage imageNamed:@"illust_recharge_money"];
     
-    FootblLabel *rechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(30, self.headerImageView.frameHeight + 3, self.view.frameWidth - 60, 95)];
+    FootblLabel *rechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(30, self.headerImageView.height + 3, self.view.width - 60, 95)];
     rechargeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     rechargeLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
     rechargeLabel.textAlignment = NSTextAlignmentCenter;
@@ -81,7 +81,7 @@
     walletLabel.text = [[User currentUser].totalWallet.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
     [self.view addSubview:walletLabel];
     
-    FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(self.view.frameWidth - 137, 224, 86, 72)];
+    FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(self.view.width - 137, 224, 86, 72)];
     afterRechargeLabel.textAlignment = NSTextAlignmentCenter;
     afterRechargeLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
     afterRechargeLabel.firstLineTextColor = [UIColor colorWithRed:52./255.f green:206/255.f blue:122/255.f alpha:1.00];
@@ -97,13 +97,13 @@
     [self.view addSubview:arrowImageView];
     
     for (NSNumber *y in @[@317, @381, @444]) {
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(8, y.floatValue, self.view.frameWidth - 16, 0.5)];
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(8, y.floatValue, self.view.width - 16, 0.5)];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         separatorView.backgroundColor = [UIColor colorWithRed:0.69 green:0.92 blue:0.8 alpha:1];
         [self.view addSubview:separatorView];
     }
     
-    UIButton *askFriendsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 317 + 56, self.view.frameWidth, 71)];
+    UIButton *askFriendsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 317 + 56, self.view.width, 71)];
     askFriendsButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     askFriendsButton.titleLabel.font = [UIFont fontWithName:kFontNameSystemMedium size:16];
     [askFriendsButton setTitle:NSLocalizedString(@"Ask for friends", @"") forState:UIControlStateNormal];
@@ -112,7 +112,7 @@
     [askFriendsButton addTarget:self action:@selector(askFriendsAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:askFriendsButton];
     
-    UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 381 + 56, self.view.frameWidth, 71)];
+    UIButton *purchaseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 381 + 56, self.view.width, 71)];
     purchaseButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     purchaseButton.titleLabel.font = [UIFont fontWithName:kFontNameSystemMedium size:16];
     [purchaseButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"Buy for %@", @"{recharge value}"), @"$0.99"] forState:UIControlStateNormal];
@@ -121,7 +121,7 @@
     [purchaseButton addTarget:self action:@selector(rechargeAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:purchaseButton];
     
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 444 + 56, self.view.frameWidth, 71)];
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 444 + 56, self.view.width, 71)];
     cancelButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     cancelButton.titleLabel.font = [UIFont fontWithName:kFontNameSystemMedium size:16];
     [cancelButton setTitle:NSLocalizedString(@"Not now, thank you!", @"") forState:UIControlStateNormal];

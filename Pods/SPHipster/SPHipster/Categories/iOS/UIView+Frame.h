@@ -10,11 +10,13 @@
 
 @interface UIView (Frame)
 
-@property (assign, nonatomic) CGFloat frameX;
-@property (assign, nonatomic) CGFloat frameY;
-@property (assign, nonatomic) CGFloat frameWidth;
-@property (assign, nonatomic) CGFloat frameHeight;
-@property (assign, nonatomic) CGFloat centerX;
-@property (assign, nonatomic) CGFloat centerY;
+@property (assign, nonatomic) CGFloat x;
+@property (assign, nonatomic) CGFloat y;
+@property (assign, nonatomic) CGFloat width;
+@property (assign, nonatomic) CGFloat height;
+@property (assign, nonatomic) CGFloat midX;
+@property (assign, nonatomic) CGFloat midY;
+@property (assign, nonatomic) CGFloat maxX;
+@property (assign, nonatomic) CGFloat maxY;
 
 @end

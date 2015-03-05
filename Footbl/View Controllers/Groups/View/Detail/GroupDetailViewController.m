@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         [self addChildViewController:_groupChatViewController];
         [self.view addSubview:_groupChatViewController.view];
         [self.view sendSubviewToBack:_groupChatViewController.view];
-        _groupChatViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.frameHeight, self.view.frameWidth, self.view.frameHeight - self.segmentedControlBackgroundView.frameHeight);
+        _groupChatViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.height, self.view.width, self.view.height - self.segmentedControlBackgroundView.height);
     }
     
     return _groupChatViewController;
@@ -69,7 +69,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         [self.view addSubview:_groupRankingViewController.view];
         [self.view sendSubviewToBack:_groupRankingViewController.view];
         if (self.segmentedControl) {
-            _groupRankingViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.frameHeight, self.view.frameWidth, self.view.frameHeight - self.segmentedControlBackgroundView.frameHeight);
+            _groupRankingViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.height, self.view.width, self.view.height - self.segmentedControlBackgroundView.height);
         } else {
             _groupRankingViewController.view.frame = self.view.bounds;
         }
@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         [self addChildViewController:_groupAroundMeViewController];
         [self.view addSubview:_groupAroundMeViewController.view];
         [self.view sendSubviewToBack:_groupAroundMeViewController.view];
-        _groupAroundMeViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.frameHeight, self.view.frameWidth, self.view.frameHeight - self.segmentedControlBackgroundView.frameHeight);
+        _groupAroundMeViewController.view.frame = CGRectMake(0, self.segmentedControlBackgroundView.height, self.view.width, self.view.height - self.segmentedControlBackgroundView.height);
     
     }
     

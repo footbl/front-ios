@@ -29,12 +29,12 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
         [[transitionContext containerView] addSubview:blackView];
         objc_setAssociatedObject(toViewController, (__bridge const void *)(kBlackViewAssociationKey), blackView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
-        CGRect finalFrame = CGRectMake(10, 26, fromViewController.view.frameWidth - 20, fromViewController.view.frameHeight - 58);
+        CGRect finalFrame = CGRectMake(10, 26, fromViewController.view.width - 20, fromViewController.view.height - 58);
         if ([toViewController respondsToSelector:@selector(frame)] && toViewController.frame.size.width > 0) {
             finalFrame = [(UIView *)toViewController frame];
         }
         
-        toViewController.view.frame = CGRectMake(finalFrame.origin.x, [UIApplication sharedApplication].keyWindow.frameHeight + finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
+        toViewController.view.frame = CGRectMake(finalFrame.origin.x, [UIApplication sharedApplication].keyWindow.height + finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
         toViewController.view.layer.cornerRadius = 3;
         toViewController.view.clipsToBounds = YES;
         [[transitionContext containerView] addSubview:toViewController.view];
@@ -63,7 +63,7 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
         [[transitionContext containerView] addSubview:fromViewController.view];
         
         CGRect finalFrame = fromViewController.view.frame;
-        finalFrame.origin.y = [UIApplication sharedApplication].keyWindow.frameHeight + finalFrame.origin.y;
+        finalFrame.origin.y = [UIApplication sharedApplication].keyWindow.height + finalFrame.origin.y;
         
         fromViewController.view.layer.shadowColor = [[UIColor clearColor] CGColor];
         fromViewController.view.layer.shadowOpacity = 0;

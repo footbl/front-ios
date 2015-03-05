@@ -181,7 +181,7 @@
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardGesture:)]];
     
     if (!self.group.isDefaultValue) {
-        self.nameTextField.frameY -= 2;
+        self.nameTextField.y -= 2;
         self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
         self.nameSizeLimitLabel.alpha = 1;
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
@@ -198,7 +198,7 @@
             continue;
         }
         [scrollView addSubview:view];
-        view.frameY -= 64;
+        view.y -= 64;
     }
     
     UIView * (^generateView)(CGRect frame) = ^(CGRect frame) {
@@ -247,9 +247,9 @@
         [scrollView addSubview:copyShareCodeButton];
         
         UILabel *sharingLabel = [[UILabel alloc] initWithFrame:copyShareCodeButton.frame];
-        sharingLabel.frameY += 11;
-        sharingLabel.frameX += 15;
-        sharingLabel.frameWidth -= 50;
+        sharingLabel.y += 11;
+        sharingLabel.x += 15;
+        sharingLabel.width -= 50;
         sharingLabel.text = NSLocalizedString(@"Paste on WhatsApp, Facebook & Twitter", @"");
         sharingLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:1.00];
         sharingLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
@@ -273,7 +273,7 @@
     
     if (self.group.owner.isMe) {
         UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
-        UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.frameY, 240, freeToEditView.frameHeight)];
+        UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.y, 240, freeToEditView.height)];
         [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
         [freeToEditButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [freeToEditButton setTitleColor:[[freeToEditButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
@@ -295,7 +295,7 @@
     
     if (!self.group.isDefaultValue && FBTweakValue(@"UX", @"Group", @"Chat", YES)) {
         UIView *notificationsView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
-        UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.frameY, 240, notificationsView.frameHeight)];
+        UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.y, 240, notificationsView.height)];
         [notificationsButton setTitle:NSLocalizedString(@"Notifications", @"") forState:UIControlStateNormal];
         [notificationsButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [notificationsButton setTitleColor:[[notificationsButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
@@ -333,7 +333,7 @@
     [self.leaveGroupButton addTarget:self action:@selector(leaveGroupAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:self.leaveGroupButton];
     
-    scrollView.contentSize = CGSizeMake(scrollView.frameWidth, CGRectGetMaxY(leaveGroupView.frame) + 9);
+    scrollView.contentSize = CGSizeMake(scrollView.width, CGRectGetMaxY(leaveGroupView.frame) + 9);
     
     [self reloadData];
     

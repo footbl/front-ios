@@ -14,64 +14,80 @@
 
 #pragma mark - Getters/Setters
 
-- (CGFloat)frameX {
+- (CGFloat)x {
     return CGRectGetMinX(self.frame);
 }
 
-- (CGFloat)frameY {
+- (CGFloat)y {
     return CGRectGetMinY(self.frame);
 }
 
-- (CGFloat)frameWidth {
+- (CGFloat)width {
     return CGRectGetWidth(self.frame);
 }
 
-- (CGFloat)frameHeight {
+- (CGFloat)height {
     return CGRectGetHeight(self.frame);
 }
 
-- (CGFloat)centerX {
+- (CGFloat)midX {
     return CGRectGetMidX(self.frame);
 }
 
-- (CGFloat)centerY {
+- (CGFloat)midY {
     return CGRectGetMidY(self.frame);
 }
 
-- (void)setFrameX:(CGFloat)frameX {
+- (CGFloat)maxX {
+	return CGRectGetMaxX(self.frame);
+}
+
+- (CGFloat)maxY {
+	return CGRectGetMaxY(self.frame);
+}
+
+- (void)setX:(CGFloat)x {
     CGRect frame = self.frame;
-    frame.origin.x = frameX;
+    frame.origin.x = x;
     self.frame = frame;
 }
 
-- (void)setFrameY:(CGFloat)frameY {
+- (void)setY:(CGFloat)y {
     CGRect frame = self.frame;
-    frame.origin.y = frameY;
+    frame.origin.y = y;
     self.frame = frame;
 }
 
-- (void)setFrameWidth:(CGFloat)frameWidth {
+- (void)setWidth:(CGFloat)width {
     CGRect frame = self.frame;
-    frame.size.width = frameWidth;
+    frame.size.width = width;
     self.frame = frame;
 }
 
-- (void)setFrameHeight:(CGFloat)frameHeight {
+- (void)setHeight:(CGFloat)height {
     CGRect frame = self.frame;
-    frame.size.height = frameHeight;
+    frame.size.height = height;
     self.frame = frame;
 }
 
-- (void)setCenterX:(CGFloat)centerX {
+- (void)setMidX:(CGFloat)midX {
     CGPoint center = self.center;
-    center.x = centerX;
+    center.x = midX;
     self.center = center;
 }
 
-- (void)setCenterY:(CGFloat)centerY {
+- (void)setMidY:(CGFloat)midY {
     CGPoint center = self.center;
-    center.y = centerY;
+    center.y = midY;
     self.center = center;
+}
+
+- (void)setMaxX:(CGFloat)maxX {
+	self.x = maxX - self.width;
+}
+
+- (void)setMaxY:(CGFloat)maxY {
+	self.y = maxY - self.height;
 }
 
 @end

@@ -46,8 +46,8 @@
         }
         return;
     }
-    
-    CLUploader *uploader = [[CLUploader alloc] init:[self cloudinary] delegate:nil];
+	
+	CLUploader *uploader = [[CLUploader alloc] init:[self cloudinary] delegate:nil];
     [uploader upload:UIImageJPEGRepresentation(image, 1.0) options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
         if (successResult && success) success(successResult[@"url"]);
         if (errorResult && failure) failure(nil, nil);
@@ -56,9 +56,9 @@
 
 + (void)uploadImage:(UIImage *)image withCompletion:(void (^)(NSString *imagePath, NSError *error))completion {
     [self uploadImage:image withSuccess:^(id response) {
-        if (completion) completion(response, nil);
+		if (completion) completion(response, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-      if (completion) completion(nil, nil);
+		if (completion) completion(nil, error);
     }];
 }
 

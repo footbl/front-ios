@@ -1584,6 +1584,15 @@
 					DB5422B61A23146A0047B816 = {
 						CreatedOnToolsVersion = 6.0;
 					};
+					ED7859DE199D0C62002A4DBD = {
+						DevelopmentTeam = RA987XKNQ2;
+					};
+					ED8DB3831A14C95C00605CCE = {
+						DevelopmentTeam = RA987XKNQ2;
+					};
+					ED97AF5A1A14C7E40079ADB4 = {
+						DevelopmentTeam = RA987XKNQ2;
+					};
 					EDB1D48118E1F18B00E0C949 = {
 						TestTargetID = ED7859DE199D0C62002A4DBD;
 					};
@@ -2529,8 +2538,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Development";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2542,9 +2550,8 @@
 					"FT_SERVER_ENVIRONMENT=1",
 					"FB_TWEAK_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Footbl-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "1fe79d4c-1f79-4985-bb91-7c1bf2a961d4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2555,8 +2562,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Development";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2567,9 +2573,8 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 				);
-				INFOPLIST_FILE = "Footbl-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "63f6d681-34de-442d-b7ef-b44c64813f56";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2580,8 +2585,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2595,7 +2599,6 @@
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2606,8 +2609,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2620,7 +2622,6 @@
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "a70419cf-e040-4778-b437-f61873675559";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2631,8 +2632,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2646,7 +2646,6 @@
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				PROVISIONING_PROFILE = "34be5c44-4b13-43d8-91fc-69a2343eca09";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -2657,8 +2656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fernando Saragoca (2BNCGBU36C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2670,9 +2668,8 @@
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "1fe79d4c-1f79-4985-bb91-7c1bf2a961d4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2683,8 +2680,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2695,9 +2691,8 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 				);
-				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2708,8 +2703,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2721,9 +2715,8 @@
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Footbl Beta-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
-				PROVISIONING_PROFILE = "77fead44-22f6-4b3d-b2d2-13e854491e38";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -2744,7 +2737,6 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2779,7 +2771,6 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2852,7 +2843,6 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2895,8 +2885,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Development";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sports Betting Desenvolvimento de Softwares Ltda (RA987XKNQ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2908,9 +2897,8 @@
 					"FT_SERVER_ENVIRONMENT=1",
 					"FB_TWEAK_ENABLED=1",
 				);
-				INFOPLIST_FILE = "Footbl-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
-				PROVISIONING_PROFILE = "63f6d681-34de-442d-b7ef-b44c64813f56";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;

@@ -85,7 +85,7 @@
     
     [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
         self.nameSizeLimitLabel.alpha = 1.0;
-        self.nameTextField.frameY -= 2;
+        self.nameTextField.y -= 2;
     }];
 }
 

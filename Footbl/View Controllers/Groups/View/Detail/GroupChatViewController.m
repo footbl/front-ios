@@ -13,6 +13,7 @@
 #import "Group.h"
 #import "GroupChatViewController.h"
 #import "ErrorHandler.h"
+#import "FTImageUploader.h"
 #import "Message.h"
 #import "ProfileBetsViewController.h"
 #import "ProfileViewController.h"
@@ -45,7 +46,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if (!_fetchedResultsController && self.group) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Message"];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND typeString = %@", self.group, @"text"];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND typeString IN %@", self.group, @[@"text", @"image"]];
         fetchRequest.includesSubentities = YES;
         
         _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
@@ -85,18 +86,18 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     _nextPage = nextPage;
     
     CGFloat contentOffsetAdjust = 0;
-    if (self.tableView.tableHeaderView.frameHeight == self.headerView.frameHeight && !_nextPage) {
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
+    if (self.tableView.tableHeaderView.height == self.headerView.height && !_nextPage) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
         [self.tableView reloadData];
         return;
-    } else if (self.tableView.tableHeaderView.frameHeight != self.headerView.frameHeight && _nextPage) {
-        contentOffsetAdjust = self.headerView.frameHeight - 5;
+    } else if (self.tableView.tableHeaderView.height != self.headerView.height && _nextPage) {
+        contentOffsetAdjust = self.headerView.height - 5;
     }
     
     if (self.nextPage) {
         self.tableView.tableHeaderView = self.headerView;
     } else {
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
     }
     
     if (contentOffsetAdjust != 0) {
@@ -122,10 +123,14 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (IBAction)sendAction:(id)sender {
+	UIImage *image = self.messageImageView.image;
     NSString *text = [self.messageTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (text.length == 0) {
+    if (text.length == 0 && !image) {
         return;
     }
+	self.messageTextView.textContainer.exclusionPaths = nil;
+	self.messageImageView.frame = CGRectZero;
+	self.messageImageView.image = nil;
     self.messageTextView.text = @"";
     self.createdMessage = YES;
     self.canDismissKeyboard = NO;
@@ -133,11 +138,38 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         self.canDismissKeyboard = YES;
     });
     [self reloadViewsAnimated:YES];
-    
-    [Message createWithParameters:@{kFTRequestParamResourcePathObject : self.group.editableObject, @"message" : text, @"type" : @"text"} success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.tableView reloadData];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+	
+	
+	void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		[self.tableView reloadData];
+		[[ErrorHandler sharedInstance] displayError:error];
+	};
+	
+	if (image && text.length > 0) {
+		[FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
+			if (!error) {
+				NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": imagePath, @"type": @"image"};
+				[Message createWithParameters:parameters success:^(id response) {
+					NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": text, @"type": @"text"};
+					[Message createWithParameters:parameters success:nil failure:failure];
+				} failure:failure];
+			} else {
+				failure(nil, error);
+			}
+		}];
+	} else if (image) {
+		[FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
+			if (!error) {
+				NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": imagePath, @"type": @"image"};
+				[Message createWithParameters:parameters success:nil failure:failure];
+			} else {
+				failure(nil, error);
+			}
+		}];
+	} else if (text.length > 0) {
+		NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": text, @"type": @"text"};
+		[Message createWithParameters:parameters success:nil failure:failure];
+	}
 }
 
 - (IBAction)loadNextPage:(UIButton *)sender {
@@ -183,12 +215,15 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
     }
     
-    cell.contentView.frameWidth = self.tableView.frameWidth;
+    cell.contentView.width = self.tableView.width;
 
+	NSString *text = [message.typeString isEqualToString:@"text"] ? message.message : nil;
+	NSURL *imageURL = [message.typeString isEqualToString:@"image"] ? [NSURL URLWithString:message.message] : nil;
     if (previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
-        [cell setProfileName:nil message:message.message pictureURL:nil date:nil shouldUseRightAlignment:message.user.isMeValue];
+		[cell setProfileName:nil message:text imageURL:imageURL placeholder:nil pictureURL:nil date:nil shouldUseRightAlignment:message.user.isMeValue];
     } else {
-        [cell setProfileName:message.user.name message:message.message pictureURL:[NSURL URLWithString:message.user.picture] date:message.createdAt shouldUseRightAlignment:message.user.isMeValue];
+		NSURL *pictureURL = [NSURL URLWithString:message.user.picture];
+		[cell setProfileName:message.user.name message:text imageURL:imageURL placeholder:nil pictureURL:pictureURL date:message.createdAt shouldUseRightAlignment:message.user.isMeValue];
     }
     
     if (message.deliveryFailedValue) {
@@ -215,19 +250,19 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)reloadViewsAnimated:(BOOL)animated {
-    NSUInteger maxMessageHeight = self.view.frameHeight / 4.45;
-	NSUInteger messageHeight = MAX(self.messageImageView.frameHeight, [self.messageTextView sizeThatFits:CGSizeMake(self.messageTextView.frameWidth, INT_MAX)].height);
+    NSUInteger maxMessageHeight = self.view.height / 4.45;
+	NSUInteger messageHeight = MAX(self.messageImageView.height, [self.messageTextView sizeThatFits:CGSizeMake(self.messageTextView.width, INT_MAX)].height);
     messageHeight = MIN(maxMessageHeight, messageHeight);
-    self.footerView.frameHeight = messageHeight + 20;
+    self.footerView.height = messageHeight + 20;
 	
 	UIImage *image = [self.shareButton imageForState:UIControlStateNormal];
 	CGFloat shareButtonWidth = image.size.width + 20;
-	self.shareButton.frameWidth = shareButtonWidth;
+	self.shareButton.width = shareButtonWidth;
 	
     CGFloat buttonWidth = [self.sendButton sizeThatFits:self.footerView.bounds.size].width + 20;
-    self.sendButton.frameX = self.view.frameWidth - buttonWidth;
-    self.sendButton.frameWidth = buttonWidth;
-    self.messageTextView.frame = CGRectMake(0, -1, self.sendButton.frameX - shareButtonWidth, maxMessageHeight);
+    self.sendButton.x = self.view.width - buttonWidth;
+    self.sendButton.width = buttonWidth;
+    self.messageTextView.frame = CGRectMake(0, -1, self.sendButton.x - shareButtonWidth, maxMessageHeight);
 	
 	NSCharacterSet *charset = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	BOOL hasText = [self.messageTextView.text stringByTrimmingCharactersInSet:charset].length > 0;
@@ -235,16 +270,16 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 	self.sendButton.enabled = (hasImage || hasText);
     
     [UIView animateWithDuration:animated ? 0.3 : 0 animations:^{
-		self.shareButton.frameHeight = self.footerView.frameHeight;
-        self.sendButton.frameHeight = self.footerView.frameHeight;
-        self.messageBorderView.frame = CGRectMake(shareButtonWidth, 10, self.sendButton.frameX - shareButtonWidth, self.footerView.frameHeight - 20);
-        self.footerView.frameY = self.view.frameHeight - 48 - self.keyboardSize.height - self.footerView.frameHeight;
+		self.shareButton.height = self.footerView.height;
+        self.sendButton.height = self.footerView.height;
+        self.messageBorderView.frame = CGRectMake(shareButtonWidth, 10, self.sendButton.x - shareButtonWidth, self.footerView.height - 20);
+        self.footerView.y = self.view.height - 48 - self.keyboardSize.height - self.footerView.height;
         
-        if (self.tableView.frameHeight != self.footerView.frameY - self.tableView.frameY) {
+        if (self.tableView.height != self.footerView.y - self.tableView.y) {
             self.tableView.contentOffset = CGPointMake(0, self.tableView.contentOffset.y + self.keyboardSize.height);
         }
         
-        self.tableView.frameHeight = self.footerView.frameY - self.tableView.frameY;
+        self.tableView.height = self.footerView.y - self.tableView.y;
     }];
 }
 
@@ -294,7 +329,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ChatTableViewCell *cell = [(ChatTableViewCell *)[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     [self configureCell:cell atIndexPath:indexPath];
-    return [cell sizeThatFits:CGSizeMake(tableView.frameWidth, INT_MAX)].height;
+    return [cell sizeThatFits:CGSizeMake(tableView.width, INT_MAX)].height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -310,7 +345,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     
     ChatTableViewCell *cell = [(ChatTableViewCell *)[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     [self configureCell:cell atIndexPath:indexPath];
-    return [cell sizeThatFits:CGSizeMake(tableView.frameWidth, INT_MAX)].height;
+    return [cell sizeThatFits:CGSizeMake(tableView.width, INT_MAX)].height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -391,7 +426,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     }
     
     CGFloat offset = self.tableView.contentSize.height - self.tableView.contentOffset.y;
-    if (offset >= self.view.frameHeight - self.footerView.frameHeight) {
+    if (offset >= self.view.height - self.footerView.height) {
         [self.messageTextView resignFirstResponder];
     }
 }
@@ -449,19 +484,19 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     self.shouldScrollToBottom = YES;
 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
-    self.tableView.frame = CGRectMake(0, 64, self.view.frameWidth, self.view.frameHeight - 64);
+    self.tableView.frame = CGRectMake(0, 64, self.view.width, self.view.height - 64);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 5)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
     [self.tableView registerClass:[ChatTableViewCell class] forCellReuseIdentifier:@"ChatCell"];
     [self.view addSubview:self.tableView];
     
-    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.width - 40, 200)];
     self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
     self.placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
@@ -471,12 +506,12 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     self.placeholderLabel.hidden = YES;
     [self.view addSubview:self.placeholderLabel];
     
-    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 97, self.view.frameWidth, 49)];
+    self.footerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 97, self.view.width, 49)];
     self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.footerView.clipsToBounds = NO;
     [self.view addSubview:self.footerView];
     
-    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.frameWidth, self.view.frameHeight)];
+    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, self.view.height)];
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     backgroundView.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
     [self.footerView addSubview:backgroundView];
@@ -514,7 +549,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 	self.messageImageView.contentMode = UIViewContentModeScaleAspectFill;
 	[self.messageTextView addSubview:self.messageImageView];
 	
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frameWidth, 50)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 50)];
     UIButton *nextPageButton = [[UIButton alloc] initWithFrame:self.headerView.bounds];
     nextPageButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
     [nextPageButton setTitle:NSLocalizedString(@"Load more", @"") forState:UIControlStateNormal];

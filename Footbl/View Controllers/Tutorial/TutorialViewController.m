@@ -43,7 +43,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     self.nextButton.userInteractionEnabled = NO;
     
     self.shouldUpdatePageControl = NO;
-    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + self.scrollView.frameWidth, self.scrollView.contentOffset.y) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + self.scrollView.width, self.scrollView.contentOffset.y) animated:YES];
     if (self.pageControl.currentPage == 3) {
         [self scrollViewDidScroll:self.scrollView];
     } else {
@@ -60,7 +60,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSInteger page = (NSInteger)(scrollView.contentOffset.x / scrollView.frameWidth);
+    NSInteger page = (NSInteger)(scrollView.contentOffset.x / scrollView.width);
     if (page < 4 && self.shouldUpdatePageControl) {
         self.pageControl.currentPage = (int)page;
     }
@@ -84,7 +84,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     self.navigationController.navigationBarHidden = YES;
     self.shouldUpdatePageControl = YES;
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, self.view.frameHeight - 60)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 60)];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.bounces = NO;
     self.scrollView.delegate = self;
@@ -100,14 +100,14 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
         }
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         imageView.frame = self.view.bounds;
-        imageView.frameX = i * self.view.frameWidth;
-        imageView.frameY -= 20;
+        imageView.x = i * self.view.width;
+        imageView.y -= 20;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.scrollView addSubview:imageView];
-        self.scrollView.contentSize = CGSizeMake(imageView.frameX + self.scrollView.frameWidth, 0);
+        self.scrollView.contentSize = CGSizeMake(imageView.x + self.scrollView.width, 0);
     }
     
-    self.pageControl = [[StyledPageControl alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 60, self.view.frameWidth, 60)];
+    self.pageControl = [[StyledPageControl alloc] initWithFrame:CGRectMake(0, self.view.height - 60, self.view.width, 60)];
     self.pageControl.numberOfPages = 5;
     self.pageControl.currentPage = 0;
     self.pageControl.diameter = 11;
@@ -117,7 +117,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     self.pageControl.userInteractionEnabled = NO;
     [self.view addSubview:self.pageControl];
     
-    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(200, self.pageControl.frameY, self.view.frameWidth - 200, self.pageControl.frameHeight)];
+    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(200, self.pageControl.y, self.view.width - 200, self.pageControl.height)];
     self.nextButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17];
     [self.nextButton setTitle:NSLocalizedString(@"Next", @"") forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -125,7 +125,7 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
     [self.nextButton setTitleColor:self.pageControl.coreNormalColor forState:UIControlStateHighlighted];
     [self.view addSubview:self.nextButton];
     
-    self.getStartedButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.pageControl.frameY, self.view.frameWidth, self.pageControl.frameHeight)];
+    self.getStartedButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.pageControl.y, self.view.width, self.pageControl.height)];
     self.getStartedButton.alpha = 0;
     self.getStartedButton.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17];
     [self.getStartedButton setTitle:NSLocalizedString(@"Get started", @"") forState:UIControlStateNormal];

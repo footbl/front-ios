@@ -344,7 +344,7 @@
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:separatorView];
     
-    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.frameHeight - hintHeight, headerView.frameWidth, hintHeight)];
+    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - hintHeight, headerView.width, hintHeight)];
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     self.hintLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:14];
     self.hintLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];

@@ -43,8 +43,8 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    self.textLabel.frameHeight = CGRectGetHeight(self.frame) - 50;
-    self.headerImageView.frameY = CGRectGetHeight(self.frame) - 50;
+    self.textLabel.height = CGRectGetHeight(self.frame) - 50;
+    self.headerImageView.y = CGRectGetHeight(self.frame) - 50;
 }
 
 #pragma mark - Instance Methods
@@ -64,7 +64,7 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
     [super loadView];
     // Do any additional setup after loading the view.
     
-    self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(45, 0, self.view.frameWidth - 90, 95)];
+    self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(45, 0, self.view.width - 90, 95)];
     self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -74,7 +74,7 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
     self.textLabel.text = NSLocalizedString(@"Tip!\n\nRecharge your wallet by tapping the + above.", @"");
     [self.view addSubview:self.textLabel];
     
-    self.dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, 50)];
+    self.dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
     self.dismissButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.dismissButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setTitle:NSLocalizedString(@"OK", @"") forState:UIControlStateNormal];
@@ -111,7 +111,7 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
     [super willMoveToParentViewController:parent];
     
     if ([parent isKindOfClass:[FootblPopupViewController class]]) {
-        self.frame = CGRectMake(20, ((self.view.frameHeight - 248) / 2) - 20, self.view.frameWidth - 40, 248);
+        self.frame = CGRectMake(20, ((self.view.height - 248) / 2) - 20, self.view.width - 40, 248);
         FootblPopupViewController *popupViewController = (FootblPopupViewController *)parent;
         popupViewController.frame = self.frame;
         popupViewController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];

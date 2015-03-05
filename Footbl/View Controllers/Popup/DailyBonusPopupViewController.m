@@ -30,15 +30,15 @@
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     
-    self.textLabel.frameHeight = CGRectGetHeight(self.frame) - 50 - self.textLabel.frameY;
-    self.headerImageView.frameY = CGRectGetHeight(self.frame) - 50;
-    self.moneyImageView.frameX = (CGRectGetWidth(self.frame) - self.moneyImageView.frameWidth - self.moneyLabel.frameWidth) / 2;
-    self.moneySignLabel.frameX = self.moneyImageView.frameX;
-    self.activityIndicatorView.centerX = (CGRectGetWidth(self.frame) / 2);
+    self.textLabel.height = CGRectGetHeight(self.frame) - 50 - self.textLabel.y;
+    self.headerImageView.y = CGRectGetHeight(self.frame) - 50;
+    self.moneyImageView.x = (CGRectGetWidth(self.frame) - self.moneyImageView.width - self.moneyLabel.width) / 2;
+    self.moneySignLabel.x = self.moneyImageView.x;
+    self.activityIndicatorView.midX = (CGRectGetWidth(self.frame) / 2);
     
-    CGFloat moneyWidth = self.moneySignLabel.frameWidth + self.moneyLabel.frameWidth;
-    self.moneySignLabel.frameX = (CGRectGetWidth(frame) - moneyWidth) / 2;
-    self.moneyLabel.frameX = self.moneySignLabel.frameX + self.moneySignLabel.frameWidth;
+    CGFloat moneyWidth = self.moneySignLabel.width + self.moneyLabel.width;
+    self.moneySignLabel.x = (CGRectGetWidth(frame) - moneyWidth) / 2;
+    self.moneyLabel.x = self.moneySignLabel.x + self.moneySignLabel.width;
 }
 
 #pragma mark - Instance Methods
@@ -93,7 +93,7 @@
     [super loadView];
     // Do any additional setup after loading the view.
     
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, self.view.frameWidth, 60)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, self.view.width, 60)];
     headerLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:22];
     headerLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     headerLabel.textAlignment = NSTextAlignmentCenter;
@@ -113,7 +113,7 @@
     self.moneySignLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 65, 50, 50)];
     self.moneySignLabel.clipsToBounds = YES;
     self.moneySignLabel.backgroundColor = self.headerImageView.backgroundColor;
-    self.moneySignLabel.layer.cornerRadius = self.moneySignLabel.frameWidth / 2;
+    self.moneySignLabel.layer.cornerRadius = self.moneySignLabel.width / 2;
     self.moneySignLabel.textAlignment = NSTextAlignmentCenter;
     self.moneySignLabel.font = [UIFont systemFontOfSize:32];
     self.moneySignLabel.textColor = [UIColor whiteColor];
@@ -129,10 +129,10 @@
     } else {
         self.moneyLabel.text = self.prize.value.stringValue;
     }
-    self.moneyLabel.frameWidth = [self.moneyLabel sizeThatFits:CGSizeMake(INT_MAX, self.moneyLabel.frameHeight)].width;
+    self.moneyLabel.width = [self.moneyLabel sizeThatFits:CGSizeMake(INT_MAX, self.moneyLabel.height)].width;
     [self.view addSubview:self.moneyLabel];
     
-    self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(10, 110, self.view.frameWidth - 20, 95)];
+    self.textLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(10, 110, self.view.width - 20, 95)];
     self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
     self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -146,7 +146,7 @@
     }
     [self.view addSubview:self.textLabel];
     
-    self.dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, 50)];
+    self.dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
     self.dismissButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.dismissButton addTarget:self action:@selector(collectAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.dismissButton setTitle:NSLocalizedString(@"Collect", @"") forState:UIControlStateNormal];
@@ -168,7 +168,7 @@
     [super willMoveToParentViewController:parent];
     
     if ([parent isKindOfClass:[FootblPopupViewController class]]) {
-        self.frame = CGRectMake(20, ((self.view.frameHeight - 248) / 2) - 20, self.view.frameWidth - 40, 248);
+        self.frame = CGRectMake(20, ((self.view.height - 248) / 2) - 20, self.view.width - 40, 248);
         FootblPopupViewController *popupViewController = (FootblPopupViewController *)parent;
         popupViewController.frame = self.frame;
         popupViewController.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];

@@ -157,8 +157,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
             matchesViewController.headerSliderBackImageView.hidden = YES;
         }
         
-        matchesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.scrollViewLength, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
-        contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.frameHeight);
+        matchesViewController.view.frame = CGRectMake(self.scrollView.width * self.scrollViewLength, 0, self.scrollView.width, self.scrollView.height);
+        contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.height);
         [championshipsToRemove removeObjectForKey:championship.slug];
         self.scrollViewLength ++;
     }
@@ -170,13 +170,13 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         }
         
         [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
-        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
-        contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
+        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.width, self.scrollView.height);
+        contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
         self.scrollViewLength ++;
     }
     
     self.scrollView.contentSize = contentSize;
-    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.frameWidth), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
+    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.width), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
     
     if (championships.count == 0) {
         self.placeholderLabel.hidden = NO;
@@ -268,7 +268,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     managedLeaguesViewController = [UIViewController new];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBarTitleView.frameHeight, self.view.frameWidth, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBarTitleView.height, self.view.width, 30)];
     headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
     headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
     [managedLeaguesViewController.view addSubview:headerView];
@@ -284,7 +284,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     headerSliderBackImageView.center = CGPointMake(15, headerLabel.center.y);
     [headerView addSubview:headerSliderBackImageView];
     
-    UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.frameWidth - 40, 200)];
+    UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.width - 40, 200)];
     placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
     placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
@@ -297,11 +297,11 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self.scrollView addSubview:managedLeaguesViewController.view];
     self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
     
-    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.frameWidth * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.frameWidth, self.scrollView.frameHeight);
-    CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.frameHeight);
+    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.width, self.scrollView.height);
+    CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
 
     self.scrollView.contentSize = contentSize;
-    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.frameWidth), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
+    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.width), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
 }
 
 - (void)panGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -310,7 +310,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         case UIGestureRecognizerStateBegan:
             self.gestureRecognizerInitialPositionX = touchX;
         case UIGestureRecognizerStateChanged:
-            self.scrollView.contentOffset = CGPointMake(MAX(0, MIN(self.scrollViewCurrentPage * self.scrollView.frameWidth + self.gestureRecognizerInitialPositionX - touchX, self.scrollView.contentSize.width - self.scrollView.frameWidth)), self.scrollView.contentOffset.y);
+            self.scrollView.contentOffset = CGPointMake(MAX(0, MIN(self.scrollViewCurrentPage * self.scrollView.width + self.gestureRecognizerInitialPositionX - touchX, self.scrollView.contentSize.width - self.scrollView.width)), self.scrollView.contentOffset.y);
             break;
         default: {
             CGFloat maxPage = self.championshipsViewControllers.allKeys.count - 1;
@@ -325,7 +325,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
                         self.scrollViewCurrentPage = MAX(minPage, self.scrollViewCurrentPage - 1);
                     }
                 }
-                self.scrollView.contentOffset = CGPointMake(self.scrollView.frameWidth * self.scrollViewCurrentPage, self.scrollView.contentOffset.y);
+                self.scrollView.contentOffset = CGPointMake(self.scrollView.width * self.scrollViewCurrentPage, self.scrollView.contentOffset.y);
             } completion:nil];
             break;
         }
@@ -367,7 +367,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.scrollView.scrollsToTop = NO;
     [self.view insertSubview:self.scrollView belowSubview:self.navigationBarTitleView];
     
-    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, self.view.frameWidth - 40, 200)];
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, self.view.width - 40, 200)];
     self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
     self.placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];

@@ -36,7 +36,7 @@
         
         self.unreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(81, 56, 24, 24)];
         self.unreadCountLabel.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
-        self.unreadCountLabel.layer.cornerRadius = self.unreadCountLabel.frameHeight / 2;
+        self.unreadCountLabel.layer.cornerRadius = self.unreadCountLabel.height / 2;
         self.unreadCountLabel.clipsToBounds = YES;
         self.unreadCountLabel.textColor = [UIColor whiteColor];
         self.unreadCountLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:13];
@@ -105,11 +105,11 @@
     CGFloat paddingLeft = hidden ? 0 : 13;
     self.indicatorView.alpha = !hidden;
     
-    self.groupImageView.frameX = 18 + paddingLeft;
-    self.unreadCountLabel.frameX = 56 + paddingLeft;
-    self.nameLabel.frameX = 94 + paddingLeft;
-    self.championshipLabel.frameX = self.nameLabel.frameX;
-    self.roundsLabel.frameX = self.nameLabel.frameX;
+    self.groupImageView.x = 18 + paddingLeft;
+    self.unreadCountLabel.x = 56 + paddingLeft;
+    self.nameLabel.x = 94 + paddingLeft;
+    self.championshipLabel.x = self.nameLabel.x;
+    self.roundsLabel.x = self.nameLabel.x;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

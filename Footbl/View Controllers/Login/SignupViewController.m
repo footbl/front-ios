@@ -67,7 +67,7 @@
             self.username = nil;
             self.textField.text = @"";
             self.importProfileImageOptionsView.hidden = YES;
-            self.informationLabel.frameY = 93;
+            self.informationLabel.y = 93;
 
             self.informationLabel.alpha = 1;
             self.textField.alpha = 1;
@@ -327,8 +327,8 @@
         text = NSLocalizedString(@"Sign up text: profile", @"");
         
         self.importProfileImageOptionsView.hidden = NO;
-        self.importProfileImageOptionsView.frameY = self.view.frameHeight - self.importProfileImageOptionsView.frameHeight;
-        self.informationLabel.frameY = CGRectGetMaxY(self.profileImageButton.frame) - 5;
+        self.importProfileImageOptionsView.y = self.view.height - self.importProfileImageOptionsView.height;
+        self.informationLabel.y = CGRectGetMaxY(self.profileImageButton.frame) - 5;
         [self.textField resignFirstResponder];
     }
     
@@ -499,13 +499,13 @@
     self.hintLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.hintLabel];
 
-    self.importProfileImageOptionsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frameHeight - 216, self.view.frameWidth, 216)];
+    self.importProfileImageOptionsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 216, self.view.width, 216)];
     self.importProfileImageOptionsView.backgroundColor = [UIColor colorWithRed:0.92 green:0.97 blue:0.91 alpha:1];
     self.importProfileImageOptionsView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.importProfileImageOptionsView.hidden = YES;
     [self.view addSubview:self.importProfileImageOptionsView];
     
-    UIButton *albunsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.importProfileImageOptionsView.frameWidth, self.importProfileImageOptionsView.frameHeight / 2)];
+    UIButton *albunsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.importProfileImageOptionsView.width, self.importProfileImageOptionsView.height / 2)];
     albunsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     albunsButton.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
     albunsButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
@@ -516,11 +516,11 @@
     [albunsButton addTarget:self action:@selector(importFromPhotoLibraryAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.importProfileImageOptionsView addSubview:albunsButton];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(albunsButton.frame) - 0.5, albunsButton.frameWidth - 38, 1)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(albunsButton.frame) - 0.5, albunsButton.width - 38, 1)];
     separatorView.backgroundColor = [UIColor colorWithRed:0.74 green:0.9 blue:0.78 alpha:1];
     [self.importProfileImageOptionsView addSubview:separatorView];
     
-    UIButton *facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(albunsButton.frame), albunsButton.frameWidth, albunsButton.frameHeight)];
+    UIButton *facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(albunsButton.frame), albunsButton.width, albunsButton.height)];
     facebookButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     facebookButton.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
     facebookButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
@@ -554,10 +554,10 @@
     }];
     
     self.profileImageButton = [[UIButton alloc] initWithFrame:CGRectMake(85, 97, 150, 150)];
-    self.profileImageButton.centerX = self.view.frameWidth / 2;
+    self.profileImageButton.midX = self.view.width / 2;
     self.profileImageButton.alpha = 0;
     self.profileImageButton.backgroundColor = [UIColor whiteColor];
-    self.profileImageButton.layer.cornerRadius = self.profileImageButton.frameHeight / 2;
+    self.profileImageButton.layer.cornerRadius = self.profileImageButton.height / 2;
     self.profileImageButton.clipsToBounds = YES;
     self.profileImageButton.contentMode = UIViewContentModeScaleAspectFill;
     self.profileImageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -565,12 +565,12 @@
     [self.profileImageButton addTarget:self action:@selector(importFromCameraAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.profileImageButton];
     
-    if (self.view.frameHeight > 500) {
+    if (self.view.height > 500) {
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.textFieldBackground.frame), CGRectGetMidY(self.textFieldBackground.frame) + self.activityIndicatorView.frameHeight + 30);
+        self.activityIndicatorView.center = CGPointMake(CGRectGetMidX(self.textFieldBackground.frame), CGRectGetMidY(self.textFieldBackground.frame) + self.activityIndicatorView.height + 30);
     } else {
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        self.activityIndicatorView.center = CGPointMake(self.textFieldBackground.frameWidth - 40, CGRectGetMidY(self.textFieldBackground.frame));
+        self.activityIndicatorView.center = CGPointMake(self.textFieldBackground.width - 40, CGRectGetMidY(self.textFieldBackground.frame));
     }
     self.activityIndicatorView.hidesWhenStopped = YES;
     self.activityIndicatorView.accessibilityLabel = NSLocalizedString(@"Loading", @"Loading");
