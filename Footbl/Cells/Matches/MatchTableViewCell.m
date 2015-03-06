@@ -243,7 +243,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.layout = MatchTableViewCellLayoutNoBet;
         self.stateLayout = MatchTableViewCellStateLayoutWaiting;
         
-        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, CGRectGetWidth(self.contentView.frame), 20)];
+        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.contentView.width, 20)];
         self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.dateLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
         self.dateLabel.textColor = [UIColor colorWithRed:57/255.f green:73/255.f blue:61/255.f alpha:0.80];
@@ -251,7 +251,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.dateLabel.backgroundColor = self.contentView.backgroundColor;
         [self.contentView addSubview:self.dateLabel];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, CGRectGetMidY(self.dateLabel.frame), CGRectGetWidth(self.contentView.frame) - 24, 0.5)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, self.dateLabel.midY, self.contentView.width - 24, 0.5)];
         line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
@@ -278,7 +278,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.liveHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [headerContentView addSubview:self.liveHeaderView];
         
-        self.hostScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
+        self.hostScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(17, 0, 86, self.liveHeaderView.height)];
         self.hostScoreLabel.textAlignment = NSTextAlignmentCenter;
         self.hostScoreLabel.textColor = [UIColor whiteColor];
         self.hostScoreLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
@@ -291,7 +291,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.liveLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.liveHeaderView addSubview:self.liveLabel];
         
-        self.guestScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(197, 0, 86, CGRectGetHeight(self.liveHeaderView.frame))];
+        self.guestScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(197, 0, 86, self.liveHeaderView.height)];
         self.guestScoreLabel.textAlignment = NSTextAlignmentCenter;
         self.guestScoreLabel.textColor = [UIColor whiteColor];
         self.guestScoreLabel.font = [UIFont fontWithName:kFontNameBlack size:13];
@@ -299,7 +299,7 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.liveHeaderView addSubview:self.guestScoreLabel];
         
         [@[@62, @256] enumerateObjectsUsingBlock:^(NSNumber *offsetY, NSUInteger idx, BOOL *stop) {
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, CGRectGetWidth(self.cardContentView.frame), 0.5)];
+            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, self.cardContentView.width, 0.5)];
             separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
             separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             separatorView.tag = (idx == 0 ? kFirstSeparatorTag : kSecondSeparatorTag);
@@ -439,28 +439,6 @@ static CGFloat kDisabledAlpha = 0.4;
         self.drawStepper.autoresizingMask = self.versusLabel.autoresizingMask;
         self.guestStepper = stepperBlock(self.guestImageView);
         self.guestStepper.autoresizingMask = self.guestImageView.autoresizingMask;
-        
-        self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 380, CGRectGetWidth(self.frame) + 2, 33)];
-        self.totalProfitView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.totalProfitView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-        self.totalProfitView.clipsToBounds = NO;
-        self.totalProfitView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
-        self.totalProfitView.layer.borderWidth = 0.5;
-        [self.contentView addSubview:self.totalProfitView];
-        
-        self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"arrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
-        self.totalProfitArrowImageView.center = CGPointMake(CGRectGetMidX(self.totalProfitView.frame), CGRectGetMinY(self.totalProfitView.frame) - (self.totalProfitArrowImageView.image.size.height / 2) + 0.5);
-        self.totalProfitArrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self.contentView addSubview:self.totalProfitArrowImageView];
-        
-        self.totalProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(self.totalProfitView.frame) - 20, CGRectGetHeight(self.totalProfitView.frame))];
-        self.totalProfitLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.totalProfitLabel.textColor = [UIColor whiteColor];
-        self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
-        self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
-        self.totalProfitLabel.adjustsFontSizeToFitWidth = YES;
-        self.totalProfitLabel.minimumScaleFactor = 0.6;
-        [self.totalProfitView addSubview:self.totalProfitLabel];
     }
     return self;
 }
@@ -490,20 +468,20 @@ static CGFloat kDisabledAlpha = 0.4;
     iconImageView.center = CGPointMake(68, centerY);
     [self.cardContentView addSubview:iconImageView];
     
-    UILabel *footblLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, CGRectGetMinY(iconImageView.frame) - 1, 200, 30)];
+    UILabel *footblLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, iconImageView.y - 1, 200, 30)];
     footblLabel.text = NSLocalizedString(@"Footbl", @"").lowercaseString;
     footblLabel.font = [UIFont fontWithName:kFontNameSystemLight size:24];
     footblLabel.textAlignment = NSTextAlignmentLeft;
     footblLabel.textColor = [UIColor blackColor];
     [self.cardContentView addSubview:footblLabel];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(160, CGRectGetMinY(iconImageView.frame), 2, CGRectGetHeight(iconImageView.frame) - 1)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(160, iconImageView.y, 2, iconImageView.height - 1)];
     separatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.4];
     separatorView.clipsToBounds = YES;
     separatorView.layer.cornerRadius = 1;
     [self.cardContentView addSubview:separatorView];
     
-    UILabel *betLabel = [[UILabel alloc] initWithFrame:CGRectMake(172, CGRectGetMinY(iconImageView.frame) - 1, 100, 30)];
+    UILabel *betLabel = [[UILabel alloc] initWithFrame:CGRectMake(172, iconImageView.y - 1, 100, 30)];
     betLabel.text = NSLocalizedString(@"wanna bet?", @"").lowercaseString;
     betLabel.font = [UIFont systemFontOfSize:14];
     betLabel.textAlignment = NSTextAlignmentLeft;

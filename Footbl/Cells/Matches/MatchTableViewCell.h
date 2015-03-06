@@ -76,10 +76,6 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 @property (strong, nonatomic) UIButton *shareButton;
-// Total profit
-@property (strong, nonatomic) UIView *totalProfitView;
-@property (strong, nonatomic) UILabel *totalProfitLabel;
-@property (strong, nonatomic) UIImageView *totalProfitArrowImageView;
 
 @property (strong, nonatomic) UITapGestureRecognizer *guestImageViewGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *guestDisabledImageViewGestureRecognizer;

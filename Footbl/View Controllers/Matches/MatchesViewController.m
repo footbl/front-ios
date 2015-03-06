@@ -55,11 +55,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
+        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"finished" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
         if (self.championship) {
             fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
         }
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
+        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:@"finished" cacheName:nil];
         self.fetchedResultsController.delegate = self;
         
         NSError *error = nil;
@@ -91,7 +91,8 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     _totalProfitText = totalProfitText;
     
     if (self.totalProfitText.length > 0) {
-        Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]].lastObject;
+		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = %@", @YES];
+        Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].firstObject;
 		self.totalProfitIndexPath = [self.fetchedResultsController indexPathForObject:match];
     } else {
         self.totalProfitIndexPath = nil;
@@ -105,7 +106,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 - (id)init {
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_matches_active"]];
+		UIImage *image = [UIImage imageNamed:@"tabbar_btn_matches_ainctive"];
+		UIImage *selectedImage = [UIImage imageNamed:@"tabbar_btn_matches_active"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
     }
     
     return self;
@@ -140,22 +143,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    BOOL hideTotalProfit = !(self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section);
-    cell.totalProfitArrowImageView.hidden = hideTotalProfit;
-    cell.totalProfitView.hidden = hideTotalProfit;
-    cell.totalProfitLabel.text = self.totalProfitText;
-    if (self.totalProfit.floatValue <= 0) {
-        cell.totalProfitView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-        cell.totalProfitView.layer.borderColor = [[UIColor colorWithWhite:0.8 alpha:1.0] CGColor];
-        cell.totalProfitArrowImageView.tintColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-    } else {
-        cell.totalProfitView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-        cell.totalProfitView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
-        cell.totalProfitArrowImageView.tintColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-    }
-    
-    __block NSUInteger cancelBlockId;
+	__block NSUInteger cancelBlockId;
     __block Bet *bet = match.myBet;
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     [cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
@@ -165,7 +153,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         }
         
         bet = match.myBet;
-		NSUInteger firstBetValue = MAX(floor(bet.user.fundsValue + bet.user.stakeValue / 100), 1);
+		NSUInteger firstBetValue = MAX(floor((bet.user.fundsValue + bet.user.stakeValue) / 100), 1);
         NSInteger currentBet = match.myBetValue.integerValue;
         MatchResult result = match.myBetResult;
         
@@ -302,12 +290,13 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
-    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
+	Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
     if (!match) {
         match = self.fetchedResultsController.fetchedObjects.firstObject;
     }
-    
-    [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:match] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+	
+	NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:match];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
 }
 
 - (void)reloadData {
@@ -329,9 +318,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     if (matches == 0) {
         [[LoadingHelper sharedInstance] showHud];
     }
-    
-    NSArray *finishedMatches = [[self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @YES]] valueForKeyPath:@"rid"];
-    
+	
     FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
@@ -346,7 +333,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             [self reloadWallet];
             
             void(^computeProfit)() = ^() {
-                NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NONE %@ IN rid AND finished = %@", finishedMatches, @YES]];
+				NSTimeInterval weekInterval = -604800;
+				NSDate *week = [NSDate dateWithTimeIntervalSinceNow:weekInterval];
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = YES AND date >= %@", week];
+                NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate];
                 float sum = 0;
                 for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
                     sum += [betProfit floatValue];
@@ -356,12 +346,24 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 if (updatedMatches.count > 0 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
 					NSString *text = nil;
                     if (sum >= 0) {
-						 text = [NSString localizedStringWithFormat:NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}"), (long)sum, numberOfMatches];
+						NSString *format = NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}");
+						text = [NSString localizedStringWithFormat:format, (long)sum, numberOfMatches];
                     } else {
-						text = [NSString localizedStringWithFormat:NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}"), (long)fabsf(sum), numberOfMatches];
+						NSString *format = NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}");
+						text = [NSString localizedStringWithFormat:format, (long)fabsf(sum), numberOfMatches];
                     }
                     self.totalProfitText = text;
                     self.totalProfit = @(sum);
+					self.totalProfitLabel.text = self.totalProfitText;
+					if (self.totalProfit.floatValue <= 0) {
+						self.totalProfitBoxView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+						self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithWhite:0.8 alpha:1.0] CGColor];
+						self.totalProfitArrowImageView.tintColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+					} else {
+						self.totalProfitBoxView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+						self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
+						self.totalProfitArrowImageView.tintColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+					}
                 }
             };
             
@@ -373,11 +375,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (NSTimeInterval)updateInterval {
-    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].firstObject;
+    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].lastObject;
     if (match && (match.elapsed || [match.date timeIntervalSinceDate:[NSDate date]] < UPDATE_INTERVAL)) {
-        return 60;
+		return 60;
     }
-    
     return [super updateInterval];
 }
 
@@ -423,12 +424,12 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+    return self.fetchedResultsController.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -445,12 +446,19 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     if (match.elapsed || match.finishedValue) {
         height = 363;
     }
-    
-    if (self.totalProfitIndexPath && indexPath.row == self.totalProfitIndexPath.row && indexPath.section == self.totalProfitIndexPath.section) {
-        height += 56;
-    }
-    
     return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	return FLT_EPSILON;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView.height : FLT_EPSILON;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView : nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -486,8 +494,8 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)loadView {
-    [super loadView];
-    
+	[super loadView];
+	
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
     
     self.navigationController.navigationBarHidden = YES;
@@ -503,9 +511,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     tableViewController.refreshControl = self.refreshControl;
-    
+	
     self.tableView = tableViewController.tableView;
     self.tableView.frame = CGRectMake(0, 30, self.view.width, self.view.height - 30);
     self.tableView.delegate = self;
@@ -542,6 +550,31 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.headerView.width, 0.5)];
     separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
     [self.headerView addSubview:separatorView];
+	
+	UIImage *totalProfitArrowImage = [[UIImage imageNamed:@"arrow-down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 0, self.tableView.width + 2, 33 + totalProfitArrowImage.size.height)];
+	
+	self.totalProfitBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.totalProfitView.width, 33)];
+	self.totalProfitBoxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	self.totalProfitBoxView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
+	self.totalProfitBoxView.clipsToBounds = NO;
+	self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
+	self.totalProfitBoxView.layer.borderWidth = 0.5;
+	[self.totalProfitView addSubview:self.totalProfitBoxView];
+	
+	self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:totalProfitArrowImage];
+	self.totalProfitArrowImageView.center = CGPointMake(self.totalProfitView.midX, self.totalProfitBoxView.maxY + (self.totalProfitArrowImageView.image.size.height / 2) - 0.5);
+	self.totalProfitArrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	[self.totalProfitView addSubview:self.totalProfitArrowImageView];
+	
+	self.totalProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, self.totalProfitView.width - 20, self.totalProfitBoxView.height)];
+	self.totalProfitLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	self.totalProfitLabel.textColor = [UIColor whiteColor];
+	self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
+	self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
+	self.totalProfitLabel.adjustsFontSizeToFitWidth = YES;
+	self.totalProfitLabel.minimumScaleFactor = 0.6;
+	[self.totalProfitView addSubview:self.totalProfitLabel];
     
     [self reloadWallet];
     [self reloadData];
@@ -556,7 +589,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+	
     [self reloadWallet];
     [self.tableView reloadData];
     

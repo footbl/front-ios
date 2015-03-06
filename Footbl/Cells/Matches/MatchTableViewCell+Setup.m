@@ -46,11 +46,6 @@
     [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
 #endif
     
-    if (!self.selectionBlock) {
-        self.totalProfitArrowImageView.hidden = YES;
-        self.totalProfitView.hidden = YES;
-    }
-    
     if (isMe && !match.editableObject.isBetSyncing) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
         self.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;

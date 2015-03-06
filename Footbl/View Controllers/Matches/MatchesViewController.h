@@ -22,4 +22,10 @@
 @property (strong, nonatomic) UIImageView *headerSliderBackImageView;
 @property (strong, nonatomic) UIImageView *headerSliderForwardImageView;
 
+// Total profit
+@property (strong, nonatomic) UIView *totalProfitView;
+@property (strong, nonatomic) UIView *totalProfitBoxView;
+@property (strong, nonatomic) UILabel *totalProfitLabel;
+@property (strong, nonatomic) UIImageView *totalProfitArrowImageView;
+
 @end
