@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 }
 
 - (GroupAroundMeViewController *)groupAroundMeViewController {
-    if (!_groupAroundMeViewController && self.group.isDefaultValue && AROUND_ME_ENABLED) {
+    if (!_groupAroundMeViewController && self.group.isWorldValue && AROUND_ME_ENABLED) {
         _groupAroundMeViewController = [GroupAroundMeViewController new];
         _groupAroundMeViewController.group = self.group;
         _groupAroundMeViewController.context = self.context;

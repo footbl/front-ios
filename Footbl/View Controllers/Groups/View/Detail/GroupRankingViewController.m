@@ -80,7 +80,7 @@
 
 - (void)reloadData {
     [super reloadData];
-    
+	
     if (self.context == GroupDetailContextRanking) {
         if (self.isLoading) {
             return;
@@ -107,6 +107,7 @@
                 self.isLoading = NO;
             }];
 		} else if (self.group.isFriendsValue) {
+			NSLog(@"*** CHAMOU");
 			[self.group.editableObject getFriendsMembersWithSuccess:^(id response) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];

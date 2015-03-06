@@ -66,24 +66,19 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     static NSString * kCacheKey = @"friends";
     [self getFbFriendsWithCompletionBlock:^(NSArray *fbFriends, NSError *error) {
         [self getContactsWithCompletionBlock:^(NSArray *contacts) {
-            NSMutableArray *emails = [NSMutableArray new];
-            for (NSArray *userEmails in [contacts valueForKeyPath:@"emails"]) {
-                [emails addObjectsFromArray:userEmails];
-            }
             if ([FTAuthenticationManager sharedManager].isAuthenticated) {
                 __block NSInteger operationsCount = 0;
-                __block NSInteger operationsFinished = 0;
                 __block NSMutableArray *searchResults = [NSMutableArray new];
 				__block NSMutableSet *resultSet = [NSMutableSet new];
 				__block NSMutableArray *result = [NSMutableArray new];
 				
                 void(^finishedBlock)(id response) = ^(id response) {
-                    operationsFinished ++;
+                    operationsCount--;
                     if (response && [response isKindOfClass:[NSArray class]]) {
                         [searchResults addObjectsFromArray:response];
                     }
                     
-                    if (operationsFinished == operationsCount) {
+                    if (operationsCount == 0) {
 						User *me = [User currentUser];
                         for (NSDictionary *user in searchResults) {
 							NSString *slug = user[kFTResponseParamIdentifier];
@@ -92,26 +87,30 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                                 [result addObject:user];
                             }
                         }
-                        [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+                        [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
                         self.cache[kCacheKey] = @{@"data" : result, @"updatedAt" : [NSDate date]};
                         if (completionBlock) completionBlock(result, nil);
                     }
                 };
-                
-                for (int i = 0; i < emails.count; i += 100) {
-                    operationsCount ++;
-                    NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
-                    [User searchUsingEmails:range usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
-                        finishedBlock(response);
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        SPLogError(@"%@", error);
-                        finishedBlock(@[]);
-                    }];
-                }
+				
+				if (contacts) {
+					NSArray *emails = [contacts valueForKeyPath:@"emails"];
+					for (int i = 0; i < emails.count; i += 100) {
+						operationsCount++;
+						NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
+						[User searchUsingEmails:range usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
+							finishedBlock(response);
+						} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+							SPLogError(@"%@", error);
+							finishedBlock(@[]);
+						}];
+					}
+				}
+				
                 if (fbFriends) {
-                NSArray *fbIds = [fbFriends valueForKeyPath:@"id"];
+					NSArray *fbIds = [fbFriends valueForKeyPath:@"id"];
                     for (int i = 0; i < fbIds.count; i += 100) {
-                        operationsCount ++;
+                        operationsCount++;
                         NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
                         [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range name:nil success:^(id response) {
                             finishedBlock(response);
