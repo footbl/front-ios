@@ -129,7 +129,9 @@
     } else {
         self.shareButton.alpha = 0;
     }
-    
+	
+	self.cardContentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.cardContentView.layer.bounds cornerRadius:4].CGPath;
+	
     self.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
         [match shareUsingMatchCell:matchBlockCell viewController:viewController];
     };
