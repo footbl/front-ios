@@ -3,7 +3,7 @@
 //  Footbl
 //
 //  Created by Fernando Saragoça on 11/21/14.
-//  Copyright (c) 2014 made@sampa. All rights reserved.
+//  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
 #import "Prize.h"

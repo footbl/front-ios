@@ -3,7 +3,7 @@
 //  Footbl
 //
 //  Created by Fernando Saragoca on 11/25/14.
-//  Copyright (c) 2014 made@sampa. All rights reserved.
+//  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
 #import "FTResponseSerializer.h"

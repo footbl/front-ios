@@ -41,6 +41,9 @@ PODS:
   - KIF (3.0.8):
     - KIF/XCTest (= 3.0.8)
   - KIF/XCTest (3.0.8)
+  - Mantle (2.0.3):
+    - Mantle/extobjc (= 2.0.3)
+  - Mantle/extobjc (2.0.3)
   - MBProgressHUD (0.9)
   - RMStore (0.6.0):
     - RMStore/Core (= 0.6.0)
@@ -49,17 +52,8 @@ PODS:
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - SimulatorStatusMagic (1.3)
-  - SPHipster (0.5.3):
-    - SPHipster/Categories (= 0.5.3)
-    - SPHipster/Core (= 0.5.3)
-    - SPHipster/Extras (= 0.5.3)
-  - SPHipster/Categories (0.5.3):
-    - SPHipster/Core
-  - SPHipster/Core (0.5.3)
-  - SPHipster/Extras (0.5.3):
-    - SPHipster/Core
-  - SPNotifier (0.2.2):
-    - AFNetworking (~> 2.0)
+  - SPHipster (0.5.3)
+  - SPNotifier (0.2.2)
   - StyledPageControl (1.0)
   - SVPullToRefresh (0.4.1)
   - TransformerKit (0.5.3):
@@ -98,41 +92,49 @@ DEPENDENCIES:
   - GoogleAnalytics-iOS-SDK (= 3.0.9)
   - iRate (= 1.11.3)
   - KIF (= 3.0.8)
+  - Mantle (~> 2.0.3)
   - MBProgressHUD (= 0.9)
   - RMStore (= 0.6.0)
   - SDWebImage (= 3.7.1)
   - SimulatorStatusMagic
-  - SPHipster (= 0.5.3)
-  - SPNotifier (= 0.2.2)
+  - SPHipster (from `Footbl/Pods/SPHipster`)
+  - SPNotifier (from `Footbl/Pods/SPNotifier`)
   - StyledPageControl (= 1.0)
   - SVPullToRefresh (= 0.4.1)
   - TransformerKit (= 0.5.3)
   - Tweaks (= 1.1.0)
   - UIAlertView-Blocks (= 1.0)
 
-SPEC CHECKSUMS:
-  AFNetworkActivityLogger: d6a2d2755fada3a1fbf1f490ec0dd92224e092a4
-  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  APAddressBook: 2b23557950065f8eb048e421dd4a18373f69949b
-  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  CargoBay: b9b7c2b6a466192fb218935c0dd771d16268a035
-  Cloudinary: 1f3859b17f1c111671a1acf1f0e2648c34d3a207
-  Facebook-iOS-SDK: cb7d74759d0b1ba546e6e6f1dde407b0d4e448d6
-  FlurrySDK: bed9e5598353f867508d164795a451e3ada92cb6
-  FXKeychain: c97c352f1923809032339514ec4d6b0ed151bc3b
-  GoogleAnalytics-iOS-SDK: d9e198b1f955259a72886769be7377cdfcdb2250
-  iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
-  KIF: 2db5e8cf59136dd1267d49cca0d55883389b09d3
-  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  RMStore: e56d74f57a8e0ae0eaa04643d44f7686e646cfba
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  SimulatorStatusMagic: ba4430f70d778e53a5bd9f09b6bc8faabd6b627e
-  SPHipster: bda4f8c802d57ac2750a3724a8c583b5aa21ddb8
-  SPNotifier: dae5b3cb09eb78ab0b3a14a93ad53c612cc2df0d
-  StyledPageControl: d202381763211c13dbb1ca84e4bfe5e1473adc58
-  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
-  TransformerKit: a8aebc6772d867a727bec50134aa706cf0ce5949
-  Tweaks: 05b197d4a1247288f576587546bc1932189d8c98
-  UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
+EXTERNAL SOURCES:
+  SPHipster:
+    :path: Footbl/Pods/SPHipster
+  SPNotifier:
+    :path: Footbl/Pods/SPNotifier
 
-COCOAPODS: 0.35.0
+SPEC CHECKSUMS:
+  AFNetworkActivityLogger: e82c9ba285b37042d86729bff5b14036c4312cd7
+  AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
+  APAddressBook: 927c6c7ee68b0d345ee04e9e403ba60ab6c273cb
+  Bolts: e431c88fd02115d4a34016c2100bbfa4d2d5b146
+  CargoBay: 3afad56937d51596f081e38d2a7829835fefab06
+  Cloudinary: b9f023dbe33b0f55d0d783a5398cd23e491debe2
+  Facebook-iOS-SDK: 2a2f22be64360c46eb76002654aba69c0ea06f5a
+  FlurrySDK: 7f929b68dea38ce735979fb039229f62c0b697b5
+  FXKeychain: 1a711bddc04a2bd69850dcfe297b8a43027a9980
+  GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
+  iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
+  KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
+  Mantle: 8d6b14979a082a9ed4994463eb7a4ff576c94632
+  MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
+  RMStore: d6a1fa44111f843a0c24cfc6ee934ae30a4b54ac
+  SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
+  SimulatorStatusMagic: aea6561c0a74fda1ec2c4d89835590bdff38a87e
+  SPHipster: e47c7a58906e8c022a13b84e0ba39ff31bdb2670
+  SPNotifier: 087f41eedfb78ce23bff3f4a1826c3ded32f07ff
+  StyledPageControl: b49f33cb65b99370a78a490fac127b1ca6472fd0
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TransformerKit: ecc75d46d34be4da3370556ee6acbf85d04bf44a
+  Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
+  UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
+
+COCOAPODS: 0.38.2

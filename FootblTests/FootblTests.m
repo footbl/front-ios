@@ -3,12 +3,12 @@
 //  FootblTests
 //
 //  Created by Fernando Saragoça on 3/25/14.
-//  Copyright (c) 2014 made@sampa. All rights reserved.
+//  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
 #import <KIF/KIF.h>
 #import <XCTest/XCTest.h>
-#import "FootblAPI.h"
+#import "FTAuthenticationManager.h"
 
 @interface FootblTests : KIFTestCase
 
@@ -21,14 +21,14 @@
 #pragma mark - Instance Methods
 
 - (void)beforeAll {
-    [[FootblAPI sharedAPI] logout];
+    [[FTAuthenticationManager sharedManager] logout];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kPresentTutorialViewController"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFirstRunKey"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)afterAll {
-    [[FootblAPI sharedAPI] logout];
+	[[FTAuthenticationManager sharedManager] logout];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kPresentTutorialViewController"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFirstRunKey"];
     [[NSUserDefaults standardUserDefaults] synchronize];

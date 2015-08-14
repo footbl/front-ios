@@ -1,0 +1,1 @@
+TRANSFORMERKIT_OTHER_LDFLAGS = -framework "Security"

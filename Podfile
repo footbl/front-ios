@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
-source 'git@git.madeatsampa.com:madeatsampa/sppodspec.git'
+#source 'http://madeatsampa.com/sppodspec.git'
 
 platform :ios, '7.0'
 
 # madeatsampa
-pod 'SPHipster', '0.5.3'
-pod 'SPNotifier', '0.2.2'
+pod 'SPHipster', :path => 'Footbl/Pods/SPHipster' #'0.5.3'
+pod 'SPNotifier', :path => 'Footbl/Pods/SPNotifier' #'0.2.2'
 
 # Analytics
 #pod 'CrashlyticsFramework', '2.2.5'
@@ -17,6 +17,7 @@ pod 'AFNetworking', '2.4.1'
 pod 'AFNetworkActivityLogger', '2.0.3'
 pod 'SDWebImage', '3.7.1'
 pod 'TransformerKit', '0.5.3'
+pod 'Mantle', '~> 2.0.3'
 
 # Security
 pod 'FXKeychain', '1.5.2'
@@ -40,8 +41,8 @@ target 'FootblTests', :exclusive => true do
     pod 'KIF', '3.0.8'
 end
 
-post_install do |installer_representation|
-    installer_representation.project.targets.each do |target|
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
         if target.name == "Pods-Tweaks"
             target.build_configurations.each do |config|
                 if config.name == 'QA'

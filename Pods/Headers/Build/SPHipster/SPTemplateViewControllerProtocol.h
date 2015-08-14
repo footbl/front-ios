@@ -1,1 +1,0 @@
-../../../SPHipster/SPHipster/Extras/iOS/SPTemplateViewControllerProtocol.h

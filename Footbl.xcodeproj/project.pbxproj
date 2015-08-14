@@ -21,6 +21,58 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
+		100E6A5A1B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
+		100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
+		100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
+		100E6A5F1B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
+		100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
+		100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
+		100E6A641B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
+		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
+		109FB2AD1B7C198300E67B3C /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
+		109FB2AE1B7C198600E67B3C /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
+		109FB2B01B7C19E800E67B3C /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
+		109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
+		109FB2B41B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
+		109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
+		109FB2B61B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
+		109FB2B91B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
+		109FB2BA1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
+		109FB2BB1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
+		109FB2BC1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
+		109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
+		109FB2C01B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
+		109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
+		109FB2C21B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
+		109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
+		109FB2C61B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
+		109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
+		109FB2C81B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
+		109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
+		109FB2CC1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
+		109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
+		109FB2CE1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
+		109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
+		109FB2D21B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
+		109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
+		109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
+		109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
+		109FB2D81B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
+		109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
+		109FB2DA1B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
+		109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
+		109FB2DE1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
+		109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
+		109FB2E01B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
+		109FB2E31B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
+		109FB2E41B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
+		109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
+		109FB2E61B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
+		109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
+		109FB2EA1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
+		109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
+		109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117043FF1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
@@ -479,6 +531,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		100E6A571B7AD7DB0012093B /* FTBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBModel.h; sourceTree = "<group>"; };
+		100E6A581B7AD7DB0012093B /* FTBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBModel.m; sourceTree = "<group>"; };
+		100E6A5C1B7ADD620012093B /* FTBChampionship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBChampionship.h; sourceTree = "<group>"; };
+		100E6A5D1B7ADD620012093B /* FTBChampionship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChampionship.m; sourceTree = "<group>"; };
+		100E6A611B7AEC730012093B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
+		109FB2B11B7C1EEB00E67B3C /* FTBSeason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBSeason.h; sourceTree = "<group>"; };
+		109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBSeason.m; sourceTree = "<group>"; };
+		109FB2B71B7C21E200E67B3C /* FTBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBUser.h; sourceTree = "<group>"; };
+		109FB2B81B7C21E200E67B3C /* FTBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBUser.m; sourceTree = "<group>"; };
+		109FB2BD1B7C28D700E67B3C /* FTBMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBMatch.h; sourceTree = "<group>"; };
+		109FB2BE1B7C28D700E67B3C /* FTBMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBMatch.m; sourceTree = "<group>"; };
+		109FB2C31B7C29AB00E67B3C /* FTBTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBTeam.h; sourceTree = "<group>"; };
+		109FB2C41B7C29AB00E67B3C /* FTBTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBTeam.m; sourceTree = "<group>"; };
+		109FB2C91B7C333D00E67B3C /* FTBPrize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBPrize.h; sourceTree = "<group>"; };
+		109FB2CA1B7C333D00E67B3C /* FTBPrize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPrize.m; sourceTree = "<group>"; };
+		109FB2CF1B7C334900E67B3C /* FTBGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBGroup.h; sourceTree = "<group>"; };
+		109FB2D01B7C334900E67B3C /* FTBGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBGroup.m; sourceTree = "<group>"; };
+		109FB2D51B7C366D00E67B3C /* FTBMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBMessage.h; sourceTree = "<group>"; };
+		109FB2D61B7C366D00E67B3C /* FTBMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBMessage.m; sourceTree = "<group>"; };
+		109FB2DB1B7C385500E67B3C /* FTBBet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBBet.h; sourceTree = "<group>"; };
+		109FB2DC1B7C385500E67B3C /* FTBBet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBBet.m; sourceTree = "<group>"; };
+		109FB2E11B7C3ABA00E67B3C /* FTBChallenge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBChallenge.h; sourceTree = "<group>"; };
+		109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChallenge.m; sourceTree = "<group>"; };
+		109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBCreditRequest.h; sourceTree = "<group>"; };
+		109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBCreditRequest.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -891,6 +970,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1029404F1B798997003AD450 /* FTB */ = {
+			isa = PBXGroup;
+			children = (
+				100E6A571B7AD7DB0012093B /* FTBModel.h */,
+				100E6A581B7AD7DB0012093B /* FTBModel.m */,
+				100E6A5C1B7ADD620012093B /* FTBChampionship.h */,
+				100E6A5D1B7ADD620012093B /* FTBChampionship.m */,
+				109FB2B11B7C1EEB00E67B3C /* FTBSeason.h */,
+				109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */,
+				109FB2B71B7C21E200E67B3C /* FTBUser.h */,
+				109FB2B81B7C21E200E67B3C /* FTBUser.m */,
+				109FB2BD1B7C28D700E67B3C /* FTBMatch.h */,
+				109FB2BE1B7C28D700E67B3C /* FTBMatch.m */,
+				109FB2C31B7C29AB00E67B3C /* FTBTeam.h */,
+				109FB2C41B7C29AB00E67B3C /* FTBTeam.m */,
+				109FB2C91B7C333D00E67B3C /* FTBPrize.h */,
+				109FB2CA1B7C333D00E67B3C /* FTBPrize.m */,
+				109FB2CF1B7C334900E67B3C /* FTBGroup.h */,
+				109FB2D01B7C334900E67B3C /* FTBGroup.m */,
+				109FB2D51B7C366D00E67B3C /* FTBMessage.h */,
+				109FB2D61B7C366D00E67B3C /* FTBMessage.m */,
+				109FB2DB1B7C385500E67B3C /* FTBBet.h */,
+				109FB2DC1B7C385500E67B3C /* FTBBet.m */,
+				109FB2E11B7C3ABA00E67B3C /* FTBChallenge.h */,
+				109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */,
+				109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */,
+				109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */,
+			);
+			path = FTB;
+			sourceTree = "<group>";
+		};
 		DA9AD43A9790C443A80AB66C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1290,6 +1400,7 @@
 			isa = PBXGroup;
 			children = (
 				EDB1D49018E1F18B00E0C949 /* FootblTests.m */,
+				109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */,
 				EDB1D48B18E1F18B00E0C949 /* Supporting Files */,
 			);
 			path = FootblTests;
@@ -1331,6 +1442,8 @@
 				ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */,
 				EDAF0E9E191ABA7F005218FB /* UILabel+Shake.h */,
 				EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */,
+				100E6A611B7AEC730012093B /* UIView+Frame.h */,
+				100E6A621B7AEC730012093B /* UIView+Frame.m */,
 				ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */,
 				ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */,
 			);
@@ -1340,7 +1453,10 @@
 		EDB1D49E18E1F3D200E0C949 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1029404F1B798997003AD450 /* FTB */,
 				EDB1D4A218E1F3F300E0C949 /* APIs */,
+				EDB9C6E9192A88F6002A913D /* Helpers */,
+				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				EDB1D47618E1F18B00E0C949 /* AppDelegate.h */,
 				EDB1D47718E1F18B00E0C949 /* AppDelegate.m */,
 				EDE66161196EDD9C00C8F5E1 /* FeaturedButton.h */,
@@ -1351,8 +1467,6 @@
 				ED3A0F571988B42E00011E91 /* FootblLabel.m */,
 				ED3A0F5319885E7900011E91 /* FootblPopupAnimatedTransition.h */,
 				ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */,
-				EDB9C6E9192A88F6002A913D /* Helpers */,
-				EDB1D4A118E1F3EA00E0C949 /* Models */,
 				ED3399F81A1E4EBF0037F01B /* RechargeButton.h */,
 				ED3399F91A1E4EBF0037F01B /* RechargeButton.m */,
 				ED493D37190ED2BF00A7869B /* TeamImageView.h */,
@@ -1578,8 +1692,9 @@
 		EDB1D45A18E1F18B00E0C949 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = FTB;
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "made@sampa";
+				ORGANIZATIONNAME = Footbl;
 				TargetAttributes = {
 					DB5422B61A23146A0047B816 = {
 						CreatedOnToolsVersion = 6.0;
@@ -1921,12 +2036,14 @@
 				ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */,
 				ED7859EC199D0C62002A4DBD /* _FTModel.m in Sources */,
 				ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */,
+				109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */,
 				ED7859EF199D0C62002A4DBD /* Championship.m in Sources */,
 				ED7859F0199D0C62002A4DBD /* GroupChampionshipTableViewCell.m in Sources */,
 				ED7859F1199D0C62002A4DBD /* _Group.m in Sources */,
 				ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */,
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
+				109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
 				ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
@@ -1937,6 +2054,8 @@
 				ED7859F9199D0C62002A4DBD /* FTAuthenticationManager.m in Sources */,
 				ED785A7C199D4A92002A4DBD /* _CreditRequest.m in Sources */,
 				ED785A80199DA5CE002A4DBD /* Entry.m in Sources */,
+				100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */,
+				109FB2B91B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
 				EDD976BA1A1F889200B08842 /* Prize.m in Sources */,
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
@@ -1948,6 +2067,7 @@
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
 				ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */,
 				ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */,
+				109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
 				ED785A03199D0C62002A4DBD /* Bet.m in Sources */,
@@ -1963,15 +2083,19 @@
 				EDA4BBEF1A2269C700A41004 /* NSDate+Utils.m in Sources */,
 				ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */,
+				109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */,
+				109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */,
 				ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */,
 				ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */,
+				109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
 				ED785A11199D0C62002A4DBD /* NSURLRequest+FTRequestOptions.m in Sources */,
 				EDA4BBE01A21069700A41004 /* Message.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
+				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1987,6 +2111,7 @@
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED785A1F199D0C62002A4DBD /* TeamImageView.m in Sources */,
 				ED785A20199D0C62002A4DBD /* MatchesViewController.m in Sources */,
+				109FB2E31B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED785A21199D0C62002A4DBD /* GroupMembershipTableViewCell.m in Sources */,
 				ED785A22199D0C62002A4DBD /* AnonymousViewController.m in Sources */,
 				ED785A23199D0C62002A4DBD /* FTRequestSerializer.m in Sources */,
@@ -1994,6 +2119,8 @@
 				ED785A25199D0C62002A4DBD /* FeaturedButton.m in Sources */,
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
 				ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
+				109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
 				ED785A29199D0C62002A4DBD /* NSManagedObjectContext+FTAddons.m in Sources */,
@@ -2001,6 +2128,7 @@
 				ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */,
 				ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */,
 				ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */,
+				100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED785A2E199D0C62002A4DBD /* FTModel.m in Sources */,
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
 				ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */,
@@ -2051,12 +2179,14 @@
 				ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */,
 				ED8DB3911A14C95C00605CCE /* _FTModel.m in Sources */,
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
+				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
 				ED8DB3941A14C95C00605CCE /* Championship.m in Sources */,
 				ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */,
 				ED8DB3961A14C95C00605CCE /* _Group.m in Sources */,
 				ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */,
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
+				109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
 				ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */,
@@ -2067,6 +2197,8 @@
 				ED8DB39F1A14C95C00605CCE /* FTAuthenticationManager.m in Sources */,
 				ED8DB3A01A14C95C00605CCE /* _CreditRequest.m in Sources */,
 				ED8DB3A11A14C95C00605CCE /* Entry.m in Sources */,
+				100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */,
+				109FB2BB1B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */,
 				ED8DB3A31A14C95C00605CCE /* GroupTableViewCell.m in Sources */,
 				ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */,
@@ -2078,6 +2210,7 @@
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				ED8DB3AB1A14C95C00605CCE /* Bet.m in Sources */,
+				109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED8DB3AC1A14C95C00605CCE /* _Entry.m in Sources */,
 				ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */,
@@ -2093,15 +2226,19 @@
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
 				ED8DB3B51A14C95C00605CCE /* GroupInfoViewController.m in Sources */,
 				ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */,
+				109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */,
+				109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				EDA4BBE21A21069700A41004 /* Message.m in Sources */,
 				ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */,
 				ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */,
+				109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED8DB3BA1A14C95C00605CCE /* NSURLRequest+FTRequestOptions.m in Sources */,
 				ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */,
 				ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
+				100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
@@ -2117,6 +2254,7 @@
 				ED8DB3C91A14C95C00605CCE /* TeamImageView.m in Sources */,
 				ED8DB3CA1A14C95C00605CCE /* MatchesViewController.m in Sources */,
 				ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */,
+				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */,
 				ED8DB3CD1A14C95C00605CCE /* FTRequestSerializer.m in Sources */,
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,
@@ -2124,6 +2262,8 @@
 				ED8DB3D01A14C95C00605CCE /* MatchTableViewCell.m in Sources */,
 				ED8DB3D11A14C95C00605CCE /* MyLeaguesViewController.m in Sources */,
 				ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */,
+				109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D41A14C95C00605CCE /* NSManagedObjectContext+FTAddons.m in Sources */,
 				ED8DB3D51A14C95C00605CCE /* _Team.m in Sources */,
@@ -2131,6 +2271,7 @@
 				ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */,
 				ED8DB3D81A14C95C00605CCE /* FootblLabel.m in Sources */,
 				ED8DB3D91A14C95C00605CCE /* FTModel.m in Sources */,
+				100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED8DB3DA1A14C95C00605CCE /* SettingsViewController.m in Sources */,
 				ED8DB3DB1A14C95C00605CCE /* FootblNavigationController.m in Sources */,
 				ED8DB3DC1A14C95C00605CCE /* LogsViewController.m in Sources */,
@@ -2181,12 +2322,14 @@
 				ED97AF671A14C7E40079ADB4 /* MatchesNavigationBarView.m in Sources */,
 				ED97AF681A14C7E40079ADB4 /* _FTModel.m in Sources */,
 				ED97AF691A14C7E40079ADB4 /* TemplateTableViewCell.m in Sources */,
+				109FB2D21B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED97AF6A1A14C7E40079ADB4 /* GroupAddMemberTableViewCell.m in Sources */,
 				ED97AF6B1A14C7E40079ADB4 /* Championship.m in Sources */,
 				ED97AF6C1A14C7E40079ADB4 /* GroupChampionshipTableViewCell.m in Sources */,
 				ED97AF6D1A14C7E40079ADB4 /* _Group.m in Sources */,
 				ED97AF6E1A14C7E40079ADB4 /* FavoritesViewController.m in Sources */,
 				ED97AF6F1A14C7E40079ADB4 /* FriendsHelper.m in Sources */,
+				109FB2EA1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED97AF701A14C7E40079ADB4 /* TransferTableViewCell.m in Sources */,
 				ED5C4E461A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED97AF711A14C7E40079ADB4 /* GroupsViewController.m in Sources */,
@@ -2197,6 +2340,8 @@
 				ED97AF761A14C7E40079ADB4 /* FTAuthenticationManager.m in Sources */,
 				ED97AF771A14C7E40079ADB4 /* _CreditRequest.m in Sources */,
 				ED97AF781A14C7E40079ADB4 /* Entry.m in Sources */,
+				100E6A5F1B7ADD620012093B /* FTBChampionship.m in Sources */,
+				109FB2BA1B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED97AF791A14C7E40079ADB4 /* AppDelegate.m in Sources */,
 				ED97AF7A1A14C7E40079ADB4 /* GroupTableViewCell.m in Sources */,
 				ED97AF7B1A14C7E40079ADB4 /* NSString+Hex.m in Sources */,
@@ -2208,6 +2353,7 @@
 				ED97AF801A14C7E40079ADB4 /* TransfersViewController.m in Sources */,
 				ED97AF811A14C7E40079ADB4 /* AuthenticationViewController.m in Sources */,
 				ED97AF821A14C7E40079ADB4 /* Bet.m in Sources */,
+				109FB2C61B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED97AF831A14C7E40079ADB4 /* _Entry.m in Sources */,
 				ED97AF841A14C7E40079ADB4 /* GroupChampionshipsViewController.m in Sources */,
@@ -2223,15 +2369,19 @@
 				ED97AF8B1A14C7E40079ADB4 /* UILabel+MaxFontSize.m in Sources */,
 				ED97AF8C1A14C7E40079ADB4 /* GroupInfoViewController.m in Sources */,
 				ED97AF8D1A14C7E40079ADB4 /* SettingsTextViewController.m in Sources */,
+				109FB2B41B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED97AF8E1A14C7E40079ADB4 /* UIView+Shake.m in Sources */,
+				109FB2CC1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				EDA4BBE11A21069700A41004 /* Message.m in Sources */,
 				ED97AF8F1A14C7E40079ADB4 /* GroupInfoBaseViewController.m in Sources */,
 				ED97AF901A14C7E40079ADB4 /* WhatsAppAPI.m in Sources */,
+				109FB2C01B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED97AF911A14C7E40079ADB4 /* NSURLRequest+FTRequestOptions.m in Sources */,
 				ED97AF921A14C7E40079ADB4 /* FootblPopupViewController.m in Sources */,
 				ED904B581A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
 				ED97AF931A14C7E40079ADB4 /* AskFriendsViewController.m in Sources */,
 				ED97AF941A14C7E40079ADB4 /* ProfileViewController.m in Sources */,
+				100E6A641B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED97AF951A14C7E40079ADB4 /* NSString+SHA1.m in Sources */,
 				DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED97AF961A14C7E40079ADB4 /* SignupViewController.m in Sources */,
@@ -2247,6 +2397,7 @@
 				ED97AFA01A14C7E40079ADB4 /* TeamImageView.m in Sources */,
 				ED97AFA11A14C7E40079ADB4 /* MatchesViewController.m in Sources */,
 				ED97AFA21A14C7E40079ADB4 /* GroupMembershipTableViewCell.m in Sources */,
+				109FB2E41B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED97AFA31A14C7E40079ADB4 /* AnonymousViewController.m in Sources */,
 				ED97AFA41A14C7E40079ADB4 /* FTRequestSerializer.m in Sources */,
 				ED97AFA51A14C7E40079ADB4 /* WalletHighestTableViewCell.m in Sources */,
@@ -2254,6 +2405,8 @@
 				ED97AFA71A14C7E40079ADB4 /* MatchTableViewCell.m in Sources */,
 				ED97AFA81A14C7E40079ADB4 /* MyLeaguesViewController.m in Sources */,
 				ED97AFA91A14C7E40079ADB4 /* TemplateViewController.m in Sources */,
+				109FB2D81B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				109FB2DE1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED97AFAA1A14C7E40079ADB4 /* UILabel+Shake.m in Sources */,
 				ED97AFAB1A14C7E40079ADB4 /* NSManagedObjectContext+FTAddons.m in Sources */,
 				ED97AFAC1A14C7E40079ADB4 /* _Team.m in Sources */,
@@ -2261,6 +2414,7 @@
 				ED97AFAE1A14C7E40079ADB4 /* UIFont+MaxFontSize.m in Sources */,
 				ED97AFAF1A14C7E40079ADB4 /* FootblLabel.m in Sources */,
 				ED97AFB01A14C7E40079ADB4 /* FTModel.m in Sources */,
+				100E6A5A1B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED97AFB11A14C7E40079ADB4 /* SettingsViewController.m in Sources */,
 				ED97AFB21A14C7E40079ADB4 /* FootblNavigationController.m in Sources */,
 				ED97AFB31A14C7E40079ADB4 /* LogsViewController.m in Sources */,
@@ -2297,7 +2451,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				109FB2C21B7C28D700E67B3C /* FTBMatch.m in Sources */,
+				109FB2B61B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
+				109FB2E01B7C385500E67B3C /* FTBBet.m in Sources */,
+				109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
+				109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */,
+				109FB2E61B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
+				109FB2BC1B7C21E200E67B3C /* FTBUser.m in Sources */,
+				109FB2CE1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				EDB1D49118E1F18B00E0C949 /* FootblTests.m in Sources */,
+				109FB2AE1B7C198600E67B3C /* FTBModel.m in Sources */,
+				109FB2DA1B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				109FB2AD1B7C198300E67B3C /* FTBChampionship.m in Sources */,
+				109FB2B01B7C19E800E67B3C /* FTBClientTestCase.m in Sources */,
+				109FB2C81B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2802,7 +2969,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -2822,7 +2989,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -2874,7 +3041,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl ß.app/Footbl ß";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = QA;
