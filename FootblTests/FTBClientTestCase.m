@@ -9,12 +9,21 @@
 #import <XCTest/XCTest.h>
 #import "FTBChampionship.h"
 #import "FTBSeason.h"
+#import "FTBClient.h"
 
 @interface FTBClientTestCase : XCTestCase
 
 @end
 
 @implementation FTBClientTestCase
+
+- (void)testBlah {
+	[FTBClient championships:0 success:^(NSArray *championships) {
+		
+	} failure:^(NSError *error) {
+		
+	}];
+}
 
 - (void)testChampionshipCreation {
 	NSDictionary *dict = @{@"_id": @"abc123",

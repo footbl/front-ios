@@ -30,6 +30,10 @@
 		100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		100E6A641B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
+		10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
+		10390DCB1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
+		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
+		10390DCD1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		109FB2AD1B7C198300E67B3C /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		109FB2AE1B7C198600E67B3C /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		109FB2B01B7C19E800E67B3C /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
@@ -537,6 +541,8 @@
 		100E6A5D1B7ADD620012093B /* FTBChampionship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChampionship.m; sourceTree = "<group>"; };
 		100E6A611B7AEC730012093B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
+		10390DC91B7D7D5B001AA9CE /* FTBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClient.m; sourceTree = "<group>"; };
 		109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
 		109FB2B11B7C1EEB00E67B3C /* FTBSeason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBSeason.h; sourceTree = "<group>"; };
 		109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBSeason.m; sourceTree = "<group>"; };
@@ -997,6 +1003,8 @@
 				109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */,
 				109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */,
 				109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */,
+				10390DC81B7D7D5B001AA9CE /* FTBClient.h */,
+				10390DC91B7D7D5B001AA9CE /* FTBClient.m */,
 			);
 			path = FTB;
 			sourceTree = "<group>";
@@ -2120,6 +2128,7 @@
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
 				ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
 				109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
@@ -2263,6 +2272,7 @@
 				ED8DB3D11A14C95C00605CCE /* MyLeaguesViewController.m in Sources */,
 				ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */,
 				109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D41A14C95C00605CCE /* NSManagedObjectContext+FTAddons.m in Sources */,
@@ -2406,6 +2416,7 @@
 				ED97AFA81A14C7E40079ADB4 /* MyLeaguesViewController.m in Sources */,
 				ED97AFA91A14C7E40079ADB4 /* TemplateViewController.m in Sources */,
 				109FB2D81B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				10390DCB1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2DE1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED97AFAA1A14C7E40079ADB4 /* UILabel+Shake.m in Sources */,
 				ED97AFAB1A14C7E40079ADB4 /* NSManagedObjectContext+FTAddons.m in Sources */,
@@ -2457,6 +2468,7 @@
 				109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */,
 				109FB2E61B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
+				10390DCD1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2BC1B7C21E200E67B3C /* FTBUser.m in Sources */,
 				109FB2CE1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				EDB1D49118E1F18B00E0C949 /* FootblTests.m in Sources */,
