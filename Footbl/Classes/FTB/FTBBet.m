@@ -16,15 +16,7 @@
 							   @"match": @"match",
 							   @"bid": @"bid",
 							   @"result": @"result"};
-	return [[super JSONKeyPathsByPropertyKey]mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
-}
-
-+ (NSValueTransformer *)userJSONTransformer {
-	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
-}
-
-+ (NSValueTransformer *)matchJSONTransformer {
-	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBMatch class]];
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
 + (NSValueTransformer *)resultJSONTransformer {

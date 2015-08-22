@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 #source 'http://madeatsampa.com/sppodspec.git'
 
 platform :ios, '7.0'
+inhibit_all_warnings!
 
 # madeatsampa
 pod 'SPHipster', :path => 'Footbl/Pods/SPHipster' #'0.5.3'
