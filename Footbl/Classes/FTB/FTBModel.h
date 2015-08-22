@@ -16,5 +16,6 @@
 
 + (NSValueTransformer *)dateJSONTransformer;
 + (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)JSONDictionary;
 
 @end

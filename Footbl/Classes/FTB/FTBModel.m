@@ -19,6 +19,7 @@
 + (NSDateFormatter *)dateFormatter {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+	dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 	return dateFormatter;
 }
@@ -41,6 +42,10 @@
 
 + (instancetype)modelWithDictionary:(NSDictionary *)dictionary {
 	return [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:dictionary error:nil];
+}
+
+- (NSDictionary *)JSONDictionary {
+	return [MTLJSONAdapter JSONDictionaryFromModel:self error:nil];
 }
 
 #pragma mark -
