@@ -34,6 +34,10 @@
 		10390DCB1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCD1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
+		109AA8FB1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
+		109AA8FC1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
+		109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
+		109AA8FE1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109FB2AD1B7C198300E67B3C /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		109FB2AE1B7C198600E67B3C /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		109FB2B01B7C19E800E67B3C /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
@@ -543,6 +547,8 @@
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
 		10390DC91B7D7D5B001AA9CE /* FTBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClient.m; sourceTree = "<group>"; };
+		109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBConstants.m; sourceTree = "<group>"; };
+		109AA8FF1B89290300BB8FB7 /* FTBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTBConstants.h; sourceTree = "<group>"; };
 		109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
 		109FB2B11B7C1EEB00E67B3C /* FTBSeason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBSeason.h; sourceTree = "<group>"; };
 		109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBSeason.m; sourceTree = "<group>"; };
@@ -1005,6 +1011,8 @@
 				109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */,
 				10390DC81B7D7D5B001AA9CE /* FTBClient.h */,
 				10390DC91B7D7D5B001AA9CE /* FTBClient.m */,
+				109AA8FF1B89290300BB8FB7 /* FTBConstants.h */,
+				109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */,
 			);
 			path = FTB;
 			sourceTree = "<group>";
@@ -2030,6 +2038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				109AA8FB1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */,
 				ED7859E3199D0C62002A4DBD /* _User.m in Sources */,
 				ED7859E4199D0C62002A4DBD /* User.m in Sources */,
@@ -2174,6 +2183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				ED8DB3871A14C95C00605CCE /* LoginViewController.m in Sources */,
 				ED8DB3881A14C95C00605CCE /* _User.m in Sources */,
 				EDA4BBF11A2269C700A41004 /* NSDate+Utils.m in Sources */,
@@ -2318,6 +2328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				109AA8FC1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				ED97AF5E1A14C7E40079ADB4 /* LoginViewController.m in Sources */,
 				ED97AF5F1A14C7E40079ADB4 /* _User.m in Sources */,
 				EDA4BBF01A2269C700A41004 /* NSDate+Utils.m in Sources */,
@@ -2464,6 +2475,7 @@
 			files = (
 				109FB2C21B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				109FB2B61B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
+				109AA8FE1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				109FB2E01B7C385500E67B3C /* FTBBet.m in Sources */,
 				109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */,
@@ -2775,6 +2787,7 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
+					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
@@ -2798,6 +2811,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
@@ -2822,6 +2836,7 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
+					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
@@ -2846,6 +2861,7 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
@@ -2869,6 +2885,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";
@@ -2893,6 +2910,7 @@
 					"$(inherited)",
 					"FT_SERVER_ENVIRONMENT=3",
 					"FB_TWEAK_ENABLED=1",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
 				PRODUCT_NAME = "Footbl Beta";

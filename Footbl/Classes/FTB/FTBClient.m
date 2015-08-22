@@ -7,6 +7,7 @@
 //
 
 #import "FTBClient.h"
+#import "FTBConstants.h"
 #import "FTBChampionship.h"
 #import "FTBCreditRequest.h"
 #import "FTBGroup.h"
@@ -17,6 +18,9 @@
 #import "FTBSeason.h"
 #import "FTBBet.h"
 #import "FTBChallenge.h"
+
+#import "FTAuthenticationManager.h"
+#import "FTRequestSerializer.h"
 
 typedef void (^FTBBlockSuccess)(NSURLSessionDataTask *, id);
 typedef void (^FTBBlockFailure)(NSURLSessionDataTask *, NSError *);
@@ -39,31 +43,40 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 	};
 }
 
-FTBBlockFailure FTBMakeBlockFailure(FTBBlockError failure) {
+FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictionary *parameters, Class modelClass, FTBBlockObject success, FTBBlockError failure) {
 	return ^(NSURLSessionDataTask *task, NSError *error) {
 		if (((NSHTTPURLResponse *)task.response).statusCode == 401) {
-			// refazer request
+			[[[FTBClient client] operationQueue] cancelAllOperations];
+			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
+				if ([method isEqualToString:@"GET"]) {
+					[FTBClient GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
+				} else if ([method isEqualToString:@"POST"]) {
+					[FTBClient POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
+				} else if ([method isEqualToString:@"PUT"]) {
+					[FTBClient PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
+				} else if ([method isEqualToString:@"DELETE"]) {
+					[FTBClient DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
+				} else {
+					if (failure) failure(error);
+				}
+			} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+				if (failure) failure(error);
+			}];
+		} else {
+			if (failure) failure(error);
 		}
-		if (failure) failure(error);
 	};
 }
 
 #pragma mark -
 
-+ (FTBUser *)currentUser {
-	return nil;
-}
-
-+ (NSURL *)baseURL {
-	return [NSURL URLWithString:@"http://localhost"];
-}
-
 + (instancetype)client {
 	static FTBClient *client;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		client = [[FTBClient alloc] initWithBaseURL:[self baseURL]];
-		client.requestSerializer = [AFJSONRequestSerializer serializer];
+		NSURL *URL = [NSURL URLWithString:FTBBaseURL];
+		client = [[FTBClient alloc] initWithBaseURL:URL];
+		client.requestSerializer = [FTRequestSerializer serializer];
 		client.responseSerializer = [AFJSONResponseSerializer serializer];
 	});
 	return client;
@@ -73,30 +86,36 @@ FTBBlockFailure FTBMakeBlockFailure(FTBBlockError failure) {
 
 + (void)GET:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass
  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
-	FTBBlockSuccess _success = FTBMakeBlockSuccess(modelClass, success, failure);
-	FTBBlockFailure _failure = FTBMakeBlockFailure(failure);
-	[[self client] GET:path parameters:parameters success:_success failure:_failure];
+	FTBBlockSuccess blockSuccess = FTBMakeBlockSuccess(modelClass, success, failure);
+	FTBBlockFailure blockFailure = FTBMakeBlockFailure(@"GET", path, parameters, modelClass, success, failure);
+	[[self client] GET:path parameters:parameters success:blockSuccess failure:blockFailure];
 }
 
 + (void)POST:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass
  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
 	FTBBlockSuccess blockSuccess = FTBMakeBlockSuccess(modelClass, success, failure);
-	FTBBlockFailure blockFailure = FTBMakeBlockFailure(failure);
+	FTBBlockFailure blockFailure = FTBMakeBlockFailure(@"POST", path, parameters, modelClass, success, failure);
 	[[self client] POST:path parameters:parameters success:blockSuccess failure:blockFailure];
 }
 
 + (void)PUT:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass
  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
 	FTBBlockSuccess blockSuccess = FTBMakeBlockSuccess(modelClass, success, failure);
-	FTBBlockFailure blockFailure = FTBMakeBlockFailure(failure);
+	FTBBlockFailure blockFailure = FTBMakeBlockFailure(@"PUT", path, parameters, modelClass, success, failure);
 	[[self client] PUT:path parameters:parameters success:blockSuccess failure:blockFailure];
 }
 
 + (void)DELETE:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass
  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
 	FTBBlockSuccess blockSuccess = FTBMakeBlockSuccess(modelClass, success, failure);
-	FTBBlockFailure blockFailure = FTBMakeBlockFailure(failure);
+	FTBBlockFailure blockFailure = FTBMakeBlockFailure(@"DELETE", path, parameters, modelClass, success, failure);
 	[[self client] DELETE:path parameters:parameters success:blockSuccess failure:blockFailure];
+}
+
+#pragma mark -
+
++ (FTBUser *)currentUser {
+	return nil;
 }
 
 #pragma mark - Championship

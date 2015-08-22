@@ -19,21 +19,8 @@
 
 #pragma mark - Instance Methods
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        _defaultOptions = FTRequestOptionAuthenticationRequired | FTRequestOptionAutoPage | FTRequestOptionGroupRequests;
-        self.options = self.defaultOptions;
-        
-        [self setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    }
-    return self;
-}
-
-- (NSMutableURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(id)parameters error:(NSError *__autoreleasing *)error {
-    NSMutableURLRequest *request = [super requestWithMethod:method URLString:URLString parameters:parameters error:error];
-    request.options = self.options;
-    request.page = [parameters[@"page"] integerValue];
+- (NSURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(id)parameters error:(NSError *__autoreleasing *)error {
+    NSURLRequest *request = [super requestWithMethod:method URLString:URLString parameters:parameters error:error];
     return [request signedRequest];
 }
 

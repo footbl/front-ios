@@ -134,7 +134,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super GET:URLString parameters:parameters success:success failure:failure];
-			} failure:nil];
+			} failure:failure];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -147,7 +147,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super POST:URLString parameters:parameters success:success failure:failure];
-			} failure:nil];
+			} failure:failure];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -160,7 +160,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super PUT:URLString parameters:parameters success:success failure:failure];
-			} failure:nil];
+			} failure:failure];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -173,7 +173,7 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super DELETE:URLString parameters:parameters success:success failure:failure];
-			} failure:nil];
+			} failure:failure];
 		} else if (failure) {
 			failure(operation, error);
 		}
