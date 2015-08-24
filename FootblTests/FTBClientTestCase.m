@@ -17,14 +17,6 @@
 
 @implementation FTBClientTestCase
 
-- (void)testBlah {
-	[FTBClient championships:0 success:^(NSArray *championships) {
-		
-	} failure:^(NSError *error) {
-		
-	}];
-}
-
 - (void)testChampionshipCreation {
 	NSDictionary *dict = @{@"_id": @"abc123",
 						   @"createdAt": @"2015-08-11 23:26:00",

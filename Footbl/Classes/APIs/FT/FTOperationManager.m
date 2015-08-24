@@ -16,9 +16,6 @@
 #import "NSURLRequest+FTAuthentication.h"
 #import "NSURLRequest+FTRequestOptions.h"
 
-NSString * const kFTNotificationAPIOutdated = @"kFootblAPINotificationAPIOutdated";
-NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
-
 @interface FTOperationManager ()
 
 @property (strong, nonatomic) NSMutableDictionary *groupingDictionary;
@@ -134,7 +131,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super GET:URLString parameters:parameters success:success failure:failure];
-			} failure:failure];
+			} failure:^(NSError *error) {
+				if (failure) failure(operation, error);
+			}];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -147,7 +146,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super POST:URLString parameters:parameters success:success failure:failure];
-			} failure:failure];
+			} failure:^(NSError *error) {
+				if (failure) failure(operation, error);
+			}];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -160,7 +161,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super PUT:URLString parameters:parameters success:success failure:failure];
-			} failure:failure];
+			} failure:^(NSError *error) {
+				if (failure) failure(operation, error);
+			}];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -173,7 +176,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 			[self.operationQueue cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				[super DELETE:URLString parameters:parameters success:success failure:failure];
-			} failure:failure];
+			} failure:^(NSError *error) {
+				if (failure) failure(operation, error);
+			}];
 		} else if (failure) {
 			failure(operation, error);
 		}
@@ -220,7 +225,9 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
         [[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
             AFHTTPRequestOperation *operation = groupBlock();
             [self.operationQueue addOperation:operation];
-        } failure:failure];
+        } failure:^(NSError *error) {
+			if (failure) failure(nil, error);
+		}];
         return nil;
     }
 }
@@ -260,23 +267,23 @@ NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotification
 - (void)validateEnvironmentWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
     [[FTOperationManager sharedManager] performOperationWithOptions:FTRequestOptionGroupRequests operations:^{
         [self GET:@"/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSInteger serverVersion = [responseObject[@"version"] integerValue];
-            NSError *error = nil;
-            if (serverVersion == self.apiVersion) {
-                if (success) success(responseObject);
-                return;
-            } else if (serverVersion > self.apiVersion) {
-                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
-            } else if (self.environment == FTEnvironmentProduction) {
-                self.environment = FTEnvironmentPreLaunch;
-                [self validateEnvironmentWithSuccess:success failure:failure];
-            } else if ([operation.request.URL.absoluteString rangeOfString:@"footbl-prelaunch"].location != NSNotFound) {
-                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
-            }
-            
-            if (error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAPIOutdated object:nil];
-            }
+//            NSInteger serverVersion = [responseObject[@"version"] integerValue];
+//            NSError *error = nil;
+//            if (serverVersion == self.apiVersion) {
+//                if (success) success(responseObject);
+//                return;
+//            } else if (serverVersion > self.apiVersion) {
+//                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
+//            } else if (self.environment == FTEnvironmentProduction) {
+//                self.environment = FTEnvironmentPreLaunch;
+//                [self validateEnvironmentWithSuccess:success failure:failure];
+//            } else if ([operation.request.URL.absoluteString rangeOfString:@"footbl-prelaunch"].location != NSNotFound) {
+//                error = [NSError errorWithDomain:kFTErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @""}];
+//            }
+//            
+//            if (error) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAPIOutdated object:nil];
+//            }
             if (success) success(responseObject);
         } failure:failure];
     }];

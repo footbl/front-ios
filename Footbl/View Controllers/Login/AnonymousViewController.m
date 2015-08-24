@@ -44,7 +44,7 @@
                     [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
                         self.view.userInteractionEnabled = YES;
                         [[LoadingHelper sharedInstance] hideHud];
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    } failure:^(NSError *error) {
                         [[LoadingHelper sharedInstance] hideHud];
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];

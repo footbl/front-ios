@@ -57,7 +57,7 @@
 }
 
 - (IBAction)signupAction:(id)sender {
-    FTOperationErrorBlock failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failureBlock = ^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         if (error) {
             self.view.userInteractionEnabled = YES;
@@ -87,9 +87,9 @@
         [[FTAuthenticationManager sharedManager] updateUserWithUsername:[self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)] name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
             [[LoadingHelper sharedInstance] hideHud];
             if (self.completionBlock) self.completionBlock();
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             [[FTAuthenticationManager sharedManager] logout];
-            failureBlock(operation, error);
+            failureBlock(error);
         }];
     } failure:failureBlock];
 }

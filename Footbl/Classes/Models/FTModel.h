@@ -10,10 +10,10 @@
 #import "FTCoreDataStore.h"
 #import "FTOperationManager.h"
 #import "NSManagedObjectContext+FTAddons.h"
+#import "FTBConstants.h"
 
 extern NSString * const kFTRequestParamResourcePathObject;
 extern NSString * const kFTResponseParamIdentifier;
-extern NSString * const kFTErrorDomain;
 
 typedef void (^FTAPISuccessWithResponseBlock)(id response);
 

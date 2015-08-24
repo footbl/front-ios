@@ -62,7 +62,7 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
     
     [[FTAuthenticationManager sharedManager] loginWithEmail:self.emailTextField.text password:self.passwordTextField.text success:^(id response) {
         if (self.completionBlock) self.completionBlock();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         self.view.userInteractionEnabled = YES;
         [self.passwordTextField becomeFirstResponder];
         [[ErrorHandler sharedInstance] displayError:error];

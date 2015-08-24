@@ -42,7 +42,7 @@
     [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:nil email:nil password:self.password fbToken:nil profileImage:nil about:nil success:^(id response) {
         [[LoadingHelper sharedInstance] hideHud];
         if (self.completionBlock) self.completionBlock();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         self.view.userInteractionEnabled = YES;
         [self.textField becomeFirstResponder];

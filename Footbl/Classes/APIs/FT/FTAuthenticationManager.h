@@ -8,7 +8,7 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 #import <Foundation/Foundation.h>
-#import "FTOperationManager.h"
+#import "FTBConstants.h"
 
 @class User;
 
@@ -30,12 +30,12 @@ extern NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId
 @property (assign, nonatomic, readonly) FTAuthenticationType authenticationType;
 
 + (instancetype)sharedManager;
-- (void)createUserWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
-- (void)ensureAuthenticationWithSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
-- (void)loginWithFacebookToken:(NSString *)fbToken success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
-- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)createUserWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)ensureAuthenticationWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)loginWithFacebookToken:(NSString *)fbToken success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)authenticateFacebookWithCompletion:(void (^)(FBSession *session, FBSessionState status, NSError *error))completionBlock;
-- (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
+- (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (BOOL)isValidPassword:(NSString *)password;
 - (void)logout;
 

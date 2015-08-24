@@ -47,7 +47,7 @@
                     [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
                         self.view.userInteractionEnabled = YES;
                         if (self.completionBlock) self.completionBlock();
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    } failure:^(NSError *error) {
                         SignupViewController *signupViewController = [SignupViewController new];
                         signupViewController.email = result[@"email"];
                         signupViewController.name = result[@"name"];
@@ -113,7 +113,7 @@
     
     [[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
         if (self.completionBlock) self.completionBlock();
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }

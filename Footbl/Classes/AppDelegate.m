@@ -32,6 +32,7 @@
 #import "Championship.h"
 #import "FTOperationManager.h"
 #import "FTAuthenticationManager.h"
+#import "FTBClient.h"
 
 #pragma mark AppDelegate
 

@@ -9,6 +9,8 @@
 #import "FTBuildType.h"
 
 FTBuildType FTGetBuildType() {
+	return FTBuildTypeDevelopment;
+	
     static FTBuildType buildType;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -18,7 +20,7 @@ FTBuildType FTGetBuildType() {
         } else if ([bundleIdentifier isEqualToString:@"com.madeatsampa.Footbl.development"]) {
             buildType = FTBuildTypeDevelopment;
         } else if ([bundleIdentifier isEqualToString:@"co.footbl.footbl1"]) {
-            buildType = FTBuildTypeBeta;
+            buildType = FTBuildTypeDevelopment;
         } else {
             buildType = FTBuildTypeUnknown;
         }

@@ -15,7 +15,6 @@
 
 NSString * const kFTRequestParamResourcePathObject = @"FTRequestParamResourcePathObject";
 NSString * const kFTResponseParamIdentifier = @"slug";
-NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
 
 @implementation FTModel
 

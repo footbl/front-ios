@@ -8,7 +8,6 @@
 
 #import <Cloudinary/Cloudinary.h>
 #import "FTImageUploader.h"
-#import "FTOperationManager.h"
 
 #pragma mark FTImageUploader
 
@@ -21,28 +20,23 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         cloudinary = [CLCloudinary new];
-        switch ([FTOperationManager sharedManager].environment) {
-            case FTEnvironmentDevelopment:
-                cloudinary.config[@"cloud_name"] = @"he5zfntay";
-                cloudinary.config[@"api_key"] = @"854175976174894";
-                cloudinary.config[@"api_secret"] = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
-                break;
-            case FTEnvironmentPreLaunch:
-            case FTEnvironmentProduction:
-                cloudinary.config[@"cloud_name"] = @"hivstsgwo";
-                cloudinary.config[@"api_key"] = @"987722547954377";
-                cloudinary.config[@"api_secret"] = @"JDxfvbY3BWwp3Nvnc-zQS6B-jog";
-                break;
-        }
-        
+#if FTB_ENVIRONMENT_PRODUCTION
+		cloudinary.config[@"cloud_name"] = @"hivstsgwo";
+		cloudinary.config[@"api_key"] = @"987722547954377";
+		cloudinary.config[@"api_secret"] = @"JDxfvbY3BWwp3Nvnc-zQS6B-jog";
+#else
+		cloudinary.config[@"cloud_name"] = @"he5zfntay";
+		cloudinary.config[@"api_key"] = @"854175976174894";
+		cloudinary.config[@"api_secret"] = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
+#endif
     });
     return cloudinary;
 }
 
-+ (void)uploadImage:(UIImage *)image withSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure {
++ (void)uploadImage:(UIImage *)image withSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure {
     if (!image) {
         if (failure) {
-            failure(nil, nil);
+            failure(nil);
         }
         return;
     }
@@ -50,14 +44,14 @@
 	CLUploader *uploader = [[CLUploader alloc] init:[self cloudinary] delegate:nil];
     [uploader upload:UIImageJPEGRepresentation(image, 1.0) options:@{} withCompletion:^(NSDictionary *successResult, NSString *errorResult, NSInteger code, id context) {
         if (successResult && success) success(successResult[@"url"]);
-        if (errorResult && failure) failure(nil, nil);
+        if (errorResult && failure) failure(nil);
     } andProgress:nil];
 }
 
 + (void)uploadImage:(UIImage *)image withCompletion:(void (^)(NSString *imagePath, NSError *error))completion {
     [self uploadImage:image withSuccess:^(id response) {
 		if (completion) completion(response, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
 		if (completion) completion(nil, error);
     }];
 }

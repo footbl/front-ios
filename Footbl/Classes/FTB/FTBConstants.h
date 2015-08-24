@@ -10,3 +10,12 @@
 
 NSString *const FTBBaseURL;
 NSString *const FTBSignatureKey;
+
+typedef void (^FTBBlockObject)(id object);
+typedef void (^FTBBlockError)(NSError *error);
+
+#warning Remove the lines below
+
+extern NSString * const kFTNotificationAPIOutdated;
+extern NSString * const kFTNotificationAuthenticationChanged;
+extern NSString * const kFTErrorDomain;

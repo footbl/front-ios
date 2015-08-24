@@ -8,15 +8,13 @@
 
 #import "AFHTTPRequestOperationManager.h"
 #import "FTRequestSerializer.h"
+#import "FTBConstants.h"
 
 typedef NS_ENUM(NSUInteger, FTEnvironment) {
     FTEnvironmentDevelopment = 1,
     FTEnvironmentPreLaunch = 2,
     FTEnvironmentProduction = 3
 };
-
-extern NSString * const kFTNotificationAPIOutdated;
-extern NSString * const kFTNotificationAuthenticationChanged;
 
 typedef void (^FTOperationResponseBlock)(id response, NSError *error);
 typedef void (^FTOperationCompletionBlock)(id response);

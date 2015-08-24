@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FTOperationManager.h"
+#import "FTBConstants.h"
 
 @class CLCloudinary;
 
 @interface FTImageUploader : NSObject
 
-+ (void)uploadImage:(UIImage *)image withSuccess:(FTOperationCompletionBlock)success failure:(FTOperationErrorBlock)failure;
++ (void)uploadImage:(UIImage *)image withSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;
 + (void)uploadImage:(UIImage *)image withCompletion:(void (^)(NSString *imagePath, NSError *error))completion;
 + (CLCloudinary *)cloudinary;
 

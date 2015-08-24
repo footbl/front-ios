@@ -36,7 +36,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1.1.1</string>
+	<string>40b1eab#877</string>
+	<key>Commit</key>
+	<string>40b1eab - Adding helper methods to FTBModel (Leonardo Formaggio)</string>
 	<key>FacebookAppID</key>
 	<string>688435007883300</string>
 	<key>FacebookDisplayName</key>
