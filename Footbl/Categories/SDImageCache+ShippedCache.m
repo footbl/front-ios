@@ -16,7 +16,7 @@
 
 #pragma mark - Instance Methods
 
-- (void)importImagesFromPath:(NSString *)path error:(NSError **)error {
+- (BOOL)importImagesFromPath:(NSString *)path error:(NSError **)error {
     @try {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -25,12 +25,12 @@
         
         if (![[NSFileManager defaultManager] fileExistsAtPath:cachePath]) {
             [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:error];
-            if (error) return;
+            if (error) return NO;
         }
         
         NSError *error = nil;
         NSArray *folderContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
-        if (error) return;
+        if (error) return NO;
         
         for (NSString *file in folderContents) {
             [[NSFileManager defaultManager] copyItemAtPath:[path stringByAppendingPathComponent:file] toPath:[cachePath stringByAppendingPathComponent:file] error:nil];
@@ -39,6 +39,7 @@
     @catch (NSException *exception) {
         NSLog(@"Failed to import images: %@", exception);
     }
+	return YES;
 }
 
 - (void)downloadCachedImages {

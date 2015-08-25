@@ -20,7 +20,7 @@
     
     CGFloat width = [self.rankingLabel sizeThatFits:self.rankingLabel.bounds.size].width;
     self.arrowImageView.x = self.rankingLabel.x + width + 3;
-    self.progressLabel.text = [NSString stringWithFormat:@"%i", (int)fabs(self.rankingProgress.integerValue)];
+	self.progressLabel.text = self.rankingProgress.stringValue;
     self.progressLabel.x = self.arrowImageView.x + self.arrowImageView.width + 4;
     
     if (rankingProgress.integerValue > 0) {

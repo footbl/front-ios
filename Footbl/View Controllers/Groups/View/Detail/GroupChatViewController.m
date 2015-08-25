@@ -220,7 +220,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 	NSString *text = [message.typeString isEqualToString:@"text"] ? message.message : nil;
 	NSURL *imageURL = [message.typeString isEqualToString:@"image"] ? [NSURL URLWithString:message.message] : nil;
-    if (previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
+    if (previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && abs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
 		[cell setProfileName:nil message:text imageURL:imageURL placeholder:nil pictureURL:nil date:nil shouldUseRightAlignment:message.user.isMeValue];
     } else {
 		NSURL *pictureURL = [NSURL URLWithString:message.user.picture];

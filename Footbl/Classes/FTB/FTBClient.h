@@ -40,6 +40,7 @@
 
 #pragma mark - Group
 
+- (void)enterGroup:(NSString *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)createGroup:(NSString *)name pictureURL:(NSURL *)pictureURL success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)group:(NSString *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)inviteUser:(FTBUser *)user toGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
@@ -55,9 +56,9 @@
 
 #pragma mark - Message
 
-- (void)sendMessage:(NSString *)message type:(NSString *)type room:(FTBModel *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)messagesForGroup:(FTBModel *)room page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)markAllMessagesAsReadInRoom:(FTBModel *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)sendMessage:(NSString *)message type:(NSString *)type room:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)messagesForRoom:(NSString *)room page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)markAllMessagesAsReadInRoom:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Prize
 

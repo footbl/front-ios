@@ -7,15 +7,17 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Bet.h"
-#import "Match.h"
 #import "Match+Sharing.h"
 #import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
-#import "Team.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
-#import "User.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBMatch.h"
+#import "FTBBet.h"
+#import "FTBUser.h"
+#import "FTBTeam.h"
 
 #pragma mark MatchTableViewCell (Setup)
 
@@ -23,16 +25,16 @@
 
 #pragma mark - Instance Methods
 
-- (void)setMatch:(Match *)match bet:(Bet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
+- (void)setMatch:(FTBMatch *)match bet:(FTBBet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
+	
+    BOOL isMe = (bet.user.isMe || !bet);
     
-    BOOL isMe = (bet.user.isMeValue || !bet);
+    self.hostNameLabel.text = match.host.name;
+    self.guestNameLabel.text = match.guest.name;
     
-    self.hostNameLabel.text = match.host.displayName;
-    self.guestNameLabel.text = match.guest.displayName;
-    
-    self.hostScoreLabel.text = match.hostScore.stringValue;
-    self.guestScoreLabel.text = match.guestScore.stringValue;
+    self.hostScoreLabel.text = match.hostResult.stringValue;
+    self.guestScoreLabel.text = match.guestResult.stringValue;
     
 #if FT_PREPARE_FOR_SCREENSHOTS
     self.hostImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
@@ -46,7 +48,7 @@
     [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
 #endif
     
-    if (isMe && !match.editableObject.isBetSyncing) {
+    if (isMe && !match.isBetSyncing) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
         self.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
         self.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
@@ -56,19 +58,19 @@
     
     [self setDateText:match.dateString];
     
-    MatchResult result = bet.resultValue;
+    FTBMatchResult result = bet.result;
     if (isMe) {
         result = match.myBetResult;
     }
     
     switch (result) {
-        case MatchResultHost:
+        case FTBMatchResultHost:
             self.layout = MatchTableViewCellLayoutHost;
             break;
-        case MatchResultGuest:
+        case FTBMatchResultGuest:
             self.layout = MatchTableViewCellLayoutGuest;
             break;
-        case MatchResultDraw:
+        case FTBMatchResultDraw:
             self.layout = MatchTableViewCellLayoutDraw;
             break;
         default:
@@ -77,7 +79,7 @@
     }
     
     if (isMe) {
-        if (!match.editableObject.isBetSyncing) {
+        if (!match.isBetSyncing) {
             self.stakeValueLabel.text = match.myBetValueString;
             self.returnValueLabel.text = match.myBetReturnString;
             self.profitValueLabel.text = match.myBetProfitString;
@@ -110,15 +112,15 @@
     }
     
     switch (match.status) {
-        case MatchStatusWaiting:
+        case FTBMatchStatusWaiting:
             self.liveLabel.text = @"";
             self.stateLayout = MatchTableViewCellStateLayoutWaiting;
             break;
-        case MatchStatusLive:
-            self.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed.integerValue];
+        case FTBMatchStatusLive:
+            self.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed];
             self.stateLayout = MatchTableViewCellStateLayoutLive;
             break;
-        case MatchStatusFinished:
+        case FTBMatchStatusFinished:
             self.liveLabel.text = NSLocalizedString(@"Final", @"");
             self.stateLayout = MatchTableViewCellStateLayoutDone;
             break;

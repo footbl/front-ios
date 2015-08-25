@@ -11,6 +11,7 @@
 #import "FTBConstants.h"
 
 @class User;
+@class FTBUser;
 
 typedef NS_ENUM(NSInteger, FTAuthenticationType) {
     FTAuthenticationTypeNone = 0,
@@ -28,6 +29,7 @@ extern NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId
 @property (assign, nonatomic, readonly, getter = isAuthenticated) BOOL authenticated;
 @property (assign, nonatomic, readonly, getter = isTokenValid) BOOL tokenValid;
 @property (assign, nonatomic, readonly) FTAuthenticationType authenticationType;
+@property (strong, nonatomic) FTBUser *user;
 
 + (instancetype)sharedManager;
 - (void)createUserWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;

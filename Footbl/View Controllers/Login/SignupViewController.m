@@ -15,7 +15,8 @@
 #import "SignupViewController.h"
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
-#import "User.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 
 @interface SignupViewController () <UIAlertViewDelegate>
 
@@ -163,7 +164,9 @@
         if (self.textField.text.isValidUsername) {
             self.view.userInteractionEnabled = NO;
             [self.activityIndicatorView startAnimating];
-            [User searchUsingEmails:nil usernames:@[[self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)]] ids:nil fbIds:nil name:nil success:^(NSArray *response) {
+			
+			NSString *text = [self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)];
+			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:@[text] name:nil page:0 success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {
@@ -180,7 +183,7 @@
                         [self signupAction:sender];
                     }
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSError *error) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
             }];
@@ -399,8 +402,8 @@
             [self.textField resignFirstResponder];
             
             [self.activityIndicatorView startAnimating];
-            
-            [User searchUsingEmails:@[self.textField.text] usernames:nil ids:nil fbIds:nil name:nil success:^(NSArray *response) {
+			
+			[[FTBClient client] usersWithEmails:@[self.textField.text] facebookIds:nil usernames:nil name:nil page:0 success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {
@@ -409,13 +412,12 @@
                 } else {
                     [self continueAction:alertView];
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSError *error) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 [[ErrorHandler sharedInstance] displayError:error];
             }];
         }
-
     }
 }
 

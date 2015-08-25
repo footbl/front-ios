@@ -43,4 +43,18 @@
 @property (nonatomic, copy, readonly) NSArray *entries; // FTBChampionship
 @property (nonatomic, copy, readonly) NSArray *seasons; // FTBUserSeason
 
+- (BOOL)isMe;
+- (BOOL)canRecharge;
+- (NSNumber *)localFunds;
+- (NSNumber *)localStake;
+- (NSNumber *)toReturn;
+- (NSString *)toReturnString;
+- (NSNumber *)profit;
+- (NSString *)profitString;
+- (NSNumber *)totalWallet;
+- (NSNumber *)highestWallet;
+- (NSDate *)highestWalletDate;
+- (float)fundsValue;
+- (float)stakeValue;
+
 @end

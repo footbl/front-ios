@@ -10,7 +10,7 @@
 
 @interface SDImageCache (ShippedCache)
 
-- (void)importImagesFromPath:(NSString *)path error:(NSError **)error;
+- (BOOL)importImagesFromPath:(NSString *)path error:(NSError **)error;
 - (void)downloadCachedImages;
 
 @end

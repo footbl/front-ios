@@ -8,11 +8,11 @@
 
 #import "MatchTableViewCell.h"
 
-@class Bet;
-@class Match;
+@class FTBBet;
+@class FTBMatch;
 
 @interface MatchTableViewCell (Setup)
 
-- (void)setMatch:(Match *)match bet:(Bet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock;
+- (void)setMatch:(FTBMatch *)match bet:(FTBBet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock;
 
 @end

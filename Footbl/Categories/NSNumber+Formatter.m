@@ -34,10 +34,10 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
 - (NSString *)shortStringValue {
     CGFloat number = self.floatValue;
     NSString *unit = @"";
-    if (fabs(self.integerValue) >= 1000000) {
+    if (fabs(self.floatValue) >= 1000000) {
         number = (float)self.integerValue / 1000000.f;
         unit = NSLocalizedString(@"M", @"Unit for 1000000 (mega)");
-    } else if (fabs(self.integerValue) >= 1000) {
+    } else if (fabs(self.floatValue) >= 1000) {
         number = (float)self.integerValue / 1000.f;
         unit = NSLocalizedString(@"k", @"Unit for 1000 (kilo)");
     }

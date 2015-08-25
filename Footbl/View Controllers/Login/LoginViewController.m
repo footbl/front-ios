@@ -10,7 +10,6 @@
 #import "LoginViewController.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
-#import "User.h"
 
 @interface LoginViewController ()
 

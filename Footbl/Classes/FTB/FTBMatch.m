@@ -49,9 +49,68 @@
 }
 
 - (FTBTeam *)winner {
-	if (self.guestResult > self.hostResult) return self.guest;
-	if (self.guestResult < self.hostResult) return self.host;
+	if ([self.guestResult compare:self.hostResult] == NSOrderedDescending) return self.guest;
+	if ([self.guestResult compare:self.hostResult] == NSOrderedAscending) return self.host;
 	return nil;
+}
+
+- (FTBMatchStatus)status {
+	if (self.elapsed) {
+		return FTBMatchStatusLive;
+	} else if (self.isFinished) {
+		return FTBMatchStatusFinished;
+	} else {
+		return FTBMatchStatusWaiting;
+	}
+}
+
+- (FTBBet *)myBet {
+	// TODO: Implement this method
+	return nil;
+}
+
+- (NSNumber *)localJackpot {
+	return @0;
+}
+
+- (NSString *)dateString {
+	return @"Date";
+}
+
+- (NSNumber *)earningsPerBetForHost {
+	return @0;
+}
+
+- (NSNumber *)earningsPerBetForDraw {
+	return @0;
+}
+
+- (NSNumber *)earningsPerBetForGuest {
+	return @0;
+}
+
+- (NSNumber *)myBetValue {
+	return @0;
+}
+
+- (NSString *)myBetValueString {
+	return @"0";
+}
+
+- (NSNumber *)myBetReturn {
+	return @0;
+}
+
+- (NSString *)myBetReturnString {
+	return @"0";
+}
+
+- (NSNumber *)myBetProfit {
+	return @0;
+}
+
+- (NSString *)myBetProfitString {
+	return @"0";
 }
 
 @end

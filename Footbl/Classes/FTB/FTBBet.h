@@ -7,13 +7,22 @@
 //
 
 #import "FTBModel.h"
-#import "FTBMatch.h"
+#import "FTBConstants.h"
+
+@class FTBUser;
+@class FTBMatch;
 
 @interface FTBBet : FTBModel
 
-@property (nonatomic, strong, readonly) NSString *user;
-@property (nonatomic, strong, readonly) NSString *match;
+@property (nonatomic, strong, readonly) FTBUser *user;
+@property (nonatomic, strong, readonly) FTBMatch *match;
 @property (nonatomic, assign, readonly) NSNumber *bid;
 @property (nonatomic, assign, readonly) FTBMatchResult result;
+
+- (NSString *)valueString;
+- (NSNumber *)toReturn;
+- (NSString *)toReturnString;
+- (NSNumber *)reward;
+- (NSString *)rewardString;
 
 @end

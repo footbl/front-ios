@@ -7,12 +7,7 @@
 //
 
 #import "FTBModel.h"
-
-typedef NS_ENUM(NSUInteger, FTBChampionshipType) {
-	FTBChampionshipTypeNationalLeague,
-	FTBChampionshipTypeContinentalLeague,
-	FTBChampionshipTypeWorldCup
-};
+#import "FTBConstants.h"
 
 @interface FTBChampionship : FTBModel
 

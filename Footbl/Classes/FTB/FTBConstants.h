@@ -14,6 +14,29 @@ NSString *const FTBSignatureKey;
 typedef void (^FTBBlockObject)(id object);
 typedef void (^FTBBlockError)(NSError *error);
 
+typedef NS_ENUM(NSUInteger, FTBChampionshipType) {
+	FTBChampionshipTypeNationalLeague,
+	FTBChampionshipTypeContinentalLeague,
+	FTBChampionshipTypeWorldCup
+};
+
+typedef NS_ENUM(NSUInteger, FTBMatchResult) {
+	FTBMatchResultDraw,
+	FTBMatchResultGuest,
+	FTBMatchResultHost
+};
+
+typedef NS_ENUM(NSInteger, FTBMatchStatus) {
+	FTBMatchStatusWaiting,
+	FTBMatchStatusLive,
+	FTBMatchStatusFinished
+};
+
+typedef NS_ENUM(NSUInteger, FTBPrizeType) {
+	FTBPrizeTypeDaily,
+	FTBPrizeTypeUpdate
+};
+
 #warning Remove the lines below
 
 extern NSString * const kFTNotificationAPIOutdated;

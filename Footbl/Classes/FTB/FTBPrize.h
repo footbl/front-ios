@@ -7,13 +7,9 @@
 //
 
 #import "FTBModel.h"
+#import "FTBConstants.h"
 
 @class FTBUser;
-
-typedef NS_ENUM(NSUInteger, FTBPrizeType) {
-	FTBPrizeTypeDaily,
-	FTBPrizeTypeUpdate
-};
 
 @interface FTBPrize : FTBModel
 

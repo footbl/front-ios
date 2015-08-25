@@ -9,6 +9,7 @@
 #import "FTBUser.h"
 #import "FTBChampionship.h"
 #import "FTBSeason.h"
+#import "FTAuthenticationManager.h"
 
 @implementation FTBUserSeasonEvolution
 
@@ -66,6 +67,60 @@
 
 + (NSValueTransformer *)seasonsJSONTransformer {
 	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUserSeason class]];
+}
+
+#pragma mark - Helpers
+
+- (BOOL)isMe {
+	return [[[FTAuthenticationManager sharedManager] user] isEqual:self];
+}
+
+- (BOOL)canRecharge {
+	return YES;
+}
+
+- (NSNumber *)localFunds {
+	return @0;
+}
+
+- (NSNumber *)localStake {
+	return @0;
+}
+
+- (NSNumber *)toReturn {
+	return @0;
+}
+
+- (NSString *)toReturnString {
+	return @"0";
+}
+
+- (NSNumber *)profit {
+	return @0;
+}
+
+- (NSString *)profitString {
+	return @"0";
+}
+
+- (NSNumber *)totalWallet {
+	return @0;
+}
+
+- (NSNumber *)highestWallet {
+	return @0;
+}
+
+- (NSDate *)highestWalletDate {
+	return nil;
+}
+
+- (float)fundsValue {
+	return 0;
+}
+
+- (float)stakeValue {
+	return 0;
 }
 
 @end

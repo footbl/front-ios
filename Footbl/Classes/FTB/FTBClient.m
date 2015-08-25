@@ -159,6 +159,11 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Group
 
+- (void)enterGroup:(NSString *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/groups/%@", group];
+	[self GET:path parameters:nil modelClass:[FTBGroup class] success:success failure:failure];
+}
+
 - (void)createGroup:(NSString *)name pictureURL:(NSURL *)pictureURL success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/groups"];
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
@@ -215,20 +220,20 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Message
 
-- (void)sendMessage:(NSString *)message type:(NSString *)type room:(FTBModel *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room.identifier];
+- (void)sendMessage:(NSString *)message type:(NSString *)type room:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room];
 	NSDictionary *parameters = @{@"message": message, @"type": type};
 	[self POST:path parameters:parameters modelClass:[FTBMessage class] success:success failure:failure];
 }
 
-- (void)messagesForGroup:(FTBModel *)room page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room.identifier];
+- (void)messagesForRoom:(NSString *)room page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room];
 	NSDictionary *parameters = @{@"page": @(page), @"unreadMessages": @(unread)};
 	[self GET:path parameters:parameters modelClass:[FTBMessage class] success:success failure:failure];
 }
 
-- (void)markAllMessagesAsReadInRoom:(FTBModel *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages/all/mark-as-read", room.identifier];
+- (void)markAllMessagesAsReadInRoom:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages/all/mark-as-read", room];
 	[self PUT:path parameters:nil modelClass:[FTBMessage class] success:success failure:failure];
 }
 

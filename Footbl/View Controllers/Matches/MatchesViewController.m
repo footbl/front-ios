@@ -15,7 +15,6 @@
 #import "FootblTabBarController.h"
 #import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
-#import "Match.h"
 #import "MatchTableViewCell+Setup.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
@@ -25,8 +24,13 @@
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
-#import "User.h"
 #import "WhatsAppActivity.h"
+
+#import "FTBClient.h"
+#import "FTBChampionship.h"
+#import "FTBMatch.h"
+#import "FTBUser.h"
+#import "FTBBet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChanged";
@@ -52,33 +56,13 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Match"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"finished" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        if (self.championship) {
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"championship = %@", self.championship];
-        }
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:@"finished" cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
-- (void)setChampionship:(Championship *)championship {
-    if (championship && [championship.slug isEqualToString:self.championship.slug]) {
+- (void)setChampionship:(FTBChampionship *)championship {
+    if (championship && [championship isEqual:self.championship]) {
         return;
     }
     
     _championship = championship;
-    self.fetchedResultsController = nil;
+    self.matches = nil;
     [self.tableView reloadData];
     [self reloadData];
 }
@@ -92,8 +76,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     
     if (self.totalProfitText.length > 0) {
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = %@", @YES];
-        Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].firstObject;
-		self.totalProfitIndexPath = [self.fetchedResultsController indexPathForObject:match];
+        FTBMatch *match = [self.matches filteredArrayUsingPredicate:predicate].firstObject;
+		NSUInteger row = [self.matches indexOfObject:match];
+		self.totalProfitIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
     } else {
         self.totalProfitIndexPath = nil;
     }
@@ -104,18 +89,19 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 #pragma mark - Instance Methods
 
 - (id)init {
+	self = [super init];
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
 		UIImage *image = [UIImage imageNamed:@"tabbar_btn_matches_ainctive"];
 		UIImage *selectedImage = [UIImage imageNamed:@"tabbar_btn_matches_active"];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
     }
-    
     return self;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-    if (![User currentUser].canRecharge) {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    if (!user.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
         return;
@@ -130,11 +116,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
     [[LoadingHelper sharedInstance] showHud];
 
-    [[User currentUser] rechargeWithSuccess:^(id response) {
+    [[FTBClient client] rechargeUser:user.identifier success:^(id object) {
         [self reloadWallet];
         [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
         [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -142,9 +128,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
+	FTBMatch *match = self.matches[indexPath.row];
 	__block NSUInteger cancelBlockId;
-    __block Bet *bet = match.myBet;
+	__block FTBBet *bet = match.myBet;
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     [cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
         if (match.isBetSyncing || match.status != MatchStatusWaiting) {
@@ -155,7 +141,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         bet = match.myBet;
 		NSUInteger firstBetValue = MAX(floor((bet.user.fundsValue + bet.user.stakeValue) / 100), 1);
         NSInteger currentBet = match.myBetValue.integerValue;
-        MatchResult result = match.myBetResult;
+        FTBMatchResult result = match.myBetResult;
         
         switch (index) {
             case 0: // Host
@@ -163,7 +149,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
-                    result = MatchResultHost;
+                    result = FTBMatchResultHost;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
 				} else {
@@ -175,7 +161,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
-                    result = MatchResultDraw;
+                    result = FTBMatchResultDraw;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
 				} else {
@@ -187,7 +173,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
-                    result = MatchResultGuest;
+                    result = FTBMatchResultGuest;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
                 } else {
@@ -198,8 +184,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         if (currentBet == 0) {
             result = 0;
         }
-        
-        if (match.myBetValue.integerValue < currentBet && ([User currentUser].localFunds.integerValue - 1) < 0) {
+		
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+        if (match.myBetValue.integerValue < currentBet && (user.localFunds.integerValue - 1) < 0) {
             if (!weakCell.isStepperSelected) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
                 [alert show];
@@ -207,7 +194,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             return;
         }
             
-        if (match.myBetValue.integerValue < currentBet && [User currentUser].localFunds.integerValue < 1 && weakCell.isStepperSelected) {
+        if (match.myBetValue.integerValue < currentBet && user.localFunds.integerValue < 1 && weakCell.isStepperSelected) {
             weakCell.stepperUserInteractionEnabled = NO;
         }
         
@@ -220,7 +207,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             self.betsViewController.panGestureRecognizer.enabled = YES;
         });
         
-        FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        FTBBlockError failure = ^(NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
             [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
@@ -232,12 +219,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             [self reloadWallet];
         };
 		
-        if (result == 0) {
-            [bet.editableObject deleteWithSuccess:successBlock failure:failure];
-        } else if (bet) {
-            [bet.editableObject updateWithBid:@(currentBet) result:result success:successBlock failure:failure];
+        if (result == 0 || bet) {
+			[[FTBClient client] updateBet:bet user:user success:successBlock failure:failure];
         } else {
-            [Bet createWithMatch:match.editableObject bid:@(currentBet) result:result success:successBlock failure:failure];
+			NSString *resultString = nil;
+			[[FTBClient client] betInMatch:match.identifier bid:@(currentBet) result:resultString user:user success:successBlock failure:failure];
         }
         
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
@@ -250,17 +236,18 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)reloadWallet {
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
-    
-    if ([User currentUser]) {
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    if (user) {
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @([User currentUser].localFunds.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @([User currentUser].localStake.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = [User currentUser].toReturnString;
-        self.navigationBarTitleView.profitValueLabel.text = [User currentUser].profitString;
+        self.navigationBarTitleView.walletValueLabel.text = @(user.fundsValue).limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = @(user.stakeValue).limitedWalletStringValue;
+        self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
+        self.navigationBarTitleView.profitValueLabel.text = user.profitString;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
@@ -268,7 +255,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         }
     }
     
-    if ([User currentUser].canRecharge) {
+    if (user.canRecharge) {
         UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
         if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
             [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
@@ -311,7 +298,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         return;
     }
     
-    self.headerLabel.text = self.championship.displayName;
+    self.headerLabel.text = self.championship.name;
     NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
 
     self.numberOfMatches = matches;
@@ -319,15 +306,16 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         [[LoadingHelper sharedInstance] showHud];
     }
 	
-    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failure = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     };
-    
-    [[User currentUser].editableObject getWithSuccess:^(User *user) {
+	
+	[[FTBClient client] user:@"me" success:^(FTBUser *user) {
         [self reloadWallet];
-        [Match getWithObject:self.championship.editableObject success:^(id response) {
+		
+		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(id object) {
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
             [self reloadWallet];
@@ -375,7 +363,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (NSTimeInterval)updateInterval {
-    Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].lastObject;
+    FTBMatch *match = [self.matches filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"finished = %@", @NO]].lastObject;
     if (match && (match.elapsed || [match.date timeIntervalSinceDate:[NSDate date]] < UPDATE_INTERVAL)) {
 		return 60;
     }

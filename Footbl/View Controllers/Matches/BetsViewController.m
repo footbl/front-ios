@@ -28,6 +28,8 @@
 #import "UIView+Frame.h"
 #import "User.h"
 
+#import "FTBChampionship.h"
+
 @interface BetsViewController ()
 
 @property (strong, nonatomic) NSMutableDictionary *championshipsViewControllers;
@@ -86,11 +88,11 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 #pragma mark - Instance Methods
 
 - (id)init {
+	self = [super init];
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_matches_active"]];
     }
-    
     return self;
 }
 
@@ -138,8 +140,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     NSArray *championships = self.fetchedResultsController.fetchedObjects;
     CGSize contentSize = self.scrollView.frame.size;
     
-    for (Championship *championship in championships) {
-        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.slug];
+    for (FTBChampionship *championship in championships) {
+        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.identifier];
         if (!matchesViewController) {
             matchesViewController = [MatchesViewController new];
             matchesViewController.championship = championship;
@@ -147,7 +149,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
             matchesViewController.tableView.scrollsToTop = NO;
             [self addChildViewController:matchesViewController];
             [self.scrollView addSubview:matchesViewController.view];
-            self.championshipsViewControllers[championship.slug] = matchesViewController;
+            self.championshipsViewControllers[championship.identifier] = matchesViewController;
         }
         
         matchesViewController.headerSliderBackImageView.hidden = NO;
@@ -159,7 +161,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         
         matchesViewController.view.frame = CGRectMake(self.scrollView.width * self.scrollViewLength, 0, self.scrollView.width, self.scrollView.height);
         contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.height);
-        [championshipsToRemove removeObjectForKey:championship.slug];
+        [championshipsToRemove removeObjectForKey:championship.identifier];
         self.scrollViewLength ++;
     }
     

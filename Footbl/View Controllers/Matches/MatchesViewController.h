@@ -8,14 +8,14 @@
 
 #import "TemplateViewController.h"
 
-@class Championship;
+@class FTBChampionship;
 @class MatchesNavigationBarView;
 
 @interface MatchesViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) Championship *championship;
+@property (strong, nonatomic) FTBChampionship *championship;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSArray *matches;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UILabel *headerLabel;

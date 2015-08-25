@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 //#import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
@@ -21,18 +22,15 @@
 #import "ChatHelper.h"
 #import "FriendsHelper.h"
 #import "FootblTabBarController.h"
-#import "Group.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
-#import "Message.h"
 #import "TutorialViewController.h"
 #import "RatingHelper.h"
 #import "SDImageCache+ShippedCache.h"
 
-#import "Championship.h"
-#import "FTOperationManager.h"
 #import "FTAuthenticationManager.h"
 #import "FTBClient.h"
+#import "FTBGroup.h"
 
 #pragma mark AppDelegate
 
@@ -174,9 +172,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
-    [[FTCoreDataStore privateQueueContext] performSave];
-    [[FTCoreDataStore mainQueueContext] performSave];
-
 #if FT_PREPARE_FOR_SCREENSHOTS
     [[SDStatusBarManager sharedInstance] disableOverrides];
 #endif
@@ -218,7 +213,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [SPNotifier handleNotification:userInfo];
-    [Message handleRemoteNotification:userInfo];
+    [self handleRemoteNotification:userInfo];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -228,13 +223,13 @@
             self.footblTabBarController.selectedIndex = 0;
             
             [[LoadingHelper sharedInstance] showHud];
-            
-            [Group joinGroupWithCode:groupCode success:^(id response) {
-                [[LoadingHelper sharedInstance] hideHud];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [[LoadingHelper sharedInstance] hideHud];
-                [[ErrorHandler sharedInstance] displayError:error];
-            }];
+			
+			[[FTBClient client] enterGroup:groupCode success:^(id object) {
+				[[LoadingHelper sharedInstance] hideHud];
+			} failure:^(NSError *error) {
+				[[LoadingHelper sharedInstance] hideHud];
+				[[ErrorHandler sharedInstance] displayError:error];
+			}];
             
             return YES;
         }
@@ -243,6 +238,20 @@
     }
     
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+#pragma mark - APNS
+
+- (void)handleRemoteNotification:(NSDictionary *)notification {
+	NSString *key = [[[notification objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"loc-key"];
+	if ([key isEqualToString:@"NOTIFICATION_GROUP_MESSAGE"]) {
+		NSString *room = [[[[notification objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"loc-args"] lastObject];
+		[[FTBClient client] messagesForRoom:room page:0 unread:YES success:^(NSArray *messages) {
+			if (messages.count > 0) {
+				AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+			}
+		} failure:nil];
+	}
 }
 
 #pragma mark - Application's Documents directory
