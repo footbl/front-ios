@@ -10,8 +10,11 @@
 #import "DailyBonusPopupViewController.h"
 #import "FootblLabel.h"
 #import "ErrorHandler.h"
-#import "Prize.h"
 #import "UIImage+Color.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBClient.h"
+#import "FTBPrize.h"
 
 @interface DailyBonusPopupViewController ()
 
@@ -44,7 +47,7 @@
 #pragma mark - Instance Methods
 
 - (BOOL)isDailyBonus {
-    return ((!self.prize && SPGetBuildType() != SPBuildTypeAppStore) || self.prize.type == PrizeTypeDaily);
+    return ((!self.prize && SPGetBuildType() != SPBuildTypeAppStore) || self.prize.type == FTBPrizeTypeDaily);
 }
 
 - (IBAction)collectAction:(id)sender {
@@ -69,20 +72,21 @@
         });
         return;
     }
-    
-    [self.prize markAsReadWithSuccess:^(id response) {
-        [self.activityIndicatorView stopAnimating];
-        [self dismissViewController];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-        [UIView animateWithDuration:0.3 animations:^{
-            self.dismissButton.alpha = 1;
-            self.activityIndicatorView.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.dismissButton.userInteractionEnabled = YES;
-            [self.activityIndicatorView stopAnimating];
-        }];
-    }];
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	[[FTBClient client] markPrizeAsRead:self.prize user:user success:^(id object) {
+		[self.activityIndicatorView stopAnimating];
+		[self dismissViewController];
+	} failure:^(NSError *error) {
+		[[ErrorHandler sharedInstance] displayError:error];
+		[UIView animateWithDuration:0.3 animations:^{
+			self.dismissButton.alpha = 1;
+			self.activityIndicatorView.alpha = 0;
+		} completion:^(BOOL finished) {
+			self.dismissButton.userInteractionEnabled = YES;
+			[self.activityIndicatorView stopAnimating];
+		}];
+	}];
 }
 
 #pragma mark - Protocols

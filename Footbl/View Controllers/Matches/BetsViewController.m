@@ -8,27 +8,26 @@
 
 #import <SPHipster/SPHipster.h>
 #import "BetsViewController.h"
-#import "Championship.h"
 #import "DailyBonusPopupViewController.h"
 #import "FootblPopupAnimatedTransition.h"
 #import "FTAuthenticationManager.h"
-#import "Entry.h"
 #import "LoadingHelper.h"
-#import "Match.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
 #import "NSDate+Utils.h"
 #import "NSNumber+Formatter.h"
-#import "Prize.h"
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "RechargeViewController.h"
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
 #import "UIView+Frame.h"
-#import "User.h"
 
+#import "FTBClient.h"
 #import "FTBChampionship.h"
+#import "FTBMatch.h"
+#import "FTBUser.h"
+#import "FTBPrize.h"
 
 @interface BetsViewController ()
 
@@ -51,24 +50,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"enabled = %@", @YES];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
 - (void)setScrollViewCurrentPage:(NSInteger)scrollViewCurrentPage {
     _scrollViewCurrentPage = scrollViewCurrentPage;
 
@@ -78,9 +59,9 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         }
     }
     
-    if (self.fetchedResultsController.fetchedObjects.count >= self.scrollViewCurrentPage + 1) {
-        Championship *championship = self.fetchedResultsController.fetchedObjects[self.scrollViewCurrentPage];
-        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.slug];
+    if (self.championships.count >= self.scrollViewCurrentPage + 1) {
+        FTBChampionship *championship = self.championships[self.scrollViewCurrentPage];
+        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.identifier];
         matchesViewController.tableView.scrollsToTop = YES;
     }
 }
@@ -97,7 +78,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-    if (![User currentUser].canRecharge) {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    if (!user.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
         return;
@@ -111,12 +93,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     }
     
     [[LoadingHelper sharedInstance] showHud];
-    
-    [[User currentUser].editableObject rechargeWithSuccess:^(id response) {
+	
+	[[FTBClient client] rechargeUser:user.identifier success:^(id object) {
         [self reloadWallet];
         [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
         [[LoadingHelper sharedInstance] hideHud];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -137,7 +119,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 - (void)reloadScrollView {
     NSMutableDictionary *championshipsToRemove = self.championshipsViewControllers.mutableCopy;
     self.scrollViewLength = 0;
-    NSArray *championships = self.fetchedResultsController.fetchedObjects;
+    NSArray *championships = self.championships;
     CGSize contentSize = self.scrollView.frame.size;
     
     for (FTBChampionship *championship in championships) {
@@ -165,14 +147,14 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         self.scrollViewLength ++;
     }
     
-    if (self.fetchedResultsController.fetchedObjects.count > 0) {
+    if (self.championships.count > 0) {
         UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
         if (!managedLeaguesViewController) {
             [self reloadManagedLeaguesViewController];
         }
         
         [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
-        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.width, self.scrollView.height);
+        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.championships.count, 0, self.scrollView.width, self.scrollView.height);
         contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
         self.scrollViewLength ++;
     }
@@ -201,8 +183,9 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     if (![FTAuthenticationManager sharedManager].isAuthenticated) {
         return;
     }
-    
-    [[User currentUser].editableObject getWithSuccess:^(id response) {
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	[[FTBClient client] user:user.identifier success:^(id object) {
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
             RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
             rechargeTipPopup.selectionBlock = ^{
@@ -212,38 +195,37 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
             [self presentViewController:popupViewController animated:YES completion:nil];
             [self setNeedsStatusBarAppearanceUpdate];
         }
-    } failure:nil];
-    
-    [Entry getWithObject:[User currentUser] success:^(id response) {
-        for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-            if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
-                [matchesViewController reloadData];
-            }
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+		
+		for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+			if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
+				[matchesViewController reloadData];
+			}
+		}
+    } failure:^(NSError *error) {
+		[[ErrorHandler sharedInstance] displayError:error];
+	}];
 }
 
 - (void)reloadWallet {
-    for (Match *match in [User currentUser].pendingMatchesToSyncBet) {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    for (FTBMatch *match in user.pendingMatchesToSyncBet) {
         if (match.isBetSyncing) {
             return;
         }
     }
     
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
-    
-    if ([User currentUser]) {
+	
+    if (user) {
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @([User currentUser].localFunds.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @([User currentUser].localStake.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = [User currentUser].toReturnString;
-        self.navigationBarTitleView.profitValueLabel.text = [User currentUser].profitString;
+        self.navigationBarTitleView.walletValueLabel.text = @(user.localFunds.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = @(user.localStake.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
+        self.navigationBarTitleView.profitValueLabel.text = user.profitString;
     } else {
         for (UILabel *label in labels) {
             label.text = @"";
@@ -251,7 +233,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         }
     }
     
-    if ([User currentUser].canRecharge) {
+    if (user.canRecharge) {
         UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
         if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
             [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
@@ -299,7 +281,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self.scrollView addSubview:managedLeaguesViewController.view];
     self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
     
-    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.fetchedResultsController.fetchedObjects.count, 0, self.scrollView.width, self.scrollView.height);
+    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.championships.count, 0, self.scrollView.width, self.scrollView.height);
     CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
 
     self.scrollView.contentSize = contentSize;
@@ -335,14 +317,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 #pragma mark - Delegates & Data sources
-
-#pragma mark - NSFetchedResultsController delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
-    
-    [self reloadScrollView];
-}
 
 #pragma mark - View Lifecycle
 
@@ -402,7 +376,11 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+	[[FTBClient client] championships:0 success:^(id object) {
+		self.championships = object;
+		[self reloadScrollView];
+	} failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -410,16 +388,17 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     self.scrollViewCurrentPage = self.scrollViewCurrentPage;
     [self reloadWallet];
-    
-    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && [User currentUser].canRecharge) {
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && user.canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;
     }
     
     if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", YES) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
-        [Prize getWithObject:[User currentUser].editableObject success:^(NSArray *prizes) {
-            [prizes enumerateObjectsUsingBlock:^(Prize *prize, NSUInteger idx, BOOL *stop) {
-                if (prize.type != PrizeTypeUnknown) {
+		[[FTBClient client] prizesForUser:user page:0 unread:YES success:^(NSArray *prizes) {
+            [prizes enumerateObjectsUsingBlock:^(FTBPrize *prize, NSUInteger idx, BOOL *stop) {
+                if (prize.type == FTBPrizeTypeDaily || prize.type == FTBPrizeTypeUpdate) {
                     *stop = YES;
                     DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
                     dailyBonusPopup.prize = prize;
@@ -451,7 +430,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kFTNotificationAuthenticationChanged];
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:NSManagedObjectContextDidSaveNotification];
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:kMatchesNavigationBarTitleAnimateKey];
 }
 

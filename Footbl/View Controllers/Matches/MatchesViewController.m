@@ -8,9 +8,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
-#import "Bet.h"
 #import "BetsViewController.h"
-#import "Championship.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
 #import "FTAuthenticationManager.h"
@@ -133,7 +131,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	__block FTBBet *bet = match.myBet;
     __weak typeof(MatchTableViewCell *)weakCell = cell;
     [cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
-        if (match.isBetSyncing || match.status != MatchStatusWaiting) {
+        if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
             [weakCell.cardContentView shake];
             return;
         }
@@ -145,7 +143,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         
         switch (index) {
             case 0: // Host
-                if (result == MatchResultHost) {
+                if (result == FTBMatchResultHost) {
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
@@ -157,7 +155,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 }
                 break;
             case 1: // Draw
-                if (result == MatchResultDraw) {
+                if (result == FTBMatchResultDraw) {
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
@@ -169,7 +167,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 }
                 break;
             case 2: // Guest
-                if (result == MatchResultGuest) {
+                if (result == FTBMatchResultGuest) {
                     currentBet ++;
                 } else if (currentBet == 0) {
                     currentBet = firstBetValue;
@@ -277,7 +275,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
-	Match *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
+	FTBMatch *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
     if (!match) {
         match = self.fetchedResultsController.fetchedObjects.firstObject;
     }
@@ -429,9 +427,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 #pragma mark - UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Match *match = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBMatch *match = self.matches[indexPath.row];
     CGFloat height = 340;
-    if (match.elapsed || match.finishedValue) {
+    if (match.elapsed || match.isFinished) {
         height = 363;
     }
     return height;

@@ -9,11 +9,10 @@
 #import "TemplateViewController.h"
 
 @class MatchesNavigationBarView;
-@class User;
 
 @interface BetsViewController : TemplateViewController
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSArray *championships;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;;

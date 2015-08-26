@@ -9,7 +9,7 @@
 #import "FootblPopupViewController.h"
 
 @class FootblLabel;
-@class Prize;
+@class FTBPrize;
 
 @interface DailyBonusPopupViewController : FootblPopupViewController
 
@@ -18,7 +18,7 @@
 @property (strong, nonatomic) UIImageView *moneyImageView;
 @property (strong, nonatomic) UILabel *moneySignLabel;
 @property (strong, nonatomic) UILabel *moneyLabel;
-@property (strong, nonatomic) Prize *prize;
+@property (strong, nonatomic) FTBPrize *prize;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @end

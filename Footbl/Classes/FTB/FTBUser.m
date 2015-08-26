@@ -123,4 +123,8 @@
 	return 0;
 }
 
+- (NSMutableSet *)pendingMatchesToSyncBet {
+	return nil;
+}
+
 @end

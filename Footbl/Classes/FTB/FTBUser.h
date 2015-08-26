@@ -56,5 +56,6 @@
 - (NSDate *)highestWalletDate;
 - (float)fundsValue;
 - (float)stakeValue;
+- (NSMutableSet *)pendingMatchesToSyncBet;
 
 @end
