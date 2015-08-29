@@ -10,13 +10,14 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import <SVPullToRefresh/SVPullToRefresh.h>
-#import "Group.h"
 #import "GroupMembershipTableViewCell.h"
 #import "GroupRankingViewController.h"
 #import "LoadingHelper.h"
-#import "Membership.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileViewController.h"
+
+#import "Membership.h"
+#import "Group.h"
 #import "User.h"
 
 @interface GroupRankingViewController ()
@@ -107,7 +108,6 @@
                 self.isLoading = NO;
             }];
 		} else if (self.group.isFriendsValue) {
-			NSLog(@"*** CHAMOU");
 			[self.group.editableObject getFriendsMembersWithSuccess:^(id response) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
@@ -228,9 +228,9 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBUser *member = [self.fetchedResultsController objectAtIndexPath:indexPath];
     ProfileViewController *profileViewController = [ProfileViewController new];
-    profileViewController.user = membership.user;
+    profileViewController.user = member;
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
 

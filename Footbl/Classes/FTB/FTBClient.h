@@ -95,8 +95,8 @@
 #pragma mark - Bet
 
 - (void)betInMatch:(NSString *)match bid:(NSNumber *)bid result:(NSString *)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)bet:(NSString *)bet user:(FTBUser *)user result:(NSString *)result success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)betsForUser:(FTBUser *)user result:(NSString *)result success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)bet:(NSString *)bet user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)betsForUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)updateBet:(FTBBet *)bet user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Challenge

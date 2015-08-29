@@ -9,13 +9,12 @@
 #import "GroupDetailViewController.h"
 #import "TemplateViewController.h"
 
-@class Group;
+@class FTBGroup;
 
 @interface GroupChatViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
-@property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) FTBGroup *group;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) UIView *footerBackgroundView;
@@ -26,5 +25,6 @@
 @property (strong, nonatomic) UIView *messageBorderView;
 @property (strong, nonatomic) UILabel *placeholderLabel;
 @property (assign, nonatomic) GroupDetailContext context;
+@property (strong, nonatomic) NSMutableArray *messages;
 
 @end

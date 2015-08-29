@@ -359,12 +359,12 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self POST:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)bet:(NSString *)bet user:(FTBUser *)user result:(NSString *)result success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)bet:(NSString *)bet user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@/bets/%@", user.identifier, bet];
 	[self GET:path parameters:nil modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)betsForUser:(FTBUser *)user result:(NSString *)result success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)betsForUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@/bets", user.identifier];
 	[self GET:path parameters:nil modelClass:[FTBBet class] success:success failure:failure];
 }

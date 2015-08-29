@@ -10,21 +10,24 @@
 #import <SPHipster/UIView+Frame.h>
 #import <UIAlertView-Blocks/UIActionSheet+Blocks.h>
 #import "ChatTableViewCell.h"
-#import "Group.h"
 #import "GroupChatViewController.h"
 #import "ErrorHandler.h"
 #import "FTImageUploader.h"
-#import "Message.h"
 #import "ProfileBetsViewController.h"
 #import "ProfileViewController.h"
-#import "User.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBClient.h"
+#import "FTBUser.h"
+#import "FTBMessage.h"
+#import "FTBGroup.h"
 
 @interface GroupChatViewController ()
 
 @property (assign, nonatomic, getter=isKeyboardVisible) BOOL keyboardVisible;
 @property (assign, nonatomic) CGSize keyboardSize;
 @property (assign, nonatomic, getter=hasCreatedMessage) BOOL createdMessage;
-@property (strong, nonatomic) NSNumber *nextPage;
+@property (assign, nonatomic) NSUInteger nextPage;
 @property (assign, nonatomic) BOOL shouldScrollToBottom;
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) BOOL canDismissKeyboard;
@@ -41,26 +44,6 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController && self.group) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Message"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND typeString IN %@", self.group, @[@"text", @"image"]];
-        fetchRequest.includesSubentities = YES;
-        
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        _fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
 
 - (void)setContext:(GroupDetailContext)context {
     _context = context;
@@ -82,15 +65,13 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [self reloadViewsAnimated:YES];
 }
 
-- (void)setNextPage:(NSNumber *)nextPage {
-    _nextPage = nextPage;
-    
+- (void)setNextPage:(NSUInteger)nextPage {
     CGFloat contentOffsetAdjust = 0;
-    if (self.tableView.tableHeaderView.height == self.headerView.height && !_nextPage) {
+    if (self.tableView.tableHeaderView.height == self.headerView.height && !nextPage) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
         [self.tableView reloadData];
         return;
-    } else if (self.tableView.tableHeaderView.height != self.headerView.height && _nextPage) {
+    } else if (self.tableView.tableHeaderView.height != self.headerView.height && nextPage) {
         contentOffsetAdjust = self.headerView.height - 5;
     }
     
@@ -109,7 +90,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 - (IBAction)shareAction:(id)sender {
 	ProfileBetsViewController *viewController = [[ProfileBetsViewController alloc] init];
-	viewController.user = [User currentUser];
+	viewController.user = [[FTAuthenticationManager sharedManager] user];
 	viewController.simpleSelection = YES;
 	viewController.itemSelectionBlock = ^(MatchTableViewCell *cell) {
 		CGRect frame = CGRectMake(5, 5, 80, 80);
@@ -141,7 +122,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [self reloadViewsAnimated:YES];
 	
 	
-	void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+	void (^failure)(NSError *) = ^(NSError *error) {
 		[self.tableView reloadData];
 		[[ErrorHandler sharedInstance] displayError:error];
 	};
@@ -149,27 +130,23 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 	if (image && text.length > 0) {
 		[FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
 			if (!error) {
-				NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": imagePath, @"type": @"image"};
-				[Message createWithParameters:parameters success:^(id response) {
-					NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": text, @"type": @"text"};
-					[Message createWithParameters:parameters success:nil failure:failure];
+				[[FTBClient client] sendMessage:imagePath type:@"image" room:self.group.identifier success:^(id object) {
+					[[FTBClient client] sendMessage:text type:@"text" room:self.group.identifier success:nil failure:failure];
 				} failure:failure];
 			} else {
-				failure(nil, error);
+				failure(error);
 			}
 		}];
 	} else if (image) {
 		[FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
 			if (!error) {
-				NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": imagePath, @"type": @"image"};
-				[Message createWithParameters:parameters success:nil failure:failure];
+				[[FTBClient client] sendMessage:imagePath type:@"image" room:self.group.identifier success:nil failure:failure];
 			} else {
-				failure(nil, error);
+				failure(error);
 			}
 		}];
 	} else if (text.length > 0) {
-		NSDictionary *parameters = @{kFTRequestParamResourcePathObject: self.group.editableObject, @"message": text, @"type": @"text"};
-		[Message createWithParameters:parameters success:nil failure:failure];
+		[[FTBClient client] sendMessage:text type:@"text" room:self.group.identifier success:nil failure:failure];
 	}
 }
 
@@ -188,43 +165,43 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         activityIndicatorView.alpha = 1;
         sender.alpha = 0;
     }];
-    
-    [Message getWithGroup:self.group.editableObject page:self.nextPage.integerValue shouldDeleteUntouchedObjects:NO success:^(NSNumber *nextPage) {
-        self.nextPage = nextPage;
-        [UIView animateWithDuration:0.3 animations:^{
-            activityIndicatorView.alpha = 0;
-            sender.alpha = 1;
-        } completion:^(BOOL finished) {
-            [activityIndicatorView removeFromSuperview];
-        }];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-        [UIView animateWithDuration:0.3 animations:^{
-            activityIndicatorView.alpha = 0;
-            sender.alpha = 1;
-        } completion:^(BOOL finished) {
-            [activityIndicatorView removeFromSuperview];
-        }];
-    }];
+	
+	
+	[[FTBClient client] messagesForRoom:self.group.identifier page:self.nextPage unread:YES success:^(id object) {
+		self.nextPage++;
+		[UIView animateWithDuration:0.3 animations:^{
+			activityIndicatorView.alpha = 0;
+			sender.alpha = 1;
+		} completion:^(BOOL finished) {
+			[activityIndicatorView removeFromSuperview];
+		}];
+	} failure:^(NSError *error) {
+		[[ErrorHandler sharedInstance] displayError:error];
+		[UIView animateWithDuration:0.3 animations:^{
+			activityIndicatorView.alpha = 0;
+			sender.alpha = 1;
+		} completion:^(BOOL finished) {
+			[activityIndicatorView removeFromSuperview];
+		}];
+	}];
 }
 
 - (void)configureCell:(ChatTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    Message *previousMessage;
+    FTBMessage *message = self.messages[indexPath.row];
+    FTBMessage *previousMessage;
     if (indexPath.row > 0) {
-        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
-        previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
+        previousMessage = self.messages[(indexPath.row - 1)];
     }
     
     cell.contentView.width = self.tableView.width;
 
-	NSString *text = [message.typeString isEqualToString:@"text"] ? message.message : nil;
-	NSURL *imageURL = [message.typeString isEqualToString:@"image"] ? [NSURL URLWithString:message.message] : nil;
-    if (previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && abs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
-		[cell setProfileName:nil message:text imageURL:imageURL placeholder:nil pictureURL:nil date:nil shouldUseRightAlignment:message.user.isMeValue];
+	NSString *text = [message.type isEqualToString:@"text"] ? message.message : nil;
+	NSURL *imageURL = [message.type isEqualToString:@"image"] ? [NSURL URLWithString:message.message] : nil;
+    if (previousMessage && [previousMessage.user isEqual:message.user] && abs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval)) {
+		[cell setProfileName:nil message:text imageURL:imageURL placeholder:nil pictureURL:nil date:nil shouldUseRightAlignment:message.user.isMe];
     } else {
-		NSURL *pictureURL = [NSURL URLWithString:message.user.picture];
-		[cell setProfileName:message.user.name message:text imageURL:imageURL placeholder:nil pictureURL:pictureURL date:message.createdAt shouldUseRightAlignment:message.user.isMeValue];
+		NSURL *pictureURL = message.user.pictureURL;
+		[cell setProfileName:message.user.name message:text imageURL:imageURL placeholder:nil pictureURL:pictureURL date:message.createdAt shouldUseRightAlignment:message.user.isMe];
     }
     
     if (message.deliveryFailedValue) {
@@ -233,7 +210,6 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)timerReloadData {
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:NO success:nil failure:nil];
 }
 
 - (void)reloadData {
@@ -243,9 +219,9 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if (count == 0) {
         self.createdMessage = YES;
     }
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:^(NSNumber *nextPage) {
-        self.nextPage = nextPage;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+	[[FTBClient client] messagesForRoom:self.group.identifier page:0 unread:YES success:^(id object) {
+		self.nextPage++;
+    } failure:^(NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
     }];
 }
@@ -352,23 +328,19 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    Message *previousMessage;
+    FTBMessage *message = self.messages[indexPath.row];
+    FTBMessage *previousMessage;
     if (indexPath.row > 0) {
-        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
-        previousMessage = [self.fetchedResultsController objectAtIndexPath:previousIndexPath];
+        previousMessage = self.messages[(indexPath.row - 1)];
     }
     
     if (message.deliveryFailedValue) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:message.message cancelButtonItem:[RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"")] destructiveButtonItem:[RIButtonItem itemWithLabel:NSLocalizedString(@"Delete", @"") action:^{
-            [[FTCoreDataStore privateQueueContext] performBlock:^{
-                [[FTCoreDataStore privateQueueContext] deleteObject:message.editableObject];
-                [[FTCoreDataStore privateQueueContext] performSave];
-            }];
+			
         }] otherButtonItems:[RIButtonItem itemWithLabel:NSLocalizedString(@"Send", @"") action:^{
-            [message.editableObject deliverWithSuccess:^(id response) {
+			[[FTBClient client] sendMessage:message.message type:message.type room:self.group.identifier success:^(id object) {
                 [self.tableView reloadData];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSError *error) {
                 [[ErrorHandler sharedInstance] displayError:error];
             }];
         }], nil];
@@ -376,7 +348,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         return;
     }
     
-    if (!(previousMessage && [previousMessage.user.slug isEqualToString:message.user.slug] && fabs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval))) {
+    if (!(previousMessage && [previousMessage.user isEqual:message.user] && abs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval))) {
         ProfileViewController *profileViewController = [ProfileViewController new];
         profileViewController.user = message.user;
         [self.navigationController pushViewController:profileViewController animated:YES];
@@ -465,7 +437,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     NSIndexPath *lastVisibleCellIndexPath = [self.tableView indexPathForCell:self.tableView.visibleCells.lastObject];
     
     if (shouldReload) {
-        [Message markAsReadFromGroup:self.group success:nil failure:nil];
+		[[FTBClient client] markAllMessagesAsReadInRoom:self.group.identifier success:nil failure:nil];
     }
     
     if (self.hasCreatedMessage || ([self.tableView numberOfRowsInSection:lastVisibleCellIndexPath.section] - lastVisibleCellIndexPath.row <= 2 && shouldReload)) {
@@ -560,8 +532,8 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [self.headerView addSubview:nextPageButton];
     
     [self reloadViewsAnimated:NO];
-    
-    [Message markAsReadFromGroup:self.group success:nil failure:nil];
+	
+	[[FTBClient client] markAllMessagesAsReadInRoom:self.group.identifier success:nil failure:nil];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:kChatForceUpdateTimeInterval target:self selector:@selector(timerReloadData) userInfo:nil repeats:YES];
 }
@@ -598,11 +570,9 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    self.fetchedResultsController = nil;
+	
     [self.timer invalidate];
     self.timer = nil;
-    [Message getWithGroup:self.group.editableObject page:0 shouldDeleteUntouchedObjects:YES success:nil failure:nil];
 }
 
 - (void)didReceiveMemoryWarning {

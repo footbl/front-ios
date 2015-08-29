@@ -127,4 +127,28 @@
 	return nil;
 }
 
+- (NSNumber *)numberOfFans {
+	return @0;
+}
+
+- (BOOL)isFanOfUser:(FTBUser *)user {
+	return NO;
+}
+
+- (NSNumber *)numberOfLeagues {
+	return @0;
+}
+
+- (NSNumber *)ranking {
+	return @0;
+}
+
+- (NSNumber *)previousRanking {
+	return @0;
+}
+
+- (NSArray *)history {
+	return @[];
+}
+
 @end

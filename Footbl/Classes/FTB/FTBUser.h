@@ -57,5 +57,11 @@
 - (float)fundsValue;
 - (float)stakeValue;
 - (NSMutableSet *)pendingMatchesToSyncBet;
+- (NSNumber *)numberOfFans;
+- (BOOL)isFanOfUser:(FTBUser *)user;
+- (NSNumber *)numberOfLeagues;
+- (NSNumber *)ranking;
+- (NSNumber *)previousRanking;
+- (NSArray *)history;
 
 @end

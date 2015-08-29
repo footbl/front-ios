@@ -32,4 +32,8 @@
 	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUser class]];
 }
 
+- (BOOL)deliveryFailedValue {
+	return NO;
+}
+
 @end
