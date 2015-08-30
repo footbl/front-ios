@@ -10,7 +10,7 @@
 
 @interface MyLeaguesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) NSMutableArray *championships;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end

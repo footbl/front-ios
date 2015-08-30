@@ -7,12 +7,14 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Championship.h"
-#import "Entry.h"
+#import "FTAuthenticationManager.h"
 #import "GroupChampionshipTableViewCell.h"
 #import "LoadingHelper.h"
 #import "MyLeaguesViewController.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBChampionship.h"
+#import "FTBUser.h"
 
 @interface MyLeaguesViewController ()
 
@@ -28,53 +30,35 @@
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:NO]];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
 #pragma mark - Instance Methods
 
 - (void)reloadData {
     [super reloadData];
     
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+    if (self.championships.count == 0) {
         [[LoadingHelper sharedInstance] showHud];
     }
     
-    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failure = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     };
-    
-    
-    [Championship getWithObject:nil success:^(id response) {
-        [Entry getWithObject:[User currentUser].editableObject success:^(id response) {
-            [self.refreshControl endRefreshing];
-            [[LoadingHelper sharedInstance] hideHud];
-        } failure:failure];
-    } failure:failure];
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    [[FTBClient client] user:user.identifier success:^(FTBUser *object) {
+		self.championships = [[NSMutableArray alloc] initWithArray:object.entries];
+		[self.refreshControl endRefreshing];
+		[[LoadingHelper sharedInstance] hideHud];
+	} failure:failure];
 }
 
 - (void)configureCell:(GroupChampionshipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = championship.displayName;
-    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.displayCountry stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
-    [cell.championshipImageView sd_setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
-    if (championship.enabledValue) {
+    FTBChampionship *championship = self.championships[indexPath.row];
+    cell.nameLabel.text = championship.name;
+    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.country stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
+    [cell.championshipImageView sd_setImageWithURL:championship.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    if (championship.isEnabled) {
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     } else {
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -86,12 +70,11 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+	return self.championships.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,22 +86,28 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [Entry createWithParameters:@{kFTRequestParamResourcePathObject : [User currentUser].editableObject, @"championship" : championship.slug} success:^(id response) {
-        [self reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    FTBChampionship *championship = self.championships[indexPath.row];
+	user.entries = [user.entries arrayByAddingObject:championship];
+	[[FTBClient client] updateUser:user success:^(id object) {
+		[self reloadData];
+	} failure:^(NSError *error) {
+		[[ErrorHandler sharedInstance] displayError:error];
+	}];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [championship.entry deleteWithSuccess:^(id response) {
-        [self reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[ErrorHandler sharedInstance] displayError:error];
-        [self reloadData];
-    }];
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    FTBChampionship *championship = self.championships[indexPath.row];
+	NSMutableArray *entries = user.entries.mutableCopy;
+	[entries removeObject:championship];
+	user.entries = entries;
+	[[FTBClient client] updateUser:user success:^(id object) {
+		[self reloadData];
+	} failure:^(NSError *error) {
+		[[ErrorHandler sharedInstance] displayError:error];
+		[self reloadData];
+	}];
 }
 
 #pragma mark - View Lifecycle

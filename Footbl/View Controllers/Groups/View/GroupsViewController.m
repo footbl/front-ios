@@ -9,8 +9,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import "AnonymousViewController.h"
-#import "Championship.h"
-#import "Group.h"
 #import "GroupDetailViewController.h"
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
@@ -18,7 +16,11 @@
 #import "FTAuthenticationManager.h"
 #import "NewGroupViewController.h"
 #import "NSString+Hex.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBChampionship.h"
+#import "FTBGroup.h"
+#import "FTBUser.h"
 
 @interface GroupsViewController ()
 
@@ -34,24 +36,6 @@
 #pragma mark - Class Methods
 
 #pragma mark - Getters/Setters
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Group"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"isDefault" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"removed = %@", @NO];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:@"isDefault" cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
 
 #pragma mark - Instance Methods
 
@@ -79,16 +63,16 @@
 }
 
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBGroup *group = self.groups[indexPath.row];
     cell.nameLabel.text = group.name;
-    if (group.isWorldValue) {
+    if (group.isWorld) {
 		[cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
-    } else if (group.isFriendsValue) {
+    } else if (group.isFriends) {
 		[cell.groupImageView setImage:[UIImage imageNamed:@"icon-group-friends"]];
 	} else {
-        [cell.groupImageView sd_setImageWithURL:[NSURL URLWithString:group.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [cell.groupImageView sd_setImageWithURL:group.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }
-    [cell setIndicatorHidden:(!group.isNewValue || group.isDefaultValue) animated:NO];
+    [cell setIndicatorHidden:(!group.isNew || group.isDefault) animated:NO];
     [cell setUnreadCount:group.unreadMessagesCount];
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
@@ -98,16 +82,16 @@
 - (void)reloadData {
     [super reloadData];
     
-    void(^failureBlock)(AFHTTPRequestOperation *operation, NSError *error) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    void(^failureBlock)(NSError *error) = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[ErrorHandler sharedInstance] displayError:error];
     };
-    
-    [Group getWithObject:nil success:^(id response) {
-        [[User currentUser] getStarredWithSuccess:^(id response) {
-            [self.refreshControl endRefreshing];
-        } failure:failureBlock];
-    } failure:failureBlock];
+	
+	[[FTBClient client] groups:0 success:^(id object) {
+		[[FTBClient client] featuredUsers:0 success:^(id object) {
+			[self.refreshControl endRefreshing];
+		} failure:failureBlock];
+	} failure:failureBlock];
 }
 
 - (void)setFooterViewVisible:(BOOL)visible {
@@ -152,12 +136,11 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+    return self.groups.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,8 +155,8 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Group *group = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [group.editableObject deleteWithSuccess:nil failure:nil];
+        FTBGroup *group = self.groups[indexPath.row];
+		[[FTBClient client] removeGroup:group success:nil failure:nil];
     }
 }
 
@@ -181,7 +164,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     GroupDetailViewController *groupDetailViewController = [GroupDetailViewController new];
-    groupDetailViewController.group = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    groupDetailViewController.group = self.groups[indexPath.row];
     [self.navigationController pushViewController:groupDetailViewController animated:YES];
 }
 

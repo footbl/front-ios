@@ -10,7 +10,7 @@
 
 @interface GroupsViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSMutableArray *groups;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end

@@ -51,19 +51,6 @@
 
 #pragma mark - Delegates & Data sources
 
-#pragma mark - NSFetchedResultsController delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    BOOL shouldScroll = self.tableView.visibleCells.count == 0;
-    [super controllerDidChangeContent:controller];
-    if (shouldScroll) {
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
-		NSUInteger row = [self.group.members indexOfObject:user];
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    }
-}
-
 #pragma mark - View Lifecycle
 
 - (void)loadView {

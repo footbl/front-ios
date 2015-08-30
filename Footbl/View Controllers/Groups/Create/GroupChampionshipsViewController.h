@@ -10,8 +10,8 @@
 
 @interface GroupChampionshipsViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSMutableArray *championships;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (copy, nonatomic) NSString *groupName;
 @property (strong, nonatomic) UIImage *groupImage;
 

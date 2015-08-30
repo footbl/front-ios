@@ -12,36 +12,36 @@
 
 @interface FTBUserSeasonEvolution : FTBModel
 
-@property (nonatomic, copy, readonly) NSNumber *funds;
+@property (nonatomic, copy) NSNumber *funds;
 
 @end
 
 @interface FTBUserSeason : FTBModel
 
-@property (nonatomic, strong, readonly) FTBSeason *season;
-@property (nonatomic, copy, readonly) NSArray *rankings;
-@property (nonatomic, copy, readonly) NSNumber *stake;
-@property (nonatomic, copy, readonly) NSNumber *funds;
-@property (nonatomic, copy, readonly) NSArray *evolution; // FTBUserSeasonEvolution
+@property (nonatomic, strong) FTBSeason *season;
+@property (nonatomic, copy) NSArray *rankings;
+@property (nonatomic, copy) NSNumber *stake;
+@property (nonatomic, copy) NSNumber *funds;
+@property (nonatomic, copy) NSArray *evolution; // FTBUserSeasonEvolution
 
 @end
 
 @interface FTBUser : FTBModel
 
-@property (nonatomic, copy, readonly) NSString *email;
-@property (nonatomic, copy, readonly) NSString *username;
-@property (nonatomic, copy, readonly) NSString *facebookId;
-@property (nonatomic, copy, readonly) NSString *password;
-@property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, copy, readonly) NSString *about;
-@property (nonatomic, assign, readonly, getter=isVerified) BOOL verified;
-@property (nonatomic, assign, readonly, getter=isFeatured) BOOL featured;
-@property (nonatomic, copy, readonly) NSURL *pictureURL;
-@property (nonatomic, copy, readonly) NSString *apnsToken;
-@property (nonatomic, assign, readonly, getter=isActive) BOOL active;
-@property (nonatomic, copy, readonly) NSString *country;
-@property (nonatomic, copy, readonly) NSArray *entries; // FTBChampionship
-@property (nonatomic, copy, readonly) NSArray *seasons; // FTBUserSeason
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *facebookId;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *about;
+@property (nonatomic, assign, getter=isVerified) BOOL verified;
+@property (nonatomic, assign, getter=isFeatured) BOOL featured;
+@property (nonatomic, copy) NSURL *pictureURL;
+@property (nonatomic, copy) NSString *apnsToken;
+@property (nonatomic, assign, getter=isActive) BOOL active;
+@property (nonatomic, copy) NSString *country;
+@property (nonatomic, copy) NSArray *entries; // FTBChampionship
+@property (nonatomic, copy) NSArray *seasons; // FTBUserSeason
 
 @property (nonatomic, assign, getter=isNotificationsEnabled) BOOL notificationsEnabled;
 

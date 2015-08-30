@@ -366,6 +366,11 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self PUT:path parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
 }
 
+- (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+#warning Implement featured users API
+	if (success) success(nil);
+}
+
 #pragma mark - Bet
 
 - (void)betInMatch:(NSString *)match bid:(NSNumber *)bid result:(NSString *)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {

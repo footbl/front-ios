@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSArray *invites;
 @property (nonatomic, copy) NSArray *members;
 
+@property (nonatomic, copy) NSNumber *unreadMessagesCount;
 @property (nonatomic, assign, getter=isFreeToEdit) BOOL freeToEdit;
 @property (nonatomic, assign) BOOL isNew;
 

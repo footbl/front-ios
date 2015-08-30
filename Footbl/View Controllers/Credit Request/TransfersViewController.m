@@ -9,8 +9,8 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
-#import "CreditRequest.h"
 #import "FootblTabBarController.h"
+#import "FTAuthenticationManager.h"
 #import "FriendsHelper.h"
 #import "ErrorHandler.h"
 #import "LoadingHelper.h"
@@ -18,7 +18,10 @@
 #import "TransferTableViewCell.h"
 #import "TransfersViewController.h"
 #import "UIImage+Color.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBCreditRequest.h"
+#import "FTBUser.h"
 
 @interface TransfersViewController ()
 
@@ -36,30 +39,6 @@
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CreditRequest"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        switch (self.segmentedControl.selectedSegmentIndex) {
-            case 0:
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"chargedUser.slug = %@", [User currentUser].slug];
-                break;
-            default:
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"creditedUser.slug = %@", [User currentUser].slug];
-                break;
-        }
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore  mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    return _fetchedResultsController;
-}
-
 #pragma mark - Instance Methods
 
 - (id)init {
@@ -71,7 +50,6 @@
 }
 
 - (IBAction)segmentedControlAction:(id)sender {
-    self.fetchedResultsController = nil;
     [self.tableView reloadData];
     
     switch (self.segmentedControl.selectedSegmentIndex) {
@@ -96,32 +74,36 @@
     [[LoadingHelper sharedInstance] showHud];
     self.sendButton.userInteractionEnabled = NO;
     
-    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failure = ^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     };
-    
-    [CreditRequest payRequests:self.pendingTransfers success:^(id response) {
-        [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
-            [CreditRequest getRequestsWithObject:[User currentUser].editableObject success:^(id response) {
-                self.sendButton.userInteractionEnabled = YES;
-                [self.pendingTransfers removeAllObjects];
-                [self reloadWallet];
-                [[LoadingHelper sharedInstance] hideHud];
-            } failure:failure];
-        } failure:failure];
-    } failure:failure];
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	for (FTBCreditRequest *request in self.pendingTransfers) {
+		[[FTBClient client] approveCreditRequest:request.identifier forUser:user.identifier success:^(id object) {
+			[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+				self.sendButton.userInteractionEnabled = YES;
+				[self.pendingTransfers removeAllObjects];
+				[self reloadWallet];
+				[[LoadingHelper sharedInstance] hideHud];
+			} failure:failure];
+		} failure:failure];
+	}
 }
 
 - (NSInteger)userWallet {
-    NSInteger totalTransfers = [User currentUser].localFunds.integerValue;
-    for (CreditRequest *request in self.pendingTransfers) {
-        totalTransfers -= request.valueValue;
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    NSInteger totalTransfers = user.localFunds.integerValue;
+    for (FTBCreditRequest *request in self.pendingTransfers) {
+        totalTransfers -= request.value.integerValue;
     }
     return totalTransfers;
 }
 
 - (void)setupLabels {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	
     NSMutableDictionary *textAttributes = [@{} mutableCopy];
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultCenterAlignmentParagraphStyle] mutableCopy];
     paragraphStyle.lineHeightMultiple = 0.55;
@@ -135,7 +117,7 @@
     
     [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[@([self userWallet]) stringValue] stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
-    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[[User currentUser].localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
+    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[user.localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
     
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameLight size:12];
@@ -153,13 +135,13 @@
     
     self.sendButton.enabled = (self.pendingTransfers.count > 0);
     if (self.segmentedControl.selectedSegmentIndex == 0) {
-        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        if (self.transfers.count == 0) {
             self.hintLabel.text = NSLocalizedString(@"No friends asked you for cash", @"");
         } else {
             self.hintLabel.text = NSLocalizedString(@"These friends need some cash:", @"");
         }
     } else {
-        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        if (self.transfers.count == 0) {
             self.hintLabel.text = NSLocalizedString(@"No friends sent you cash", @"");
         } else {
             self.hintLabel.text = NSLocalizedString(@"These friends sent you some cash (✓):", @"");
@@ -172,7 +154,7 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-    FTOperationErrorBlock failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failure = ^(NSError *error) {
         [self.refreshControl endRefreshing];
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -182,24 +164,23 @@
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *invFriends, NSError *error) {
             self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
             [self.tableView reloadData];
-            [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
-                [CreditRequest getRequestsWithObject:[User currentUser].editableObject success:^(id response) {
-                    [self.refreshControl endRefreshing];
-                    [[LoadingHelper sharedInstance] hideHud];
-                } failure:failure];
-            } failure:failure];
+			FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+            [[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+				[self.refreshControl endRefreshing];
+				[[LoadingHelper sharedInstance] hideHud];
+			} failure:failure];
         }];
     }];
 }
 
 - (void)configureCell:(TransferTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBCreditRequest *request = self.transfers[indexPath.row];
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
             cell.nameLabel.text = request.creditedUser.name;
             cell.valueLabel.hidden = NO;
-            [cell setEnabled:!request.payedValue];
-            if (request.payedValue) {
+            [cell setEnabled:!request.payed];
+            if (request.payed) {
                 cell.valueLabel.hidden = YES;
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             } else {
@@ -209,7 +190,7 @@
             break;
         default:
             cell.nameLabel.text = request.chargedUser.name;
-            if (request.payedValue) {
+            if (request.payed) {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 cell.valueLabel.hidden = YES;
                 [cell setEnabled:NO];
@@ -223,7 +204,7 @@
     
     cell.valueLabel.text = request.value.stringValue;
     
-    User *user = nil;
+    FTBUser *user = nil;
     if (self.segmentedControl.selectedSegmentIndex == 0) {
         user = request.creditedUser;
     } else {
@@ -232,7 +213,7 @@
     
     if (user) {
         cell.nameLabel.text = user.name;
-        [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:user.picture] placeholderImage:cell.placeholderImage];
+        [cell.profileImageView sd_setImageWithURL:user.pictureURL placeholderImage:cell.placeholderImage];
     } else if (request.facebookId.length > 0) {
         NSDictionary *friend = [self.fbFriends filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"id = %@", request.facebookId]].firstObject;
         cell.nameLabel.text = friend[@"name"];
@@ -250,12 +231,11 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+	return self.transfers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -267,13 +247,13 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (request.payedValue) {
+    FTBCreditRequest *request = self.transfers[indexPath.row];
+    if (request.payed) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
 
-    if (self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.valueValue < 0) {
+    if (self.segmentedControl.selectedSegmentIndex != 0 || [self userWallet] - request.value.integerValue < 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.animationType = MBProgressHUDAnimationZoom;
@@ -289,8 +269,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CreditRequest *request = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (request.payedValue || self.segmentedControl.selectedSegmentIndex != 0) {
+    FTBCreditRequest *request = self.transfers[indexPath.row];
+    if (request.payed || self.segmentedControl.selectedSegmentIndex != 0) {
         return;
     }
     

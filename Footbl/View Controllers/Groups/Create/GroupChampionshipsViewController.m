@@ -7,11 +7,13 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Championship.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupChampionshipsViewController.h"
 #import "GroupChampionshipTableViewCell.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBChampionship.h"
+#import "FTBUser.h"
 
 @interface GroupChampionshipsViewController ()
 
@@ -27,31 +29,13 @@
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Championship"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ANY wallets.user.rid = %@ AND ANY wallets.active = %@", [User currentUser].rid, @YES];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
 #pragma mark - Instance Methods
 
 - (void)configureCell:(GroupChampionshipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Championship *championship = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = championship.displayName;
-    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.displayCountry stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
-    [cell.championshipImageView sd_setImageWithURL:[NSURL URLWithString:championship.picture] placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    FTBChampionship *championship = self.championships[indexPath.row];
+    cell.nameLabel.text = championship.name;
+    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.country stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
+    [cell.championshipImageView sd_setImageWithURL:championship.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
 }
 
 - (void)reloadData {
@@ -72,12 +56,11 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    return [sectionInfo numberOfObjects];
+	return self.championships.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

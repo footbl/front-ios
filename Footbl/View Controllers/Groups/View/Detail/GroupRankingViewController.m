@@ -64,7 +64,7 @@
         
         self.isLoading = YES;
         
-        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        if (self.group.members.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
 		
@@ -120,7 +120,7 @@
     [weakTableView addInfiniteScrollingWithActionHandler:^{
         [super reloadData];
         
-        if (self.fetchedResultsController.fetchedObjects.count == 0) {
+        if (self.group.members.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
 		

@@ -12,8 +12,10 @@
 @interface FTBChampionship : FTBModel
 
 @property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, copy, readonly) NSString *pictureURL;
+@property (nonatomic, copy, readonly) NSURL *pictureURL;
 @property (nonatomic, assign, readonly) FTBChampionshipType type;
 @property (nonatomic, copy, readonly) NSString *country;
+@property (nonatomic, copy, readonly) NSNumber *edition;
+@property (nonatomic, assign, readonly, getter=isEnabled) BOOL enabled;
 
 @end

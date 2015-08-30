@@ -275,12 +275,13 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
-	FTBMatch *match = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate].lastObject;
+	FTBMatch *match = [self.matches filteredArrayUsingPredicate:predicate].lastObject;
     if (!match) {
-        match = self.fetchedResultsController.fetchedObjects.firstObject;
+        match = self.matches.firstObject;
     }
 	
-	NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:match];
+	NSInteger row = [self.matches indexOfObject:match];
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:animated];
 }
 
@@ -297,7 +298,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     }
     
     self.headerLabel.text = self.championship.name;
-    NSInteger matches = self.fetchedResultsController.fetchedObjects.count;
+    NSInteger matches = self.matches.count;
 
     self.numberOfMatches = matches;
     if (matches == 0) {
@@ -322,7 +323,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 				NSTimeInterval weekInterval = -604800;
 				NSDate *week = [NSDate dateWithTimeIntervalSinceNow:weekInterval];
 				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = YES AND date >= %@", week];
-                NSArray *updatedMatches = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate];
+                NSArray *updatedMatches = [self.matches filteredArrayUsingPredicate:predicate];
                 float sum = 0;
                 for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
                     sum += [betProfit floatValue];
@@ -410,12 +411,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedResultsController.sections.count;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-    return sectionInfo.numberOfObjects;
+	return self.matches.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -486,7 +486,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     
     self.navigationController.navigationBarHidden = YES;
     
-    self.numberOfMatches = self.fetchedResultsController.fetchedObjects.count;
+    self.numberOfMatches = self.matches.count;
     
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];

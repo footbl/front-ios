@@ -215,7 +215,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 - (void)reloadData {
     [super reloadData];
     
-    NSUInteger count = self.fetchedResultsController.fetchedObjects.count;
+    NSUInteger count = self.messages.count;
     if (count == 0) {
         self.createdMessage = YES;
     }
@@ -287,12 +287,11 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedResultsController.sections.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-    return [sectionInfo numberOfObjects];
+	return self.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -426,7 +425,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [self setValue:nil forKey:@"deletedRowIndexPaths"];
     [self setValue:nil forKey:@"updatedRowIndexPaths"];
     
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+    if (self.messages.count == 0) {
         self.placeholderLabel.hidden = NO;
         self.tableView.hidden = YES;
     } else {
@@ -541,7 +540,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.fetchedResultsController.fetchedObjects.count == 0) {
+    if (self.messages.count == 0) {
         self.placeholderLabel.hidden = NO;
         self.tableView.hidden = YES;
     }

@@ -12,9 +12,10 @@
 
 @interface FTBCreditRequest : FTBModel
 
+@property (nonatomic, copy, readonly) NSString *facebookId;
 @property (nonatomic, strong, readonly) FTBUser *creditedUser;
 @property (nonatomic, strong, readonly) FTBUser *chargedUser;
-@property (nonatomic, assign, readonly) NSUInteger value;
+@property (nonatomic, copy, readonly) NSNumber *value;
 @property (nonatomic, assign, readonly) BOOL payed;
 
 @end

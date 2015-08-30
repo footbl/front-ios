@@ -95,6 +95,7 @@
 - (void)removeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)unfollowUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Bet
 
