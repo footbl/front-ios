@@ -12,12 +12,21 @@
 
 @interface FTBGroup : FTBModel
 
-@property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, copy, readonly) NSString *code;
-@property (nonatomic, strong, readonly) FTBUser *owner;
-@property (nonatomic, copy, readonly) NSURL *pictureURL;
-@property (nonatomic, assign, readonly, getter=isFeatured) BOOL featured;
-@property (nonatomic, copy, readonly) NSArray *invites;
-@property (nonatomic, copy, readonly) NSArray *members;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, strong) FTBUser *owner;
+@property (nonatomic, copy) NSURL *pictureURL;
+@property (nonatomic, assign, getter=isFeatured) BOOL featured;
+@property (nonatomic, copy) NSArray *invites;
+@property (nonatomic, copy) NSArray *members;
+
+@property (nonatomic, assign, getter=isFreeToEdit) BOOL freeToEdit;
+@property (nonatomic, assign) BOOL isNew;
+
+- (BOOL)isWorld;
+- (BOOL)isFriends;
+- (BOOL)isDefault;
+- (NSString *)sharingText;
+- (void)saveStatusInLocalDatabase;
 
 @end

@@ -16,9 +16,9 @@
 #import "NSNumber+Formatter.h"
 #import "ProfileViewController.h"
 
-#import "Membership.h"
-#import "Group.h"
-#import "User.h"
+#import "FTBClient.h"
+#import "FTBGroup.h"
+#import "FTBUser.h"
 
 @interface GroupRankingViewController ()
 
@@ -36,31 +36,6 @@
 
 #pragma mark - Getters/Setters
 
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController && self.group) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        if (self.group.isWorld) {
-            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@ AND isLocalRanking = %@", self.group, @YES, @NO];
-        } else {
-            fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"hasRanking" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil", self.group];
-        }
-        
-        fetchRequest.includesSubentities = YES;
-        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        _fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
 - (void)setContext:(GroupDetailContext)context {
     if (_context == context) {
         return;
@@ -68,7 +43,7 @@
     
     _context = context;
     
-    if (!self.group.isDefaultValue) {
+    if (!self.group.isDefault) {
         [self reloadData];
     }
 }
@@ -92,38 +67,41 @@
         if (self.fetchedResultsController.fetchedObjects.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
-
-        if (self.group.isWorldValue) {
-            [self.group.editableObject getWorldMembersWithPage:0 success:^(NSNumber *nextPage) {
-                [self setupInfiniteScrolling];
-                self.tableView.showsInfiniteScrolling = (nextPage != nil);
-                self.nextPage = nextPage;
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-                self.isLoading = NO;
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-                [[ErrorHandler sharedInstance] displayError:error];
-                self.isLoading = NO;
-            }];
-		} else if (self.group.isFriendsValue) {
-			[self.group.editableObject getFriendsMembersWithSuccess:^(id response) {
+		
+        if (self.group.isWorld) {
+#warning We must implement an 'world' group members API
+			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+				[self setupInfiniteScrolling];
+				self.tableView.showsInfiniteScrolling = YES;
+				self.nextPage = @0;
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
 				self.isLoading = NO;
-			} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+			} failure:^(NSError *error) {
+				[self.refreshControl endRefreshing];
+				[[LoadingHelper sharedInstance] hideHud];
+				[[ErrorHandler sharedInstance] displayError:error];
+				self.isLoading = NO;
+			}];
+		} else if (self.group.isFriends) {
+#warning We must implement an 'friends' group members API
+			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+				[self.refreshControl endRefreshing];
+				[[LoadingHelper sharedInstance] hideHud];
+				self.isLoading = NO;
+			} failure:^(NSError *error) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
 				[[ErrorHandler sharedInstance] displayError:error];
 				self.isLoading = NO;
 			}];
 		} else {
-            [self.group.editableObject getMembersWithSuccess:^(NSArray *members) {
+#warning We must implement a group members API
+            [[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
                 self.isLoading = NO;
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSError *error) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
                 [[ErrorHandler sharedInstance] displayError:error];
@@ -134,7 +112,7 @@
 }
 
 - (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView || !self.group.isWorldValue) {
+    if (self.tableView.infiniteScrollingView || !self.group.isWorld) {
         return;
     }
     
@@ -145,13 +123,13 @@
         if (self.fetchedResultsController.fetchedObjects.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
-        
-        [self.group.editableObject getWorldMembersWithPage:self.nextPage.integerValue success:^(NSNumber *nextPage) {
+		
+		[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:self.nextPage.integerValue success:^(id object) {
             [weakTableView.infiniteScrollingView stopAnimating];
-            self.tableView.showsInfiniteScrolling = (nextPage != nil);
+			self.tableView.showsInfiniteScrolling = NO;
             [[LoadingHelper sharedInstance] hideHud];
-            self.nextPage = nextPage;
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            self.nextPage = @(self.nextPage.integerValue + 1);
+        } failure:^(NSError *error) {
             [weakTableView.infiniteScrollingView stopAnimating];
             [[LoadingHelper sharedInstance] hideHud];
             [[ErrorHandler sharedInstance] displayError:error];
@@ -160,15 +138,15 @@
 }
 
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Membership *membership = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBUser *membership = self.group.members[indexPath.row];
     if (membership.ranking) {
         cell.rankingLabel.text = membership.ranking.rankingStringValue;
     } else {
         cell.rankingLabel.text = @(indexPath.row + 1).rankingStringValue;
     }
     
-    cell.usernameLabel.text = membership.user.username;
-    cell.nameLabel.text = membership.user.name;
+    cell.usernameLabel.text = membership.username;
+    cell.nameLabel.text = membership.name;
     
     if (membership.previousRanking && membership.ranking) {
         cell.rankingProgress = @(membership.previousRanking.integerValue - membership.ranking.integerValue);
@@ -176,13 +154,13 @@
         cell.rankingProgress = @(0);
     }
     
-    if (membership.user.totalWallet) {
-        cell.walletLabel.text = membership.user.totalWallet.shortStringValue;
+    if (membership.totalWallet) {
+        cell.walletLabel.text = membership.totalWallet.shortStringValue;
     } else {
         cell.walletLabel.text = @"";
     }
     
-    [cell.profileImageView sd_setImageWithURL:[NSURL URLWithString:membership.user.picture] placeholderImage:cell.placeholderImage];
+    [cell.profileImageView sd_setImageWithURL:membership.pictureURL placeholderImage:cell.placeholderImage];
     
     if (FBTweakValue(@"UI", @"Group", @"Medals", FT_ENABLE_MEDALS)) {
         switch (indexPath.row) {
@@ -207,16 +185,11 @@
 #pragma mark - UITableView data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[self fetchedResultsController] sections] count];
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
-    if (self.group.isWorldValue) {
-        return MIN([sectionInfo numberOfObjects], (self.nextPage.integerValue + 1) * FT_API_PAGE_LIMIT);
-    } else {
-        return [sectionInfo numberOfObjects];
-    }
+	return self.group.members.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -228,7 +201,7 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    FTBUser *member = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FTBUser *member = self.group.members[indexPath.row];
     ProfileViewController *profileViewController = [ProfileViewController new];
     profileViewController.user = member;
     [self.navigationController pushViewController:profileViewController animated:YES];

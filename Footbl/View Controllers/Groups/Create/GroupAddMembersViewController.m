@@ -13,12 +13,15 @@
 #import <SPHipster/SPHipster.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
 #import "FTAuthenticationManager.h"
+#import "FTImageUploader.h"
 #import "FriendsHelper.h"
-#import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupAddMemberTableViewCell.h"
 #import "LoadingHelper.h"
 #import "WhatsAppAPI.h"
+
+#import "FTBClient.h"
+#import "FTBGroup.h"
 
 @interface GroupAddMembersViewController ()
 
@@ -56,7 +59,7 @@
             }
             
             if (self.group) {
-                if ([[self.group.members filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"user.email IN %@", contact.emails]] count] > 0) {
+                if ([[self.group.members filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"user.email IN %@", contact.emails]] count] > 0) {
                     return NO;
                 }
             }
@@ -243,14 +246,14 @@
 - (IBAction)createAction:(id)sender {
     self.view.window.userInteractionEnabled = NO;
     
-    FTOperationErrorBlock failureBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+    FTBBlockError failureBlock = ^(NSError *error) {
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
         self.view.window.userInteractionEnabled = YES;
     };
     
-    void(^whatsAppBlock)(Group *group) = ^(Group *group) {
-        if ([self.group.rid isEqualToString:group.rid] || ![WhatsAppAPI isAvailable]) {
+    void(^whatsAppBlock)(FTBGroup *) = ^(FTBGroup *group) {
+        if ([self.group isEqual:group] || ![WhatsAppAPI isAvailable]) {
             return;
         }
         
@@ -262,7 +265,7 @@
         [alertView show];
     };
     
-    void(^successBlock)(Group *group) = ^(Group *group) {
+    void(^successBlock)(FTBGroup *) = ^(FTBGroup *group) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
             self.view.window.userInteractionEnabled = YES;
@@ -296,20 +299,29 @@
     for (APContact *contact in self.addressBookSelectedMembers) {
         [invitedMembers addObjectsFromArray:contact.emails];
     }
-    
+	
+	void (^block)(FTBGroup *) = ^(FTBGroup *group) {
+		[[FTBClient client] addMembers:self.footblSelectedMembers.allObjects group:group success:^(id response) {
+			[[FTBClient client] addInvitedMembers:invitedMembers group:group success:^(id response) {
+				[[FTBClient client] membersForGroup:group success:^(id object) {
+					successBlock(group);
+				} failure:^(NSError *error) {
+					successBlock(group);
+				}];
+			} failure:failureBlock];
+		} failure:failureBlock];
+	};
+	
     [[LoadingHelper sharedInstance] showHud];
     if (self.group) {
-        [self.group.editableObject addMembers:self.footblSelectedMembers.allObjects success:^(id response) {
-            [self.group.editableObject addInvitedMembers:invitedMembers success:^(id response) {
-                [self.group.editableObject getMembersWithSuccess:^(id response) {
-                    successBlock(self.group);
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    successBlock(self.group);
-                }];
-            } failure:failureBlock];
-        } failure:failureBlock];
+		block(self.group);
     } else {
-        [Group createName:self.groupName image:self.groupImage members:self.footblSelectedMembers.allObjects invitedMembers:invitedMembers success:successBlock failure:failureBlock];
+		[FTImageUploader uploadImage:self.groupImage withCompletion:^(NSString *imagePath, NSError *error) {
+			NSURL *URL = [NSURL URLWithString:imagePath];
+			[[FTBClient client] createGroup:self.groupName pictureURL:URL success:^(id object) {
+				block(object);
+			} failure:failureBlock];
+		}];
     }
 }
 

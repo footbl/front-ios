@@ -8,7 +8,7 @@
 
 #import "TemplateViewController.h"
 
-@class Group;
+@class FTBGroup;
 
 @interface GroupAddMembersViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -19,6 +19,6 @@
 @property (strong, nonatomic) UIView *segmentedControlBackgroundView;
 @property (strong, nonatomic) UIView *separatorView;
 @property (strong, nonatomic) UIImage *groupImage;
-@property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) FTBGroup *group;
 
 @end

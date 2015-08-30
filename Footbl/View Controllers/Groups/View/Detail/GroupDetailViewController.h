@@ -8,7 +8,7 @@
 
 #import "TemplateViewController.h"
 
-@class Group;
+@class FTBGroup;
 
 @interface GroupDetailViewController : TemplateViewController
 
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailContext) {
     GroupDetailContextAroundMe = 2,
 };
 
-@property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) FTBGroup *group;
 @property (strong, nonatomic) UIButton *rightNavigationBarButton;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 

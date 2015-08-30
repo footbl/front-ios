@@ -21,4 +21,27 @@
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
+- (BOOL)isWorld {
+	return NO;
+}
+
+- (BOOL)isFriends {
+	return NO;
+}
+
+- (BOOL)isDefault {
+	return self.isWorld || self.isFriends;
+}
+
+- (NSString *)sharingText {
+	if (self.isDefault) {
+		return [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! http://footbl.co/dl", @"")];
+	} else {
+		NSString *sharingUrl = [NSString stringWithFormat:@"http://footbl.co/groups/%@", self.identifier];
+		return [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! Access %@ or use the code %@", @"@{group_share_url} {group_code}"), sharingUrl, self.identifier];
+	}
+}
+
+- (void)saveStatusInLocalDatabase {}
+
 @end

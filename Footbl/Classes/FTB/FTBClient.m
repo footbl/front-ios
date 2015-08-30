@@ -205,6 +205,21 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self DELETE:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
 }
 
+- (void)addInvitedMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+#warning Implement chunck invite of members
+	if (success) success(nil);
+}
+
+- (void)addMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+#warning Implement chunck invite of members
+	if (success) success(nil);
+}
+
+- (void)membersForGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+#warning Implement group members API
+	if (success) success(nil);
+}
+
 #pragma mark - Match
 
 - (void)match:(NSString *)match championship:(FTBChampionship *)championship success:(FTBBlockObject)success failure:(FTBBlockError)failure {

@@ -8,18 +8,21 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIButton+WebCache.h>
-#import "Championship.h"
+#import "FTAuthenticationManager.h"
 #import "FootblNavigationController.h"
-#import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupInfoViewController.h"
 #import "ImportImageHelper.h"
-#import "Membership.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
-#import "User.h"
 #import "WhatsAppActivity.h"
 #import "WhatsAppAPI.h"
+#import "FTImageUploader.h"
+
+#import "FTBClient.h"
+#import "FTBChampionship.h"
+#import "FTBGroup.h"
+#import "FTBUser.h"
 
 @interface GroupInfoViewController () <UIScrollViewDelegate>
 
@@ -41,7 +44,10 @@
     [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary)] completionBlock:^(UIImage *image, NSError *error) {
         if (image) {
             [self.groupImageButton setImage:image forState:UIControlStateNormal];
-            [self.group uploadImage:image success:nil failure:nil];
+            [FTImageUploader uploadImage:image withCompletion:^(NSString *imagePath, NSError *error) {
+				self.group.pictureURL = [NSURL URLWithString:imagePath];
+				[[FTBClient client] updateGroup:self.group success:nil failure:nil];
+			}];
         }
         if (keyboardIsFirstResponder) {
             [self.nameTextField becomeFirstResponder];
@@ -50,7 +56,7 @@
 }
 
 - (IBAction)leaveGroupAction:(id)sender {
-    [self.group.editableObject deleteWithSuccess:nil failure:nil];
+	[[FTBClient client] removeGroup:self.group success:nil failure:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -63,29 +69,30 @@
 
 - (IBAction)notificationsSwitchValueChangedAction:(UISwitch *)switchView {
     switchView.userInteractionEnabled = NO;
-    [self.group.myMembership setNotificationsEnabled:switchView.isOn success:^(id response) {
-        switchView.userInteractionEnabled = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        switchView.userInteractionEnabled = YES;
-        [switchView setOn:!switchView.isOn animated:YES];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+#warning Implement group notifications API
+//    [self.group.myMembership setNotificationsEnabled:switchView.isOn success:^(id response) {
+//        switchView.userInteractionEnabled = YES;
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        switchView.userInteractionEnabled = YES;
+//        [switchView setOn:!switchView.isOn animated:YES];
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
 }
 
 - (IBAction)freeToEditSwitchValueChangedAction:(UISwitch *)switchView {
     switchView.userInteractionEnabled = NO;
-    self.group.editableObject.freeToEdit = @(switchView.isOn);
-    [self.group.editableObject saveWithSuccess:^(id response) {
-        switchView.userInteractionEnabled = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        switchView.userInteractionEnabled = YES;
-        [switchView setOn:!switchView.isOn animated:YES];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+    self.group.freeToEdit = switchView.isOn;
+	[[FTBClient client] updateGroup:self.group success:^(id object) {
+		switchView.userInteractionEnabled = YES;
+	} failure:^(NSError *error) {
+		switchView.userInteractionEnabled = YES;
+		[switchView setOn:!switchView.isOn animated:YES];
+		[[ErrorHandler sharedInstance] displayError:error];
+	}];
 }
 
 - (IBAction)copySharingCodeAction:(id)sender {
-    if (!self.group.freeToEditValue) {
+    if (!self.group.isFreeToEdit) {
         [self.freeToEditSwich setOn:YES animated:YES];
         [self freeToEditSwitchValueChangedAction:self.freeToEditSwich];
     }
@@ -113,13 +120,13 @@
 
 - (void)updateGroupName {
     if (![self.nameTextField.text isEqualToString:self.group.name] && [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
-        self.group.editableObject.name = self.nameTextField.text;
-        [self.group.editableObject saveWithSuccess:nil failure:nil];
+        self.group.name = self.nameTextField.text;
+		[[FTBClient client] updateGroup:self.group success:nil failure:nil];
     }
 }
 
 - (void)tapGroupCodeGestureRecognizer:(UITapGestureRecognizer *)gestureRecognizer {
-    [[UIPasteboard generalPasteboard] setString:self.group.slug];
+    [[UIPasteboard generalPasteboard] setString:self.group.identifier];
     
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
     hud.mode = MBProgressHUDModeText;
@@ -136,10 +143,11 @@
 
 - (void)reloadData {
     [super reloadData];
-    
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
     self.nameTextField.text = self.group.name;
-    self.nameTextField.userInteractionEnabled = (self.group.freeToEditValue || [self.group.owner.rid isEqualToString:[User currentUser].rid]);
-    [self.groupImageButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal];
+    self.nameTextField.userInteractionEnabled = (self.group.isFreeToEdit || [self.group.owner isEqual:user]);
+    [self.groupImageButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal];
 }
 
 #pragma mark - Delegates & Data sources
@@ -150,9 +158,9 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (!self.group.isDefaultValue) {
+    if (!self.group.isDefault) {
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
-        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.identifier];
         [self.nameTextField resignFirstResponder];
     } else {
         [super textFieldDidEndEditing:textField];
@@ -180,9 +188,9 @@
 
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardGesture:)]];
     
-    if (!self.group.isDefaultValue) {
+    if (!self.group.isDefault) {
         self.nameTextField.y -= 2;
-        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.slug];
+        self.nameSizeLimitLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Group code: %@", @"Group code: {group code}"), self.group.identifier];
         self.nameSizeLimitLabel.alpha = 1;
         self.nameSizeLimitLabel.userInteractionEnabled = YES;
         [self.nameSizeLimitLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGroupCodeGestureRecognizer:)]];
@@ -213,7 +221,7 @@
     };
     
     CGRect bottomRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 159);
-    if (self.group.owner.isMe || self.group.freeToEditValue) {
+    if (self.group.owner.isMe || self.group.isFreeToEdit) {
         UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
         self.addNewMembersGroupButton = [[UIButton alloc] initWithFrame:addNewMembersView.frame];
         [self.addNewMembersGroupButton setTitle:NSLocalizedString(@"Add new members", @"") forState:UIControlStateNormal];
@@ -234,7 +242,7 @@
         bottomRect.origin.y += 9;
     }
     
-    if (self.group.isDefaultValue || self.group.freeToEditValue) {
+    if (self.group.isDefault || self.group.isFreeToEdit) {
         UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 72));
         UIButton *copyShareCodeButton = [[UIButton alloc] initWithFrame:copyShareCodeView.frame];
         [copyShareCodeButton setTitle:NSLocalizedString(@"Copy sharing code", @"") forState:UIControlStateNormal];
@@ -285,7 +293,7 @@
         
         self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
         self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
-        self.freeToEditSwich.on = self.group.freeToEditValue;
+        self.freeToEditSwich.on = self.group.isFreeToEdit;
         self.freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
         [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:self.freeToEditSwich];
@@ -293,7 +301,7 @@
         bottomRect = freeToEditView.frame;
     }
     
-    if (!self.group.isDefaultValue && FBTweakValue(@"UX", @"Group", @"Chat", YES)) {
+    if (!self.group.isDefault && FBTweakValue(@"UX", @"Group", @"Chat", YES)) {
         UIView *notificationsView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
         UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.y, 240, notificationsView.height)];
         [notificationsButton setTitle:NSLocalizedString(@"Notifications", @"") forState:UIControlStateNormal];
@@ -304,20 +312,21 @@
         notificationsButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
         notificationsButton.userInteractionEnabled = NO;
         [scrollView addSubview:notificationsButton];
-        
+		
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
         self.notificationsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(notificationsButton.frame))];
         self.notificationsSwitch.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(notificationsButton.frame));
-        self.notificationsSwitch.on = self.group.myMembership.notificationsValue;
+        self.notificationsSwitch.on = user.isNotificationsEnabled;
         self.notificationsSwitch.onTintColor = [UIColor ftGreenGrassColor];
         [self.notificationsSwitch addTarget:self action:@selector(notificationsSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:self.notificationsSwitch];
         
-        if (!self.group.myMembership) {
+        if (![self.group.members containsObject:user]) {
             self.notificationsSwitch.enabled = NO;
         }
-        
-        [self.group getMembersWithSuccess:^(id response) {
-            [self.notificationsSwitch setOn:self.group.myMembership.notificationsValue animated:YES];
+		
+		[[FTBClient client] membersForGroup:self.group success:^(id object) {
+            [self.notificationsSwitch setOn:user.isNotificationsEnabled animated:YES];
             self.notificationsSwitch.enabled = YES;
         } failure:nil];
         
@@ -341,11 +350,11 @@
         [self reloadData];
     }];
     
-    self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.freeToEditValue;
+    self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.isFreeToEdit;
     if (!self.groupImageButton.imageView.image && !self.groupImageButton.userInteractionEnabled) {
-        if (self.group.isWorldValue) {
+        if (self.group.isWorld) {
             [self.groupImageButton setImage:[UIImage imageNamed:@"world_icon"] forState:UIControlStateNormal];
-        } else if (self.group.isFriendsValue) {
+        } else if (self.group.isFriends) {
 			[self.groupImageButton setImage:[UIImage imageNamed:@"icon-group-friends"] forState:UIControlStateNormal];
 		} else {
             [self.groupImageButton setImage:[UIImage imageNamed:@"generic_group"] forState:UIControlStateNormal];

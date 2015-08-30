@@ -69,6 +69,10 @@
 	return nil;
 }
 
+- (FTBMatchResult)myBetResult {
+	return FTBMatchResultDraw;
+}
+
 - (NSNumber *)localJackpot {
 	return @0;
 }

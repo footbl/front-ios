@@ -7,8 +7,11 @@
 //
 
 #import "GroupAroundMeViewController.h"
-#import "Group.h"
-#import "User.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBClient.h"
+#import "FTBGroup.h"
+#import "FTBUser.h"
 
 @interface GroupAroundMeViewController ()
 
@@ -21,31 +24,14 @@
 
 @implementation GroupAroundMeViewController
 
-@synthesize fetchedResultsController = _fetchedResultsController;
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (!_fetchedResultsController) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Membership"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"ranking" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"user.funds" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"user.name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"group = %@ AND user != nil AND hasRanking = %@ AND isLocalRanking = %@", self.group, @YES, @YES];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![_fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    
-    return _fetchedResultsController;
-}
-
 - (void)setContext:(GroupDetailContext)context {
     [super setContext:context];
     
     if (context == GroupDetailContextAroundMe) {
-        [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:self.group.myMembership] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		NSUInteger row = [self.group.members indexOfObject:user];
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 }
 
@@ -53,13 +39,14 @@
 
 - (void)reloadData {
     [super reloadData];
-    
-    [self.group getLocalRankingMembersWithSuccess:^(id response) {
-        [self.refreshControl endRefreshing];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.refreshControl endRefreshing];
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+
+#warning We must implement an 'around me' API
+//    [self.group getLocalRankingMembersWithSuccess:^(id response) {
+//        [self.refreshControl endRefreshing];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [self.refreshControl endRefreshing];
+//        [[ErrorHandler sharedInstance] displayError:error];
+//    }];
 }
 
 #pragma mark - Delegates & Data sources
@@ -70,7 +57,10 @@
     BOOL shouldScroll = self.tableView.visibleCells.count == 0;
     [super controllerDidChangeContent:controller];
     if (shouldScroll) {
-        [self.tableView scrollToRowAtIndexPath:[self.fetchedResultsController indexPathForObject:self.group.myMembership] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		NSUInteger row = [self.group.members indexOfObject:user];
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     }
 }
 

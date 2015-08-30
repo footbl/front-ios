@@ -10,12 +10,14 @@
 #import <SPHipster/UIView+Frame.h>
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
-#import "Group.h"
 #import "GroupChatViewController.h"
 #import "GroupDetailViewController.h"
 #import "GroupInfoViewController.h"
 #import "GroupRankingViewController.h"
 #import "GroupAroundMeViewController.h"
+
+#import "FTBClient.h"
+#import "FTBGroup.h"
 
 @interface GroupDetailViewController ()
 
@@ -47,7 +49,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 #pragma mark - Getters/Setters
 
 - (GroupChatViewController *)groupChatViewController {
-    if (!_groupChatViewController && !self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
+    if (!_groupChatViewController && !self.group.isDefault && GROUP_CHAT_ENABLED) {
         _groupChatViewController = [GroupChatViewController new];
         _groupChatViewController.group = self.group;
         _groupChatViewController.context = self.context;
@@ -79,7 +81,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 }
 
 - (GroupAroundMeViewController *)groupAroundMeViewController {
-    if (!_groupAroundMeViewController && self.group.isWorldValue && AROUND_ME_ENABLED) {
+    if (!_groupAroundMeViewController && self.group.isWorld && AROUND_ME_ENABLED) {
         _groupAroundMeViewController = [GroupAroundMeViewController new];
         _groupAroundMeViewController.group = self.group;
         _groupAroundMeViewController.context = self.context;
@@ -94,9 +96,9 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 }
 
 - (GroupDetailType)groupType {
-    if (!self.group.isDefaultValue && GROUP_CHAT_ENABLED) {
+    if (!self.group.isDefault && GROUP_CHAT_ENABLED) {
         _groupType = GroupDetailTypeChat;
-    } else if (self.group.isWorldValue && AROUND_ME_ENABLED) {
+    } else if (self.group.isWorld && AROUND_ME_ENABLED) {
         _groupType = GroupDetailTypeAroundMe;
     } else {
         _groupType = GroupDetailTypeNone;
@@ -152,7 +154,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     [super reloadData];
     
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    [self.rightNavigationBarButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     
     if (self.context == GroupDetailContextChat) {
         self.groupAroundMeViewController.view.hidden = YES;
@@ -246,7 +248,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     
     [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [self.rightNavigationBarButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }];
     
     [self reloadData];
@@ -264,7 +266,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     [super viewWillAppear:animated];
     
     self.navigationItem.title = self.group.name;
-    [self.rightNavigationBarButton sd_setImageWithURL:[NSURL URLWithString:self.group.picture] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
+    [self.rightNavigationBarButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
     
     [self.groupRankingViewController viewWillAppear:animated];
     [self.groupChatViewController viewWillAppear:animated];
@@ -278,12 +280,9 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (self.group.isNewValue) {
-        [[FTCoreDataStore privateQueueContext] performBlock:^{
-            self.group.editableObject.isNew = @NO;
-            [self.group saveStatusInLocalDatabase];
-            [[FTCoreDataStore privateQueueContext] performSave];
-        }];
+    if (self.group.isNew) {
+		self.group.isNew = NO;
+		[self.group saveStatusInLocalDatabase];
     }
     
     [(FootblTabBarController *)self.tabBarController setTabBarHidden:YES animated:YES];

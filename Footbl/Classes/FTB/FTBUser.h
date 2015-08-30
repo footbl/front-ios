@@ -43,6 +43,8 @@
 @property (nonatomic, copy, readonly) NSArray *entries; // FTBChampionship
 @property (nonatomic, copy, readonly) NSArray *seasons; // FTBUserSeason
 
+@property (nonatomic, assign, getter=isNotificationsEnabled) BOOL notificationsEnabled;
+
 - (BOOL)isMe;
 - (BOOL)canRecharge;
 - (NSNumber *)localFunds;

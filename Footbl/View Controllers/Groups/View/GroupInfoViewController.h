@@ -8,11 +8,11 @@
 
 #import "GroupInfoBaseViewController.h"
 
-@class Group;
+@class FTBGroup;
 
 @interface GroupInfoViewController : GroupInfoBaseViewController <UITextFieldDelegate>
 
-@property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) FTBGroup *group;
 @property (strong, nonatomic) UILabel *championshipLabel;
 @property (strong, nonatomic) UIButton *leaveGroupButton;
 @property (strong, nonatomic) UIButton *addNewMembersGroupButton;

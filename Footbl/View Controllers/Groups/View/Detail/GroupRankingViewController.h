@@ -9,13 +9,12 @@
 #import "TemplateViewController.h"
 #import "GroupDetailViewController.h"
 
-@class Group;
+@class FTBGroup;
 
 @interface GroupRankingViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) Group *group;
+@property (strong, nonatomic) FTBGroup *group;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic) GroupDetailContext context;
 
 @end
