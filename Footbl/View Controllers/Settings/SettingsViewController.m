@@ -22,7 +22,9 @@
 #import "SettingsTextViewController.h"
 #import "SettingsViewController.h"
 #import "TutorialViewController.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBUser.h"
 
 typedef NS_ENUM(NSInteger, SettingsType) {
     SettingsTypeTinyInfo,
@@ -215,11 +217,12 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)supportAction:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
         MFMailComposeViewController *picker = [MFMailComposeViewController new];
         [picker setMailComposeDelegate:self];
         [picker setToRecipients:@[NSLocalizedString(@"Support email recipient", @"")]];
         [picker setSubject:[NSString stringWithFormat:NSLocalizedString(@"Support email subject", @"{application name}"), SPGetApplicationName()]];
-        [picker setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"Support email body", @"{application name} {application version} {system version} {device model} {user identifier}"), SPGetApplicationName(), SPGetApplicationVersion(), [[UIDevice currentDevice] systemVersion], [[UIDevice currentDevice] model], [User currentUser].rid] isHTML:NO];
+        [picker setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"Support email body", @"{application name} {application version} {system version} {device model} {user identifier}"), SPGetApplicationName(), SPGetApplicationVersion(), [[UIDevice currentDevice] systemVersion], [[UIDevice currentDevice] model], user.identifier] isHTML:NO];
         [self presentViewController:picker animated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Can't send email title", @"Can't send email title") message:NSLocalizedString(@"Can't send email message", @"Can't send email message") delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
@@ -264,9 +267,10 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [[User currentUser].editableObject deleteWithSuccess:^(id response) {
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		[[FTBClient client] removeUser:user.identifier success:^(id object) {
             [self logoutAction:nil];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
         }];
     }

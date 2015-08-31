@@ -12,7 +12,9 @@
 #import <SPHipster/SPHipster.h>
 #import "FriendsHelper.h"
 #import "FTAuthenticationManager.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBUser.h"
 
 @interface FriendsHelper ()
 
@@ -79,11 +81,11 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     }
                     
                     if (operationsCount == 0) {
-						User *me = [User currentUser];
+						FTBUser *me = [[FTAuthenticationManager sharedManager] user];
                         for (NSDictionary *user in searchResults) {
-							NSString *slug = user[kFTResponseParamIdentifier];
-                            if (![resultSet containsObject:slug] && ![slug isEqualToString:me.rid] && ![slug isEqualToString:@"me"]) {
-                                [resultSet addObject:slug];
+							NSString *identifier = user[@"identifier"];
+                            if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier]) {
+                                [resultSet addObject:identifier];
                                 [result addObject:user];
                             }
                         }
@@ -98,9 +100,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 					for (int i = 0; i < emails.count; i += 100) {
 						operationsCount++;
 						NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
-						[User searchUsingEmails:range usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
-							finishedBlock(response);
-						} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+						[[FTBClient client] usersWithEmails:range facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+							finishedBlock(object);
+						} failure:^(NSError *error) {
 							SPLogError(@"%@", error);
 							finishedBlock(@[]);
 						}];
@@ -112,9 +114,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     for (int i = 0; i < fbIds.count; i += 100) {
                         operationsCount++;
                         NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
-                        [User searchUsingEmails:nil usernames:nil ids:nil fbIds:range name:nil success:^(id response) {
-                            finishedBlock(response);
-                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+						[[FTBClient client] usersWithEmails:nil facebookIds:range usernames:nil name:nil page:0 success:^(id object) {
+                            finishedBlock(object);
+                        } failure:^(NSError *error) {
                             SPLogError(@"%@", error);
                             finishedBlock(@[]);
                         }];
@@ -218,6 +220,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 - (void)searchFriendsWithQuery:(NSString *)searchText existingUsers:(NSSet *)users completionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
     NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	FTBUser *me = [[FTAuthenticationManager sharedManager] user];
     
     //Global server search
     __block NSInteger operationsCount = 0;
@@ -235,8 +238,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
             NSMutableArray *result = [NSMutableArray new];
             for (NSDictionary *user in searchResults) {
                 // Checks against being the own user, user already in the array and user already in the existing users passed in
-                if (![resultSet containsObject:user[kFTResponseParamIdentifier]] && ![user[kFTResponseParamIdentifier] isEqualToString:[User currentUser].rid] && ![users containsObject:user[kFTResponseParamIdentifier]]) {
-                    [resultSet addObject:user[kFTResponseParamIdentifier]];
+				NSString *identifier = user[@"identifier"];
+                if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier] && ![users containsObject:identifier]) {
+                    [resultSet addObject:identifier];
                     [result addObject:user];
                 }
             }
@@ -246,31 +250,31 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     };
     
     //Emails
-    [User searchUsingEmails:@[trimmedSearchText] usernames:nil ids:nil fbIds:nil name:nil success:^(id response) {
-        finishedBlock(response);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+        finishedBlock(object);
+    } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         finishedBlock(@[]);
     }];
     operationsCount++;
     
     //Usernames
-    [User searchUsingEmails:nil usernames:@[trimmedSearchText] ids:nil fbIds:nil name:nil success:^(id response) {
-        finishedBlock(response);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+	[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:@[trimmedSearchText] name:nil page:0 success:^(id object) {
+        finishedBlock(object);
+    } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         finishedBlock(@[]);
     }];
     operationsCount++;
-    
-     //Name
-     [User searchUsingEmails:nil usernames:nil ids:nil fbIds:nil name:searchText success:^(id response) {
-         finishedBlock(response);
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         SPLogError(@"%@", error);
-         finishedBlock(@[]);
-     }];
-     operationsCount++;
+	
+	//Name
+	[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:@[trimmedSearchText] page:0 success:^(id object) {
+		finishedBlock(object);
+	} failure:^(NSError *error) {
+		SPLogError(@"%@", error);
+		finishedBlock(@[]);
+	}];
+	operationsCount++;
 }
 
 @end

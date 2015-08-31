@@ -9,10 +9,12 @@
 #import <SPHipster/UIView+Frame.h>
 #import "FootblLabel.h"
 #import "FootblPopupViewController.h"
+#import "FTAuthenticationManager.h"
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "UIImage+Color.h"
-#import "User.h"
+
+#import "FTBUser.h"
 
 @interface RechargeTipPopupViewController ()
 
@@ -27,14 +29,14 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
 
 #pragma mark - Class Methods
 
-+ (BOOL)shouldBePresented {    
++ (BOOL)shouldBePresented {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
     NSDate *lastPresentedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kRechargeTipPopupDate];
-    if ([User currentUser].canRecharge && (!lastPresentedDate || fabs([[NSDate date] timeIntervalSinceDate:lastPresentedDate]) > kRechargeTipTimeInterval)) {
+    if (user.canRecharge && (!lastPresentedDate || fabs([[NSDate date] timeIntervalSinceDate:lastPresentedDate]) > kRechargeTipTimeInterval)) {
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kRechargeTipPopupDate];
         [[NSUserDefaults standardUserDefaults] synchronize];
         return YES;
     }
-    
     return NO;
 }
 

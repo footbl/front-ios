@@ -152,6 +152,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 		self.token = responseObject[@"token"];
 		[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
 		[[FTBClient client] user:responseObject[@"_id"] success:^(id object) {
+			self.user = object;
 			[[FTBClient client].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
 			[self registerForRemoteNotifications];
 			if (shouldSendNotification) {
@@ -177,6 +178,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 		self.token = responseObject[@"token"];
 		[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
 		[[FTBClient client] user:responseObject[@"_id"] success:^(id object) {
+			self.user = object;
 			[self registerForRemoteNotifications];
 			if (shouldSendNotification) {
 				[[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
@@ -300,7 +302,8 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [ErrorHandler sharedInstance].shouldShowError = YES;
     });
-    
+	
+	self.user = nil;
     self.email = nil;
     self.password = nil;
     self.token = nil;

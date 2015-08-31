@@ -6,16 +6,9 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "Match.h"
 #import "FTBMatch.h"
 
 @class MatchTableViewCell;
-
-@interface Match (Sharing)
-
-- (void)shareUsingMatchCell:(MatchTableViewCell *)cell viewController:(UIViewController *)viewController;
-
-@end
 
 @interface FTBMatch (Sharing)
 

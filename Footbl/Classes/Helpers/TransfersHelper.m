@@ -6,27 +6,25 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "CreditRequest.h"
 #import "TransfersHelper.h"
-#import "User.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBClient.h"
+#import "FTBCreditRequest.h"
+#import "FTBUser.h"
 
 @implementation TransfersHelper
 
 #pragma mark - Class Methods
 
 + (void)fetchCountWithBlock:(void (^)(NSUInteger count))countBlock {
-    if (!countBlock) {
-        return;
+    if (countBlock) {
+		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chargedUser == %@ AND payed == NO", user];
+		[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+			countBlock([[object filteredArrayUsingPredicate:predicate] count]);
+		} failure:nil];
     }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"CreditRequest"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"chargedUser.slug = %@ AND payed = %@", [User currentUser].slug, @NO];
-    countBlock([[[FTCoreDataStore privateQueueContext] executeFetchRequest:fetchRequest error:nil] count]);
-    
-    [CreditRequest getWithObject:[User currentUser].editableObject success:^(id response) {
-        countBlock([[response filteredArrayUsingPredicate:fetchRequest.predicate] count]);
-    } failure:nil];
 }
 
 @end

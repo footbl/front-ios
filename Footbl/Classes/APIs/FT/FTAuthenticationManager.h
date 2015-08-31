@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 #import "FTBConstants.h"
 
-@class User;
 @class FTBUser;
 
 typedef NS_ENUM(NSInteger, FTAuthenticationType) {

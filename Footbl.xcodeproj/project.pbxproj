@@ -6,106 +6,68 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		DB5422B61A23146A0047B816 /* Mogenerator */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DB5422B71A23146A0047B816 /* Build configuration list for PBXAggregateTarget "Mogenerator" */;
-			buildPhases = (
-				DB5422BB1A23147E0047B816 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = Mogenerator;
-			productName = Mogenerator;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
-		100E6A5A1B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
-		100E6A5F1B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
-		100E6A641B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
-		10390DCB1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCD1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		109AA8FB1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
-		109AA8FC1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109AA8FE1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109FB2AD1B7C198300E67B3C /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		109FB2AE1B7C198600E67B3C /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		109FB2B01B7C19E800E67B3C /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
 		109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
-		109FB2B41B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
 		109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
 		109FB2B61B7C1EEB00E67B3C /* FTBSeason.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B21B7C1EEB00E67B3C /* FTBSeason.m */; };
 		109FB2B91B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
-		109FB2BA1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
 		109FB2BB1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
 		109FB2BC1B7C21E200E67B3C /* FTBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2B81B7C21E200E67B3C /* FTBUser.m */; };
 		109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
-		109FB2C01B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
 		109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
 		109FB2C21B7C28D700E67B3C /* FTBMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2BE1B7C28D700E67B3C /* FTBMatch.m */; };
 		109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
-		109FB2C61B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
 		109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
 		109FB2C81B7C29AB00E67B3C /* FTBTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2C41B7C29AB00E67B3C /* FTBTeam.m */; };
 		109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
-		109FB2CC1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
 		109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
 		109FB2CE1B7C333D00E67B3C /* FTBPrize.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2CA1B7C333D00E67B3C /* FTBPrize.m */; };
 		109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
-		109FB2D21B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
 		109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
 		109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D01B7C334900E67B3C /* FTBGroup.m */; };
 		109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
-		109FB2D81B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
 		109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
 		109FB2DA1B7C366D00E67B3C /* FTBMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2D61B7C366D00E67B3C /* FTBMessage.m */; };
 		109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
-		109FB2DE1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
 		109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
 		109FB2E01B7C385500E67B3C /* FTBBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2DC1B7C385500E67B3C /* FTBBet.m */; };
 		109FB2E31B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
-		109FB2E41B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
 		109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
 		109FB2E61B7C3ABA00E67B3C /* FTBChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */; };
 		109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
-		109FB2EA1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
-		117043FF1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
-		11D7E7C51A9C12330058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
-		DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
-		DB5422A51A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
 		DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
-		ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
-		ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED42F7251A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
 		ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
-		ED5C4E461A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
 		ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
 		ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
-		ED7859E3199D0C62002A4DBD /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
-		ED7859E4199D0C62002A4DBD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
 		ED7859E5199D0C62002A4DBD /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
 		ED7859E6199D0C62002A4DBD /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
 		ED7859E7199D0C62002A4DBD /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
@@ -113,16 +75,12 @@
 		ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
 		ED7859EA199D0C62002A4DBD /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
-		ED7859EC199D0C62002A4DBD /* _FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67208199924B200D06E66 /* _FTModel.m */; };
 		ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
-		ED7859EF199D0C62002A4DBD /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
 		ED7859F0199D0C62002A4DBD /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
-		ED7859F1199D0C62002A4DBD /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
 		ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
 		ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
 		ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
-		ED7859F5199D0C62002A4DBD /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
 		ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED7859F8199D0C62002A4DBD /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
@@ -131,18 +89,16 @@
 		ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
 		ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
-		ED7859FE199D0C62002A4DBD /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
 		ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
 		ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED785A03199D0C62002A4DBD /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
 		ED785A04199D0C62002A4DBD /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED785A05199D0C62002A4DBD /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		ED785A06199D0C62002A4DBD /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
 		ED785A07199D0C62002A4DBD /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
 		ED785A08199D0C62002A4DBD /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
-		ED785A09199D0C62002A4DBD /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
+		ED785A09199D0C62002A4DBD /* FTBMatch+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* FTBMatch+Sharing.m */; };
 		ED785A0A199D0C62002A4DBD /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
 		ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
 		ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
@@ -150,17 +106,13 @@
 		ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
 		ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
 		ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
-		ED785A11199D0C62002A4DBD /* NSURLRequest+FTRequestOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817619966B7E005D62BB /* NSURLRequest+FTRequestOptions.m */; };
 		ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
 		ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
 		ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		ED785A16199D0C62002A4DBD /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
-		ED785A17199D0C62002A4DBD /* FTOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816C199406CF005D62BB /* FTOperationManager.m */; };
 		ED785A18199D0C62002A4DBD /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
 		ED785A19199D0C62002A4DBD /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
-		ED785A1A199D0C62002A4DBD /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
-		ED785A1B199D0C62002A4DBD /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
 		ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
 		ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
@@ -174,12 +126,9 @@
 		ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
 		ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
 		ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
-		ED785A29199D0C62002A4DBD /* NSManagedObjectContext+FTAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */; };
-		ED785A2A199D0C62002A4DBD /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
 		ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
 		ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
-		ED785A2E199D0C62002A4DBD /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
 		ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
@@ -193,13 +142,8 @@
 		ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED785A3B199D0C62002A4DBD /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */; };
-		ED785A3D199D0C62002A4DBD /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
-		ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
-		ED785A3F199D0C62002A4DBD /* Footbl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */; };
 		ED785A40199D0C62002A4DBD /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
-		ED785A41199D0C62002A4DBD /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
 		ED785A42199D0C62002A4DBD /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
-		ED785A43199D0C62002A4DBD /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED785A44199D0C62002A4DBD /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		ED785A45199D0C62002A4DBD /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED785A47199D0C62002A4DBD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
@@ -219,10 +163,6 @@
 		ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
 		ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
-		ED785A78199D4A87002A4DBD /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
-		ED785A7C199D4A92002A4DBD /* _CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7A199D4A92002A4DBD /* _CreditRequest.m */; };
-		ED785A80199DA5CE002A4DBD /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7E199DA5CE002A4DBD /* Entry.m */; };
-		ED785A84199DA5D7002A4DBD /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
 		ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
 		ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
@@ -231,8 +171,6 @@
 		ED7C716919F949310002E6B0 /* match_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716219F949310002E6B0 /* match_start.wav */; };
 		ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
 		ED8DB3871A14C95C00605CCE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
-		ED8DB3881A14C95C00605CCE /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
-		ED8DB3891A14C95C00605CCE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
 		ED8DB38A1A14C95C00605CCE /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
 		ED8DB38B1A14C95C00605CCE /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
 		ED8DB38C1A14C95C00605CCE /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
@@ -240,40 +178,31 @@
 		ED8DB38E1A14C95C00605CCE /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
 		ED8DB38F1A14C95C00605CCE /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
-		ED8DB3911A14C95C00605CCE /* _FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67208199924B200D06E66 /* _FTModel.m */; };
 		ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
-		ED8DB3941A14C95C00605CCE /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
 		ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
-		ED8DB3961A14C95C00605CCE /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
 		ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
 		ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
 		ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
 		ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
-		ED8DB39B1A14C95C00605CCE /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
 		ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED8DB39E1A14C95C00605CCE /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
 		ED8DB39F1A14C95C00605CCE /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
-		ED8DB3A01A14C95C00605CCE /* _CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7A199D4A92002A4DBD /* _CreditRequest.m */; };
-		ED8DB3A11A14C95C00605CCE /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7E199DA5CE002A4DBD /* Entry.m */; };
 		ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
 		ED8DB3A31A14C95C00605CCE /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
 		ED8DB3A51A14C95C00605CCE /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
-		ED8DB3A61A14C95C00605CCE /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
 		ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
 		ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED8DB3AB1A14C95C00605CCE /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
-		ED8DB3AC1A14C95C00605CCE /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
 		ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
 		ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
 		ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
-		ED8DB3B21A14C95C00605CCE /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
+		ED8DB3B21A14C95C00605CCE /* FTBMatch+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* FTBMatch+Sharing.m */; };
 		ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
 		ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
 		ED8DB3B51A14C95C00605CCE /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
@@ -281,18 +210,13 @@
 		ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
 		ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
 		ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
-		ED8DB3BA1A14C95C00605CCE /* NSURLRequest+FTRequestOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817619966B7E005D62BB /* NSURLRequest+FTRequestOptions.m */; };
 		ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
 		ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
 		ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
-		ED8DB3C01A14C95C00605CCE /* FTOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816C199406CF005D62BB /* FTOperationManager.m */; };
 		ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
 		ED8DB3C21A14C95C00605CCE /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
-		ED8DB3C31A14C95C00605CCE /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
-		ED8DB3C41A14C95C00605CCE /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
-		ED8DB3C51A14C95C00605CCE /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
 		ED8DB3C61A14C95C00605CCE /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		ED8DB3C71A14C95C00605CCE /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
 		ED8DB3C81A14C95C00605CCE /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
@@ -307,12 +231,9 @@
 		ED8DB3D11A14C95C00605CCE /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
 		ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
-		ED8DB3D41A14C95C00605CCE /* NSManagedObjectContext+FTAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */; };
-		ED8DB3D51A14C95C00605CCE /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
 		ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
 		ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
 		ED8DB3D81A14C95C00605CCE /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
-		ED8DB3D91A14C95C00605CCE /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
 		ED8DB3DA1A14C95C00605CCE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
 		ED8DB3DB1A14C95C00605CCE /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
 		ED8DB3DC1A14C95C00605CCE /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
@@ -321,21 +242,15 @@
 		ED8DB3DF1A14C95C00605CCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47318E1F18B00E0C949 /* main.m */; };
 		ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
 		ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
-		ED8DB3E21A14C95C00605CCE /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
 		ED8DB3E31A14C95C00605CCE /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
 		ED8DB3E41A14C95C00605CCE /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
 		ED8DB3E51A14C95C00605CCE /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
 		ED8DB3E71A14C95C00605CCE /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
 		ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */; };
-		ED8DB3E91A14C95C00605CCE /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
-		ED8DB3EA1A14C95C00605CCE /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
-		ED8DB3EB1A14C95C00605CCE /* Footbl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */; };
 		ED8DB3EC1A14C95C00605CCE /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
 		ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
-		ED8DB3EE1A14C95C00605CCE /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
 		ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
-		ED8DB3F01A14C95C00605CCE /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
 		ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED8DB3F41A14C95C00605CCE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
@@ -360,157 +275,16 @@
 		ED8DB40F1A14C95C00605CCE /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
 		ED8DB4101A14C95C00605CCE /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
 		ED904B571A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */; };
-		ED904B581A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */; };
 		ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */; };
 		ED904B5D1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */; };
-		ED904B5E1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */; };
 		ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */; };
-		ED97AF5E1A14C7E40079ADB4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
-		ED97AF5F1A14C7E40079ADB4 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0F18EF30BA003E12B7 /* _User.m */; };
-		ED97AF601A14C7E40079ADB4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0C18EF30B4003E12B7 /* User.m */; };
-		ED97AF611A14C7E40079ADB4 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
-		ED97AF621A14C7E40079ADB4 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
-		ED97AF631A14C7E40079ADB4 /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
-		ED97AF641A14C7E40079ADB4 /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
-		ED97AF651A14C7E40079ADB4 /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
-		ED97AF661A14C7E40079ADB4 /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
-		ED97AF671A14C7E40079ADB4 /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
-		ED97AF681A14C7E40079ADB4 /* _FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67208199924B200D06E66 /* _FTModel.m */; };
-		ED97AF691A14C7E40079ADB4 /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
-		ED97AF6A1A14C7E40079ADB4 /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
-		ED97AF6B1A14C7E40079ADB4 /* Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D918E3271900DF458C /* Championship.m */; };
-		ED97AF6C1A14C7E40079ADB4 /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
-		ED97AF6D1A14C7E40079ADB4 /* _Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0618EEF764003E12B7 /* _Group.m */; };
-		ED97AF6E1A14C7E40079ADB4 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
-		ED97AF6F1A14C7E40079ADB4 /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
-		ED97AF701A14C7E40079ADB4 /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
-		ED97AF711A14C7E40079ADB4 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
-		ED97AF721A14C7E40079ADB4 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DB18E3271900DF458C /* Match.m */; };
-		ED97AF731A14C7E40079ADB4 /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
-		ED97AF741A14C7E40079ADB4 /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
-		ED97AF751A14C7E40079ADB4 /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
-		ED97AF761A14C7E40079ADB4 /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
-		ED97AF771A14C7E40079ADB4 /* _CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7A199D4A92002A4DBD /* _CreditRequest.m */; };
-		ED97AF781A14C7E40079ADB4 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A7E199DA5CE002A4DBD /* Entry.m */; };
-		ED97AF791A14C7E40079ADB4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
-		ED97AF7A1A14C7E40079ADB4 /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
-		ED97AF7B1A14C7E40079ADB4 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
-		ED97AF7C1A14C7E40079ADB4 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BA198012390051AAF5 /* UIImage+Color.m */; };
-		ED97AF7D1A14C7E40079ADB4 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8DD18E3271900DF458C /* Team.m */; };
-		ED97AF7E1A14C7E40079ADB4 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF2251933B1BB0090D06D /* EditProfileViewController.m */; };
-		ED97AF7F1A14C7E40079ADB4 /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
-		ED97AF801A14C7E40079ADB4 /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
-		ED97AF811A14C7E40079ADB4 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED97AF821A14C7E40079ADB4 /* Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BE1910776C00D7B041 /* Bet.m */; };
-		ED97AF831A14C7E40079ADB4 /* _Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A82199DA5D7002A4DBD /* _Entry.m */; };
-		ED97AF841A14C7E40079ADB4 /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
-		ED97AF851A14C7E40079ADB4 /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
-		ED97AF861A14C7E40079ADB4 /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
-		ED97AF871A14C7E40079ADB4 /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
-		ED97AF881A14C7E40079ADB4 /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
-		ED97AF891A14C7E40079ADB4 /* Match+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* Match+Sharing.m */; };
-		ED97AF8A1A14C7E40079ADB4 /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
-		ED97AF8B1A14C7E40079ADB4 /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
-		ED97AF8C1A14C7E40079ADB4 /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
-		ED97AF8D1A14C7E40079ADB4 /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
-		ED97AF8E1A14C7E40079ADB4 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
-		ED97AF8F1A14C7E40079ADB4 /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
-		ED97AF901A14C7E40079ADB4 /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
-		ED97AF911A14C7E40079ADB4 /* NSURLRequest+FTRequestOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817619966B7E005D62BB /* NSURLRequest+FTRequestOptions.m */; };
-		ED97AF921A14C7E40079ADB4 /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
-		ED97AF931A14C7E40079ADB4 /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
-		ED97AF941A14C7E40079ADB4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82118EA6A7500212D3C /* ProfileViewController.m */; };
-		ED97AF951A14C7E40079ADB4 /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
-		ED97AF961A14C7E40079ADB4 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
-		ED97AF971A14C7E40079ADB4 /* FTOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816C199406CF005D62BB /* FTOperationManager.m */; };
-		ED97AF981A14C7E40079ADB4 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
-		ED97AF991A14C7E40079ADB4 /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
-		ED97AF9A1A14C7E40079ADB4 /* _Bet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB639BB1910776300D7B041 /* _Bet.m */; };
-		ED97AF9B1A14C7E40079ADB4 /* Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1B18EF3DBD003E12B7 /* Membership.m */; };
-		ED97AF9C1A14C7E40079ADB4 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
-		ED97AF9D1A14C7E40079ADB4 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
-		ED97AF9E1A14C7E40079ADB4 /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
-		ED97AF9F1A14C7E40079ADB4 /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
-		ED97AFA01A14C7E40079ADB4 /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D38190ED2BF00A7869B /* TeamImageView.m */; };
-		ED97AFA11A14C7E40079ADB4 /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
-		ED97AFA21A14C7E40079ADB4 /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
-		ED97AFA31A14C7E40079ADB4 /* AnonymousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF228193400030090D06D /* AnonymousViewController.m */; };
-		ED97AFA41A14C7E40079ADB4 /* FTRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816F1994084F005D62BB /* FTRequestSerializer.m */; };
-		ED97AFA51A14C7E40079ADB4 /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
-		ED97AFA61A14C7E40079ADB4 /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
-		ED97AFA71A14C7E40079ADB4 /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
-		ED97AFA81A14C7E40079ADB4 /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
-		ED97AFA91A14C7E40079ADB4 /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
-		ED97AFAA1A14C7E40079ADB4 /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
-		ED97AFAB1A14C7E40079ADB4 /* NSManagedObjectContext+FTAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720B1999254000D06E66 /* NSManagedObjectContext+FTAddons.m */; };
-		ED97AFAC1A14C7E40079ADB4 /* _Team.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D318E3270600DF458C /* _Team.m */; };
-		ED97AFAD1A14C7E40079ADB4 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
-		ED97AFAE1A14C7E40079ADB4 /* UIFont+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */; };
-		ED97AFAF1A14C7E40079ADB4 /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F571988B42E00011E91 /* FootblLabel.m */; };
-		ED97AFB01A14C7E40079ADB4 /* FTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67205199924A500D06E66 /* FTModel.m */; };
-		ED97AFB11A14C7E40079ADB4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9F07931909C05900C8AC71 /* SettingsViewController.m */; };
-		ED97AFB21A14C7E40079ADB4 /* FootblNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82D18EA70C700212D3C /* FootblNavigationController.m */; };
-		ED97AFB31A14C7E40079ADB4 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A409190AF85800946490 /* LogsViewController.m */; };
-		ED97AFB41A14C7E40079ADB4 /* AskFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F621989777900011E91 /* AskFriendTableViewCell.m */; };
-		ED97AFB51A14C7E40079ADB4 /* SettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED19A401190A222900946490 /* SettingsTableViewCell.m */; };
-		ED97AFB61A14C7E40079ADB4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47318E1F18B00E0C949 /* main.m */; };
-		ED97AFB71A14C7E40079ADB4 /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
-		ED97AFB81A14C7E40079ADB4 /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
-		ED97AFB91A14C7E40079ADB4 /* CreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785A76199D4A87002A4DBD /* CreditRequest.m */; };
-		ED97AFBA1A14C7E40079ADB4 /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
-		ED97AFBB1A14C7E40079ADB4 /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
-		ED97AFBC1A14C7E40079ADB4 /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
-		ED97AFBD1A14C7E40079ADB4 /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
-		ED97AFBE1A14C7E40079ADB4 /* FTBuildType.m in Sources */ = {isa = PBXBuildFile; fileRef = ED83A99A19B12C5A0089CC5F /* FTBuildType.m */; };
-		ED97AFBF1A14C7E40079ADB4 /* WalletGraphTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697F1979894B0084FB14 /* WalletGraphTableViewCell.m */; };
-		ED97AFC01A14C7E40079ADB4 /* _Championship.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8CF18E3270600DF458C /* _Championship.m */; };
-		ED97AFC11A14C7E40079ADB4 /* _Membership.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA1818EF3DB0003E12B7 /* _Membership.m */; };
-		ED97AFC21A14C7E40079ADB4 /* Footbl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47918E1F18B00E0C949 /* Footbl.xcdatamodeld */; };
-		ED97AFC31A14C7E40079ADB4 /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
-		ED97AFC41A14C7E40079ADB4 /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
-		ED97AFC51A14C7E40079ADB4 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFFA0918EEF76C003E12B7 /* Group.m */; };
-		ED97AFC61A14C7E40079ADB4 /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
-		ED97AFC71A14C7E40079ADB4 /* _Match.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9DC8D118E3270600DF458C /* _Match.m */; };
-		ED97AFC81A14C7E40079ADB4 /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
-		ED97AFC91A14C7E40079ADB4 /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
-		ED97AFCB1A14C7E40079ADB4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
-		ED97AFCC1A14C7E40079ADB4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
-		ED97AFCD1A14C7E40079ADB4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
-		ED97AFCE1A14C7E40079ADB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
-		ED97AFCF1A14C7E40079ADB4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 367ED0AE31BD4C60B34A5B8E /* libPods.a */; };
-		ED97AFD11A14C7E40079ADB4 /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
-		ED97AFD21A14C7E40079ADB4 /* tutorial_1_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF267193582F20090D06D /* tutorial_1_480@2x.png */; };
-		ED97AFD51A14C7E40079ADB4 /* tutorial_2_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26B193582FD0090D06D /* tutorial_2_480@2x.png */; };
-		ED97AFD61A14C7E40079ADB4 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
-		ED97AFD91A14C7E40079ADB4 /* tutorial_5_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF277193583170090D06D /* tutorial_5_480@2x.png */; };
-		ED97AFDA1A14C7E40079ADB4 /* tutorial_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2411934EDA60090D06D /* tutorial_4@2x.png */; };
-		ED97AFDB1A14C7E40079ADB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED19A407190ACF8700946490 /* Localizable.strings */; };
-		ED97AFDD1A14C7E40079ADB4 /* tutorial_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2381934ED940090D06D /* tutorial_1@2x.png */; };
-		ED97AFE01A14C7E40079ADB4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47018E1F18B00E0C949 /* InfoPlist.strings */; };
-		ED97AFE11A14C7E40079ADB4 /* match_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716219F949310002E6B0 /* match_start.wav */; };
-		ED97AFE21A14C7E40079ADB4 /* tutorial_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2441934EDB50090D06D /* tutorial_5@2x.png */; };
-		ED97AFE31A14C7E40079ADB4 /* match_end.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716119F949310002E6B0 /* match_end.wav */; };
-		ED97AFE41A14C7E40079ADB4 /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
-		ED97AFE51A14C7E40079ADB4 /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
-		ED97AFE61A14C7E40079ADB4 /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
-		ED97AFE71A14C7E40079ADB4 /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
-		EDA4BBE01A21069700A41004 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBDF1A21069700A41004 /* Message.m */; };
-		EDA4BBE11A21069700A41004 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBDF1A21069700A41004 /* Message.m */; };
-		EDA4BBE21A21069700A41004 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBDF1A21069700A41004 /* Message.m */; };
-		EDA4BBE51A21069E00A41004 /* _Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE41A21069E00A41004 /* _Message.m */; };
-		EDA4BBE61A21069E00A41004 /* _Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE41A21069E00A41004 /* _Message.m */; };
-		EDA4BBE71A21069E00A41004 /* _Message.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE41A21069E00A41004 /* _Message.m */; };
 		EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */; };
-		EDA4BBEB1A2262A900A41004 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */; };
 		EDA4BBEC1A2262A900A41004 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */; };
 		EDA4BBEF1A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
-		EDA4BBF01A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
 		EDA4BBF11A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
 		EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
-		EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
-		EDA4BBFA1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
 		EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
 		EDB1D48418E1F18B00E0C949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D48318E1F18B00E0C949 /* XCTest.framework */; };
 		EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
@@ -518,13 +292,6 @@
 		EDB1D48718E1F18B00E0C949 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D48D18E1F18B00E0C949 /* InfoPlist.strings */; };
 		EDB1D49118E1F18B00E0C949 /* FootblTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D49018E1F18B00E0C949 /* FootblTests.m */; };
-		EDCE25D419AE3D3C00045438 /* FTCoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCE25D219AE3D3C00045438 /* FTCoreDataStore.m */; };
-		EDD976BA1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
-		EDD976BB1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
-		EDD976BC1A1F889200B08842 /* Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976B91A1F889200B08842 /* Prize.m */; };
-		EDD976BF1A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
-		EDD976C01A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
-		EDD976C11A1F889B00B08842 /* _Prize.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD976BE1A1F889B00B08842 /* _Prize.m */; };
 		F38BE948186B40249BCEB4CC /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21172ACA8F96423EA389CAA4 /* libPods-FootblTests.a */; };
 /* End PBXBuildFile section */
 
@@ -620,8 +387,8 @@
 		ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHighestTableViewCell.m; sourceTree = "<group>"; };
 		ED32432F192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileChampionshipTableViewCell.h; sourceTree = "<group>"; };
 		ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileChampionshipTableViewCell.m; sourceTree = "<group>"; };
-		ED324332192D396500F54D57 /* Match+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Match+Sharing.h"; sourceTree = "<group>"; };
-		ED324333192D396500F54D57 /* Match+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Match+Sharing.m"; sourceTree = "<group>"; };
+		ED324332192D396500F54D57 /* FTBMatch+Sharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FTBMatch+Sharing.h"; sourceTree = "<group>"; };
+		ED324333192D396500F54D57 /* FTBMatch+Sharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FTBMatch+Sharing.m"; sourceTree = "<group>"; };
 		ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeTipPopupViewController.h; sourceTree = "<group>"; };
 		ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeTipPopupViewController.m; sourceTree = "<group>"; };
 		ED3399F81A1E4EBF0037F01B /* RechargeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeButton.h; sourceTree = "<group>"; };
@@ -758,7 +525,6 @@
 		ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableViewCell.m; sourceTree = "<group>"; };
 		ED81E83B18EA769400212D3C /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
 		ED81E83C18EA769400212D3C /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
-		ED8351A819F1A04000FE1824 /* Footbl Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl Beta-Info.plist"; sourceTree = "<group>"; };
 		ED83A99919B12C5A0089CC5F /* FTBuildType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBuildType.h; sourceTree = "<group>"; };
 		ED83A99A19B12C5A0089CC5F /* FTBuildType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBuildType.m; sourceTree = "<group>"; };
 		ED8DB4181A14C95C00605CCE /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -766,7 +532,6 @@
 		ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
 		ED904B5B1A1FC63700A56BD9 /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
-		ED97AFEF1A14C7E40079ADB4 /* Footbl Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Footbl Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -952,18 +717,6 @@
 				ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */,
 				ED8DB3F71A14C95C00605CCE /* Foundation.framework in Frameworks */,
 				ED8DB3F81A14C95C00605CCE /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ED97AFCA1A14C7E40079ADB4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED97AFCB1A14C7E40079ADB4 /* CoreGraphics.framework in Frameworks */,
-				ED97AFCC1A14C7E40079ADB4 /* CoreData.framework in Frameworks */,
-				ED97AFCD1A14C7E40079ADB4 /* UIKit.framework in Frameworks */,
-				ED97AFCE1A14C7E40079ADB4 /* Foundation.framework in Frameworks */,
-				ED97AFCF1A14C7E40079ADB4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,7 +1113,6 @@
 			children = (
 				EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */,
 				ED785A64199D0C62002A4DBD /* Footbl Development.app */,
-				ED97AFEF1A14C7E40079ADB4 /* Footbl Beta.app */,
 				ED8DB4181A14C95C00605CCE /* Footbl.app */,
 			);
 			name = Products;
@@ -1397,7 +1149,6 @@
 			children = (
 				EDDCF25A193541A40090D06D /* Constants.h */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */,
-				ED8351A819F1A04000FE1824 /* Footbl Beta-Info.plist */,
 				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
 				EDB1D47C18E1F18B00E0C949 /* Images.xcassets */,
@@ -1434,8 +1185,8 @@
 		EDB1D49D18E1F3CC00E0C949 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				ED324332192D396500F54D57 /* Match+Sharing.h */,
-				ED324333192D396500F54D57 /* Match+Sharing.m */,
+				ED324332192D396500F54D57 /* FTBMatch+Sharing.h */,
+				ED324333192D396500F54D57 /* FTBMatch+Sharing.m */,
 				EDA4BBED1A2269C700A41004 /* NSDate+Utils.h */,
 				EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */,
 				EDB98296192D5FFC00697783 /* NSNumber+Formatter.h */,
@@ -1661,27 +1412,6 @@
 			productReference = ED8DB4181A14C95C00605CCE /* Footbl.app */;
 			productType = "com.apple.product-type.application";
 		};
-		ED97AF5A1A14C7E40079ADB4 /* Footbl Beta */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ED97AFEB1A14C7E40079ADB4 /* Build configuration list for PBXNativeTarget "Footbl Beta" */;
-			buildPhases = (
-				ED97AF5B1A14C7E40079ADB4 /* Set Info.plist values */,
-				ED97AF5C1A14C7E40079ADB4 /* Check Pods Manifest.lock */,
-				ED97AF5D1A14C7E40079ADB4 /* Sources */,
-				ED97AFCA1A14C7E40079ADB4 /* Frameworks */,
-				ED97AFD01A14C7E40079ADB4 /* Resources */,
-				ED97AFE81A14C7E40079ADB4 /* Copy Pods Resources */,
-				ED97AFE91A14C7E40079ADB4 /* Remove temporary Info.plist */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Footbl Beta";
-			productName = Footbl;
-			productReference = ED97AFEF1A14C7E40079ADB4 /* Footbl Beta.app */;
-			productType = "com.apple.product-type.application";
-		};
 		EDB1D48118E1F18B00E0C949 /* FootblTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDB1D49718E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "FootblTests" */;
@@ -1712,16 +1442,10 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Footbl;
 				TargetAttributes = {
-					DB5422B61A23146A0047B816 = {
-						CreatedOnToolsVersion = 6.0;
-					};
 					ED7859DE199D0C62002A4DBD = {
 						DevelopmentTeam = RA987XKNQ2;
 					};
 					ED8DB3831A14C95C00605CCE = {
-						DevelopmentTeam = RA987XKNQ2;
-					};
-					ED97AF5A1A14C7E40079ADB4 = {
 						DevelopmentTeam = RA987XKNQ2;
 					};
 					EDB1D48118E1F18B00E0C949 = {
@@ -1747,10 +1471,8 @@
 			projectRoot = "";
 			targets = (
 				ED7859DE199D0C62002A4DBD /* Footbl */,
-				ED97AF5A1A14C7E40079ADB4 /* Footbl Beta */,
 				ED8DB3831A14C95C00605CCE /* Footbl App Store */,
 				EDB1D48118E1F18B00E0C949 /* FootblTests */,
-				DB5422B61A23146A0047B816 /* Mogenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -1806,31 +1528,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ED97AFD01A14C7E40079ADB4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED97AFD11A14C7E40079ADB4 /* tutorial_3@2x.png in Resources */,
-				11D7E7C51A9C12330058473E /* Images.xcassets in Resources */,
-				117043FF1A8EB45E00521BAB /* Localizable.stringsdict in Resources */,
-				ED97AFD21A14C7E40079ADB4 /* tutorial_1_480@2x.png in Resources */,
-				ED97AFD51A14C7E40079ADB4 /* tutorial_2_480@2x.png in Resources */,
-				ED97AFD61A14C7E40079ADB4 /* Pods-acknowledgements.plist in Resources */,
-				ED97AFD91A14C7E40079ADB4 /* tutorial_5_480@2x.png in Resources */,
-				ED97AFDA1A14C7E40079ADB4 /* tutorial_4@2x.png in Resources */,
-				ED97AFDB1A14C7E40079ADB4 /* Localizable.strings in Resources */,
-				ED97AFDD1A14C7E40079ADB4 /* tutorial_1@2x.png in Resources */,
-				ED97AFE01A14C7E40079ADB4 /* InfoPlist.strings in Resources */,
-				ED97AFE11A14C7E40079ADB4 /* match_start.wav in Resources */,
-				ED97AFE21A14C7E40079ADB4 /* tutorial_5@2x.png in Resources */,
-				ED97AFE31A14C7E40079ADB4 /* match_end.wav in Resources */,
-				ED97AFE41A14C7E40079ADB4 /* tutorial_3_480@2x.png in Resources */,
-				ED97AFE51A14C7E40079ADB4 /* get_money.wav in Resources */,
-				ED97AFE61A14C7E40079ADB4 /* tutorial_2@2x.png in Resources */,
-				ED97AFE71A14C7E40079ADB4 /* tutorial_4_480@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EDB1D48018E1F18B00E0C949 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1871,19 +1568,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		DB5422BB1A23147E0047B816 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "mogenerator -m Footbl/Classes/Models/Footbl.xcdatamodeld -O Footbl/Classes/Models/Machine --template-var arc=true";
 		};
 		ED7859E0199D0C62002A4DBD /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1973,64 +1657,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED97AF5B1A14C7E40079ADB4 /* Set Info.plist values */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Set Info.plist values";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "GIT=`which git`\nCOMMIT=`$GIT log --pretty=format:\"%h - %s (%an)\" -1`\nCOMMIT_HISTORY=`$GIT log --pretty=format:\"%s (%an - %h)\"`\nGIT_DESCRIBE=`$GIT describe --always`\nGIT_COUNT=`$GIT rev-list --all |wc -l |sed \"s/ //\"`\nVERSION=\"${GIT_DESCRIBE}#${GIT_COUNT}\"\nVERSION=`echo $VERSION |sed \"s/ //\"`\ncp \"$PRODUCT_SETTINGS_PATH\" \"${PRODUCT_SETTINGS_PATH}.backup\"\nTARGET_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Info.plist\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${PRODUCT_SETTINGS_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :Commit string $COMMIT\" \"${TARGET_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CommitHistory string $COMMIT_HISTORY\" \"${TARGET_PATH}\"\ntouch \"${PRODUCT_SETTINGS_PATH}\"";
-		};
-		ED97AF5C1A14C7E40079ADB4 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		ED97AFE81A14C7E40079ADB4 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ED97AFE91A14C7E40079ADB4 /* Remove temporary Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Remove temporary Info.plist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\ncp \"${PRODUCT_SETTINGS_PATH}.backup\" \"$PRODUCT_SETTINGS_PATH\"\nrm \"${PRODUCT_SETTINGS_PATH}.backup\"\nfi";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2040,8 +1666,6 @@
 			files = (
 				109AA8FB1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */,
-				ED7859E3199D0C62002A4DBD /* _User.m in Sources */,
-				ED7859E4199D0C62002A4DBD /* User.m in Sources */,
 				ED7859E5199D0C62002A4DBD /* ProfileTableViewCell.m in Sources */,
 				ED7859E6199D0C62002A4DBD /* TutorialViewController.m in Sources */,
 				ED904B571A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
@@ -2051,34 +1675,26 @@
 				ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */,
 				ED7859EA199D0C62002A4DBD /* GroupDetailViewController.m in Sources */,
 				ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */,
-				ED7859EC199D0C62002A4DBD /* _FTModel.m in Sources */,
 				ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */,
 				109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */,
-				ED7859EF199D0C62002A4DBD /* Championship.m in Sources */,
 				ED7859F0199D0C62002A4DBD /* GroupChampionshipTableViewCell.m in Sources */,
-				ED7859F1199D0C62002A4DBD /* _Group.m in Sources */,
 				ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */,
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
 				109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
 				ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
-				ED7859F5199D0C62002A4DBD /* Match.m in Sources */,
 				ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */,
 				ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */,
 				ED7859F8199D0C62002A4DBD /* NSURLRequest+FTAuthentication.m in Sources */,
 				ED7859F9199D0C62002A4DBD /* FTAuthenticationManager.m in Sources */,
-				ED785A7C199D4A92002A4DBD /* _CreditRequest.m in Sources */,
-				ED785A80199DA5CE002A4DBD /* Entry.m in Sources */,
 				100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */,
 				109FB2B91B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
-				EDD976BA1A1F889200B08842 /* Prize.m in Sources */,
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
 				ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */,
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
-				ED7859FE199D0C62002A4DBD /* Team.m in Sources */,
 				EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
 				DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
@@ -2087,14 +1703,12 @@
 				109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
-				ED785A03199D0C62002A4DBD /* Bet.m in Sources */,
-				ED785A84199DA5D7002A4DBD /* _Entry.m in Sources */,
 				ED785A04199D0C62002A4DBD /* GroupChampionshipsViewController.m in Sources */,
 				ED785A05199D0C62002A4DBD /* TweaksHelper.m in Sources */,
 				ED785A06199D0C62002A4DBD /* FavoriteTableViewCell.m in Sources */,
 				ED785A07199D0C62002A4DBD /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED785A08199D0C62002A4DBD /* ProfileSearchViewController.m in Sources */,
-				ED785A09199D0C62002A4DBD /* Match+Sharing.m in Sources */,
+				ED785A09199D0C62002A4DBD /* FTBMatch+Sharing.m in Sources */,
 				ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
 				ED785A0A199D0C62002A4DBD /* NSString+Validations.m in Sources */,
 				EDA4BBEF1A2269C700A41004 /* NSDate+Utils.m in Sources */,
@@ -2108,8 +1722,6 @@
 				ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */,
 				109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
-				ED785A11199D0C62002A4DBD /* NSURLRequest+FTRequestOptions.m in Sources */,
-				EDA4BBE01A21069700A41004 /* Message.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
@@ -2117,12 +1729,8 @@
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
 				ED785A16199D0C62002A4DBD /* SignupViewController.m in Sources */,
-				ED785A17199D0C62002A4DBD /* FTOperationManager.m in Sources */,
 				ED785A18199D0C62002A4DBD /* WalletTableViewCell.m in Sources */,
 				ED785A19199D0C62002A4DBD /* GroupAddMembersViewController.m in Sources */,
-				ED785A1A199D0C62002A4DBD /* _Bet.m in Sources */,
-				ED785A1B199D0C62002A4DBD /* Membership.m in Sources */,
-				EDCE25D419AE3D3C00045438 /* FTCoreDataStore.m in Sources */,
 				ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */,
 				ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */,
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
@@ -2141,23 +1749,18 @@
 				109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
-				ED785A29199D0C62002A4DBD /* NSManagedObjectContext+FTAddons.m in Sources */,
-				ED785A2A199D0C62002A4DBD /* _Team.m in Sources */,
 				ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */,
 				ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */,
 				ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */,
 				100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */,
-				ED785A2E199D0C62002A4DBD /* FTModel.m in Sources */,
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
 				ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */,
 				ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */,
-				EDA4BBE51A21069E00A41004 /* _Message.m in Sources */,
 				ED785A33199D0C62002A4DBD /* AskFriendTableViewCell.m in Sources */,
 				ED785A34199D0C62002A4DBD /* SettingsTableViewCell.m in Sources */,
 				ED785A35199D0C62002A4DBD /* main.m in Sources */,
 				ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */,
 				ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */,
-				ED785A78199D4A87002A4DBD /* CreditRequest.m in Sources */,
 				ED785A38199D0C62002A4DBD /* NewGroupViewController.m in Sources */,
 				ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */,
 				ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */,
@@ -2165,15 +1768,9 @@
 				ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */,
 				ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */,
 				EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */,
-				ED785A3D199D0C62002A4DBD /* _Championship.m in Sources */,
-				EDD976BF1A1F889B00B08842 /* _Prize.m in Sources */,
-				ED785A3E199D0C62002A4DBD /* _Membership.m in Sources */,
-				ED785A3F199D0C62002A4DBD /* Footbl.xcdatamodeld in Sources */,
 				ED785A40199D0C62002A4DBD /* LoadingHelper.m in Sources */,
 				ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */,
-				ED785A41199D0C62002A4DBD /* Group.m in Sources */,
 				ED785A42199D0C62002A4DBD /* RatingHelper.m in Sources */,
-				ED785A43199D0C62002A4DBD /* _Match.m in Sources */,
 				ED785A44199D0C62002A4DBD /* SDImageCache+ShippedCache.m in Sources */,
 				ED785A45199D0C62002A4DBD /* ImportImageHelper.m in Sources */,
 			);
@@ -2185,61 +1782,48 @@
 			files = (
 				109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				ED8DB3871A14C95C00605CCE /* LoginViewController.m in Sources */,
-				ED8DB3881A14C95C00605CCE /* _User.m in Sources */,
 				EDA4BBF11A2269C700A41004 /* NSDate+Utils.m in Sources */,
-				ED8DB3891A14C95C00605CCE /* User.m in Sources */,
 				ED8DB38A1A14C95C00605CCE /* ProfileTableViewCell.m in Sources */,
 				ED8DB38B1A14C95C00605CCE /* TutorialViewController.m in Sources */,
 				ED8DB38C1A14C95C00605CCE /* WalletGraphView.m in Sources */,
 				ED8DB38D1A14C95C00605CCE /* ErrorHandler.m in Sources */,
 				ED8DB38E1A14C95C00605CCE /* ForceUpdateViewController.m in Sources */,
 				ED8DB38F1A14C95C00605CCE /* GroupDetailViewController.m in Sources */,
-				EDA4BBE71A21069E00A41004 /* _Message.m in Sources */,
 				ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */,
-				ED8DB3911A14C95C00605CCE /* _FTModel.m in Sources */,
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
 				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
-				ED8DB3941A14C95C00605CCE /* Championship.m in Sources */,
 				ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */,
-				ED8DB3961A14C95C00605CCE /* _Group.m in Sources */,
 				ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */,
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
 				109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
 				ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */,
-				ED8DB39B1A14C95C00605CCE /* Match.m in Sources */,
 				ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */,
 				ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */,
 				ED8DB39E1A14C95C00605CCE /* NSURLRequest+FTAuthentication.m in Sources */,
 				ED8DB39F1A14C95C00605CCE /* FTAuthenticationManager.m in Sources */,
-				ED8DB3A01A14C95C00605CCE /* _CreditRequest.m in Sources */,
-				ED8DB3A11A14C95C00605CCE /* Entry.m in Sources */,
 				100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */,
 				109FB2BB1B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */,
 				ED8DB3A31A14C95C00605CCE /* GroupTableViewCell.m in Sources */,
 				ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */,
 				ED8DB3A51A14C95C00605CCE /* UIImage+Color.m in Sources */,
-				ED8DB3A61A14C95C00605CCE /* Team.m in Sources */,
 				ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */,
 				ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */,
 				DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
-				ED8DB3AB1A14C95C00605CCE /* Bet.m in Sources */,
 				109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */,
-				ED8DB3AC1A14C95C00605CCE /* _Entry.m in Sources */,
 				ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */,
 				ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */,
 				ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */,
 				ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */,
-				ED8DB3B21A14C95C00605CCE /* Match+Sharing.m in Sources */,
+				ED8DB3B21A14C95C00605CCE /* FTBMatch+Sharing.m in Sources */,
 				ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
-				EDD976BC1A1F889200B08842 /* Prize.m in Sources */,
 				ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */,
 				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
@@ -2248,11 +1832,9 @@
 				109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */,
 				109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */,
-				EDA4BBE21A21069700A41004 /* Message.m in Sources */,
 				ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */,
 				ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */,
 				109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */,
-				ED8DB3BA1A14C95C00605CCE /* NSURLRequest+FTRequestOptions.m in Sources */,
 				ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */,
 				ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
@@ -2261,12 +1843,8 @@
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
-				ED8DB3C01A14C95C00605CCE /* FTOperationManager.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,
 				ED8DB3C21A14C95C00605CCE /* GroupAddMembersViewController.m in Sources */,
-				ED8DB3C31A14C95C00605CCE /* _Bet.m in Sources */,
-				ED8DB3C41A14C95C00605CCE /* Membership.m in Sources */,
-				ED8DB3C51A14C95C00605CCE /* FTCoreDataStore.m in Sources */,
 				ED8DB3C61A14C95C00605CCE /* ChangePasswordViewController.m in Sources */,
 				ED8DB3C71A14C95C00605CCE /* FootblPopupAnimatedTransition.m in Sources */,
 				ED8DB3C81A14C95C00605CCE /* ProfileChampionshipTableViewCell.m in Sources */,
@@ -2285,12 +1863,9 @@
 				10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
-				ED8DB3D41A14C95C00605CCE /* NSManagedObjectContext+FTAddons.m in Sources */,
-				ED8DB3D51A14C95C00605CCE /* _Team.m in Sources */,
 				ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */,
 				ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */,
 				ED8DB3D81A14C95C00605CCE /* FootblLabel.m in Sources */,
-				ED8DB3D91A14C95C00605CCE /* FTModel.m in Sources */,
 				100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED8DB3DA1A14C95C00605CCE /* SettingsViewController.m in Sources */,
 				ED8DB3DB1A14C95C00605CCE /* FootblNavigationController.m in Sources */,
@@ -2299,10 +1874,8 @@
 				ED8DB3DD1A14C95C00605CCE /* AskFriendTableViewCell.m in Sources */,
 				ED8DB3DE1A14C95C00605CCE /* SettingsTableViewCell.m in Sources */,
 				ED8DB3DF1A14C95C00605CCE /* main.m in Sources */,
-				EDD976C11A1F889B00B08842 /* _Prize.m in Sources */,
 				ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */,
 				ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */,
-				ED8DB3E21A14C95C00605CCE /* CreditRequest.m in Sources */,
 				ED8DB3E31A14C95C00605CCE /* NewGroupViewController.m in Sources */,
 				ED8DB3E41A14C95C00605CCE /* FootblAppearance.m in Sources */,
 				ED8DB3E51A14C95C00605CCE /* MatchTableViewCell+Setup.m in Sources */,
@@ -2311,161 +1884,11 @@
 				ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
 				EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */,
-				ED8DB3E91A14C95C00605CCE /* _Championship.m in Sources */,
-				ED8DB3EA1A14C95C00605CCE /* _Membership.m in Sources */,
-				ED8DB3EB1A14C95C00605CCE /* Footbl.xcdatamodeld in Sources */,
 				ED8DB3EC1A14C95C00605CCE /* LoadingHelper.m in Sources */,
 				ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */,
-				ED8DB3EE1A14C95C00605CCE /* Group.m in Sources */,
 				ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */,
-				ED8DB3F01A14C95C00605CCE /* _Match.m in Sources */,
 				ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */,
 				ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ED97AF5D1A14C7E40079ADB4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				109AA8FC1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
-				ED97AF5E1A14C7E40079ADB4 /* LoginViewController.m in Sources */,
-				ED97AF5F1A14C7E40079ADB4 /* _User.m in Sources */,
-				EDA4BBF01A2269C700A41004 /* NSDate+Utils.m in Sources */,
-				ED97AF601A14C7E40079ADB4 /* User.m in Sources */,
-				ED97AF611A14C7E40079ADB4 /* ProfileTableViewCell.m in Sources */,
-				ED97AF621A14C7E40079ADB4 /* TutorialViewController.m in Sources */,
-				ED97AF631A14C7E40079ADB4 /* WalletGraphView.m in Sources */,
-				ED97AF641A14C7E40079ADB4 /* ErrorHandler.m in Sources */,
-				ED97AF651A14C7E40079ADB4 /* ForceUpdateViewController.m in Sources */,
-				ED97AF661A14C7E40079ADB4 /* GroupDetailViewController.m in Sources */,
-				EDA4BBE61A21069E00A41004 /* _Message.m in Sources */,
-				ED97AF671A14C7E40079ADB4 /* MatchesNavigationBarView.m in Sources */,
-				ED97AF681A14C7E40079ADB4 /* _FTModel.m in Sources */,
-				ED97AF691A14C7E40079ADB4 /* TemplateTableViewCell.m in Sources */,
-				109FB2D21B7C334900E67B3C /* FTBGroup.m in Sources */,
-				ED97AF6A1A14C7E40079ADB4 /* GroupAddMemberTableViewCell.m in Sources */,
-				ED97AF6B1A14C7E40079ADB4 /* Championship.m in Sources */,
-				ED97AF6C1A14C7E40079ADB4 /* GroupChampionshipTableViewCell.m in Sources */,
-				ED97AF6D1A14C7E40079ADB4 /* _Group.m in Sources */,
-				ED97AF6E1A14C7E40079ADB4 /* FavoritesViewController.m in Sources */,
-				ED97AF6F1A14C7E40079ADB4 /* FriendsHelper.m in Sources */,
-				109FB2EA1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
-				ED97AF701A14C7E40079ADB4 /* TransferTableViewCell.m in Sources */,
-				ED5C4E461A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
-				ED97AF711A14C7E40079ADB4 /* GroupsViewController.m in Sources */,
-				ED97AF721A14C7E40079ADB4 /* Match.m in Sources */,
-				ED97AF731A14C7E40079ADB4 /* FeaturedViewController.m in Sources */,
-				ED97AF741A14C7E40079ADB4 /* ProfileBetsViewController.m in Sources */,
-				ED97AF751A14C7E40079ADB4 /* NSURLRequest+FTAuthentication.m in Sources */,
-				ED97AF761A14C7E40079ADB4 /* FTAuthenticationManager.m in Sources */,
-				ED97AF771A14C7E40079ADB4 /* _CreditRequest.m in Sources */,
-				ED97AF781A14C7E40079ADB4 /* Entry.m in Sources */,
-				100E6A5F1B7ADD620012093B /* FTBChampionship.m in Sources */,
-				109FB2BA1B7C21E200E67B3C /* FTBUser.m in Sources */,
-				ED97AF791A14C7E40079ADB4 /* AppDelegate.m in Sources */,
-				ED97AF7A1A14C7E40079ADB4 /* GroupTableViewCell.m in Sources */,
-				ED97AF7B1A14C7E40079ADB4 /* NSString+Hex.m in Sources */,
-				ED97AF7C1A14C7E40079ADB4 /* UIImage+Color.m in Sources */,
-				ED97AF7D1A14C7E40079ADB4 /* Team.m in Sources */,
-				ED97AF7E1A14C7E40079ADB4 /* EditProfileViewController.m in Sources */,
-				ED97AF7F1A14C7E40079ADB4 /* WhatsAppActivity.m in Sources */,
-				DB5422A51A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
-				ED97AF801A14C7E40079ADB4 /* TransfersViewController.m in Sources */,
-				ED97AF811A14C7E40079ADB4 /* AuthenticationViewController.m in Sources */,
-				ED97AF821A14C7E40079ADB4 /* Bet.m in Sources */,
-				109FB2C61B7C29AB00E67B3C /* FTBTeam.m in Sources */,
-				EDA4BBF51A22C17C00A41004 /* ChatHelper.m in Sources */,
-				ED97AF831A14C7E40079ADB4 /* _Entry.m in Sources */,
-				ED97AF841A14C7E40079ADB4 /* GroupChampionshipsViewController.m in Sources */,
-				ED97AF851A14C7E40079ADB4 /* TweaksHelper.m in Sources */,
-				ED97AF861A14C7E40079ADB4 /* FavoriteTableViewCell.m in Sources */,
-				ED97AF871A14C7E40079ADB4 /* NSParagraphStyle+AlignmentCenter.m in Sources */,
-				ED97AF881A14C7E40079ADB4 /* ProfileSearchViewController.m in Sources */,
-				ED97AF891A14C7E40079ADB4 /* Match+Sharing.m in Sources */,
-				ED3399FB1A1E4EBF0037F01B /* RechargeButton.m in Sources */,
-				EDD976BB1A1F889200B08842 /* Prize.m in Sources */,
-				ED97AF8A1A14C7E40079ADB4 /* NSString+Validations.m in Sources */,
-				ED3399F61A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
-				ED97AF8B1A14C7E40079ADB4 /* UILabel+MaxFontSize.m in Sources */,
-				ED97AF8C1A14C7E40079ADB4 /* GroupInfoViewController.m in Sources */,
-				ED97AF8D1A14C7E40079ADB4 /* SettingsTextViewController.m in Sources */,
-				109FB2B41B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
-				ED97AF8E1A14C7E40079ADB4 /* UIView+Shake.m in Sources */,
-				109FB2CC1B7C333D00E67B3C /* FTBPrize.m in Sources */,
-				EDA4BBE11A21069700A41004 /* Message.m in Sources */,
-				ED97AF8F1A14C7E40079ADB4 /* GroupInfoBaseViewController.m in Sources */,
-				ED97AF901A14C7E40079ADB4 /* WhatsAppAPI.m in Sources */,
-				109FB2C01B7C28D700E67B3C /* FTBMatch.m in Sources */,
-				ED97AF911A14C7E40079ADB4 /* NSURLRequest+FTRequestOptions.m in Sources */,
-				ED97AF921A14C7E40079ADB4 /* FootblPopupViewController.m in Sources */,
-				ED904B581A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
-				ED97AF931A14C7E40079ADB4 /* AskFriendsViewController.m in Sources */,
-				ED97AF941A14C7E40079ADB4 /* ProfileViewController.m in Sources */,
-				100E6A641B7AEC730012093B /* UIView+Frame.m in Sources */,
-				ED97AF951A14C7E40079ADB4 /* NSString+SHA1.m in Sources */,
-				DB5422A01A1FE9530047B816 /* DailyBonusPopupViewController.m in Sources */,
-				ED97AF961A14C7E40079ADB4 /* SignupViewController.m in Sources */,
-				ED97AF971A14C7E40079ADB4 /* FTOperationManager.m in Sources */,
-				ED97AF981A14C7E40079ADB4 /* WalletTableViewCell.m in Sources */,
-				ED97AF991A14C7E40079ADB4 /* GroupAddMembersViewController.m in Sources */,
-				ED97AF9A1A14C7E40079ADB4 /* _Bet.m in Sources */,
-				ED97AF9B1A14C7E40079ADB4 /* Membership.m in Sources */,
-				ED97AF9C1A14C7E40079ADB4 /* FTCoreDataStore.m in Sources */,
-				ED97AF9D1A14C7E40079ADB4 /* ChangePasswordViewController.m in Sources */,
-				ED97AF9E1A14C7E40079ADB4 /* FootblPopupAnimatedTransition.m in Sources */,
-				ED97AF9F1A14C7E40079ADB4 /* ProfileChampionshipTableViewCell.m in Sources */,
-				ED97AFA01A14C7E40079ADB4 /* TeamImageView.m in Sources */,
-				ED97AFA11A14C7E40079ADB4 /* MatchesViewController.m in Sources */,
-				ED97AFA21A14C7E40079ADB4 /* GroupMembershipTableViewCell.m in Sources */,
-				109FB2E41B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
-				ED97AFA31A14C7E40079ADB4 /* AnonymousViewController.m in Sources */,
-				ED97AFA41A14C7E40079ADB4 /* FTRequestSerializer.m in Sources */,
-				ED97AFA51A14C7E40079ADB4 /* WalletHighestTableViewCell.m in Sources */,
-				ED97AFA61A14C7E40079ADB4 /* FeaturedButton.m in Sources */,
-				ED97AFA71A14C7E40079ADB4 /* MatchTableViewCell.m in Sources */,
-				ED97AFA81A14C7E40079ADB4 /* MyLeaguesViewController.m in Sources */,
-				ED97AFA91A14C7E40079ADB4 /* TemplateViewController.m in Sources */,
-				109FB2D81B7C366D00E67B3C /* FTBMessage.m in Sources */,
-				10390DCB1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
-				109FB2DE1B7C385500E67B3C /* FTBBet.m in Sources */,
-				ED97AFAA1A14C7E40079ADB4 /* UILabel+Shake.m in Sources */,
-				ED97AFAB1A14C7E40079ADB4 /* NSManagedObjectContext+FTAddons.m in Sources */,
-				ED97AFAC1A14C7E40079ADB4 /* _Team.m in Sources */,
-				ED97AFAD1A14C7E40079ADB4 /* RechargeViewController.m in Sources */,
-				ED97AFAE1A14C7E40079ADB4 /* UIFont+MaxFontSize.m in Sources */,
-				ED97AFAF1A14C7E40079ADB4 /* FootblLabel.m in Sources */,
-				ED97AFB01A14C7E40079ADB4 /* FTModel.m in Sources */,
-				100E6A5A1B7AD7DB0012093B /* FTBModel.m in Sources */,
-				ED97AFB11A14C7E40079ADB4 /* SettingsViewController.m in Sources */,
-				ED97AFB21A14C7E40079ADB4 /* FootblNavigationController.m in Sources */,
-				ED97AFB31A14C7E40079ADB4 /* LogsViewController.m in Sources */,
-				EDA4BBEB1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
-				ED97AFB41A14C7E40079ADB4 /* AskFriendTableViewCell.m in Sources */,
-				ED97AFB51A14C7E40079ADB4 /* SettingsTableViewCell.m in Sources */,
-				ED97AFB61A14C7E40079ADB4 /* main.m in Sources */,
-				EDD976C01A1F889B00B08842 /* _Prize.m in Sources */,
-				ED97AFB71A14C7E40079ADB4 /* FTImageUploader.m in Sources */,
-				ED97AFB81A14C7E40079ADB4 /* NSNumber+Formatter.m in Sources */,
-				ED97AFB91A14C7E40079ADB4 /* CreditRequest.m in Sources */,
-				ED97AFBA1A14C7E40079ADB4 /* NewGroupViewController.m in Sources */,
-				ED97AFBB1A14C7E40079ADB4 /* FootblAppearance.m in Sources */,
-				ED97AFBC1A14C7E40079ADB4 /* MatchTableViewCell+Setup.m in Sources */,
-				ED97AFBD1A14C7E40079ADB4 /* FootblTabBarController.m in Sources */,
-				ED97AFBE1A14C7E40079ADB4 /* FTBuildType.m in Sources */,
-				ED904B5E1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
-				EDA4BBFA1A238CA200A41004 /* TransfersHelper.m in Sources */,
-				ED97AFBF1A14C7E40079ADB4 /* WalletGraphTableViewCell.m in Sources */,
-				ED97AFC01A14C7E40079ADB4 /* _Championship.m in Sources */,
-				ED97AFC11A14C7E40079ADB4 /* _Membership.m in Sources */,
-				ED97AFC21A14C7E40079ADB4 /* Footbl.xcdatamodeld in Sources */,
-				ED97AFC31A14C7E40079ADB4 /* LoadingHelper.m in Sources */,
-				ED97AFC41A14C7E40079ADB4 /* BetsViewController.m in Sources */,
-				ED97AFC51A14C7E40079ADB4 /* Group.m in Sources */,
-				ED97AFC61A14C7E40079ADB4 /* RatingHelper.m in Sources */,
-				ED97AFC71A14C7E40079ADB4 /* _Match.m in Sources */,
-				ED97AFC81A14C7E40079ADB4 /* SDImageCache+ShippedCache.m in Sources */,
-				ED97AFC91A14C7E40079ADB4 /* ImportImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2702,27 +2125,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DB5422B81A23146A0047B816 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		DB5422B91A23146A0047B816 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		DB5422BA1A23146A0047B816 /* QA */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = QA;
-		};
 		ED785A61199D0C62002A4DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8AE988B077B17F023861F3D /* Pods.debug.xcconfig */;
@@ -2738,8 +2140,8 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
 					"FB_TWEAK_ENABLED=1",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
@@ -2762,7 +2164,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=3",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_NAME = "Footbl Development";
@@ -2840,80 +2242,6 @@
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
 				PRODUCT_NAME = Footbl;
-				WRAPPER_EXTENSION = app;
-			};
-			name = QA;
-		};
-		ED97AFEC1A14C7E40079ADB4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8AE988B077B17F023861F3D /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
-					"FB_TWEAK_ENABLED=1",
-					"FTB_ENVIRONMENT_DEVELOPMENT=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl Beta";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		ED97AFED1A14C7E40079ADB4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5DA4E43BAD48CE7FDAEF76B /* Pods.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
-					"FTB_ENVIRONMENT_DEVELOPMENT=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl Beta";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		ED97AFEE1A14C7E40079ADB4 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9957A72B200D668DE7AE441D /* Pods.qa.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
-					"FB_TWEAK_ENABLED=1",
-					"FTB_ENVIRONMENT_DEVELOPMENT=1",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl Beta-Info.plist";
-				PRODUCT_NAME = "Footbl Beta";
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -3091,7 +2419,7 @@
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FT_SERVER_ENVIRONMENT=1",
+					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
@@ -3103,16 +2431,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DB5422B71A23146A0047B816 /* Build configuration list for PBXAggregateTarget "Mogenerator" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DB5422B81A23146A0047B816 /* Debug */,
-				DB5422B91A23146A0047B816 /* Release */,
-				DB5422BA1A23146A0047B816 /* QA */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3129,16 +2447,6 @@
 				ED8DB4151A14C95C00605CCE /* Debug */,
 				ED8DB4161A14C95C00605CCE /* Release */,
 				ED8DB4171A14C95C00605CCE /* QA */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ED97AFEB1A14C7E40079ADB4 /* Build configuration list for PBXNativeTarget "Footbl Beta" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ED97AFEC1A14C7E40079ADB4 /* Debug */,
-				ED97AFED1A14C7E40079ADB4 /* Release */,
-				ED97AFEE1A14C7E40079ADB4 /* QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

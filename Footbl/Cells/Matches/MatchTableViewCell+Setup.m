@@ -7,7 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Match+Sharing.h"
+#import "FTBMatch+Sharing.h"
 #import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
@@ -91,7 +91,7 @@
     }
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.stakeValueLabel, self.returnValueLabel, self.profitValueLabel]];
     
-    if (match.status == MatchStatusFinished) {
+    if (match.status == FTBMatchStatusFinished) {
         if (bet.reward.floatValue > 0) {
             self.colorScheme = MatchTableViewCellColorSchemeHighlightProfit;
         } else {

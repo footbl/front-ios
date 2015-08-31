@@ -9,7 +9,9 @@
 #import <iRate/iRate.h>
 #import <SPHipster/SPHipster.h>
 #import "RatingHelper.h"
-#import "User.h"
+#import "FTAuthenticationManager.h"
+
+#import "FTBUser.h"
 
 NSInteger const WalletReference = 105;
 
@@ -51,7 +53,7 @@ NSInteger const WalletReference = 105;
 #pragma mark - iRate Delegate
 
 - (BOOL)iRateShouldPromptForRating {
-    User *user = [User currentUser];
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
     if (user.fundsValue + user.stakeValue >= WalletReference && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
         return YES;
     }

@@ -8,11 +8,14 @@
 
 #import "AskFriendsViewController.h"
 #import "FootblLabel.h"
+#import "FTAuthenticationManager.h"
 #import "NSParagraphStyle+AlignmentCenter.h"
 #import "LoadingHelper.h"
 #import "RechargeViewController.h"
 #import "UIView+Frame.h"
-#import "User.h"
+
+#import "FTBClient.h"
+#import "FTBUser.h"
 
 @interface RechargeViewController ()
 
@@ -33,18 +36,18 @@
 }
 
 - (IBAction)rechargeAction:(id)sender {
-    if (![User currentUser].canRecharge) {
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+    if (!user.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     [[LoadingHelper sharedInstance] showHud];
-
-    [[User currentUser].editableObject rechargeWithSuccess:^(id response) {
+	[[FTBClient client] rechargeUser:user.identifier success:^(id object) {
         [[LoadingHelper sharedInstance] hideHud];
         [self dismissViewController];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
@@ -57,7 +60,9 @@
 
 - (void)loadView {
     [super loadView];
-    
+	
+	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	
     self.navigationController.navigationBarHidden = YES;
     
     self.headerImageView.image = [UIImage imageNamed:@"illust_recharge_money"];
@@ -78,7 +83,7 @@
     walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:11];
     walletLabel.firstLineFont = [UIFont fontWithName:kFontNameAvenirNextMedium size:36];
     walletLabel.lineHeightMultiple = 0.5;
-    walletLabel.text = [[User currentUser].totalWallet.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
+    walletLabel.text = [user.totalWallet.stringValue stringByAppendingFormat:@"\n%@", NSLocalizedString(@"Actual amount", @"").lowercaseString];
     [self.view addSubview:walletLabel];
     
     FootblLabel *afterRechargeLabel = [[FootblLabel alloc] initWithFrame:CGRectMake(self.view.width - 137, 224, 86, 72)];

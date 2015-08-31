@@ -9,10 +9,12 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AskFriendsViewController.h"
 #import "AskFriendTableViewCell.h"
-#import "CreditRequest.h"
 #import "FriendsHelper.h"
 #import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
+
+#import "FTBClient.h"
+#import "FTBCreditRequest.h"
 
 @interface AskFriendsViewController ()
 
@@ -110,14 +112,20 @@
         [tempIds addObjectsFromArray:[ids subarrayWithRange:NSMakeRange(0, MIN(50, ids.count))]];
         [ids removeObjectsInRange:NSMakeRange(0, MIN(50, ids.count))];
         if (tempIds.count == 0) {
+			__block NSUInteger count = 0;
             [[LoadingHelper sharedInstance] showHud];
-            [CreditRequest createWithIds:successfullIds success:^(id response) {
-                [[LoadingHelper sharedInstance] hideHud];
-                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [[LoadingHelper sharedInstance] hideHud];
-                [[ErrorHandler sharedInstance] displayError:error];
-            }];
+			for (NSString *user in successfullIds) {
+				[[FTBClient client] createCreditRequest:user success:^(id object) {
+					[[LoadingHelper sharedInstance] hideHud];
+					count++;
+					if (count == successfullIds.count) {
+						[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+					}
+				} failure:^(NSError *error) {
+					[[LoadingHelper sharedInstance] hideHud];
+					[[ErrorHandler sharedInstance] displayError:error];
+				}];
+			}
         } else {
             fbBlock(tempIds);
         }

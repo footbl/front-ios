@@ -16,6 +16,8 @@
 #import "NSURLRequest+FTAuthentication.h"
 #import "NSURLRequest+FTRequestOptions.h"
 
+#define FT_SERVER_ENVIRONMENT 0
+
 @interface FTOperationManager ()
 
 @property (strong, nonatomic) NSMutableDictionary *groupingDictionary;

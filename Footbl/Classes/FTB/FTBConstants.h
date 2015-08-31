@@ -37,8 +37,6 @@ typedef NS_ENUM(NSUInteger, FTBPrizeType) {
 	FTBPrizeTypeUpdate
 };
 
-#warning Remove the lines below
-
 extern NSString * const kFTNotificationAPIOutdated;
 extern NSString * const kFTNotificationAuthenticationChanged;
 extern NSString * const kFTErrorDomain;

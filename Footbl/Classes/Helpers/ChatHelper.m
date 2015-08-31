@@ -7,11 +7,13 @@
 //
 
 #import "ChatHelper.h"
-#import "Group.h"
 
-@interface ChatHelper () <NSFetchedResultsControllerDelegate>
+#import "FTBClient.h"
+#import "FTBGroup.h"
 
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@interface ChatHelper ()
+
+@property (nonatomic, strong) NSMutableArray *groups;
 
 @end
 
@@ -32,38 +34,20 @@
 
 #pragma mark - Instance Methods
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Group"];
-        fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"rid" ascending:YES]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"removed = %@", @NO];
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[FTCoreDataStore mainQueueContext] sectionNameKeyPath:nil cacheName:nil];
-        self.fetchedResultsController.delegate = self;
-        
-        NSError *error = nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-    return self;
-}
-
 - (NSNumber *)unreadCount {
     NSNumber *unreadMessageCount = @0;
-    for (Group *group in self.fetchedResultsController.fetchedObjects) {
-        unreadMessageCount = @(unreadMessageCount.integerValue + group.unreadMessagesCountValue);
+    for (FTBGroup *group in self.groups) {
+        unreadMessageCount = @(unreadMessageCount.integerValue + group.unreadMessagesCount.integerValue);
     }
     return unreadMessageCount;
 }
 
 - (void)fetchUnreadMessages {
-    [self controllerDidChangeContent:self.fetchedResultsController];
-    [Group getWithObject:nil success:^(id response) {
-        [self controllerDidChangeContent:self.fetchedResultsController];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self controllerDidChangeContent:self.fetchedResultsController];
+    [self controllerDidChangeContent];
+	[[FTBClient client] groups:0 success:^(id object) {
+        [self controllerDidChangeContent];
+    } failure:^(NSError *error) {
+        [self controllerDidChangeContent];
     }];
 }
 
@@ -71,7 +55,7 @@
 
 #pragma mark - NSFetchedResultsController delegate
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+- (void)controllerDidChangeContent {
     NSNumber *unreadCount = self.unreadCount;
     if (unreadCount.integerValue == 0) {
         self.tabBarItem.badgeValue = nil;

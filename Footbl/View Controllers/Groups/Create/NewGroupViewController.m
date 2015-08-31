@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "Championship.h"
 #import "FriendsHelper.h"
-#import "Group.h"
 #import "GroupAddMembersViewController.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "NewGroupViewController.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
+
+#import "FTBClient.h"
+#import "FTBGroup.h"
 
 @interface NewGroupViewController ()
 
@@ -88,11 +89,11 @@
         
         [self.nameTextField resignFirstResponder];
         [[LoadingHelper sharedInstance] showHud];
-        
-        [Group joinGroupWithCode:self.nameTextField.text success:^(id response) {
+		
+        [[FTBClient client] enterGroup:self.nameTextField.text success:^(id object) {
            [[LoadingHelper sharedInstance] hideHud];
             [self dismissAction:sender];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(NSError *error) {
             [[LoadingHelper sharedInstance] hideHud];
             [[ErrorHandler sharedInstance] displayError:error];
         }];

@@ -9,7 +9,6 @@
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
-#import "FTOperationManager.h"
 #import "TemplateViewController.h"
 
 @interface TemplateViewController ()
@@ -32,7 +31,6 @@
 
 - (void)reloadData {
     self.lastUpdateAt = [NSDate date];
-    [[FTOperationManager sharedManager] validateEnvironmentWithSuccess:nil failure:nil];
 }
 
 - (NSTimeInterval)updateInterval {
