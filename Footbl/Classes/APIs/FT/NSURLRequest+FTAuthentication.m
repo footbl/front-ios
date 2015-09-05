@@ -28,9 +28,9 @@
     }
     
     if (!request.containsToken) {
-        float unixTime = roundf((float)[[NSDate date] timeIntervalSince1970] * 1000.f);
+        double unixTime = round([[NSDate date] timeIntervalSince1970] * 1000);
         NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
-        NSString *signature = [NSString stringWithFormat:@"%.00f%@%@", unixTime, transactionIdentifier, FTBSignatureKey.sha1];
+        NSString *signature = [NSString stringWithFormat:@"%.00f%@%@", unixTime, transactionIdentifier, FTBSignatureKey].sha1;
         
         [request setValue:[NSString stringWithFormat:@"%.00f", unixTime] forHTTPHeaderField:@"auth-timestamp"];
         [request setValue:transactionIdentifier forHTTPHeaderField:@"auth-transactionId"];
