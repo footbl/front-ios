@@ -10,7 +10,6 @@ build/*
 !default.xcworkspace
 project.xcworkspace
 xcuserdata
-profile
 *.moved-aside
 .svn
 .DS_Store
@@ -18,4 +17,3 @@ profile
 /db/*.sqlite3
 /log/*.log
 /tmp
-Footbl Beta-Info.plist.backup

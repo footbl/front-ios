@@ -52,6 +52,18 @@
 		109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
+		10AF59371B9C662C00168433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AF59361B9C662C00168433 /* Main.storyboard */; };
+		10AF59381B9C662C00168433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AF59361B9C662C00168433 /* Main.storyboard */; };
+		10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */; };
+		10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */; };
+		10AF593F1B9C6DDF00168433 /* TrophyRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */; };
+		10AF59401B9C6DDF00168433 /* TrophyRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */; };
+		10AF59431B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */; };
+		10AF59441B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */; };
+		10AF59471B9C7ED200168433 /* UserPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */; };
+		10AF59481B9C7ED200168433 /* UserPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */; };
+		10AF594B1B9C863C00168433 /* UserPerformanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceCell.m */; };
+		10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceCell.m */; };
 		117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -337,6 +349,17 @@
 		109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChallenge.m; sourceTree = "<group>"; };
 		109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBCreditRequest.h; sourceTree = "<group>"; };
 		109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBCreditRequest.m; sourceTree = "<group>"; };
+		10AF59361B9C662C00168433 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		10AF59391B9C6D9A00168433 /* TrophyRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomViewController.h; sourceTree = "<group>"; };
+		10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomViewController.m; sourceTree = "<group>"; };
+		10AF593D1B9C6DDF00168433 /* TrophyRoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomCell.h; sourceTree = "<group>"; };
+		10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomCell.m; sourceTree = "<group>"; };
+		10AF59411B9C763200168433 /* TrophyRoomPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomPopupViewController.h; sourceTree = "<group>"; };
+		10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomPopupViewController.m; sourceTree = "<group>"; };
+		10AF59451B9C7ED200168433 /* UserPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPerformanceViewController.h; sourceTree = "<group>"; };
+		10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceViewController.m; sourceTree = "<group>"; };
+		10AF59491B9C863C00168433 /* UserPerformanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPerformanceCell.h; sourceTree = "<group>"; };
+		10AF594A1B9C863C00168433 /* UserPerformanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceCell.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -770,6 +793,14 @@
 			path = FTB;
 			sourceTree = "<group>";
 		};
+		10AF59351B9C65FF00168433 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				10AF59361B9C662C00168433 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		DA9AD43A9790C443A80AB66C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -834,6 +865,10 @@
 				ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */,
 				ED324329192BCD8000F54D57 /* WalletTableViewCell.h */,
 				ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */,
+				10AF593D1B9C6DDF00168433 /* TrophyRoomCell.h */,
+				10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */,
+				10AF59491B9C863C00168433 /* UserPerformanceCell.h */,
+				10AF594A1B9C863C00168433 /* UserPerformanceCell.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -860,6 +895,8 @@
 				ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */,
 				ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */,
 				ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */,
+				10AF59411B9C763200168433 /* TrophyRoomPopupViewController.h */,
+				10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -969,6 +1006,10 @@
 				EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */,
 				ED81E82018EA6A7500212D3C /* ProfileViewController.h */,
 				ED81E82118EA6A7500212D3C /* ProfileViewController.m */,
+				10AF59391B9C6D9A00168433 /* TrophyRoomViewController.h */,
+				10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */,
+				10AF59451B9C7ED200168433 /* UserPerformanceViewController.h */,
+				10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1135,6 +1176,7 @@
 		EDB1D46D18E1F18B00E0C949 /* Footbl */ = {
 			isa = PBXGroup;
 			children = (
+				10AF59351B9C65FF00168433 /* Storyboards */,
 				EDB1D49D18E1F3CC00E0C949 /* Categories */,
 				EDB1D4A018E1F3E000E0C949 /* Cells */,
 				EDB1D49E18E1F3D200E0C949 /* Classes */,
@@ -1499,6 +1541,7 @@
 				ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */,
 				ED7C716319F949310002E6B0 /* get_money.wav in Resources */,
 				ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */,
+				10AF59371B9C662C00168433 /* Main.storyboard in Resources */,
 				ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1524,6 +1567,7 @@
 				ED8DB40D1A14C95C00605CCE /* tutorial_3_480@2x.png in Resources */,
 				ED8DB40E1A14C95C00605CCE /* get_money.wav in Resources */,
 				ED8DB40F1A14C95C00605CCE /* tutorial_2@2x.png in Resources */,
+				10AF59381B9C662C00168433 /* Main.storyboard in Resources */,
 				ED8DB4101A14C95C00605CCE /* tutorial_4_480@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1675,6 +1719,7 @@
 				ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */,
 				ED7859EA199D0C62002A4DBD /* GroupDetailViewController.m in Sources */,
 				ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */,
+				10AF593F1B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
 				ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */,
 				109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */,
@@ -1695,6 +1740,7 @@
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
 				ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */,
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
+				10AF59431B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
 				DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
@@ -1715,6 +1761,7 @@
 				ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */,
 				109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
+				10AF59471B9C7ED200168433 /* UserPerformanceViewController.m in Sources */,
 				ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */,
 				109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */,
@@ -1722,6 +1769,7 @@
 				ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */,
 				109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
+				10AF594B1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
@@ -1759,6 +1807,7 @@
 				ED785A33199D0C62002A4DBD /* AskFriendTableViewCell.m in Sources */,
 				ED785A34199D0C62002A4DBD /* SettingsTableViewCell.m in Sources */,
 				ED785A35199D0C62002A4DBD /* main.m in Sources */,
+				10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
 				ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */,
 				ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */,
 				ED785A38199D0C62002A4DBD /* NewGroupViewController.m in Sources */,
@@ -1791,6 +1840,7 @@
 				ED8DB38F1A14C95C00605CCE /* GroupDetailViewController.m in Sources */,
 				ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */,
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
+				10AF59401B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
 				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
 				ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */,
@@ -1811,6 +1861,7 @@
 				ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */,
 				ED8DB3A51A14C95C00605CCE /* UIImage+Color.m in Sources */,
 				ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */,
+				10AF59441B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */,
 				DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
@@ -1831,6 +1882,7 @@
 				ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */,
 				109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */,
+				10AF59481B9C7ED200168433 /* UserPerformanceViewController.m in Sources */,
 				109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */,
 				ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */,
@@ -1838,6 +1890,7 @@
 				ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */,
 				ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
+				10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
 				100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
@@ -1875,6 +1928,7 @@
 				ED8DB3DE1A14C95C00605CCE /* SettingsTableViewCell.m in Sources */,
 				ED8DB3DF1A14C95C00605CCE /* main.m in Sources */,
 				ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */,
+				10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
 				ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */,
 				ED8DB3E31A14C95C00605CCE /* NewGroupViewController.m in Sources */,
 				ED8DB3E41A14C95C00605CCE /* FootblAppearance.m in Sources */,
