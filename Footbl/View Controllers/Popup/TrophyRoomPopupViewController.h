@@ -8,6 +8,10 @@
 
 #import "FootblPopupViewController.h"
 
+@class FTBTrophy;
+
 @interface TrophyRoomPopupViewController : FootblPopupViewController
+
+@property (nonatomic, strong) FTBTrophy *trophy;
 
 @end

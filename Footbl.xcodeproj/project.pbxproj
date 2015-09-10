@@ -16,6 +16,9 @@
 		10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		10390DCD1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
+		1089AD711BA10B270078C4E6 /* FTBTrophy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1089AD701BA10B270078C4E6 /* FTBTrophy.m */; };
+		1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1089AD701BA10B270078C4E6 /* FTBTrophy.m */; };
+		1089AD731BA10B270078C4E6 /* FTBTrophy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1089AD701BA10B270078C4E6 /* FTBTrophy.m */; };
 		109AA8FB1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
 		109AA8FE1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
@@ -326,6 +329,8 @@
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
 		10390DC91B7D7D5B001AA9CE /* FTBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClient.m; sourceTree = "<group>"; };
+		1089AD6F1BA10B270078C4E6 /* FTBTrophy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBTrophy.h; sourceTree = "<group>"; };
+		1089AD701BA10B270078C4E6 /* FTBTrophy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBTrophy.m; sourceTree = "<group>"; };
 		109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBConstants.m; sourceTree = "<group>"; };
 		109AA8FF1B89290300BB8FB7 /* FTBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTBConstants.h; sourceTree = "<group>"; };
 		109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
@@ -785,6 +790,8 @@
 				109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */,
 				109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */,
 				109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */,
+				1089AD6F1BA10B270078C4E6 /* FTBTrophy.h */,
+				1089AD701BA10B270078C4E6 /* FTBTrophy.m */,
 				10390DC81B7D7D5B001AA9CE /* FTBClient.h */,
 				10390DC91B7D7D5B001AA9CE /* FTBClient.m */,
 				109AA8FF1B89290300BB8FB7 /* FTBConstants.h */,
@@ -1793,6 +1800,7 @@
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
 				ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
 				109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */,
+				1089AD711BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
@@ -1914,6 +1922,7 @@
 				ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */,
 				109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */,
 				10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
+				1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */,
@@ -1954,6 +1963,7 @@
 				109FB2B61B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				109AA8FE1B89281F00BB8FB7 /* FTBConstants.m in Sources */,
 				109FB2E01B7C385500E67B3C /* FTBBet.m in Sources */,
+				1089AD731BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				109FB2D41B7C334900E67B3C /* FTBGroup.m in Sources */,
 				109FB2E61B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,

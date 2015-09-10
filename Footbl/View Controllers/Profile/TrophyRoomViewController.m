@@ -9,8 +9,11 @@
 #import "TrophyRoomViewController.h"
 #import "TrophyRoomCell.h"
 #import "TrophyRoomPopupViewController.h"
+#import "FTBTrophy.h"
 
 @interface TrophyRoomViewController ()
+
+@property (nonatomic, strong) NSArray *trophies;
 
 @end
 
@@ -27,10 +30,11 @@
 #pragma mark - Private
 
 - (void)configureCell:(TrophyRoomCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	cell.iconImageView.image = nil;
-	cell.nameLabel.text = nil;
-	cell.progressView.progress = 0.5;
-	cell.progressView.hidden = NO;
+	FTBTrophy *trophy = self.trophies[indexPath.row];
+	cell.iconImageView.image = [UIImage imageNamed:trophy.imageName];
+	cell.nameLabel.text = trophy.name;
+	cell.progressView.progress = trophy.progress.floatValue;
+	cell.progressView.hidden = !trophy.isProgressive;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -40,7 +44,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return 0;
+	return self.trophies.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -53,6 +57,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	TrophyRoomPopupViewController *trophyRoomPopup = [[TrophyRoomPopupViewController alloc] init];
+	trophyRoomPopup.trophy = self.trophies[indexPath.row];
 	FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:trophyRoomPopup];
 	[self presentViewController:popupViewController animated:YES completion:nil];
 	[self setNeedsStatusBarAppearanceUpdate];
