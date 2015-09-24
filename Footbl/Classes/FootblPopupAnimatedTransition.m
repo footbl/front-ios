@@ -85,3 +85,55 @@ static NSString * const kBlackViewAssociationKey = @"kBlackViewAssociationKey";
 }
 
 @end
+
+@implementation PopupTransitioningShow
+
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+	UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+	UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+	UIView *backgroundView = [[UIView alloc] initWithFrame:fromViewController.view.bounds];
+	backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+	backgroundView.tag = 777;
+	
+	[[transitionContext containerView] addSubview:backgroundView];
+	[[transitionContext containerView] addSubview:toViewController.view];
+	
+	toViewController.view.y = fromViewController.view.maxY;
+	backgroundView.alpha = 0;
+	
+	[UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+		toViewController.view.y = 0;
+		backgroundView.alpha = 1;
+	} completion:^(BOOL finished) {
+		[transitionContext completeTransition:YES];
+	}];
+}
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+	return 0.4;
+}
+
+@end
+
+@implementation PopupTransitioningHide
+
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+	UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+	UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+	UIView *backgroundView = [[transitionContext containerView] viewWithTag:777];
+	
+	[[transitionContext containerView] addSubview:fromViewController.view];
+	
+	[UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		fromViewController.view.y = toViewController.view.maxY;
+		backgroundView.alpha = 0;
+	} completion:^(BOOL finished) {
+		[transitionContext completeTransition:YES];
+	}];
+}
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+	return 0.6;
+}
+
+@end

@@ -121,10 +121,14 @@
     /* Import cached images
     [[SDImageCache sharedImageCache] downloadCachedImages];
     */
-    
-    self.footblTabBarController = [FootblTabBarController new];
-    self.window.rootViewController = self.footblTabBarController;
-    
+	
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+	UINavigationController *navigationController = [storyboard instantiateInitialViewController];
+	self.window.rootViewController = navigationController;
+	
+//    self.footblTabBarController = [FootblTabBarController new];
+//    self.window.rootViewController = self.footblTabBarController;
+	
     /*
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {

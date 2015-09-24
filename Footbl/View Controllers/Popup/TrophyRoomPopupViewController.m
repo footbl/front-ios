@@ -14,12 +14,4 @@
 
 @implementation TrophyRoomPopupViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 @end

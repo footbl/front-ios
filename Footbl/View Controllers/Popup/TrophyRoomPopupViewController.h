@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
-#import "FootblPopupViewController.h"
+#import "NewPopupViewController.h"
 
 @class FTBTrophy;
 
-@interface TrophyRoomPopupViewController : FootblPopupViewController
+@interface TrophyRoomPopupViewController : NewPopupViewController
 
 @property (nonatomic, strong) FTBTrophy *trophy;
 

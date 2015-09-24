@@ -55,6 +55,8 @@
 		109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
 		109FB2EC1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */; };
+		10AE3C121BB24E8700503DD5 /* NewPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AE3C111BB24E8700503DD5 /* NewPopupViewController.m */; settings = {ASSET_TAGS = (); }; };
+		10AE3C131BB24E8700503DD5 /* NewPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AE3C111BB24E8700503DD5 /* NewPopupViewController.m */; settings = {ASSET_TAGS = (); }; };
 		10AF59371B9C662C00168433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AF59361B9C662C00168433 /* Main.storyboard */; };
 		10AF59381B9C662C00168433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AF59361B9C662C00168433 /* Main.storyboard */; };
 		10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */; };
@@ -354,6 +356,8 @@
 		109FB2E21B7C3ABA00E67B3C /* FTBChallenge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChallenge.m; sourceTree = "<group>"; };
 		109FB2E71B7C3D6700E67B3C /* FTBCreditRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBCreditRequest.h; sourceTree = "<group>"; };
 		109FB2E81B7C3D6700E67B3C /* FTBCreditRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBCreditRequest.m; sourceTree = "<group>"; };
+		10AE3C101BB24E8700503DD5 /* NewPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPopupViewController.h; sourceTree = "<group>"; };
+		10AE3C111BB24E8700503DD5 /* NewPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPopupViewController.m; sourceTree = "<group>"; };
 		10AF59361B9C662C00168433 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		10AF59391B9C6D9A00168433 /* TrophyRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomViewController.h; sourceTree = "<group>"; };
 		10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomViewController.m; sourceTree = "<group>"; };
@@ -902,6 +906,8 @@
 				ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */,
 				ED3399F31A1E21920037F01B /* RechargeTipPopupViewController.h */,
 				ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */,
+				10AE3C101BB24E8700503DD5 /* NewPopupViewController.h */,
+				10AE3C111BB24E8700503DD5 /* NewPopupViewController.m */,
 				10AF59411B9C763200168433 /* TrophyRoomPopupViewController.h */,
 				10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */,
 			);
@@ -1488,7 +1494,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = FTB;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Footbl;
 				TargetAttributes = {
 					ED7859DE199D0C62002A4DBD = {
@@ -1823,6 +1829,7 @@
 				ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */,
 				ED785A3B199D0C62002A4DBD /* FootblTabBarController.m in Sources */,
 				ED83A99B19B12C5A0089CC5F /* FTBuildType.m in Sources */,
+				10AE3C121BB24E8700503DD5 /* NewPopupViewController.m in Sources */,
 				ED785A3C199D0C62002A4DBD /* WalletGraphTableViewCell.m in Sources */,
 				EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED785A40199D0C62002A4DBD /* LoadingHelper.m in Sources */,
@@ -1945,6 +1952,7 @@
 				ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */,
 				ED8DB3E71A14C95C00605CCE /* FTBuildType.m in Sources */,
 				ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
+				10AE3C131BB24E8700503DD5 /* NewPopupViewController.m in Sources */,
 				EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */,
 				ED8DB3EC1A14C95C00605CCE /* LoadingHelper.m in Sources */,
@@ -2208,6 +2216,7 @@
 					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl.development;
 				PRODUCT_NAME = "Footbl Development";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2231,6 +2240,7 @@
 					"FTB_ENVIRONMENT_DEVELOPMENT=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl.development;
 				PRODUCT_NAME = "Footbl Development";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2256,6 +2266,7 @@
 					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2280,6 +2291,7 @@
 					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2305,6 +2317,7 @@
 					"FTB_ENVIRONMENT_PRODUCTION=1",
 				);
 				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2327,6 +2340,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2390,6 +2404,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
@@ -2410,6 +2425,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
@@ -2462,6 +2478,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
 				WRAPPER_EXTENSION = xctest;
@@ -2487,6 +2504,7 @@
 					"FB_TWEAK_ENABLED=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Footbl/Supporting Files/Footbl-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl.development;
 				PRODUCT_NAME = "Footbl Development";
 				WRAPPER_EXTENSION = app;
 			};

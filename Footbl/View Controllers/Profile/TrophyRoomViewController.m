@@ -20,7 +20,15 @@
 @implementation TrophyRoomViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
+	
+	NSMutableArray *trophies = [[NSMutableArray alloc] init];
+	while (trophies.count < 60) {
+		NSDictionary *dict = @{@"progressive": @YES, @"progress": @0.3, @"name": @"button-chat-share"};
+		FTBTrophy *trophy = [[FTBTrophy alloc] initWithDictionary:dict error:nil];
+		[trophies addObject:trophy];
+	}
+	self.trophies = trophies;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,10 +64,9 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	TrophyRoomPopupViewController *trophyRoomPopup = [[TrophyRoomPopupViewController alloc] init];
-	trophyRoomPopup.trophy = self.trophies[indexPath.row];
-	FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:trophyRoomPopup];
-	[self presentViewController:popupViewController animated:YES completion:nil];
+	TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
+	viewController.trophy = self.trophies[indexPath.row];
+	[self presentViewController:viewController animated:YES completion:nil];
 	[self setNeedsStatusBarAppearanceUpdate];
 }
 

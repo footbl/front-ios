@@ -11,8 +11,8 @@
 @interface FTBTrophy : FTBModel
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSNumber *progress;
 @property (nonatomic, assign, getter=isProgressive) BOOL progressive;
-@property (nonatomic, assign) NSNumber *progress;
 
 - (NSString *)imageName;
 

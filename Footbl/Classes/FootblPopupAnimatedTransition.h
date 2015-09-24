@@ -13,3 +13,11 @@
 @property (assign, nonatomic, getter = isPresenting) BOOL presenting;
 
 @end
+
+@interface PopupTransitioningShow : NSObject <UIViewControllerAnimatedTransitioning>
+
+@end
+
+@interface PopupTransitioningHide : NSObject <UIViewControllerAnimatedTransitioning>
+
+@end
