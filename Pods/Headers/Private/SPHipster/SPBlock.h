@@ -1,1 +1,0 @@
-../../../../Footbl/Pods/SPHipster/Source/SPBlock.h

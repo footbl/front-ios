@@ -1,9 +1,0 @@
-{
-  "name": "SPNotifier",
-  "version": "0.2.2",
-  "platforms": {
-    "ios": "7.0"
-  },
-  "requires_arc": true,
-  "source_files": "Source/**/*.{h,m}"
-}

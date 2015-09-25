@@ -1,1 +1,0 @@
-../../../../Footbl/Pods/SPHipster/Source/Categories/iOS/UIApplication+SPAddons.h

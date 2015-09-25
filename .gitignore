@@ -1,8 +1,8 @@
-## Build generated
+# Build generated
 build/
 DerivedData
 
-## Various settings
+# Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -13,10 +13,13 @@ DerivedData
 !default.perspectivev3
 xcuserdata
 
-## Other
+# Other
 *.xccheckout
 *.moved-aside
 *.xcuserstate
 
-### OSX ###
+# OSX
 .DS_Store
+
+# Cocoapods
+Pods/
