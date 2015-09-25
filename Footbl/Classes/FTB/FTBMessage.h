@@ -18,6 +18,6 @@
 @property (nonatomic, copy, readonly) NSString *type;
 @property (nonatomic, copy, readonly) NSArray *seenBy;
 
-- (BOOL)deliveryFailedValue;
+@property (nonatomic, assign) BOOL deliveryFailedValue;
 
 @end

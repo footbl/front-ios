@@ -18,7 +18,7 @@
 @property (nonatomic, assign, readonly) FTBMatchResult challengerResult;
 @property (nonatomic, assign, readonly) FTBMatchResult challengedResult;
 @property (nonatomic, strong, readonly) FTBMatch *match;
-@property (nonatomic, assign, readonly) NSUInteger bid;
+@property (nonatomic, copy, readonly) NSNumber *bid;
 @property (nonatomic, assign, readonly, getter=isAccepted) BOOL accepted;
 
 @end

@@ -23,8 +23,8 @@
 @property (nonatomic, copy, readonly) NSDate *date;
 @property (nonatomic, assign, readonly, getter=isFinished) BOOL finished;
 @property (nonatomic, assign, readonly) NSTimeInterval elapsed;
-@property (nonatomic, copy, readonly) NSNumber *guestResult;
-@property (nonatomic, copy, readonly) NSNumber *hostResult;
+@property (nonatomic, copy, readonly) NSNumber *guestScore;
+@property (nonatomic, copy, readonly) NSNumber *hostScore;
 @property (nonatomic, copy, readonly) NSNumber *guestPot;
 @property (nonatomic, copy, readonly) NSNumber *hostPot;
 @property (nonatomic, copy, readonly) NSNumber *drawPot;
@@ -37,6 +37,7 @@
 @property (assign, nonatomic, getter = isBetSyncing) BOOL betSyncing;
 - (FTBMatchStatus)status;
 - (FTBBet *)myBet;
+- (FTBMatchResult)result;
 - (FTBMatchResult)myBetResult;
 - (NSNumber *)localJackpot;
 - (NSString *)dateString;

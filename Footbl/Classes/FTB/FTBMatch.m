@@ -19,8 +19,8 @@
 							   @"date": @"date",
 							   @"finished": @"finished",
 							   @"elapsed": @"elapsed",
-							   @"guestResult": @"result.guest",
-							   @"hostResult": @"result.host",
+							   @"guestScore": @"result.guest",
+							   @"hostScore": @"result.host",
 							   @"guestPot": @"pot.guest",
 							   @"hostPot": @"pot.host",
 							   @"drawPot": @"pot.draw",
@@ -49,8 +49,8 @@
 }
 
 - (FTBTeam *)winner {
-	if ([self.guestResult compare:self.hostResult] == NSOrderedDescending) return self.guest;
-	if ([self.guestResult compare:self.hostResult] == NSOrderedAscending) return self.host;
+	if ([self.guestScore compare:self.hostScore] == NSOrderedDescending) return self.guest;
+	if ([self.guestScore compare:self.hostScore] == NSOrderedAscending) return self.host;
 	return nil;
 }
 
@@ -67,6 +67,16 @@
 - (FTBBet *)myBet {
 	// TODO: Implement this method
 	return nil;
+}
+
+- (FTBMatchResult)result {
+	if ([self.winner isEqual:self.host]) {
+		return FTBMatchResultHost;
+	} else if ([self.winner isEqual:self.guest]) {
+		return FTBMatchResultGuest;
+	} else {
+		return FTBMatchResultDraw;
+	}
 }
 
 - (FTBMatchResult)myBetResult {

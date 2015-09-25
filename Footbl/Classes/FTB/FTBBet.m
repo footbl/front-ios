@@ -10,6 +10,8 @@
 #import "FTBUser.h"
 #import "FTBMatch.h"
 
+#import "NSNumber+Formatter.h"
+
 @implementation FTBBet
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -33,23 +35,43 @@
 }
 
 - (NSString *)valueString {
-	return @"0";
+	return [self.bid isEqualToNumber:@0] ? @"-" : self.bid.walletStringValue;
 }
 
 - (NSNumber *)toReturn {
-	return @0;
+	switch (self.result) {
+		case FTBMatchResultHost:
+			return @(self.bid.integerValue * self.match.earningsPerBetForHost.floatValue);
+		case FTBMatchResultDraw:
+			return @(self.bid.integerValue * self.match.earningsPerBetForDraw.floatValue);
+		case FTBMatchResultGuest:
+			return @(self.bid.integerValue * self.match.earningsPerBetForGuest.floatValue);
+		default:
+			return @0;
+	}
 }
 
 - (NSString *)toReturnString {
-	return @"0";
+	return [self.bid isEqualToNumber:@0] ? @"-" : @(nearbyint(self.toReturn.doubleValue)).walletStringValue;
 }
 
 - (NSNumber *)reward {
-	return @0;
+	if ([self.bid isEqualToNumber:@0] || self.match.status == FTBMatchStatusWaiting) {
+		return @0;
+	}
+	
+	if (self.result == self.match.result) {
+		return @(self.toReturn.floatValue - self.bid.integerValue);
+	} else {
+		return @(-self.bid.integerValue);
+	}
 }
 
 - (NSString *)rewardString {
-	return @"0";
+	if ([self.bid isEqualToNumber:@0] || self.match.status == FTBMatchStatusWaiting) {
+		return @"-";
+	}
+	return @(nearbyint(self.reward.doubleValue)).walletStringValue;
 }
 
 @end
