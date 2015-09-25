@@ -8,8 +8,37 @@
 
 #import "FTBMatch.h"
 #import "FTBTeam.h"
+#import "FTBBet.h"
+
+#import "NSNumber+Formatter.h"
 
 @implementation FTBMatch
+
++ (NSMutableDictionary *)temporaryBetsDictionary {
+	static NSMutableDictionary *temporaryBetsDictionary;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		temporaryBetsDictionary = [NSMutableDictionary new];
+	});
+	return temporaryBetsDictionary;
+}
+
++ (NSDateFormatter *)dateFormatter {
+	static NSDateFormatter *dateFormatter;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateStyle = NSDateFormatterShortStyle;
+		dateFormatter.timeStyle = NSDateFormatterShortStyle;
+		dateFormatter.AMSymbol = @"am";
+		dateFormatter.PMSymbol = @"pm";
+		dateFormatter.dateFormat = [@"EEEE, " stringByAppendingString:dateFormatter.dateFormat];
+		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
+		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
+		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
+	});
+	return dateFormatter;
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"championship": @"championship",
@@ -80,51 +109,134 @@
 }
 
 - (FTBMatchResult)myBetResult {
-	return FTBMatchResultDraw;
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	return result ? [result[@"result"] integerValue] : self.myBet.result;
 }
 
 - (NSNumber *)localJackpot {
-	return @0;
+	if (FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL));
+	}
+	
+	float jackpot = self.jackpot.floatValue;
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	if (result) {
+		jackpot -= self.myBet.bid.integerValue;
+		jackpot += [result[@"value"] integerValue];
+	}
+	return @(jackpot);
 }
 
 - (NSString *)dateString {
-	return @"Date";
+	return [[FTBMatch dateFormatter] stringFromDate:self.date];
 }
 
 - (NSNumber *)earningsPerBetForHost {
-	return @0;
+	if (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL)) {
+		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL))));
+	}
+	
+	float sumOfBets = self.hostPot.floatValue;
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	if (result) {
+		if (self.myBet.result == FTBMatchResultHost) {
+			sumOfBets -= self.myBet.bid.integerValue;
+		}
+		if ([result[@"result"] integerValue] == FTBMatchResultHost) {
+			sumOfBets += [result[@"value"] integerValue];
+		}
+	}
+	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
 
 - (NSNumber *)earningsPerBetForDraw {
-	return @0;
+	if (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL)) {
+		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL))));
+	}
+	
+	float sumOfBets = self.drawPot.floatValue;
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	if (result) {
+		if (self.myBet.result == FTBMatchResultDraw) {
+			sumOfBets -= self.myBet.bid.integerValue;
+		}
+		if ([result[@"result"] integerValue] == FTBMatchResultDraw) {
+			sumOfBets += [result[@"value"] integerValue];
+		}
+	}
+	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
 
 - (NSNumber *)earningsPerBetForGuest {
-	return @0;
+	if (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL)) {
+		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL))));
+	}
+	
+	float sumOfBets = self.guestPot.floatValue;
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	if (result) {
+		if (self.myBet.result == FTBMatchResultGuest) {
+			sumOfBets -= self.myBet.bid.integerValue;
+		}
+		if ([result[@"result"] integerValue] == FTBMatchResultGuest) {
+			sumOfBets += [result[@"value"] integerValue];
+		}
+	}
+	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
 }
 
 - (NSNumber *)myBetValue {
-	return @0;
+	if (FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL));
+	}
+	
+	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
+	if (result) {
+		return result[@"value"];
+	} else {
+		return self.myBet.bid;
+	}
 }
 
 - (NSString *)myBetValueString {
-	return @"0";
+	return [self.myBetValue isEqualToNumber:@0] ? @"-" : self.myBetValue.walletStringValue;
 }
 
 - (NSNumber *)myBetReturn {
-	return @0;
+	switch (self.myBetResult) {
+		case FTBMatchResultHost:
+			return @(self.myBetValue.floatValue * self.earningsPerBetForHost.floatValue);
+		case FTBMatchResultDraw:
+			return @(self.myBetValue.floatValue * self.earningsPerBetForDraw.floatValue);
+		case FTBMatchResultGuest:
+			return @(self.myBetValue.floatValue * self.earningsPerBetForGuest.floatValue);
+		default:
+			return @0;
+	}
 }
 
 - (NSString *)myBetReturnString {
-	return @"0";
+	return [self.myBetValue isEqualToNumber:@0] ? @"-" : @(nearbyint(self.myBetReturn.doubleValue)).walletStringValue;
 }
 
 - (NSNumber *)myBetProfit {
-	return @0;
+	if ((!self.myBetValue || self.status == FTBMatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
+		return @0;
+	}
+	
+	if (self.result == self.myBetResult) {
+		return @(self.myBetReturn.floatValue - self.myBetValue.floatValue);
+	} else {
+		return @(-self.myBetValue.floatValue);
+	}
 }
 
 - (NSString *)myBetProfitString {
-	return @"0";
+	if ((!self.myBetValue || self.status == FTBMatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
+		return @"-";
+	}
+	
+	return @(nearbyint(self.myBetProfit.doubleValue)).walletStringValue;
 }
 
 @end

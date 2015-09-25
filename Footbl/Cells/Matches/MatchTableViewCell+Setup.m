@@ -33,8 +33,8 @@
     self.hostNameLabel.text = match.host.name;
     self.guestNameLabel.text = match.guest.name;
     
-    self.hostScoreLabel.text = match.hostResult.stringValue;
-    self.guestScoreLabel.text = match.guestResult.stringValue;
+    self.hostScoreLabel.text = match.hostScore.stringValue;
+    self.guestScoreLabel.text = match.guestScore.stringValue;
 	
 //    self.hostImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
 //    self.hostDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];

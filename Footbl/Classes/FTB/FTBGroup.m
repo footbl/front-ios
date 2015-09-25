@@ -42,6 +42,7 @@
 	}
 }
 
+#warning This method should be used to cache a flag for new groups. We could remove this feature, IMHO
 - (void)saveStatusInLocalDatabase {}
 
 @end
