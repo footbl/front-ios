@@ -13,9 +13,6 @@
 #import <FlurrySDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
-#if FT_PREPARE_FOR_SCREENSHOTS
-    #import <SimulatorStatusMagic/SDStatusBarManager.h>
-#endif
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
@@ -41,10 +38,6 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-#if FT_PREPARE_FOR_SCREENSHOTS
-    [[SDStatusBarManager sharedInstance] enableOverrides];
-#endif
-    
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
@@ -176,9 +169,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
-#if FT_PREPARE_FOR_SCREENSHOTS
-    [[SDStatusBarManager sharedInstance] disableOverrides];
-#endif
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000

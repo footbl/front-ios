@@ -9,6 +9,8 @@
 #import "TrophyRoomViewController.h"
 #import "TrophyRoomCell.h"
 #import "TrophyRoomPopupViewController.h"
+#import "UINavigationBar+UIProgressView.h"
+
 #import "FTBTrophy.h"
 
 @interface TrophyRoomViewController ()
@@ -22,13 +24,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	NSMutableArray *trophies = [[NSMutableArray alloc] init];
-	while (trophies.count < 60) {
-		NSDictionary *dict = @{@"progressive": @YES, @"progress": @0.3, @"name": @"button-chat-share"};
-		FTBTrophy *trophy = [[FTBTrophy alloc] initWithDictionary:dict error:nil];
-		[trophies addObject:trophy];
-	}
-	self.trophies = trophies;
+	[self setupProgressView];
+	[self setupTrophies];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,10 +34,28 @@
 
 #pragma mark - Private
 
+- (void)setupTrophies {
+	NSMutableArray *trophies = [[NSMutableArray alloc] init];
+	while (trophies.count < 60) {
+		NSDictionary *dict = @{@"progressive": @YES, @"progress": @0.3, @"title": @"Endurer", @"subtitle": @"Bet in 3 consecutive seasons.", @"imageName": @"footbl_circle"};
+		FTBTrophy *trophy = [[FTBTrophy alloc] initWithDictionary:dict error:nil];
+		[trophies addObject:trophy];
+	}
+	self.trophies = trophies;
+}
+
+- (void)setupProgressView {
+	UINavigationBar *navigationBar = self.navigationController.navigationBar;
+	UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+	progressView.progressTintColor = self.view.tintColor;
+	progressView.progress = 0.3;
+	[navigationBar addProgressView:progressView];
+}
+
 - (void)configureCell:(TrophyRoomCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	FTBTrophy *trophy = self.trophies[indexPath.row];
 	cell.iconImageView.image = [UIImage imageNamed:trophy.imageName];
-	cell.nameLabel.text = trophy.name;
+	cell.nameLabel.text = trophy.title;
 	cell.progressView.progress = trophy.progress.floatValue;
 	cell.progressView.hidden = !trophy.isProgressive;
 }
@@ -59,6 +74,14 @@
 	TrophyRoomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+	UICollectionReusableView *view = nil;
+	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+		view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+	}
+	return view;
 }
 
 #pragma mark - UICollectionViewDelegate

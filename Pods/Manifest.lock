@@ -51,7 +51,6 @@ PODS:
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
-  - SimulatorStatusMagic (1.3)
   - SPHipster (0.5.3)
   - SPNotifier (0.2.2)
   - StyledPageControl (1.0)
@@ -96,7 +95,6 @@ DEPENDENCIES:
   - MBProgressHUD (= 0.9)
   - RMStore (= 0.6.0)
   - SDWebImage (= 3.7.1)
-  - SimulatorStatusMagic
   - SPHipster (from `Footbl/Pods/SPHipster`)
   - SPNotifier (from `Footbl/Pods/SPNotifier`)
   - StyledPageControl (= 1.0)
@@ -119,7 +117,7 @@ SPEC CHECKSUMS:
   CargoBay: 3afad56937d51596f081e38d2a7829835fefab06
   Cloudinary: b9f023dbe33b0f55d0d783a5398cd23e491debe2
   Facebook-iOS-SDK: 2a2f22be64360c46eb76002654aba69c0ea06f5a
-  FlurrySDK: 7f929b68dea38ce735979fb039229f62c0b697b5
+  FlurrySDK: b58d7061711e13977e3c43b29acfefd80f65f4cd
   FXKeychain: 1a711bddc04a2bd69850dcfe297b8a43027a9980
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
@@ -128,7 +126,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
   RMStore: d6a1fa44111f843a0c24cfc6ee934ae30a4b54ac
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
-  SimulatorStatusMagic: aea6561c0a74fda1ec2c4d89835590bdff38a87e
   SPHipster: e47c7a58906e8c022a13b84e0ba39ff31bdb2670
   SPNotifier: 087f41eedfb78ce23bff3f4a1826c3ded32f07ff
   StyledPageControl: b49f33cb65b99370a78a490fac127b1ca6472fd0

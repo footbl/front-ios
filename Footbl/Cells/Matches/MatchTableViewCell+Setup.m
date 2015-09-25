@@ -35,18 +35,16 @@
     
     self.hostScoreLabel.text = match.hostResult.stringValue;
     self.guestScoreLabel.text = match.guestResult.stringValue;
-    
-#if FT_PREPARE_FOR_SCREENSHOTS
-    self.hostImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-    self.hostDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-    self.guestImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-    self.guestDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-#else
+	
+//    self.hostImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
+//    self.hostDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
+//    self.guestImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
+//    self.guestDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
+	
     [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.hostDisabledImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
-#endif
     
     if (isMe && !match.isBetSyncing) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;

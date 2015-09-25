@@ -10,8 +10,4 @@
 
 @implementation FTBTrophy
 
-- (NSString *)imageName {
-	return self.name;
-}
-
 @end
