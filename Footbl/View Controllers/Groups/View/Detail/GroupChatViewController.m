@@ -110,7 +110,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     if (text.length == 0 && !image) {
         return;
     }
-	self.messageTextView.textContainer.exclusionPaths = nil;
+	self.messageTextView.textContainer.exclusionPaths = @[];
 	self.messageImageView.frame = CGRectZero;
 	self.messageImageView.image = nil;
     self.messageTextView.text = @"";
@@ -361,7 +361,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         [self sendAction:textView];
         return NO;
 	} else if (textView.text.length == 0 && text.length == 0) { // backspace
-		self.messageTextView.textContainer.exclusionPaths = nil;
+		self.messageTextView.textContainer.exclusionPaths = @[];
 		self.messageImageView.frame = CGRectZero;
 		self.messageImageView.image = nil;
 		[self reloadViewsAnimated:NO];
