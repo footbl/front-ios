@@ -137,7 +137,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         }
         
         bet = match.myBet;
-		NSUInteger firstBetValue = MAX(floor((bet.user.fundsValue + bet.user.stakeValue) / 100), 1);
+		NSUInteger firstBetValue = MAX(floor((bet.user.funds.integerValue + bet.user.stake.integerValue) / 100), 1);
         NSInteger currentBet = match.myBetValue.integerValue;
         FTBMatchResult result = match.myBetResult;
         
@@ -242,8 +242,8 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @(user.fundsValue).limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @(user.stakeValue).limitedWalletStringValue;
+        self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
         self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
         self.navigationBarTitleView.profitValueLabel.text = user.profitString;
     } else {

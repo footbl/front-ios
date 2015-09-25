@@ -9,6 +9,7 @@
 #import "FTBModel.h"
 
 @class FTBSeason;
+@class FTBChampionship;
 
 @interface FTBUserSeasonEvolution : FTBModel
 
@@ -19,10 +20,10 @@
 @interface FTBUserSeason : FTBModel
 
 @property (nonatomic, strong) FTBSeason *season;
-@property (nonatomic, copy) NSArray *rankings;
+@property (nonatomic, copy) NSArray<NSNumber *> *rankings;
 @property (nonatomic, copy) NSNumber *stake;
 @property (nonatomic, copy) NSNumber *funds;
-@property (nonatomic, copy) NSArray *evolution; // FTBUserSeasonEvolution
+@property (nonatomic, copy) NSArray<FTBUserSeasonEvolution *> *evolution;
 
 @end
 
@@ -40,8 +41,13 @@
 @property (nonatomic, copy) NSString *apnsToken;
 @property (nonatomic, assign, getter=isActive) BOOL active;
 @property (nonatomic, copy) NSString *country;
-@property (nonatomic, copy) NSArray *entries; // FTBChampionship
-@property (nonatomic, copy) NSArray *seasons; // FTBUserSeason
+@property (nonatomic, copy) NSArray<FTBChampionship *> *entries;
+@property (nonatomic, copy) NSArray<FTBUserSeason *> *seasons;
+@property (nonatomic, copy) NSArray<FTBUser *> *starred;
+@property (nonatomic, copy) NSNumber *funds;
+@property (nonatomic, copy) NSNumber *stake;
+@property (nonatomic, copy) NSNumber *ranking;
+@property (nonatomic, copy) NSNumber *previousRanking;
 
 @property (nonatomic, assign, getter=isNotificationsEnabled) BOOL notificationsEnabled;
 @property (nonatomic, copy) NSMutableSet *pendingMatchesToSyncBet;
@@ -59,13 +65,9 @@
 - (NSNumber *)totalWallet;
 - (NSNumber *)highestWallet;
 - (NSDate *)highestWalletDate;
-- (float)fundsValue;
-- (float)stakeValue;
 - (NSNumber *)numberOfFans;
 - (BOOL)isFanOfUser:(FTBUser *)user;
 - (NSNumber *)numberOfLeagues;
-- (NSNumber *)ranking;
-- (NSNumber *)previousRanking;
 - (NSArray *)history;
 
 @end
