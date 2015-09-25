@@ -44,6 +44,9 @@
 @property (nonatomic, copy) NSArray *seasons; // FTBUserSeason
 
 @property (nonatomic, assign, getter=isNotificationsEnabled) BOOL notificationsEnabled;
+@property (nonatomic, copy) NSMutableSet *pendingMatchesToSyncBet;
+
++ (instancetype)currentUser;
 
 - (BOOL)isMe;
 - (BOOL)canRecharge;
@@ -58,7 +61,6 @@
 - (NSDate *)highestWalletDate;
 - (float)fundsValue;
 - (float)stakeValue;
-- (NSMutableSet *)pendingMatchesToSyncBet;
 - (NSNumber *)numberOfFans;
 - (BOOL)isFanOfUser:(FTBUser *)user;
 - (NSNumber *)numberOfLeagues;

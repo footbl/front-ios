@@ -53,7 +53,7 @@
 
 - (FTBUser *)user {
     if (!_user) {
-        _user = [[FTAuthenticationManager sharedManager] user];
+        _user = [FTBUser currentUser];
     }
     return _user;
 }
@@ -223,7 +223,7 @@
                     formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
                     profileCell.dateLabel.text = [formatter stringFromDate:self.user.createdAt];
 					
-					FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+					FTBUser *user = [FTBUser currentUser];
                     if (!self.user.isMe && [self.user isFanOfUser:user]) {
                         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                     } else {

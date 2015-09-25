@@ -81,7 +81,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     }
                     
                     if (operationsCount == 0) {
-						FTBUser *me = [[FTAuthenticationManager sharedManager] user];
+						FTBUser *me = [FTBUser currentUser];
                         for (NSDictionary *user in searchResults) {
 							NSString *identifier = user[@"identifier"];
                             if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier]) {
@@ -220,7 +220,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 - (void)searchFriendsWithQuery:(NSString *)searchText existingUsers:(NSSet *)users completionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
     NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	FTBUser *me = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *me = [FTBUser currentUser];
     
     //Global server search
     __block NSInteger operationsCount = 0;

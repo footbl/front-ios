@@ -79,7 +79,7 @@
         [[ErrorHandler sharedInstance] displayError:error];
     };
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
 	for (FTBCreditRequest *request in self.pendingTransfers) {
 		[[FTBClient client] approveCreditRequest:request.identifier forUser:user.identifier success:^(id object) {
 			[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
@@ -93,7 +93,7 @@
 }
 
 - (NSInteger)userWallet {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     NSInteger totalTransfers = user.localFunds.integerValue;
     for (FTBCreditRequest *request in self.pendingTransfers) {
         totalTransfers -= request.value.integerValue;
@@ -102,7 +102,7 @@
 }
 
 - (void)setupLabels {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
 	
     NSMutableDictionary *textAttributes = [@{} mutableCopy];
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultCenterAlignmentParagraphStyle] mutableCopy];
@@ -164,7 +164,7 @@
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *invFriends, NSError *error) {
             self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
             [self.tableView reloadData];
-			FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+			FTBUser *user = [FTBUser currentUser];
             [[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];

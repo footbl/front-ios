@@ -19,7 +19,7 @@
 
 + (void)fetchCountWithBlock:(void (^)(NSUInteger count))countBlock {
     if (countBlock) {
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chargedUser == %@ AND payed == NO", user];
 		[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
 			countBlock([[object filteredArrayUsingPredicate:predicate] count]);

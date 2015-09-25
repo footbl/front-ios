@@ -107,7 +107,7 @@
 - (void)loadView {
     [super loadView];
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
 	
     self.title = NSLocalizedString(@"Edit profile", @"");
     self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
