@@ -246,11 +246,6 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
     [self.rightNavigationBarButton addTarget:self action:@selector(groupInfoAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightNavigationBarButton];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        self.navigationItem.title = self.group.name;
-        [self.rightNavigationBarButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"generic_group"]];
-    }];
-    
     [self reloadData];
     
     if (self.context == GroupDetailContextChat) {

@@ -185,7 +185,9 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     }
 	
 	FTBUser *user = [FTBUser currentUser];
-	[[FTBClient client] user:user.identifier success:^(id object) {
+	[[FTBClient client] user:user.identifier success:^(FTBUser *object) {
+		self.championships = object.entries;
+		
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
             RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
             rechargeTipPopup.selectionBlock = ^{
@@ -363,10 +365,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadWallet];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kMatchesNavigationBarTitleAnimateKey object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
