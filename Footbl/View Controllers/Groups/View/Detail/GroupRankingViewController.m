@@ -69,34 +69,8 @@
         }
 		
         if (self.group.isWorld) {
-#warning We must implement an 'world' group members API
-			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
-				[self setupInfiniteScrolling];
-				self.tableView.showsInfiniteScrolling = YES;
-				self.nextPage = @0;
-				[self.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-				self.isLoading = NO;
-			} failure:^(NSError *error) {
-				[self.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-				[[ErrorHandler sharedInstance] displayError:error];
-				self.isLoading = NO;
-			}];
 		} else if (self.group.isFriends) {
-#warning We must implement an 'friends' group members API
-			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
-				[self.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-				self.isLoading = NO;
-			} failure:^(NSError *error) {
-				[self.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-				[[ErrorHandler sharedInstance] displayError:error];
-				self.isLoading = NO;
-			}];
 		} else {
-#warning We must implement a group members API
             [[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
                 [self.refreshControl endRefreshing];
                 [[LoadingHelper sharedInstance] hideHud];
@@ -138,29 +112,29 @@
 }
 
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    FTBUser *membership = self.group.members[indexPath.row];
-    if (membership.ranking) {
-        cell.rankingLabel.text = membership.ranking.rankingStringValue;
+    FTBUser *user = self.group.members[indexPath.row];
+    if (user.ranking) {
+        cell.rankingLabel.text = user.ranking.rankingStringValue;
     } else {
         cell.rankingLabel.text = @(indexPath.row + 1).rankingStringValue;
     }
     
-    cell.usernameLabel.text = membership.username;
-    cell.nameLabel.text = membership.name;
+    cell.usernameLabel.text = user.username;
+    cell.nameLabel.text = user.name;
     
-    if (membership.previousRanking && membership.ranking) {
-        cell.rankingProgress = @(membership.previousRanking.integerValue - membership.ranking.integerValue);
+    if (user.previousRanking && user.ranking) {
+        cell.rankingProgress = @(user.previousRanking.integerValue - user.ranking.integerValue);
     } else {
         cell.rankingProgress = @(0);
     }
     
-    if (membership.totalWallet) {
-        cell.walletLabel.text = membership.totalWallet.shortStringValue;
+    if (user.totalWallet) {
+        cell.walletLabel.text = user.totalWallet.shortStringValue;
     } else {
         cell.walletLabel.text = @"";
     }
     
-    [cell.profileImageView sd_setImageWithURL:membership.pictureURL placeholderImage:cell.placeholderImage];
+    [cell.profileImageView sd_setImageWithURL:user.pictureURL placeholderImage:cell.placeholderImage];
     
     if (FBTweakValue(@"UI", @"Group", @"Medals", FT_ENABLE_MEDALS)) {
         switch (indexPath.row) {

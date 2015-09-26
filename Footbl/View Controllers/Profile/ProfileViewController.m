@@ -551,12 +551,6 @@
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     tableViewController.refreshControl = self.refreshControl;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadContent];
-        [self performSelector:@selector(reloadContent) withObject:nil afterDelay:0.5];
-        [self performSelector:@selector(reloadContent) withObject:nil afterDelay:1];
-    }];
-    
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         self.user = nil;
         [self reloadData];

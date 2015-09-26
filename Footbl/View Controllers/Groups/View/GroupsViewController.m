@@ -81,17 +81,13 @@
 
 - (void)reloadData {
     [super reloadData];
-    
-    void(^failureBlock)(NSError *error) = ^(NSError *error) {
-        [self.refreshControl endRefreshing];
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
 	
-	[[FTBClient client] groups:0 success:^(id object) {
-		[[FTBClient client] featuredUsers:0 success:^(id object) {
-			[self.refreshControl endRefreshing];
-		} failure:failureBlock];
-	} failure:failureBlock];
+	[[FTBClient client] groups:0 success:^(NSArray *objects) {
+		self.groups = [objects mutableCopy];
+	} failure:^(NSError *error) {
+		[self.refreshControl endRefreshing];
+		[[ErrorHandler sharedInstance] displayError:error];
+	}];
 }
 
 - (void)setFooterViewVisible:(BOOL)visible {
@@ -156,7 +152,12 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         FTBGroup *group = self.groups[indexPath.row];
-		[[FTBClient client] removeGroup:group success:nil failure:nil];
+		[[FTBClient client] removeGroup:group success:^(id object) {
+			[self.groups removeObject:group];
+			[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(NSError *error) {
+			[[ErrorHandler sharedInstance] displayError:error];
+		}];
     }
 }
 

@@ -346,10 +346,6 @@
     
     [self reloadData];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadData];
-    }];
-    
     self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.isFreeToEdit;
     if (!self.groupImageButton.imageView.image && !self.groupImageButton.userInteractionEnabled) {
         if (self.group.isWorld) {

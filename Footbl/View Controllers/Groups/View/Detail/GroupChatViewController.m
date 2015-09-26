@@ -66,6 +66,8 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 }
 
 - (void)setNextPage:(NSUInteger)nextPage {
+	_nextPage = nextPage;
+	
     CGFloat contentOffsetAdjust = 0;
     if (self.tableView.tableHeaderView.height == self.headerView.height && !nextPage) {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
@@ -75,7 +77,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         contentOffsetAdjust = self.headerView.height - 5;
     }
     
-    if (self.nextPage) {
+    if (nextPage) {
         self.tableView.tableHeaderView = self.headerView;
     } else {
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 5)];
@@ -165,7 +167,6 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
         activityIndicatorView.alpha = 1;
         sender.alpha = 0;
     }];
-	
 	
 	[[FTBClient client] messagesForRoom:self.group.identifier page:self.nextPage unread:YES success:^(id object) {
 		self.nextPage++;

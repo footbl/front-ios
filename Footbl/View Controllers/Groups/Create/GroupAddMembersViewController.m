@@ -59,7 +59,8 @@
             }
             
             if (self.group) {
-                if ([[self.group.members filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"user.email IN %@", contact.emails]] count] > 0) {
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user.email IN %@", contact.emails];
+                if ([[self.group.members filteredArrayUsingPredicate:predicate] count] > 0) {
                     return NO;
                 }
             }
@@ -145,15 +146,17 @@
     }
     
     switch (self.segmentedControl.selectedSegmentIndex) {
-        case 0:
-            _dataSource = [dataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (_id IN %@)", [[self.group.members valueForKeyPath:@"user"] valueForKeyPath:@"rid"]]];
+		case 0: {
+			NSArray *ids = [self.group.members valueForKeyPath:@"user.identifier"];
+            _dataSource = [dataSource filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (_id IN %@)", ids]];
             break;
-        case 1:
+		} case 1: {
             _dataSource = dataSource;
             break;
-        default:
+		} default: {
             _dataSource = dataSource;
             break;
+		}
     }
 }
 

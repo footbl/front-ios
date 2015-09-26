@@ -311,14 +311,22 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         [[ErrorHandler sharedInstance] displayError:error];
     };
 	
-	[[FTBClient client] user:@"me" success:^(FTBUser *user) {
+	FTBUser *user = [FTBUser currentUser];
+	[[FTBClient client] user:user.identifier success:^(FTBUser *user) {
         [self reloadWallet];
 		
-		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(id object) {
+		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {
+			self.matches = objects;
+			
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
             [self reloadWallet];
-            
+			
+			if (self.numberOfMatches == 0 && objects.count > 0) {
+				self.numberOfMatches = objects.count;
+				[self scrollToFirstActiveMatchAnimated:NO];
+			}
+			
             void(^computeProfit)() = ^() {
 				NSTimeInterval weekInterval = -604800;
 				NSDate *week = [NSDate dateWithTimeIntervalSinceNow:weekInterval];
@@ -370,17 +378,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 #pragma mark - Delegates & Data sources
-
-#pragma mark - NSFetchedResultsController delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
-    
-    if (self.numberOfMatches == 0 && controller.fetchedObjects.count > 0) {
-        self.numberOfMatches = controller.fetchedObjects.count;
-        [self scrollToFirstActiveMatchAnimated:NO];
-    }
-}
 
 #pragma mark - UIScrollView delegate
 
