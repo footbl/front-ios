@@ -25,7 +25,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	[self setupProgressView];
+	self.progressView.progress = 0.25;
+	
 	[self setupTrophies];
 }
 
@@ -43,14 +44,6 @@
 		[trophies addObject:trophy];
 	}
 	self.trophies = trophies;
-}
-
-- (void)setupProgressView {
-	UINavigationBar *navigationBar = self.navigationController.navigationBar;
-	UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-	progressView.progressTintColor = self.view.tintColor;
-	progressView.progress = 0.3;
-	[navigationBar addProgressView:progressView];
 }
 
 - (void)configureCell:(TrophyRoomCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -81,6 +74,8 @@
 	UICollectionReusableView *view = nil;
 	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
 		view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+		UILabel *label = (UILabel *)[view viewWithTag:777];
+		label.text = [NSString stringWithFormat:@"Complete to collect trophies: %ld%% complete", (long)25];
 	}
 	return view;
 }
