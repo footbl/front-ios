@@ -21,10 +21,14 @@
 	self.titleLabel.text = self.trophy.title;
 	self.imageView.image = [UIImage imageNamed:self.trophy.imageName];
 	self.descriptionLabel.text = self.trophy.subtitle;
-	self.progressLabel.text = [NSString stringWithFormat:@"%ld%% completed", (long)(self.trophy.progress.floatValue * 100)];
-	self.progressLabel.hidden = !self.trophy.isProgressive;
-	self.progressView.progress = self.trophy.progress.floatValue;
-	self.progressView.hidden = !self.trophy.isProgressive;
+	
+	if (self.trophy.isProgressive) {
+		self.progressLabel.text = [NSString stringWithFormat:@"%ld%% completed", (long)(self.trophy.progress.floatValue * 100)];
+		self.progressView.progress = self.trophy.progress.floatValue;
+	} else {
+		[self.progressLabel removeFromSuperview];
+		[self.progressView removeFromSuperview];
+	}
 }
 
 @end
