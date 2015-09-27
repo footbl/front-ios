@@ -108,7 +108,7 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultCenterAlignmentParagraphStyle] mutableCopy];
     paragraphStyle.lineHeightMultiple = 0.55;
     textAttributes[NSParagraphStyleAttributeName] = paragraphStyle;
-    textAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
+    textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameMedium size:25];
     textAttributes[NSKernAttributeName] = @(0.1);
     
@@ -116,14 +116,14 @@
     NSMutableAttributedString *stakeText = [NSMutableAttributedString new];
     
     [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[@([self userWallet]) stringValue] stringByAppendingString:@"\n"] attributes:textAttributes]];
-    textAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
+    textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
     [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[user.localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
-    textAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
+    textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
     
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameLight size:12];
     textAttributes[NSKernAttributeName] = @(0.1);
     [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wallet", @"") attributes:textAttributes]];
-    textAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
+    textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
     [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Stake", @"") attributes:textAttributes]];
     
     self.walletLabel.attributedText = walletText;
@@ -153,13 +153,7 @@
     [super reloadData];
     
     [[LoadingHelper sharedInstance] showHud];
-    
-    FTBBlockError failure = ^(NSError *error) {
-        [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
-    
+	
     [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *fbFriends, NSError *error) {
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *invFriends, NSError *error) {
             self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
@@ -168,7 +162,11 @@
             [[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
-			} failure:failure];
+			} failure:^(NSError *error) {
+				[self.refreshControl endRefreshing];
+				[[LoadingHelper sharedInstance] hideHud];
+				[[ErrorHandler sharedInstance] displayError:error];
+			}];
         }];
     }];
 }
@@ -292,7 +290,7 @@
     [super loadView];
     
     self.title = NSLocalizedString(@"Transfers", @"");
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.clipsToBounds = NO;
     
     self.pendingTransfers = [NSMutableArray new];
@@ -305,7 +303,7 @@
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Send to", @""), NSLocalizedString(@"Received from", @"")]];
     self.segmentedControl.frame = CGRectMake(7, 13, CGRectGetWidth(self.view.frame) - 14, 29);
-    self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    self.segmentedControl.tintColor = [UIColor ftb_tabBarTintColor];
     self.segmentedControl.selectedSegmentIndex = 0;
     self.segmentedControl.backgroundColor = headerView.backgroundColor;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
@@ -327,7 +325,7 @@
     self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - hintHeight, headerView.width, hintHeight)];
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     self.hintLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:14];
-    self.hintLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    self.hintLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     [headerView addSubview:self.hintLabel];
     
     separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(headerView.frame) - 0.5, CGRectGetWidth(self.view.frame), 0.5)];

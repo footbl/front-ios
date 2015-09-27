@@ -83,7 +83,7 @@
     
     self.nameOriginalFrame = self.nameTextField.frame;
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.nameSizeLimitLabel.alpha = 1.0;
         self.nameTextField.y -= 2;
     }];
@@ -102,7 +102,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.nameSizeLimitLabel.alpha = 0;
         self.nameTextField.frame = self.nameOriginalFrame;
     }];
@@ -124,7 +124,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     UIView * (^generateView)(CGRect frame) = ^(CGRect frame) {
         frame.origin.x -= 1;
@@ -143,7 +143,7 @@
     self.nameTextField = [[UITextField alloc] initWithFrame:titleFrame];
     self.nameTextField.font = [UIFont fontWithName:kFontNameLight size:24];
     self.nameTextField.textAlignment = NSTextAlignmentCenter;
-    self.nameTextField.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    self.nameTextField.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     self.nameTextField.delegate = self;
     [self.view addSubview:self.nameTextField];
     

@@ -32,10 +32,10 @@
 
 - (void)configureCell:(UserPerformanceCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	cell.contentView.backgroundColor = EVEN(indexPath.row) ? self.evenColor : self.oddColor;
-	cell.seasonLabel.text = nil;
-	cell.walletLabel.text = nil;
-	cell.xpLabel.text = nil;
-	cell.levelLabel.text = nil;
+	cell.seasonLabel.text = @(indexPath.row + 1).stringValue;
+	cell.walletLabel.text = @(100 * indexPath.row + 100).stringValue;
+	cell.xpLabel.text = @(2*indexPath.row + 30).stringValue;
+	cell.levelLabel.text = @(indexPath.row + 10).stringValue;
 }
 
 #pragma mark - UITableViewDataSource
@@ -45,7 +45,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 0;
+	return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

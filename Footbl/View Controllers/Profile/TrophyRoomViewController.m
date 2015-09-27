@@ -9,6 +9,7 @@
 #import "TrophyRoomViewController.h"
 #import "TrophyRoomCell.h"
 #import "TrophyRoomPopupViewController.h"
+#import "UserPerformanceViewController.h"
 #import "UINavigationBar+UIProgressView.h"
 
 #import "FTBTrophy.h"
@@ -87,10 +88,15 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
-	viewController.trophy = self.trophies[indexPath.row];
-	[self presentViewController:viewController animated:YES completion:nil];
-	[self setNeedsStatusBarAppearanceUpdate];
+	if (indexPath.item == 0) {
+		UserPerformanceViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserPerformanceViewController"];
+		[self.navigationController pushViewController:viewController animated:YES];
+	} else {
+		TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
+		viewController.trophy = self.trophies[indexPath.row];
+		[self presentViewController:viewController animated:YES completion:nil];
+		[self setNeedsStatusBarAppearanceUpdate];
+	}
 }
 
 @end

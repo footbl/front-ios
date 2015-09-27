@@ -49,7 +49,7 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:NO];
     });
 }
@@ -69,7 +69,7 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
         for (UIView *view in self.view.subviews) {
             if (view != self.backgroundImageView) {
                 view.alpha = !hidden;
@@ -231,14 +231,14 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
         [self.emailTextField becomeFirstResponder];
     }
     
-    [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:shouldAnimate ? FTBAnimationDuration : 0 animations:^{
         signupImageView.alpha = 1;
     } completion:^(BOOL finished) {
         self.statusBarVisible = YES;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
         
-        [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+        [UIView animateWithDuration:shouldAnimate ? FTBAnimationDuration : 0 animations:^{
             emailTextFieldBackground.alpha = 1;
             passwordTextFieldBackground.alpha = 1;
             self.emailTextField.alpha = 1;

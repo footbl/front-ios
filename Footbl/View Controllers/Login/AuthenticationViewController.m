@@ -37,7 +37,7 @@
         } else {
             self.view.userInteractionEnabled = NO;
             [self setSubviewsHidden:YES animated:YES];
-            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+            [UIView animateWithDuration:FTBAnimationDuration animations:^{
                 self.activityIndicatorView.alpha = 1;
                 [self.activityIndicatorView startAnimating];
             }];
@@ -68,7 +68,7 @@
                 } else {
                     self.view.userInteractionEnabled = YES;
                     [self setSubviewsHidden:NO animated:YES];
-                    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+                    [UIView animateWithDuration:FTBAnimationDuration animations:^{
                         self.activityIndicatorView.alpha = 0;
                     } completion:^(BOOL finished) {
                         [self.activityIndicatorView stopAnimating];
@@ -84,7 +84,7 @@
     [sender setTitleColor:[sender titleColorForState:UIControlStateHighlighted] forState:UIControlStateNormal];
     
     [self setSubviewsHidden:YES animated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         LoginViewController *loginViewController = [LoginViewController new];
         loginViewController.completionBlock = self.completionBlock;
         [self.navigationController pushViewController:loginViewController animated:NO];
@@ -97,7 +97,7 @@
     [sender setTitleColor:[sender titleColorForState:UIControlStateHighlighted] forState:UIControlStateNormal];
     
     [self setSubviewsHidden:YES animated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         SignupViewController *signupViewController = [SignupViewController new];
         signupViewController.completionBlock = self.completionBlock;
         [self.navigationController pushViewController:signupViewController animated:NO];
@@ -119,7 +119,7 @@
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
         for (UIView *view in self.view.subviews) {
             if (view != self.backgroundImageView && view != self.activityIndicatorView) {
                 view.alpha = !hidden;

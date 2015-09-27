@@ -40,7 +40,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+        self.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
         self.contentView.backgroundColor = self.backgroundColor;
         
         self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 44, 44)];
@@ -56,13 +56,13 @@
         self.rankingLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 11, 185, 16)];
         self.rankingLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
         self.rankingLabel.textAlignment = NSTextAlignmentLeft;
-        self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
+        self.rankingLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
         
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 26, 175, 22)];
         self.usernameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.usernameLabel.textAlignment = NSTextAlignmentLeft;
-        self.usernameLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.usernameLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         [self.contentView addSubview:self.usernameLabel];
         
         CGRect nameFrame = self.usernameLabel.frame;
@@ -76,7 +76,7 @@
         self.walletLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 0, 60, 71)];
         self.walletLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:20];
         self.walletLabel.textAlignment = NSTextAlignmentRight;
-        self.walletLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.walletLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         self.walletLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:self.walletLabel];
         
@@ -87,7 +87,7 @@
         self.progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.rankingLabel.y, 100, self.rankingLabel.height)];
         self.progressLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
         self.progressLabel.textAlignment = NSTextAlignmentLeft;
-        self.progressLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4];
+        self.progressLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.4];
         [self.contentView addSubview:self.progressLabel];
     }
     return self;

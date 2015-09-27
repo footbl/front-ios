@@ -18,10 +18,10 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+        self.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
         self.contentView.backgroundColor = self.backgroundColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.tintColor = [UIColor ftGreenMoneyColor];
+        self.tintColor = [UIColor ftb_greenMoneyColor];
         
         self.profileImageView = [UIImageView new];
         self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -38,7 +38,7 @@
         self.valueLabel = [UILabel new];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
         self.valueLabel.textAlignment = NSTextAlignmentRight;
-        self.valueLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.valueLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         [self.contentView addSubview:self.valueLabel];
         
         [self restoreProfileImagePlaceholder];
@@ -73,7 +73,7 @@
         self.valueLabel.textColor = [UIColor colorWithRed:0.21 green:0.78 blue:0.46 alpha:1];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:24];
     } else {
-        self.valueLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.valueLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
     }
 }

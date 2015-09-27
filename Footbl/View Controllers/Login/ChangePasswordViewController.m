@@ -53,7 +53,7 @@
 - (IBAction)continueAction:(id)sender {
     void(^switchInputBlock)() = ^() {
         self.hintLabel.text = @"";
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             self.informationLabel.alpha = 0;
             self.textField.alpha = 0;
             self.hintLabel.alpha = 0;
@@ -62,7 +62,7 @@
             [self reloadTextField];
             [self.textField resignFirstResponder];
             [self.textField becomeFirstResponder];
-            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+            [UIView animateWithDuration:FTBAnimationDuration animations:^{
                 self.informationLabel.alpha = 1;
                 self.textField.alpha = 1;
                 self.hintLabel.alpha = 1;
@@ -92,7 +92,7 @@
 
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
         for (UIView *view in self.view.subviews) {
             if (view != self.backgroundImageView) {
                 view.alpha = !hidden;
@@ -114,7 +114,7 @@
     if (self.hintLabel.text.length == 0) {
         self.hintLabel.alpha = 0;
     }
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.hintLabel.alpha = 1;
     }];
 }
@@ -180,7 +180,7 @@
 #pragma mark - UITextField delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.hintLabel.alpha = 0;
     }];
     

@@ -27,17 +27,17 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+        self.backgroundColor = [UIColor ftb_navigationBarColor];
         self.clipsToBounds = NO;
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(frame), CGRectGetWidth(frame), 0.5)];
-        self.separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+        self.separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         self.separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:self.separatorView];
         
         NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         paragraphStyle.alignment = NSTextAlignmentCenter;
-        NSMutableDictionary *titleAttributes = [@{NSForegroundColorAttributeName : [UIColor ftGreenMoneyColor],
+        NSMutableDictionary *titleAttributes = [@{NSForegroundColorAttributeName : [UIColor ftb_greenMoneyColor],
                                                   NSParagraphStyleAttributeName : paragraphStyle,
                                                   NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                                   NSKernAttributeName : @(-0.15)} mutableCopy];
@@ -49,7 +49,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         [self addSubview:self.moneyButton];
         
         self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 25, 48, 35)];
-        self.walletValueLabel.textColor = [UIColor ftGreenMoneyColor];
+        self.walletValueLabel.textColor = [UIColor ftb_greenMoneyColor];
         self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.walletValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.walletValueLabel];
@@ -58,12 +58,12 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         self.walletTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wallet", @"") attributes:titleAttributes];
         [self addSubview:self.walletTitleLabel];
         
-        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftRedStakeColor];
+        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
         
         CGFloat stakeWidth = 72 + (CGRectGetWidth(frame) - 320) * 0.4;
         
         self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93 + (CGRectGetWidth(frame) - 320) * 0.15, 25, stakeWidth, 35)];
-        self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
+        self.stakeValueLabel.textColor = [UIColor ftb_redStakeColor];
         self.stakeValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.stakeValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.stakeValueLabel];
@@ -72,10 +72,10 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         self.stakeTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Stake", @"") attributes:titleAttributes];
         [self addSubview:self.stakeTitleLabel];
         
-        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftBlueReturnColor];
+        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_blueReturnColor];
         
         self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, 25, stakeWidth, 35)];
-        self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
+        self.returnValueLabel.textColor = [UIColor ftb_blueReturnColor];
         self.returnValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.returnValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.returnValueLabel];
@@ -84,10 +84,10 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         self.returnTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"To return", @"") attributes:titleAttributes];
         [self addSubview:self.returnTitleLabel];
         
-        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
+        titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
         
         self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 80, 25, 72, 35)];
-        self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+        self.profitValueLabel.textColor = [UIColor ftb_greenMoneyColor];
         self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.profitValueLabel.textAlignment = NSTextAlignmentCenter;
         self.profitValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -99,11 +99,11 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         [self addSubview:self.profitTitleLabel];
         
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(89.5, 27, 0.5, 29)];
-        separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+        separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         [self addSubview:separatorView];
         
         separatorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 85, 27, 0.5, 29)];
-        separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+        separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:separatorView];
     }
@@ -133,7 +133,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         }
     }
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         for (UILabel *label in titleLabels) {
             CGRect labelFrame = label.frame;
             labelFrame.origin.y = originalY + (titleHidden ? kTitleLabelAnimationVerticalOffset : 0);

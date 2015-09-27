@@ -142,7 +142,7 @@ static const NSString *kSectionIdentifier = @"identifier";
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     
     header.textLabel.font = [UIFont fontWithName:kFontNameSystemMedium size:14];
-    header.textLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    header.textLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -235,7 +235,7 @@ static const NSString *kSectionIdentifier = @"identifier";
     [super loadView];
     
     self.title = NSLocalizedString(@"Search", @"");
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
     self.tableView = tableViewController.tableView;

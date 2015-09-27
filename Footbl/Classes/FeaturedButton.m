@@ -20,7 +20,7 @@
         // Initialization code
         [self setImage:[UIImage imageNamed:@"featured_user"] forState:UIControlStateNormal];
         [self setTitle:NSLocalizedString(@"Featured users", @"") forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor ftb_greenGrassColor] forState:UIControlStateNormal];
         [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         self.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17];
         self.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);

@@ -52,7 +52,7 @@
     [self setSubviewsHidden:YES animated:YES];
     [self.textField resignFirstResponder];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([FootblAppearance speedForAnimation:FootblAnimationDefault] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.navigationController popViewControllerAnimated:NO];
     });
 }
@@ -98,7 +98,7 @@
 - (IBAction)continueAction:(id)sender {
     void(^switchInputBlock)(BOOL shouldShowKeyboard) = ^(BOOL shouldShowKeyboard) {
         self.hintLabel.text = @"";
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             self.informationLabel.alpha = 0;
             self.textField.alpha = 0;
             self.hintLabel.alpha = 0;
@@ -114,7 +114,7 @@
             if (shouldShowKeyboard) {
                 [self.textField becomeFirstResponder];
             }
-            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+            [UIView animateWithDuration:FTBAnimationDuration animations:^{
                 self.informationLabel.alpha = 1;
                 self.textField.alpha = 1;
                 self.hintLabel.alpha = 1;
@@ -236,7 +236,7 @@
 }
 
 - (void)setSubviewsHidden:(BOOL)hidden animated:(BOOL)animated {
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
         for (UIView *view in self.view.subviews) {
             if (view != self.backgroundImageView) {
                 view.alpha = !hidden;
@@ -270,7 +270,7 @@
     if (self.hintLabel.text.length == 0) {
         self.hintLabel.alpha = 0;
     }
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.hintLabel.alpha = 1;
     }];
 }
@@ -424,7 +424,7 @@
 #pragma mark - UITextField delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.hintLabel.alpha = 0;
     }];
     
@@ -513,7 +513,7 @@
     albunsButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [albunsButton setTitle:NSLocalizedString(@"Choose from my albums", @"") forState:UIControlStateNormal];
     [albunsButton setImage:[UIImage imageNamed:@"signup_icon_importlibrary"] forState:UIControlStateNormal];
-    [albunsButton setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
+    [albunsButton setTitleColor:[UIColor ftb_greenGrassColor] forState:UIControlStateNormal];
     [albunsButton setTitleColor:[UIColor colorWithRed:0.04 green:0.35 blue:0.16 alpha:1] forState:UIControlStateHighlighted];
     [albunsButton addTarget:self action:@selector(importFromPhotoLibraryAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.importProfileImageOptionsView addSubview:albunsButton];
@@ -528,7 +528,7 @@
     facebookButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [facebookButton setTitle:NSLocalizedString(@"Import from Facebook", @"") forState:UIControlStateNormal];
     [facebookButton setImage:[UIImage imageNamed:@"signup_icon_importfb"] forState:UIControlStateNormal];
-    [facebookButton setTitleColor:[UIColor ftGreenGrassColor] forState:UIControlStateNormal];
+    [facebookButton setTitleColor:[UIColor ftb_greenGrassColor] forState:UIControlStateNormal];
     [facebookButton setTitleColor:[UIColor colorWithRed:0.04 green:0.35 blue:0.16 alpha:1] forState:UIControlStateHighlighted];
     [facebookButton addTarget:self action:@selector(importFromFacebookAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.importProfileImageOptionsView addSubview:facebookButton];
@@ -538,14 +538,14 @@
         [self.textField becomeFirstResponder];
     }
     
-    [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+    [UIView animateWithDuration:shouldAnimate ? FTBAnimationDuration : 0 animations:^{
         signupImageView.alpha = 1;
     } completion:^(BOOL finished) {
         self.statusBarVisible = YES;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
         
-        [UIView animateWithDuration:shouldAnimate ? [FootblAppearance speedForAnimation:FootblAnimationDefault] : 0 animations:^{
+        [UIView animateWithDuration:shouldAnimate ? FTBAnimationDuration : 0 animations:^{
             self.textFieldBackground.alpha = 1;
             self.textField.alpha = 1;
             self.hintLabel.alpha = 1;

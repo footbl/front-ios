@@ -110,7 +110,7 @@
 	FTBUser *user = [FTBUser currentUser];
 	
     self.title = NSLocalizedString(@"Edit profile", @"");
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveAction:)];
@@ -131,7 +131,7 @@
     self.nameTextField = [[UITextField alloc] initWithFrame:nameFrame];
     self.nameTextField.font = [UIFont fontWithName:kFontNameLight size:24];
     self.nameTextField.textAlignment = NSTextAlignmentCenter;
-    self.nameTextField.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    self.nameTextField.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     self.nameTextField.delegate = self;
     self.nameTextField.enablesReturnKeyAutomatically = YES;
     self.nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -150,7 +150,7 @@
     self.aboutMeTextView = [[UITextView alloc] initWithFrame:aboutFrame];
     self.aboutMeTextView.delegate = self;
     self.aboutMeTextView.enablesReturnKeyAutomatically = NO;
-    self.aboutMeTextView.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    self.aboutMeTextView.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     self.aboutMeTextView.font = [UIFont fontWithName:kFontNameMedium size:16];
     self.aboutMeTextView.text = user.about;
     self.aboutMeTextView.returnKeyType = UIReturnKeyDone;

@@ -65,12 +65,12 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
         self.pageControl.currentPage = (int)page;
     }
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.pageControl.alpha = (page != 4);
         self.nextButton.alpha = self.pageControl.alpha;
         self.getStartedButton.alpha = !self.pageControl.alpha;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             self.getStartedButton.alpha = !self.pageControl.alpha;
         }];
     }];

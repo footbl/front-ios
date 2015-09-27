@@ -78,7 +78,7 @@
         self.rankingLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:14];
         self.rankingLabel.textAlignment = NSTextAlignmentRight;
         self.rankingLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        self.rankingLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
+        self.rankingLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.6];
         [self.contentView addSubview:self.rankingLabel];
         
         self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_arrow"]];
@@ -87,7 +87,7 @@
         self.progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.rankingLabel.y, 100, self.rankingLabel.height)];
         self.progressLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
         self.progressLabel.textAlignment = NSTextAlignmentLeft;
-        self.progressLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4];
+        self.progressLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.4];
         [self.contentView addSubview:self.progressLabel];
         
         UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), 0.5)];

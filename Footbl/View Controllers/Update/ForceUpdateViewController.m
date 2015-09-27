@@ -65,7 +65,7 @@
         header = [text componentsSeparatedByString:@"\n"].firstObject;
         text = [@"\n" stringByAppendingString:[text componentsSeparatedByString:@"\n"].lastObject];
     }
-    UIColor *color = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    UIColor *color = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultCenterAlignmentParagraphStyle] mutableCopy];
     paragraphStyle.lineHeightMultiple = 0.85;
     

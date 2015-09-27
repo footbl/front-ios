@@ -219,7 +219,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
 	
     if (user) {
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
@@ -255,7 +255,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     managedLeaguesViewController = [UIViewController new];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBarTitleView.height, self.view.width, 30)];
-    headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+    headerView.backgroundColor = [UIColor ftb_navigationBarColor];
     headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
     [managedLeaguesViewController.view addSubview:headerView];
     
@@ -325,7 +325,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.navigationController.navigationBarHidden = YES;
     self.championshipsViewControllers = [NSMutableDictionary new];
     

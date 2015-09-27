@@ -32,7 +32,7 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+        self.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
         self.contentView.backgroundColor = self.backgroundColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -45,7 +45,7 @@
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 14, CGRectGetWidth(self.contentView.frame) - 75 - 60, 22)];
         self.usernameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.usernameLabel.textAlignment = NSTextAlignmentLeft;
-        self.usernameLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.usernameLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         self.usernameLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.usernameLabel];
         

@@ -19,11 +19,11 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+        self.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
         self.contentView.backgroundColor = self.backgroundColor;
         
         self.indicatorView = [[UIView alloc] initWithFrame:CGRectMake(9, 43, 12, 12)];
-        self.indicatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.6];
+        self.indicatorView.backgroundColor = [[UIColor ftb_greenGrassColor] colorWithAlphaComponent:0.6];
         self.indicatorView.layer.cornerRadius = CGRectGetHeight(self.indicatorView.frame) / 2;
         self.indicatorView.clipsToBounds = YES;
         [self.contentView addSubview:self.indicatorView];
@@ -35,7 +35,7 @@
         [self.contentView addSubview:self.groupImageView];
         
         self.unreadCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(81, 56, 24, 24)];
-        self.unreadCountLabel.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+        self.unreadCountLabel.backgroundColor = [UIColor ftb_tabBarTintColor];
         self.unreadCountLabel.layer.cornerRadius = self.unreadCountLabel.height / 2;
         self.unreadCountLabel.clipsToBounds = YES;
         self.unreadCountLabel.textColor = [UIColor whiteColor];
@@ -115,8 +115,8 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     
-    self.indicatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.6];
-    self.unreadCountLabel.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    self.indicatorView.backgroundColor = [[UIColor ftb_greenGrassColor] colorWithAlphaComponent:0.6];
+    self.unreadCountLabel.backgroundColor = [UIColor ftb_tabBarTintColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

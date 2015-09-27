@@ -8,24 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, FootblView) {
-    FootblColorViewBackground,
-    FootblColorViewMatchBackground,
-    FootblColorCellBackground,
-    FootblColorCellMatchBackground,
-    FootblColorCellSeparator,
-    FootblColorCellMatchPot,
-    FootblColorTabBar,
-    FootblColorTabBarSeparator,
-    FootblColorTabBarTint,
-    FootblColorNavigationBar,
-    FootblColorNavigationBarSeparator
-};
-
-typedef NS_ENUM(NSInteger, FootblAnimation) {
-    FootblAnimationDefault,
-    FootblAnimationTabBar
-};
+FOUNDATION_EXPORT NSTimeInterval FTBAnimationDuration;
 
 extern NSString * const kFontNameAvenirNextDemiBold;
 extern NSString * const kFontNameAvenirNextMedium;
@@ -36,20 +19,25 @@ extern NSString * const kFontNameMedium;
 extern NSString * const kFontNameSystemLight;
 extern NSString * const kFontNameSystemMedium;
 
-@interface FootblAppearance : NSObject
-
-+ (UIColor *)colorForView:(FootblView)footblView;
-+ (CGFloat)speedForAnimation:(FootblAnimation)animation;
-
-@end
-
 @interface UIColor (FootblColor)
 
-+ (UIColor *)ftGreenGrassColor;
-+ (UIColor *)ftGreenLiveColor;
-+ (UIColor *)ftGreenMoneyColor;
-+ (UIColor *)ftRedStakeColor;
-+ (UIColor *)ftBlueReturnColor;
-+ (UIColor *)ftSubtitleColor;
++ (UIColor *)ftb_viewBackgroundColor;
++ (UIColor *)ftb_viewMatchBackgroundColor;
++ (UIColor *)ftb_cellBackgroundColor;
++ (UIColor *)ftb_cellMatchBackgroundColor;
++ (UIColor *)ftb_cellSeparatorColor;
++ (UIColor *)ftb_cellMatchPotColor;
++ (UIColor *)ftb_tabBarColor;
++ (UIColor *)ftb_tabBarSeparatorColor;
++ (UIColor *)ftb_tabBarTintColor;
++ (UIColor *)ftb_navigationBarColor;
++ (UIColor *)ftb_navigationBarSeparatorColor;
+
++ (UIColor *)ftb_greenGrassColor;
++ (UIColor *)ftb_greenLiveColor;
++ (UIColor *)ftb_greenMoneyColor;
++ (UIColor *)ftb_redStakeColor;
++ (UIColor *)ftb_blueReturnColor;
++ (UIColor *)ftb_subtitleColor;
 
 @end
