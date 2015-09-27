@@ -298,7 +298,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     cell.infoLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceValueKey];
     cell.infoLabel.textAlignment = NSTextAlignmentLeft;
-    cell.infoLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+    cell.infoLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
     cell.infoLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
     
     switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] integerValue]) {
@@ -380,7 +380,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         self.title = NSLocalizedString(@"Settings", @"Settings");
     }
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;

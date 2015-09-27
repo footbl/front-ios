@@ -128,7 +128,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.title = NSLocalizedString(@"Bet history", @"");
     
     self.numberOfMatches = self.bets.count;

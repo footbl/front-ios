@@ -207,7 +207,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         
         FTBBlockError failure = ^(NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
-            [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:[FootblAppearance speedForAnimation:FootblAnimationDefault] options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            [UIView animateWithDuration:FTBAnimationDuration delay:FTBAnimationDuration options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             } completion:nil];
             [self reloadWallet];
@@ -224,7 +224,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 			[[FTBClient client] betInMatch:match.identifier bid:@(currentBet) result:resultString user:user success:successBlock failure:failure];
         }
         
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
         }];
         
@@ -237,7 +237,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	
 	FTBUser *user = [FTBUser currentUser];
     if (user) {
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             for (UILabel *label in labels) {
                 label.alpha = 1;
             }
@@ -398,7 +398,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         [self.navigationBarTitleView setTitleHidden:NO animated:YES];
     }
     
-    [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
+    [UIView animateWithDuration:FTBAnimationDuration animations:^{
         self.headerView.y = self.navigationBarTitleView.titleHidden ? 64 : 80;
     } completion:^(BOOL finished) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kMatchesHeaderViewFrameChanged object:@(self.headerView.y) userInfo:nil];
@@ -479,7 +479,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 - (void)loadView {
 	[super loadView];
 	
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.navigationController.navigationBarHidden = YES;
     
@@ -512,7 +512,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     [self.view addSubview:self.tableView];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.tableView.width, 30)];
-    self.headerView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBar];
+    self.headerView.backgroundColor = [UIColor ftb_navigationBarColor];
     self.headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.headerView];
     
@@ -531,7 +531,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     [self.headerView addSubview:self.headerSliderForwardImageView];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.headerView.width, 0.5)];
-    separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorNavigationBarSeparator];
+    separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
     [self.headerView addSubview:separatorView];
 	
 	UIImage *totalProfitArrowImage = [[UIImage imageNamed:@"arrow-down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

@@ -167,7 +167,7 @@ static CGFloat kDisabledAlpha = 0.4;
     }
     
     if (self.stateLayout == MatchTableViewCellStateLayoutLive) {
-        self.liveHeaderView.backgroundColor = [UIColor ftGreenLiveColor];
+        self.liveHeaderView.backgroundColor = [UIColor ftb_greenLiveColor];
         self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     } else if (self.stateLayout == MatchTableViewCellStateLayoutDone) {
         self.liveHeaderView.backgroundColor = [UIColor colorWithWhite:FBTweakValue(@"UI", @"Match", @"Border (Gray)", 0.7, 0.55, 0.8) alpha:1.0];
@@ -208,14 +208,14 @@ static CGFloat kDisabledAlpha = 0.4;
         
         switch (self.colorScheme) {
             case MatchTableViewCellColorSchemeDefault:
-                self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
-                self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
-                self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+                self.stakeValueLabel.textColor = [UIColor ftb_redStakeColor];
+                self.returnValueLabel.textColor = [UIColor ftb_blueReturnColor];
+                self.profitValueLabel.textColor = [UIColor ftb_greenMoneyColor];
                 break;
             case MatchTableViewCellColorSchemeHighlightProfit:
                 self.stakeValueLabel.textColor = grayColor;
                 self.returnValueLabel.textColor = grayColor;
-                self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+                self.profitValueLabel.textColor = [UIColor ftb_greenMoneyColor];
                 break;
             case MatchTableViewCellColorSchemeGray:
                 self.stakeValueLabel.textColor = grayColor;
@@ -224,9 +224,9 @@ static CGFloat kDisabledAlpha = 0.4;
                 break;
         }
     } else {
-        self.stakeValueLabel.textColor = [UIColor ftRedStakeColor];
-        self.returnValueLabel.textColor = [UIColor ftBlueReturnColor];
-        self.profitValueLabel.textColor = [UIColor ftGreenMoneyColor];
+        self.stakeValueLabel.textColor = [UIColor ftb_redStakeColor];
+        self.returnValueLabel.textColor = [UIColor ftb_blueReturnColor];
+        self.profitValueLabel.textColor = [UIColor ftb_greenMoneyColor];
     }
 }
 
@@ -236,7 +236,7 @@ static CGFloat kDisabledAlpha = 0.4;
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.contentView.backgroundColor = [FootblAppearance colorForView:FootblColorCellMatchBackground];
+        self.contentView.backgroundColor = [UIColor ftb_cellMatchBackgroundColor];
         self.backgroundColor = self.contentView.backgroundColor;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -253,18 +253,18 @@ static CGFloat kDisabledAlpha = 0.4;
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(12, self.dateLabel.midY, self.contentView.width - 24, 0.5)];
         line.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        line.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+        line.backgroundColor = [UIColor ftb_cellSeparatorColor];
         [self.contentView insertSubview:line belowSubview:self.dateLabel];
         
         self.cardContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 45, self.contentView.width - 20, 319)];
         self.cardContentView.backgroundColor = [UIColor whiteColor];
         self.cardContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.cardContentView.layer.cornerRadius = 4;
-        self.cardContentView.layer.shadowColor = [[FootblAppearance colorForView:FootblColorCellSeparator] colorWithAlphaComponent:1.0].CGColor;
+        self.cardContentView.layer.shadowColor = [[UIColor ftb_cellSeparatorColor] colorWithAlphaComponent:1.0].CGColor;
         self.cardContentView.layer.shadowOpacity = 0.2;
         self.cardContentView.layer.shadowOffset = CGSizeMake(0, 0.5);
         self.cardContentView.layer.shadowRadius = 1;
-        self.cardContentView.layer.borderColor = [UIColor ftGreenLiveColor].CGColor;
+        self.cardContentView.layer.borderColor = [UIColor ftb_greenLiveColor].CGColor;
         self.cardContentView.layer.borderWidth = 0;
         [self.contentView addSubview:self.cardContentView];
         
@@ -300,7 +300,7 @@ static CGFloat kDisabledAlpha = 0.4;
         
         [@[@62, @256] enumerateObjectsUsingBlock:^(NSNumber *offsetY, NSUInteger idx, BOOL *stop) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY.floatValue, self.cardContentView.width, 0.5)];
-            separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+            separatorView.backgroundColor = [UIColor ftb_cellSeparatorColor];
             separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             separatorView.tag = (idx == 0 ? kFirstSeparatorTag : kSecondSeparatorTag);
             [self.cardContentView addSubview:separatorView];
@@ -317,7 +317,7 @@ static CGFloat kDisabledAlpha = 0.4;
         };
         
         UILabel * (^potLabel)(CGRect frame) = ^(CGRect frame) {
-            UILabel *potLabel = label(frame, [FootblAppearance colorForView:FootblColorCellMatchPot]);
+            UILabel *potLabel = label(frame, [UIColor ftb_cellMatchPotColor]);
             potLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
             return potLabel;
         };
@@ -328,7 +328,7 @@ static CGFloat kDisabledAlpha = 0.4;
             dispatch_once(&onceToken, ^{
                 NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
                 paragraphStyle.alignment = NSTextAlignmentCenter;
-                subtitleAttributes = @{NSForegroundColorAttributeName : [UIColor ftSubtitleColor],
+                subtitleAttributes = @{NSForegroundColorAttributeName : [UIColor ftb_subtitleColor],
                                        NSParagraphStyleAttributeName : paragraphStyle,
                                        NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                        NSKernAttributeName : @(-0.15)};
@@ -359,10 +359,10 @@ static CGFloat kDisabledAlpha = 0.4;
         };
         
         // Bets
-        self.stakeValueLabel = label(CGRectMake(12, 7, 89, 36), [UIColor ftRedStakeColor]);
-        self.returnValueLabel = label(CGRectMake(104, 7, 89, 36), [UIColor ftBlueReturnColor]);
+        self.stakeValueLabel = label(CGRectMake(12, 7, 89, 36), [UIColor ftb_redStakeColor]);
+        self.returnValueLabel = label(CGRectMake(104, 7, 89, 36), [UIColor ftb_blueReturnColor]);
         self.returnValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        self.profitValueLabel = label(CGRectMake(197, 7, 89, 36), [UIColor ftGreenMoneyColor]);
+        self.profitValueLabel = label(CGRectMake(197, 7, 89, 36), [UIColor ftb_greenMoneyColor]);
         self.profitValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         self.stakeTitleLabel = subtitleLabel(CGRectMake(10, 36, 89, 14), NSLocalizedString(@"Stake", @"").lowercaseString);
         self.returnTitleLabel = subtitleLabel(CGRectMake(104, 36, 89, 14), NSLocalizedString(@"To return", @"").lowercaseString);
@@ -377,7 +377,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.guestPotLabel = potLabel(CGRectMake(197, 99, 86, 18));
         self.guestPotLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         
-        self.hostNameLabel = label(CGRectMake(17, 75, 86, 28), [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0]);
+        self.hostNameLabel = label(CGRectMake(17, 75, 86, 28), [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0]);
         self.hostNameLabel.font = [UIFont fontWithName:kFontNameBlack size:self.defaultTeamNameFontSize];
         [self.cardContentView addSubview:self.hostNameLabel];
         
@@ -427,8 +427,8 @@ static CGFloat kDisabledAlpha = 0.4;
         self.footerLabel.clipsToBounds = YES;
         
         self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 256, 86, 55)];
-        [self.shareButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-        [self.shareButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        [self.shareButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [self.shareButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         [self.shareButton setTitle:NSLocalizedString(@"Share", @"") forState:UIControlStateNormal];
         self.shareButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
         [self.shareButton addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -476,7 +476,7 @@ static CGFloat kDisabledAlpha = 0.4;
     [self.cardContentView addSubview:footblLabel];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(160, iconImageView.y, 2, iconImageView.height - 1)];
-    separatorView.backgroundColor = [[UIColor ftGreenGrassColor] colorWithAlphaComponent:0.4];
+    separatorView.backgroundColor = [[UIColor ftb_greenGrassColor] colorWithAlphaComponent:0.4];
     separatorView.clipsToBounds = YES;
     separatorView.layer.cornerRadius = 1;
     [self.cardContentView addSubview:separatorView];

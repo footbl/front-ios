@@ -104,7 +104,7 @@
     [super loadView];
     
     self.title = NSLocalizedString(@"Favorites", @"");
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     if (FBTweakValue(@"UX", @"Profile", @"Search", FT_ENABLE_SEARCH)) {
         UIBarButtonItem *searchButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"navbar_icn_search"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(searchAction:)];

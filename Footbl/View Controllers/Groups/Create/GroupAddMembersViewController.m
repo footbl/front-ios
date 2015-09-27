@@ -472,7 +472,7 @@
     [super loadView];
     
     self.title = NSLocalizedString(@"Add members", @"");
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Create", @"") style:UIBarButtonItemStylePlain target:self action:@selector(createAction:)];
         
     self.selectedMembers = [NSMutableSet new];
@@ -482,7 +482,7 @@
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Footbl", @"").lowercaseString, NSLocalizedString(@"Contacts", @""), NSLocalizedString(@"Facebook", @"")]];
     self.segmentedControl.frame = CGRectMake(15, 73, CGRectGetWidth(self.view.frame) - 30, 29);
-    self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    self.segmentedControl.tintColor = [UIColor ftb_tabBarTintColor];
     self.segmentedControl.selectedSegmentIndex = 0;
     self.segmentedControl.backgroundColor = self.view.backgroundColor;
     [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
@@ -493,7 +493,7 @@
     [self.view insertSubview:self.segmentedControlBackgroundView belowSubview:self.segmentedControl];
     
     self.separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 111, CGRectGetWidth(self.view.frame), 0.5)];
-    self.separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+    self.separatorView.backgroundColor = [UIColor ftb_cellSeparatorColor];
     [self.view insertSubview:self.separatorView belowSubview:self.segmentedControlBackgroundView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 47, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 47)];

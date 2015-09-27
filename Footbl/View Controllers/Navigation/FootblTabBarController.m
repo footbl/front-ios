@@ -42,7 +42,7 @@
     
     _tabBarHidden = hidden;
     
-    [UIView animateWithDuration:animated ? [FootblAppearance speedForAnimation:FootblAnimationTabBar] : 0 animations:^{
+    [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
         CGRect tabBarFrame = self.tabBar.frame;
         if (self.isTabBarHidden) {
             tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) + 0.5;
@@ -137,11 +137,11 @@
         }
     }];
     
-    self.tabBar.barTintColor = [FootblAppearance colorForView:FootblColorTabBar];
-    self.tabBar.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    self.tabBar.barTintColor = [UIColor ftb_tabBarColor];
+    self.tabBar.tintColor = [UIColor ftb_tabBarTintColor];
     
     self.tabBarSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.tabBar.frame) - 0.5, CGRectGetWidth(self.tabBar.frame), 0.5)];
-    self.tabBarSeparatorView.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarSeparator];
+    self.tabBarSeparatorView.backgroundColor = [UIColor ftb_tabBarSeparatorColor];
     self.tabBarSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.tabBarSeparatorView];
 }

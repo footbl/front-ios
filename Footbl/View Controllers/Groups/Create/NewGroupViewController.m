@@ -43,7 +43,7 @@
         self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert invitation code", @"");
         [self.invitationModeButton setTitle:NSLocalizedString(@"Create a new group", @"") forState:UIControlStateNormal];
         
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.groupImageButton.y -= 100;
             self.groupImageButtonBorder.y = self.groupImageButton.y;
         } completion:nil];
@@ -54,7 +54,7 @@
         self.nameSizeLimitLabel.text = NSLocalizedString(@"Insert group name", @"");
         [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
         
-        [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] * 2 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:FTBAnimationDuration * 2 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.groupImageButton.center = CGPointMake(self.groupImageButton.center.x, 120);
             self.groupImageButtonBorder.center = self.groupImageButton.center;
         } completion:nil];
@@ -153,8 +153,8 @@
     self.invitationModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 223, self.view.width, 40)];
     self.invitationModeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:14];
     [self.invitationModeButton setTitle:NSLocalizedString(@"Do you have an invitation code?", @"") forState:UIControlStateNormal];
-    [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-    [self.invitationModeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.4] forState:UIControlStateHighlighted];
+    [self.invitationModeButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+    [self.invitationModeButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.4] forState:UIControlStateHighlighted];
     [self.invitationModeButton addTarget:self action:@selector(invitationCodeAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.invitationModeButton];
     

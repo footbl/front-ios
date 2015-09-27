@@ -225,7 +225,7 @@
         UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
         self.addNewMembersGroupButton = [[UIButton alloc] initWithFrame:addNewMembersView.frame];
         [self.addNewMembersGroupButton setTitle:NSLocalizedString(@"Add new members", @"") forState:UIControlStateNormal];
-        [self.addNewMembersGroupButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [self.addNewMembersGroupButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [self.addNewMembersGroupButton setTitleColor:[[self.addNewMembersGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         self.addNewMembersGroupButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         self.addNewMembersGroupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -246,7 +246,7 @@
         UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 72));
         UIButton *copyShareCodeButton = [[UIButton alloc] initWithFrame:copyShareCodeView.frame];
         [copyShareCodeButton setTitle:NSLocalizedString(@"Copy sharing code", @"") forState:UIControlStateNormal];
-        [copyShareCodeButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [copyShareCodeButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [copyShareCodeButton setTitleColor:[[self.addNewMembersGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         copyShareCodeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         copyShareCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -283,7 +283,7 @@
         UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
         UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.y, 240, freeToEditView.height)];
         [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
-        [freeToEditButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [freeToEditButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [freeToEditButton setTitleColor:[[freeToEditButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         freeToEditButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         freeToEditButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -294,7 +294,7 @@
         self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
         self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
         self.freeToEditSwich.on = self.group.isFreeToEdit;
-        self.freeToEditSwich.onTintColor = [UIColor ftGreenGrassColor];
+        self.freeToEditSwich.onTintColor = [UIColor ftb_greenGrassColor];
         [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:self.freeToEditSwich];
         
@@ -305,7 +305,7 @@
         UIView *notificationsView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
         UIButton *notificationsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, notificationsView.y, 240, notificationsView.height)];
         [notificationsButton setTitle:NSLocalizedString(@"Notifications", @"") forState:UIControlStateNormal];
-        [notificationsButton setTitleColor:[[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
+        [notificationsButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
         [notificationsButton setTitleColor:[[notificationsButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         notificationsButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         notificationsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -317,7 +317,7 @@
         self.notificationsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(notificationsButton.frame))];
         self.notificationsSwitch.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(notificationsButton.frame));
         self.notificationsSwitch.on = user.isNotificationsEnabled;
-        self.notificationsSwitch.onTintColor = [UIColor ftGreenGrassColor];
+        self.notificationsSwitch.onTintColor = [UIColor ftb_greenGrassColor];
         [self.notificationsSwitch addTarget:self action:@selector(notificationsSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
         [scrollView addSubview:self.notificationsSwitch];
         

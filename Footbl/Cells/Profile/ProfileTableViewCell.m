@@ -65,7 +65,7 @@
     if (self) {
         // Initialization code
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+        self.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
         self.contentView.backgroundColor = self.backgroundColor;
         
         self.profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 25, 44, 44)];
@@ -78,7 +78,7 @@
         self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 16, 185, 22)];
         self.usernameLabel.font = [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16];
         self.usernameLabel.textAlignment = NSTextAlignmentLeft;
-        self.usernameLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:1.0];
+        self.usernameLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];
         [self.contentView addSubview:self.usernameLabel];
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.profileImageView.frame), 0, CGRectGetWidth(self.contentView.frame) - 50, self.contentView.height)];
@@ -122,7 +122,7 @@
         self.dateLabel = [[UILabel alloc] initWithFrame:dateFrame];
         self.dateLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:10];
         self.dateLabel.textAlignment = NSTextAlignmentLeft;
-        self.dateLabel.textColor = [[FootblAppearance colorForView:FootblColorCellMatchPot] colorWithAlphaComponent:0.6];
+        self.dateLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.6];
         [self.scrollView addSubview:self.dateLabel];
         
         CGRect aboutFrame = self.nameLabel.frame;

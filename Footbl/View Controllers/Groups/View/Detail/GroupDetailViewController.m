@@ -209,7 +209,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.title = self.group.name;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.title style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -223,7 +223,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         }
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentItems];
         self.segmentedControl.frame = CGRectMake(15, 73, CGRectGetWidth(self.view.frame) - 30, 29);
-        self.segmentedControl.tintColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+        self.segmentedControl.tintColor = [UIColor ftb_tabBarTintColor];
         self.segmentedControl.selectedSegmentIndex = 0;
         self.segmentedControl.backgroundColor = self.view.backgroundColor;
         [self.segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
@@ -234,7 +234,7 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
         [self.view insertSubview:self.segmentedControlBackgroundView belowSubview:self.segmentedControl];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 111, CGRectGetWidth(self.view.frame), 0.5)];
-        self.separatorView.backgroundColor = [FootblAppearance colorForView:FootblColorCellSeparator];
+        self.separatorView.backgroundColor = [UIColor ftb_cellSeparatorColor];
         [self.view insertSubview:self.separatorView belowSubview:self.segmentedControlBackgroundView];
     }
     

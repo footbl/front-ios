@@ -182,7 +182,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     if (FBTweakValue(@"UX", @"Group", @"Join button", YES)) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];

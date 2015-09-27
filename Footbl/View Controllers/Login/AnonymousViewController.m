@@ -98,9 +98,9 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
-    UIColor *textColor = [UIColor ftGreenGrassColor];
+    UIColor *textColor = [UIColor ftb_greenGrassColor];
     UIColor *highlightedColor = [UIColor colorWithRed:0.04 green:0.35 blue:0.16 alpha:1];
     
     UIView * (^generateView)(CGRect frame) = ^(CGRect frame) {

@@ -452,7 +452,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.shouldScrollToBottom = YES;
 
@@ -486,7 +486,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.footerView.width, self.view.height)];
     backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    backgroundView.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarTint];
+    backgroundView.backgroundColor = [UIColor ftb_tabBarTintColor];
     [self.footerView addSubview:backgroundView];
 	
 	self.shareButton = [[UIButton alloc] initWithFrame:CGRectZero];

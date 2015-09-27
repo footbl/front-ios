@@ -42,7 +42,7 @@
         // Initialization code
         self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, CGRectGetWidth(self.contentView.frame), 37)];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:30];
-        self.valueLabel.textColor = [UIColor ftGreenMoneyColor];
+        self.valueLabel.textColor = [UIColor ftb_greenMoneyColor];
         self.valueLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.valueLabel];
         

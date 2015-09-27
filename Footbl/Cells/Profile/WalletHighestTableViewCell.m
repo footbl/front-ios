@@ -52,7 +52,7 @@
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     NSMutableAttributedString *attributedText = [NSMutableAttributedString new];
     [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:[formatter stringFromDate:date] attributes:attributes]];
-    attributes[NSForegroundColorAttributeName] = [UIColor ftGreenMoneyColor];
+    attributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
     NSRange range = [attributedText.string rangeOfString:[NSLocalizedString(@"$", @"") stringByAppendingString:highestValue.walletStringValue]];
     if (range.location == NSNotFound) {
         range = [attributedText.string rangeOfString:highestValue.walletStringValue];

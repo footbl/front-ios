@@ -537,7 +537,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [FootblAppearance colorForView:FootblColorViewMatchBackground];
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     if (self.user.isMe) {
 		[[FTBClient client] userFollowing:self.user success:nil failure:nil];
@@ -612,7 +612,7 @@
     
     for (UIView *view in self.tabBarController.tabBar.subviews) {
         if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) < 2) {
-            view.backgroundColor = [FootblAppearance colorForView:FootblColorTabBarSeparator];
+            view.backgroundColor = [UIColor ftb_tabBarSeparatorColor];
         }
     }
     
