@@ -31,6 +31,10 @@
 	[super viewDidLoad];
 	
 	self.view.backgroundColor = [UIColor clearColor];
+}
+
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
 	
 	CGFloat radius = 3;
 	self.popupView.layer.cornerRadius = radius;

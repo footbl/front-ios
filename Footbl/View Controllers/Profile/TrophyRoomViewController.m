@@ -39,7 +39,7 @@
 - (void)setupTrophies {
 	NSMutableArray *trophies = [[NSMutableArray alloc] init];
 	while (trophies.count < 60) {
-		NSDictionary *dict = @{@"progressive": @YES, @"progress": @0.3, @"title": @"Endurer", @"subtitle": @"Bet in 3 consecutive seasons.", @"imageName": @"footbl_circle"};
+		NSDictionary *dict = @{@"progressive": @(trophies.count % 2), @"progress": @0.3, @"title": @"Endurer", @"subtitle": @"Bet in 3 consecutive seasons.", @"imageName": @"footbl_circle"};
 		FTBTrophy *trophy = [[FTBTrophy alloc] initWithDictionary:dict error:nil];
 		[trophies addObject:trophy];
 	}
