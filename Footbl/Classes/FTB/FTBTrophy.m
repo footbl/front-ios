@@ -10,4 +10,12 @@
 
 @implementation FTBTrophy
 
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{@"title": @"title",
+			 @"subtitle": @"subtitle",
+			 @"imageName": @"imageName",
+			 @"progress": @"progress",
+			 @"progressive": @"progressive"};
+}
+
 @end
