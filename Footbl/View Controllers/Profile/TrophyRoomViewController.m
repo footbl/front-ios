@@ -37,13 +37,10 @@
 #pragma mark - Private
 
 - (void)setupTrophies {
-	NSMutableArray *trophies = [[NSMutableArray alloc] init];
-	while (trophies.count < 60) {
-		NSDictionary *dict = @{@"progressive": @(trophies.count % 2), @"progress": @0.3, @"title": @"Endurer", @"subtitle": @"Bet in 3 consecutive seasons.", @"imageName": @"footbl_circle"};
-		FTBTrophy *trophy = [[FTBTrophy alloc] initWithDictionary:dict error:nil];
-		[trophies addObject:trophy];
-	}
-	self.trophies = trophies;
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"trophies" ofType:@"json"];
+	NSData *data = [NSData dataWithContentsOfFile:path];
+	NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+	self.trophies = [MTLJSONAdapter modelsOfClass:[FTBTrophy class] fromJSONArray:array error:nil];
 }
 
 - (void)configureCell:(TrophyRoomCell *)cell atIndexPath:(NSIndexPath *)indexPath {

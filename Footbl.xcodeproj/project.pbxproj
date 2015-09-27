@@ -71,6 +71,8 @@
 		10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceCell.m */; };
 		10B3AF1A1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; settings = {ASSET_TAGS = (); }; };
 		10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; settings = {ASSET_TAGS = (); }; };
+		10E2413E1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; settings = {ASSET_TAGS = (); }; };
+		10E2413F1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; settings = {ASSET_TAGS = (); }; };
 		117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -373,6 +375,7 @@
 		10AF594A1B9C863C00168433 /* UserPerformanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceCell.m; sourceTree = "<group>"; };
 		10B3AF181BB4D7F000E89253 /* UINavigationBar+UIProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+UIProgressView.h"; sourceTree = "<group>"; };
 		10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+UIProgressView.m"; sourceTree = "<group>"; };
+		10E2413D1BB87DAA00D1482C /* trophies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trophies.json; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1206,6 +1209,7 @@
 		EDB1D46E18E1F18B00E0C949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				10E2413D1BB87DAA00D1482C /* trophies.json */,
 				EDDCF25A193541A40090D06D /* Constants.h */,
 				EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */,
 				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
@@ -1550,6 +1554,7 @@
 				ED785A53199D0C62002A4DBD /* tutorial_5_480@2x.png in Resources */,
 				ED785A54199D0C62002A4DBD /* tutorial_4@2x.png in Resources */,
 				11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */,
+				10E2413E1BB87DAA00D1482C /* trophies.json in Resources */,
 				ED785A55199D0C62002A4DBD /* Localizable.strings in Resources */,
 				ED785A56199D0C62002A4DBD /* tutorial_1@2x.png in Resources */,
 				117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */,
@@ -1576,6 +1581,7 @@
 				ED8DB4021A14C95C00605CCE /* tutorial_5_480@2x.png in Resources */,
 				ED8DB4031A14C95C00605CCE /* tutorial_4@2x.png in Resources */,
 				11D7E7C61A9C12340058473E /* Images.xcassets in Resources */,
+				10E2413F1BB87DAA00D1482C /* trophies.json in Resources */,
 				ED8DB4041A14C95C00605CCE /* Localizable.strings in Resources */,
 				ED8DB4061A14C95C00605CCE /* tutorial_1@2x.png in Resources */,
 				117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */,
