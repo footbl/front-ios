@@ -12,5 +12,6 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *headerLabel;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "UserPerformanceViewController.h"
 #import "UserPerformanceCell.h"
+#import "FootblAppearance.h"
 
 #define EVEN(A) ((A) % 2 == 0)
 
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.evenColor = [UIColor lightGrayColor];
+	self.evenColor = [UIColor ftb_cellMatchBackgroundColor];
 	self.oddColor = [UIColor whiteColor];
 }
 
@@ -55,5 +56,18 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return 44;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	UIView *view = [tableView headerViewForSection:section];
+	if (!view) {
+		view = tableView.tableHeaderView;
+		tableView.tableHeaderView = nil;
+	}
+	return view;
+}
 
 @end
