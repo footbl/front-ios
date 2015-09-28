@@ -325,7 +325,8 @@
             self.notificationsSwitch.enabled = NO;
         }
 		
-		[[FTBClient client] membersForGroup:self.group success:^(id object) {
+		[[FTBClient client] group:self.group.identifier success:^(id object) {
+			self.group = object;
             [self.notificationsSwitch setOn:user.isNotificationsEnabled animated:YES];
             self.notificationsSwitch.enabled = YES;
         } failure:nil];

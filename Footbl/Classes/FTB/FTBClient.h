@@ -51,7 +51,6 @@
 
 - (void)addInvitedMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)addMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)membersForGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Match
 
