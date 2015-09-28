@@ -73,6 +73,8 @@
 		10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; settings = {ASSET_TAGS = (); }; };
 		10E2413E1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; settings = {ASSET_TAGS = (); }; };
 		10E2413F1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; settings = {ASSET_TAGS = (); }; };
+		10E241421BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; settings = {ASSET_TAGS = (); }; };
+		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; settings = {ASSET_TAGS = (); }; };
 		117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -376,6 +378,8 @@
 		10B3AF181BB4D7F000E89253 /* UINavigationBar+UIProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+UIProgressView.h"; sourceTree = "<group>"; };
 		10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+UIProgressView.m"; sourceTree = "<group>"; };
 		10E2413D1BB87DAA00D1482C /* trophies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trophies.json; sourceTree = "<group>"; };
+		10E241401BB8BE0F00D1482C /* SeasonWelcomePopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeasonWelcomePopupViewController.h; sourceTree = "<group>"; };
+		10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeasonWelcomePopupViewController.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -917,6 +921,8 @@
 				10AE3C111BB24E8700503DD5 /* NewPopupViewController.m */,
 				10AF59411B9C763200168433 /* TrophyRoomPopupViewController.h */,
 				10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */,
+				10E241401BB8BE0F00D1482C /* SeasonWelcomePopupViewController.h */,
+				10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -1798,6 +1804,7 @@
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
+				10E241421BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1922,6 +1929,7 @@
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
 				100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
+				10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,
