@@ -215,11 +215,6 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	if (success) success(nil);
 }
 
-- (void)membersForGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-#warning Implement group members API
-	if (success) success(nil);
-}
-
 #pragma mark - Match
 
 - (void)match:(NSString *)match championship:(FTBChampionship *)championship success:(FTBBlockObject)success failure:(FTBBlockError)failure {

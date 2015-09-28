@@ -306,8 +306,8 @@
 	void (^block)(FTBGroup *) = ^(FTBGroup *group) {
 		[[FTBClient client] addMembers:self.footblSelectedMembers.allObjects group:group success:^(id response) {
 			[[FTBClient client] addInvitedMembers:invitedMembers group:group success:^(id response) {
-				[[FTBClient client] membersForGroup:group success:^(id object) {
-					successBlock(group);
+				[[FTBClient client] group:group.identifier success:^(id object) {
+					successBlock(object);
 				} failure:^(NSError *error) {
 					successBlock(group);
 				}];
