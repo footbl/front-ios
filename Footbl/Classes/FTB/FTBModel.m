@@ -40,7 +40,7 @@
 	return [self dateJSONTransformer];
 }
 
-+ (instancetype)modelWithDictionary:(NSDictionary *)dictionary {
++ (instancetype)modelWithJSONDictionary:(NSDictionary *)dictionary {
 	return [MTLJSONAdapter modelOfClass:[self class] fromJSONDictionary:dictionary error:nil];
 }
 

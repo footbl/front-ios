@@ -77,6 +77,12 @@
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBTeam class]];
 }
 
++ (NSValueTransformer *)elapsedJSONTransformer {
+	return [MTLValueTransformer transformerUsingReversibleBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+		return value ?: @0;
+	}];
+}
+
 - (FTBTeam *)winner {
 	if ([self.guestScore compare:self.hostScore] == NSOrderedDescending) return self.guest;
 	if ([self.guestScore compare:self.hostScore] == NSOrderedAscending) return self.host;

@@ -274,6 +274,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)scrollToFirstActiveMatchAnimated:(BOOL)animated {
+	if (self.matches.count == 0) {
+		return;
+	}
+	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
 	FTBMatch *match = [self.matches filteredArrayUsingPredicate:predicate].lastObject;
     if (!match) {
@@ -317,6 +321,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		
 		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {
 			self.matches = objects;
+			[self.tableView reloadData];
 			
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
@@ -561,8 +566,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     
     [self reloadWallet];
     [self reloadData];
-    
-    [self scrollToFirstActiveMatchAnimated:NO];
 }
 
 - (void)viewDidLoad {

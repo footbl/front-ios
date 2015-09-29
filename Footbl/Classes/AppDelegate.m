@@ -38,7 +38,7 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    switch (SPGetBuildType()) {
+	switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
             [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
@@ -115,12 +115,12 @@
     [[SDImageCache sharedImageCache] downloadCachedImages];
     */
 	
-	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-	UINavigationController *navigationController = [storyboard instantiateInitialViewController];
-	self.window.rootViewController = navigationController;
+//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//	UINavigationController *navigationController = [storyboard instantiateInitialViewController];
+//	self.window.rootViewController = navigationController;
 	
-//    self.footblTabBarController = [FootblTabBarController new];
-//    self.window.rootViewController = self.footblTabBarController;
+    self.footblTabBarController = [FootblTabBarController new];
+    self.window.rootViewController = self.footblTabBarController;
 	
     /*
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
