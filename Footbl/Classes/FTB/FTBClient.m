@@ -43,18 +43,19 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 }
 
 FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictionary *parameters, Class modelClass, FTBBlockObject success, FTBBlockError failure) {
+	__weak FTBClient *client = [FTBClient client];
 	return ^(NSURLSessionDataTask *task, NSError *error) {
 		if (((NSHTTPURLResponse *)task.response).statusCode == 401) {
 			[[[FTBClient client] operationQueue] cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				if ([method isEqualToString:@"GET"]) {
-					[[FTBClient client] GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[client GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"POST"]) {
-					[[FTBClient client] POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[client POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"PUT"]) {
-					[[FTBClient client] PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[client PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"DELETE"]) {
-					[[FTBClient client] DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[client DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else {
 					if (failure) failure(error);
 				}

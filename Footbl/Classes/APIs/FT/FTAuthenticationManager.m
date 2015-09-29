@@ -23,7 +23,7 @@ static NSString * const kUserPasswordKey = @"kUserPasswordKey";
 static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
 
 NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
-    return [NSString stringWithFormat:@"%@%@", userId, FTBSignatureKey.sha1];
+    return [NSString stringWithFormat:@"%@%@", userId, FTBSignatureKey].sha1;
 }
 
 @interface FTAuthenticationManager ()
@@ -41,18 +41,19 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 #pragma mark - Class Methods
 
 + (instancetype)sharedManager {
-    static id sharedInstance;
+    static FTAuthenticationManager *sharedManager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [self new];
+        sharedManager = [[self alloc] init];
     });
-    return sharedInstance;
+    return sharedManager;
 }
 
 #pragma mark - Getters/Setters
 
 @synthesize email = _email;
 @synthesize password = _password;
+@synthesize user = _user;
 
 - (FTAuthenticationType)authenticationType {
     if (self.email.length > 0 && self.password.length > 0) {
@@ -89,8 +90,23 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 - (void)setPassword:(NSString *)password {
     _password = password;
-    
     [FXKeychain defaultKeychain][kUserPasswordKey] = password;
+}
+
+- (FTBUser *)user {
+	if (!_user) {
+		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
+		if (identifier) {
+			_user = [[FTBUser alloc] initWithDictionary:@{@"identifier": identifier} error:nil];
+		}
+	}
+	return _user;
+}
+
+- (void)setUser:(FTBUser *)user {
+	_user = user;
+	
+	[FXKeychain defaultKeychain][kUserIdentifierKey] = (user.identifier.length > 0) ? user.identifier : nil;
 }
 
 - (void)setPushNotificationToken:(NSString *)pushNotificationToken {

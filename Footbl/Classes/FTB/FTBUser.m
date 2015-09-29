@@ -46,7 +46,14 @@
 
 @end
 
-@implementation FTBUser
+@implementation FTBBaseUser
+
++ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
+	if (JSONDictionary[@"starred"]) {
+		return [FTBUser class];
+	}
+	return self;
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"email": @"email",
@@ -62,8 +69,7 @@
 							   @"active": @"active",
 							   @"country": @"country",
 							   @"entries": @"entries",
-							   @"seasons": @"seasons",
-							   @"starred": @"starred"};
+							   @"seasons": @"seasons"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
@@ -73,10 +79,6 @@
 
 + (NSValueTransformer *)seasonsJSONTransformer {
 	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUserSeason class]];
-}
-
-+ (NSValueTransformer *)starredJSONTransformer {
-	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUser class]];
 }
 
 #pragma mark - Helpers
@@ -254,6 +256,19 @@
 - (NSArray *)history {
 	FTBUserSeason *history = self.seasons.firstObject;
 	return history.rankings;
+}
+
+@end
+
+@implementation FTBUser
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	NSDictionary *keyPaths = @{@"starred": @"starred"};
+	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
+}
+
++ (NSValueTransformer *)starredJSONTransformer {
+	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBBaseUser class]];
 }
 
 @end

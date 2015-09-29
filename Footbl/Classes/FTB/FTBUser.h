@@ -8,6 +8,7 @@
 
 #import "FTBModel.h"
 
+@class FTBUser;
 @class FTBSeason;
 @class FTBChampionship;
 
@@ -27,7 +28,7 @@
 
 @end
 
-@interface FTBUser : FTBModel
+@interface FTBBaseUser : FTBModel
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *username;
@@ -43,7 +44,6 @@
 @property (nonatomic, copy) NSString *country;
 @property (nonatomic, copy) NSArray<FTBChampionship *> *entries;
 @property (nonatomic, copy) NSArray<FTBUserSeason *> *seasons;
-@property (nonatomic, copy) NSArray<FTBUser *> *starred;
 @property (nonatomic, copy) NSNumber *funds;
 @property (nonatomic, copy) NSNumber *stake;
 @property (nonatomic, copy) NSNumber *ranking;
@@ -69,5 +69,11 @@
 - (BOOL)isFanOfUser:(FTBUser *)user;
 - (NSNumber *)numberOfLeagues;
 - (NSArray *)history;
+
+@end
+
+@interface FTBUser : FTBBaseUser
+
+@property (nonatomic, copy) NSArray<FTBUser *> *starred;
 
 @end

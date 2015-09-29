@@ -15,7 +15,7 @@
 @property (nonatomic, copy, readonly) NSDate *updatedAt;
 
 + (NSValueTransformer *)dateJSONTransformer;
-+ (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
++ (instancetype)modelWithJSONDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;
 
 @end
