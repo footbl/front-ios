@@ -43,19 +43,18 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 }
 
 FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictionary *parameters, Class modelClass, FTBBlockObject success, FTBBlockError failure) {
-	__weak FTBClient *client = [FTBClient client];
 	return ^(NSURLSessionDataTask *task, NSError *error) {
 		if (((NSHTTPURLResponse *)task.response).statusCode == 401) {
 			[[[FTBClient client] operationQueue] cancelAllOperations];
 			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
 				if ([method isEqualToString:@"GET"]) {
-					[client GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[[FTBClient client] GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"POST"]) {
-					[client POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[[FTBClient client] POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"PUT"]) {
-					[client PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[[FTBClient client] PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else if ([method isEqualToString:@"DELETE"]) {
-					[client DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
+					[[FTBClient client] DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
 				} else {
 					if (failure) failure(error);
 				}
@@ -351,14 +350,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user.identifier];
-	NSDictionary *parameters = @{@"email": user.email,
-								 @"username": user.username,
-								 @"name": user.name,
-								 @"password": user.password,
-								 @"about": user.about,
-								 @"picture": user.pictureURL.absoluteString,
-								 @"apnsToken": user.apnsToken,
-								 @"entries": user.entries};
+	NSDictionary *parameters = user.JSONDictionary;
 	[self PUT:path parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
 }
 
