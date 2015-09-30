@@ -38,12 +38,12 @@
 }
 
 - (void)checkForUpdate {
-    if (self.isVisible && (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10))) {
-        [self reloadData];
-        [self.updateTimer invalidate];
-        self.updateTimer = nil;
-        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
-    }
+//    if (self.isVisible && (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10))) {
+//        [self reloadData];
+//        [self.updateTimer invalidate];
+//        self.updateTimer = nil;
+//        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
+//    }
 }
 
 #pragma mark - Delegates & Data sources
@@ -52,7 +52,8 @@
 
 - (void)loadView {
     [super loadView];
-    
+	
+	self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor ftb_viewBackgroundColor];
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
     
