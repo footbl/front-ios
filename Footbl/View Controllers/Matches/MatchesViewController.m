@@ -382,6 +382,12 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     return [super updateInterval];
 }
 
+- (void)updateInsets {
+	self.headerView.y = self.navigationBarTitleView.titleHidden ? 64 : 80;
+	self.tableView.contentInset = UIEdgeInsetsMake(self.headerView.maxY, 0, 0, 0);
+	self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UIScrollView delegate
@@ -401,10 +407,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     } else if (velocityY > kScrollMinimumVelocityToToggleTabBar) {
         [tabBarController setTabBarHidden:NO animated:YES];
         [self.navigationBarTitleView setTitleHidden:NO animated:YES];
+		
     }
-    
+	
     [UIView animateWithDuration:FTBAnimationDuration animations:^{
-        self.headerView.y = self.navigationBarTitleView.titleHidden ? 64 : 80;
+		[self updateInsets];
     } completion:^(BOOL finished) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kMatchesHeaderViewFrameChanged object:@(self.headerView.y) userInfo:nil];
     }];
@@ -484,7 +491,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 - (void)loadView {
 	[super loadView];
 	
-    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
+	self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.navigationController.navigationBarHidden = YES;
     
@@ -503,22 +510,18 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     tableViewController.refreshControl = self.refreshControl;
 	
     self.tableView = tableViewController.tableView;
-    self.tableView.frame = CGRectMake(0, 30, self.view.width, self.view.height - 30);
+	self.tableView.frame = self.view.bounds;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
-    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(self.navigationBarTitleView.frame), 0, 0, 0);
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 15)];
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 5 + CGRectGetHeight(self.tabBarController.tabBar.frame))];
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view addSubview:self.tableView];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.tableView.width, 30)];
     self.headerView.backgroundColor = [UIColor ftb_navigationBarColor];
-    self.headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
+    self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.headerView];
     
     self.headerLabel = [[UILabel alloc] initWithFrame:self.headerView.bounds];
@@ -579,7 +582,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
     [self reloadWallet];
     [self.tableView reloadData];
     
-    self.headerView.y = self.navigationBarTitleView.titleHidden ? 60 : 80;
+	[self updateInsets];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
