@@ -10,7 +10,7 @@
 
 @interface FTBTeam : FTBModel
 
-@property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, copy, readonly) NSURL *pictureURL;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSURL *pictureURL;
 
 @end

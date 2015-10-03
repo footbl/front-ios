@@ -69,7 +69,9 @@
 							   @"active": @"active",
 							   @"country": @"country",
 							   @"entries": @"entries",
-							   @"seasons": @"seasons"};
+							   @"seasons": @"seasons",
+							   @"funds": @"funds",
+							   @"stake": @"stake"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 

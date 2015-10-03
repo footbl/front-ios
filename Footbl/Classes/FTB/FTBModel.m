@@ -16,19 +16,23 @@
 			 @"updatedAt": @"updatedAt"};
 }
 
-+ (NSDateFormatter *)dateFormatter {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-	dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
-	return dateFormatter;
++ (NSDateFormatter *)backendDateFormatter {
+	static NSDateFormatter *backendDateFormatter;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		backendDateFormatter = [[NSDateFormatter alloc] init];
+		backendDateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+		backendDateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+		backendDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+	});
+	return backendDateFormatter;
 }
 
 + (NSValueTransformer *)dateJSONTransformer {
 	return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
-		return [self.dateFormatter dateFromString:dateString];
+		return [self.backendDateFormatter dateFromString:dateString];
 	} reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
-		return [self.dateFormatter stringFromDate:date];
+		return [self.backendDateFormatter stringFromDate:date];
 	}];
 }
 

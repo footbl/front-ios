@@ -220,8 +220,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         if (result == 0 || bet) {
 			[[FTBClient client] updateBet:bet user:user success:successBlock failure:failure];
         } else {
-			NSString *resultString = nil;
-			[[FTBClient client] betInMatch:match.identifier bid:@(currentBet) result:resultString user:user success:successBlock failure:failure];
+			[[FTBClient client] betInMatch:match bid:@(currentBet) result:result user:user success:successBlock failure:failure];
         }
         
         [UIView animateWithDuration:FTBAnimationDuration animations:^{
@@ -315,13 +314,24 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
         [[ErrorHandler sharedInstance] displayError:error];
     };
 	
-	FTBUser *user = [FTBUser currentUser];
-	[[FTBClient client] user:user.identifier success:^(FTBUser *user) {
+	FTBUser *me = [FTBUser currentUser];
+	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
         [self reloadWallet];
 		
 		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {
 			self.matches = objects;
 			[self.tableView reloadData];
+			
+			[[FTBClient client] betsForUser:me success:^(NSArray *bets) {
+				
+				for (FTBMatch *match in self.matches) {
+					for (FTBBet *bet in bets) {
+						if ([bet.match isEqual:match]) {
+							match.myBet = bet;
+						}
+					}
+				}
+			
 			
             [self.refreshControl endRefreshing];
             [[LoadingHelper sharedInstance] hideHud];
@@ -370,6 +380,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             computeProfit();
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
+			} failure:failure];
         } failure:failure];
     } failure:failure];
 }

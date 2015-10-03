@@ -10,8 +10,8 @@
 
 @interface FTBSeason : FTBModel
 
-@property (nonatomic, copy, readonly) NSString *sponsor;
-@property (nonatomic, copy, readonly) NSString *gift;
-@property (nonatomic, copy, readonly) NSDate *finishAt;
+@property (nonatomic, copy) NSString *sponsor;
+@property (nonatomic, copy) NSString *gift;
+@property (nonatomic, copy) NSDate *finishAt;
 
 @end
