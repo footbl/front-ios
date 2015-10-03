@@ -13,9 +13,9 @@
 
 @interface FTBPrize : FTBModel
 
-@property (nonatomic, strong, readonly) FTBUser *user;
-@property (nonatomic, assign, readonly) NSNumber *value;
-@property (nonatomic, assign, readonly) FTBPrizeType type;
-@property (nonatomic, copy, readonly) NSArray<FTBUser *> *seenBy;
+@property (nonatomic, strong) FTBUser *user;
+@property (nonatomic, copy) NSNumber *value;
+@property (nonatomic, assign) FTBPrizeType type;
+@property (nonatomic, copy) NSArray<FTBUser *> *seenBy;
 
 @end

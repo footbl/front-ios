@@ -37,8 +37,12 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 		} else {
 			object = responseObject;
 		}
-		if (failure && error) failure(error);
-		if (success && !error) success(object);
+		
+		if (failure && error) {
+			failure(error);
+		} else if (success) {
+			success(object);
+		}
 	};
 }
 
@@ -361,9 +365,10 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Bet
 
-- (void)betInMatch:(NSString *)match bid:(NSNumber *)bid result:(NSString *)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)betInMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
 	NSString *path = [NSString stringWithFormat:@"/users/%@/bets", user.identifier];
-	NSDictionary *parameters = @{@"match": match, @"bid": bid, @"result": result};
+	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
 	[self POST:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 

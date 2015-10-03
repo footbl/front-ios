@@ -15,28 +15,28 @@
 
 @interface FTBMatch : FTBModel
 
-@property (nonatomic, copy, readonly) FTBChampionship *championship;
-@property (nonatomic, copy, readonly) FTBTeam *guest;
-@property (nonatomic, copy, readonly) FTBTeam *host;
-@property (nonatomic, copy, readonly) FTBTeam *winner;
-@property (nonatomic, copy, readonly) NSNumber *round;
-@property (nonatomic, copy, readonly) NSDate *date;
-@property (nonatomic, assign, readonly, getter=isFinished) BOOL finished;
-@property (nonatomic, assign, readonly) NSTimeInterval elapsed;
-@property (nonatomic, copy, readonly) NSNumber *guestScore;
-@property (nonatomic, copy, readonly) NSNumber *hostScore;
-@property (nonatomic, copy, readonly) NSNumber *guestPot;
-@property (nonatomic, copy, readonly) NSNumber *hostPot;
-@property (nonatomic, copy, readonly) NSNumber *drawPot;
-@property (nonatomic, copy, readonly) NSNumber *jackpot;
-@property (nonatomic, copy, readonly) NSNumber *reward;
+@property (nonatomic, copy) FTBChampionship *championship;
+@property (nonatomic, copy) FTBTeam *guest;
+@property (nonatomic, copy) FTBTeam *host;
+@property (nonatomic, copy) FTBTeam *winner;
+@property (nonatomic, copy) NSNumber *round;
+@property (nonatomic, copy) NSDate *date;
+@property (nonatomic, assign, getter=isFinished) BOOL finished;
+@property (nonatomic, assign) NSTimeInterval elapsed;
+@property (nonatomic, copy) NSNumber *guestScore;
+@property (nonatomic, copy) NSNumber *hostScore;
+@property (nonatomic, copy) NSNumber *guestPot;
+@property (nonatomic, copy) NSNumber *hostPot;
+@property (nonatomic, copy) NSNumber *drawPot;
+@property (nonatomic, copy) NSNumber *jackpot;
+@property (nonatomic, copy) NSNumber *reward;
+@property (nonatomic, strong) FTBBet *myBet;
 
 + (NSValueTransformer *)resultJSONTransformer;
 
 // TODO: Set this property to YES in every bet request, then set it to NO after the response
 @property (assign, nonatomic, getter = isBetSyncing) BOOL betSyncing;
 - (FTBMatchStatus)status;
-- (FTBBet *)myBet;
 - (FTBMatchResult)result;
 - (FTBMatchResult)myBetResult;
 - (NSNumber *)localJackpot;

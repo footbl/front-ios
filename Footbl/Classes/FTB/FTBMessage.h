@@ -12,11 +12,11 @@
 
 @interface FTBMessage : FTBModel
 
-@property (nonatomic, strong, readonly) FTBUser *user;
-@property (nonatomic, strong, readonly) FTBModel *room;
-@property (nonatomic, copy, readonly) NSString *message;
-@property (nonatomic, copy, readonly) NSString *type;
-@property (nonatomic, copy, readonly) NSArray<FTBUser *> *seenBy;
+@property (nonatomic, strong) FTBUser *user;
+@property (nonatomic, strong) FTBModel *room;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSArray<FTBUser *> *seenBy;
 
 @property (nonatomic, assign) BOOL deliveryFailedValue;
 

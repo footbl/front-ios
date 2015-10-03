@@ -14,10 +14,10 @@
 
 @interface FTBBet : FTBModel
 
-@property (nonatomic, strong, readonly) FTBUser *user;
-@property (nonatomic, strong, readonly) FTBMatch *match;
-@property (nonatomic, assign, readonly) NSNumber *bid;
-@property (nonatomic, assign, readonly) FTBMatchResult result;
+@property (nonatomic, strong) FTBUser *user;
+@property (nonatomic, strong) FTBMatch *match;
+@property (nonatomic, copy) NSNumber *bid;
+@property (nonatomic, assign) FTBMatchResult result;
 
 - (NSString *)valueString;
 - (NSNumber *)toReturn;

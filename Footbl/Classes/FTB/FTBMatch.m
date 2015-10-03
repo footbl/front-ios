@@ -99,11 +99,6 @@
 	}
 }
 
-- (FTBBet *)myBet {
-	// TODO: Implement this method
-	return nil;
-}
-
 - (FTBMatchResult)result {
 	if ([self.winner isEqual:self.host]) {
 		return FTBMatchResultHost;

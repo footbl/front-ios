@@ -13,12 +13,12 @@
 
 @interface FTBChallenge : FTBModel
 
-@property (nonatomic, strong, readonly) FTBUser *challengerUser;
-@property (nonatomic, strong, readonly) FTBUser *challengedUser;
-@property (nonatomic, assign, readonly) FTBMatchResult challengerResult;
-@property (nonatomic, assign, readonly) FTBMatchResult challengedResult;
-@property (nonatomic, strong, readonly) FTBMatch *match;
-@property (nonatomic, copy, readonly) NSNumber *bid;
-@property (nonatomic, assign, readonly, getter=isAccepted) BOOL accepted;
+@property (nonatomic, strong) FTBUser *challengerUser;
+@property (nonatomic, strong) FTBUser *challengedUser;
+@property (nonatomic, assign) FTBMatchResult challengerResult;
+@property (nonatomic, assign) FTBMatchResult challengedResult;
+@property (nonatomic, strong) FTBMatch *match;
+@property (nonatomic, copy) NSNumber *bid;
+@property (nonatomic, assign, getter=isAccepted) BOOL accepted;
 
 @end
