@@ -9,6 +9,7 @@
 #import "FTBMatch.h"
 #import "FTBTeam.h"
 #import "FTBBet.h"
+#import "FTBUser.h"
 
 #import "NSNumber+Formatter.h"
 
@@ -238,6 +239,21 @@
 	}
 	
 	return @(nearbyint(self.myBetProfit.doubleValue)).walletStringValue;
+}
+
+- (void)setBetTemporaryResult:(FTBMatchResult)result value:(NSNumber *)value {
+	if (value) {
+		[FTBMatch temporaryBetsDictionary][self.identifier] = @{@"result" : @(result), @"value" : value};
+	} else {
+		[[FTBMatch temporaryBetsDictionary] removeObjectForKey:self.identifier];
+	}
+	
+	FTBUser *user = [FTBUser currentUser];
+	if (value && ![user.pendingMatchesToSyncBet containsObject:self]) {
+		[user.pendingMatchesToSyncBet addObject:self];
+	} else if (!value) {
+		[user.pendingMatchesToSyncBet removeObject:self];
+	}
 }
 
 @end

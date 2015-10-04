@@ -187,6 +187,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 	FTBUser *user = [FTBUser currentUser];
 	[[FTBClient client] user:user.identifier success:^(FTBUser *object) {
 		self.championships = object.entries;
+		[self reloadScrollView];
 		
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
             RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
@@ -359,7 +360,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self.scrollView addGestureRecognizer:self.panGestureRecognizer];
     
     [self reloadData];
-    [self reloadScrollView];
     
     self.scrollViewCurrentPage = 0;
     
@@ -370,15 +370,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [[NSNotificationCenter defaultCenter] addObserverForName:kMatchesNavigationBarTitleAnimateKey object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadManagedLeaguesViewController];
     }];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	
-	[[FTBClient client] championships:0 success:^(id object) {
-		self.championships = object;
-		[self reloadScrollView];
-	} failure:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

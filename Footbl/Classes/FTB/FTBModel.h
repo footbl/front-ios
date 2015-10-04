@@ -10,9 +10,9 @@
 
 @interface FTBModel : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, copy, readonly) NSString *identifier;
-@property (nonatomic, copy, readonly) NSDate *createdAt;
-@property (nonatomic, copy, readonly) NSDate *updatedAt;
+@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy) NSDate *createdAt;
+@property (nonatomic, copy) NSDate *updatedAt;
 
 + (NSValueTransformer *)dateJSONTransformer;
 + (instancetype)modelWithJSONDictionary:(NSDictionary *)dictionary;
