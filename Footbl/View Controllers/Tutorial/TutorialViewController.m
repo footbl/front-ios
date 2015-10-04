@@ -80,7 +80,8 @@ NSString * kPresentTutorialViewController = @"kPresentTutorialViewController";
 
 - (void)loadView {
     [super loadView];
-    
+	
+	self.edgesForExtendedLayout = UIRectEdgeTop;
     self.navigationController.navigationBarHidden = YES;
     self.shouldUpdatePageControl = YES;
     
