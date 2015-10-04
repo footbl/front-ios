@@ -94,7 +94,8 @@
 }
 
 - (NSSet *)activeBets {
-	return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"bid > 0 AND match.finished = NO AND match != nil"]];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bid > 0 AND match.finished = NO AND match != nil"];
+	return [self.bets filteredSetUsingPredicate:predicate];
 }
 
 - (BOOL)isMe {
@@ -238,7 +239,7 @@
 
 - (NSMutableSet *)pendingMatchesToSyncBet {
 	if (!_pendingMatchesToSyncBet) {
-		_pendingMatchesToSyncBet = [NSMutableSet new];
+		_pendingMatchesToSyncBet = [[NSMutableSet alloc] init];
 	}
 	return _pendingMatchesToSyncBet;
 }

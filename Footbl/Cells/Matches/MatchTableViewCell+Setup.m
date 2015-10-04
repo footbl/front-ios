@@ -36,11 +36,6 @@
     self.hostScoreLabel.text = match.hostScore.stringValue;
     self.guestScoreLabel.text = match.guestScore.stringValue;
 	
-//    self.hostImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-//    self.hostDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-//    self.guestImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-//    self.guestDisabledImageView.image = [UIImage imageNamed:@"placeholder_escudo"];
-	
     [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.hostDisabledImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];
     [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:[UIImage imageNamed:@"placeholder_escudo"]];

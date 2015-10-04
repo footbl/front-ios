@@ -83,16 +83,25 @@
     [self.textField resignFirstResponder];
     
     [[LoadingHelper sharedInstance] showHud];
-    
-    [[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
-        [[FTAuthenticationManager sharedManager] updateUserWithUsername:[self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)] name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
-            [[LoadingHelper sharedInstance] hideHud];
-            if (self.completionBlock) self.completionBlock();
-        } failure:^(NSError *error) {
-            [[FTAuthenticationManager sharedManager] logout];
-            failureBlock(error);
-        }];
-    } failure:failureBlock];
+	
+	void (^updateBlock)() = ^{
+		NSString *username = [self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:kNilOptions range:NSMakeRange(0, 1)];
+		[[FTAuthenticationManager sharedManager] updateUserWithUsername:username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
+			[[LoadingHelper sharedInstance] hideHud];
+			if (self.completionBlock) self.completionBlock();
+		} failure:^(NSError *error) {
+			[[FTAuthenticationManager sharedManager] logout];
+			failureBlock(error);
+		}];
+	};
+	
+	if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+		updateBlock();
+	} else {
+		[[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
+			updateBlock();
+		} failure:failureBlock];
+	}
 }
 
 - (IBAction)continueAction:(id)sender {

@@ -50,5 +50,6 @@
 - (NSString *)myBetReturnString;
 - (NSNumber *)myBetProfit;
 - (NSString *)myBetProfitString;
+- (void)setBetTemporaryResult:(FTBMatchResult)result value:(NSNumber *)value;
 
 @end

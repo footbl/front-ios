@@ -260,7 +260,8 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
     void(^updateAccountBlock)(NSString *picturePath) = ^(NSString *picturePath) {
-		[[FTBClient client] user:nil success:^(FTBUser *user) {
+		FTBUser *user = [FTBUser currentUser];
+		[[FTBClient client] user:user.identifier success:^(FTBUser *user) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];
             [parameters addEntriesFromDictionary:user.JSONDictionary];
             if (username) parameters[@"username"] = username;
