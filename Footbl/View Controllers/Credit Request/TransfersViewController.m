@@ -296,7 +296,7 @@
     self.pendingTransfers = [NSMutableArray new];
     
     CGFloat hintHeight = 30;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, CGRectGetWidth(self.view.frame), 100 + hintHeight)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 100 + hintHeight)];
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerView.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1];
     [self.view addSubview:headerView];

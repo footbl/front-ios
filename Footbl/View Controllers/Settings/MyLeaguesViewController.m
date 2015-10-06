@@ -39,11 +39,11 @@
         [[LoadingHelper sharedInstance] showHud];
     }
 	
-	FTBUser *user = [FTBUser currentUser];
-    [[FTBClient client] user:user.identifier success:^(FTBUser *object) {
-		self.championships = object.entries;
+	[[FTBClient client] championships:0 success:^(id object) {
+		self.championships = object;
 		[self.refreshControl endRefreshing];
 		[[LoadingHelper sharedInstance] hideHud];
+		[self.tableView reloadData];
 	} failure:^(NSError *error) {
 		[self.refreshControl endRefreshing];
 		[[LoadingHelper sharedInstance] hideHud];
@@ -54,7 +54,10 @@
 - (void)configureCell:(GroupChampionshipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBChampionship *championship = self.championships[indexPath.row];
     cell.nameLabel.text = championship.name;
-    cell.informationLabel.text = [NSString stringWithFormat:@"%@, %@", [championship.country stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], championship.edition.stringValue];
+	cell.informationLabel.text = championship.country;
+	if (championship.edition.integerValue > 0) {
+		cell.informationLabel.text = [championship.country stringByAppendingFormat:@", %@", championship.edition.stringValue];
+	}
     [cell.championshipImageView sd_setImageWithURL:championship.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
     if (championship.isEnabled) {
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -86,8 +89,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	FTBUser *user = [FTBUser currentUser];
     FTBChampionship *championship = self.championships[indexPath.row];
-	user.entries = [user.entries arrayByAddingObject:championship];
-	[[FTBClient client] updateUser:user success:^(id object) {
+	NSMutableArray *entries = [[NSMutableArray alloc] initWithArray:user.entries];
+	[entries addObject:championship];
+	[[FTBClient client] updateUser:user entries:entries success:^(id object) {
 		[self reloadData];
 	} failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
@@ -97,10 +101,9 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
 	FTBUser *user = [FTBUser currentUser];
     FTBChampionship *championship = self.championships[indexPath.row];
-	NSMutableArray *entries = self.championships.mutableCopy;
+	NSMutableArray *entries = [[NSMutableArray alloc] initWithArray:user.entries];
 	[entries removeObject:championship];
-	user.entries = entries;	
-	[[FTBClient client] updateUser:user success:^(id object) {
+	[[FTBClient client] updateUser:user entries:entries success:^(id object) {
 		[self reloadData];
 	} failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
