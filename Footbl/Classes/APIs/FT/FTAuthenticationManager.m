@@ -260,46 +260,25 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
     void(^updateAccountBlock)(NSString *picturePath) = ^(NSString *picturePath) {
-		FTBUser *user = [FTBUser currentUser];
-		[[FTBClient client] user:user.identifier success:^(FTBUser *user) {
-            NSMutableDictionary *parameters = [NSMutableDictionary new];
-            [parameters addEntriesFromDictionary:user.JSONDictionary];
-            if (username) parameters[@"username"] = username;
-            if (email) parameters[@"email"] = email;
-            if (password) parameters[@"password"] = password;
-            if (name) parameters[@"name"] = name;
-            if (about) parameters[@"about"] = about;
-            if (picturePath) parameters[@"picture"] = picturePath;
-            if (self.pushNotificationToken.length > 0) parameters[@"apnsToken"] = self.pushNotificationToken;
-            if (fbToken) [[FTBClient client].requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
-            parameters[@"language"] = [NSLocale preferredLanguages][0];
-            parameters[@"locale"] = [[NSLocale currentLocale] localeIdentifier];
-            parameters[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
-            
-            void(^completionBlock)() = ^() {
-                [[FTBClient client].requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
-            };
-			
-			[[FTBClient client] updateUser:user success:^(id object) {
-				if (fbToken.length > 0) {
-					[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
-				}
-				if (email.length > 0) {
-					self.email = email;
-				}
-				if (password.length > 0) {
-					self.password = password;
-				}
-				completionBlock();
-				if (success) success(user);
-			} failure:^(NSError *error) {
-				completionBlock();
-				if (error.code == 500) {
-					error = [NSError errorWithDomain:kFTErrorDomain code:error.code userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Error: email or username already taken", @"")}];
-				}
-				if (failure) failure(error);
-			}];
-        } failure:failure];
+		FTBUser *me = [FTBUser currentUser];
+		NSString *apnsToken = (self.pushNotificationToken.length > 0) ? self.pushNotificationToken : nil;
+		[[FTBClient client] updateUser:me username:username name:name email:email password:password fbToken:fbToken apnsToken:apnsToken imagePath:picturePath about:about success:^(id object) {
+			if (fbToken.length > 0) {
+				[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
+			}
+			if (email.length > 0) {
+				self.email = email;
+			}
+			if (password.length > 0) {
+				self.password = password;
+			}
+			if (success) success(object);
+		} failure:^(NSError *error) {
+			if (error.code == 500) {
+				error = [NSError errorWithDomain:kFTErrorDomain code:error.code userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Error: email or username already taken", @"")}];
+			}
+			if (failure) failure(error);
+		}];
     };
 	
     [FTImageUploader uploadImage:profileImage withSuccess:^(id response) {

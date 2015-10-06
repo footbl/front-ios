@@ -93,6 +93,18 @@
 - (void)rechargeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)removeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)unfollowUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)updateUser:(FTBUser *)user
+		  username:(NSString *)username
+			  name:(NSString *)name
+			 email:(NSString *)email
+		  password:(NSString *)password
+		   fbToken:(NSString *)fbToken
+		 apnsToken:(NSString *)apnsToken
+		 imagePath:(NSString *)imagePath
+			 about:(NSString *)about
+		   success:(FTBBlockObject)success
+		   failure:(FTBBlockError)failure;
+- (void)updateUser:(FTBUser *)user entries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 

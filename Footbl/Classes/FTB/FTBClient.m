@@ -317,7 +317,13 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)user:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user];
-	[self GET:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
+	[self GET:path parameters:nil modelClass:[FTBUser class] success:^(FTBUser *object) {
+		FTBUser *me = [FTBUser currentUser];
+		if ([user isEqualToString:me.identifier]) {
+			[me mergeValuesForKeysFromModel:object];
+		}
+		if (success) success(object);
+	} failure:failure];
 }
 
 - (void)usersWithEmails:(NSArray *)emails
@@ -352,10 +358,42 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self DELETE:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
-- (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)updateUser:(FTBUser *)user parameters:(NSDictionary *)parameters success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user.identifier];
-	NSDictionary *parameters = user.JSONDictionary;
-	[self PUT:path parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
+	NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:parameters];
+	dictionary[@"language"] = [NSLocale preferredLanguages][0];
+	dictionary[@"locale"] = [[NSLocale currentLocale] localeIdentifier];
+	dictionary[@"timezone"] = [[NSTimeZone defaultTimeZone] name];
+	[self PUT:path parameters:dictionary modelClass:[FTBUser class] success:success failure:failure];
+}
+
+- (void)updateUser:(FTBUser *)user username:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken apnsToken:(NSString *)apnsToken imagePath:(NSString *)imagePath about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+	if (username) parameters[@"username"] = username;
+	if (email) parameters[@"email"] = email;
+	if (password) parameters[@"password"] = password;
+	if (name) parameters[@"name"] = name;
+	if (about) parameters[@"about"] = about;
+	if (imagePath) parameters[@"picture"] = imagePath;
+	if (apnsToken) parameters[@"apnsToken"] = apnsToken;
+	if (fbToken) [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
+	[self updateUser:user parameters:parameters success:^(id object) {
+		[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+		if (success) success(object);
+	} failure:^(NSError *error) {
+		[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+		if (failure) failure(error);
+	}];
+}
+
+- (void)updateUser:(FTBUser *)user entries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSArray *hahaha = [MTLJSONAdapter JSONArrayFromModels:entries error:nil];
+	NSDictionary *parameters = @{@"entries": hahaha};
+	[self updateUser:user parameters:parameters success:success failure:failure];
+}
+
+- (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	[self updateUser:user parameters:user.JSONDictionary success:success failure:failure];
 }
 
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {

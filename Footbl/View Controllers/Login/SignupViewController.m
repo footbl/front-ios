@@ -84,7 +84,7 @@
     
     [[LoadingHelper sharedInstance] showHud];
 	
-	void (^updateBlock)() = ^{
+	[[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
 		NSString *username = [self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:kNilOptions range:NSMakeRange(0, 1)];
 		[[FTAuthenticationManager sharedManager] updateUserWithUsername:username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
 			[[LoadingHelper sharedInstance] hideHud];
@@ -93,15 +93,7 @@
 			[[FTAuthenticationManager sharedManager] logout];
 			failureBlock(error);
 		}];
-	};
-	
-	if ([FTAuthenticationManager sharedManager].isAuthenticated) {
-		updateBlock();
-	} else {
-		[[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
-			updateBlock();
-		} failure:failureBlock];
-	}
+	} failure:failureBlock];
 }
 
 - (IBAction)continueAction:(id)sender {
