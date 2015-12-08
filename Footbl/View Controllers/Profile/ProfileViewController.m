@@ -128,7 +128,7 @@
     
     if (!self.user.isMe || !self.shouldShowSettings) {
 		__weak typeof(self) this = self;
-		[[FTBClient client] betsForUser:self.user success:^(id object) {
+		[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(id object) {
 			this.bets = object;
 			[this.tableView reloadData];
 		} failure:nil];
@@ -161,7 +161,7 @@
 			[this reloadContent];
 			[this.refreshControl endRefreshing];
 		} else {
-			[[FTBClient client] betsForUser:this.user success:^(NSArray *bets) {
+			[[FTBClient client] betsForUser:this.user match:nil page:0 success:^(NSArray *bets) {
 				[this setupInfiniteScrolling];
 				this.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
 				this.nextPage++;
@@ -181,7 +181,7 @@
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [super reloadData];
 		
-		[[FTBClient client] betsForUser:this.user success:^(NSArray *bets) {
+		[[FTBClient client] betsForUser:this.user match:nil page:0 success:^(NSArray *bets) {
 			[this.tableView.infiniteScrollingView stopAnimating];
 			if (bets.count == FT_API_PAGE_LIMIT) {
 				this.tableView.showsInfiniteScrolling = YES;

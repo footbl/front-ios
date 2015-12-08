@@ -42,7 +42,7 @@
     [super reloadData];
 	
 	__weak typeof(self) this = self;
-	[[FTBClient client] betsForUser:self.user success:^(NSArray *bets) {
+	[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(NSArray *bets) {
 		[this setupInfiniteScrolling];
 		this.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
 		this.nextPage++;
@@ -73,7 +73,7 @@
             [[LoadingHelper sharedInstance] showHud];
         }
  
-		[[FTBClient client] betsForUser:self.user success:^(NSArray *bets) {
+		[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(NSArray *bets) {
 			[this.tableView.infiniteScrollingView stopAnimating];
 			[[LoadingHelper sharedInstance] hideHud];
 			if (bets.count == FT_API_PAGE_LIMIT) {

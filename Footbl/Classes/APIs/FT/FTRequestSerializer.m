@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "FTOperationManager.h"
 #import "FTRequestSerializer.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"

@@ -9,8 +9,8 @@
 #import "FTBConstants.h"
 
 #if FTB_ENVIRONMENT_DEVELOPMENT
-//NSString *const FTBBaseURL			= @"https://footbl-development.herokuapp.com";
-NSString *const FTBBaseURL			= @"http://localhost:8080";
+NSString *const FTBBaseURL			= @"https://footbl-staging.herokuapp.com";
+//NSString *const FTBBaseURL			= @"http://localhost:8080";
 NSString *const FTBSignatureKey		= @"-f-Z~Nyhq!3&oSP:Do@E(/pj>K)Tza%})Qh= pxJ{o9j)F2.*$+#n}XJ(iSKQnXf";
 #elif FTB_ENVIRONMENT_PRODUCTION
 NSString *const FTBBaseURL			= @"https://footbl-production.herokuapp.com";

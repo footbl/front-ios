@@ -113,12 +113,6 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self DELETE:path parameters:parameters success:blockSuccess failure:blockFailure];
 }
 
-#pragma mark -
-
-+ (FTBUser *)currentUser {
-	return nil;
-}
-
 #pragma mark - Championship
 
 - (void)championships:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -134,31 +128,31 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Credit Request
 
-- (void)approveCreditRequest:(NSString *)request forUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/credit-requests/%@/approve", user, request];
+- (void)approveCreditRequest:(NSString *)request success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/credit-requests/%@/approve", request];
 	[self PUT:path parameters:nil modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
 - (void)createCreditRequest:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/credit-requests", user];
-	[self POST:path parameters:nil modelClass:[FTBCreditRequest class] success:success failure:failure];
+	NSString *path = [NSString stringWithFormat:@"/credit-requests"];
+	NSDictionary *parameters = @{@"user": user};
+	[self POST:path parameters:parameters modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
-- (void)creditRequest:(NSString *)request forUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/credit-requests/%@", user, request];
+- (void)creditRequest:(NSString *)request success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/credit-requests/%@", request];
 	[self GET:path parameters:nil modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
-- (void)creditRequests:(NSString *)user page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/credit-requests", user];
-	NSDictionary *parameters = @{@"page": @(page)};
+- (void)creditRequests:(FTBUser *)creditedUser chargedUser:(FTBUser *)chargedUser page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/credit-requests"];
+	NSDictionary *parameters = @{@"filterByCreditedUser": creditedUser.identifier, @"filterByChargedUser": chargedUser.identifier, @"page": @(page)};
 	[self GET:path parameters:parameters modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
-- (void)requestedCredits:(NSString *)user page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/requested-credits", user];
-	NSDictionary *parameters = @{@"page": @(page)};
-	[self GET:path parameters:parameters modelClass:[FTBCreditRequest class] success:success failure:failure];
+- (void)rejectCreditRequest:(FTBCreditRequest *)request success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/credit-requests/%@/reject", request.identifier];
+	[self PUT:path parameters:nil modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
 #pragma mark - Group
@@ -173,7 +167,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
 	parameters[@"name"] = name;
 	if (pictureURL) parameters[@"picture"] = pictureURL.absoluteString;
-	[self GET:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
+	[self POST:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
 }
 
 - (void)group:(NSString *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -184,12 +178,12 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 - (void)inviteUser:(FTBUser *)user toGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/groups/%@/invite", group.identifier];
 	NSDictionary *parameters = @{@"user": user.identifier};
-	[self POST:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
+	[self PUT:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
 }
 
 - (void)leaveGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/groups/%@/leave", group.identifier];
-	[self DELETE:path parameters:nil modelClass:[FTBGroup class] success:success failure:failure];
+	[self PUT:path parameters:nil modelClass:[FTBGroup class] success:success failure:failure];
 }
 
 - (void)groups:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -206,7 +200,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 - (void)updateGroup:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/groups/%@", group.identifier];
 	NSDictionary *parameters = @{@"name": group.name, @"picture": group.pictureURL.absoluteString};
-	[self DELETE:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
+	[self PUT:path parameters:parameters modelClass:[FTBGroup class] success:success failure:failure];
 }
 
 - (void)addInvitedMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -221,51 +215,52 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Match
 
-- (void)match:(NSString *)match championship:(FTBChampionship *)championship success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/championships/%@/matches/%@", championship.identifier, match];
+- (void)match:(NSString *)match success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/matches/%@", match];
 	[self GET:path parameters:nil modelClass:[FTBMatch class] success:success failure:failure];
 }
 
-- (void)matchesInChampionship:(FTBChampionship *)championship page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/championships/%@/matches", championship.identifier];
-	NSDictionary *parameters = @{@"page": @(page)};
+- (void)matchesInChampionship:(FTBChampionship *)championship round:(NSUInteger)round page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/matches"];
+	NSDictionary *parameters = @{@"filterByChampionship": championship.identifier, @"filterByRound": @(round), @"page": @(page)};
 	[self GET:path parameters:parameters modelClass:[FTBMatch class] success:success failure:failure];
 }
 
 #pragma mark - Message
 
 - (void)sendMessage:(NSString *)message type:(NSString *)type room:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room];
-	NSDictionary *parameters = @{@"message": message, @"type": type};
+	NSString *path = [NSString stringWithFormat:@"/messages"];
+	NSDictionary *parameters = @{@"room": room, @"message": message, @"type": type};
 	[self POST:path parameters:parameters modelClass:[FTBMessage class] success:success failure:failure];
 }
 
 - (void)messagesForRoom:(NSString *)room page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages", room];
-	NSDictionary *parameters = @{@"page": @(page), @"unreadMessages": @(unread)};
+	NSString *path = [NSString stringWithFormat:@"/messages"];
+	NSDictionary *parameters = @{@"filterByRoom": room, @"filterByUnread": @(unread), @"page": @(page)};
 	[self GET:path parameters:parameters modelClass:[FTBMessage class] success:success failure:failure];
 }
 
 - (void)markAllMessagesAsReadInRoom:(NSString *)room success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/rooms/%@/messages/all/mark-as-read", room];
-	[self PUT:path parameters:nil modelClass:[FTBMessage class] success:success failure:failure];
+	NSString *path = [NSString stringWithFormat:@"/messages/all/mark-as-read"];
+	NSDictionary *parameters = @{@"room": room};
+	[self PUT:path parameters:parameters modelClass:[FTBMessage class] success:success failure:failure];
 }
 
 #pragma mark - Prize
 
-- (void)prize:(NSString *)prize forUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/prizes/%@", user.identifier, prize];
+- (void)prize:(NSString *)prize success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/prizes/%@", prize];
 	[self GET:path parameters:nil modelClass:[FTBPrize class] success:success failure:failure];
 }
 
 - (void)prizesForUser:(FTBUser *)user page:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/prizes", user.identifier];
-	NSDictionary *parameters = @{@"page": @(page), @"unreadMessages": @(unread)};
+	NSString *path = [NSString stringWithFormat:@"/prizes"];
+	NSDictionary *parameters = @{@"filterByUnread": @(unread), @"page": @(page)};
 	[self GET:path parameters:parameters modelClass:[FTBPrize class] success:success failure:failure];
 }
 
-- (void)markPrizeAsRead:(FTBPrize *)prize user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/prizes/%@/mark-as-read", user.identifier, prize.identifier];
+- (void)markPrizeAsRead:(FTBPrize *)prize success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/prizes/%@/mark-as-read", prize.identifier];
 	[self PUT:path parameters:nil modelClass:[FTBPrize class] success:success failure:failure];
 }
 
@@ -297,7 +292,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)followUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@/follow", user.identifier];
-	[self POST:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
+	[self PUT:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
 - (void)userFollowers:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -345,7 +340,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)rechargeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@/recharge", user];
-	[self GET:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
+	[self PUT:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
 - (void)removeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -355,7 +350,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)unfollowUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users/%@/unfollow", user];
-	[self DELETE:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
+	[self PUT:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
 - (void)updateUser:(FTBUser *)user parameters:(NSDictionary *)parameters success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -403,55 +398,56 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - Bet
 
-- (void)betInMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)betInMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
-	NSString *path = [NSString stringWithFormat:@"/users/%@/bets", user.identifier];
+	NSString *path = [NSString stringWithFormat:@"/bets"];
 	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
 	[self POST:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)bet:(NSString *)bet user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/bets/%@", user.identifier, bet];
+- (void)bet:(NSString *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/bets/%@", bet];
 	[self GET:path parameters:nil modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)betsForUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/bets", user.identifier];
-	[self GET:path parameters:nil modelClass:[FTBBet class] success:success failure:failure];
+- (void)betsForUser:(FTBUser *)user match:(FTBMatch *)match page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/bets"];
+	NSDictionary *parameters = @{@"filterByMatch": match.identifier, @"filterByUser": user.identifier, @"page": @(page)};
+	[self GET:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)updateBet:(FTBBet *)bet user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/bets/%@", user.identifier, bet.identifier];
+- (void)updateBet:(FTBBet *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
 	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:bet error:nil];
 	[self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 
 #pragma mark - Challenge
 
-- (void)acceptChallenge:(FTBChallenge *)challenge user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/challenges/%@/accept", user.identifier, challenge.identifier];
+- (void)acceptChallenge:(FTBChallenge *)challenge success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/challenges/%@/accept", challenge.identifier];
 	[self PUT:path parameters:nil modelClass:[FTBChallenge class] success:success failure:failure];
 }
 
 - (void)createChallengeForMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(NSString *)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/challenges", user.identifier];
-	NSDictionary *parameters = @{@"match": match, @"bid": bid, @"result": result};
+	NSString *path = [NSString stringWithFormat:@"/challenges"];
+	NSDictionary *parameters = @{@"match": match, @"bid": bid, @"result": result, @"user": user.identifier};
 	[self POST:path parameters:parameters modelClass:[FTBChallenge class] success:success failure:failure];
 }
 
-- (void)challenge:(NSString *)challenge user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/challenges/%@", user.identifier, challenge];
+- (void)challenge:(NSString *)challenge success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/challenges/%@", challenge];
 	[self GET:path parameters:nil modelClass:[FTBChallenge class] success:success failure:failure];
 }
 
-- (void)challengesForUser:(FTBUser *)user page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/challenges", user.identifier];
-	NSDictionary *parameters = @{@"page": @(page)};
+- (void)challengesForChallenger:(FTBUser *)challenger challenged:(FTBUser *)challenged page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/challenges"];
+	NSDictionary *parameters = @{@"filterByChallenger": challenger.identifier, @"filterByChallenged": challenged.identifier, @"page": @(page)};
 	[self GET:path parameters:parameters modelClass:[FTBChallenge class] success:success failure:failure];
 }
 
-- (void)rejectChallenge:(FTBChallenge *)challenge user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@/challenges/%@/reject", user.identifier, challenge.identifier];
+- (void)rejectChallenge:(FTBChallenge *)challenge success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/challenges/%@/reject", challenge.identifier];
 	[self GET:path parameters:nil modelClass:[FTBChallenge class] success:success failure:failure];
 }
 

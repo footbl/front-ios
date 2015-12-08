@@ -81,8 +81,8 @@
 	
 	FTBUser *user = [FTBUser currentUser];
 	for (FTBCreditRequest *request in self.pendingTransfers) {
-		[[FTBClient client] approveCreditRequest:request.identifier forUser:user.identifier success:^(id object) {
-			[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+		[[FTBClient client] approveCreditRequest:request.identifier success:^(id object) {
+			[[FTBClient client] creditRequests:user chargedUser:nil page:0 success:^(id object) {
 				self.sendButton.userInteractionEnabled = YES;
 				[self.pendingTransfers removeAllObjects];
 				[self reloadWallet];
@@ -159,7 +159,7 @@
             self.fbFriends = [fbFriends arrayByAddingObjectsFromArray:invFriends];
             [self.tableView reloadData];
 			FTBUser *user = [FTBUser currentUser];
-            [[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+            [[FTBClient client] creditRequests:user chargedUser:nil page:0 success:^(id object) {
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
 			} failure:^(NSError *error) {

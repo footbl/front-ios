@@ -74,8 +74,7 @@
         return;
     }
 	
-	FTBUser *user = [FTBUser currentUser];
-	[[FTBClient client] markPrizeAsRead:self.prize user:user success:^(id object) {
+	[[FTBClient client] markPrizeAsRead:self.prize success:^(id object) {
 		[self.activityIndicatorView stopAnimating];
 		[self dismissViewController];
 	} failure:^(NSError *error) {
