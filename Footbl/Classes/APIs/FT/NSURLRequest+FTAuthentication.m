@@ -10,6 +10,7 @@
 #import "FTAuthenticationManager.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
+#import "FTBUser.h"
 
 #pragma mark NSURLRequest (FTAuthentication)
 
@@ -18,7 +19,7 @@
 #pragma mark - Instance Methods
 
 - (BOOL)containsToken {
-    return [self allHTTPHeaderFields][@"auth-token"] ? YES : NO;
+	return [self allHTTPHeaderFields][@"Authorization"] != nil;
 }
 
 - (NSMutableURLRequest *)signedRequest {
@@ -28,16 +29,20 @@
     }
     
     if (!request.containsToken) {
-        double unixTime = round([[NSDate date] timeIntervalSince1970] * 1000);
-        NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
-        NSString *signature = [NSString stringWithFormat:@"%.00f%@%@", unixTime, transactionIdentifier, FTBSignatureKey].sha1;
-        
-        [request setValue:[NSString stringWithFormat:@"%.00f", unixTime] forHTTPHeaderField:@"auth-timestamp"];
-        [request setValue:transactionIdentifier forHTTPHeaderField:@"auth-transactionId"];
-        [request setValue:signature forHTTPHeaderField:@"auth-signature"];
+//        double unixTime = round([[NSDate date] timeIntervalSince1970] * 1000);
+//        NSString *transactionIdentifier = [NSString randomHexStringWithLength:10];
+//        NSString *signature = [NSString stringWithFormat:@"%.00f%@%@", unixTime, transactionIdentifier, FTBSignatureKey].sha1;
+//        
+//        [request setValue:[NSString stringWithFormat:@"%.00f", unixTime] forHTTPHeaderField:@"auth-timestamp"];
+//        [request setValue:transactionIdentifier forHTTPHeaderField:@"auth-transactionId"];
+//        [request setValue:signature forHTTPHeaderField:@"auth-signature"];
 		
-        if ([FTAuthenticationManager sharedManager].isAuthenticated && [FTAuthenticationManager sharedManager].token.length > 0) {
-            [request setValue:[FTAuthenticationManager sharedManager].token forHTTPHeaderField:@"auth-token"];
+        if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+			FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+			NSString *authString = [NSString stringWithFormat:@"%@:%@", user.email, user.password];
+			NSData *authData = [authString dataUsingEncoding:NSUTF8StringEncoding];
+			NSString *auth = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:kNilOptions]];
+			[request setValue:auth forHTTPHeaderField:@"Authorization"];
         }
     }
     

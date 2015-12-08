@@ -28,15 +28,13 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 @interface FTAuthenticationManager ()
 
-@property (copy, nonatomic) NSString *email;
-@property (copy, nonatomic) NSString *password;
-@property (strong, nonatomic) NSDate *tokenExpirationDate;
-
 @end
 
 #pragma mark FTAuthenticationManager
 
 @implementation FTAuthenticationManager
+
+@synthesize user = _user;
 
 #pragma mark - Class Methods
 
@@ -50,10 +48,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 }
 
 #pragma mark - Getters/Setters
-
-@synthesize email = _email;
-@synthesize password = _password;
-@synthesize user = _user;
 
 - (FTAuthenticationType)authenticationType {
     if (self.email.length > 0 && self.password.length > 0) {
@@ -71,10 +65,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     return self.authenticationType != FTAuthenticationTypeNone;
 }
 
-- (BOOL)isTokenValid {
-    return (self.token.length > 0 && self.tokenExpirationDate && [[NSDate date] timeIntervalSinceDate:self.tokenExpirationDate] < 0);
-}
-
 - (NSString *)email {
     return [FXKeychain defaultKeychain][kUserEmailKey];
 }
@@ -83,14 +73,12 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     return [FXKeychain defaultKeychain][kUserPasswordKey];
 }
 
-- (void)setEmail:(NSString *)email {
-    _email = email;
-    [FXKeychain defaultKeychain][kUserEmailKey] = email;
-}
-
-- (void)setPassword:(NSString *)password {
-    _password = password;
-    [FXKeychain defaultKeychain][kUserPasswordKey] = password;
+- (void)setUser:(FTBUser *)user {
+    _user = user;
+	
+	[FXKeychain defaultKeychain][kUserIdentifierKey] = (user.identifier.length > 0) ? user.identifier : nil;
+	[FXKeychain defaultKeychain][kUserPasswordKey] = (user.password.length > 0) ? user.password : nil;
+	[FXKeychain defaultKeychain][kUserEmailKey] = (user.email.length > 0) ? user.email : nil;
 }
 
 - (FTBUser *)user {
@@ -98,31 +86,17 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
 		if (identifier) {
 			_user = [[FTBUser alloc] initWithDictionary:@{@"identifier": identifier} error:nil];
+			_user.email = [FXKeychain defaultKeychain][kUserEmailKey];
+			_user.password = [FXKeychain defaultKeychain][kUserPasswordKey];
 		}
 	}
 	return _user;
-}
-
-- (void)setUser:(FTBUser *)user {
-	_user = user;
-	
-	[FXKeychain defaultKeychain][kUserIdentifierKey] = (user.identifier.length > 0) ? user.identifier : nil;
 }
 
 - (void)setPushNotificationToken:(NSString *)pushNotificationToken {
     _pushNotificationToken = pushNotificationToken;
     
     [self updateUserWithUsername:nil name:nil email:self.email password:self.password fbToken:[FBSession activeSession].accessTokenData.accessToken profileImage:nil about:nil success:nil failure:nil];
-}
-
-- (void)setToken:(NSString *)token {
-    _token = token;
-    
-    if (self.token.length > 0) {
-        self.tokenExpirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 55];
-    } else {
-        self.tokenExpirationDate = nil;
-    }
 }
 
 #pragma mark - Instance Methods
@@ -136,7 +110,7 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 }
 
 - (void)ensureAuthenticationWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure {
-    if (self.isTokenValid) {
+    if (self.isAuthenticated) {
         if (success) success(nil);
         return;
     }
@@ -163,9 +137,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     BOOL shouldSendNotification = (self.authenticationType == FTAuthenticationTypeNone);
 	[[FTBClient client].requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
 	[[FTBClient client] GET:@"users/me/auth" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-		self.email = nil;
-		self.password = nil;
-		self.token = responseObject[@"token"];
 		[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
 		[[FTBClient client] user:responseObject[@"_id"] success:^(id object) {
 			self.user = object;
@@ -189,9 +160,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 	if (email) parameters[@"email"] = email;
 	if (password) parameters[@"password"] = password;
 	[[FTBClient client] GET:@"users/me/auth" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-		self.password = password;
-		self.email = email;
-		self.token = responseObject[@"token"];
 		[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
 		[[FTBClient client] user:responseObject[@"_id"] success:^(id object) {
 			self.user = object;
@@ -260,17 +228,16 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
 
 - (void)updateUserWithUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken profileImage:(UIImage *)profileImage about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
     void(^updateAccountBlock)(NSString *picturePath) = ^(NSString *picturePath) {
-		FTBUser *me = [FTBUser currentUser];
 		NSString *apnsToken = (self.pushNotificationToken.length > 0) ? self.pushNotificationToken : nil;
-		[[FTBClient client] updateUser:me username:username name:name email:email password:password fbToken:fbToken apnsToken:apnsToken imagePath:picturePath about:about success:^(id object) {
+		[[FTBClient client] updateUser:self.user username:username name:name email:email password:password fbToken:fbToken apnsToken:apnsToken imagePath:picturePath about:about success:^(id object) {
 			if (fbToken.length > 0) {
 				[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = @YES;
 			}
 			if (email.length > 0) {
-				self.email = email;
+				self.user.email = email;
 			}
 			if (password.length > 0) {
-				self.password = password;
+				self.user.password = password;
 			}
 			if (success) success(object);
 		} failure:^(NSError *error) {
@@ -300,9 +267,6 @@ NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId) {
     });
 	
 	self.user = nil;
-    self.email = nil;
-    self.password = nil;
-    self.token = nil;
     [FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
     
     @try {

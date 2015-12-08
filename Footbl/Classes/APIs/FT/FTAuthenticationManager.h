@@ -23,12 +23,10 @@ extern NSString * FBAuthenticationManagerGeneratePasswordWithId(NSString *userId
 
 @interface FTAuthenticationManager : NSObject
 
-@property (copy, nonatomic, readonly) NSString *token;
-@property (copy, nonatomic) NSString *pushNotificationToken;
-@property (assign, nonatomic, readonly, getter = isAuthenticated) BOOL authenticated;
-@property (assign, nonatomic, readonly, getter = isTokenValid) BOOL tokenValid;
-@property (assign, nonatomic, readonly) FTAuthenticationType authenticationType;
-@property (strong, nonatomic) FTBUser *user;
+@property (nonatomic, copy) NSString *pushNotificationToken;
+@property (nonatomic, assign, readonly, getter = isAuthenticated) BOOL authenticated;
+@property (nonatomic, assign, readonly) FTAuthenticationType authenticationType;
+@property (nonatomic, strong) FTBUser *user;
 
 + (instancetype)sharedManager;
 - (void)createUserWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;

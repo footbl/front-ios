@@ -21,7 +21,7 @@
     if (countBlock) {
 		FTBUser *user = [FTBUser currentUser];
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chargedUser == %@ AND payed == NO", user];
-		[[FTBClient client] creditRequests:user.identifier page:0 success:^(id object) {
+		[[FTBClient client] creditRequests:user chargedUser:nil page:0 success:^(id object) {
 			countBlock([[object filteredArrayUsingPredicate:predicate] count]);
 		} failure:nil];
     }

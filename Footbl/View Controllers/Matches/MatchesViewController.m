@@ -220,9 +220,9 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		if (bet) {
 			bet.bid = @(currentBet);
 			bet.result = result;
-			[[FTBClient client] updateBet:bet user:user success:successBlock failure:failure];
+			[[FTBClient client] updateBet:bet success:successBlock failure:failure];
 		} else {
-			[[FTBClient client] betInMatch:match bid:@(currentBet) result:result user:user success:successBlock failure:failure];
+			[[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
 		}
 		
 		[UIView animateWithDuration:FTBAnimationDuration animations:^{
@@ -320,11 +320,11 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
 		[self reloadWallet];
 		
-		[[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {
+		[[FTBClient client] matchesInChampionship:self.championship round:0 page:0 success:^(NSArray *objects) {
 			self.matches = objects;
 			[self.tableView reloadData];
 			
-			[[FTBClient client] betsForUser:me success:^(NSArray *bets) {
+			[[FTBClient client] betsForUser:me match:nil page:0 success:^(NSArray *bets) {
 				
 				for (FTBMatch *match in self.matches) {
 					for (FTBBet *bet in bets) {
