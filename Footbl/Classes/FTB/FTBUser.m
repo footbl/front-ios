@@ -11,7 +11,7 @@
 #import "FTBSeason.h"
 #import "FTBMatch.h"
 #import "FTBBet.h"
-#import "FTAuthenticationManager.h"
+#import "FTBClient.h"
 #import "NSNumber+Formatter.h"
 
 #import <TransformerKit/TTTDateTransformers.h>
@@ -59,7 +59,7 @@
 	NSDictionary *keyPaths = @{@"email": @"email",
 							   @"username": @"username",
 							   @"facebookId": @"facebookId",
-							   @"password": @"password",
+//							   @"password": @"password",
 							   @"name": @"name",
 							   @"about": @"about",
 							   @"verified": @"verified",
@@ -86,7 +86,7 @@
 #pragma mark - Helpers
 
 + (instancetype)currentUser {
-	return [[FTAuthenticationManager sharedManager] user];
+	return [[FTBClient client] user];
 }
 
 - (NSSet *)bets {

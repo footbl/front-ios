@@ -12,7 +12,6 @@
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBMatch.h"
 #import "FTBBet.h"

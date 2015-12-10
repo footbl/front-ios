@@ -10,11 +10,11 @@
 #import "AskFriendsViewController.h"
 #import "AskFriendTableViewCell.h"
 #import "FriendsHelper.h"
-#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 
 #import "FTBClient.h"
 #import "FTBCreditRequest.h"
+#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
 
 @interface AskFriendsViewController ()
 
@@ -130,11 +130,12 @@
             fbBlock(tempIds);
         }
     };
-    
-    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
-        session = fbSession;
-        runBlock();
-    }];
+
+#warning Handle Facebook login
+//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
+//        session = fbSession;
+//        runBlock();
+//    }];
 }
 
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -142,20 +143,21 @@
 }
 
 - (void)reloadData {
-    [[LoadingHelper sharedInstance] showHud];
-    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-        [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
-            self.friendsSet = [NSSet setWithArray:friends];
-            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
-                self.invitableFriendsSet = [NSSet setWithArray:friends];
-                self.dataSource = nil;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
-                    [[LoadingHelper sharedInstance] hideHud];
-                });
-            }];
-        }];
-    }];
+#warning Handle Facebook login
+//    [[LoadingHelper sharedInstance] showHud];
+//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+//        [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+//            self.friendsSet = [NSSet setWithArray:friends];
+//            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+//                self.invitableFriendsSet = [NSSet setWithArray:friends];
+//                self.dataSource = nil;
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.tableView reloadData];
+//                    [[LoadingHelper sharedInstance] hideHud];
+//                });
+//            }];
+//        }];
+//    }];
 }
 
 - (void)configureCell:(AskFriendTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

@@ -9,7 +9,6 @@
 #import <iRate/iRate.h>
 #import <SPHipster/SPHipster.h>
 #import "RatingHelper.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBUser.h"
 

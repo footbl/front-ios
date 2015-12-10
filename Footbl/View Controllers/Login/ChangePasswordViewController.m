@@ -7,11 +7,12 @@
 //
 
 #import "ChangePasswordViewController.h"
-#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
+
+#import "FTBClient.h"
 
 @interface ChangePasswordViewController () <UITextFieldDelegate>
 
@@ -39,7 +40,7 @@
     
     [[LoadingHelper sharedInstance] showHud];
     
-    [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:nil email:nil password:self.password fbToken:nil profileImage:nil about:nil success:^(id response) {
+    [[FTBClient client] updateUsername:nil name:nil email:nil password:self.password fbToken:nil apnsToken:nil image:nil about:nil success:^(id object) {
         [[LoadingHelper sharedInstance] hideHud];
         if (self.completionBlock) self.completionBlock();
     } failure:^(NSError *error) {
@@ -76,7 +77,7 @@
     };
     
     if (!self.oldPassword) {
-        if ([[FTAuthenticationManager sharedManager] isValidPassword:self.textField.text]) {
+        if ([[FTBClient client] isValidPassword:self.textField.text]) {
             self.oldPassword = self.textField.text;
             switchInputBlock();
         } else {

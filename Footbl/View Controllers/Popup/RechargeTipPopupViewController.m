@@ -9,7 +9,6 @@
 #import <SPHipster/UIView+Frame.h>
 #import "FootblLabel.h"
 #import "FootblPopupViewController.h"
-#import "FTAuthenticationManager.h"
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "UIImage+Color.h"

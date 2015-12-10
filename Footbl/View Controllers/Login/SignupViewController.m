@@ -7,7 +7,6 @@
 //
 
 #import "AuthenticationViewController.h"
-#import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "LoginViewController.h"
@@ -84,13 +83,13 @@
     
     [[LoadingHelper sharedInstance] showHud];
 	
-	[[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
+	[[FTBClient client] createUserWithPassword:self.password country:nil success:^(id object) {
 		NSString *username = [self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:kNilOptions range:NSMakeRange(0, 1)];
-		[[FTAuthenticationManager sharedManager] updateUserWithUsername:username name:self.name email:self.email password:self.password fbToken:self.fbToken profileImage:self.profileImage about:self.aboutMe success:^(id response) {
+		[[FTBClient client] updateUsername:username name:self.name email:self.email password:self.password fbToken:self.fbToken apnsToken:nil image:self.profileImage about:self.aboutMe success:^(id response) {
 			[[LoadingHelper sharedInstance] hideHud];
 			if (self.completionBlock) self.completionBlock();
 		} failure:^(NSError *error) {
-			[[FTAuthenticationManager sharedManager] logout];
+			[[FTBClient client] logout];
 			failureBlock(error);
 		}];
 	} failure:failureBlock];
@@ -208,14 +207,15 @@
 }
 
 - (IBAction)importFromFacebookAction:(id)sender {
-    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
-            if (image) {
-                [self.profileImageButton setImage:image forState:UIControlStateNormal];
-                self.profileImage = image;
-            }
-        }];
-    }];
+#warning Handle Facebook login
+//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+//        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+//            if (image) {
+//                [self.profileImageButton setImage:image forState:UIControlStateNormal];
+//                self.profileImage = image;
+//            }
+//        }];
+//    }];
 }
 
 - (IBAction)importFromPhotoLibraryAction:(id)sender {
@@ -385,9 +385,23 @@
     if (self.isEmailConfirmed) {
         if (buttonIndex == 1) {
             [LoginViewController setEmail:self.textField.text];
-            AuthenticationViewController *authenticationViewController = [self.navigationController viewControllers].firstObject;
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [authenticationViewController performSelector:@selector(loginAction:) withObject:nil afterDelay:1.2];
+			UINavigationController *navigationController = self.navigationController;
+			AuthenticationViewController *authenticationViewController = nil;
+			if ([navigationController.viewControllers.firstObject isKindOfClass:[AuthenticationViewController class]]) {
+				authenticationViewController = navigationController.viewControllers.firstObject;
+				[navigationController popToRootViewControllerAnimated:YES];
+			} else {
+				
+				authenticationViewController = [[AuthenticationViewController alloc] init];
+				authenticationViewController.completionBlock = ^{
+					[navigationController dismissViewControllerAnimated:YES completion:nil];
+				};
+				[navigationController setViewControllers:@[authenticationViewController] animated:YES];
+			}
+			
+			if ([authenticationViewController respondsToSelector:@selector(loginAction:)]) {
+				[authenticationViewController performSelector:@selector(loginAction:) withObject:nil afterDelay:1.2];
+			}
         } else {
             self.emailConfirmed = NO;
             self.textField.text = @"";

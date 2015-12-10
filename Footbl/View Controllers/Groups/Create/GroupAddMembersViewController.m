@@ -12,7 +12,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import <UIAlertView-Blocks/UIAlertView+Blocks.h>
-#import "FTAuthenticationManager.h"
 #import "FTImageUploader.h"
 #import "FriendsHelper.h"
 #import "GroupAddMembersViewController.h"
@@ -84,20 +83,21 @@
 - (NSArray *)facebookDataSource {
     if (!_facebookDataSource) {
         _facebookDataSource = @[];
-        
-        [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
-                if (error) {
-                    SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-                    [[ErrorHandler sharedInstance] displayError:error];
-                } else {
-                    self.facebookDataSource = friends;
-                    self.dataSource = nil;
-                    [self.tableView reloadData];
-                    [self reloadFootblFriends];
-                }
-            }];
-        }];
+
+#warning Handle Facebook login
+//        [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+//            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+//                if (error) {
+//                    SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+//                    [[ErrorHandler sharedInstance] displayError:error];
+//                } else {
+//                    self.facebookDataSource = friends;
+//                    self.dataSource = nil;
+//                    [self.tableView reloadData];
+//                    [self reloadFootblFriends];
+//                }
+//            }];
+//        }];
     }
     
     return _facebookDataSource;

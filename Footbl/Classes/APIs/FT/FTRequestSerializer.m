@@ -12,8 +12,6 @@
 #import "NSURLRequest+FTAuthentication.h"
 #import "NSURLRequest+FTRequestOptions.h"
 
-#pragma mark FTRequestSerializer
-
 @implementation FTRequestSerializer
 
 #pragma mark - Instance Methods

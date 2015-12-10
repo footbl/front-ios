@@ -13,7 +13,6 @@
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
 #import "FootblNavigationController.h"
-#import "FTAuthenticationManager.h"
 #import "NewGroupViewController.h"
 #import "NSString+Hex.h"
 
@@ -213,11 +212,11 @@
     [self reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+        if ([[FTBClient client] isAuthenticated]) {
             [self reloadData];
         }
-        
-        if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
+		
+        if ([[FTBClient client] isAnonymous]) {
             [self addChildViewController:self.anonymousViewController];
             [self.view addSubview:self.anonymousViewController.view];
             self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -250,7 +249,7 @@
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
     
-    if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
+    if ([[FTBClient client] isAnonymous]) {
         [self addChildViewController:self.anonymousViewController];
         [self.view addSubview:self.anonymousViewController.view];
         self.navigationItem.rightBarButtonItem.enabled = NO;

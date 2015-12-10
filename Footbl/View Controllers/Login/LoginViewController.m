@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "FTAuthenticationManager.h"
 #import "LoginViewController.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
+
+#import "FTBClient.h"
 
 @interface LoginViewController ()
 
@@ -59,7 +60,7 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
     [self.emailTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
     
-    [[FTAuthenticationManager sharedManager] loginWithEmail:self.emailTextField.text password:self.passwordTextField.text success:^(id response) {
+    [[FTBClient client] loginWithEmail:self.emailTextField.text password:self.passwordTextField.text success:^(id response) {
         if (self.completionBlock) self.completionBlock();
     } failure:^(NSError *error) {
         self.view.userInteractionEnabled = YES;

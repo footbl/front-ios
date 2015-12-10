@@ -8,7 +8,6 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIButton+WebCache.h>
-#import "FTAuthenticationManager.h"
 #import "FootblNavigationController.h"
 #import "GroupAddMembersViewController.h"
 #import "GroupInfoViewController.h"

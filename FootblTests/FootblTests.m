@@ -8,7 +8,6 @@
 
 #import <KIF/KIF.h>
 #import <XCTest/XCTest.h>
-#import "FTAuthenticationManager.h"
 
 @interface FootblTests : KIFTestCase
 

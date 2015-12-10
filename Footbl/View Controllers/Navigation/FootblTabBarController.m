@@ -11,11 +11,13 @@
 #import "FootblNavigationController.h"
 #import "FootblTabBarController.h"
 #import "ForceUpdateViewController.h"
-#import "FTAuthenticationManager.h"
 #import "GroupsViewController.h"
 #import "MatchesViewController.h"
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
+
+#import "FTBClient.h"
+#import "FTBConstants.h"
 
 @interface FootblTabBarController ()
 
@@ -80,7 +82,7 @@
     };
     
     void(^authenticationBlock)(UINavigationController *navigationController) = ^(UINavigationController *navigationController) {
-        if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+        if ([[FTBClient client] isAuthenticated]) {
             [self dismissViewControllerAnimated:YES completion:nil];
             viewControllersSetupBlock();
         } else {
@@ -114,7 +116,7 @@
     }];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+        if (![[FTBClient client] isAuthenticated]) {
             AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
             FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
             [self presentViewController:navigationController animated:YES completion:^{

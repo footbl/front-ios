@@ -23,7 +23,17 @@
 
 @interface FTBClient : AFHTTPSessionManager
 
+@property (nonatomic, strong, readonly) FTBUser *user;
+
 + (instancetype)client;
+
+#pragma mark - Login
+
+- (BOOL)isValidPassword:(NSString *)password;
+- (BOOL)isAuthenticated;
+- (BOOL)isAnonymous;
+- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)logout;
 
 #pragma mark - Championship
 
@@ -76,7 +86,6 @@
 
 #pragma mark - User
 
-- (void)authWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)createUserWithPassword:(NSString *)password country:(NSString *)country success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)followUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)userFollowers:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
@@ -93,19 +102,17 @@
 - (void)rechargeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)removeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)unfollowUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)updateUser:(FTBUser *)user
-		  username:(NSString *)username
-			  name:(NSString *)name
-			 email:(NSString *)email
-		  password:(NSString *)password
-		   fbToken:(NSString *)fbToken
-		 apnsToken:(NSString *)apnsToken
-		 imagePath:(NSString *)imagePath
-			 about:(NSString *)about
-		   success:(FTBBlockObject)success
-		   failure:(FTBBlockError)failure;
-- (void)updateUser:(FTBUser *)user entries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)updateUsername:(NSString *)username
+				  name:(NSString *)name
+				 email:(NSString *)email
+			  password:(NSString *)password
+			   fbToken:(NSString *)fbToken
+			 apnsToken:(NSString *)apnsToken
+				 image:(UIImage *)image
+				 about:(NSString *)about
+			   success:(FTBBlockObject)success
+			   failure:(FTBBlockError)failure;
+- (void)updateEntries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Bet

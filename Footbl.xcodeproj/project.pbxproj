@@ -94,8 +94,6 @@
 		ED3399FC1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
 		ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED42F7251A013224004F3CD2 /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */; };
-		ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
-		ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED5C4E441A24BC3F009693DF /* FTResponseSerializer.m */; };
 		ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFE18F31B7C0061AE42 /* LoginViewController.m */; };
 		ED7859E5199D0C62002A4DBD /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324327192BBD5700F54D57 /* ProfileTableViewCell.m */; };
 		ED7859E6199D0C62002A4DBD /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */; };
@@ -112,8 +110,6 @@
 		ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
-		ED7859F8199D0C62002A4DBD /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
-		ED7859F9199D0C62002A4DBD /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
 		ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
 		ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
@@ -149,7 +145,6 @@
 		ED785A20199D0C62002A4DBD /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		ED785A21199D0C62002A4DBD /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
 		ED785A22199D0C62002A4DBD /* AnonymousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF228193400030090D06D /* AnonymousViewController.m */; };
-		ED785A23199D0C62002A4DBD /* FTRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816F1994084F005D62BB /* FTRequestSerializer.m */; };
 		ED785A24199D0C62002A4DBD /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED785A25199D0C62002A4DBD /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -216,8 +211,6 @@
 		ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
-		ED8DB39E1A14C95C00605CCE /* NSURLRequest+FTAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53817F1996BA9F005D62BB /* NSURLRequest+FTAuthentication.m */; };
-		ED8DB39F1A14C95C00605CCE /* FTAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC6720E19992C0B00D06E66 /* FTAuthenticationManager.m */; };
 		ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
 		ED8DB3A31A14C95C00605CCE /* GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83318EA724C00212D3C /* GroupTableViewCell.m */; };
 		ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */; };
@@ -253,7 +246,6 @@
 		ED8DB3CA1A14C95C00605CCE /* MatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64618E4884E006DD33D /* MatchesViewController.m */; };
 		ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED617559191EB7FB00242F74 /* GroupMembershipTableViewCell.m */; };
 		ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF228193400030090D06D /* AnonymousViewController.m */; };
-		ED8DB3CD1A14C95C00605CCE /* FTRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED53816F1994084F005D62BB /* FTRequestSerializer.m */; };
 		ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED8DB3CF1A14C95C00605CCE /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		ED8DB3D01A14C95C00605CCE /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
@@ -1777,12 +1769,9 @@
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
 				109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
-				ED5C4E451A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
 				ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */,
 				ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */,
-				ED7859F8199D0C62002A4DBD /* NSURLRequest+FTAuthentication.m in Sources */,
-				ED7859F9199D0C62002A4DBD /* FTAuthenticationManager.m in Sources */,
 				100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */,
 				109FB2B91B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
@@ -1840,7 +1829,6 @@
 				109FB2E31B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED785A21199D0C62002A4DBD /* GroupMembershipTableViewCell.m in Sources */,
 				ED785A22199D0C62002A4DBD /* AnonymousViewController.m in Sources */,
-				ED785A23199D0C62002A4DBD /* FTRequestSerializer.m in Sources */,
 				ED785A24199D0C62002A4DBD /* WalletHighestTableViewCell.m in Sources */,
 				ED785A25199D0C62002A4DBD /* FeaturedButton.m in Sources */,
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
@@ -1904,12 +1892,9 @@
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
 				109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
-				ED5C4E471A24BC3F009693DF /* FTResponseSerializer.m in Sources */,
 				ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */,
 				ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */,
 				ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */,
-				ED8DB39E1A14C95C00605CCE /* NSURLRequest+FTAuthentication.m in Sources */,
-				ED8DB39F1A14C95C00605CCE /* FTAuthenticationManager.m in Sources */,
 				100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */,
 				109FB2BB1B7C21E200E67B3C /* FTBUser.m in Sources */,
 				ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */,
@@ -1966,7 +1951,6 @@
 				102468811BBCB4AA00913511 /* MyChallengeCell.m in Sources */,
 				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */,
-				ED8DB3CD1A14C95C00605CCE /* FTRequestSerializer.m in Sources */,
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,
 				ED8DB3CF1A14C95C00605CCE /* FeaturedButton.m in Sources */,
 				ED8DB3D01A14C95C00605CCE /* MatchTableViewCell.m in Sources */,

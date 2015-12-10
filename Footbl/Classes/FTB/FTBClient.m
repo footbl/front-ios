@@ -18,13 +18,17 @@
 #import "FTBBet.h"
 #import "FTBChallenge.h"
 
-#import "FTAuthenticationManager.h"
-#import "FTRequestSerializer.h"
+#import "FTImageUploader.h"
+#import <FXKeychain/FXKeychain.h>
+#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
+
+static NSString * const kUserEmailKey = @"kUserEmailKey";
+static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
+static NSString * const kUserPasswordKey = @"kUserPasswordKey";
+static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
 
 typedef void (^FTBBlockSuccess)(NSURLSessionDataTask *, id);
 typedef void (^FTBBlockFailure)(NSURLSessionDataTask *, NSError *);
-
-@implementation FTBClient
 
 FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FTBBlockError failure) {
 	return ^(NSURLSessionDataTask *task, id responseObject) {
@@ -48,28 +52,25 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 
 FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictionary *parameters, Class modelClass, FTBBlockObject success, FTBBlockError failure) {
 	return ^(NSURLSessionDataTask *task, NSError *error) {
-		if (((NSHTTPURLResponse *)task.response).statusCode == 401) {
-			[[[FTBClient client] operationQueue] cancelAllOperations];
-			[[FTAuthenticationManager sharedManager] ensureAuthenticationWithSuccess:^(id response) {
-				if ([method isEqualToString:@"GET"]) {
-					[[FTBClient client] GET:path parameters:parameters modelClass:modelClass success:success failure:failure];
-				} else if ([method isEqualToString:@"POST"]) {
-					[[FTBClient client] POST:path parameters:parameters modelClass:modelClass success:success failure:failure];
-				} else if ([method isEqualToString:@"PUT"]) {
-					[[FTBClient client] PUT:path parameters:parameters modelClass:modelClass success:success failure:failure];
-				} else if ([method isEqualToString:@"DELETE"]) {
-					[[FTBClient client] DELETE:path parameters:parameters modelClass:modelClass success:success failure:failure];
-				} else {
-					if (failure) failure(error);
-				}
-			} failure:failure];
-		} else {
-			if (failure) failure(error);
-		}
+		NSInteger code = ((NSHTTPURLResponse *)task.response).statusCode;
+		NSError *newError = [[NSError alloc] initWithDomain:error.domain code:code userInfo:error.userInfo];
+		if (failure) failure(newError);
 	};
 }
 
+@interface FTBClient ()
+
+@property (nonatomic, strong, readwrite) FTBUser *user;
+
+@end
+
+@implementation FTBClient
+
 #pragma mark -
+
++ (void)load {
+	[FXKeychain defaultKeychain][(__bridge id)(kSecAttrAccessible)] = (__bridge id)(kSecAttrAccessibleAlways);
+}
 
 + (instancetype)client {
 	static FTBClient *client;
@@ -77,13 +78,31 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	dispatch_once(&onceToken, ^{
 		NSURL *URL = [NSURL URLWithString:FTBBaseURL];
 		client = [[FTBClient alloc] initWithBaseURL:URL];
-		client.requestSerializer = [FTRequestSerializer serializer];
+		client.requestSerializer = [AFJSONRequestSerializer serializer];
 		client.responseSerializer = [AFJSONResponseSerializer serializer];
+		
+		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
+		NSString *password = [FXKeychain defaultKeychain][kUserPasswordKey];
+		if (identifier.length > 0 && password.length > 0) {
+			[client.requestSerializer setAuthorizationHeaderFieldWithUsername:identifier password:password];
+		}
 	});
 	return client;
 }
 
-#pragma mark - 
+- (FTBUser *)user {
+	if (!_user) {
+		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
+		if (identifier.length > 0) {
+			_user = [[FTBUser alloc] init];
+			_user.identifier = identifier;
+			_user.email = [FXKeychain defaultKeychain][kUserEmailKey];
+		}
+	}
+	return _user;
+}
+
+#pragma mark -
 
 - (void)GET:(NSString *)path parameters:(NSDictionary *)parameters modelClass:(Class)modelClass
  success:(void (^)(id))success failure:(void (^)(NSError *))failure {
@@ -111,6 +130,72 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	FTBBlockSuccess blockSuccess = FTBMakeBlockSuccess(modelClass, success, failure);
 	FTBBlockFailure blockFailure = FTBMakeBlockFailure(@"DELETE", path, parameters, modelClass, success, failure);
 	[self DELETE:path parameters:parameters success:blockSuccess failure:blockFailure];
+}
+
+#pragma mark - Login
+
+- (BOOL)isValidPassword:(NSString *)password {
+	NSString *auth = [self.requestSerializer valueForHTTPHeaderField:@"Authorization"];
+	NSString *credentials = [NSString stringWithFormat:@"%@:%@", self.user.identifier, password];
+	NSString *base64 = [[credentials dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:kNilOptions];
+	return [auth containsString:base64];
+}
+
+- (BOOL)isAuthenticated {
+	return [self.requestSerializer valueForHTTPHeaderField:@"Authorization"] != nil;
+}
+
+- (BOOL)isAnonymous {
+	return (self.isAuthenticated && self.user.email.length == 0 && self.user.facebookId.length == 0);
+}
+
+- (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	__weak typeof(self) this = self;
+	[self.requestSerializer setAuthorizationHeaderFieldWithUsername:email password:password];
+#warning Change this path to /users/me
+	NSString *path = [NSString stringWithFormat:@"/users/56673e9658e0521300919287"];
+	[self GET:path parameters:nil modelClass:[FTBUser class] success:^(FTBUser *object) {
+		[FXKeychain defaultKeychain][kUserIdentifierKey] = object.identifier;
+		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
+		[FXKeychain defaultKeychain][kUserEmailKey] = email;
+		[this registerForRemoteNotifications];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
+		if (success) success(object);
+	} failure:^(NSError *error) {
+		[this.requestSerializer clearAuthorizationHeader];
+		if (failure) failure(error);
+	}];
+}
+
+- (void)logout {
+	self.user = nil;
+	[self.requestSerializer clearAuthorizationHeader];
+	
+	[FXKeychain defaultKeychain][kUserFbAuthenticatedKey] = nil;
+	[FXKeychain defaultKeychain][kUserIdentifierKey] = nil;
+	[FXKeychain defaultKeychain][kUserPasswordKey] = nil;
+	[FXKeychain defaultKeychain][kUserEmailKey] = nil;
+	
+	[[FBSession activeSession] closeAndClearTokenInformation];
+	[FBSession setActiveSession:nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
+}
+
+- (void)registerForRemoteNotifications {
+#if TARGET_IPHONE_SIMULATOR
+	return;
+#endif
+	
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+	if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+		[[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+	} else {
+		[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+	}
+#else
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+#endif
 }
 
 #pragma mark - Championship
@@ -146,7 +231,9 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)creditRequests:(FTBUser *)creditedUser chargedUser:(FTBUser *)chargedUser page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/credit-requests"];
-	NSDictionary *parameters = @{@"filterByCreditedUser": creditedUser.identifier, @"filterByChargedUser": chargedUser.identifier, @"page": @(page)};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
+	if (creditedUser) parameters[@"filterByCreditedUser"] = creditedUser.identifier;
+	if (chargedUser) parameters[@"filterByChargedUser"] = chargedUser.identifier;
 	[self GET:path parameters:parameters modelClass:[FTBCreditRequest class] success:success failure:failure];
 }
 
@@ -222,7 +309,8 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)matchesInChampionship:(FTBChampionship *)championship round:(NSUInteger)round page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/matches"];
-	NSDictionary *parameters = @{@"filterByChampionship": championship.identifier, @"filterByRound": @(round), @"page": @(page)};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"filterByRound": @(round), @"page": @(page)}];
+	if (championship.identifier) parameters[@"filterByChampionship"] = championship.identifier;
 	[self GET:path parameters:parameters modelClass:[FTBMatch class] success:success failure:failure];
 }
 
@@ -279,15 +367,15 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - User
 
-- (void)authWithSuccess:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/me/auth"];
-	[self GET:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
-}
-
 - (void)createUserWithPassword:(NSString *)password country:(NSString *)country success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users"];
-	NSDictionary *parameters = @{@"password": password, @"country": country};
-	[self POST:path parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"password": password}];
+	if (country) parameters[@"country"] = country;
+	[self POST:path parameters:parameters modelClass:[FTBUser class] success:^(NSString *identifier) {
+		[FXKeychain defaultKeychain][kUserIdentifierKey] = identifier;
+		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
+		[self.requestSerializer setAuthorizationHeaderFieldWithUsername:identifier password:password];
+	} failure:failure];
 }
 
 - (void)followUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -353,8 +441,8 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self PUT:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
-- (void)updateUser:(FTBUser *)user parameters:(NSDictionary *)parameters success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSString *path = [NSString stringWithFormat:@"/users/%@", user.identifier];
+- (void)updateUserWithParameters:(NSDictionary *)parameters success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSString *path = [NSString stringWithFormat:@"/users/%@", self.user.identifier];
 	NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:parameters];
 	dictionary[@"language"] = [NSLocale preferredLanguages][0];
 	dictionary[@"locale"] = [[NSLocale currentLocale] localeIdentifier];
@@ -362,33 +450,39 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self PUT:path parameters:dictionary modelClass:[FTBUser class] success:success failure:failure];
 }
 
-- (void)updateUser:(FTBUser *)user username:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken apnsToken:(NSString *)apnsToken imagePath:(NSString *)imagePath about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-	if (username) parameters[@"username"] = username;
-	if (email) parameters[@"email"] = email;
-	if (password) parameters[@"password"] = password;
-	if (name) parameters[@"name"] = name;
-	if (about) parameters[@"about"] = about;
-	if (imagePath) parameters[@"picture"] = imagePath;
-	if (apnsToken) parameters[@"apnsToken"] = apnsToken;
-	if (fbToken) [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
-	[self updateUser:user parameters:parameters success:^(id object) {
-		[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
-		if (success) success(object);
+- (void)updateUsername:(NSString *)username name:(NSString *)name email:(NSString *)email password:(NSString *)password fbToken:(NSString *)fbToken apnsToken:(NSString *)apnsToken image:(UIImage *)image about:(NSString *)about success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	
+	void(^block)(NSString *) = ^(NSString *imagePath) {
+		NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+		if (username) parameters[@"username"] = username;
+		if (email) parameters[@"email"] = email;
+		if (password) parameters[@"password"] = password;
+		if (name) parameters[@"name"] = name;
+		if (about) parameters[@"about"] = about;
+		if (imagePath) parameters[@"picture"] = imagePath;
+		if (apnsToken) parameters[@"apnsToken"] = apnsToken;
+		if (fbToken) [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
+		
+		[self updateUserWithParameters:parameters success:^(id object) {
+			[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+			if (success) success(object);
+		} failure:^(NSError *error) {
+			[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
+			if (failure) failure(error);
+		}];
+	};
+	
+	[FTImageUploader uploadImage:image withSuccess:^(id object) {
+		block(object);
 	} failure:^(NSError *error) {
-		[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
-		if (failure) failure(error);
+		block(nil);
 	}];
 }
 
-- (void)updateUser:(FTBUser *)user entries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)updateEntries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSArray *hahaha = [MTLJSONAdapter JSONArrayFromModels:entries error:nil];
 	NSDictionary *parameters = @{@"entries": hahaha};
-	[self updateUser:user parameters:parameters success:success failure:failure];
-}
-
-- (void)updateUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	[self updateUser:user parameters:user.JSONDictionary success:success failure:failure];
+	[self updateUserWithParameters:parameters success:success failure:failure];
 }
 
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -412,7 +506,9 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)betsForUser:(FTBUser *)user match:(FTBMatch *)match page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/bets"];
-	NSDictionary *parameters = @{@"filterByMatch": match.identifier, @"filterByUser": user.identifier, @"page": @(page)};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
+	if (match.identifier) parameters[@"filterByMatch"] = match.identifier;
+	if (user.identifier) parameters[@"filterByUser"] = user.identifier;
 	[self GET:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
 }
 
@@ -442,7 +538,9 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)challengesForChallenger:(FTBUser *)challenger challenged:(FTBUser *)challenged page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/challenges"];
-	NSDictionary *parameters = @{@"filterByChallenger": challenger.identifier, @"filterByChallenged": challenged.identifier, @"page": @(page)};
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
+	if (challenger.identifier) parameters[@"filterByChallenger"] = challenger.identifier;
+	if (challenged.identifier) parameters[@"filterByChallenged"] = challenged.identifier;
 	[self GET:path parameters:parameters modelClass:[FTBChallenge class] success:success failure:failure];
 }
 

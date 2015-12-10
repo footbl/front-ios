@@ -10,7 +10,6 @@
 #import <SVPullToRefresh/SVPullToRefresh.h>
 #import "AnonymousViewController.h"
 #import "FavoritesViewController.h"
-#import "FTAuthenticationManager.h"
 #import "FootblTabBarController.h"
 #import "LoadingHelper.h"
 #import "FTBMatch+Sharing.h"
@@ -119,7 +118,7 @@
 }
 
 - (void)reloadContent {
-    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+    if (![[FTBClient client] isAuthenticated]) {
         self.user = nil;
         self.bets = [[NSMutableArray alloc] init];
         [self.tableView reloadData];
@@ -138,7 +137,7 @@
 - (void)reloadData {
     [super reloadData];
     
-    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+    if (![[FTBClient client] isAuthenticated]) {
         return;
     }
     
@@ -555,7 +554,7 @@
         self.user = nil;
         [self reloadData];
         
-        if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
+        if ([[FTBClient client] isAnonymous]) {
             [self addChildViewController:self.anonymousViewController];
             [self.view addSubview:self.anonymousViewController.view];
             self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -616,7 +615,7 @@
         }
     }
     
-    if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous) {
+    if ([[FTBClient client] isAnonymous]) {
         [self addChildViewController:self.anonymousViewController];
         [self.view addSubview:self.anonymousViewController.view];
         for (UIBarButtonItem *button in self.navigationItem.rightBarButtonItems) {
