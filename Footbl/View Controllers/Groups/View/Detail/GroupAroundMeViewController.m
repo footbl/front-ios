@@ -7,7 +7,6 @@
 //
 
 #import "GroupAroundMeViewController.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBClient.h"
 #import "FTBGroup.h"

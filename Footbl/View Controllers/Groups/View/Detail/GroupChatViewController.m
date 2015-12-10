@@ -15,7 +15,6 @@
 #import "FTImageUploader.h"
 #import "ProfileBetsViewController.h"
 #import "ProfileViewController.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBClient.h"
 #import "FTBUser.h"

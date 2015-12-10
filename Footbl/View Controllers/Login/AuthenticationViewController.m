@@ -9,11 +9,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
-#import "FTAuthenticationManager.h"
 #import "ImportImageHelper.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
 #import "UIView+Frame.h"
+#import "NSString+Hex.h"
+
+#import "FTBClient.h"
 
 @interface AuthenticationViewController ()
 
@@ -30,53 +32,54 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
-    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-        if (error) {
-            SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-            [[ErrorHandler sharedInstance] displayError:error];
-        } else {
-            self.view.userInteractionEnabled = NO;
-            [self setSubviewsHidden:YES animated:YES];
-            [UIView animateWithDuration:FTBAnimationDuration animations:^{
-                self.activityIndicatorView.alpha = 1;
-                [self.activityIndicatorView startAnimating];
-            }];
-            
-            [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                if (result) {
-                    [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
-                        self.view.userInteractionEnabled = YES;
-                        if (self.completionBlock) self.completionBlock();
-                    } failure:^(NSError *error) {
-                        SignupViewController *signupViewController = [SignupViewController new];
-                        signupViewController.email = result[@"email"];
-                        signupViewController.name = result[@"name"];
-                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
-                        signupViewController.passwordConfirmation = signupViewController.password;
-                        signupViewController.completionBlock = self.completionBlock;
-                        if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
-                            [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
-                                if (image) {
-                                    signupViewController.profileImage = image;
-                                }
-                            }];
-                        }
-                        signupViewController.fbToken = [FBSession activeSession].accessTokenData.accessToken;
-                        [self.navigationController pushViewController:signupViewController animated:NO];
-                        self.view.userInteractionEnabled = YES;
-                    }];
-                } else {
-                    self.view.userInteractionEnabled = YES;
-                    [self setSubviewsHidden:NO animated:YES];
-                    [UIView animateWithDuration:FTBAnimationDuration animations:^{
-                        self.activityIndicatorView.alpha = 0;
-                    } completion:^(BOOL finished) {
-                        [self.activityIndicatorView stopAnimating];
-                    }];
-                }
-            }];
-        }
-    }];
+#warning Handle Facebook login
+//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
+//        if (error) {
+//            SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+//            [[ErrorHandler sharedInstance] displayError:error];
+//        } else {
+//            self.view.userInteractionEnabled = NO;
+//            [self setSubviewsHidden:YES animated:YES];
+//            [UIView animateWithDuration:FTBAnimationDuration animations:^{
+//                self.activityIndicatorView.alpha = 1;
+//                [self.activityIndicatorView startAnimating];
+//            }];
+//            
+//            [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//                if (result) {
+//                    [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
+//                        self.view.userInteractionEnabled = YES;
+//                        if (self.completionBlock) self.completionBlock();
+//                    } failure:^(NSError *error) {
+//                        SignupViewController *signupViewController = [SignupViewController new];
+//                        signupViewController.email = result[@"email"];
+//                        signupViewController.name = result[@"name"];
+//                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
+//                        signupViewController.passwordConfirmation = signupViewController.password;
+//                        signupViewController.completionBlock = self.completionBlock;
+//                        if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+//                            [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+//                                if (image) {
+//                                    signupViewController.profileImage = image;
+//                                }
+//                            }];
+//                        }
+//                        signupViewController.fbToken = [FBSession activeSession].accessTokenData.accessToken;
+//                        [self.navigationController pushViewController:signupViewController animated:NO];
+//                        self.view.userInteractionEnabled = YES;
+//                    }];
+//                } else {
+//                    self.view.userInteractionEnabled = YES;
+//                    [self setSubviewsHidden:NO animated:YES];
+//                    [UIView animateWithDuration:FTBAnimationDuration animations:^{
+//                        self.activityIndicatorView.alpha = 0;
+//                    } completion:^(BOOL finished) {
+//                        [self.activityIndicatorView stopAnimating];
+//                    }];
+//                }
+//            }];
+//        }
+//    }];
 }
 
 - (IBAction)loginAction:(UIButton *)sender {
@@ -106,12 +109,13 @@
 }
 
 - (IBAction)skipLoginAction:(id)sender {
-    if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+    if ([[FTBClient client] isAuthenticated]) {
         if (self.completionBlock) self.completionBlock();
         return;
     }
-    
-    [[FTAuthenticationManager sharedManager] createUserWithSuccess:^(id response) {
+	
+	NSString *password = [NSString randomHexStringWithLength:20];
+    [[FTBClient client] createUserWithPassword:password country:nil success:^(id object) {
         if (self.completionBlock) self.completionBlock();
     } failure:^(NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];

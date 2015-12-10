@@ -8,7 +8,6 @@
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import "ErrorHandler.h"
-#import "FTAuthenticationManager.h"
 #import "FTModel.h"
 #import "FTOperationManager.h"
 #import "FTRequestSerializer.h"

@@ -10,7 +10,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
 #import "FootblTabBarController.h"
-#import "FTAuthenticationManager.h"
 #import "FriendsHelper.h"
 #import "ErrorHandler.h"
 #import "LoadingHelper.h"

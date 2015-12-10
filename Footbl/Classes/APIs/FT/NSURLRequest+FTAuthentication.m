@@ -7,7 +7,6 @@
 //
 
 #import "NSURLRequest+FTAuthentication.h"
-#import "FTAuthenticationManager.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
 #import "FTBUser.h"

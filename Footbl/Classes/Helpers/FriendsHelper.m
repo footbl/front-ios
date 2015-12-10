@@ -11,7 +11,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <SPHipster/SPHipster.h>
 #import "FriendsHelper.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBClient.h"
 #import "FTBUser.h"
@@ -54,7 +53,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-            if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+            if (![[FTBClient client] isAuthenticated]) {
                 [self.cache removeAllObjects];
             }
         }];
@@ -68,7 +67,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     static NSString * kCacheKey = @"friends";
     [self getFbFriendsWithCompletionBlock:^(NSArray *fbFriends, NSError *error) {
         [self getContactsWithCompletionBlock:^(NSArray *contacts) {
-            if ([FTAuthenticationManager sharedManager].isAuthenticated) {
+            if ([[FTBClient client] isAuthenticated]) {
                 __block NSInteger operationsCount = 0;
                 __block NSMutableArray *searchResults = [NSMutableArray new];
 				__block NSMutableSet *resultSet = [NSMutableSet new];

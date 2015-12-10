@@ -7,7 +7,6 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "FTAuthenticationManager.h"
 #import "GroupChampionshipTableViewCell.h"
 #import "LoadingHelper.h"
 #import "MyLeaguesViewController.h"
@@ -91,7 +90,7 @@
     FTBChampionship *championship = self.championships[indexPath.row];
 	NSMutableArray *entries = [[NSMutableArray alloc] initWithArray:user.entries];
 	[entries addObject:championship];
-	[[FTBClient client] updateUser:user entries:entries success:^(id object) {
+	[[FTBClient client] updateEntries:entries success:^(id object) {
 		[self reloadData];
 	} failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
@@ -103,7 +102,7 @@
     FTBChampionship *championship = self.championships[indexPath.row];
 	NSMutableArray *entries = [[NSMutableArray alloc] initWithArray:user.entries];
 	[entries removeObject:championship];
-	[[FTBClient client] updateUser:user entries:entries success:^(id object) {
+	[[FTBClient client] updateEntries:entries success:^(id object) {
 		[self reloadData];
 	} failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];

@@ -11,7 +11,6 @@
 #import "BetsViewController.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
-#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 #import "MatchTableViewCell+Setup.h"
 #import "MatchesNavigationBarView.h"
@@ -298,7 +297,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		return;
 	}
 	
-	if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+	if (![[FTBClient client] isAuthenticated]) {
 		return;
 	}
 	

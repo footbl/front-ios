@@ -10,7 +10,6 @@
 #import "BetsViewController.h"
 #import "DailyBonusPopupViewController.h"
 #import "FootblPopupAnimatedTransition.h"
-#import "FTAuthenticationManager.h"
 #import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
@@ -180,7 +179,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     [self reloadWallet];
 
-    if (![FTAuthenticationManager sharedManager].isAuthenticated) {
+    if (![[FTBClient client] isAuthenticated]) {
         return;
     }
 	

@@ -25,7 +25,6 @@
 #import "RatingHelper.h"
 #import "SDImageCache+ShippedCache.h"
 
-#import "FTAuthenticationManager.h"
 #import "FTBClient.h"
 #import "FTBGroup.h"
 
@@ -85,7 +84,7 @@
     }
     
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kFirstRunKey] || newRelease) {
-        [[FTAuthenticationManager sharedManager] logout];
+        [[FTBClient client] logout];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kPresentTutorialViewController];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kFirstRunKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -178,7 +177,7 @@
 #endif
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    BOOL isAnonymous = [FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeAnonymous;
+	BOOL isAnonymous = [[FTBClient client] isAnonymous];
     NSArray *tags = @[isAnonymous ? @"Anonymous" : @"Authenticated"];
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
@@ -196,8 +195,8 @@
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    [FTAuthenticationManager sharedManager].pushNotificationToken = token;
+	
+	[[FTBClient client] updateUsername:nil name:nil email:nil password:nil fbToken:nil apnsToken:token image:nil about:nil success:nil failure:nil];
     SPLogVerbose(@"APNS: %@", token);
 }
 

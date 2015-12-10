@@ -14,7 +14,6 @@
 #import "AuthenticationViewController.h"
 #import "ChangePasswordViewController.h"
 #import "FootblNavigationController.h"
-#import "FTAuthenticationManager.h"
 #import "EditProfileViewController.h"
 #import "ImportImageHelper.h"
 #import "LogsViewController.h"
@@ -175,8 +174,9 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)changePasswordAction:(id)sender {
+	FTBUser *user = [FTBUser currentUser];
     ChangePasswordViewController *changePasswordViewController = [ChangePasswordViewController new];
-    if ([FTAuthenticationManager sharedManager].authenticationType == FTAuthenticationTypeFacebook) {
+    if (user.facebookId.length > 0) {
         changePasswordViewController.oldPassword = @"";
     }
     changePasswordViewController.completionBlock = ^{
@@ -199,7 +199,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 - (void)updateProfilePictureAction:(id)sender {
     [[ImportImageHelper sharedInstance] importImageFromSources:@[@(ImportImageHelperSourceCamera), @(ImportImageHelperSourceLibrary), @(ImportImageHelperSourceFacebook)] completionBlock:^(UIImage *image, NSError *error) {
         if (image) {
-            [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:nil email:nil password:nil fbToken:nil profileImage:image about:nil success:nil failure:nil];
+			[[FTBClient client] updateUsername:nil name:nil email:nil password:nil fbToken:nil apnsToken:nil image:image about:nil success:nil failure:nil];
         }
     }];
 }
@@ -231,7 +231,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)logoutAction:(id)sender {
-    [[FTAuthenticationManager sharedManager] logout];
+	[[FTBClient client] logout];
 }
 
 - (void)openLogs:(id)sender {

@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "FTAuthenticationManager.h"
 #import "EditProfileViewController.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
 
+#import "FTBClient.h"
 #import "FTBUser.h"
 
 @interface EditProfileViewController ()
@@ -35,15 +35,15 @@
 - (IBAction)saveAction:(id)sender {
     self.view.userInteractionEnabled = NO;
     [[LoadingHelper sharedInstance] showHud];
-    
-    [[FTAuthenticationManager sharedManager] updateUserWithUsername:nil name:self.nameTextField.text email:nil password:nil fbToken:nil profileImage:nil about:self.aboutMeTextView.text success:^(id response) {
-        [[LoadingHelper sharedInstance] hideHud];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSError *error) {
-        [[LoadingHelper sharedInstance] hideHud];
-        self.view.userInteractionEnabled = YES;
-        [[ErrorHandler sharedInstance] displayError:error];
-    }];
+	
+    [[FTBClient client] updateUsername:nil name:self.nameTextField.text email:nil password:nil fbToken:nil apnsToken:nil image:nil about:self.aboutMeTextView.text success:^(id object) {
+		[[LoadingHelper sharedInstance] hideHud];
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} failure:^(NSError *error) {
+		[[LoadingHelper sharedInstance] hideHud];
+		self.view.userInteractionEnabled = YES;
+		[[ErrorHandler sharedInstance] displayError:error];
+	}];
 }
 
 - (void)reloadData {

@@ -8,7 +8,6 @@
 
 #import "AskFriendsViewController.h"
 #import "FootblLabel.h"
-#import "FTAuthenticationManager.h"
 #import "NSParagraphStyle+AlignmentCenter.h"
 #import "LoadingHelper.h"
 #import "RechargeViewController.h"

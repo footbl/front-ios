@@ -11,7 +11,6 @@
 #import "FootblLabel.h"
 #import "ErrorHandler.h"
 #import "UIImage+Color.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBClient.h"
 #import "FTBPrize.h"

@@ -33,7 +33,7 @@
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *facebookId;
-@property (nonatomic, copy) NSString *password;
+//@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *about;
 @property (nonatomic, assign, getter=isVerified) BOOL verified;

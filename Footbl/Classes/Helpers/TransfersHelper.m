@@ -7,7 +7,6 @@
 //
 
 #import "TransfersHelper.h"
-#import "FTAuthenticationManager.h"
 
 #import "FTBClient.h"
 #import "FTBCreditRequest.h"

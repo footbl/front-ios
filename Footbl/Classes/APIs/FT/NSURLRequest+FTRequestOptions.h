@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FTRequestSerializer.h"
+//#import "FTRequestSerializer.h"
 
 @interface NSURLRequest (FTRequestOptions)
 
-@property (assign, nonatomic) FTRequestOptions options;
+//@property (assign, nonatomic) FTRequestOptions options;
 @property (assign, nonatomic) NSInteger page;
 
 @end
