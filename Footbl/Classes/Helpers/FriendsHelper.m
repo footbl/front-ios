@@ -221,59 +221,31 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	FTBUser *me = [FTBUser currentUser];
     
-    //Global server search
-    __block NSInteger operationsCount = 0;
-    __block NSInteger operationsFinished = 0;
     __block NSMutableArray *searchResults = [NSMutableArray new];
-
     void(^finishedBlock)(id response) = ^(id response) {
-        operationsFinished ++;
         if (response && [response isKindOfClass:[NSArray class]]) {
             [searchResults addObjectsFromArray:response];
         }
         
-        if (operationsFinished == operationsCount) {
-            NSMutableSet *resultSet = [NSMutableSet new];
-            NSMutableArray *result = [NSMutableArray new];
-            for (NSDictionary *user in searchResults) {
-                // Checks against being the own user, user already in the array and user already in the existing users passed in
-				NSString *identifier = user[@"identifier"];
-                if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier] && ![users containsObject:identifier]) {
-                    [resultSet addObject:identifier];
-                    [result addObject:user];
-                }
+        NSMutableSet *resultSet = [NSMutableSet new];
+        NSMutableArray *result = [NSMutableArray new];
+        for (FTBUser *user in searchResults) {
+            // Checks against being the own user, user already in the array and user already in the existing users passed in
+            if (![resultSet containsObject:user.identifier] && ![user.identifier isEqualToString:me.identifier] && ![users containsObject:user.identifier]) {
+                [resultSet addObject:user.identifier];
+                [result addObject:user];
             }
-            [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-            if (completionBlock) completionBlock(result, nil);
         }
+        [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
+        if (completionBlock) completionBlock(result, nil);
     };
     
-    //Emails
-	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:@[trimmedSearchText] name:@[trimmedSearchText] page:0 success:^(id object) {
         finishedBlock(object);
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
         finishedBlock(@[]);
     }];
-    operationsCount++;
-    
-    //Usernames
-	[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:@[trimmedSearchText] name:nil page:0 success:^(id object) {
-        finishedBlock(object);
-    } failure:^(NSError *error) {
-        SPLogError(@"%@", error);
-        finishedBlock(@[]);
-    }];
-    operationsCount++;
-	
-	//Name
-	[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:@[trimmedSearchText] page:0 success:^(id object) {
-		finishedBlock(object);
-	} failure:^(NSError *error) {
-		SPLogError(@"%@", error);
-		finishedBlock(@[]);
-	}];
-	operationsCount++;
 }
 
 @end

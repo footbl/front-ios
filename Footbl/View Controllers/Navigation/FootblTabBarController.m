@@ -15,9 +15,11 @@
 #import "MatchesViewController.h"
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
+#import "FavoritesViewController.h"
 
 #import "FTBClient.h"
 #import "FTBConstants.h"
+#import "FTBUser.h"
 
 @interface FootblTabBarController ()
 
@@ -70,12 +72,20 @@
     [super loadView];
     
     void(^viewControllersSetupBlock)() = ^() {
-        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[BetsViewController new]];
-        FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:[GroupsViewController new]];
+        BetsViewController *betsViewController = [[BetsViewController alloc] init];
+        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:betsViewController];
         
-        ProfileViewController *profileViewController = [ProfileViewController new];
+        GroupsViewController *groupsViewController = [[GroupsViewController alloc] init];
+        FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:groupsViewController];
+        
+        FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
+        favoritesViewController.user = [FTBUser currentUser];
+        FootblNavigationController *favoritesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:favoritesViewController];
+        
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
         FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:profileViewController];
-        self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
+        
+        self.viewControllers = @[groupsNavigationController, matchesNavigationController, favoritesNavigationController, profileNavigationController];
         self.selectedIndex = 1;
     };
     
