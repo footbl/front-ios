@@ -15,6 +15,5 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *favorites;
 @property (strong, nonatomic) FTBUser *user;
-@property (assign, nonatomic) BOOL shouldShowFeatured;
 
 @end

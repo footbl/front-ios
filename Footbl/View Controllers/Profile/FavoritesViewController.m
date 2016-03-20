@@ -34,6 +34,13 @@
 
 #pragma mark - Instance Methods
 
+- (instancetype)init {
+    if (self) {
+        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0];
+    }
+    return self;
+}
+
 - (IBAction)featuredAction:(id)sender {
     [self.navigationController pushViewController:[FeaturedViewController new] animated:YES];
 }
@@ -133,17 +140,6 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
     }];
-
-    if (self.shouldShowFeatured) {
-        FeaturedButton *featuredButton = [[FeaturedButton alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
-        [featuredButton addTarget:self action:@selector(featuredAction:) forControlEvents:UIControlEventTouchUpInside];
-        self.tableView.tableHeaderView = featuredButton;
-    }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -152,11 +148,6 @@
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

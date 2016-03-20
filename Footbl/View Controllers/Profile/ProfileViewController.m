@@ -73,7 +73,6 @@
 
 - (IBAction)favoritesAction:(id)sender {
     FavoritesViewController *favoritesViewController = [FavoritesViewController new];
-    favoritesViewController.shouldShowFeatured = self.user.isMe;
     favoritesViewController.user = self.user;
     [self.navigationController pushViewController:favoritesViewController animated:YES];
 }
