@@ -128,7 +128,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	FTBMatch *match = self.matches[indexPath.row];
 	__block NSUInteger cancelBlockId;
 	__block FTBBet *bet = match.myBet;
-	__weak typeof(MatchTableViewCell *)weakCell = cell;
+	__weak typeof(cell) weakCell = cell;
 	[cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
 		if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
 			[weakCell.cardContentView shake];
@@ -143,41 +143,42 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		switch (index) {
 			case 0: // Host
 				if (result == FTBMatchResultHost) {
-					currentBet ++;
+					currentBet++;
 				} else if (currentBet == 0) {
 					currentBet = firstBetValue;
 					result = FTBMatchResultHost;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
 				} else {
-					currentBet --;
+					currentBet--;
 				}
 				break;
 			case 1: // Draw
 				if (result == FTBMatchResultDraw) {
-					currentBet ++;
+					currentBet++;
 				} else if (currentBet == 0) {
 					currentBet = firstBetValue;
 					result = FTBMatchResultDraw;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
 				} else {
-					currentBet --;
+					currentBet--;
 				}
 				break;
 			case 2: // Guest
 				if (result == FTBMatchResultGuest) {
-					currentBet ++;
+					currentBet++;
 				} else if (currentBet == 0) {
 					currentBet = firstBetValue;
 					result = FTBMatchResultGuest;
 				} else if (currentBet == firstBetValue) {
 					currentBet = 0;
 				} else {
-					currentBet --;
+					currentBet--;
 				}
 				break;
 		}
+        
 		if (currentBet == 0) {
 			result = 0;
 		}
@@ -198,26 +199,26 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		if (cancelBlockId) {
 			cancel_block(cancelBlockId);
 		}
-		
-		FTBBlockError failure = ^(NSError *error) {
-			[[ErrorHandler sharedInstance] displayError:error];
-			[UIView animateWithDuration:FTBAnimationDuration delay:FTBAnimationDuration options:UIViewAnimationOptionAllowUserInteraction animations:^{
-				[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-			} completion:nil];
-			[self reloadWallet];
-		};
-		
-		void(^successBlock)() = ^() {
-			[self reloadWallet];
-		};
-		
-		if (bet) {
-			bet.bid = @(currentBet);
-			bet.result = result;
-			[[FTBClient client] updateBet:bet success:successBlock failure:failure];
-		} else {
-			[[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
-		}
+        
+        FTBBlockError failure = ^(NSError *error) {
+            [[ErrorHandler sharedInstance] displayError:error];
+            [UIView animateWithDuration:FTBAnimationDuration delay:FTBAnimationDuration options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            } completion:nil];
+            [self reloadWallet];
+        };
+        
+        void(^successBlock)() = ^() {
+            [self reloadWallet];
+        };
+        
+        if (bet) {
+            bet.bid = @(currentBet);
+            bet.result = result;
+            [[FTBClient client] updateBet:bet success:successBlock failure:failure];
+        } else {
+            [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
+        }
 		
 		[UIView animateWithDuration:FTBAnimationDuration animations:^{
 			[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
@@ -228,7 +229,10 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)reloadWallet {
-	NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
+	NSArray *labels = @[self.navigationBarTitleView.walletValueLabel,
+                        self.navigationBarTitleView.stakeValueLabel,
+                        self.navigationBarTitleView.returnValueLabel,
+                        self.navigationBarTitleView.profitValueLabel];
 	
 	FTBUser *user = [FTBUser currentUser];
 	if (user) {
