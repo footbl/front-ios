@@ -14,7 +14,5 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) FTBUser *user;
-@property (assign, nonatomic) BOOL shouldShowSettings;
-@property (assign, nonatomic) BOOL shouldShowFavorites;
 
 @end

@@ -39,8 +39,6 @@
 
 @end
 
-#define MY_LEAGUES_ENABLED FBTweakValue(@"UX", @"Profile", @"My Leagues", YES)
-
 #pragma mark ProfileViewController
 
 @implementation ProfileViewController
@@ -54,26 +52,6 @@
         _user = [FTBUser currentUser];
     }
     return _user;
-}
-
-- (void)setShouldShowSettings:(BOOL)shouldShowSettings {
-    _shouldShowSettings = shouldShowSettings;
-    
-    if (self.shouldShowSettings) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
-    } else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-}
-
-- (void)setShouldShowFavorites:(BOOL)shouldShowFavorites {
-    _shouldShowFavorites = shouldShowFavorites;
-
-    self.navigationItem.leftBarButtonItem = nil;
-    
-    if (self.shouldShowFavorites) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Favorites", @"") style:UIBarButtonItemStylePlain target:self action:@selector(favoritesAction:)];
-    }
 }
 
 #pragma mark - Instance Methods
@@ -108,10 +86,6 @@
     [self.navigationController pushViewController:[TransfersViewController new] animated:YES];
 }
 
-- (IBAction)myLeaguesAction:(id)sender {
-#warning Remove this
-}
-
 - (NSTimeInterval)updateInterval {
     return UPDATE_INTERVAL_NEVER;
 }
@@ -124,7 +98,7 @@
         return;
     }
     
-    if (!self.user.isMe || !self.shouldShowSettings) {
+    if (!self.user.isMe) {
 		__weak typeof(self) this = self;
 		[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(id object) {
 			this.bets = object;
@@ -152,21 +126,10 @@
         [[ErrorHandler sharedInstance] displayError:error];
     };
 	
-	__weak typeof(self) this = self;
+	__weak typeof(self) weakSelf = self;
 	[[FTBClient client] user:self.user.identifier success:^(FTBUser *user) {
-		[this reloadContent];
-		if (this.shouldShowSettings) {
-			[this reloadContent];
-			[this.refreshControl endRefreshing];
-		} else {
-			[[FTBClient client] betsForUser:this.user match:nil page:0 success:^(NSArray *bets) {
-				[this setupInfiniteScrolling];
-				this.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
-				this.nextPage++;
-				[this.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-			} failure:failure];
-		}
+		[weakSelf reloadContent];
+        [weakSelf.refreshControl endRefreshing];
 	} failure:failure];
 }
 
@@ -283,24 +246,13 @@
             break;
         }
         case 2: {
-            if (self.shouldShowSettings) {
-                [self configureCellAppearance:cell atIndexPath:indexPath];
-                switch (indexPath.row) {
-                    case 0:
-                        if (MY_LEAGUES_ENABLED) {
-                            cell.textLabel.text = NSLocalizedString(@"My Leagues", @"");
-                            break;
-                        }
-                    case 1:
-                        cell.textLabel.text = NSLocalizedString(@"Settings", @"");
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                FTBBet *bet = self.bets[indexPath.row];
-                [(MatchTableViewCell *)cell setMatch:bet.match bet:bet viewController:self selectionBlock:nil];
-                break;
+            [self configureCellAppearance:cell atIndexPath:indexPath];
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+                    break;
+                default:
+                    break;
             }
         }
         default:
@@ -319,7 +271,7 @@
         arrowImageView.tag = separatorTag;
         [cell.contentView addSubview:arrowImageView];
         
-        if (indexPath.row == 0 && indexPath.section == 2 && self.shouldShowSettings) {
+        if (indexPath.row == 0 && indexPath.section == 2) {
             UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
             separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
             separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -355,11 +307,7 @@
     if (section == 1) {
         return 10;
     } else if (section == 2) {
-        if (self.shouldShowSettings) {
-            return 10;
-        } else if (self.bets.count > 0) {
-            return 7;
-        }
+        return 10;
     }
     
     return 0;
@@ -374,21 +322,9 @@
         case 0:
             return 3 + ([self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
-            return 1 + (self.shouldShowSettings ? 1 : 0);
-        case 2: {
-            NSUInteger rowCount = 0;
-            if (MY_LEAGUES_ENABLED && self.shouldShowSettings) {
-                rowCount ++;
-            }
-            
-            if (self.shouldShowSettings) {
-                rowCount ++;
-            } else {
-                rowCount = self.bets.count;
-            }
-            
-            return rowCount;
-        }
+            return 2;
+        case 2:
+            return 1;
         default:
             return 1;
     }
@@ -427,11 +363,7 @@
             
             break;
         case 2:
-            if (self.shouldShowSettings) {
-                identifier = @"Cell";
-            } else {
-                identifier = @"MatchCell";
-            }
+            identifier = @"Cell";
             break;
         default:
             break;
@@ -465,18 +397,8 @@
                 default:
                     return 67;
             }
-        case 2: {
-            if (self.shouldShowSettings) {
-                return 50;
-            }
-            
-            FTBMatch *match = [self.bets[indexPath.row] match];
-            if (match.elapsed || match.isFinished) {
-                return 363;
-            } else {
-                return 340;
-            }
-        }
+        case 2:
+            return 50;
         default:
             break;
     }
@@ -485,21 +407,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.shouldShowSettings) {
-        if (indexPath.section == 1 && indexPath.row == 1) {
-            [self betsAction:nil];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        } else if (indexPath.section == 2 && indexPath.row == 0) {
-            if (MY_LEAGUES_ENABLED) {
-                [self myLeaguesAction:nil];
-            } else {
-                [self settingsAction:nil];
-            }
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        } else if (indexPath.section == 2 && indexPath.row == 1) {
-            [self settingsAction:nil];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        }
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        [self betsAction:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        [self settingsAction:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if (indexPath.section == 2 && indexPath.row == 1) {
+        [self settingsAction:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     
     if (self.user.isMe) {
@@ -530,6 +446,7 @@
 - (void)loadView {
     [super loadView];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     if (self.user.isMe) {
@@ -569,7 +486,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.allowsMultipleSelection = YES;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.shouldShowSettings ? 10 : 5)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 10)];
     [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
     [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
@@ -582,26 +499,16 @@
     [self reloadData];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.shouldShowSettings = self.shouldShowSettings;
-    self.shouldShowFavorites = self.shouldShowFavorites;
-    
-    if (self.shouldShowSettings) {
-        [TransfersHelper fetchCountWithBlock:^(NSUInteger count) {
-            if (count == 0) {
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox_empty"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
-            } else {
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
-            }
-        }];
-    }
+    [TransfersHelper fetchCountWithBlock:^(NSUInteger count) {
+        if (count == 0) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox_empty"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
+        } else {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
+        }
+    }];
     
     for (UIView *view in self.tabBarController.tabBar.subviews) {
         if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) < 2) {
@@ -624,11 +531,6 @@
         }
         self.navigationItem.leftBarButtonItem.enabled = YES;
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
