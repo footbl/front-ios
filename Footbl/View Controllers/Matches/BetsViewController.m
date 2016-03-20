@@ -183,9 +183,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         return;
     }
 	
-	FTBUser *user = [FTBUser currentUser];
-	[[FTBClient client] user:user.identifier success:^(FTBUser *object) {
-		self.championships = object.entries;
+    [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
+		self.championships = object;
 		[self reloadScrollView];
 		
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {

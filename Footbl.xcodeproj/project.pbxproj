@@ -187,7 +187,6 @@
 		ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF26F193583050090D06D /* tutorial_3_480@2x.png */; };
 		ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
 		ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
-		ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED785ABD199E7E15002A4DBD /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
 		ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
 		ED7C716319F949310002E6B0 /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
@@ -249,7 +248,6 @@
 		ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */; };
 		ED8DB3CF1A14C95C00605CCE /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66162196EDD9C00C8F5E1 /* FeaturedButton.m */; };
 		ED8DB3D01A14C95C00605CCE /* MatchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */; };
-		ED8DB3D11A14C95C00605CCE /* MyLeaguesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */; };
 		ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E82418EA6B1F00212D3C /* TemplateViewController.m */; };
 		ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9F191ABA7F005218FB /* UILabel+Shake.m */; };
 		ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F511988594600011E91 /* RechargeViewController.m */; };
@@ -1864,7 +1862,6 @@
 				ED785A24199D0C62002A4DBD /* WalletHighestTableViewCell.m in Sources */,
 				ED785A25199D0C62002A4DBD /* FeaturedButton.m in Sources */,
 				ED785A26199D0C62002A4DBD /* MatchTableViewCell.m in Sources */,
-				ED785ABC199E5343002A4DBD /* MyLeaguesViewController.m in Sources */,
 				109FB2D71B7C366D00E67B3C /* FTBMessage.m in Sources */,
 				1089AD711BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
@@ -1986,7 +1983,6 @@
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,
 				ED8DB3CF1A14C95C00605CCE /* FeaturedButton.m in Sources */,
 				ED8DB3D01A14C95C00605CCE /* MatchTableViewCell.m in Sources */,
-				ED8DB3D11A14C95C00605CCE /* MyLeaguesViewController.m in Sources */,
 				ED8DB3D21A14C95C00605CCE /* TemplateViewController.m in Sources */,
 				109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */,
 				10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
