@@ -10,7 +10,7 @@
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 //#import <Crashlytics/Crashlytics.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import <FlurrySDK/Flurry.h>
+#import <Flurry-iOS-SDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <SPHipster/SPHipster.h>

@@ -32,9 +32,9 @@ PODS:
   - Cloudinary (1.0.12)
   - Facebook-iOS-SDK (3.19.0):
     - Bolts (~> 1.0)
-  - FlurrySDK (5.4.0):
-    - FlurrySDK/FlurrySDK (= 5.4.0)
-  - FlurrySDK/FlurrySDK (5.4.0)
+  - Flurry-iOS-SDK (7.5.2):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.5.2)
+  - Flurry-iOS-SDK/FlurrySDK (7.5.2)
   - FXKeychain (1.5.2)
   - GoogleAnalytics-iOS-SDK (3.0.9)
   - iRate (1.11.3)
@@ -86,7 +86,7 @@ DEPENDENCIES:
   - CargoBay (= 2.1.0)
   - Cloudinary (= 1.0.12)
   - Facebook-iOS-SDK (= 3.19.0)
-  - FlurrySDK (= 5.4.0)
+  - Flurry-iOS-SDK (= 7.5.2)
   - FXKeychain (= 1.5.2)
   - GoogleAnalytics-iOS-SDK (= 3.0.9)
   - iRate (= 1.11.3)
@@ -117,7 +117,7 @@ SPEC CHECKSUMS:
   CargoBay: 3afad56937d51596f081e38d2a7829835fefab06
   Cloudinary: b9f023dbe33b0f55d0d783a5398cd23e491debe2
   Facebook-iOS-SDK: 2a2f22be64360c46eb76002654aba69c0ea06f5a
-  FlurrySDK: b58d7061711e13977e3c43b29acfefd80f65f4cd
+  Flurry-iOS-SDK: 8c87c4eab6008184ad9f63afabd79ec0d109c82e
   FXKeychain: 1a711bddc04a2bd69850dcfe297b8a43027a9980
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
@@ -134,4 +134,4 @@ SPEC CHECKSUMS:
   Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
