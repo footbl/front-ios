@@ -15,7 +15,7 @@
 @implementation FTBBet
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{/*@"user": @"user",*/
+	NSDictionary *keyPaths = @{@"user": @"user",
 							   @"match": @"match",
 							   @"bid": @"bid",
 							   @"result": @"result"};
@@ -26,9 +26,9 @@
 	return [FTBMatch resultJSONTransformer];
 }
 
-//+ (NSValueTransformer *)userJSONTransformer {
-//	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
-//}
++ (NSValueTransformer *)userJSONTransformer {
+	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
+}
 
 + (NSValueTransformer *)matchJSONTransformer {
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBMatch class]];

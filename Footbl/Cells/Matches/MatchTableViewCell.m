@@ -523,7 +523,7 @@ static CGFloat kDisabledAlpha = 0.4;
 }
 
 - (BOOL)isStepperSelected {
-    return self.hostStepper.isHighlighted || self.drawStepper.isHighlighted || self.guestStepper.isHighlighted;
+    return self.hostStepper.touchInside || self.drawStepper.touchInside || self.guestStepper.touchInside;
 }
 
 - (void)gestureRecognizerHandler:(UIGestureRecognizer *)gestureRecognizer {
