@@ -21,13 +21,10 @@
 @property (nonatomic, copy) NSArray<FTBUser *> *members;
 
 @property (nonatomic, copy) NSNumber *unreadMessagesCount;
-@property (nonatomic, assign, getter=isFreeToEdit) BOOL freeToEdit;
-@property (nonatomic, assign) BOOL isNew;
 
 - (BOOL)isWorld;
 - (BOOL)isFriends;
 - (BOOL)isDefault;
 - (NSString *)sharingText;
-- (void)saveStatusInLocalDatabase;
 
 @end

@@ -118,7 +118,6 @@
 		ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED785A04199D0C62002A4DBD /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED785A05199D0C62002A4DBD /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		ED785A06199D0C62002A4DBD /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
 		ED785A07199D0C62002A4DBD /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
@@ -137,7 +136,6 @@
 		ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		ED785A16199D0C62002A4DBD /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
 		ED785A18199D0C62002A4DBD /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
-		ED785A19199D0C62002A4DBD /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
 		ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
 		ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
@@ -161,7 +159,6 @@
 		ED785A35199D0C62002A4DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47318E1F18B00E0C949 /* main.m */; };
 		ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
 		ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
-		ED785A38199D0C62002A4DBD /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
 		ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
 		ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED785A3B199D0C62002A4DBD /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
@@ -218,7 +215,6 @@
 		ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */; };
 		ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
 		ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
@@ -237,7 +233,6 @@
 		ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */; };
 		ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0EA2191BC7E3005218FB /* SignupViewController.m */; };
 		ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */; };
-		ED8DB3C21A14C95C00605CCE /* GroupAddMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */; };
 		ED8DB3C61A14C95C00605CCE /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF222193395D30090D06D /* ChangePasswordViewController.m */; };
 		ED8DB3C71A14C95C00605CCE /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5419885E7900011E91 /* FootblPopupAnimatedTransition.m */; };
 		ED8DB3C81A14C95C00605CCE /* ProfileChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324330192BFF6A00F54D57 /* ProfileChampionshipTableViewCell.m */; };
@@ -261,7 +256,6 @@
 		ED8DB3DF1A14C95C00605CCE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47318E1F18B00E0C949 /* main.m */; };
 		ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC67211199933B900D06E66 /* FTImageUploader.m */; };
 		ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */; };
-		ED8DB3E31A14C95C00605CCE /* NewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */; };
 		ED8DB3E41A14C95C00605CCE /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83C18EA769400212D3C /* FootblAppearance.m */; };
 		ED8DB3E51A14C95C00605CCE /* MatchTableViewCell+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F6519899A8D00011E91 /* MatchTableViewCell+Setup.m */; };
 		ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81B18EA687800212D3C /* FootblTabBarController.m */; };
@@ -414,14 +408,8 @@
 		ED1E913819253F1200BDE434 /* ImportImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportImageHelper.m; sourceTree = "<group>"; };
 		ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		ED2D1C4E191566DC00F1BC81 /* NewGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGroupViewController.h; sourceTree = "<group>"; };
-		ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGroupViewController.m; sourceTree = "<group>"; };
 		ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoBaseViewController.h; sourceTree = "<group>"; };
 		ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoBaseViewController.m; sourceTree = "<group>"; };
-		ED2D1C571915848100F1BC81 /* GroupChampionshipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipsViewController.h; sourceTree = "<group>"; };
-		ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipsViewController.m; sourceTree = "<group>"; };
-		ED2D1C5A191588D100F1BC81 /* GroupAddMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAddMembersViewController.h; sourceTree = "<group>"; };
-		ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAddMembersViewController.m; sourceTree = "<group>"; };
 		ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipTableViewCell.h; sourceTree = "<group>"; };
 		ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -849,19 +837,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		ED2D1C5D19158A7300F1BC81 /* Create */ = {
-			isa = PBXGroup;
-			children = (
-				ED2D1C5A191588D100F1BC81 /* GroupAddMembersViewController.h */,
-				ED2D1C5B191588D100F1BC81 /* GroupAddMembersViewController.m */,
-				ED2D1C571915848100F1BC81 /* GroupChampionshipsViewController.h */,
-				ED2D1C581915848100F1BC81 /* GroupChampionshipsViewController.m */,
-				ED2D1C4E191566DC00F1BC81 /* NewGroupViewController.h */,
-				ED2D1C4F191566DC00F1BC81 /* NewGroupViewController.m */,
-			);
-			path = Create;
-			sourceTree = "<group>";
-		};
 		ED2D1C5E19158A8A00F1BC81 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,7 +979,6 @@
 		ED81E82918EA708B00212D3C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				ED2D1C5D19158A7300F1BC81 /* Create */,
 				ED2D1C5E19158A8A00F1BC81 /* View */,
 			);
 			path = Groups;
@@ -1817,7 +1791,6 @@
 				109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
-				ED785A04199D0C62002A4DBD /* GroupChampionshipsViewController.m in Sources */,
 				ED785A05199D0C62002A4DBD /* TweaksHelper.m in Sources */,
 				ED785A06199D0C62002A4DBD /* FavoriteTableViewCell.m in Sources */,
 				ED785A07199D0C62002A4DBD /* NSParagraphStyle+AlignmentCenter.m in Sources */,
@@ -1849,7 +1822,6 @@
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
 				ED785A16199D0C62002A4DBD /* SignupViewController.m in Sources */,
 				ED785A18199D0C62002A4DBD /* WalletTableViewCell.m in Sources */,
-				ED785A19199D0C62002A4DBD /* GroupAddMembersViewController.m in Sources */,
 				ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */,
 				ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */,
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
@@ -1881,7 +1853,6 @@
 				10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
 				ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */,
 				ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */,
-				ED785A38199D0C62002A4DBD /* NewGroupViewController.m in Sources */,
 				ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */,
 				ED785A3A199D0C62002A4DBD /* MatchTableViewCell+Setup.m in Sources */,
 				10B3AF1A1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */,
@@ -1938,7 +1909,6 @@
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */,
-				ED8DB3AD1A14C95C00605CCE /* GroupChampionshipsViewController.m in Sources */,
 				ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */,
 				ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */,
 				ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */,
@@ -1970,7 +1940,6 @@
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,
-				ED8DB3C21A14C95C00605CCE /* GroupAddMembersViewController.m in Sources */,
 				ED8DB3C61A14C95C00605CCE /* ChangePasswordViewController.m in Sources */,
 				ED8DB3C71A14C95C00605CCE /* FootblPopupAnimatedTransition.m in Sources */,
 				ED8DB3C81A14C95C00605CCE /* ProfileChampionshipTableViewCell.m in Sources */,
@@ -2003,7 +1972,6 @@
 				ED8DB3E01A14C95C00605CCE /* FTImageUploader.m in Sources */,
 				10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
 				ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */,
-				ED8DB3E31A14C95C00605CCE /* NewGroupViewController.m in Sources */,
 				ED8DB3E41A14C95C00605CCE /* FootblAppearance.m in Sources */,
 				ED8DB3E51A14C95C00605CCE /* MatchTableViewCell+Setup.m in Sources */,
 				ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "FTBGroup.h"
+#import "FTBUser.h"
 
 @implementation FTBGroup
 
@@ -19,6 +20,14 @@
 							   @"invites": @"invites",
 							   @"members": @"members"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
+}
+
++ (NSValueTransformer *)ownerJSONTransformer {
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
+}
+
++ (NSValueTransformer *)membersJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUser class]];
 }
 
 - (BOOL)isWorld {
@@ -41,8 +50,5 @@
 		return [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! Access %@ or use the code %@", @"@{group_share_url} {group_code}"), sharingUrl, self.identifier];
 	}
 }
-
-#warning This method should be used to cache a flag for new groups. We could remove this feature, IMHO
-- (void)saveStatusInLocalDatabase {}
 
 @end

@@ -9,7 +9,6 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIButton+WebCache.h>
 #import "FootblNavigationController.h"
-#import "GroupAddMembersViewController.h"
 #import "GroupInfoViewController.h"
 #import "ImportImageHelper.h"
 #import "UIView+Frame.h"
@@ -59,13 +58,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (IBAction)addNewMembersAction:(id)sender {
-    GroupAddMembersViewController *groupAddMembersViewController = [GroupAddMembersViewController new];
-    groupAddMembersViewController.group = self.group;
-    FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:groupAddMembersViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
 - (IBAction)notificationsSwitchValueChangedAction:(UISwitch *)switchView {
     switchView.userInteractionEnabled = NO;
 #warning Implement group notifications API
@@ -78,24 +70,7 @@
 //    }];
 }
 
-- (IBAction)freeToEditSwitchValueChangedAction:(UISwitch *)switchView {
-    switchView.userInteractionEnabled = NO;
-    self.group.freeToEdit = switchView.isOn;
-	[[FTBClient client] updateGroup:self.group success:^(id object) {
-		switchView.userInteractionEnabled = YES;
-	} failure:^(NSError *error) {
-		switchView.userInteractionEnabled = YES;
-		[switchView setOn:!switchView.isOn animated:YES];
-		[[ErrorHandler sharedInstance] displayError:error];
-	}];
-}
-
 - (IBAction)copySharingCodeAction:(id)sender {
-    if (!self.group.isFreeToEdit) {
-        [self.freeToEditSwich setOn:YES animated:YES];
-        [self freeToEditSwitchValueChangedAction:self.freeToEditSwich];
-    }
-
     if ([WhatsAppAPI isAvailable]) {
         [WhatsAppAPI shareText:self.group.sharingText];
     } else {
@@ -143,9 +118,8 @@
 - (void)reloadData {
     [super reloadData];
 	
-	FTBUser *user = [FTBUser currentUser];
     self.nameTextField.text = self.group.name;
-    self.nameTextField.userInteractionEnabled = (self.group.isFreeToEdit || [self.group.owner isEqual:user]);
+    self.nameTextField.userInteractionEnabled = NO;
     [self.groupImageButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal];
 }
 
@@ -219,34 +193,14 @@
         return view;
     };
     
-    CGRect bottomRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 159);
-    if (self.group.owner.isMe || self.group.isFreeToEdit) {
-        UIView *addNewMembersView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) + 9, CGRectGetWidth(self.view.frame), 52));
-        self.addNewMembersGroupButton = [[UIButton alloc] initWithFrame:addNewMembersView.frame];
-        [self.addNewMembersGroupButton setTitle:NSLocalizedString(@"Add new members", @"") forState:UIControlStateNormal];
-        [self.addNewMembersGroupButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-        [self.addNewMembersGroupButton setTitleColor:[[self.addNewMembersGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
-        self.addNewMembersGroupButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
-        self.addNewMembersGroupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        self.addNewMembersGroupButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-        [self.addNewMembersGroupButton addTarget:self action:@selector(addNewMembersAction:) forControlEvents:UIControlEventTouchUpInside];
-        [scrollView addSubview:self.addNewMembersGroupButton];
-        
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-        arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(self.addNewMembersGroupButton.frame));
-        [scrollView addSubview:arrowImageView];
-        
-        bottomRect = addNewMembersView.frame;
-    } else {
-        bottomRect.origin.y += 9;
-    }
+    CGRect bottomRect = CGRectMake(0, 9, CGRectGetWidth(self.view.frame), 159);
     
-    if (self.group.isDefault || self.group.isFreeToEdit) {
+    if (self.group.isDefault) {
         UIView *copyShareCodeView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 72));
         UIButton *copyShareCodeButton = [[UIButton alloc] initWithFrame:copyShareCodeView.frame];
         [copyShareCodeButton setTitle:NSLocalizedString(@"Copy sharing code", @"") forState:UIControlStateNormal];
         [copyShareCodeButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-        [copyShareCodeButton setTitleColor:[[self.addNewMembersGroupButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
+        [copyShareCodeButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
         copyShareCodeButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         copyShareCodeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         copyShareCodeButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 17, 0);
@@ -276,28 +230,6 @@
             arrowImageView.center = CGPointMake(CGRectGetWidth(self.view.frame) - 20, CGRectGetMidY(copyShareCodeButton.frame));
             [scrollView addSubview:arrowImageView];
         }
-    }
-    
-    if (self.group.owner.isMe) {
-        UIView *freeToEditView = generateView(CGRectMake(0, CGRectGetMaxY(bottomRect) - 0.5, CGRectGetWidth(self.view.frame), 52));
-        UIButton *freeToEditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, freeToEditView.y, 240, freeToEditView.height)];
-        [freeToEditButton setTitle:NSLocalizedString(@"Anyone can add members", @"") forState:UIControlStateNormal];
-        [freeToEditButton setTitleColor:[[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0] forState:UIControlStateNormal];
-        [freeToEditButton setTitleColor:[[freeToEditButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.2] forState:UIControlStateHighlighted];
-        freeToEditButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
-        freeToEditButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        freeToEditButton.contentEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-        freeToEditButton.userInteractionEnabled = NO;
-        [scrollView addSubview:freeToEditButton];
-        
-        self.freeToEditSwich = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(freeToEditButton.frame))];
-        self.freeToEditSwich.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(freeToEditButton.frame));
-        self.freeToEditSwich.on = self.group.isFreeToEdit;
-        self.freeToEditSwich.onTintColor = [UIColor ftb_greenGrassColor];
-        [self.freeToEditSwich addTarget:self action:@selector(freeToEditSwitchValueChangedAction:) forControlEvents:UIControlEventValueChanged];
-        [scrollView addSubview:self.freeToEditSwich];
-        
-        bottomRect = freeToEditView.frame;
     }
     
     if (!self.group.isDefault && FBTweakValue(@"UX", @"Group", @"Chat", YES)) {
@@ -346,7 +278,7 @@
     
     [self reloadData];
     
-    self.groupImageButton.userInteractionEnabled = self.group.owner.isMe || self.group.isFreeToEdit;
+    self.groupImageButton.userInteractionEnabled = NO;
     if (!self.groupImageButton.imageView.image && !self.groupImageButton.userInteractionEnabled) {
         if (self.group.isWorld) {
             [self.groupImageButton setImage:[UIImage imageNamed:@"world_icon"] forState:UIControlStateNormal];
@@ -358,21 +290,11 @@
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [self.nameTextField resignFirstResponder];
     [self updateGroupName];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
