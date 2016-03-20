@@ -47,7 +47,7 @@
 - (void)creditRequest:(NSString *)request success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)creditRequests:(FTBUser *)creditedUser chargedUser:(FTBUser *)chargedUser page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)rejectCreditRequest:(FTBCreditRequest *)request success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-
+/*
 #pragma mark - Group
 
 - (void)enterGroup:(NSString *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
@@ -61,6 +61,7 @@
 
 - (void)addInvitedMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)addMembers:(NSArray *)members group:(FTBGroup *)group success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+ */
 
 #pragma mark - Match
 
@@ -95,10 +96,12 @@
 - (void)usersWithEmails:(NSArray *)emails
 			facebookIds:(NSArray *)facebookIds
 			  usernames:(NSArray *)usernames
-				   name:(NSArray *)name
+                  names:(NSArray *)names
 				   page:(NSUInteger)page
 				success:(FTBBlockObject)success
 				failure:(FTBBlockError)failure;
+- (void)usersWithCountry:(NSString *)country page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)users:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)rechargeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)removeUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)unfollowUser:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;

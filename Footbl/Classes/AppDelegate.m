@@ -210,26 +210,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([url.absoluteString rangeOfString:@"footbl://groups/"].location != NSNotFound) {
-        NSString *groupCode = [url.absoluteString componentsSeparatedByString:@"/"].lastObject;
-        if (groupCode.length > 0) {
-            self.footblTabBarController.selectedIndex = 0;
-            
-            [[LoadingHelper sharedInstance] showHud];
-			
-			[[FTBClient client] enterGroup:groupCode success:^(id object) {
-				[[LoadingHelper sharedInstance] hideHud];
-			} failure:^(NSError *error) {
-				[[LoadingHelper sharedInstance] hideHud];
-				[[ErrorHandler sharedInstance] displayError:error];
-			}];
-            
-            return YES;
-        }
-        
-        return NO;
-    }
-    
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 

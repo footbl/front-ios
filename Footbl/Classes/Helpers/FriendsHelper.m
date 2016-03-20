@@ -99,7 +99,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 					for (int i = 0; i < emails.count; i += 100) {
 						operationsCount++;
 						NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
-						[[FTBClient client] usersWithEmails:range facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
+						[[FTBClient client] usersWithEmails:range facebookIds:nil usernames:nil names:nil page:0 success:^(id object) {
 							finishedBlock(object);
 						} failure:^(NSError *error) {
 							SPLogError(@"%@", error);
@@ -113,7 +113,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                     for (int i = 0; i < fbIds.count; i += 100) {
                         operationsCount++;
                         NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
-						[[FTBClient client] usersWithEmails:nil facebookIds:range usernames:nil name:nil page:0 success:^(id object) {
+						[[FTBClient client] usersWithEmails:nil facebookIds:range usernames:nil names:nil page:0 success:^(id object) {
                             finishedBlock(object);
                         } failure:^(NSError *error) {
                             SPLogError(@"%@", error);
@@ -240,7 +240,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         if (completionBlock) completionBlock(result, nil);
     };
     
-	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:@[trimmedSearchText] name:@[trimmedSearchText] page:0 success:^(id object) {
+	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:@[trimmedSearchText] names:@[trimmedSearchText] page:0 success:^(id object) {
         finishedBlock(object);
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);

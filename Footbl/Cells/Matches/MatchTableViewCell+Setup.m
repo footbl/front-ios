@@ -109,7 +109,7 @@
             self.stateLayout = MatchTableViewCellStateLayoutWaiting;
             break;
         case FTBMatchStatusLive:
-            self.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %i'", @"Live - {time elapsed}'"), match.elapsed];
+            self.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %.0lf'", @"Live - {time elapsed}'"), match.elapsed];
             self.stateLayout = MatchTableViewCellStateLayoutLive;
             break;
         case FTBMatchStatusFinished:

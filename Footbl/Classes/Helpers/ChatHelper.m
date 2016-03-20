@@ -44,11 +44,13 @@
 
 - (void)fetchUnreadMessages {
     [self controllerDidChangeContent];
+    /*
 	[[FTBClient client] groups:0 success:^(id object) {
         [self controllerDidChangeContent];
     } failure:^(NSError *error) {
         [self controllerDidChangeContent];
     }];
+     */
 }
 
 #pragma mark - Delegates & Data sources

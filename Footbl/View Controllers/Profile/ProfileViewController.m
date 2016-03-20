@@ -144,9 +144,9 @@
 		[[FTBClient client] betsForUser:this.user match:nil page:0 success:^(NSArray *bets) {
 			[this.tableView.infiniteScrollingView stopAnimating];
 			if (bets.count == FT_API_PAGE_LIMIT) {
+                this.nextPage++;
 				this.tableView.showsInfiniteScrolling = YES;
 			} else {
-				this.nextPage++;
 				this.tableView.showsInfiniteScrolling = NO;
 			}
 		} failure:^(NSError *error) {
@@ -313,7 +313,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return self.user.isMe ? 3 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

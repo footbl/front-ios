@@ -9,7 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import "AnonymousViewController.h"
-#import "GroupDetailViewController.h"
+#import "GroupRankingViewController.h"
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
 #import "FootblNavigationController.h"
@@ -22,7 +22,6 @@
 
 @interface GroupsViewController ()
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 
 @end
@@ -37,10 +36,6 @@
 
 #pragma mark - Instance Methods
 
-- (IBAction)editAction:(id)sender {
-    
-}
-
 - (id)init {
 	self = [super init];
     if (self) {
@@ -53,14 +48,14 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBGroup *group = self.groups[indexPath.row];
     cell.nameLabel.text = group.name;
-    if (group.isWorld) {
+    if (group.type == FTBGroupTypeWorld) {
 		[cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
-    } else if (group.isFriends) {
+    } else if (group.type == FTBGroupTypeFriends) {
 		[cell.groupImageView setImage:[UIImage imageNamed:@"icon-group-friends"]];
 	} else {
-        [cell.groupImageView sd_setImageWithURL:group.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
+        [cell.groupImageView setImage:[UIImage imageNamed:@"generic_group"]];
     }
-    [cell setIndicatorHidden:group.isDefault animated:NO];
+    [cell setIndicatorHidden:YES animated:NO];
     [cell setUnreadCount:group.unreadMessagesCount];
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
@@ -70,12 +65,16 @@
 - (void)reloadData {
     [super reloadData];
 	
-	[[FTBClient client] groups:0 success:^(NSArray *objects) {
-		self.groups = [objects mutableCopy];
-	} failure:^(NSError *error) {
-		[self.refreshControl endRefreshing];
-		[[ErrorHandler sharedInstance] displayError:error];
-	}];
+    FTBGroup *world = [[FTBGroup alloc] init];
+    world.type = FTBGroupTypeWorld;
+    
+    FTBGroup *country = [[FTBGroup alloc] init];
+    country.type = FTBGroupTypeCountry;
+    
+    FTBGroup *friends = [[FTBGroup alloc] init];
+    friends.type = FTBGroupTypeFriends;
+    
+    self.groups = @[world, country, friends];
 }
 
 #pragma mark - Delegates & Data sources
@@ -96,36 +95,12 @@
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        FTBGroup *group = self.groups[indexPath.row];
-		[[FTBClient client] removeGroup:group success:^(id object) {
-			[self.groups removeObject:group];
-			[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(NSError *error) {
-			[[ErrorHandler sharedInstance] displayError:error];
-		}];
-    }
-}
-
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    GroupDetailViewController *groupDetailViewController = [GroupDetailViewController new];
-    groupDetailViewController.group = self.groups[indexPath.row];
-    [self.navigationController pushViewController:groupDetailViewController animated:YES];
-}
-
-#pragma mark - NSFetchedResultsController delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [super controllerDidChangeContent:controller];
-    
-    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+    GroupRankingViewController *groupRankingViewController = [[GroupRankingViewController alloc] init];
+    groupRankingViewController.group = self.groups[indexPath.row];
+    [self.navigationController pushViewController:groupRankingViewController animated:YES];
 }
 
 #pragma mark - View Lifecycle
@@ -135,13 +110,7 @@
     
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
-    
-    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-    tableViewController.refreshControl = self.refreshControl;
-    
-    self.tableView = tableViewController.tableView;
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.frame = self.view.bounds;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -173,11 +142,6 @@
     }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -203,11 +167,6 @@
     [super viewDidDisappear:animated];
     
     [self.tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

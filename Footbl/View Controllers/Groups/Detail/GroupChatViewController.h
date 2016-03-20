@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "GroupDetailViewController.h"
 #import "TemplateViewController.h"
 
 @class FTBGroup;
@@ -24,7 +23,6 @@
 @property (strong, nonatomic) UIImageView *messageImageView;
 @property (strong, nonatomic) UIView *messageBorderView;
 @property (strong, nonatomic) UILabel *placeholderLabel;
-@property (assign, nonatomic) GroupDetailContext context;
 @property (strong, nonatomic) NSMutableArray *messages;
 
 @end

@@ -85,12 +85,7 @@
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
-		A38D39BB1C9E6C6D0029C09A /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */; };
-		A38D39BC1C9E6C6D0029C09A /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */; };
-		A38D39BD1C9E6C6D0029C09A /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */; };
 		A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */; };
-		A38D39BF1C9E6C6D0029C09A /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */; };
-		A38D39C01C9E6C6D0029C09A /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */; };
 		A38D39C11C9E6C6D0029C09A /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -384,18 +379,10 @@
 		42A060921D15B2D0DB2C5E10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		92123ABE26D78D16773855E5 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		A26E8749B998B87321D44F76 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		A38D39AD1C9E6C6D0029C09A /* GroupAroundMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAroundMeViewController.h; sourceTree = "<group>"; };
-		A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAroundMeViewController.m; sourceTree = "<group>"; };
 		A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
-		A38D39B11C9E6C6D0029C09A /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
-		A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailViewController.m; sourceTree = "<group>"; };
 		A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
 		A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
-		A38D39B51C9E6C6D0029C09A /* GroupInfoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoBaseViewController.h; sourceTree = "<group>"; };
-		A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoBaseViewController.m; sourceTree = "<group>"; };
-		A38D39B71C9E6C6D0029C09A /* GroupInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoViewController.h; sourceTree = "<group>"; };
-		A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoViewController.m; sourceTree = "<group>"; };
 		A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
 		A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
@@ -811,12 +798,8 @@
 		A38D39AC1C9E6C6D0029C09A /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				A38D39AD1C9E6C6D0029C09A /* GroupAroundMeViewController.h */,
-				A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */,
 				A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */,
 				A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */,
-				A38D39B11C9E6C6D0029C09A /* GroupDetailViewController.h */,
-				A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */,
 				A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */,
 				A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */,
 			);
@@ -974,10 +957,6 @@
 			isa = PBXGroup;
 			children = (
 				A38D39AC1C9E6C6D0029C09A /* Detail */,
-				A38D39B51C9E6C6D0029C09A /* GroupInfoBaseViewController.h */,
-				A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */,
-				A38D39B71C9E6C6D0029C09A /* GroupInfoViewController.h */,
-				A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */,
 				A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */,
 				A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */,
 			);
@@ -1762,14 +1741,12 @@
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
 				ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */,
-				A38D39BC1C9E6C6D0029C09A /* GroupChatViewController.m in Sources */,
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
 				10AF59431B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
 				ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */,
 				ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */,
-				A38D39BD1C9E6C6D0029C09A /* GroupDetailViewController.m in Sources */,
 				109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
@@ -1798,7 +1775,6 @@
 				A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */,
 				10E241421BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				102468841BBCB4E000913511 /* MyChallengesViewController.m in Sources */,
-				A38D39C01C9E6C6D0029C09A /* GroupInfoViewController.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1824,7 +1800,6 @@
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
 				ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */,
 				ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */,
-				A38D39BF1C9E6C6D0029C09A /* GroupInfoBaseViewController.m in Sources */,
 				ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */,
 				100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
@@ -1835,7 +1810,6 @@
 				ED785A34199D0C62002A4DBD /* SettingsTableViewCell.m in Sources */,
 				ED785A35199D0C62002A4DBD /* main.m in Sources */,
 				10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
-				A38D39BB1C9E6C6D0029C09A /* GroupAroundMeViewController.m in Sources */,
 				ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */,
 				ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */,
 				ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */,
