@@ -16,44 +16,22 @@
 
 #import <TransformerKit/TTTDateTransformers.h>
 
-@implementation FTBUserSeasonEvolution
+@implementation FTBHistory
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{@"funds": @"funds"};
+	NSDictionary *keyPaths = @{@"date": @"date",
+                               @"stake": @"stake",
+                               @"funds": @"funds"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
+}
+
++ (NSValueTransformer *)dateJSONTransformer {
+    return [super dateJSONTransformer];
 }
 
 @end
 
-@implementation FTBUserSeason
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{@"season": @"season",
-							   @"rankings": @"rankings",
-							   @"stake": @"stake",
-							   @"funds": @"funds",
-							   @"evolution": @"evolution"};
-	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
-}
-
-+ (NSValueTransformer *)seasonJSONTransformer {
-	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBSeason class]];
-}
-
-+ (NSValueTransformer *)evolutionJSONTransformer {
-	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUserSeasonEvolution class]];
-}
-
-@end
-
-@implementation FTBBaseUser
-
-+ (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-	if (JSONDictionary[@"starred"]) {
-		return [FTBUser class];
-	}
-	return self;
-}
+@implementation FTBUser
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"email": @"email",
@@ -68,19 +46,14 @@
 							   @"apnsToken": @"apnsToken",
 							   @"active": @"active",
 							   @"country": @"country",
-							   @"entries": @"entries",
-							   @"seasons": @"seasons",
 							   @"funds": @"funds",
-							   @"stake": @"stake"};
+							   @"stake": @"stake",
+                               @"history": @"history"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
-+ (NSValueTransformer *)entriesJSONTransformer {
-	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBChampionship class]];
-}
-
-+ (NSValueTransformer *)seasonsJSONTransformer {
-	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUserSeason class]];
++ (NSValueTransformer *)historyJSONTransformer {
+	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBHistory class]];
 }
 
 #pragma mark - Helpers
@@ -218,9 +191,9 @@
 
 - (NSNumber *)highestWallet {
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
-	NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
+	FTBHistory *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
 	if (wallet) {
-		return @(MAX(self.totalWallet.floatValue, [wallet[@"funds"] floatValue]));
+		return @(MAX(self.totalWallet.floatValue, wallet.funds.floatValue));
 	}
 	
 	return self.totalWallet;
@@ -228,10 +201,10 @@
 
 - (NSDate *)highestWalletDate {
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
-	NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
-	if (wallet && [wallet[@"funds"] floatValue] > self.totalWallet.floatValue) {
+	FTBHistory *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
+	if (wallet && wallet.funds.floatValue > self.totalWallet.floatValue) {
 		NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-		return [transformer reverseTransformedValue:wallet[@"date"]];
+		return [transformer reverseTransformedValue:wallet.date];
 	}
 	
 	return [NSDate date];
@@ -250,28 +223,6 @@
 
 - (BOOL)isFanOfUser:(FTBUser *)user {
 	return NO;
-}
-
-- (NSNumber *)numberOfLeagues {
-	return @(self.entries.count);
-}
-
-- (NSArray *)history {
-	FTBUserSeason *history = self.seasons.firstObject;
-	return history.rankings;
-}
-
-@end
-
-@implementation FTBUser
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{@"starred": @"starred"};
-	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
-}
-
-+ (NSValueTransformer *)starredJSONTransformer {
-	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBBaseUser class]];
 }
 
 @end

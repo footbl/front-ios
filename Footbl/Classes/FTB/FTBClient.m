@@ -308,7 +308,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)matchesInChampionship:(FTBChampionship *)championship round:(NSUInteger)round page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/matches"];
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"filterByRound": @(round), @"page": @(page)}];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{/*@"filterByRound": @(round), */@"page": @(page)}];
 	if (championship.identifier) parameters[@"filterByChampionship"] = championship.identifier;
 	[self GET:path parameters:parameters modelClass:[FTBMatch class] success:success failure:failure];
 }

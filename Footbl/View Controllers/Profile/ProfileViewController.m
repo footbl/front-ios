@@ -14,7 +14,6 @@
 #import "LoadingHelper.h"
 #import "FTBMatch+Sharing.h"
 #import "MatchTableViewCell+Setup.h"
-#import "MyLeaguesViewController.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileBetsViewController.h"
@@ -110,7 +109,7 @@
 }
 
 - (IBAction)myLeaguesAction:(id)sender {
-    [self.navigationController pushViewController:[MyLeaguesViewController new] animated:YES];
+#warning Remove this
 }
 
 - (NSTimeInterval)updateInterval {
@@ -235,11 +234,6 @@
                     walletCell.valueText = self.user.totalWallet.walletStringValue;
                     walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    if (self.user.numberOfLeagues.integerValue <= 1) {
-                        walletCell.leaguesLabel.text = NSLocalizedString(@"Betting in 1 league", @"");
-                    } else {
-                        walletCell.leaguesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Betting in %i leagues", @"Betting in {number of leagues} leagues"), self.user.numberOfLeagues.integerValue];
-                    }
                     break;
                 }
                 case 2: {
