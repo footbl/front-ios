@@ -38,12 +38,12 @@
 }
 
 - (void)checkForUpdate {
-//    if (self.isVisible && (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10))) {
-//        [self reloadData];
-//        [self.updateTimer invalidate];
-//        self.updateTimer = nil;
-//        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
-//    }
+    if (self.isVisible && (!self.lastUpdateAt || [[NSDate date] timeIntervalSinceDate:self.lastUpdateAt] >= self.updateInterval - (self.updateInterval / 10))) {
+        [self reloadData];
+        [self.updateTimer invalidate];
+        self.updateTimer = nil;
+        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
+    }
 }
 
 #pragma mark - Delegates & Data sources
@@ -58,11 +58,6 @@
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForUpdate) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,11 +76,6 @@
     [super viewWillDisappear:animated];
     
     self.visible = NO;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {

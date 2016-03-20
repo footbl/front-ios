@@ -19,7 +19,6 @@
 @interface ProfileBetsViewController ()
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (assign, nonatomic) NSInteger numberOfMatches;
 @property (assign, nonatomic) NSUInteger nextPage;
 
 @end
@@ -41,15 +40,16 @@
 - (void)reloadData {
     [super reloadData];
 	
-	__weak typeof(self) this = self;
+	__weak typeof(self) weakSelf = self;
 	[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(NSArray *bets) {
-		[this setupInfiniteScrolling];
-		this.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
-		this.nextPage++;
-		[this.refreshControl endRefreshing];
+        weakSelf.bets = [[NSMutableArray alloc] initWithArray:bets];
+		weakSelf.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
+		weakSelf.nextPage++;
+		[weakSelf.refreshControl endRefreshing];
+        [weakSelf.tableView reloadData];
 		[[LoadingHelper sharedInstance] hideHud];
 	} failure:^(NSError *error) {
-		[this.refreshControl endRefreshing];
+		[weakSelf.refreshControl endRefreshing];
 		[[LoadingHelper sharedInstance] hideHud];
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];
@@ -61,29 +61,24 @@
 }
 
 - (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView) {
-        return;
-    }
-	
-	__weak typeof(self) this = self;
-    [this.tableView addInfiniteScrollingWithActionHandler:^{
-        [super reloadData];
-        
-        if (this.bets.count == 0) {
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        if (weakSelf.bets.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
  
-		[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(NSArray *bets) {
-			[this.tableView.infiniteScrollingView stopAnimating];
+		[[FTBClient client] betsForUser:weakSelf.user match:nil page:0 success:^(NSArray *bets) {
+            [weakSelf.bets addObjectsFromArray:bets];
+			[weakSelf.tableView.infiniteScrollingView stopAnimating];
 			[[LoadingHelper sharedInstance] hideHud];
 			if (bets.count == FT_API_PAGE_LIMIT) {
-				this.tableView.showsInfiniteScrolling = YES;
+				weakSelf.tableView.showsInfiniteScrolling = YES;
 			} else {
-				this.nextPage++;
-				this.tableView.showsInfiniteScrolling = NO;
+				weakSelf.nextPage++;
+				weakSelf.tableView.showsInfiniteScrolling = NO;
 			}
 		} failure:^(NSError *error) {
-			[this.tableView.infiniteScrollingView stopAnimating];
+			[weakSelf.tableView.infiniteScrollingView stopAnimating];
 			[[LoadingHelper sharedInstance] hideHud];
 			[[ErrorHandler sharedInstance] displayError:error];
 		}];
@@ -131,8 +126,6 @@
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.title = NSLocalizedString(@"Bet history", @"");
     
-    self.numberOfMatches = self.bets.count;
-    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
@@ -156,16 +149,6 @@
     [self.view addSubview:self.tableView];
     
     [self reloadData];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
