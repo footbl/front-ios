@@ -199,11 +199,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 			cancel_block(cancelBlockId);
 		}
 		
-		self.betsViewController.panGestureRecognizer.enabled = NO;
-		perform_block_after_delay_k(1, &cancelBlockId, ^{
-			self.betsViewController.panGestureRecognizer.enabled = YES;
-		});
-		
 		FTBBlockError failure = ^(NSError *error) {
 			[[ErrorHandler sharedInstance] displayError:error];
 			[UIView animateWithDuration:FTBAnimationDuration delay:FTBAnimationDuration options:UIViewAnimationOptionAllowUserInteraction animations:^{

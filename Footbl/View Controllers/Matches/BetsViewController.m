@@ -31,13 +31,11 @@
 @interface BetsViewController ()
 
 @property (strong, nonatomic) NSMutableDictionary *championshipsViewControllers;
-@property (assign, nonatomic) CGFloat gestureRecognizerInitialPositionX;
 @property (assign, nonatomic) NSInteger scrollViewCurrentPage;
 @property (assign, nonatomic) NSInteger scrollViewLength;
 
 @end
 
-static NSString * const kManagedLeaguesViewControllerKey = @"kManagedLeaguesViewControllerKey";
 static NSString * const kPrizeLatestFetch = @"kPrizeLatestFetch";
 static NSUInteger kPrizeFetchInterval = 60 * 5;
 
@@ -143,23 +141,10 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         matchesViewController.view.frame = CGRectMake(self.scrollView.width * self.scrollViewLength, 0, self.scrollView.width, self.scrollView.height);
         contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.height);
         [championshipsToRemove removeObjectForKey:championship.identifier];
-        self.scrollViewLength ++;
-    }
-    
-    if (self.championships.count > 0) {
-        UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
-        if (!managedLeaguesViewController) {
-            [self reloadManagedLeaguesViewController];
-        }
-        
-        [championshipsToRemove removeObjectForKey:kManagedLeaguesViewControllerKey];
-        managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.championships.count, 0, self.scrollView.width, self.scrollView.height);
-        contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
-        self.scrollViewLength ++;
+        self.scrollViewLength++;
     }
     
     self.scrollView.contentSize = contentSize;
-    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.width), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
     
     if (championships.count == 0) {
         self.placeholderLabel.hidden = NO;
@@ -246,77 +231,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
-- (void)reloadManagedLeaguesViewController {
-    UIViewController *managedLeaguesViewController = self.championshipsViewControllers[kManagedLeaguesViewControllerKey];
-    [managedLeaguesViewController.view removeFromSuperview];
-    [managedLeaguesViewController removeFromParentViewController];
-    
-    managedLeaguesViewController = [UIViewController new];
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.navigationBarTitleView.height, self.view.width, 30)];
-    headerView.backgroundColor = [UIColor ftb_navigationBarColor];
-    headerView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth;
-    [managedLeaguesViewController.view addSubview:headerView];
-    
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerView.bounds];
-    headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
-    headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.text = NSLocalizedString(@"My Leagues", @"");
-    [headerView addSubview:headerLabel];
-    
-    UIImageView *headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
-    headerSliderBackImageView.center = CGPointMake(15, headerLabel.center.y);
-    [headerView addSubview:headerSliderBackImageView];
-    
-    UILabel *placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, self.view.width - 40, 200)];
-    placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    placeholderLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
-    placeholderLabel.textColor = [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
-    placeholderLabel.textAlignment = NSTextAlignmentCenter;
-    placeholderLabel.text = NSLocalizedString(@"Leagues placeholder", @"");
-    placeholderLabel.numberOfLines = 0;
-    [managedLeaguesViewController.view addSubview:placeholderLabel];
-    
-    [self addChildViewController:managedLeaguesViewController];
-    [self.scrollView addSubview:managedLeaguesViewController.view];
-    self.championshipsViewControllers[kManagedLeaguesViewControllerKey] = managedLeaguesViewController;
-    
-    managedLeaguesViewController.view.frame = CGRectMake(self.scrollView.width * self.championships.count, 0, self.scrollView.width, self.scrollView.height);
-    CGSize contentSize = CGSizeMake(CGRectGetMaxX(managedLeaguesViewController.view.frame), self.scrollView.height);
-
-    self.scrollView.contentSize = contentSize;
-    self.scrollView.contentOffset = CGPointMake(MIN(MAX(0, contentSize.width - self.scrollView.width), self.scrollView.contentOffset.x), self.scrollView.contentOffset.y);
-}
-
-- (void)panGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer {
-    CGFloat touchX = [gestureRecognizer locationInView:self.view].x;
-    switch (gestureRecognizer.state) {
-        case UIGestureRecognizerStateBegan:
-            self.gestureRecognizerInitialPositionX = touchX;
-        case UIGestureRecognizerStateChanged:
-            self.scrollView.contentOffset = CGPointMake(MAX(0, MIN(self.scrollViewCurrentPage * self.scrollView.width + self.gestureRecognizerInitialPositionX - touchX, self.scrollView.contentSize.width - self.scrollView.width)), self.scrollView.contentOffset.y);
-            break;
-        default: {
-            CGFloat maxPage = self.championshipsViewControllers.allKeys.count - 1;
-            CGFloat minPage = 0;
-            CGFloat velocity = fabs([gestureRecognizer velocityInView:self.view].x);
-            CGFloat progress = (self.gestureRecognizerInitialPositionX - touchX) / 320;
-            [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:MIN(10, velocity / 30) options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                if (fabs(velocity) > 100 || progress > 0.5) {
-                    if (self.gestureRecognizerInitialPositionX > touchX) {
-                        self.scrollViewCurrentPage = MIN(maxPage, self.scrollViewCurrentPage + 1);
-                    } else {
-                        self.scrollViewCurrentPage = MAX(minPage, self.scrollViewCurrentPage - 1);
-                    }
-                }
-                self.scrollView.contentOffset = CGPointMake(self.scrollView.width * self.scrollViewCurrentPage, self.scrollView.contentOffset.y);
-            } completion:nil];
-            break;
-        }
-    }
-}
-
 #pragma mark - Delegates & Data sources
 
 #pragma mark - View Lifecycle
@@ -340,7 +254,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.scrollEnabled = NO;
     self.scrollView.scrollsToTop = NO;
     [self.view insertSubview:self.scrollView belowSubview:self.navigationBarTitleView];
     
@@ -354,19 +267,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.placeholderLabel.numberOfLines = 0;
     [self.view addSubview:self.placeholderLabel];
     
-    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
-    [self.scrollView addGestureRecognizer:self.panGestureRecognizer];
-    
     [self reloadData];
     
     self.scrollViewCurrentPage = 0;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMatchesNavigationBarTitleAnimateKey object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self reloadManagedLeaguesViewController];
     }];
 }
 
