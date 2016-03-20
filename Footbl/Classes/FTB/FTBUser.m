@@ -33,10 +33,6 @@
 
 @implementation FTBUser
 
-- (void)objectForKeyedSubscript:(id)s {
-    
-}
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"email": @"email",
 							   @"username": @"username",

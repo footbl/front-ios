@@ -275,11 +275,6 @@ typedef NS_ENUM(NSUInteger, GroupDetailType) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (self.group.isNew) {
-		self.group.isNew = NO;
-		[self.group saveStatusInLocalDatabase];
-    }
-    
     [(FootblTabBarController *)self.tabBarController setTabBarHidden:YES animated:YES];
 }
 

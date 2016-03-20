@@ -13,7 +13,6 @@
 #import "GroupsViewController.h"
 #import "GroupTableViewCell.h"
 #import "FootblNavigationController.h"
-#import "NewGroupViewController.h"
 #import "NSString+Hex.h"
 
 #import "FTBClient.h"
@@ -42,16 +41,6 @@
     
 }
 
-- (IBAction)joinGroupAction:(id)sender {
-    NewGroupViewController *newGroupViewController = [NewGroupViewController new];
-    newGroupViewController.invitationMode = YES;
-    [self presentViewController:[[FootblNavigationController alloc] initWithRootViewController:newGroupViewController] animated:YES completion:nil];
-}
-
-- (IBAction)newGroupAction:(id)sender {
-    [self presentViewController:[[FootblNavigationController alloc] initWithRootViewController:[NewGroupViewController new]] animated:YES completion:nil];
-}
-
 - (id)init {
 	self = [super init];
     if (self) {
@@ -71,7 +60,7 @@
 	} else {
         [cell.groupImageView sd_setImageWithURL:group.pictureURL placeholderImage:[UIImage imageNamed:@"generic_group"]];
     }
-    [cell setIndicatorHidden:(!group.isNew || group.isDefault) animated:NO];
+    [cell setIndicatorHidden:group.isDefault animated:NO];
     [cell setUnreadCount:group.unreadMessagesCount];
     
     cell.bottomSeparatorView.hidden = (indexPath.section == 0 && [self numberOfSectionsInTableView:self.tableView] > 1 && indexPath.row + 1 == [self tableView:self.tableView numberOfRowsInSection:0]);
@@ -87,43 +76,6 @@
 		[self.refreshControl endRefreshing];
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];
-}
-
-- (void)setFooterViewVisible:(BOOL)visible {
-    if (visible) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), self.tableView.rowHeight)];
-        footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        UIButton *button = [[UIButton alloc] initWithFrame:footerView.frame];
-        button.backgroundColor = self.view.backgroundColor;
-        [button setImage:[UIImage imageNamed:@"groups_createnewgroup"] forState:UIControlStateNormal];
-        button.titleLabel.numberOfLines = 0;
-        button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        
-        NSMutableAttributedString *buttonTitle = [NSMutableAttributedString new];
-        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button title", @"") attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:16], NSForegroundColorAttributeName : [UIColor colorWithRed:137/255.f green:148/255.f blue:140/255.f alpha:1.00]}]];
-        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-        [buttonTitle appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Create your group button subtitle", @"")attributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:14], NSForegroundColorAttributeName : [UIColor colorWithRed:161/255.f green:170/255.f blue:163/255.f alpha:1.00]}]];
-        
-        [button setAttributedTitle:buttonTitle forState:UIControlStateNormal];
-        
-        if ([UIScreen mainScreen].bounds.size.width == 320) { // iPhone 3.5" & iPhone 4"
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
-            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
-        } else if ([UIScreen mainScreen].bounds.size.width == 414) { // iPhone 5.5"
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 48);
-            button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 20);
-        } else {
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 11);
-            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 20);
-        }
-        
-        [button addTarget:self action:@selector(newGroupAction:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:button];
-        self.tableView.tableFooterView = footerView;
-    } else {
-        self.tableView.tableFooterView = nil;
-    }
 }
 
 #pragma mark - Delegates & Data sources
@@ -183,11 +135,6 @@
     
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
-    if (FBTweakValue(@"UX", @"Group", @"Join button", YES)) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
-    }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newGroupAction:)];
-    
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
@@ -204,8 +151,6 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.tableView registerClass:[GroupTableViewCell class] forCellReuseIdentifier:@"GroupCell"];
     [self.view addSubview:self.tableView];
-    
-    [self setFooterViewVisible:YES];
     
     self.anonymousViewController = [AnonymousViewController new];
     
@@ -235,12 +180,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (FBTweakValue(@"UX", @"Group", @"Join button", YES)) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Join", @"") style:UIBarButtonItemStylePlain target:self action:@selector(joinGroupAction:)];
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
-    }
     
     if (self.tableView.indexPathForSelectedRow) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
