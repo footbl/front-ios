@@ -7,7 +7,6 @@
 //
 
 #import "TemplateViewController.h"
-#import "GroupDetailViewController.h"
 
 @class FTBGroup;
 
@@ -15,6 +14,5 @@
 
 @property (strong, nonatomic) FTBGroup *group;
 @property (strong, nonatomic) UITableView *tableView;
-@property (nonatomic) GroupDetailContext context;
 
 @end

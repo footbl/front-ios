@@ -44,16 +44,6 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 #pragma mark - Getters/Setters
 
-- (void)setContext:(GroupDetailContext)context {
-    _context = context;
-    
-    if (context == GroupDetailContextChat) {
-        [self timerReloadData];
-    } else {
-        [self.messageTextView resignFirstResponder];
-    }
-}
-
 - (void)setKeyboardVisible:(BOOL)keyboardVisible {
     if (_keyboardVisible == keyboardVisible) {
         return;

@@ -166,7 +166,7 @@
             [self.activityIndicatorView startAnimating];
 			
 			NSString *text = [self.textField.text stringByReplacingOccurrencesOfString:@"@" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, 1)];
-			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:@[text] name:nil page:0 success:^(NSArray *response) {
+			[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:@[text] names:nil page:0 success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {
@@ -418,7 +418,7 @@
             
             [self.activityIndicatorView startAnimating];
 			
-			[[FTBClient client] usersWithEmails:@[self.textField.text] facebookIds:nil usernames:nil name:nil page:0 success:^(NSArray *response) {
+			[[FTBClient client] usersWithEmails:@[self.textField.text] facebookIds:nil usernames:nil names:nil page:0 success:^(NSArray *response) {
                 self.view.userInteractionEnabled = YES;
                 [self.activityIndicatorView stopAnimating];
                 if (response.count > 0) {

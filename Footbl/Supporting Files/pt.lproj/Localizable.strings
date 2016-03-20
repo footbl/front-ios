@@ -194,7 +194,7 @@
 "Team: Columbus Crew" = "Columbus C.";
 
 /* Live - {time elapsed}' */
-"Live - %i'" = "Ao vivo - %i'";
+"Live - %.0lf'" = "Ao vivo - %.0lf'";
 
 /* Team: Dc United */
 "Team: Dc United" = "DC United";

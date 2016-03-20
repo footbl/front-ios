@@ -15,6 +15,7 @@
 #import "LoadingHelper.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileViewController.h"
+#import "FriendsHelper.h"
 
 #import "FTBClient.h"
 #import "FTBGroup.h"
@@ -22,9 +23,10 @@
 
 @interface GroupRankingViewController ()
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) NSNumber *nextPage;
-@property (assign, nonatomic) BOOL isLoading;
+@property (nonatomic, copy) NSMutableArray<FTBUser *> *members;
+@property (nonatomic, copy) NSNumber *nextPage;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, assign) BOOL isLoading;
 
 @end
 
@@ -36,18 +38,6 @@
 
 #pragma mark - Getters/Setters
 
-- (void)setContext:(GroupDetailContext)context {
-    if (_context == context) {
-        return;
-    }
-    
-    _context = context;
-    
-    if (!self.group.isDefault) {
-        [self reloadData];
-    }
-}
-
 #pragma mark - Instance Methods
 
 - (NSTimeInterval)updateInterval {
@@ -57,36 +47,50 @@
 - (void)reloadData {
     [super reloadData];
 	
-    if (self.context == GroupDetailContextRanking) {
-        if (self.isLoading) {
-            return;
-        }
-        
-        self.isLoading = YES;
-        
-        if (self.group.members.count == 0) {
-            [[LoadingHelper sharedInstance] showHud];
-        }
-		
-        if (self.group.isWorld) {
-		} else if (self.group.isFriends) {
-		} else {
-            [[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:0 success:^(id object) {
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-                self.isLoading = NO;
-            } failure:^(NSError *error) {
-                [self.refreshControl endRefreshing];
-                [[LoadingHelper sharedInstance] hideHud];
-                [[ErrorHandler sharedInstance] displayError:error];
-                self.isLoading = NO;
-            }];
-        }
+    if (self.isLoading) {
+        return;
+    }
+    
+    self.isLoading = YES;
+    
+    if (self.members.count == 0) {
+        [[LoadingHelper sharedInstance] showHud];
+    }
+    
+    
+    FTBBlockObject success = ^(id object) {
+        self.members = [[NSMutableArray alloc] initWithArray:object];
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
+        self.isLoading = NO;
+    };
+    
+    FTBBlockError failure = ^(NSError *error) {
+        [self.refreshControl endRefreshing];
+        [[LoadingHelper sharedInstance] hideHud];
+        [[ErrorHandler sharedInstance] displayError:error];
+        self.isLoading = NO;
+    };
+    
+    if (self.group.type == FTBGroupTypeWorld) {
+        [[FTBClient client] users:0 success:success failure:failure];
+    } else if (self.group.type == FTBGroupTypeCountry) {
+        FTBUser *user = [FTBUser currentUser];
+        [[FTBClient client] usersWithCountry:user.country page:0 success:success failure:failure];
+    } else {
+        [[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+            if (friends && !error) {
+                success(friends);
+            } else {
+                failure(error);
+            }
+        }];
     }
 }
 
 - (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView || !self.group.isWorld) {
+    if (self.tableView.infiniteScrollingView) {
         return;
     }
     
@@ -94,11 +98,11 @@
     [weakTableView addInfiniteScrollingWithActionHandler:^{
         [super reloadData];
         
-        if (self.group.members.count == 0) {
+        if (self.members.count == 0) {
             [[LoadingHelper sharedInstance] showHud];
         }
 		
-		[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil name:nil page:self.nextPage.integerValue success:^(id object) {
+		[[FTBClient client] usersWithEmails:nil facebookIds:nil usernames:nil names:nil page:self.nextPage.integerValue success:^(id object) {
             [weakTableView.infiniteScrollingView stopAnimating];
 			self.tableView.showsInfiniteScrolling = NO;
             [[LoadingHelper sharedInstance] hideHud];
@@ -112,7 +116,7 @@
 }
 
 - (void)configureCell:(GroupMembershipTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    FTBUser *user = self.group.members[indexPath.row];
+    FTBUser *user = self.members[indexPath.row];
     if (user.ranking) {
         cell.rankingLabel.text = user.ranking.rankingStringValue;
     } else {
@@ -163,7 +167,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.group.members.count;
+	return self.members.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,7 +179,7 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    FTBUser *member = self.group.members[indexPath.row];
+    FTBUser *member = self.members[indexPath.row];
     ProfileViewController *profileViewController = [ProfileViewController new];
     profileViewController.user = member;
     [self.navigationController pushViewController:profileViewController animated:YES];
@@ -191,8 +195,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    self.title = self.group.name;
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     

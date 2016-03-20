@@ -10,7 +10,7 @@
 
 @interface GroupsViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, copy) NSMutableArray *groups;
+@property (nonatomic, copy) NSArray *groups;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
