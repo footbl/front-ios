@@ -85,9 +85,14 @@
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
+		A38D39BB1C9E6C6D0029C09A /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */; };
+		A38D39BC1C9E6C6D0029C09A /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */; };
+		A38D39BD1C9E6C6D0029C09A /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */; };
+		A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */; };
+		A38D39BF1C9E6C6D0029C09A /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */; };
+		A38D39C01C9E6C6D0029C09A /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */; };
+		A38D39C11C9E6C6D0029C09A /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
-		DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
-		DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399FA1A1E4EBF0037F01B /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F91A1E4EBF0037F01B /* RechargeButton.m */; };
@@ -100,14 +105,12 @@
 		ED7859E7199D0C62002A4DBD /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
 		ED7859E8199D0C62002A4DBD /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
 		ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
-		ED7859EA199D0C62002A4DBD /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
 		ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
 		ED7859F0199D0C62002A4DBD /* GroupChampionshipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */; };
 		ED7859F2199D0C62002A4DBD /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
 		ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
-		ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
@@ -125,10 +128,8 @@
 		ED785A09199D0C62002A4DBD /* FTBMatch+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* FTBMatch+Sharing.m */; };
 		ED785A0A199D0C62002A4DBD /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
 		ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
-		ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
 		ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
-		ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
 		ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
@@ -196,7 +197,6 @@
 		ED8DB38C1A14C95C00605CCE /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1A697C197988540084FB14 /* WalletGraphView.m */; };
 		ED8DB38D1A14C95C00605CCE /* ErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDCF258193540870090D06D /* ErrorHandler.m */; };
 		ED8DB38E1A14C95C00605CCE /* ForceUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555B71980061E0051AAF5 /* ForceUpdateViewController.m */; };
-		ED8DB38F1A14C95C00605CCE /* GroupDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52219142241005757EB /* GroupDetailViewController.m */; };
 		ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */; };
 		ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */; };
 		ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAE5BC01917D0DC00DFB8D3 /* GroupAddMemberTableViewCell.m */; };
@@ -204,7 +204,6 @@
 		ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C98192F10CA002C763D /* FavoritesViewController.m */; };
 		ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD6711D19229E2400985174 /* FriendsHelper.m */; };
 		ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */; };
-		ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED81E81E18EA6A3900212D3C /* GroupsViewController.m */; };
 		ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */; };
 		ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F681989EF1D00011E91 /* ProfileBetsViewController.m */; };
 		ED8DB3A21A14C95C00605CCE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1D47718E1F18B00E0C949 /* AppDelegate.m */; };
@@ -222,10 +221,8 @@
 		ED8DB3B21A14C95C00605CCE /* FTBMatch+Sharing.m in Sources */ = {isa = PBXBuildFile; fileRef = ED324333192D396500F54D57 /* FTBMatch+Sharing.m */; };
 		ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */; };
 		ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D3F190EF49900A7869B /* UILabel+MaxFontSize.m */; };
-		ED8DB3B51A14C95C00605CCE /* GroupInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC5F52519143F83005757EB /* GroupInfoViewController.m */; };
 		ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED493D2D190DB40000A7869B /* SettingsTextViewController.m */; };
 		ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */; };
-		ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */; };
 		ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB31959BA3300275685 /* WhatsAppAPI.m */; };
 		ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5B1988BAF800011E91 /* FootblPopupViewController.m */; };
 		ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F5E19893AAE00011E91 /* AskFriendsViewController.m */; };
@@ -287,10 +284,6 @@
 		ED8DB40E1A14C95C00605CCE /* get_money.wav in Resources */ = {isa = PBXBuildFile; fileRef = ED7C716019F949310002E6B0 /* get_money.wav */; };
 		ED8DB40F1A14C95C00605CCE /* tutorial_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23B1934ED9B0090D06D /* tutorial_2@2x.png */; };
 		ED8DB4101A14C95C00605CCE /* tutorial_4_480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF2731935830D0090D06D /* tutorial_4_480@2x.png */; };
-		ED904B571A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */; };
-		ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */; };
-		ED904B5D1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */; };
-		ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */; };
 		EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */; };
 		EDA4BBEC1A2262A900A41004 /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBE91A2262A900A41004 /* ChatTableViewCell.m */; };
 		EDA4BBEF1A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
@@ -391,8 +384,20 @@
 		42A060921D15B2D0DB2C5E10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		92123ABE26D78D16773855E5 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		A26E8749B998B87321D44F76 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		DB5422A21A2302490047B816 /* GroupAroundMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAroundMeViewController.h; sourceTree = "<group>"; };
-		DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAroundMeViewController.m; sourceTree = "<group>"; };
+		A38D39AD1C9E6C6D0029C09A /* GroupAroundMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupAroundMeViewController.h; sourceTree = "<group>"; };
+		A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupAroundMeViewController.m; sourceTree = "<group>"; };
+		A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
+		A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
+		A38D39B11C9E6C6D0029C09A /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
+		A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailViewController.m; sourceTree = "<group>"; };
+		A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
+		A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
+		A38D39B51C9E6C6D0029C09A /* GroupInfoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoBaseViewController.h; sourceTree = "<group>"; };
+		A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoBaseViewController.m; sourceTree = "<group>"; };
+		A38D39B71C9E6C6D0029C09A /* GroupInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoViewController.h; sourceTree = "<group>"; };
+		A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoViewController.m; sourceTree = "<group>"; };
+		A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
+		A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
 		ED19A400190A222900946490 /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
@@ -408,8 +413,6 @@
 		ED1E913819253F1200BDE434 /* ImportImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportImageHelper.m; sourceTree = "<group>"; };
 		ED2D1C4B1915614200F1BC81 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoBaseViewController.h; sourceTree = "<group>"; };
-		ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoBaseViewController.m; sourceTree = "<group>"; };
 		ED2D1C5F19158B2700F1BC81 /* GroupChampionshipTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChampionshipTableViewCell.h; sourceTree = "<group>"; };
 		ED2D1C6019158B2700F1BC81 /* GroupChampionshipTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChampionshipTableViewCell.m; sourceTree = "<group>"; };
 		ED324326192BBD5700F54D57 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -542,8 +545,6 @@
 		ED7C716219F949310002E6B0 /* match_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = match_start.wav; sourceTree = "<group>"; };
 		ED81E81A18EA687800212D3C /* FootblTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblTabBarController.h; sourceTree = "<group>"; };
 		ED81E81B18EA687800212D3C /* FootblTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblTabBarController.m; sourceTree = "<group>"; };
-		ED81E81D18EA6A3900212D3C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
-		ED81E81E18EA6A3900212D3C /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		ED81E82018EA6A7500212D3C /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		ED81E82118EA6A7500212D3C /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		ED81E82318EA6B1F00212D3C /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
@@ -559,10 +560,6 @@
 		ED83A99919B12C5A0089CC5F /* FTBuildType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBuildType.h; sourceTree = "<group>"; };
 		ED83A99A19B12C5A0089CC5F /* FTBuildType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBuildType.m; sourceTree = "<group>"; };
 		ED8DB4181A14C95C00605CCE /* Footbl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Footbl.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED904B551A1FC27C00A56BD9 /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
-		ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
-		ED904B5B1A1FC63700A56BD9 /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
-		ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
 		ED9D0AF918F310CC0061AE42 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		ED9D0AFA18F310CC0061AE42 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		ED9D0AFD18F31B7C0061AE42 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -641,10 +638,6 @@
 		EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteTableViewCell.m; sourceTree = "<group>"; };
 		EDBD2C9D192F19B9002C763D /* FeaturedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedViewController.h; sourceTree = "<group>"; };
 		EDBD2C9E192F19B9002C763D /* FeaturedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedViewController.m; sourceTree = "<group>"; };
-		EDC5F52119142241005757EB /* GroupDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailViewController.h; sourceTree = "<group>"; };
-		EDC5F52219142241005757EB /* GroupDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailViewController.m; sourceTree = "<group>"; };
-		EDC5F52419143F83005757EB /* GroupInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInfoViewController.h; sourceTree = "<group>"; };
-		EDC5F52519143F83005757EB /* GroupInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInfoViewController.m; sourceTree = "<group>"; };
 		EDC67204199924A500D06E66 /* FTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTModel.h; sourceTree = "<group>"; };
 		EDC67205199924A500D06E66 /* FTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTModel.m; sourceTree = "<group>"; };
 		EDC67207199924B200D06E66 /* _FTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FTModel.h; sourceTree = "<group>"; };
@@ -815,6 +808,21 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		A38D39AC1C9E6C6D0029C09A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A38D39AD1C9E6C6D0029C09A /* GroupAroundMeViewController.h */,
+				A38D39AE1C9E6C6D0029C09A /* GroupAroundMeViewController.m */,
+				A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */,
+				A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */,
+				A38D39B11C9E6C6D0029C09A /* GroupDetailViewController.h */,
+				A38D39B21C9E6C6D0029C09A /* GroupDetailViewController.m */,
+				A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */,
+				A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		B2AB812509422ECAEE7AB3A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -835,20 +843,6 @@
 				ED19A401190A222900946490 /* SettingsTableViewCell.m */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		ED2D1C5E19158A8A00F1BC81 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				ED904B5A1A1FC5E500A56BD9 /* Detail */,
-				ED2D1C5119156C4600F1BC81 /* GroupInfoBaseViewController.h */,
-				ED2D1C5219156C4600F1BC81 /* GroupInfoBaseViewController.m */,
-				EDC5F52419143F83005757EB /* GroupInfoViewController.h */,
-				EDC5F52519143F83005757EB /* GroupInfoViewController.m */,
-				ED81E81D18EA6A3900212D3C /* GroupsViewController.h */,
-				ED81E81E18EA6A3900212D3C /* GroupsViewController.m */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		ED324325192BBD0D00F54D57 /* Profile */ = {
@@ -979,7 +973,13 @@
 		ED81E82918EA708B00212D3C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				ED2D1C5E19158A8A00F1BC81 /* View */,
+				A38D39AC1C9E6C6D0029C09A /* Detail */,
+				A38D39B51C9E6C6D0029C09A /* GroupInfoBaseViewController.h */,
+				A38D39B61C9E6C6D0029C09A /* GroupInfoBaseViewController.m */,
+				A38D39B71C9E6C6D0029C09A /* GroupInfoViewController.h */,
+				A38D39B81C9E6C6D0029C09A /* GroupInfoViewController.m */,
+				A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */,
+				A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -1057,21 +1057,6 @@
 				ED81E83918EA741A00212D3C /* TemplateTableViewCell.m */,
 			);
 			path = Template;
-			sourceTree = "<group>";
-		};
-		ED904B5A1A1FC5E500A56BD9 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				ED904B5B1A1FC63700A56BD9 /* GroupChatViewController.h */,
-				ED904B5C1A1FC63700A56BD9 /* GroupChatViewController.m */,
-				EDC5F52119142241005757EB /* GroupDetailViewController.h */,
-				EDC5F52219142241005757EB /* GroupDetailViewController.m */,
-				DB5422A21A2302490047B816 /* GroupAroundMeViewController.h */,
-				DB5422A31A2302490047B816 /* GroupAroundMeViewController.m */,
-				ED904B551A1FC27C00A56BD9 /* GroupRankingViewController.h */,
-				ED904B561A1FC27C00A56BD9 /* GroupRankingViewController.m */,
-			);
-			path = Detail;
 			sourceTree = "<group>";
 		};
 		ED9D0AF818F310BA0061AE42 /* Tutorial */ = {
@@ -1757,12 +1742,9 @@
 				ED7859E2199D0C62002A4DBD /* LoginViewController.m in Sources */,
 				ED7859E5199D0C62002A4DBD /* ProfileTableViewCell.m in Sources */,
 				ED7859E6199D0C62002A4DBD /* TutorialViewController.m in Sources */,
-				ED904B571A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
-				ED904B5D1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
 				ED7859E7199D0C62002A4DBD /* WalletGraphView.m in Sources */,
 				ED7859E8199D0C62002A4DBD /* ErrorHandler.m in Sources */,
 				ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */,
-				ED7859EA199D0C62002A4DBD /* GroupDetailViewController.m in Sources */,
 				ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */,
 				10AF593F1B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
 				ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */,
@@ -1773,7 +1755,6 @@
 				ED7859F3199D0C62002A4DBD /* FriendsHelper.m in Sources */,
 				109FB2E91B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED785AC1199ED2E3002A4DBD /* TransferTableViewCell.m in Sources */,
-				ED7859F4199D0C62002A4DBD /* GroupsViewController.m in Sources */,
 				ED7859F6199D0C62002A4DBD /* FeaturedViewController.m in Sources */,
 				ED7859F7199D0C62002A4DBD /* ProfileBetsViewController.m in Sources */,
 				100E6A5E1B7ADD620012093B /* FTBChampionship.m in Sources */,
@@ -1781,13 +1762,14 @@
 				ED7859FA199D0C62002A4DBD /* AppDelegate.m in Sources */,
 				ED7859FB199D0C62002A4DBD /* GroupTableViewCell.m in Sources */,
 				ED7859FC199D0C62002A4DBD /* NSString+Hex.m in Sources */,
+				A38D39BC1C9E6C6D0029C09A /* GroupChatViewController.m in Sources */,
 				ED7859FD199D0C62002A4DBD /* UIImage+Color.m in Sources */,
 				10AF59431B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				EDA4BBEA1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
-				DB5422A41A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED7859FF199D0C62002A4DBD /* EditProfileViewController.m in Sources */,
 				ED785A00199D0C62002A4DBD /* WhatsAppActivity.m in Sources */,
 				ED785A01199D0C62002A4DBD /* TransfersViewController.m in Sources */,
+				A38D39BD1C9E6C6D0029C09A /* GroupDetailViewController.m in Sources */,
 				109FB2C51B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF41A22C17C00A41004 /* ChatHelper.m in Sources */,
 				ED785A02199D0C62002A4DBD /* AuthenticationViewController.m in Sources */,
@@ -1804,19 +1786,19 @@
 				ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */,
 				109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				10AF59471B9C7ED200168433 /* UserPerformanceViewController.m in Sources */,
-				ED785A0C199D0C62002A4DBD /* GroupInfoViewController.m in Sources */,
 				109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */,
 				ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */,
-				ED785A0F199D0C62002A4DBD /* GroupInfoBaseViewController.m in Sources */,
 				109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
 				10AF594B1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
+				A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */,
 				10E241421BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				102468841BBCB4E000913511 /* MyChallengesViewController.m in Sources */,
+				A38D39C01C9E6C6D0029C09A /* GroupInfoViewController.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1842,15 +1824,18 @@
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
 				ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */,
 				ED785A2C199D0C62002A4DBD /* UIFont+MaxFontSize.m in Sources */,
+				A38D39BF1C9E6C6D0029C09A /* GroupInfoBaseViewController.m in Sources */,
 				ED785A2D199D0C62002A4DBD /* FootblLabel.m in Sources */,
 				100E6A591B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
 				ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */,
 				ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */,
+				A38D39C11C9E6C6D0029C09A /* GroupsViewController.m in Sources */,
 				ED785A33199D0C62002A4DBD /* AskFriendTableViewCell.m in Sources */,
 				ED785A34199D0C62002A4DBD /* SettingsTableViewCell.m in Sources */,
 				ED785A35199D0C62002A4DBD /* main.m in Sources */,
 				10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
+				A38D39BB1C9E6C6D0029C09A /* GroupAroundMeViewController.m in Sources */,
 				ED785A36199D0C62002A4DBD /* FTImageUploader.m in Sources */,
 				ED785A37199D0C62002A4DBD /* NSNumber+Formatter.m in Sources */,
 				ED785A39199D0C62002A4DBD /* FootblAppearance.m in Sources */,
@@ -1881,7 +1866,6 @@
 				ED8DB38C1A14C95C00605CCE /* WalletGraphView.m in Sources */,
 				ED8DB38D1A14C95C00605CCE /* ErrorHandler.m in Sources */,
 				ED8DB38E1A14C95C00605CCE /* ForceUpdateViewController.m in Sources */,
-				ED8DB38F1A14C95C00605CCE /* GroupDetailViewController.m in Sources */,
 				ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */,
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
 				10AF59401B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
@@ -1892,7 +1876,6 @@
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
 				109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
-				ED8DB39A1A14C95C00605CCE /* GroupsViewController.m in Sources */,
 				ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */,
 				ED8DB39D1A14C95C00605CCE /* ProfileBetsViewController.m in Sources */,
 				100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */,
@@ -1904,7 +1887,6 @@
 				ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */,
 				10AF59441B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */,
-				DB5422A61A2302490047B816 /* GroupAroundMeViewController.m in Sources */,
 				ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */,
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */,
@@ -1919,17 +1901,14 @@
 				10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */,
 				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
-				ED8DB3B51A14C95C00605CCE /* GroupInfoViewController.m in Sources */,
 				ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */,
 				109FB2B51B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				ED8DB3B71A14C95C00605CCE /* UIView+Shake.m in Sources */,
 				10AF59481B9C7ED200168433 /* UserPerformanceViewController.m in Sources */,
 				109FB2CD1B7C333D00E67B3C /* FTBPrize.m in Sources */,
-				ED8DB3B81A14C95C00605CCE /* GroupInfoBaseViewController.m in Sources */,
 				ED8DB3B91A14C95C00605CCE /* WhatsAppAPI.m in Sources */,
 				109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */,
-				ED904B591A1FC27C00A56BD9 /* GroupRankingViewController.m in Sources */,
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
 				10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
@@ -1977,7 +1956,6 @@
 				ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */,
 				10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */,
 				ED8DB3E71A14C95C00605CCE /* FTBuildType.m in Sources */,
-				ED904B5F1A1FC63700A56BD9 /* GroupChatViewController.m in Sources */,
 				10AE3C131BB24E8700503DD5 /* NewPopupViewController.m in Sources */,
 				EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */,
