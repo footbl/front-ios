@@ -152,8 +152,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 - (void)loginWithEmail:(NSString *)email password:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	__weak typeof(self) this = self;
 	[self.requestSerializer setAuthorizationHeaderFieldWithUsername:email password:password];
-#warning Change this path to /users/me
-	NSString *path = [NSString stringWithFormat:@"/users/56673e9658e0521300919287"];
+	NSString *path = [NSString stringWithFormat:@"/users/me"];
 	[self GET:path parameters:nil modelClass:[FTBUser class] success:^(FTBUser *object) {
 		[FXKeychain defaultKeychain][kUserIdentifierKey] = object.identifier;
 		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
@@ -399,11 +398,11 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 }
 
 - (void)user:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    __weak typeof(self) weakSelf = self;
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user];
 	[self GET:path parameters:nil modelClass:[FTBUser class] success:^(FTBUser *object) {
-		FTBUser *me = [FTBUser currentUser];
-		if ([user isEqualToString:me.identifier]) {
-			[me mergeValuesForKeysFromModel:object];
+		if ([user isEqualToString:weakSelf.user.identifier]) {
+			[weakSelf.user mergeValuesForKeysFromModel:object];
 		}
 		if (success) success(object);
 	} failure:failure];
@@ -418,9 +417,9 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 				failure:(FTBBlockError)failure {
 	NSString *path = [NSString stringWithFormat:@"/users"];
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-	if (emails) parameters[@"emails"] = emails;
+	if (emails) parameters[@"filterByEmail"] = emails;
 	if (facebookIds) parameters[@"facebookIds"] = facebookIds;
-	if (usernames) parameters[@"usernames"] = usernames;
+	if (usernames) parameters[@"filterByUsername"] = usernames;
 	if (name) parameters[@"name"] = name;
 	parameters[@"page"] = @(page);
 	[self GET:path parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
@@ -454,15 +453,15 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	
 	void(^block)(NSString *) = ^(NSString *imagePath) {
 		NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-		if (username) parameters[@"username"] = username;
-		if (email) parameters[@"email"] = email;
-		if (password) parameters[@"password"] = password;
-		if (name) parameters[@"name"] = name;
-		if (about) parameters[@"about"] = about;
-		if (imagePath) parameters[@"picture"] = imagePath;
-		if (apnsToken) parameters[@"apnsToken"] = apnsToken;
+        parameters[@"username"] = username ?: self.user.username;
+        parameters[@"email"] = email ?: self.user.email;
+        parameters[@"name"] = name ?: self.user.name;
+        parameters[@"about"] = about ?: self.user.about;
+        parameters[@"picture"] = imagePath ?: self.user.pictureURL.absoluteString;
+        parameters[@"apnsToken"] = apnsToken ?: self.user.apnsToken;
+        if (password) parameters[@"password"] = password;
 		if (fbToken) [self.requestSerializer setValue:fbToken forHTTPHeaderField:@"facebook-token"];
-		
+        
 		[self updateUserWithParameters:parameters success:^(id object) {
 			[self.requestSerializer setValue:nil forHTTPHeaderField:@"facebook-token"];
 			if (success) success(object);
