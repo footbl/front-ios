@@ -37,7 +37,7 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	switch (SPGetBuildType()) {
+    switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
             [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
