@@ -75,8 +75,6 @@
         
         ProfileViewController *profileViewController = [ProfileViewController new];
         FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:profileViewController];
-        profileViewController.shouldShowSettings = YES;
-        profileViewController.shouldShowFavorites = YES;
         self.viewControllers = @[groupsNavigationController, matchesNavigationController, profileNavigationController];
         self.selectedIndex = 1;
     };
