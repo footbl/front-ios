@@ -256,4 +256,9 @@
 	}
 }
 
+- (BOOL)isBetSyncing {
+    FTBUser *user = [FTBUser currentUser];
+    return [user.pendingMatchesToSyncBet containsObject:self];
+}
+
 @end

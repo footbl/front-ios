@@ -34,8 +34,6 @@
 
 + (NSValueTransformer *)resultJSONTransformer;
 
-// TODO: Set this property to YES in every bet request, then set it to NO after the response
-@property (assign, nonatomic, getter = isBetSyncing) BOOL betSyncing;
 - (FTBMatchStatus)status;
 - (FTBMatchResult)result;
 - (FTBMatchResult)myBetResult;
@@ -51,5 +49,6 @@
 - (NSNumber *)myBetProfit;
 - (NSString *)myBetProfitString;
 - (void)setBetTemporaryResult:(FTBMatchResult)result value:(NSNumber *)value;
+- (BOOL)isBetSyncing;
 
 @end
