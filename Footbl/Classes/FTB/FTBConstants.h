@@ -40,3 +40,5 @@ typedef NS_ENUM(NSUInteger, FTBPrizeType) {
 extern NSString * const kFTNotificationAPIOutdated;
 extern NSString * const kFTNotificationAuthenticationChanged;
 extern NSString * const kFTErrorDomain;
+
+NSString *FTBISOCountryCodeForCountry(NSString *country);

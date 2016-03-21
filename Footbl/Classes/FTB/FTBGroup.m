@@ -8,11 +8,26 @@
 
 #import "FTBGroup.h"
 #import "FTBUser.h"
+#import "FTBConstants.h"
+#import "UIImage+Text.h"
 
 @implementation FTBGroup
 
 - (NSString *)sharingText {
     return [NSString stringWithFormat:NSLocalizedString(@"Join my group on Footbl! http://footbl.co/dl", @"")];
+}
+
+- (UIImage *)iconImage {
+    UIImage *image = nil;
+    if (self.type == FTBGroupTypeWorld) {
+        image = [UIImage imageNamed:@"world_icon"];
+    } else if (self.type == FTBGroupTypeFriends) {
+        image = [UIImage imageNamed:@"icon-group-friends"];
+    } else {
+        NSString *code = FTBISOCountryCodeForCountry(self.name);
+        image = [UIImage imageWithText:code size:CGSizeMake(60, 60)] ?: [UIImage imageNamed:@"generic_group"];
+    }
+    return image;
 }
 
 - (NSString *)name {

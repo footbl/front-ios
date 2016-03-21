@@ -14,6 +14,7 @@
 #import "GroupTableViewCell.h"
 #import "FootblNavigationController.h"
 #import "NSString+Hex.h"
+#import "UIImage+Text.h"
 
 #import "FTBClient.h"
 #import "FTBChampionship.h"
@@ -48,13 +49,7 @@
 - (void)configureCell:(GroupTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBGroup *group = self.groups[indexPath.row];
     cell.nameLabel.text = group.name;
-    if (group.type == FTBGroupTypeWorld) {
-		[cell.groupImageView setImage:[UIImage imageNamed:@"world_icon"]];
-    } else if (group.type == FTBGroupTypeFriends) {
-		[cell.groupImageView setImage:[UIImage imageNamed:@"icon-group-friends"]];
-	} else {
-        [cell.groupImageView setImage:[UIImage imageNamed:@"generic_group"]];
-    }
+    cell.groupImageView.image = group.iconImage;
     [cell setIndicatorHidden:YES animated:NO];
     [cell setUnreadCount:group.unreadMessagesCount];
     

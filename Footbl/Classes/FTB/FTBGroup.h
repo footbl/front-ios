@@ -21,5 +21,6 @@ typedef NS_ENUM(NSUInteger, FTBGroupType) {
 @property (nonatomic, copy) NSNumber *unreadMessagesCount;
 
 - (NSString *)sharingText;
+- (UIImage *)iconImage;
 
 @end
