@@ -203,8 +203,7 @@
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
 	FTBHistory *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
 	if (wallet && wallet.funds.floatValue > self.totalWallet.floatValue) {
-		NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
-		return [transformer reverseTransformedValue:wallet.date];
+        return wallet.date;
 	}
 	
 	return [NSDate date];

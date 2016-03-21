@@ -20,3 +20,19 @@ NSString *const FTBSignatureKey		= @"~BYq)Ag-;$+r!hrw+b=Wx>MU#t0)*B,h+!#:+>Er|Gp
 NSString * const kFTNotificationAPIOutdated = @"kFootblAPINotificationAPIOutdated";
 NSString * const kFTNotificationAuthenticationChanged = @"kFootblAPINotificationAuthenticationChanged";
 NSString * const kFTErrorDomain = @"FootblAPIErrorDomain";
+
+NSString *FTBISOCountryCodeForCountry(NSString *aCountry) {
+    NSArray *countryCodes = [NSLocale ISOCountryCodes];
+    
+    for (NSString *countryCode in countryCodes) {
+        NSDictionary *components = @{NSLocaleCountryCode: countryCode};
+        NSString *identifier = [NSLocale localeIdentifierFromComponents:components];
+        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        NSString *country = [locale displayNameForKey:NSLocaleIdentifier value:identifier];
+        if ([country isEqualToString:aCountry]) {
+            return countryCode;
+        }
+    }
+    
+    return nil;
+}
