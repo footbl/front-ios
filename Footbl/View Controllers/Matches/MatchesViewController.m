@@ -137,8 +137,8 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		
 		bet = match.myBet;
 		NSUInteger firstBetValue = MAX(floor((bet.user.funds.integerValue + bet.user.stake.integerValue) / 100), 1);
-		NSInteger currentBet = match.myBetValue.integerValue;
-		FTBMatchResult result = match.myBetResult;
+		NSInteger currentBet = match.myBet.bid.integerValue;
+		FTBMatchResult result = match.myBet.result;
 		
 		switch (index) {
 			case 0: // Host
@@ -184,7 +184,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		}
 		
 		FTBUser *user = [FTBUser currentUser];
-		if (match.myBetValue.integerValue < currentBet && (user.localFunds.integerValue - 1) < 0) {
+		if (match.myBet.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {
 			if (!weakCell.isStepperSelected) {
 				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
 				[alert show];
@@ -192,7 +192,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 			return;
 		}
 		
-		if (match.myBetValue.integerValue < currentBet && user.localFunds.integerValue < 1 && weakCell.isStepperSelected) {
+		if (match.myBet.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
 			weakCell.stepperUserInteractionEnabled = NO;
 		}
 		
@@ -323,14 +323,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 			[self.tableView reloadData];
 			
 			[[FTBClient client] betsForUser:me match:nil page:0 success:^(NSArray *bets) {
-				
-				for (FTBMatch *match in self.matches) {
-					for (FTBBet *bet in bets) {
-						if ([bet.match isEqual:match]) {
-							match.myBet = bet;
-						}
-					}
-				}
 				
 				[self.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];

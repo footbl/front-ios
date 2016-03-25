@@ -8,7 +8,7 @@
 
 #import <APAddressBook/APAddressBook.h>
 #import <APAddressBook/APContact.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SPHipster/SPHipster.h>
 #import "FriendsHelper.h"
 
@@ -158,8 +158,8 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 #pragma mark Facebook
 
 - (void)startRequestWithGraphPath:(NSString *)graphPath resultArray:(NSMutableArray *)resultArray completionBlock:(void (^)(id result, NSError *error))completionBlock {
-    FBRequest *request = [[FBRequest alloc] initWithSession:FBSession.activeSession graphPath:graphPath];
-    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error) {
             SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             completionBlock(nil, error);

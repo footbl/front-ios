@@ -20,7 +20,8 @@
 
 #import "FTImageUploader.h"
 #import <FXKeychain/FXKeychain.h>
-#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
@@ -77,9 +78,19 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSURL *URL = [NSURL URLWithString:FTBBaseURL];
-		client = [[FTBClient alloc] initWithBaseURL:URL];
-		client.requestSerializer = [AFJSONRequestSerializer serializer];
-		client.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+        
+//        AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
+//        responseSerializer.acceptableContentTypes = [responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+//        responseSerializer.readingOptions = NSJSONReadingAllowFragments;
+        
+        NSArray *responseSerializers = @[[AFJSONResponseSerializer serializer], [AFHTTPResponseSerializer serializer]];
+        AFCompoundResponseSerializer *responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
+        
+        client = [[FTBClient alloc] initWithBaseURL:URL];
+        client.requestSerializer = requestSerializer;
+        client.responseSerializer = responseSerializer;
 		
 		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
 		NSString *password = [FXKeychain defaultKeychain][kUserPasswordKey];
@@ -174,8 +185,8 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[FXKeychain defaultKeychain][kUserPasswordKey] = nil;
 	[FXKeychain defaultKeychain][kUserEmailKey] = nil;
 	
-	[[FBSession activeSession] closeAndClearTokenInformation];
-	[FBSession setActiveSession:nil];
+    FBSDKLoginManager *manager = [[FBSDKLoginManager alloc] init];
+    [manager logOut];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:kFTNotificationAuthenticationChanged object:nil];
 }
@@ -360,10 +371,12 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 - (void)createUserWithPassword:(NSString *)password country:(NSString *)country success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"password": password}];
 	if (country) parameters[@"country"] = country;
-	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSString *identifier) {
+	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSData *responseData) {
+        NSString *identifier = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 		[FXKeychain defaultKeychain][kUserIdentifierKey] = identifier;
 		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
 		[self.requestSerializer setAuthorizationHeaderFieldWithUsername:identifier password:password];
+        if (success) success(identifier);
 	} failure:failure];
 }
 
@@ -480,12 +493,6 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	}];
 }
 
-- (void)updateEntries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSArray *hahaha = [MTLJSONAdapter JSONArrayFromModels:entries error:nil];
-	NSDictionary *parameters = @{@"entries": hahaha};
-	[self updateUserWithParameters:parameters success:success failure:failure];
-}
-
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 #warning Implement featured users API
 	if (success) success(nil);
@@ -494,9 +501,19 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 #pragma mark - Bet
 
 - (void)betInMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    FTBBet *bet = [[FTBBet alloc] init];
+    bet.match = match;
+    bet.result = result;
+    bet.bid = bid;
+    [self.user addBet:bet];
+    
+    __weak typeof(self) weakSelf = self;
 	NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
 	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
-	[self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
+	[self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
+        [weakSelf.user removeBet:bet];
+        if (failure) failure(error);
+    }];
 }
 
 - (void)bet:(NSString *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -508,13 +525,26 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
 	if (match.identifier) parameters[@"filterByMatch"] = match.identifier;
 	if (user.identifier) parameters[@"filterByUser"] = user.identifier;
-	[self GET:@"/bets" parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
+    __weak typeof(self) weakSelf = self;
+	[self GET:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(NSArray *bets) {
+        if (user.isMe) {
+            [weakSelf.user addBets:bets];
+        }
+        if (success) success(bets);
+    } failure:failure];
 }
 
 - (void)updateBet:(FTBBet *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    FTBBet *oldBet = [self.user betForMatch:bet.match];
+    [self.user addBet:bet];
+    
+    __weak typeof(self) weakSelf = self;
 	NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
 	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:bet error:nil];
-	[self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
+	[self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
+        [weakSelf.user addBet:oldBet];
+        if (failure) failure(error);
+    }];
 }
 
 #pragma mark - Challenge

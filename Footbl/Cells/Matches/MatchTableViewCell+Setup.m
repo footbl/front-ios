@@ -52,7 +52,7 @@
     
     FTBMatchResult result = bet.result;
     if (isMe) {
-        result = match.myBetResult;
+        result = match.myBet.result;
     }
     
     switch (result) {
@@ -93,14 +93,12 @@
         self.colorScheme = MatchTableViewCellColorSchemeDefault;
     }
     
-    if ((isMe && !match.isBetSyncing) || !isMe) {
-        if (match.localJackpot.integerValue > 0) {
-            [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.localJackpot.shortStringValue]];
-            self.footerLabel.hidden = NO;
-        } else {
-            [self setFooterText:@""];
-            self.footerLabel.hidden = YES;
-        }
+    if (match.jackpot.integerValue > 0) {
+        [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
+        self.footerLabel.hidden = NO;
+    } else {
+        [self setFooterText:@""];
+        self.footerLabel.hidden = YES;
     }
     
     switch (match.status) {
@@ -118,7 +116,7 @@
             break;
     }
     
-    if (isMe && match.myBetValue && match.myBetValue.integerValue > 0) {
+    if (isMe && match.myBet.bid.integerValue > 0) {
         self.shareButton.alpha = 1;
     } else {
         self.shareButton.alpha = 0;

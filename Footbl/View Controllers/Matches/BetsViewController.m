@@ -194,12 +194,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 - (void)reloadWallet {
 	FTBUser *user = [FTBUser currentUser];
-    for (FTBMatch *match in user.pendingMatchesToSyncBet) {
-        if (match.isBetSyncing) {
-            return;
-        }
-    }
-    
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
 	
     if (user) {
@@ -208,8 +202,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = @(user.localFunds.integerValue).limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = @(user.localStake.integerValue).limitedWalletStringValue;
+        self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
         self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
         self.navigationBarTitleView.profitValueLabel.text = user.profitString;
     } else {

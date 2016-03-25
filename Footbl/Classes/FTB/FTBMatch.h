@@ -30,25 +30,21 @@
 @property (nonatomic, copy) NSNumber *drawPot;
 @property (nonatomic, copy) NSNumber *jackpot;
 @property (nonatomic, copy) NSNumber *reward;
-@property (nonatomic, strong) FTBBet *myBet;
 
 + (NSValueTransformer *)resultJSONTransformer;
 
+- (FTBBet *)myBet;
 - (FTBMatchStatus)status;
 - (FTBMatchResult)result;
-- (FTBMatchResult)myBetResult;
-- (NSNumber *)localJackpot;
 - (NSString *)dateString;
 - (NSNumber *)earningsPerBetForHost;
 - (NSNumber *)earningsPerBetForDraw;
 - (NSNumber *)earningsPerBetForGuest;
-- (NSNumber *)myBetValue;
 - (NSString *)myBetValueString;
 - (NSNumber *)myBetReturn;
 - (NSString *)myBetReturnString;
 - (NSNumber *)myBetProfit;
 - (NSString *)myBetProfitString;
-- (void)setBetTemporaryResult:(FTBMatchResult)result value:(NSNumber *)value;
 - (BOOL)isBetSyncing;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "WalletGraphView.h"
+#import "FTBUser.h"
 
 @interface WalletGraphView ()
 
@@ -47,8 +48,8 @@
     
     NSInteger displayIndex = 0;
     for (NSUInteger i = MAX(0, (int)self.dataSource.count - MAX_HISTORY_COUNT); i < self.dataSource.count; i++) {
-        NSDictionary *value = self.dataSource[i];
-        CGFloat wallet = [value[@"funds"] floatValue];
+        FTBHistory *value = self.dataSource[i];
+        CGFloat wallet = value.funds.floatValue;
         CGFloat height = MIN(1, wallet / maxValue) * columnHeight;
         
         UIColor *graphColor = [UIColor colorWithRed:0.14 green:0.84 blue:0.36 alpha:1];

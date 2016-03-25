@@ -15,15 +15,6 @@
 
 @implementation FTBMatch
 
-+ (NSMutableDictionary *)temporaryBetsDictionary {
-	static NSMutableDictionary *temporaryBetsDictionary;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		temporaryBetsDictionary = [NSMutableDictionary new];
-	});
-	return temporaryBetsDictionary;
-}
-
 + (NSDateFormatter *)dateFormatter {
 	static NSDateFormatter *dateFormatter;
 	static dispatch_once_t onceToken;
@@ -90,6 +81,10 @@
 	return nil;
 }
 
+- (FTBBet *)myBet {
+    return [[FTBUser currentUser] betForMatch:self];
+}
+
 - (FTBMatchStatus)status {
 	if (self.elapsed) {
 		return FTBMatchStatusLive;
@@ -110,155 +105,70 @@
 	}
 }
 
-- (FTBMatchResult)myBetResult {
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	return result ? [result[@"result"] integerValue] : self.myBet.result;
-}
-
-- (NSNumber *)localJackpot {
-	if (FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL)) {
-		return @(FBTweakValue(@"Values", @"Match", @"Jackpot", 0, 0, HUGE_VAL));
-	}
-	
-	float jackpot = self.jackpot.floatValue;
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	if (result) {
-		jackpot -= self.myBet.bid.integerValue;
-		jackpot += [result[@"value"] integerValue];
-	}
-	return @(jackpot);
-}
-
 - (NSString *)dateString {
-	return [[FTBMatch dateFormatter] stringFromDate:self.date];
+	return [self.class.dateFormatter stringFromDate:self.date];
 }
 
 - (NSNumber *)earningsPerBetForHost {
-	if (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL)) {
-		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Host", 0, 0, HUGE_VAL))));
-	}
-	
 	float sumOfBets = self.hostPot.floatValue;
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	if (result) {
-		if (self.myBet.result == FTBMatchResultHost) {
-			sumOfBets -= self.myBet.bid.integerValue;
-		}
-		if ([result[@"result"] integerValue] == FTBMatchResultHost) {
-			sumOfBets += [result[@"value"] integerValue];
-		}
+    FTBBet *bet = self.myBet;
+	if (bet.result == FTBMatchResultHost) {
+        sumOfBets -= bet.bid.integerValue;
 	}
-	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
+	return @(MAX(1, self.jackpot.floatValue / MAX(1, sumOfBets)));
 }
 
 - (NSNumber *)earningsPerBetForDraw {
-	if (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL)) {
-		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Draw", 0, 0, HUGE_VAL))));
-	}
-	
-	float sumOfBets = self.drawPot.floatValue;
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	if (result) {
-		if (self.myBet.result == FTBMatchResultDraw) {
-			sumOfBets -= self.myBet.bid.integerValue;
-		}
-		if ([result[@"result"] integerValue] == FTBMatchResultDraw) {
-			sumOfBets += [result[@"value"] integerValue];
-		}
-	}
-	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
+    return @(MAX(1, self.jackpot.floatValue / MAX(1, self.drawPot.floatValue)));
 }
 
 - (NSNumber *)earningsPerBetForGuest {
-	if (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL)) {
-		return @(MAX(1, (FBTweakValue(@"Values", @"Match", @"Pot Guest", 0, 0, HUGE_VAL))));
-	}
-	
-	float sumOfBets = self.guestPot.floatValue;
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	if (result) {
-		if (self.myBet.result == FTBMatchResultGuest) {
-			sumOfBets -= self.myBet.bid.integerValue;
-		}
-		if ([result[@"result"] integerValue] == FTBMatchResultGuest) {
-			sumOfBets += [result[@"value"] integerValue];
-		}
-	}
-	return @(MAX(1, self.localJackpot.floatValue / MAX(1, sumOfBets)));
-}
-
-- (NSNumber *)myBetValue {
-	if (FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL)) {
-		return @(FBTweakValue(@"Values", @"Match", @"Bet Value", 0, 0, HUGE_VAL));
-	}
-	
-	NSDictionary *result = [FTBMatch temporaryBetsDictionary][self.identifier];
-	if (result) {
-		return result[@"value"];
-	} else {
-		return self.myBet.bid;
-	}
+	return @(MAX(1, self.jackpot.floatValue / MAX(1, self.guestPot.floatValue)));
 }
 
 - (NSString *)myBetValueString {
-	return [self.myBetValue isEqualToNumber:@0] ? @"-" : self.myBetValue.walletStringValue;
+	return [self.myBet.bid isEqualToNumber:@0] ? @"-" : self.myBet.bid.walletStringValue;
 }
 
 - (NSNumber *)myBetReturn {
-	switch (self.myBetResult) {
+	switch (self.myBet.result) {
 		case FTBMatchResultHost:
-			return @(self.myBetValue.floatValue * self.earningsPerBetForHost.floatValue);
+			return @(self.myBet.bid.floatValue * self.earningsPerBetForHost.floatValue);
 		case FTBMatchResultDraw:
-			return @(self.myBetValue.floatValue * self.earningsPerBetForDraw.floatValue);
+			return @(self.myBet.bid.floatValue * self.earningsPerBetForDraw.floatValue);
 		case FTBMatchResultGuest:
-			return @(self.myBetValue.floatValue * self.earningsPerBetForGuest.floatValue);
+			return @(self.myBet.bid.floatValue * self.earningsPerBetForGuest.floatValue);
 		default:
 			return @0;
 	}
 }
 
 - (NSString *)myBetReturnString {
-	return [self.myBetValue isEqualToNumber:@0] ? @"-" : @(nearbyint(self.myBetReturn.doubleValue)).walletStringValue;
+	return [self.myBet.bid isEqualToNumber:@0] ? @"-" : @(nearbyint(self.myBetReturn.doubleValue)).walletStringValue;
 }
 
 - (NSNumber *)myBetProfit {
-	if ((!self.myBetValue || self.status == FTBMatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
+	if (!self.myBet.bid || self.status == FTBMatchStatusWaiting) {
 		return @0;
 	}
 	
-	if (self.result == self.myBetResult) {
-		return @(self.myBetReturn.floatValue - self.myBetValue.floatValue);
+	if (self.result == self.myBet.result) {
+		return @(self.myBetReturn.floatValue - self.myBet.bid.floatValue);
 	} else {
-		return @(-self.myBetValue.floatValue);
+		return @(-self.myBet.bid.floatValue);
 	}
 }
 
 - (NSString *)myBetProfitString {
-	if ((!self.myBetValue || self.status == FTBMatchStatusWaiting) && !FBTweakValue(@"Values", @"Match", @"Bet Profit", NO)) {
+	if (!self.myBet.bid || self.status == FTBMatchStatusWaiting) {
 		return @"-";
 	}
 	
 	return @(nearbyint(self.myBetProfit.doubleValue)).walletStringValue;
 }
 
-- (void)setBetTemporaryResult:(FTBMatchResult)result value:(NSNumber *)value {
-	if (value) {
-		[FTBMatch temporaryBetsDictionary][self.identifier] = @{@"result" : @(result), @"value" : value};
-	} else {
-		[[FTBMatch temporaryBetsDictionary] removeObjectForKey:self.identifier];
-	}
-	
-	FTBUser *user = [FTBUser currentUser];
-	if (value && ![user.pendingMatchesToSyncBet containsObject:self]) {
-		[user.pendingMatchesToSyncBet addObject:self];
-	} else if (!value) {
-		[user.pendingMatchesToSyncBet removeObject:self];
-	}
-}
-
 - (BOOL)isBetSyncing {
-    FTBUser *user = [FTBUser currentUser];
-    return [user.pendingMatchesToSyncBet containsObject:self];
+    return NO;
 }
 
 @end

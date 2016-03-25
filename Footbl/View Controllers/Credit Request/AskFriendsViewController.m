@@ -14,9 +14,9 @@
 
 #import "FTBClient.h"
 #import "FTBCreditRequest.h"
-#import <Facebook-iOS-SDK/FacebookSDK/FacebookSDK.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
-@interface AskFriendsViewController ()
+@interface AskFriendsViewController () <FBSDKAppInviteDialogDelegate>
 
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) NSArray *fullDataSource;
@@ -72,65 +72,35 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)sendAction:(id)sender {
-    __block NSMutableArray *ids = [[self.selectedFriendsSet.allObjects valueForKeyPath:@"id"] mutableCopy];
-    __block NSMutableArray *successfullIds = [NSMutableArray new];
-    __block NSMutableArray *failedIds = [NSMutableArray new];
-    __block void(^runBlock)();
-    __block FBSession *session;
-    
-    __block void(^fbBlock)(NSArray *fbIds) = ^(NSArray *fbIds) {
-        NSMutableDictionary *fbParamsDictionary = [NSMutableDictionary new];
-        NSUInteger idx = 0;
-        for (id object in fbIds) {
-            if (fbParamsDictionary.allKeys.count == 50) {
-                return;
-            }
-            fbParamsDictionary[[NSString stringWithFormat:@"to[%lu]", (unsigned long)idx]] = object;
+- (void)sendInviteToFacebookUsers:(NSArray *)identifiers {
+    FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc] init];
+    content.appLinkURL = [NSURL URLWithString:@"https://itunes.apple.com/app/id881307076"];
+    [FBSDKAppInviteDialog showFromViewController:self withContent:content delegate:self];
+}
 
-            idx ++;
-        }
-        
-        [FBWebDialogs presentRequestsDialogModallyWithSession:session message:NSLocalizedString(@"Facebook request message", @"") title:NSLocalizedString(@"Facebook request title", @"") parameters:fbParamsDictionary handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-            if (error) {
-                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+- (void)sendInviteToFootblUsers:(NSArray *)identifiers {
+    if (identifiers.count == 0) {
+        __block NSUInteger count = 0;
+        [[LoadingHelper sharedInstance] showHud];
+        for (NSString *user in identifiers) {
+            [[FTBClient client] createCreditRequest:user success:^(id object) {
+                [[LoadingHelper sharedInstance] hideHud];
+                count++;
+                if (count == identifiers.count) {
+                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                }
+            } failure:^(NSError *error) {
+                [[LoadingHelper sharedInstance] hideHud];
                 [[ErrorHandler sharedInstance] displayError:error];
-                return;
-            }
-            if (result == FBWebDialogResultDialogCompleted) {
-                [successfullIds addObjectsFromArray:fbIds];
-            } else {
-                [failedIds addObjectsFromArray:fbIds];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), runBlock);
-        }];
-    };
-    
-    runBlock = ^() {
-        NSMutableArray *tempIds = [NSMutableArray new];
-        [tempIds addObjectsFromArray:[ids subarrayWithRange:NSMakeRange(0, MIN(50, ids.count))]];
-        [ids removeObjectsInRange:NSMakeRange(0, MIN(50, ids.count))];
-        if (tempIds.count == 0) {
-			__block NSUInteger count = 0;
-            [[LoadingHelper sharedInstance] showHud];
-			for (NSString *user in successfullIds) {
-				[[FTBClient client] createCreditRequest:user success:^(id object) {
-					[[LoadingHelper sharedInstance] hideHud];
-					count++;
-					if (count == successfullIds.count) {
-						[self.navigationController dismissViewControllerAnimated:YES completion:nil];
-					}
-				} failure:^(NSError *error) {
-					[[LoadingHelper sharedInstance] hideHud];
-					[[ErrorHandler sharedInstance] displayError:error];
-				}];
-			}
-        } else {
-            fbBlock(tempIds);
+            }];
         }
-    };
+    }
+}
 
+- (IBAction)sendAction:(id)sender {
+    NSMutableArray *ids = [[self.selectedFriendsSet.allObjects valueForKeyPath:@"id"] mutableCopy];
+    [self sendInviteToFootblUsers:ids];
+    
 #warning Handle Facebook login
 //    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
 //        session = fbSession;
@@ -345,6 +315,20 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - FBSDKAppInviteDialogDelegate
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results {
+    [self sendInviteToFootblUsers:nil];
+}
+
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error {
+    if (error) {
+        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+        [[ErrorHandler sharedInstance] displayError:error];
+        return;
+    }
 }
 
 @end
