@@ -115,7 +115,6 @@
 				 about:(NSString *)about
 			   success:(FTBBlockObject)success
 			   failure:(FTBBlockError)failure;
-- (void)updateEntries:(NSArray *)entries success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Bet

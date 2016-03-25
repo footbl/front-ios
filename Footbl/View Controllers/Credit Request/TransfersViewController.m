@@ -93,7 +93,7 @@
 
 - (NSInteger)userWallet {
 	FTBUser *user = [FTBUser currentUser];
-    NSInteger totalTransfers = user.localFunds.integerValue;
+    NSInteger totalTransfers = user.funds.integerValue;
     for (FTBCreditRequest *request in self.pendingTransfers) {
         totalTransfers -= request.value.integerValue;
     }
@@ -116,7 +116,7 @@
     
     [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[@([self userWallet]) stringValue] stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
-    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[user.localStake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
+    [stakeText appendAttributedString:[[NSAttributedString alloc] initWithString:[user.stake.stringValue stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
     
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameLight size:12];

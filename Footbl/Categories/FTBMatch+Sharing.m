@@ -23,9 +23,10 @@
 	UIImage *screenshot = cell.imageRepresentation;
 	
 	NSString *text = @"";
-	BOOL hasBet = self.myBetValue;
-	NSNumber *value = self.myBetValue;
-	FTBMatchResult result = self.myBetResult;
+	
+	NSNumber *value = self.myBet.bid;
+    BOOL hasBet = !!value;
+	FTBMatchResult result = self.myBet.result;
 	FTBTeam *team;
 	FTBTeam *againstTeam;
 	if (hasBet && result == FTBMatchResultHost) {

@@ -8,7 +8,8 @@
 
 #import "FTBModel.h"
 
-@class FTBUser;
+@class FTBBet;
+@class FTBMatch;
 
 @interface FTBHistory : FTBModel
 
@@ -23,7 +24,6 @@
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *facebookId;
-//@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *about;
 @property (nonatomic, assign, getter=isVerified) BOOL verified;
@@ -39,14 +39,16 @@
 @property (nonatomic, copy) NSArray<FTBHistory *> *history;
 
 @property (nonatomic, assign, getter=isNotificationsEnabled) BOOL notificationsEnabled;
-@property (nonatomic, copy) NSMutableSet *pendingMatchesToSyncBet;
+
+- (void)addBet:(FTBBet *)bet;
+- (void)addBets:(NSArray<FTBBet *> *)bets;
+- (FTBBet *)betForMatch:(FTBMatch *)match;
+- (void)removeBet:(FTBBet *)bet;
 
 + (instancetype)currentUser;
 
 - (BOOL)isMe;
 - (BOOL)canRecharge;
-- (NSNumber *)localFunds;
-- (NSNumber *)localStake;
 - (NSNumber *)toReturn;
 - (NSString *)toReturnString;
 - (NSNumber *)profit;

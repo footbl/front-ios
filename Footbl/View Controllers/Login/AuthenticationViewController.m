@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SPHipster/SPHipster.h>
 #import "AuthenticationViewController.h"
 #import "ImportImageHelper.h"

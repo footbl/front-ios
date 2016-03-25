@@ -9,7 +9,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 //#import <Crashlytics/Crashlytics.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Flurry-iOS-SDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
@@ -37,6 +37,8 @@
 #pragma mark - Application Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
     switch (SPGetBuildType()) {
         case SPBuildTypeDebug:
             kSPDebugLogLevel = SPDebugLogLevelInfo;
@@ -210,7 +212,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 #pragma mark - APNS

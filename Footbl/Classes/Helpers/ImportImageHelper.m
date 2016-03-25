@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SDWebImage/SDWebImageManager.h>
 #import "ImportImageHelper.h"
 
@@ -47,7 +47,8 @@
 }
 
 - (void)importImageFromFacebookWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
-    [[FBRequest requestForGraphPath:@"me?fields=picture.type(large)"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=picture.type(large)" parameters:nil];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         if (error) {
             if (completionBlock) completionBlock(nil, error);
             return;
