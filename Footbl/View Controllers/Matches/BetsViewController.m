@@ -111,8 +111,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     MatchesViewController *viewController = [[MatchesViewController alloc] init];
     viewController.championship = championship;
     viewController.navigationBarTitleView = self.navigationBarTitleView;
-    viewController.headerSliderBackImageView.hidden = NO;
-    viewController.headerSliderForwardImageView.hidden = NO;
     [self.championshipViewControllers addObject:viewController];
     
     return viewController;
@@ -123,6 +121,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         MatchesViewController *viewController = [self matchesViewControllerAtIndex:0];
         if (viewController) {
             [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+            [self updateHeaderViewWithViewController:viewController];
         }
     }
     
@@ -198,6 +197,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
+- (void)updateHeaderViewWithViewController:(MatchesViewController *)viewController {
+    self.navigationBarTitleView.headerSliderBackImageView.hidden = [viewController.championship isEqual:self.championships.firstObject];
+    self.navigationBarTitleView.headerSliderForwardImageView.hidden = [viewController.championship isEqual:self.championships.lastObject];
+    self.navigationBarTitleView.headerLabel.text = viewController.championship.name;
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UIPageViewControllerDataSource
@@ -226,6 +231,9 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     for (MatchesViewController *viewController in self.championshipViewControllers) {
         viewController.tableView.scrollsToTop = [pageViewController.viewControllers containsObject:viewController];
     }
+    
+    MatchesViewController *viewController = pageViewController.viewControllers.firstObject;
+    [self updateHeaderViewWithViewController:viewController];
 }
 
 #pragma mark - View Lifecycle
@@ -242,7 +250,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
-    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
+    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 110)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UIButton *button = [[UIButton alloc] initWithFrame:self.navigationBarTitleView.moneyButton.frame];
     [button addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];

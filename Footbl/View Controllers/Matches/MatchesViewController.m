@@ -30,7 +30,6 @@
 #import "FTBBet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
-static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChanged";
 
 @interface MatchesViewController ()
 
@@ -293,7 +292,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	[super reloadData];
 	
 	if (!self.championship) {
-		self.headerLabel.text = @"";
 		return;
 	}
 	
@@ -301,7 +299,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 		return;
 	}
 	
-	self.headerLabel.text = self.championship.name;
 	NSInteger matches = self.matches.count;
 	
 	self.numberOfMatches = matches;
@@ -386,8 +383,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (void)updateInsets {
-	self.headerView.y = self.navigationBarTitleView.titleHidden ? 64 : 80;
-	self.tableView.contentInset = UIEdgeInsetsMake(self.headerView.maxY, 0, 0, 0);
+	self.tableView.contentInset = UIEdgeInsetsMake(self.self.navigationBarTitleView.maxY, 0, 0, 0);
 	self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
@@ -415,8 +411,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	
 	[UIView animateWithDuration:FTBAnimationDuration animations:^{
 		[self updateInsets];
-	} completion:^(BOOL finished) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:kMatchesHeaderViewFrameChanged object:@(self.headerView.y) userInfo:nil];
 	}];
 }
 
@@ -498,10 +492,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	self.refreshControl = [UIRefreshControl new];
 	[self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
 	
-	[[NSNotificationCenter defaultCenter] addObserverForName:kMatchesHeaderViewFrameChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-		self.headerView.y = [[note object] floatValue];
-	}];
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
 	
 	UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -516,29 +506,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
 	[self.view addSubview:self.tableView];
-	
-	self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.tableView.width, 30)];
-	self.headerView.backgroundColor = [UIColor ftb_navigationBarColor];
-	self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	[self.view addSubview:self.headerView];
-	
-	self.headerLabel = [[UILabel alloc] initWithFrame:self.headerView.bounds];
-	self.headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
-	self.headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
-	self.headerLabel.textAlignment = NSTextAlignmentCenter;
-	[self.headerView addSubview:self.headerLabel];
-	
-	self.headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
-	self.headerSliderBackImageView.center = CGPointMake(15, self.headerLabel.center.y);
-	[self.headerView addSubview:self.headerSliderBackImageView];
-	
-	self.headerSliderForwardImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_forward"]];
-	self.headerSliderForwardImageView.center = CGPointMake(self.headerView.width - 15, self.headerLabel.center.y);
-	[self.headerView addSubview:self.headerSliderForwardImageView];
-	
-	UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.headerView.width, 0.5)];
-	separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
-	[self.headerView addSubview:separatorView];
 	
 	UIImage *totalProfitArrowImage = [[UIImage imageNamed:@"arrow-down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 0, self.tableView.width + 2, 33 + totalProfitArrowImage.size.height)];
