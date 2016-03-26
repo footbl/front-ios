@@ -68,7 +68,7 @@
     
     if (self.navigationController && self.navigationController.viewControllers.firstObject == self) {
         [[[GAI sharedInstance] defaultTracker] set:kGAIScreenName value:self.title];
-        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createAppView] build]];
+        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createScreenView] build]];
     }
 }
 
