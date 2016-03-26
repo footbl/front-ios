@@ -189,7 +189,7 @@
                 }
                 case 1: {
                     WalletTableViewCell *walletCell = (WalletTableViewCell *)cell;
-                    walletCell.valueText = self.user.totalWallet.walletStringValue;
+                    walletCell.valueText = self.user.wallet.walletStringValue;
                     walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
