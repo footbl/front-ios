@@ -10,10 +10,10 @@
 
 @class MatchesNavigationBarView;
 
-@interface BetsViewController : TemplateViewController
+@interface BetsViewController : TemplateViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) NSArray *championships;
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;;
 @property (strong, nonatomic) UILabel *placeholderLabel;
 

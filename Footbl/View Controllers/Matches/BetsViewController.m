@@ -30,9 +30,7 @@
 
 @interface BetsViewController ()
 
-@property (strong, nonatomic) NSMutableDictionary *championshipsViewControllers;
-@property (assign, nonatomic) NSInteger scrollViewCurrentPage;
-@property (assign, nonatomic) NSInteger scrollViewLength;
+@property (nonatomic, strong) NSMutableArray *championshipViewControllers;
 
 @end
 
@@ -47,29 +45,18 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 #pragma mark - Getters/Setters
 
-- (void)setScrollViewCurrentPage:(NSInteger)scrollViewCurrentPage {
-    _scrollViewCurrentPage = scrollViewCurrentPage;
-
-    for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-        if ([matchesViewController respondsToSelector:@selector(tableView)]) {
-            matchesViewController.tableView.scrollsToTop = NO;
-        }
-    }
-    
-    if (self.championships.count >= self.scrollViewCurrentPage + 1) {
-        FTBChampionship *championship = self.championships[self.scrollViewCurrentPage];
-        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.identifier];
-        matchesViewController.tableView.scrollsToTop = YES;
-    }
-}
-
 #pragma mark - Instance Methods
 
 - (id)init {
 	self = [super init];
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_matches_ainctive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_matches_active"]];
+        
+        UIImage *image = [UIImage imageNamed:@"tabbar_btn_matches_ainctive"];
+        UIImage *selectedImage = [UIImage imageNamed:@"tabbar_btn_matches_active"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
+        
+        self.championshipViewControllers = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -104,7 +91,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 - (NSTimeInterval)updateInterval {
     NSTimeInterval interval = [super updateInterval];
-    for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+    for (MatchesViewController *matchesViewController in self.pageViewController.viewControllers) {
         if ([matchesViewController respondsToSelector:@selector(updateInterval)]) {
             interval = MIN(interval, [matchesViewController updateInterval]);
         }
@@ -113,50 +100,32 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     return 60;
 }
 
+- (MatchesViewController *)matchesViewControllerAtIndex:(NSInteger)index {
+    FTBChampionship *championship = self.championships[index];
+    for (MatchesViewController *viewController in self.championshipViewControllers) {
+        if ([viewController.championship isEqual:championship]) {
+            return viewController;
+        }
+    }
+    
+    MatchesViewController *viewController = [[MatchesViewController alloc] init];
+    viewController.championship = championship;
+    viewController.navigationBarTitleView = self.navigationBarTitleView;
+    viewController.headerSliderBackImageView.hidden = NO;
+    viewController.headerSliderForwardImageView.hidden = NO;
+    [self.championshipViewControllers addObject:viewController];
+    
+    return viewController;
+}
+
 - (void)reloadScrollView {
-    NSMutableDictionary *championshipsToRemove = self.championshipsViewControllers.mutableCopy;
-    self.scrollViewLength = 0;
-    NSArray *championships = self.championships;
-    CGSize contentSize = self.scrollView.frame.size;
+    MatchesViewController *viewController = [self matchesViewControllerAtIndex:0];
     
-    for (FTBChampionship *championship in championships) {
-        MatchesViewController *matchesViewController = self.championshipsViewControllers[championship.identifier];
-        if (!matchesViewController) {
-            matchesViewController = [MatchesViewController new];
-            matchesViewController.championship = championship;
-            matchesViewController.navigationBarTitleView = self.navigationBarTitleView;
-            matchesViewController.tableView.scrollsToTop = NO;
-            [self addChildViewController:matchesViewController];
-            [self.scrollView addSubview:matchesViewController.view];
-            self.championshipsViewControllers[championship.identifier] = matchesViewController;
-        }
-        
-        matchesViewController.headerSliderBackImageView.hidden = NO;
-        matchesViewController.headerSliderForwardImageView.hidden = NO;
-        
-        if (self.scrollViewLength == 0) {
-            matchesViewController.headerSliderBackImageView.hidden = YES;
-        }
-        
-        matchesViewController.view.frame = CGRectMake(self.scrollView.width * self.scrollViewLength, 0, self.scrollView.width, self.scrollView.height);
-        contentSize = CGSizeMake(CGRectGetMaxX(matchesViewController.view.frame), self.scrollView.height);
-        [championshipsToRemove removeObjectForKey:championship.identifier];
-        self.scrollViewLength++;
+    if (viewController) {
+        [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
     
-    self.scrollView.contentSize = contentSize;
-    
-    if (championships.count == 0) {
-        self.placeholderLabel.hidden = NO;
-    } else {
-        self.placeholderLabel.hidden = YES;
-    }
-    
-    [self.championshipsViewControllers removeObjectsForKeys:championshipsToRemove.allKeys];
-    for (UIViewController *viewController in championshipsToRemove.allValues) {
-        [viewController removeFromParentViewController];
-        [viewController.view removeFromSuperview];
-    }
+    self.placeholderLabel.hidden = (self.championships.count > 0);
 }
 
 - (void)reloadData {
@@ -182,7 +151,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
             [self setNeedsStatusBarAppearanceUpdate];
         }
 		
-		for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
+		for (MatchesViewController *matchesViewController in self.pageViewController.viewControllers) {
 			if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
 				[matchesViewController reloadData];
 			}
@@ -227,6 +196,28 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 #pragma mark - Delegates & Data sources
 
+#pragma mark - UIPageViewControllerDataSource
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MatchesViewController *)viewController {
+    NSInteger index = [self.championshipViewControllers indexOfObject:viewController] - 1;
+    if (index >= 0 && index < self.championships.count) {
+        return [self matchesViewControllerAtIndex:index];
+    }
+    
+    return nil;
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MatchesViewController *)viewController {
+    NSInteger index = [self.championshipViewControllers indexOfObject:viewController] + 1;
+    if (index >= 0 && index < self.championships.count) {
+        return [self matchesViewControllerAtIndex:index];
+    }
+    
+    return nil;
+}
+
+#pragma mark - UIPageViewControllerDelegate
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
@@ -234,7 +225,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.navigationController.navigationBarHidden = YES;
-    self.championshipsViewControllers = [NSMutableDictionary new];
+    
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageViewController.dataSource = self;
+    self.pageViewController.delegate = self;
+    [self addChildViewController:self.pageViewController];
+    [self.view addSubview:self.pageViewController.view];
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 80)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -242,14 +238,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [button addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationBarTitleView.moneyButton.superview addSubview:button];
     [self.view addSubview:self.navigationBarTitleView];
-    
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.scrollsToTop = NO;
-    [self.view insertSubview:self.scrollView belowSubview:self.navigationBarTitleView];
     
     self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, self.view.width - 40, 200)];
     self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -263,8 +251,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     
     [self reloadData];
     
-    self.scrollViewCurrentPage = 0;
-    
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [self reloadData];
     }];
@@ -273,7 +259,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.scrollViewCurrentPage = self.scrollViewCurrentPage;
     [self reloadWallet];
 	
 	FTBUser *user = [FTBUser currentUser];
@@ -298,21 +283,6 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
             [[NSUserDefaults standardUserDefaults] synchronize];
         } failure:nil];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    for (MatchesViewController *matchesViewController in self.championshipsViewControllers.allValues) {
-        if ([matchesViewController respondsToSelector:@selector(tableView)]) {
-            matchesViewController.tableView.scrollsToTop = NO;
-        }
-    }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
