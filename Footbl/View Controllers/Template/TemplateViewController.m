@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <GoogleAnalytics-iOS-SDK/GAI.h>
-#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
-#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+#import <GoogleAnalytics/GAI.h>
+#import <GoogleAnalytics/GAIFields.h>
+#import <GoogleAnalytics/GAIDictionaryBuilder.h>
 #import "TemplateViewController.h"
 
 @interface TemplateViewController ()

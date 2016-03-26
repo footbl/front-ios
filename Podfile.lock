@@ -45,7 +45,7 @@ PODS:
     - Flurry-iOS-SDK/FlurrySDK (= 7.5.2)
   - Flurry-iOS-SDK/FlurrySDK (7.5.2)
   - FXKeychain (1.5.2)
-  - GoogleAnalytics-iOS-SDK (3.0.9)
+  - GoogleAnalytics (3.14.0)
   - iRate (1.11.3)
   - KIF (3.0.8):
     - KIF/XCTest (= 3.0.8)
@@ -99,7 +99,7 @@ DEPENDENCIES:
   - FBSDKShareKit (= 4.10.1)
   - Flurry-iOS-SDK (= 7.5.2)
   - FXKeychain (= 1.5.2)
-  - GoogleAnalytics-iOS-SDK (= 3.0.9)
+  - GoogleAnalytics (= 3.14.0)
   - iRate (= 1.11.3)
   - KIF (= 3.0.8)
   - Mantle (~> 2.0.3)
@@ -132,7 +132,7 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
   Flurry-iOS-SDK: 8c87c4eab6008184ad9f63afabd79ec0d109c82e
   FXKeychain: 1a711bddc04a2bd69850dcfe297b8a43027a9980
-  GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
+  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
   KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
   Mantle: 8d6b14979a082a9ed4994463eb7a4ff576c94632

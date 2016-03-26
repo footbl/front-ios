@@ -10,7 +10,7 @@ pod 'SPNotifier', :path => 'Footbl/Pods/SPNotifier' #'0.2.2'
 
 # Analytics
 #pod 'CrashlyticsFramework', '2.2.5'
-pod 'GoogleAnalytics-iOS-SDK', '3.0.9'
+pod 'GoogleAnalytics', '3.14.0'
 pod 'Flurry-iOS-SDK', '7.5.2'
 
 # Networking
