@@ -17,11 +17,8 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *matches;
 @property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
-@property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) UILabel *headerLabel;
-@property (strong, nonatomic) UIImageView *headerSliderBackImageView;
-@property (strong, nonatomic) UIImageView *headerSliderForwardImageView;
 
+// ???: We may remove this
 // Total profit
 @property (strong, nonatomic) UIView *totalProfitView;
 @property (strong, nonatomic) UIView *totalProfitBoxView;
