@@ -55,7 +55,6 @@
 - (NSString *)toReturnString;
 - (NSNumber *)profit;
 - (NSString *)profitString;
-- (NSNumber *)totalWallet;
 - (NSNumber *)highestWallet;
 - (NSDate *)highestWalletDate;
 - (NSNumber *)numberOfFans;

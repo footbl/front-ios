@@ -132,8 +132,8 @@
         cell.rankingProgress = @(0);
     }
     
-    if (user.totalWallet) {
-        cell.walletLabel.text = user.totalWallet.shortStringValue;
+    if (user.wallet) {
+        cell.walletLabel.text = user.wallet.shortStringValue;
     } else {
         cell.walletLabel.text = @"";
     }
