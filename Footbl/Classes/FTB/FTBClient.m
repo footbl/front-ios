@@ -39,6 +39,8 @@ FTBBlockSuccess FTBMakeBlockSuccess(Class modelClass, FTBBlockObject success, FT
 			object = [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:responseObject error:&error];
 		} else if ([responseObject isKindOfClass:[NSDictionary class]]) {
 			object = [MTLJSONAdapter modelOfClass:modelClass fromJSONDictionary:responseObject error:&error];
+        } else if ([responseObject isKindOfClass:[NSData class]]) {
+            object = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
 		} else {
 			object = responseObject;
 		}
@@ -80,10 +82,6 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 		NSURL *URL = [NSURL URLWithString:FTBBaseURL];
         
         AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-        
-//        AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
-//        responseSerializer.acceptableContentTypes = [responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-//        responseSerializer.readingOptions = NSJSONReadingAllowFragments;
         
         NSArray *responseSerializers = @[[AFJSONResponseSerializer serializer], [AFHTTPResponseSerializer serializer]];
         AFCompoundResponseSerializer *responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
@@ -371,8 +369,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 - (void)createUserWithPassword:(NSString *)password country:(NSString *)country success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"password": password}];
 	if (country) parameters[@"country"] = country;
-	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSData *responseData) {
-        NSString *identifier = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSString *identifier) {
 		[FXKeychain defaultKeychain][kUserIdentifierKey] = identifier;
 		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
 		[self.requestSerializer setAuthorizationHeaderFieldWithUsername:identifier password:password];

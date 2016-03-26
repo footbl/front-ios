@@ -34,6 +34,7 @@
 @property (nonatomic, copy) NSString *country;
 @property (nonatomic, copy) NSNumber *funds;
 @property (nonatomic, copy) NSNumber *stake;
+@property (nonatomic, copy) NSNumber *wallet;
 @property (nonatomic, copy) NSNumber *ranking;
 @property (nonatomic, copy) NSNumber *previousRanking;
 @property (nonatomic, copy) NSArray<FTBHistory *> *history;
@@ -42,6 +43,7 @@
 
 - (void)addBet:(FTBBet *)bet;
 - (void)addBets:(NSArray<FTBBet *> *)bets;
+- (FTBBet *)betWithIdentifier:(NSString *)identifier;
 - (FTBBet *)betForMatch:(FTBMatch *)match;
 - (void)removeBet:(FTBBet *)bet;
 
