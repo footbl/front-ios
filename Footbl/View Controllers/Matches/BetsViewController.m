@@ -119,10 +119,17 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 - (void)reloadScrollView {
-    MatchesViewController *viewController = [self matchesViewControllerAtIndex:0];
+    if (self.pageViewController.viewControllers.count == 0) {
+        MatchesViewController *viewController = [self matchesViewControllerAtIndex:0];
+        if (viewController) {
+            [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        }
+    }
     
-    if (viewController) {
-        [self.pageViewController setViewControllers:@[viewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    for (MatchesViewController *matchesViewController in self.pageViewController.viewControllers) {
+        if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
+            [matchesViewController reloadData];
+        }
     }
     
     self.placeholderLabel.hidden = (self.championships.count > 0);
@@ -137,25 +144,22 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         return;
     }
 	
+    __weak typeof(self) weakSelf = self;
     [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
-		self.championships = object;
-		[self reloadScrollView];
+		weakSelf.championships = object;
+        
+		[weakSelf reloadScrollView];
 		
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
-            RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
+            RechargeTipPopupViewController *rechargeTipPopup = [[RechargeTipPopupViewController alloc] init];
             rechargeTipPopup.selectionBlock = ^{
-                [self rechargeWalletAction:nil];
+                [weakSelf rechargeWalletAction:nil];
             };
+            
             FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
-            [self presentViewController:popupViewController animated:YES completion:nil];
-            [self setNeedsStatusBarAppearanceUpdate];
+            [weakSelf presentViewController:popupViewController animated:YES completion:nil];
+            [weakSelf setNeedsStatusBarAppearanceUpdate];
         }
-		
-		for (MatchesViewController *matchesViewController in self.pageViewController.viewControllers) {
-			if ([matchesViewController respondsToSelector:@selector(reloadData)]) {
-				[matchesViewController reloadData];
-			}
-		}
     } failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];

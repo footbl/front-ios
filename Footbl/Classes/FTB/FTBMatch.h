@@ -30,12 +30,12 @@
 @property (nonatomic, copy) NSNumber *drawPot;
 @property (nonatomic, copy) NSNumber *jackpot;
 @property (nonatomic, copy) NSNumber *reward;
+@property (nonatomic, assign) FTBMatchResult result;
 
 + (NSValueTransformer *)resultJSONTransformer;
 
 - (FTBBet *)myBet;
 - (FTBMatchStatus)status;
-- (FTBMatchResult)result;
 - (NSString *)dateString;
 - (NSNumber *)earningsPerBetForHost;
 - (NSNumber *)earningsPerBetForDraw;
