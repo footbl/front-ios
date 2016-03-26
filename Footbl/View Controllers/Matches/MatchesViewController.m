@@ -469,12 +469,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
 	[tabBarController setTabBarHidden:NO animated:YES];
 	[self.navigationBarTitleView setTitleHidden:NO animated:YES];
-	if (FBTweakValue(@"UX", @"Match", @"Tap status bar to act. match", FT_ENABLE_TAP_STATUS_BAR)) {
-		[self scrollToFirstActiveMatchAnimated:YES];
-		return NO;
-	} else {
-		return YES;
-	}
+	return YES;
 }
 
 #pragma mark - View Lifecycle
@@ -574,11 +569,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	[self reloadData];
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
@@ -598,11 +588,6 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 	[super viewDidAppear:animated];
 	
 	[self reloadWallet];
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {

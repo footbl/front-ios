@@ -222,6 +222,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 
 #pragma mark - UIPageViewControllerDelegate
 
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(nonnull NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    for (MatchesViewController *viewController in self.championshipViewControllers) {
+        viewController.tableView.scrollsToTop = [pageViewController.viewControllers containsObject:viewController];
+    }
+}
+
 #pragma mark - View Lifecycle
 
 - (void)loadView {
