@@ -34,7 +34,6 @@
 
 @property (strong, nonatomic) AnonymousViewController *anonymousViewController;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (strong, nonatomic) NSMutableArray *bets;
 @property (assign, nonatomic) NSUInteger nextPage;
 
 @end
@@ -92,18 +91,15 @@
 - (void)reloadContent {
     if (![[FTBClient client] isAuthenticated]) {
         self.user = nil;
-        self.bets = [[NSMutableArray alloc] init];
         [self.tableView reloadData];
         return;
     }
     
-    if (!self.user.isMe) {
-		__weak typeof(self) this = self;
-		[[FTBClient client] betsForUser:self.user match:nil page:0 success:^(id object) {
-			this.bets = object;
-			[this.tableView reloadData];
-		} failure:nil];
-    }
+    __weak typeof(self) weakSelf = self;
+    [[FTBClient client] user:self.user.identifier success:^(FTBUser *user) {
+        weakSelf.user = user;
+        [weakSelf.tableView reloadData];
+    } failure:nil];
 }
 
 - (void)reloadData {
@@ -113,7 +109,7 @@
         return;
     }
     
-    if (!self.user.isMe && self.bets.count == 0 && !self.refreshControl.isRefreshing) {
+    if (!self.user.isMe && !self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
     }
     
@@ -293,7 +289,7 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
         view.backgroundColor = [UIColor clearColor];
         return view;
-    } else if (section == 2 && self.bets.count > 0) {
+    } else if (section == 2) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 7)];
         view.backgroundColor = [UIColor clearColor];
         return view;

@@ -63,6 +63,14 @@
 	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBHistory class]];
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
+    self = [super initWithDictionary:dictionaryValue error:error];
+    if (self) {
+        self.wallet = @(_funds.integerValue + _stake.integerValue);
+    }
+    return self;
+}
+
 #pragma mark - Helpers
 
 + (instancetype)currentUser {
@@ -77,6 +85,10 @@
     return @(stake);
 }
 
+- (NSNumber *)funds {
+    return @(self.wallet.integerValue - self.stake.integerValue);
+}
+
 - (NSMutableSet<FTBBet *> *)bets {
     if (!_bets) {
         _bets = [[NSMutableSet alloc] init];
@@ -85,19 +97,9 @@
 }
 
 - (void)addBet:(FTBBet *)bet {
-    NSInteger stake = self.stake.integerValue;
-    NSInteger funds = self.funds.integerValue;
-    
-    FTBBet *oldBet = [self.bets member:bet];
-    if (oldBet) {
-        stake -= oldBet.bid.integerValue;
-        funds += oldBet.bid.integerValue;
-        
-        [self.bets removeObject:oldBet];
+    if ([self.bets containsObject:bet]) {
+        [self.bets removeObject:bet];
     }
-    
-    self.stake = @(stake + bet.bid.integerValue);
-    self.funds = @(funds - bet.bid.integerValue);
     
     [self.bets addObject:bet];
 }
@@ -106,6 +108,12 @@
     for (FTBBet *bet in bets) {
         [self addBet:bet];
     }
+}
+
+- (FTBBet *)betWithIdentifier:(NSString *)identifier {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+    NSSet *results = [self.bets filteredSetUsingPredicate:predicate];
+    return results.anyObject;
 }
 
 - (FTBBet *)betForMatch:(FTBMatch *)match {
@@ -121,7 +129,6 @@
 - (void)removeBet:(FTBBet *)bet {
     FTBBet *oldBet = [self.bets member:bet];
     if (oldBet) {
-        self.stake = @(self.stake.integerValue - oldBet.bid.integerValue);
         self.funds = @(self.funds.integerValue + oldBet.bid.integerValue);
         [self.bets removeObject:oldBet];
     }
@@ -175,7 +182,7 @@
 }
 
 - (NSNumber *)totalWallet {
-	return @(self.funds.floatValue + self.stake.floatValue);
+    return self.wallet;
 }
 
 - (NSNumber *)highestWallet {
