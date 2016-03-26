@@ -46,7 +46,8 @@
 							   @"hostPot": @"pot.host",
 							   @"drawPot": @"pot.draw",
 							   @"jackpot": @"jackpot",
-							   @"reward": @"reward"};
+							   @"reward": @"reward",
+                               @"result": @"winner"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
@@ -76,9 +77,14 @@
 }
 
 - (FTBTeam *)winner {
-	if ([self.guestScore compare:self.hostScore] == NSOrderedDescending) return self.guest;
-	if ([self.guestScore compare:self.hostScore] == NSOrderedAscending) return self.host;
-	return nil;
+    switch (self.result) {
+        case FTBMatchResultGuest:
+            return self.guest;
+        case FTBMatchResultHost:
+            return self.host;
+        default:
+            return nil;
+    }
 }
 
 - (FTBBet *)myBet {
@@ -92,16 +98,6 @@
 		return FTBMatchStatusFinished;
 	} else {
 		return FTBMatchStatusWaiting;
-	}
-}
-
-- (FTBMatchResult)result {
-	if ([self.winner isEqual:self.host]) {
-		return FTBMatchResultHost;
-	} else if ([self.winner isEqual:self.guest]) {
-		return FTBMatchResultGuest;
-	} else {
-		return FTBMatchResultDraw;
 	}
 }
 

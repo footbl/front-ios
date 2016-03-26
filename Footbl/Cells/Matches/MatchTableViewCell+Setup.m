@@ -27,7 +27,7 @@
 - (void)setMatch:(FTBMatch *)match bet:(FTBBet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
 	
-    BOOL isMe = (bet.user.isMe || !bet);
+    BOOL isMe = bet.user.isMe;
     
     self.hostNameLabel.text = match.host.name;
     self.guestNameLabel.text = match.guest.name;
@@ -50,10 +50,7 @@
     
     [self setDateText:match.dateString];
     
-    FTBMatchResult result = bet.result;
-    if (isMe) {
-        result = match.myBet.result;
-    }
+    FTBMatchResult result = match.myBet ? match.myBet.result : match.result;
     
     switch (result) {
         case FTBMatchResultHost:
@@ -81,6 +78,7 @@
         self.returnValueLabel.text = bet.toReturnString;
         self.profitValueLabel.text = bet.rewardString;
     }
+    
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.stakeValueLabel, self.returnValueLabel, self.profitValueLabel]];
     
     if (match.status == FTBMatchStatusFinished) {
@@ -94,7 +92,8 @@
     }
     
     if (match.jackpot.integerValue > 0) {
-        [self setFooterText:[NSLocalizedString(@"$", @"") stringByAppendingString:match.jackpot.shortStringValue]];
+        NSString *text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"$", @""), match.jackpot.shortStringValue];
+        [self setFooterText:text];
         self.footerLabel.hidden = NO;
     } else {
         [self setFooterText:@""];
@@ -116,11 +115,7 @@
             break;
     }
     
-    if (isMe && match.myBet.bid.integerValue > 0) {
-        self.shareButton.alpha = 1;
-    } else {
-        self.shareButton.alpha = 0;
-    }
+    self.shareButton.hidden = !(isMe && match.myBet.bid.integerValue > 0);
 	
 	self.cardContentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.cardContentView.layer.bounds cornerRadius:4].CGPath;
 	

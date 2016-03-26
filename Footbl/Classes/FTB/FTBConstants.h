@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, FTBChampionshipType) {
 };
 
 typedef NS_ENUM(NSUInteger, FTBMatchResult) {
+    FTBMatchResultUnknown,
 	FTBMatchResultDraw,
 	FTBMatchResultGuest,
 	FTBMatchResultHost
