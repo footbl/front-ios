@@ -12,7 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Flurry-iOS-SDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
-#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics/GAI.h>
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
 #import "AppDelegate.h"
