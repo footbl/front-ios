@@ -33,12 +33,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 
 @interface MatchesViewController ()
 
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (assign, nonatomic) CGPoint tableViewOffset;
-@property (assign, nonatomic) NSInteger numberOfMatches;
-@property (copy, nonatomic) NSString *totalProfitText;
-@property (strong, nonatomic) NSNumber *totalProfit;
-@property (strong, nonatomic) NSIndexPath *totalProfitIndexPath;
+@property (nonatomic, strong) UITableViewController *tableViewController;
+@property (nonatomic, assign) NSInteger numberOfMatches;
+@property (nonatomic, copy) NSString *totalProfitText;
+@property (nonatomic, strong) NSNumber *totalProfit;
+@property (nonatomic, strong) NSIndexPath *totalProfitIndexPath;
 
 - (BetsViewController *)betsViewController;
 
@@ -307,7 +306,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	}
 	
 	FTBBlockError failure = ^(NSError *error) {
-		[self.refreshControl endRefreshing];
+		[self.tableViewController.refreshControl endRefreshing];
 		[[LoadingHelper sharedInstance] hideHud];
 		[[ErrorHandler sharedInstance] displayError:error];
 	};
@@ -322,7 +321,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 			[[FTBClient client] betsForUser:me match:nil page:0 success:^(NSArray *bets) {
 				[self.tableView reloadData];
                 
-				[self.refreshControl endRefreshing];
+				[self.tableViewController.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
 				[self reloadWallet];
 				
@@ -383,35 +382,45 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 }
 
 - (void)updateInsets {
-	self.tableView.contentInset = UIEdgeInsetsMake(self.self.navigationBarTitleView.maxY, 0, 0, 0);
-	self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+    UIEdgeInsets inset = UIEdgeInsetsMake(self.navigationBarTitleView.maxY, 0, 0, 0);
+    self.tableView.contentInset = inset;
+    self.tableView.scrollIndicatorInsets = inset;
 }
 
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UIScrollView delegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	self.tableViewOffset = scrollView.contentOffset;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
 	
 	CGFloat velocityY = [scrollView.panGestureRecognizer velocityInView:self.view].y;
 	
+    BOOL wasTabBarHidden = tabBarController.isTabBarHidden;
+    
 	if (velocityY < -kScrollMinimumVelocityToToggleTabBar) {
 		[tabBarController setTabBarHidden:YES animated:YES];
 		[self.navigationBarTitleView setTitleHidden:YES animated:YES];
 	} else if (velocityY > kScrollMinimumVelocityToToggleTabBar) {
 		[tabBarController setTabBarHidden:NO animated:YES];
 		[self.navigationBarTitleView setTitleHidden:NO animated:YES];
-		
 	}
+    
+    BOOL isTabBarHidden = tabBarController.isTabBarHidden;
 	
-	[UIView animateWithDuration:FTBAnimationDuration animations:^{
-		[self updateInsets];
-	}];
+    if (isTabBarHidden != wasTabBarHidden) {
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
+            [self updateInsets];
+        }];
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
+    [tabBarController setTabBarHidden:NO animated:YES];
+    [self.navigationBarTitleView setTitleHidden:NO animated:YES];
+    [self updateInsets];
+    return YES;
 }
 
 #pragma mark - UITableView data source
@@ -445,25 +454,16 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	return FLT_EPSILON;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView.height : FLT_EPSILON;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView : nil;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView.height : FLT_EPSILON;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView : nil;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - UIScrollView delegate
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-	FootblTabBarController *tabBarController = (FootblTabBarController *)self.tabBarController;
-	[tabBarController setTabBarHidden:NO animated:YES];
-	[self.navigationBarTitleView setTitleHidden:NO animated:YES];
-	return YES;
 }
 
 #pragma mark - View Lifecycle
@@ -484,20 +484,19 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	[super loadView];
 	
 	self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
-	
 	self.navigationController.navigationBarHidden = YES;
 	
 	self.numberOfMatches = self.matches.count;
 	
-	self.refreshControl = [UIRefreshControl new];
-	[self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+	[refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
-	
-	UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	tableViewController.refreshControl = self.refreshControl;
-	
-	self.tableView = tableViewController.tableView;
+	self.tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+	self.tableViewController.refreshControl = refreshControl;
+    [self addChildViewController:self.tableViewController];
+    [self.view addSubview:self.tableViewController.view];
+    
+	self.tableView = self.tableViewController.tableView;
 	self.tableView.frame = self.view.bounds;
 	self.tableView.delegate = self;
 	self.tableView.dataSource = self;
@@ -505,7 +504,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-	[self.view addSubview:self.tableView];
 	
 	UIImage *totalProfitArrowImage = [[UIImage imageNamed:@"arrow-down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 0, self.tableView.width + 2, 33 + totalProfitArrowImage.size.height)];
@@ -534,6 +532,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	
 	[self reloadWallet];
 	[self reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
