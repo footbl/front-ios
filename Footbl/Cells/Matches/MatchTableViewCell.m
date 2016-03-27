@@ -232,6 +232,16 @@ static CGFloat kDisabledAlpha = 0.4;
 
 #pragma mark - Instance Methods
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    [self.hostImageView.operation cancel];
+    [self.hostDisabledImageView.operation cancel];
+    
+    [self.guestImageView.operation cancel];
+    [self.guestDisabledImageView.operation cancel];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {

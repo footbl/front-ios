@@ -10,4 +10,6 @@
 
 @interface TeamImageView : UIImageView
 
+@property (nonatomic, strong) NSOperation *operation;
+
 @end
