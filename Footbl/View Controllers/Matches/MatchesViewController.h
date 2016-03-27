@@ -11,18 +11,18 @@
 @class FTBChampionship;
 @class MatchesNavigationBarView;
 
-@interface MatchesViewController : TemplateViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MatchesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) FTBChampionship *championship;
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *matches;
-@property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;
+@property (nonatomic, strong) FTBChampionship *championship;
+@property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, strong) NSArray *matches;
+@property (nonatomic, strong) MatchesNavigationBarView *navigationBarTitleView;
 
 // ???: We may remove this
 // Total profit
-@property (strong, nonatomic) UIView *totalProfitView;
-@property (strong, nonatomic) UIView *totalProfitBoxView;
-@property (strong, nonatomic) UILabel *totalProfitLabel;
-@property (strong, nonatomic) UIImageView *totalProfitArrowImageView;
+@property (nonatomic, strong) UIView *totalProfitView;
+@property (nonatomic, strong) UIView *totalProfitBoxView;
+@property (nonatomic, strong) UILabel *totalProfitLabel;
+@property (nonatomic, strong) UIImageView *totalProfitArrowImageView;
 
 @end
