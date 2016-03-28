@@ -27,7 +27,7 @@
 - (void)setMatch:(FTBMatch *)match bet:(FTBBet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
 	
-    BOOL isMe = bet.user.isMe;
+    BOOL isMe = (bet.user.isMe || !bet);
     
     self.hostNameLabel.text = match.host.name;
     self.guestNameLabel.text = match.guest.name;

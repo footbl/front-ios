@@ -27,6 +27,7 @@
 
 #import "FTBClient.h"
 #import "FTBGroup.h"
+#import "FTBMatch.h"
 
 #pragma mark AppDelegate
 

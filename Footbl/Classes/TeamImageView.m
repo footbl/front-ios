@@ -80,7 +80,6 @@
     dispatch_once(&onceToken, ^{
         queue = [[NSOperationQueue alloc] init];
         queue.name = @"com.footbl.queue.image";
-//        queue.maxConcurrentOperationCount = 1;
     });
     return queue;
 }
