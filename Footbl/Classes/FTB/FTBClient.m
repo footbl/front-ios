@@ -22,6 +22,7 @@
 #import <FXKeychain/FXKeychain.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
@@ -89,6 +90,9 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
         client = [[FTBClient alloc] initWithBaseURL:URL];
         client.requestSerializer = requestSerializer;
         client.responseSerializer = responseSerializer;
+        
+        AFNetworkActivityIndicatorManager *activityIndicatorManager = [AFNetworkActivityIndicatorManager sharedManager];
+        activityIndicatorManager.enabled = YES;
 		
 		NSString *identifier = [FXKeychain defaultKeychain][kUserIdentifierKey];
 		NSString *password = [FXKeychain defaultKeychain][kUserPasswordKey];

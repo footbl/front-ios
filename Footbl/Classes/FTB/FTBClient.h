@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
-#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFNetworking.h>
 #import "FTBConstants.h"
 
 @class FTBModel;

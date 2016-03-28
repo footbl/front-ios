@@ -10,6 +10,7 @@
 #import "FTBTeam.h"
 #import "FTBBet.h"
 #import "FTBUser.h"
+#import "FTBClient.h"
 
 #import "NSNumber+Formatter.h"
 
@@ -164,6 +165,14 @@
 }
 
 - (BOOL)isBetSyncing {
+    for (NSURLSessionDataTask *task in [[FTBClient client] tasks]) {
+        if (self.identifier && [task.originalRequest.URL.path containsString:self.identifier]) {
+            return YES;
+        } else if (self.myBet.identifier && [task.originalRequest.URL.path containsString:self.myBet.identifier]) {
+            return YES;
+        }
+    }
+    
     return NO;
 }
 
