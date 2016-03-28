@@ -111,6 +111,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     MatchesViewController *viewController = [[MatchesViewController alloc] init];
     viewController.championship = championship;
     viewController.navigationBarTitleView = self.navigationBarTitleView;
+    viewController.betsViewController = self;
     [self.championshipViewControllers addObject:viewController];
     
     return viewController;
