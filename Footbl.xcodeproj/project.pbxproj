@@ -85,13 +85,12 @@
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
+		A33E52B21CA8AE4900D9AA0C /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */; };
+		A33E52B31CA8AE4900D9AA0C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
 		A36E0C6B1C9F7F45001ABB35 /* UILabel+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */; };
 		A36E0C6C1C9F7F45001ABB35 /* UILabel+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */; };
 		A36E0C6F1C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
 		A36E0C701C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
-		A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */; };
-		A3C699411C9F8ECD0084EEF3 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */; };
-		A3C699421C9F8ECF0084EEF3 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -384,16 +383,16 @@
 		42A060921D15B2D0DB2C5E10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		92123ABE26D78D16773855E5 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		A26E8749B998B87321D44F76 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
+		A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
+		A33E52AD1CA8AE4900D9AA0C /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
+		A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
+		A33E52AF1CA8AE4900D9AA0C /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
+		A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		A36E0C691C9F7F45001ABB35 /* UILabel+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Image.h"; sourceTree = "<group>"; };
 		A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Image.m"; sourceTree = "<group>"; };
 		A36E0C6D1C9F8A66001ABB35 /* UIImage+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Text.h"; sourceTree = "<group>"; };
 		A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Text.m"; sourceTree = "<group>"; };
-		A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
-		A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
-		A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
-		A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupRankingViewController.m; sourceTree = "<group>"; };
-		A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
-		A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
 		ED19A400190A222900946490 /* SettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewCell.h; sourceTree = "<group>"; };
@@ -804,13 +803,23 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		A38D39AC1C9E6C6D0029C09A /* Detail */ = {
+		A33E52A91CA8AE4900D9AA0C /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
-				A38D39AF1C9E6C6D0029C09A /* GroupChatViewController.h */,
-				A38D39B01C9E6C6D0029C09A /* GroupChatViewController.m */,
-				A38D39B31C9E6C6D0029C09A /* GroupRankingViewController.h */,
-				A38D39B41C9E6C6D0029C09A /* GroupRankingViewController.m */,
+				A33E52AA1CA8AE4900D9AA0C /* Detail */,
+				A33E52AF1CA8AE4900D9AA0C /* GroupsViewController.h */,
+				A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */,
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		A33E52AA1CA8AE4900D9AA0C /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */,
+				A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */,
+				A33E52AD1CA8AE4900D9AA0C /* GroupRankingViewController.h */,
+				A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -960,16 +969,6 @@
 				ED81E81B18EA687800212D3C /* FootblTabBarController.m */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		ED81E82918EA708B00212D3C /* Groups */ = {
-			isa = PBXGroup;
-			children = (
-				A38D39AC1C9E6C6D0029C09A /* Detail */,
-				A38D39B91C9E6C6D0029C09A /* GroupsViewController.h */,
-				A38D39BA1C9E6C6D0029C09A /* GroupsViewController.m */,
-			);
-			path = Groups;
 			sourceTree = "<group>";
 		};
 		ED81E82A18EA708E00212D3C /* Matches */ = {
@@ -1277,8 +1276,8 @@
 		EDB1D49F18E1F3D800E0C949 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A33E52A91CA8AE4900D9AA0C /* Ranking */,
 				ED3A0F4C1988182A00011E91 /* Credit Request */,
-				ED81E82918EA708B00212D3C /* Groups */,
 				ED9D0AFC18F31B700061AE42 /* Login */,
 				ED81E82A18EA708E00212D3C /* Matches */,
 				ED81E82818EA707800212D3C /* Navigation */,
@@ -1776,7 +1775,7 @@
 				ED785A0B199D0C62002A4DBD /* UILabel+MaxFontSize.m in Sources */,
 				109FB2B31B7C1EEB00E67B3C /* FTBSeason.m in Sources */,
 				10AF59471B9C7ED200168433 /* UserPerformanceViewController.m in Sources */,
-				A3C699411C9F8ECD0084EEF3 /* GroupsViewController.m in Sources */,
+				A33E52B31CA8AE4900D9AA0C /* GroupsViewController.m in Sources */,
 				109FB2CB1B7C333D00E67B3C /* FTBPrize.m in Sources */,
 				ED785A0D199D0C62002A4DBD /* SettingsTextViewController.m in Sources */,
 				ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */,
@@ -1786,9 +1785,9 @@
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
-				A38D39BE1C9E6C6D0029C09A /* GroupRankingViewController.m in Sources */,
 				10E241421BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				102468841BBCB4E000913511 /* MyChallengesViewController.m in Sources */,
+				A33E52B21CA8AE4900D9AA0C /* GroupRankingViewController.m in Sources */,
 				ED785A13199D0C62002A4DBD /* AskFriendsViewController.m in Sources */,
 				ED785A14199D0C62002A4DBD /* ProfileViewController.m in Sources */,
 				ED785A15199D0C62002A4DBD /* NSString+SHA1.m in Sources */,
@@ -1954,7 +1953,6 @@
 				ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */,
 				ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */,
 				ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */,
-				A3C699421C9F8ECF0084EEF3 /* GroupsViewController.m in Sources */,
 				ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
