@@ -11,8 +11,5 @@
 @interface WalletTableViewCell : TemplateTableViewCell
 
 @property (copy, nonatomic) NSString *valueText;
-#warning Remove this
-@property (strong, nonatomic) UILabel *leaguesLabel;
-@property (strong, nonatomic) UIImageView *arrowImageView;
 
 @end

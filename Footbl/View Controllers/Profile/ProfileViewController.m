@@ -193,7 +193,6 @@
                 case 1: {
                     WalletTableViewCell *walletCell = (WalletTableViewCell *)cell;
                     walletCell.valueText = self.user.wallet.walletStringValue;
-                    walletCell.arrowImageView.hidden = YES;
                     walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 }
@@ -381,7 +380,7 @@
                 case 0:
                     return 93;
                 case 1:
-                    return 81;
+                    return 67;
                 case 2:
                     return 43;
                 case 3:

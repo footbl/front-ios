@@ -39,7 +39,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
         self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, CGRectGetWidth(self.contentView.frame), 37)];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:30];
         self.valueLabel.textColor = [UIColor ftb_greenMoneyColor];
@@ -49,29 +48,12 @@
         self.signImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"money_sign"]];
         [self.contentView addSubview:self.signImageView];
         
-        self.leaguesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 47, CGRectGetWidth(self.contentView.frame), 20)];
-        self.leaguesLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:12];
-        self.leaguesLabel.textColor = [UIColor colorWithRed:141/255.f green:151/255.f blue:144/255.f alpha:0.60];
-        self.leaguesLabel.textAlignment = NSTextAlignmentCenter;
-        self.leaguesLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.contentView addSubview:self.leaguesLabel];
-        
-        self.arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-        self.arrowImageView.center = CGPointMake(CGRectGetWidth(self.contentView.frame) - 20, 40.5);
-        [self.contentView addSubview:self.arrowImageView];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 80.5, CGRectGetWidth(self.contentView.frame), 0.5)];
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 66.5, CGRectGetWidth(self.contentView.frame), 0.5)];
         separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
         separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:separatorView];
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 
 @end
