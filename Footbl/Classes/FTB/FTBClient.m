@@ -495,8 +495,8 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 }
 
 - (void)featuredUsers:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-#warning Implement featured users API
-	if (success) success(nil);
+    NSDictionary *parameters = @{@"filterByFeatured": @YES, @"page":@(page)};
+    [self GET:@"/users" parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
 }
 
 #pragma mark - Bet
