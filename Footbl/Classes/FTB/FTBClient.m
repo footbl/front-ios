@@ -522,10 +522,11 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self GET:path parameters:nil modelClass:[FTBBet class] success:success failure:failure];
 }
 
-- (void)betsForUser:(FTBUser *)user match:(FTBMatch *)match page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)betsForUser:(FTBUser *)user match:(FTBMatch *)match activeOnly:(BOOL)active page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
 	if (match.identifier) parameters[@"filterByMatch"] = match.identifier;
 	if (user.identifier) parameters[@"filterByUser"] = user.identifier;
+    parameters[@"filterByNotEmpty"] = @(active);
     __weak typeof(self) weakSelf = self;
 	[self GET:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(NSArray *bets) {
         if (user.isMe) {

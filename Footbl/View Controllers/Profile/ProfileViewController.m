@@ -131,30 +131,6 @@
 	} failure:failure];
 }
 
-- (void)setupInfiniteScrolling {
-    if (self.tableView.infiniteScrollingView) {
-        return;
-    }
-	
-	__weak typeof(self) this = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        [super reloadData];
-		
-		[[FTBClient client] betsForUser:this.user match:nil page:0 success:^(NSArray *bets) {
-			[this.tableView.infiniteScrollingView stopAnimating];
-			if (bets.count == FT_API_PAGE_LIMIT) {
-                this.nextPage++;
-				this.tableView.showsInfiniteScrolling = YES;
-			} else {
-				this.tableView.showsInfiniteScrolling = NO;
-			}
-		} failure:^(NSError *error) {
-			[this.tableView.infiniteScrollingView stopAnimating];
-			[[ErrorHandler sharedInstance] displayError:error];
-		}];
-    }];
-}
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:
