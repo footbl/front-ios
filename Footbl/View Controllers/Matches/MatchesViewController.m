@@ -299,7 +299,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		[[FTBClient client] matchesInChampionship:self.championship round:0 page:0 success:^(NSArray *objects) {
 			self.matches = objects;
 			
-			[[FTBClient client] betsForUser:me match:nil page:0 success:^(NSArray *bets) {
+			[[FTBClient client] betsForUser:me match:nil activeOnly:NO page:0 success:^(NSArray *bets) {
 				[self.tableView reloadData];
                 
 				[self.tableViewController.refreshControl endRefreshing];
