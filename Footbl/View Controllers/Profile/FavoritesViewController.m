@@ -36,7 +36,11 @@
 
 - (instancetype)init {
     if (self) {
-        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0];
+        self.title = NSLocalizedString(@"Favorites", @"");
+        
+        UIImage *image = [UIImage imageNamed:@"tabbar-favorites"];
+        UIImage *selectedImage = [UIImage imageNamed:@"tabbar-favorites-selected"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
     }
     return self;
 }

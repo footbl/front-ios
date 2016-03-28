@@ -15,17 +15,52 @@
 
 @implementation MyChallengesViewController
 
+#pragma mark - Class Methods
+
++ (NSString *)storyboardName {
+    return @"Main";
+}
+
+#pragma mark - Instance Methods
+
+- (void)configureCell:(MyChallengeCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark - Lifecycle
+
+- (void)commomInit {
+    self.title = @"Challenges";
+    
+    UIImage *image = [UIImage imageNamed:@"tabbar-groups"];
+    UIImage *selectedImage = [UIImage imageNamed:@"tabbar-groups-selected"];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commomInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commomInit];
+    }
+    return self;
+}
+
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - Private
-
-- (void)configureCell:(MyChallengeCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - UITableViewDataSource

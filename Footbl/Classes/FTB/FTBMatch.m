@@ -56,7 +56,7 @@
 	NSDictionary *dictionary = @{@"guest": @(FTBMatchResultGuest),
 								 @"host": @(FTBMatchResultHost),
 								 @"draw": @(FTBMatchResultDraw)};
-	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:dictionary];
+	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:dictionary defaultValue:@(FTBMatchResultUnknown) reverseDefaultValue:nil];
 }
 
 + (NSValueTransformer *)dateJSONTransformer {

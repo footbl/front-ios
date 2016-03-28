@@ -52,8 +52,8 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     if (self) {
         self.title = NSLocalizedString(@"Matches", @"");
         
-        UIImage *image = [UIImage imageNamed:@"tabbar_btn_matches_ainctive"];
-        UIImage *selectedImage = [UIImage imageNamed:@"tabbar_btn_matches_active"];
+        UIImage *image = [UIImage imageNamed:@"tabbar-matches"];
+        UIImage *selectedImage = [UIImage imageNamed:@"tabbar-matches-selected"];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
         
         self.championshipViewControllers = [[NSMutableArray alloc] init];

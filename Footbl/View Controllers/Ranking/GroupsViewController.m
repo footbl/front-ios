@@ -42,8 +42,8 @@
     if (self) {
         self.title = NSLocalizedString(@"Ranking", @"");
         
-        UIImage *image = [UIImage imageNamed:@"tabbar_btn_groups_inactive"];
-        UIImage *selectedImage = [UIImage imageNamed:@"tabbar_btn_groups_active"];
+        UIImage *image = [UIImage imageNamed:@"tabbar-groups"];
+        UIImage *selectedImage = [UIImage imageNamed:@"tabbar-groups-selected"];
         self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
     }
     return self;

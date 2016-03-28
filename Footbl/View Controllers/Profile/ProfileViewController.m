@@ -59,7 +59,10 @@
 	self = [super init];
     if (self) {
         self.title = NSLocalizedString(@"Profile", @"");
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:[UIImage imageNamed:@"tabbar_btn_profile_inactive"] selectedImage:[UIImage imageNamed:@"tabbar_btn_profile_active"]];
+        
+        UIImage *image = [UIImage imageNamed:@"tabbar-profile"];
+        UIImage *selectedImage = [UIImage imageNamed:@"tabbar-profile-selected"];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
     }
     return self;
 }
