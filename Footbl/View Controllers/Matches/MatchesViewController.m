@@ -39,8 +39,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 @property (nonatomic, strong) NSNumber *totalProfit;
 @property (nonatomic, strong) NSIndexPath *totalProfitIndexPath;
 
-- (BetsViewController *)betsViewController;
-
 @end
 
 #pragma mark MatchesViewController
@@ -60,25 +58,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	self.matches = nil;
 	[self.tableView reloadData];
 	[self reloadData];
-}
-
-- (void)setTotalProfitText:(NSString *)totalProfitText {
-	if ([totalProfitText isEqualToString:self.totalProfitText]) {
-		return;
-	}
-	
-	_totalProfitText = totalProfitText;
-	
-	if (self.totalProfitText.length > 0) {
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = %@", @YES];
-		FTBMatch *match = [self.matches filteredArrayUsingPredicate:predicate].firstObject;
-		NSUInteger row = [self.matches indexOfObject:match];
-		self.totalProfitIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
-	} else {
-		self.totalProfitIndexPath = nil;
-	}
-	
-	[self.tableView reloadData];
 }
 
 #pragma mark - Instance Methods
@@ -275,6 +254,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	if (self.matches.count == 0) {
 		return;
 	}
+    
+    [self updateInsets];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = NO"];
 	FTBMatch *match = [self.matches filteredArrayUsingPredicate:predicate].lastObject;
@@ -339,30 +320,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 					for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
 						sum += [betProfit floatValue];
 					}
-					NSNumber *numberOfMatches = @(updatedMatches.count);
-					
-					if (updatedMatches.count > 0 && matches > 0 && FBTweakValue(@"UI", @"Match", @"Profit notification", FT_ENABLE_PROFIT_NOTIFICATION)) {
-						NSString *text = nil;
-						if (sum >= 0) {
-							NSString *format = NSLocalizedString(@"You made $%lu in the last %@ matches =)", @"{money} {number of matches}");
-							text = [NSString localizedStringWithFormat:format, (long)sum, numberOfMatches];
-						} else {
-							NSString *format = NSLocalizedString(@"You lost $%lu in the last %@ matches =(", @"{money} {number of matches}");
-							text = [NSString localizedStringWithFormat:format, (long)fabsf(sum), numberOfMatches];
-						}
-						self.totalProfitText = text;
-						self.totalProfit = @(sum);
-						self.totalProfitLabel.text = self.totalProfitText;
-						if (self.totalProfit.floatValue <= 0) {
-							self.totalProfitBoxView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-							self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithWhite:0.8 alpha:1.0] CGColor];
-							self.totalProfitArrowImageView.tintColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-						} else {
-							self.totalProfitBoxView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-							self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
-							self.totalProfitArrowImageView.tintColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-						}
-					}
+					self.totalProfit = @(sum);
 				};
 				
 				computeProfit();
@@ -504,31 +462,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-	
-	UIImage *totalProfitArrowImage = [[UIImage imageNamed:@"arrow-down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	self.totalProfitView = [[UIView alloc] initWithFrame:CGRectMake(-1, 0, self.tableView.width + 2, 33 + totalProfitArrowImage.size.height)];
-	
-	self.totalProfitBoxView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.totalProfitView.width, 33)];
-	self.totalProfitBoxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	self.totalProfitBoxView.backgroundColor = [UIColor colorWithRed:47./255.f green:204/255.f blue:118/255.f alpha:1.00];
-	self.totalProfitBoxView.clipsToBounds = NO;
-	self.totalProfitBoxView.layer.borderColor = [[UIColor colorWithRed:19./255.f green:183/255.f blue:93./255.f alpha:1.00] CGColor];
-	self.totalProfitBoxView.layer.borderWidth = 0.5;
-	[self.totalProfitView addSubview:self.totalProfitBoxView];
-	
-	self.totalProfitArrowImageView = [[UIImageView alloc] initWithImage:totalProfitArrowImage];
-	self.totalProfitArrowImageView.center = CGPointMake(self.totalProfitView.midX, self.totalProfitBoxView.maxY + (self.totalProfitArrowImageView.image.size.height / 2) - 0.5);
-	self.totalProfitArrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-	[self.totalProfitView addSubview:self.totalProfitArrowImageView];
-	
-	self.totalProfitLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, self.totalProfitView.width - 20, self.totalProfitBoxView.height)];
-	self.totalProfitLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	self.totalProfitLabel.textColor = [UIColor whiteColor];
-	self.totalProfitLabel.textAlignment = NSTextAlignmentCenter;
-	self.totalProfitLabel.font = [UIFont fontWithName:kFontNameMedium size:13];
-	self.totalProfitLabel.adjustsFontSizeToFitWidth = YES;
-	self.totalProfitLabel.minimumScaleFactor = 0.6;
-	[self.totalProfitView addSubview:self.totalProfitLabel];
 	
 	[self reloadWallet];
 	[self reloadData];
