@@ -16,6 +16,7 @@
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
 #import "FavoritesViewController.h"
+#import "MyChallengesViewController.h"
 
 #import "FTBClient.h"
 #import "FTBConstants.h"
@@ -72,11 +73,14 @@
     [super loadView];
     
     void(^viewControllersSetupBlock)() = ^() {
-        BetsViewController *betsViewController = [[BetsViewController alloc] init];
-        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:betsViewController];
-        
         GroupsViewController *groupsViewController = [[GroupsViewController alloc] init];
         FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:groupsViewController];
+        
+        MyChallengesViewController *challengesViewController = [MyChallengesViewController instantiateFromStoryboard];
+        FootblNavigationController *challengesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:challengesViewController];
+        
+        BetsViewController *betsViewController = [[BetsViewController alloc] init];
+        FootblNavigationController *matchesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:betsViewController];
         
         FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
         favoritesViewController.user = [FTBUser currentUser];
@@ -85,8 +89,8 @@
         ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
         FootblNavigationController *profileNavigationController = [[FootblNavigationController alloc] initWithRootViewController:profileViewController];
         
-        self.viewControllers = @[groupsNavigationController, matchesNavigationController, favoritesNavigationController, profileNavigationController];
-        self.selectedIndex = 1;
+        self.viewControllers = @[groupsNavigationController, challengesNavigationController, matchesNavigationController, favoritesNavigationController, profileNavigationController];
+        self.selectedIndex = 2;
     };
     
     void(^authenticationBlock)(UINavigationController *navigationController) = ^(UINavigationController *navigationController) {
@@ -154,16 +158,6 @@
     self.tabBarSeparatorView.backgroundColor = [UIColor ftb_tabBarSeparatorColor];
     self.tabBarSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.tabBarSeparatorView];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright © 2015 Footbl. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TemplateViewController.h"
 
-@interface MyChallengesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MyChallengesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 

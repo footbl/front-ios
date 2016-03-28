@@ -25,6 +25,17 @@
 
 #pragma mark - Class Methods
 
++ (NSString *)storyboardName {
+    return nil;
+}
+
++ (instancetype)instantiateFromStoryboard {
+    Class class = [self class];
+    NSString *storyboardName = [class storyboardName];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    return [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass(class)];
+}
+
 #pragma mark - Getters/Setters
 
 #pragma mark - Instance Methods

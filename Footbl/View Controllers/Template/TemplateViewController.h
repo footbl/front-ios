@@ -10,7 +10,11 @@
 
 @interface TemplateViewController : SPTemplateViewController
 
++ (NSString *)storyboardName;
++ (instancetype)instantiateFromStoryboard;
+
 - (void)reloadData NS_REQUIRES_SUPER;
 - (NSTimeInterval)updateInterval;
+
 
 @end
