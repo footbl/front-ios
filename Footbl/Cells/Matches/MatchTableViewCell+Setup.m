@@ -41,7 +41,7 @@
     [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     
-    if (isMe && !match.isBetSyncing) {
+    if (isMe) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
         self.drawPotLabel.text = match.earningsPerBetForDraw.potStringValue;
         self.guestPotLabel.text = match.earningsPerBetForGuest.potStringValue;
@@ -51,7 +51,7 @@
     
     [self setDateText:match.dateString];
     
-    FTBMatchResult result = match.myBet ? match.myBet.result : match.result;
+    FTBMatchResult result = (match.myBet.bid.integerValue != 0) ? match.myBet.result : match.result;
     
     switch (result) {
         case FTBMatchResultHost:
@@ -69,11 +69,9 @@
     }
     
     if (isMe) {
-        if (!match.isBetSyncing) {
-            self.stakeValueLabel.text = match.myBetValueString;
-            self.returnValueLabel.text = match.myBetReturnString;
-            self.profitValueLabel.text = match.myBetProfitString;
-        }
+        self.stakeValueLabel.text = match.myBetValueString;
+        self.returnValueLabel.text = match.myBetReturnString;
+        self.profitValueLabel.text = match.myBetProfitString;
     } else if (bet) {
         self.stakeValueLabel.text = bet.valueString;
         self.returnValueLabel.text = bet.toReturnString;

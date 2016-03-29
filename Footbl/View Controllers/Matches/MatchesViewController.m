@@ -34,10 +34,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 @interface MatchesViewController ()
 
 @property (nonatomic, strong) UITableViewController *tableViewController;
-@property (nonatomic, assign) NSInteger numberOfMatches;
-@property (nonatomic, copy) NSString *totalProfitText;
-@property (nonatomic, strong) NSNumber *totalProfit;
-@property (nonatomic, strong) NSIndexPath *totalProfitIndexPath;
 
 @end
 
@@ -116,7 +112,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
 		NSInteger currentBet = match.myBet.bid.integerValue;
 		FTBMatchResult result = match.myBet.result;
-        bet = match.myBet;
 		
 		switch (index) {
 			case 0: // Host
@@ -189,8 +184,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
             [self reloadWallet];
         };
         
-        if (bet) {
-            FTBBet *newBet = [bet copy];
+        FTBBet *myBet = match.myBet;
+        if (myBet) {
+            FTBBet *newBet = [myBet copy];
             newBet.bid = @(currentBet);
             newBet.result = result;
             [[FTBClient client] updateBet:newBet success:successBlock failure:failure];
@@ -279,10 +275,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		return;
 	}
 	
-	NSInteger matches = self.matches.count;
 	
-	self.numberOfMatches = matches;
-	if (matches == 0) {
+	if (self.matches.count == 0) {
 		[[LoadingHelper sharedInstance] showHud];
 	}
 	
@@ -296,36 +290,20 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
 		[self reloadWallet];
 		
-		[[FTBClient client] matchesInChampionship:self.championship round:0 page:0 success:^(NSArray *objects) {
-			self.matches = objects;
-			
-			[[FTBClient client] betsForUser:me match:nil activeOnly:NO page:0 success:^(NSArray *bets) {
-				[self.tableView reloadData];
+        [[FTBClient client] betsForUser:me match:nil activeOnly:NO page:0 success:^(NSArray *bets) {
+            
+            [[FTBClient client] matchesInChampionship:self.championship round:0 page:0 success:^(NSArray *objects) {
+                NSUInteger previousMatchesCount = self.matches.count;
+                self.matches = objects;
+                [self.tableView reloadData];
+                [self reloadWallet];
+                
+                if (previousMatchesCount == 0 && objects.count > 0) {
+                    [self scrollToFirstActiveMatchAnimated:NO];
+                }
                 
 				[self.tableViewController.refreshControl endRefreshing];
 				[[LoadingHelper sharedInstance] hideHud];
-				[self reloadWallet];
-				
-				if (self.numberOfMatches == 0 && objects.count > 0) {
-					self.numberOfMatches = objects.count;
-					[self scrollToFirstActiveMatchAnimated:NO];
-				}
-				
-				void(^computeProfit)() = ^() {
-					NSTimeInterval weekInterval = -604800;
-					NSDate *week = [NSDate dateWithTimeIntervalSinceNow:weekInterval];
-					NSPredicate *predicate = [NSPredicate predicateWithFormat:@"finished = YES AND date >= %@", week];
-					NSArray *updatedMatches = [self.matches filteredArrayUsingPredicate:predicate];
-					float sum = 0;
-					for (NSNumber *betProfit in [updatedMatches valueForKey:@"myBetProfit"]) {
-						sum += [betProfit floatValue];
-					}
-					self.totalProfit = @(sum);
-				};
-				
-				computeProfit();
-				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
-				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), computeProfit);
 			} failure:failure];
 		} failure:failure];
 	} failure:failure];
@@ -412,14 +390,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	return FLT_EPSILON;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView.height : FLT_EPSILON;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//	return (self.totalProfitIndexPath && self.totalProfitIndexPath.section == section) ? self.totalProfitView : nil;
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -443,8 +413,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	
 	self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
 	self.navigationController.navigationBarHidden = YES;
-	
-	self.numberOfMatches = self.matches.count;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
 	[refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
@@ -476,12 +444,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	[self.tableView reloadData];
 	
 	[self updateInsets];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-	
-	self.totalProfitText = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

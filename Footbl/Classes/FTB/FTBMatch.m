@@ -187,4 +187,36 @@
     return NO;
 }
 
+- (void)updatePotByAddingBet:(FTBBet *)bet {
+    switch (bet.result) {
+        case FTBMatchResultDraw:
+            self.drawPot = @(self.drawPot.integerValue + bet.bid.integerValue);
+            break;
+        case FTBMatchResultHost:
+            self.hostPot = @(self.hostPot.integerValue + bet.bid.integerValue);
+            break;
+        case FTBMatchResultGuest:
+            self.guestPot = @(self.guestPot.integerValue + bet.bid.integerValue);
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)updatePotByRemovingBet:(FTBBet *)bet {
+    switch (bet.result) {
+        case FTBMatchResultDraw:
+            self.drawPot = @(self.drawPot.integerValue - bet.bid.integerValue);
+            break;
+        case FTBMatchResultHost:
+            self.hostPot = @(self.hostPot.integerValue - bet.bid.integerValue);
+            break;
+        case FTBMatchResultGuest:
+            self.guestPot = @(self.guestPot.integerValue - bet.bid.integerValue);
+            break;
+        default:
+            break;
+    }
+}
+
 @end

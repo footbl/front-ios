@@ -79,7 +79,7 @@
 
 - (NSNumber *)stake {
     NSInteger stake = 0;
-    for (FTBBet *bet in self.bets) {
+    for (FTBBet *bet in self.activeBets) {
         stake += bet.bid.integerValue;
     }
     return @(stake);
@@ -96,12 +96,21 @@
     return _bets;
 }
 
+- (NSSet *)activeBets {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match != nil && match.finished == NO && match.elapsed == 0 && bid > 0"];
+    return [self.bets filteredSetUsingPredicate:predicate];
+}
+
 - (void)addBet:(FTBBet *)bet {
-    if ([self.bets containsObject:bet]) {
-        [self.bets removeObject:bet];
+    FTBBet *oldBet = [self.bets member:bet];
+    
+    if (oldBet) {
+        [self.bets removeObject:oldBet];
+        [bet.match updatePotByRemovingBet:oldBet];
     }
     
     [self.bets addObject:bet];
+    [bet.match updatePotByAddingBet:bet];
 }
 
 - (void)addBets:(NSArray<FTBBet *> *)bets {
@@ -129,14 +138,9 @@
 - (void)removeBet:(FTBBet *)bet {
     FTBBet *oldBet = [self.bets member:bet];
     if (oldBet) {
-        self.funds = @(self.funds.integerValue + oldBet.bid.integerValue);
         [self.bets removeObject:oldBet];
+        [bet.match updatePotByRemovingBet:oldBet];
     }
-}
-
-- (NSSet *)activeBets {
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bid > 0 AND match.finished = NO AND match != nil"];
-	return [self.bets filteredSetUsingPredicate:predicate];
 }
 
 - (BOOL)isMe {
@@ -203,14 +207,6 @@
 	}
 	
 	return [NSDate date];
-}
-
-- (NSNumber *)numberOfFans {
-	return @0;
-}
-
-- (BOOL)isFanOfUser:(FTBUser *)user {
-	return NO;
 }
 
 @end

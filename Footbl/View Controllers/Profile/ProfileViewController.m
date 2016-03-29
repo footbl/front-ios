@@ -145,10 +145,10 @@
                     }
                     profileCell.aboutText = self.user.about;
 
-                    if (self.user.numberOfFans.integerValue >= MAX_FOLLOWERS_COUNT) {
-                        profileCell.followersLabel.text = [self.user.numberOfFans.shortStringValue stringByAppendingString:@"+"];
-                    } else if (self.user.numberOfFans.integerValue > 0) {
-                        profileCell.followersLabel.text = self.user.numberOfFans.shortStringValue;
+                    if (self.followers.count >= MAX_FOLLOWERS_COUNT) {
+                        profileCell.followersLabel.text = [NSString stringWithFormat:@"%@+", @(self.followers.count).shortStringValue];
+                    } else if (self.followers.count > 0) {
+                        profileCell.followersLabel.text = @(self.followers.count).shortStringValue;
                     } else {
                         profileCell.followersLabel.text = @"";
                     }
@@ -158,8 +158,8 @@
                     formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
                     profileCell.dateLabel.text = [formatter stringFromDate:self.user.createdAt];
 					
-					FTBUser *user = [FTBUser currentUser];
-                    if (!self.user.isMe && [self.user isFanOfUser:user]) {
+					FTBUser *me = [FTBUser currentUser];
+                    if (!self.user.isMe && [self.followers containsObject:me]) {
                         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                     } else {
                         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
