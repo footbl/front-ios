@@ -46,6 +46,7 @@
 - (FTBBet *)betWithIdentifier:(NSString *)identifier;
 - (FTBBet *)betForMatch:(FTBMatch *)match;
 - (void)removeBet:(FTBBet *)bet;
+- (NSSet<FTBBet *> *)activeBets;
 
 + (instancetype)currentUser;
 
@@ -57,7 +58,5 @@
 - (NSString *)profitString;
 - (NSNumber *)highestWallet;
 - (NSDate *)highestWalletDate;
-- (NSNumber *)numberOfFans;
-- (BOOL)isFanOfUser:(FTBUser *)user;
 
 @end

@@ -46,5 +46,7 @@
 - (NSNumber *)myBetProfit;
 - (NSString *)myBetProfitString;
 - (BOOL)isBetSyncing;
+- (void)updatePotByAddingBet:(FTBBet *)bet;
+- (void)updatePotByRemovingBet:(FTBBet *)bet;
 
 @end

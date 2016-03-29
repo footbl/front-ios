@@ -12,7 +12,8 @@
 
 @interface ProfileViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) FTBUser *user;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) FTBUser *user;
+@property (nonatomic, copy) NSArray<FTBUser *> *followers;
 
 @end
