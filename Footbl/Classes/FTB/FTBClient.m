@@ -511,7 +511,12 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     __weak typeof(self) weakSelf = self;
 	NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
 	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
-	[self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
+	[self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(id object) {
+        [weakSelf betsForUser:weakSelf.user match:match activeOnly:NO page:0 success:^(NSArray<FTBBet*> *bets) {
+            bet.identifier = bets.firstObject.identifier;
+            if (success) success(bet);
+        } failure:failure];
+    } failure:^(NSError *error) {
         [weakSelf.user removeBet:bet];
         if (failure) failure(error);
     }];
@@ -541,8 +546,14 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     [self.user addBet:bet];
     
     __weak typeof(self) weakSelf = self;
-	NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
-	NSDictionary *parameters = [MTLJSONAdapter JSONDictionaryFromModel:bet error:nil];
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    parameters[@"bid"] = bet.bid;
+    if ([bet.bid isEqualToNumber:@0]) {
+        parameters[@"result"] = @"draw";
+    } else {
+        parameters[@"result"] = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(bet.result)];
+    }
+    NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
 	[self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
         [weakSelf.user addBet:oldBet];
         if (failure) failure(error);
