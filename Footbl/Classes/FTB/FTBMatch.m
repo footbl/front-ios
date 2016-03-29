@@ -56,7 +56,7 @@
 	NSDictionary *dictionary = @{@"guest": @(FTBMatchResultGuest),
 								 @"host": @(FTBMatchResultHost),
 								 @"draw": @(FTBMatchResultDraw)};
-	return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:dictionary defaultValue:@(FTBMatchResultUnknown) reverseDefaultValue:nil];
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:dictionary defaultValue:@(FTBMatchResultUnknown) reverseDefaultValue:[NSNull null]];
 }
 
 + (NSValueTransformer *)dateJSONTransformer {
@@ -75,6 +75,17 @@
 	return [MTLValueTransformer transformerUsingReversibleBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
 		return value ?: @0;
 	}];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
+    self = [super initWithDictionary:dictionaryValue error:error];
+    if (self) {
+        // This is a hack to fix possible crawler issues (i.e. finished matches with finished == NO)
+        if (!self.isFinished && [self.date timeIntervalSinceNow] < - 3 * 60 * 60) {
+            self.finished = YES;
+        }
+    }
+    return self;
 }
 
 - (FTBTeam *)winner {

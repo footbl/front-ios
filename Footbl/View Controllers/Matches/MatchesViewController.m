@@ -112,10 +112,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 			return;
 		}
 		
-		bet = match.myBet;
-		NSUInteger firstBetValue = MAX(floor((bet.user.funds.integerValue + bet.user.stake.integerValue) / 100), 1);
+        FTBUser *user = [FTBUser currentUser];
+		NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
 		NSInteger currentBet = match.myBet.bid.integerValue;
 		FTBMatchResult result = match.myBet.result;
+        bet = match.myBet;
 		
 		switch (index) {
 			case 0: // Host
@@ -160,7 +161,6 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 			result = 0;
 		}
 		
-		FTBUser *user = [FTBUser currentUser];
 		if (match.myBet.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {
 			if (!weakCell.isStepperSelected) {
 				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
