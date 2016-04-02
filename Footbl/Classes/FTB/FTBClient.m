@@ -23,11 +23,13 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#import <SPHipster/SPHipster.h>
 
-static NSString * const kUserEmailKey = @"kUserEmailKey";
-static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";
-static NSString * const kUserPasswordKey = @"kUserPasswordKey";
-static NSString * const kUserFbAuthenticatedKey = @"kUserFbAuthenticatedKey";
+static NSString * const kUserEmailKey               = @"kUserEmailKey";
+static NSString * const kUserIdentifierKey          = @"kUserIdentifierKey";
+static NSString * const kUserPasswordKey            = @"kUserPasswordKey";
+static NSString * const kUserFbAuthenticatedKey     = @"kUserFbAuthenticatedKey";
+static NSTimeInterval const kBetSyncDelay           = 3;
 
 typedef void (^FTBBlockSuccess)(NSURLSessionDataTask *, id);
 typedef void (^FTBBlockFailure)(NSURLSessionDataTask *, NSError *);
@@ -508,18 +510,27 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     bet.bid = bid;
     [self.user addBet:bet];
     
-    __weak typeof(self) weakSelf = self;
-	NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
-	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
-	[self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(id object) {
-        [weakSelf betsForUser:weakSelf.user match:match activeOnly:NO page:0 success:^(NSArray<FTBBet*> *bets) {
-            bet.identifier = bets.firstObject.identifier;
-            if (success) success(bet);
-        } failure:failure];
-    } failure:^(NSError *error) {
-        [weakSelf.user removeBet:bet];
-        if (failure) failure(error);
-    }];
+    if (match.betBlockKey != 0) {
+        cancel_block(match.betBlockKey);
+    }
+    
+    NSUInteger key = 0;
+    perform_block_after_delay_k(kBetSyncDelay, &key, ^{
+        __weak typeof(self) weakSelf = self;
+        NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
+        NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString};
+        [self POST:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(id object) {
+            [weakSelf betsForUser:weakSelf.user match:match activeOnly:NO page:0 success:^(NSArray<FTBBet*> *bets) {
+                bet.identifier = bets.firstObject.identifier;
+                if (success) success(bet);
+            } failure:failure];
+        } failure:^(NSError *error) {
+            [weakSelf.user removeBet:bet];
+            if (failure) failure(error);
+        }];
+    });
+    
+    match.betBlockKey = key;
 }
 
 - (void)bet:(NSString *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
@@ -541,19 +552,28 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     } failure:failure];
 }
 
-- (void)updateBet:(FTBBet *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-    FTBBet *oldBet = [self.user betForMatch:bet.match];
+- (void)updateBet:(FTBBet *)bet match:(FTBMatch *)match success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    FTBBet *oldBet = [self.user betForMatch:match];
     [self.user addBet:bet];
     
-    __weak typeof(self) weakSelf = self;
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    parameters[@"bid"] = bet.bid;
-    parameters[@"result"] = [bet.bid isEqualToNumber:@0] ? @"draw" : [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(bet.result)];
-    NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
-	[self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
-        [weakSelf.user addBet:oldBet];
-        if (failure) failure(error);
-    }];
+    if (match.betBlockKey != 0) {
+        cancel_block(match.betBlockKey);
+    }
+    
+    NSUInteger key = 0;
+    perform_block_after_delay_k(kBetSyncDelay, &key, ^{
+        __weak typeof(self) weakSelf = self;
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+        parameters[@"bid"] = bet.bid;
+        parameters[@"result"] = [bet.bid isEqualToNumber:@0] ? @"draw" : [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(bet.result)];
+        NSString *path = [NSString stringWithFormat:@"/bets/%@", bet.identifier];
+        [self PUT:path parameters:parameters modelClass:[FTBBet class] success:success failure:^(NSError *error) {
+            [weakSelf.user addBet:oldBet];
+            if (failure) failure(error);
+        }];
+    });
+    
+    match.betBlockKey = key;
 }
 
 #pragma mark - Challenge

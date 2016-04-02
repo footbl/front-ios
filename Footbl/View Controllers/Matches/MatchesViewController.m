@@ -185,11 +185,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
         };
         
         FTBBet *myBet = match.myBet;
-        if (myBet) {
+        if (myBet && myBet.identifier.length > 0) {
             FTBBet *newBet = [myBet copy];
             newBet.bid = @(currentBet);
             newBet.result = result;
-            [[FTBClient client] updateBet:newBet success:successBlock failure:failure];
+            [[FTBClient client] updateBet:newBet match:match success:successBlock failure:failure];
         } else {
             [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
         }

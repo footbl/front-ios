@@ -31,6 +31,7 @@
 @property (nonatomic, copy) NSNumber *jackpot;
 @property (nonatomic, copy) NSNumber *reward;
 @property (nonatomic, assign) FTBMatchResult result;
+@property (nonatomic, assign) NSUInteger betBlockKey;
 
 + (NSValueTransformer *)resultJSONTransformer;
 
