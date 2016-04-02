@@ -101,7 +101,7 @@
     NSMutableArray *ids = [[self.selectedFriendsSet.allObjects valueForKeyPath:@"id"] mutableCopy];
     [self sendInviteToFootblUsers:ids];
     
-#warning Handle Facebook login
+    // TODO: Handle Facebook login
 //    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
 //        session = fbSession;
 //        runBlock();
@@ -113,7 +113,7 @@
 }
 
 - (void)reloadData {
-#warning Handle Facebook login
+    // TODO: Handle Facebook login
 //    [[LoadingHelper sharedInstance] showHud];
 //    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
 //        [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {

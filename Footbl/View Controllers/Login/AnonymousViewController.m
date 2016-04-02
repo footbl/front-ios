@@ -30,7 +30,7 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
-#warning Handle Facebook login
+    // TODO: Handle Facebook login
 //    [[LoadingHelper sharedInstance] showHud];
 //    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
 //        if (error) {

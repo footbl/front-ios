@@ -207,7 +207,7 @@
 }
 
 - (IBAction)importFromFacebookAction:(id)sender {
-#warning Handle Facebook login
+    // TODO: Handle Facebook login
 //    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
 //        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
 //            if (image) {
