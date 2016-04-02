@@ -30,10 +30,9 @@
 }
 
 + (instancetype)instantiateFromStoryboard {
-    Class class = [self class];
-    NSString *storyboardName = [class storyboardName];
+    NSString *storyboardName = [[self class] storyboardName];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
-    return [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass(class)];
+    return [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([self class])];
 }
 
 #pragma mark - Getters/Setters

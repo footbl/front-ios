@@ -104,7 +104,7 @@
             }
             
             AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
-            [navigationController pushViewController:authenticationViewController animated:YES];
+            [navigationController setViewControllers:@[authenticationViewController] animated:YES];
             authenticationViewController.completionBlock = ^{
                 viewControllersSetupBlock();
                 [self dismissViewControllerAnimated:YES completion:nil];

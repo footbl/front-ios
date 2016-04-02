@@ -139,8 +139,6 @@
 - (void)loadView {
     [super loadView];
     
-    self.navigationController.viewControllers = @[self];
-    
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.backgroundImageView.image = [UIImage imageNamed:@"signup_bg"];
     if (self.backgroundImageView.image.size.height < CGRectGetHeight(self.view.frame)) {
@@ -219,11 +217,6 @@
     [self setSubviewsHidden:YES animated:NO];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -245,11 +238,6 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
