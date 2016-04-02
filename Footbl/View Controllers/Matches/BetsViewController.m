@@ -78,7 +78,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     if (!user.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
@@ -184,7 +184,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
         return;
     }
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
 	[[FTBClient client] user:user.identifier success:^(id object) {
         if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
             RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
@@ -207,7 +207,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 - (void)reloadWallet {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     for (FTBMatch *match in user.pendingMatchesToSyncBet) {
         if (match.isBetSyncing) {
             return;
@@ -389,7 +389,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.scrollViewCurrentPage = self.scrollViewCurrentPage;
     [self reloadWallet];
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && user.canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;

@@ -9,7 +9,12 @@
 #import "FTBUser.h"
 #import "FTBChampionship.h"
 #import "FTBSeason.h"
+#import "FTBMatch.h"
+#import "FTBBet.h"
 #import "FTAuthenticationManager.h"
+#import "NSNumber+Formatter.h"
+
+#import <TransformerKit/TTTDateTransformers.h>
 
 @implementation FTBUserSeasonEvolution
 
@@ -71,48 +76,155 @@
 
 #pragma mark - Helpers
 
++ (instancetype)currentUser {
+	return [[FTAuthenticationManager sharedManager] user];
+}
+
+- (NSSet *)bets {
+	return nil;
+}
+
+- (NSSet *)activeBets {
+	return [self.bets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"bid > 0 AND match.finished = NO AND match != nil"]];
+}
+
 - (BOOL)isMe {
-	return [[[FTAuthenticationManager sharedManager] user] isEqual:self];
+	return [[FTBUser currentUser] isEqual:self];
 }
 
 - (BOOL)canRecharge {
-	return YES;
+	return (self.totalWallet.integerValue < 100);
 }
 
 - (NSNumber *)localFunds {
-	return @0;
+	NSInteger funds = self.fundsValue;
+	if (self.isMe) {
+		for (FTBBet *bet in self.activeBets) {
+			funds += bet.bid.integerValue;
+			funds -= bet.match.myBetValue.floatValue;
+		}
+		NSMutableSet *rids = [NSMutableSet new];
+		for (FTBMatch *match in self.pendingMatchesToSyncBet) {
+			if (!match.myBet && ![rids containsObject:match.identifier]) {
+				funds -= match.myBetValue.floatValue;
+				[rids addObject:match.identifier];
+			}
+		}
+	}
+	
+	if (FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Profile", @"Wallet", 0, 0, HUGE_VAL));
+	}
+	
+	return @(funds);
 }
 
 - (NSNumber *)localStake {
-	return @0;
+	NSInteger stake = 0;
+	if (self.isMe) {
+		for (FTBBet *bet in self.activeBets) {
+			stake += bet.match.myBetValue.floatValue;
+		}
+		NSMutableSet *rids = [NSMutableSet new];
+		for (FTBMatch *match in self.pendingMatchesToSyncBet) {
+			if (!match.myBet && ![rids containsObject:match.identifier]) {
+				stake += match.myBetValue.floatValue;
+				[rids addObject:match.identifier];
+			}
+		}
+	} else {
+		stake = self.stakeValue;
+	}
+	
+	if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL));
+	}
+	
+	return @(stake);
 }
 
 - (NSNumber *)toReturn {
-	return @0;
+	float toReturn = 0;
+	if (self.isMe) {
+		for (FTBBet *bet in self.activeBets) {
+			toReturn += bet.match.myBetReturn.floatValue;
+		}
+		NSMutableSet *rids = [NSMutableSet new];
+		for (FTBMatch *match in self.pendingMatchesToSyncBet) {
+			if (!match.myBet && ![rids containsObject:match.identifier]) {
+				toReturn += match.myBetReturn.floatValue;
+				[rids addObject:match.identifier];
+			}
+		}
+	} else {
+		for (FTBBet *bet in self.activeBets) {
+			toReturn += bet.toReturn.floatValue;
+		}
+	}
+	
+	if (FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Profile", @"To Return", 0, 0, HUGE_VAL));
+	}
+	
+	return @(toReturn);
 }
 
 - (NSString *)toReturnString {
-	return @"0";
+	return self.toReturn.integerValue > 0 ? @(nearbyint(self.toReturn.doubleValue)).limitedWalletStringValue : @"-";
 }
 
 - (NSNumber *)profit {
-	return @0;
+	float profit = 0;
+	for (FTBBet *bet in self.activeBets) {
+		profit += bet.reward.floatValue;
+	}
+	
+	if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+		return @(FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL));
+	}
+	
+	return @(profit);
 }
 
 - (NSString *)profitString {
-	return @"0";
+	BOOL started = NO;
+	for (FTBBet *bet in self.activeBets) {
+		if (bet.match.status != FTBMatchStatusWaiting) {
+			started = YES;
+			break;
+		}
+	}
+	
+	if (FBTweakValue(@"Values", @"Profile", @"Profit", 0, 0, HUGE_VAL)) {
+		started = YES;
+	}
+	
+	return started ? @(nearbyint(self.profit.doubleValue)).limitedWalletStringValue : @"-";
 }
 
 - (NSNumber *)totalWallet {
-	return @0;
+	return @(self.localFunds.floatValue + self.localStake.floatValue);
 }
 
 - (NSNumber *)highestWallet {
-	return @0;
+	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
+	NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
+	if (wallet) {
+		return @(MAX(self.totalWallet.floatValue, [wallet[@"funds"] floatValue]));
+	}
+	
+	return self.totalWallet;
 }
 
 - (NSDate *)highestWalletDate {
-	return nil;
+	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
+	NSDictionary *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
+	if (wallet && [wallet[@"funds"] floatValue] > self.totalWallet.floatValue) {
+		NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:TTTISO8601DateTransformerName];
+		return [transformer reverseTransformedValue:wallet[@"date"]];
+	}
+	
+	return [NSDate date];
 }
 
 - (float)fundsValue {
@@ -124,7 +236,10 @@
 }
 
 - (NSMutableSet *)pendingMatchesToSyncBet {
-	return nil;
+	if (!_pendingMatchesToSyncBet) {
+		_pendingMatchesToSyncBet = [NSMutableSet new];
+	}
+	return _pendingMatchesToSyncBet;
 }
 
 - (NSNumber *)numberOfFans {

@@ -28,7 +28,7 @@
     [super setContext:context];
     
     if (context == GroupDetailContextAroundMe) {
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
 		NSUInteger row = [self.group.members indexOfObject:user];
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];

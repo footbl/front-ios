@@ -45,7 +45,7 @@
         [[ErrorHandler sharedInstance] displayError:error];
     };
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     [[FTBClient client] user:user.identifier success:^(FTBUser *object) {
 		self.championships = [[NSMutableArray alloc] initWithArray:object.entries];
 		[self.refreshControl endRefreshing];
@@ -86,7 +86,7 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     FTBChampionship *championship = self.championships[indexPath.row];
 	user.entries = [user.entries arrayByAddingObject:championship];
 	[[FTBClient client] updateUser:user success:^(id object) {
@@ -97,7 +97,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     FTBChampionship *championship = self.championships[indexPath.row];
 	NSMutableArray *entries = user.entries.mutableCopy;
 	[entries removeObject:championship];

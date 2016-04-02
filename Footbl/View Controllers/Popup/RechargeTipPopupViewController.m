@@ -30,7 +30,7 @@ static NSUInteger const kRechargeTipTimeInterval = 60 * 60 * 24 * 3;
 #pragma mark - Class Methods
 
 + (BOOL)shouldBePresented {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     NSDate *lastPresentedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kRechargeTipPopupDate];
     if (user.canRecharge && (!lastPresentedDate || fabs([[NSDate date] timeIntervalSinceDate:lastPresentedDate]) > kRechargeTipTimeInterval)) {
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kRechargeTipPopupDate];

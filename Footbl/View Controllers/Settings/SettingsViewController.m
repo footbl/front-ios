@@ -217,7 +217,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)supportAction:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
         MFMailComposeViewController *picker = [MFMailComposeViewController new];
         [picker setMailComposeDelegate:self];
         [picker setToRecipients:@[NSLocalizedString(@"Support email recipient", @"")]];
@@ -267,7 +267,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
 		[[FTBClient client] removeUser:user.identifier success:^(id object) {
             [self logoutAction:nil];
         } failure:^(NSError *error) {

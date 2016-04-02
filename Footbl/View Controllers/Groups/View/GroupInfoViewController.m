@@ -144,7 +144,7 @@
 - (void)reloadData {
     [super reloadData];
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     self.nameTextField.text = self.group.name;
     self.nameTextField.userInteractionEnabled = (self.group.isFreeToEdit || [self.group.owner isEqual:user]);
     [self.groupImageButton sd_setImageWithURL:self.group.pictureURL forState:UIControlStateNormal];
@@ -313,7 +313,7 @@
         notificationsButton.userInteractionEnabled = NO;
         [scrollView addSubview:notificationsButton];
 		
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
         self.notificationsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, CGRectGetHeight(notificationsButton.frame))];
         self.notificationsSwitch.center = CGPointMake(CGRectGetWidth(self.view.frame) - 40, CGRectGetMidY(notificationsButton.frame));
         self.notificationsSwitch.on = user.isNotificationsEnabled;

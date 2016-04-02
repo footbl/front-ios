@@ -98,7 +98,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 }
 
 - (IBAction)rechargeWalletAction:(id)sender {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     if (!user.canRecharge) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Ops", @"") message:NSLocalizedString(@"Cannot update wallet due to wallet balance", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
         [alert show];
@@ -183,7 +183,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
             result = 0;
         }
 		
-		FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+		FTBUser *user = [FTBUser currentUser];
         if (match.myBetValue.integerValue < currentBet && (user.localFunds.integerValue - 1) < 0) {
             if (!weakCell.isStepperSelected) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
@@ -235,7 +235,7 @@ static NSString * kMatchesHeaderViewFrameChanged = @"kMatchesHeaderViewFrameChan
 - (void)reloadWallet {
     NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     if (user) {
         [UIView animateWithDuration:[FootblAppearance speedForAnimation:FootblAnimationDefault] animations:^{
             for (UILabel *label in labels) {

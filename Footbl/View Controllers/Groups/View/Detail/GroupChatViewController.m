@@ -90,7 +90,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
 
 - (IBAction)shareAction:(id)sender {
 	ProfileBetsViewController *viewController = [[ProfileBetsViewController alloc] init];
-	viewController.user = [[FTAuthenticationManager sharedManager] user];
+	viewController.user = [FTBUser currentUser];
 	viewController.simpleSelection = YES;
 	viewController.itemSelectionBlock = ^(MatchTableViewCell *cell) {
 		CGRect frame = CGRectMake(5, 5, 80, 80);

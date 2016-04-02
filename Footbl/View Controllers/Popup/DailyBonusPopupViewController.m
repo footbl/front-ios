@@ -15,6 +15,7 @@
 
 #import "FTBClient.h"
 #import "FTBPrize.h"
+#import "FTBUser.h"
 
 @interface DailyBonusPopupViewController ()
 
@@ -73,7 +74,7 @@
         return;
     }
 	
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
 	[[FTBClient client] markPrizeAsRead:self.prize user:user success:^(id object) {
 		[self.activityIndicatorView stopAnimating];
 		[self dismissViewController];

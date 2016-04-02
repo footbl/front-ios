@@ -53,7 +53,7 @@ NSInteger const WalletReference = 105;
 #pragma mark - iRate Delegate
 
 - (BOOL)iRateShouldPromptForRating {
-	FTBUser *user = [[FTAuthenticationManager sharedManager] user];
+	FTBUser *user = [FTBUser currentUser];
     if (user.fundsValue + user.stakeValue >= WalletReference && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
         return YES;
     }
