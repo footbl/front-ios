@@ -25,8 +25,13 @@
 						   @"type": @"national league",
 						   @"picture": @"http://www.apple.com",
 						   @"country": @"Brazil"};
-	FTBChampionship *model = [FTBChampionship modelWithDictionary:dict];
+	FTBChampionship *model = [FTBChampionship modelWithJSONDictionary:dict];
 	XCTAssertNotNil(model);
+    XCTAssertEqual(model.identifier, @"abc123");
+    XCTAssertEqual(model.name, @"Brasileiro");
+    XCTAssertEqual(model.type, FTBChampionshipTypeNationalLeague);
+    XCTAssertEqualObjects(model.pictureURL, [NSURL URLWithString:@"http://www.apple.com"]);
+    XCTAssertEqual(model.country, @"Brazil");
 }
 
 - (void)testSeasonCreation {
@@ -36,7 +41,7 @@
 						   @"finishAt": @"2015-08-11 23:26:00",
 						   @"sponsor": @"Apple Inc.",
 						   @"gift": @"A $100 gift card."};
-	FTBSeason *model = [FTBSeason modelWithDictionary:dict];
+	FTBSeason *model = [FTBSeason modelWithJSONDictionary:dict];
 	XCTAssertNotNil(model);
 }
 

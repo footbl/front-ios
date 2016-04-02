@@ -122,7 +122,7 @@
 - (void)betInMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)bet:(NSString *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)betsForUser:(FTBUser *)user match:(FTBMatch *)match activeOnly:(BOOL)active page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)updateBet:(FTBBet *)bet success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)updateBet:(FTBBet *)bet match:(FTBMatch *)match success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Challenge
 
