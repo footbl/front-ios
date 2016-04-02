@@ -153,7 +153,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		}
         
 		if (currentBet == 0) {
-			result = 0;
+			result = FTBMatchResultUnknown;
 		}
 		
 		if (match.myBet.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {

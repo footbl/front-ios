@@ -74,4 +74,20 @@
 	return @(nearbyint(self.reward.doubleValue)).walletStringValue;
 }
 
+- (BOOL)isEqual:(FTBBet *)object {
+    if (self.identifier.length > 0) {
+        return [super isEqual:object];
+    } else {
+        return [object isKindOfClass:[FTBBet class]] && [object.match isEqual:self.match];
+    }
+}
+
+- (NSUInteger)hash {
+    if (self.identifier.length > 0) {
+        return [super hash];
+    } else {
+        return self.match.hash;
+    }
+}
+
 @end
