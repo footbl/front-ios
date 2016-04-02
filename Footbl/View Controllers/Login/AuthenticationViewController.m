@@ -13,7 +13,6 @@
 #import "LoginViewController.h"
 #import "SignupViewController.h"
 #import "UIView+Frame.h"
-#import "NSString+Hex.h"
 
 #import "FTBClient.h"
 
@@ -114,8 +113,7 @@
         return;
     }
 	
-	NSString *password = [NSString randomHexStringWithLength:20];
-    [[FTBClient client] createUserWithPassword:password country:nil success:^(id object) {
+	[[FTBClient client] createUserWithPassword:nil success:^(id object) {
         if (self.completionBlock) self.completionBlock();
     } failure:^(NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];

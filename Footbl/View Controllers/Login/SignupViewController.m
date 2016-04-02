@@ -83,7 +83,7 @@
     
     [[LoadingHelper sharedInstance] showHud];
 	
-	[[FTBClient client] createUserWithPassword:self.password country:nil success:^(id object) {
+	[[FTBClient client] createUserWithPassword:self.password success:^(id object) {
 		NSString *username = [self.username stringByReplacingOccurrencesOfString:@"@" withString:@"" options:kNilOptions range:NSMakeRange(0, 1)];
 		[[FTBClient client] updateUsername:username name:self.name email:self.email password:self.password fbToken:self.fbToken apnsToken:nil image:self.profileImage about:self.aboutMe success:^(id response) {
 			[[LoadingHelper sharedInstance] hideHud];
