@@ -77,7 +77,7 @@
         [[FTBClient client] users:0 success:success failure:failure];
     } else if (self.group.type == FTBGroupTypeCountry) {
         FTBUser *user = [FTBUser currentUser];
-        [[FTBClient client] usersWithCountry:user.country page:0 success:success failure:failure];
+        [[FTBClient client] usersWithCountry:user.ISOCountryCode page:0 success:success failure:failure];
     } else {
         [[FriendsHelper sharedInstance] getFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
             if (friends && !error) {

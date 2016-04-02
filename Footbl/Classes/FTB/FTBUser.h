@@ -31,6 +31,7 @@
 @property (nonatomic, copy) NSURL *pictureURL;
 @property (nonatomic, copy) NSString *apnsToken;
 @property (nonatomic, assign, getter=isActive) BOOL active;
+@property (nonatomic, copy) NSString *ISOCountryCode;
 @property (nonatomic, copy) NSString *country;
 @property (nonatomic, copy) NSNumber *funds;
 @property (nonatomic, copy) NSNumber *stake;

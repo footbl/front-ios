@@ -52,7 +52,7 @@
 							   @"pictureURL": @"picture",
 							   @"apnsToken": @"apnsToken",
 							   @"active": @"active",
-							   @"country": @"country",
+							   @"ISOCountryCode": @"country",
 							   @"funds": @"funds",
 							   @"stake": @"stake",
                                @"history": @"history"};
@@ -67,6 +67,7 @@
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
         self.wallet = @(_funds.integerValue + _stake.integerValue);
+        self.country = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:self.ISOCountryCode];
     }
     return self;
 }

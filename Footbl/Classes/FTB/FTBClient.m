@@ -17,13 +17,15 @@
 #import "FTBSeason.h"
 #import "FTBBet.h"
 #import "FTBChallenge.h"
-
+#import "NSString+Hex.h"
 #import "FTImageUploader.h"
 #import <FXKeychain/FXKeychain.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import <SPHipster/SPHipster.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
 
 static NSString * const kUserEmailKey               = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey          = @"kUserIdentifierKey";
@@ -372,9 +374,11 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 #pragma mark - User
 
-- (void)createUserWithPassword:(NSString *)password country:(NSString *)country success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"password": password}];
-	if (country) parameters[@"country"] = country;
+- (void)createUserWithPassword:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    parameters[@"password"] = password ?: [NSString randomHexStringWithLength:20];
+    parameters[@"country"] = info.subscriberCellularProvider.isoCountryCode ?: @"BR";
 	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSString *identifier) {
 		[FXKeychain defaultKeychain][kUserIdentifierKey] = identifier;
 		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
