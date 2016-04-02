@@ -17,8 +17,8 @@
 @property (nonatomic, strong) FTBUser *owner;
 @property (nonatomic, copy) NSURL *pictureURL;
 @property (nonatomic, assign, getter=isFeatured) BOOL featured;
-@property (nonatomic, copy) NSArray *invites;
-@property (nonatomic, copy) NSArray *members;
+@property (nonatomic, copy) NSArray<NSString *> *invites;
+@property (nonatomic, copy) NSArray<FTBUser *> *members;
 
 @property (nonatomic, copy) NSNumber *unreadMessagesCount;
 @property (nonatomic, assign, getter=isFreeToEdit) BOOL freeToEdit;

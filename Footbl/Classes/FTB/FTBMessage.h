@@ -16,7 +16,7 @@
 @property (nonatomic, strong, readonly) FTBModel *room;
 @property (nonatomic, copy, readonly) NSString *message;
 @property (nonatomic, copy, readonly) NSString *type;
-@property (nonatomic, copy, readonly) NSArray *seenBy;
+@property (nonatomic, copy, readonly) NSArray<FTBUser *> *seenBy;
 
 @property (nonatomic, assign) BOOL deliveryFailedValue;
 

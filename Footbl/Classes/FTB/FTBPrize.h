@@ -16,6 +16,6 @@
 @property (nonatomic, strong, readonly) FTBUser *user;
 @property (nonatomic, assign, readonly) NSNumber *value;
 @property (nonatomic, assign, readonly) FTBPrizeType type;
-@property (nonatomic, copy, readonly) NSArray *seenBy;
+@property (nonatomic, copy, readonly) NSArray<FTBUser *> *seenBy;
 
 @end

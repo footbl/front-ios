@@ -62,7 +62,8 @@
 							   @"active": @"active",
 							   @"country": @"country",
 							   @"entries": @"entries",
-							   @"seasons": @"seasons"};
+							   @"seasons": @"seasons",
+							   @"starred": @"starred"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
@@ -72,6 +73,10 @@
 
 + (NSValueTransformer *)seasonsJSONTransformer {
 	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUserSeason class]];
+}
+
++ (NSValueTransformer *)starredJSONTransformer {
+	return [MTLJSONAdapter arrayTransformerWithModelClass:[FTBUser class]];
 }
 
 #pragma mark - Helpers
@@ -97,7 +102,7 @@
 }
 
 - (NSNumber *)localFunds {
-	NSInteger funds = self.fundsValue;
+	NSInteger funds = self.funds.integerValue;
 	if (self.isMe) {
 		for (FTBBet *bet in self.activeBets) {
 			funds += bet.bid.integerValue;
@@ -133,7 +138,7 @@
 			}
 		}
 	} else {
-		stake = self.stakeValue;
+		stake = self.stake.integerValue;
 	}
 	
 	if (FBTweakValue(@"Values", @"Profile", @"Stake", 0, 0, HUGE_VAL)) {
@@ -227,14 +232,6 @@
 	return [NSDate date];
 }
 
-- (float)fundsValue {
-	return 0;
-}
-
-- (float)stakeValue {
-	return 0;
-}
-
 - (NSMutableSet *)pendingMatchesToSyncBet {
 	if (!_pendingMatchesToSyncBet) {
 		_pendingMatchesToSyncBet = [NSMutableSet new];
@@ -251,19 +248,12 @@
 }
 
 - (NSNumber *)numberOfLeagues {
-	return @0;
-}
-
-- (NSNumber *)ranking {
-	return @0;
-}
-
-- (NSNumber *)previousRanking {
-	return @0;
+	return @(self.entries.count);
 }
 
 - (NSArray *)history {
-	return @[];
+	FTBUserSeason *history = self.seasons.firstObject;
+	return history.rankings;
 }
 
 @end
