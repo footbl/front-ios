@@ -8,7 +8,7 @@
 
 #import "UserPerformanceViewController.h"
 #import "FootblAppearance.h"
-#import "UserPerformanceCell.h"
+#import "UserPerformanceTableViewCell.h"
 
 #define EVEN(A) ((A) % 2 == 0)
 
@@ -31,7 +31,7 @@
 
 #pragma mark - Private
 
-- (void)configureCell:(UserPerformanceCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(UserPerformanceTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	cell.contentView.backgroundColor = EVEN(indexPath.row) ? self.evenColor : self.oddColor;
 	cell.seasonLabel.text = @(indexPath.row + 1).stringValue;
 	cell.walletLabel.text = @(100 * indexPath.row + 100).stringValue;
@@ -50,7 +50,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserPerformanceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	UserPerformanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
 }

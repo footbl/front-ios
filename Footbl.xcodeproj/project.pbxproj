@@ -14,8 +14,8 @@
 		100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
-		102468801BBCB4AA00913511 /* MyChallengeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeCell.m */; };
-		102468811BBCB4AA00913511 /* MyChallengeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeCell.m */; };
+		102468801BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */; };
+		102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */; };
 		102468841BBCB4E000913511 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102468831BBCB4E000913511 /* MyChallengesViewController.m */; };
 		102468851BBCB4E000913511 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102468831BBCB4E000913511 /* MyChallengesViewController.m */; };
 		10390DCA1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
@@ -50,14 +50,14 @@
 		10AF59381B9C662C00168433 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AF59361B9C662C00168433 /* Main.storyboard */; };
 		10AF593B1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */; };
 		10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */; };
-		10AF593F1B9C6DDF00168433 /* TrophyRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */; };
-		10AF59401B9C6DDF00168433 /* TrophyRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */; };
+		10AF593F1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */; };
+		10AF59401B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */; };
 		10AF59431B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */; };
 		10AF59441B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */; };
 		10AF59471B9C7ED200168433 /* UserPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */; };
 		10AF59481B9C7ED200168433 /* UserPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */; };
-		10AF594B1B9C863C00168433 /* UserPerformanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceCell.m */; };
-		10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceCell.m */; };
+		10AF594B1B9C863C00168433 /* UserPerformanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceTableViewCell.m */; };
+		10AF594C1B9C863C00168433 /* UserPerformanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10AF594A1B9C863C00168433 /* UserPerformanceTableViewCell.m */; };
 		10B3AF1A1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; };
 		10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; };
 		10E2413E1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; };
@@ -302,8 +302,8 @@
 		100E6A5D1B7ADD620012093B /* FTBChampionship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChampionship.m; sourceTree = "<group>"; };
 		100E6A611B7AEC730012093B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
-		1024687E1BBCB4AA00913511 /* MyChallengeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengeCell.h; sourceTree = "<group>"; };
-		1024687F1BBCB4AA00913511 /* MyChallengeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengeCell.m; sourceTree = "<group>"; };
+		1024687E1BBCB4AA00913511 /* MyChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengeTableViewCell.h; sourceTree = "<group>"; };
+		1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengeTableViewCell.m; sourceTree = "<group>"; };
 		102468821BBCB4E000913511 /* MyChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengesViewController.h; sourceTree = "<group>"; };
 		102468831BBCB4E000913511 /* MyChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengesViewController.m; sourceTree = "<group>"; };
 		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
@@ -340,14 +340,14 @@
 		10AF59361B9C662C00168433 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		10AF59391B9C6D9A00168433 /* TrophyRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomViewController.h; sourceTree = "<group>"; };
 		10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomViewController.m; sourceTree = "<group>"; };
-		10AF593D1B9C6DDF00168433 /* TrophyRoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomCell.h; sourceTree = "<group>"; };
-		10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomCell.m; sourceTree = "<group>"; };
+		10AF593D1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomCollectionViewCell.h; sourceTree = "<group>"; };
+		10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomCollectionViewCell.m; sourceTree = "<group>"; };
 		10AF59411B9C763200168433 /* TrophyRoomPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyRoomPopupViewController.h; sourceTree = "<group>"; };
 		10AF59421B9C763200168433 /* TrophyRoomPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyRoomPopupViewController.m; sourceTree = "<group>"; };
 		10AF59451B9C7ED200168433 /* UserPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPerformanceViewController.h; sourceTree = "<group>"; };
 		10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceViewController.m; sourceTree = "<group>"; };
-		10AF59491B9C863C00168433 /* UserPerformanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPerformanceCell.h; sourceTree = "<group>"; };
-		10AF594A1B9C863C00168433 /* UserPerformanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceCell.m; sourceTree = "<group>"; };
+		10AF59491B9C863C00168433 /* UserPerformanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPerformanceTableViewCell.h; sourceTree = "<group>"; };
+		10AF594A1B9C863C00168433 /* UserPerformanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPerformanceTableViewCell.m; sourceTree = "<group>"; };
 		10B3AF181BB4D7F000E89253 /* UINavigationBar+UIProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+UIProgressView.h"; sourceTree = "<group>"; };
 		10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+UIProgressView.m"; sourceTree = "<group>"; };
 		10E2413D1BB87DAA00D1482C /* trophies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trophies.json; sourceTree = "<group>"; };
@@ -850,12 +850,12 @@
 				ED32432D192BDC8D00F54D57 /* WalletHighestTableViewCell.m */,
 				ED324329192BCD8000F54D57 /* WalletTableViewCell.h */,
 				ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */,
-				10AF593D1B9C6DDF00168433 /* TrophyRoomCell.h */,
-				10AF593E1B9C6DDF00168433 /* TrophyRoomCell.m */,
-				10AF59491B9C863C00168433 /* UserPerformanceCell.h */,
-				10AF594A1B9C863C00168433 /* UserPerformanceCell.m */,
-				1024687E1BBCB4AA00913511 /* MyChallengeCell.h */,
-				1024687F1BBCB4AA00913511 /* MyChallengeCell.m */,
+				10AF593D1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.h */,
+				10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */,
+				10AF59491B9C863C00168433 /* UserPerformanceTableViewCell.h */,
+				10AF594A1B9C863C00168433 /* UserPerformanceTableViewCell.m */,
+				1024687E1BBCB4AA00913511 /* MyChallengeTableViewCell.h */,
+				1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1788,7 +1788,7 @@
 				ED7859E8199D0C62002A4DBD /* ErrorHandler.m in Sources */,
 				ED7859E9199D0C62002A4DBD /* ForceUpdateViewController.m in Sources */,
 				ED7859EB199D0C62002A4DBD /* MatchesNavigationBarView.m in Sources */,
-				10AF593F1B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
+				10AF593F1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m in Sources */,
 				ED7859ED199D0C62002A4DBD /* TemplateTableViewCell.m in Sources */,
 				109FB2D11B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED7859EE199D0C62002A4DBD /* GroupAddMemberTableViewCell.m in Sources */,
@@ -1832,7 +1832,7 @@
 				ED785A0E199D0C62002A4DBD /* UIView+Shake.m in Sources */,
 				109FB2BF1B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED785A10199D0C62002A4DBD /* WhatsAppAPI.m in Sources */,
-				10AF594B1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
+				10AF594B1B9C863C00168433 /* UserPerformanceTableViewCell.m in Sources */,
 				ED785A12199D0C62002A4DBD /* FootblPopupViewController.m in Sources */,
 				ED3399FF1A1E86B00037F01B /* DailyBonusPopupViewController.m in Sources */,
 				100E6A631B7AEC730012093B /* UIView+Frame.m in Sources */,
@@ -1848,7 +1848,7 @@
 				ED785A1D199D0C62002A4DBD /* FootblPopupAnimatedTransition.m in Sources */,
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED785A1F199D0C62002A4DBD /* TeamImageView.m in Sources */,
-				102468801BBCB4AA00913511 /* MyChallengeCell.m in Sources */,
+				102468801BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
 				ED785A20199D0C62002A4DBD /* MatchesViewController.m in Sources */,
 				109FB2E31B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED785A21199D0C62002A4DBD /* GroupMembershipTableViewCell.m in Sources */,
@@ -1907,7 +1907,7 @@
 				ED8DB38E1A14C95C00605CCE /* ForceUpdateViewController.m in Sources */,
 				ED8DB3901A14C95C00605CCE /* MatchesNavigationBarView.m in Sources */,
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
-				10AF59401B9C6DDF00168433 /* TrophyRoomCell.m in Sources */,
+				10AF59401B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m in Sources */,
 				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
 				ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */,
@@ -1949,7 +1949,7 @@
 				109FB2C11B7C28D700E67B3C /* FTBMatch.m in Sources */,
 				ED8DB3BB1A14C95C00605CCE /* FootblPopupViewController.m in Sources */,
 				ED8DB3BC1A14C95C00605CCE /* AskFriendsViewController.m in Sources */,
-				10AF594C1B9C863C00168433 /* UserPerformanceCell.m in Sources */,
+				10AF594C1B9C863C00168433 /* UserPerformanceTableViewCell.m in Sources */,
 				ED8DB3BD1A14C95C00605CCE /* ProfileViewController.m in Sources */,
 				100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
@@ -1965,7 +1965,7 @@
 				ED8DB3C91A14C95C00605CCE /* TeamImageView.m in Sources */,
 				ED8DB3CA1A14C95C00605CCE /* MatchesViewController.m in Sources */,
 				ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */,
-				102468811BBCB4AA00913511 /* MyChallengeCell.m in Sources */,
+				102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
 				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */,
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,

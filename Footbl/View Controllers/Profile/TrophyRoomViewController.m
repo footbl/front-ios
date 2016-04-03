@@ -8,7 +8,7 @@
 
 #import "TrophyRoomViewController.h"
 #import "FTBTrophy.h"
-#import "TrophyRoomCell.h"
+#import "TrophyRoomCollectionViewCell.h"
 #import "TrophyRoomPopupViewController.h"
 #import "UINavigationBar+UIProgressView.h"
 
@@ -41,7 +41,7 @@
 	self.trophies = [MTLJSONAdapter modelsOfClass:[FTBTrophy class] fromJSONArray:array error:nil];
 }
 
-- (void)configureCell:(TrophyRoomCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(TrophyRoomCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	FTBTrophy *trophy = self.trophies[indexPath.row];
 	cell.iconImageView.image = [UIImage imageNamed:trophy.imageName];
 	cell.nameLabel.text = trophy.title;
@@ -60,7 +60,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	TrophyRoomCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+	TrophyRoomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
 }

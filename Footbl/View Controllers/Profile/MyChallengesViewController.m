@@ -10,7 +10,7 @@
 #import "FTBChallenge.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
-#import "MyChallengeCell.h"
+#import "MyChallengeTableViewCell.h"
 
 @interface MyChallengesViewController ()
 
@@ -28,7 +28,7 @@
 
 #pragma mark - Instance Methods
 
-- (void)configureCell:(MyChallengeCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(MyChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
 }
 
@@ -84,7 +84,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	MyChallengeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	MyChallengeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
 }

@@ -1,5 +1,5 @@
 //
-//  MyChallengeCell.h
+//  MyChallengeTableViewCell.h
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 9/30/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyChallengeCell : UITableViewCell
+@interface MyChallengeTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UIView *topLineView;

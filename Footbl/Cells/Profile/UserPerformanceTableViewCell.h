@@ -1,5 +1,5 @@
 //
-//  UserPerformanceCell.h
+//  UserPerformanceTableViewCell.h
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 9/6/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserPerformanceCell : UITableViewCell
+@interface UserPerformanceTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *seasonLabel;
 @property (nonatomic, weak) IBOutlet UILabel *walletLabel;
