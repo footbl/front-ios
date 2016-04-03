@@ -7,11 +7,10 @@
 //
 
 #import "FTBMatch+Sharing.h"
+#import "FTBBet.h"
+#import "FTBTeam.h"
 #import "MatchTableViewCell.h"
 #import "WhatsAppActivity.h"
-
-#import "FTBTeam.h"
-#import "FTBBet.h"
 
 @interface FTBMatch () <UIDocumentInteractionControllerDelegate>
 

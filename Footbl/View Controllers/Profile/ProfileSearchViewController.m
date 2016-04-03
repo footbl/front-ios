@@ -9,16 +9,16 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPBlock.h>
+
+#import "ProfileSearchViewController.h"
 #import "FavoriteTableViewCell.h"
 #import "FeaturedButton.h"
 #import "FeaturedViewController.h"
 #import "FriendsHelper.h"
-#import "LoadingHelper.h"
-#import "ProfileSearchViewController.h"
-#import "ProfileViewController.h"
-
 #import "FTBClient.h"
 #import "FTBUser.h"
+#import "LoadingHelper.h"
+#import "ProfileViewController.h"
 
 @interface ProfileSearchViewController ()
 

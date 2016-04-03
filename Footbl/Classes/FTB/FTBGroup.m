@@ -7,8 +7,8 @@
 //
 
 #import "FTBGroup.h"
-#import "FTBUser.h"
 #import "FTBConstants.h"
+#import "FTBUser.h"
 #import "UIImage+Text.h"
 
 @implementation FTBGroup

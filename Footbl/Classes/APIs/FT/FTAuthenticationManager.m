@@ -7,14 +7,15 @@
 //
 
 #import <FXKeychain/FXKeychain.h>
+
 #import "ErrorHandler.h"
+#import "FTBClient.h"
+#import "FTBConstants.h"
 #import "FTBuildType.h"
+#import "FTBUser.h"
 #import "FTImageUploader.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
-#import "FTBClient.h"
-#import "FTBConstants.h"
-#import "FTBUser.h"
 
 static NSString * const kUserEmailKey = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey = @"kUserIdentifierKey";

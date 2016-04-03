@@ -6,21 +6,20 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import "FootblTabBarController.h"
 #import "AuthenticationViewController.h"
 #import "BetsViewController.h"
-#import "FootblNavigationController.h"
-#import "FootblTabBarController.h"
-#import "ForceUpdateViewController.h"
-#import "GroupsViewController.h"
-#import "MatchesViewController.h"
-#import "ProfileViewController.h"
-#import "TutorialViewController.h"
 #import "FavoritesViewController.h"
-#import "MyChallengesViewController.h"
-
+#import "FootblNavigationController.h"
+#import "ForceUpdateViewController.h"
 #import "FTBClient.h"
 #import "FTBConstants.h"
 #import "FTBUser.h"
+#import "GroupsViewController.h"
+#import "MatchesViewController.h"
+#import "MyChallengesViewController.h"
+#import "ProfileViewController.h"
+#import "TutorialViewController.h"
 
 @interface FootblTabBarController ()
 

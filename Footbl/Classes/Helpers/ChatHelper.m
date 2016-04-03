@@ -7,7 +7,6 @@
 //
 
 #import "ChatHelper.h"
-
 #import "FTBClient.h"
 #import "FTBGroup.h"
 

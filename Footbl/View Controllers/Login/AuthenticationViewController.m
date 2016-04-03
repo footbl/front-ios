@@ -8,13 +8,13 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SPHipster/SPHipster.h>
+
 #import "AuthenticationViewController.h"
+#import "FTBClient.h"
 #import "ImportImageHelper.h"
 #import "LoginViewController.h"
 #import "SignupViewController.h"
 #import "UIView+Frame.h"
-
-#import "FTBClient.h"
 
 @interface AuthenticationViewController ()
 

@@ -2,6 +2,7 @@
 // Make changes to Bet.h instead.
 
 #import <CoreData/CoreData.h>
+
 #import "FTModel.h"
 
 extern const struct BetAttributes {

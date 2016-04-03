@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import <SPHipster/SPHipster.h>
 #import <Tweaks/FBTweak.h>
 #import <Tweaks/FBTweakInline.h>
 #import <Tweaks/FBTweakViewController.h>
-#import <SPHipster/SPHipster.h>
+
 #import "ErrorHandler.h"
 #import "FootblAppearance.h"
 

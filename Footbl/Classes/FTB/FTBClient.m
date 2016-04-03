@@ -6,26 +6,27 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FXKeychain/FXKeychain.h>
+#import <SPHipster/SPHipster.h>
+
 #import "FTBClient.h"
+#import "FTBBet.h"
+#import "FTBChallenge.h"
 #import "FTBChampionship.h"
 #import "FTBCreditRequest.h"
 #import "FTBGroup.h"
-#import "FTBUser.h"
 #import "FTBMatch.h"
 #import "FTBMessage.h"
 #import "FTBPrize.h"
 #import "FTBSeason.h"
-#import "FTBBet.h"
-#import "FTBChallenge.h"
-#import "NSString+Hex.h"
+#import "FTBUser.h"
 #import "FTImageUploader.h"
-#import <FXKeychain/FXKeychain.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
-#import <SPHipster/SPHipster.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <CoreTelephony/CTCarrier.h>
+#import "NSString+Hex.h"
 
 static NSString * const kUserEmailKey               = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey          = @"kUserIdentifierKey";

@@ -7,8 +7,8 @@
 //
 
 #import <SPHipster/SPLog.h>
-#import "FeaturedViewController.h"
 
+#import "FeaturedViewController.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
 

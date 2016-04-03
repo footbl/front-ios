@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import "SignupViewController.h"
 #import "AuthenticationViewController.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "LoginViewController.h"
 #import "NSString+Validations.h"
-#import "SignupViewController.h"
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
-#import "FTBClient.h"
-#import "FTBUser.h"
 
 @interface SignupViewController () <UIAlertViewDelegate>
 

@@ -7,8 +7,8 @@
 //
 
 #import "MatchesNavigationBarView.h"
-#import "UIView+Frame.h"
 #import "RechargeButton.h"
+#import "UIView+Frame.h"
 
 #pragma mark MatchesNavigationBarView
 

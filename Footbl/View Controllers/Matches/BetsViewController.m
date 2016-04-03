@@ -7,9 +7,15 @@
 //
 
 #import <SPHipster/SPHipster.h>
+
 #import "BetsViewController.h"
 #import "DailyBonusPopupViewController.h"
 #import "FootblPopupAnimatedTransition.h"
+#import "FTBChampionship.h"
+#import "FTBClient.h"
+#import "FTBMatch.h"
+#import "FTBPrize.h"
+#import "FTBUser.h"
 #import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchesViewController.h"
@@ -21,12 +27,6 @@
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
 #import "UIView+Frame.h"
-
-#import "FTBClient.h"
-#import "FTBChampionship.h"
-#import "FTBMatch.h"
-#import "FTBUser.h"
-#import "FTBPrize.h"
 
 @interface BetsViewController ()
 

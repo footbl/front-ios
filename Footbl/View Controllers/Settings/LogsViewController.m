@@ -7,6 +7,7 @@
 //
 
 #import <SPHipster/SPHipster.h>
+
 #import "LogsViewController.h"
 
 @interface LogsViewController ()

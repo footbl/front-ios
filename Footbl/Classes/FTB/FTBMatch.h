@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
-#import "FTBModel.h"
 #import "FTBConstants.h"
+#import "FTBModel.h"
 
 @class FTBChampionship;
 @class FTBTeam;

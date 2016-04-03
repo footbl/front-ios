@@ -8,15 +8,15 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPLog.h>
-#import "FavoriteTableViewCell.h"
+
 #import "FavoritesViewController.h"
+#import "FavoriteTableViewCell.h"
 #import "FeaturedButton.h"
 #import "FeaturedViewController.h"
-#import "ProfileSearchViewController.h"
-#import "ProfileViewController.h"
-
 #import "FTBClient.h"
 #import "FTBUser.h"
+#import "ProfileSearchViewController.h"
+#import "ProfileViewController.h"
 
 @interface FavoritesViewController ()
 

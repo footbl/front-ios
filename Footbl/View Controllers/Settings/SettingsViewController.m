@@ -7,23 +7,24 @@
 //
 
 @import MessageUI;
+
 #import <SPHipster/SPHipster.h>
 #import <Tweaks/FBTweak.h>
 #import <Tweaks/FBTweakInline.h>
 #import <Tweaks/FBTweakViewController.h>
+
+#import "SettingsViewController.h"
 #import "AuthenticationViewController.h"
 #import "ChangePasswordViewController.h"
-#import "FootblNavigationController.h"
 #import "EditProfileViewController.h"
+#import "FootblNavigationController.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 #import "ImportImageHelper.h"
 #import "LogsViewController.h"
 #import "SettingsTableViewCell.h"
 #import "SettingsTextViewController.h"
-#import "SettingsViewController.h"
 #import "TutorialViewController.h"
-
-#import "FTBClient.h"
-#import "FTBUser.h"
 
 typedef NS_ENUM(NSInteger, SettingsType) {
     SettingsTypeTinyInfo,

@@ -7,12 +7,11 @@
 //
 
 #import "EditProfileViewController.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
-
-#import "FTBClient.h"
-#import "FTBUser.h"
 
 @interface EditProfileViewController ()
 

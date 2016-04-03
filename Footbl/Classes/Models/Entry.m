@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "Championship.h"
 #import "Entry.h"
+#import "Championship.h"
 #import "User.h"
 
 #pragma mark Entry

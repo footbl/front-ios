@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "Group.h"
 #import "Membership.h"
+#import "Group.h"
 #import "User.h"
 
 @interface Membership ()

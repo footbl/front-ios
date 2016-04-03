@@ -7,14 +7,14 @@
 //
 
 #import <SPHipster/UIView+Frame.h>
-#import "DailyBonusPopupViewController.h"
-#import "FootblLabel.h"
-#import "ErrorHandler.h"
-#import "UIImage+Color.h"
 
+#import "DailyBonusPopupViewController.h"
+#import "ErrorHandler.h"
+#import "FootblLabel.h"
 #import "FTBClient.h"
 #import "FTBPrize.h"
 #import "FTBUser.h"
+#import "UIImage+Color.h"
 
 @interface DailyBonusPopupViewController ()
 

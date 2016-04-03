@@ -10,16 +10,16 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
 #import <SVPullToRefresh/SVPullToRefresh.h>
-#import "GroupMembershipTableViewCell.h"
-#import "GroupRankingViewController.h"
-#import "LoadingHelper.h"
-#import "NSNumber+Formatter.h"
-#import "ProfileViewController.h"
-#import "FriendsHelper.h"
 
+#import "GroupRankingViewController.h"
+#import "FriendsHelper.h"
 #import "FTBClient.h"
 #import "FTBGroup.h"
 #import "FTBUser.h"
+#import "GroupMembershipTableViewCell.h"
+#import "LoadingHelper.h"
+#import "NSNumber+Formatter.h"
+#import "ProfileViewController.h"
 
 @interface GroupRankingViewController ()
 

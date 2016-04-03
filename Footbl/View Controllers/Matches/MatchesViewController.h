@@ -10,6 +10,7 @@
 
 @class FTBChampionship;
 @class MatchesNavigationBarView;
+@class BetsViewController;
 
 @interface MatchesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 

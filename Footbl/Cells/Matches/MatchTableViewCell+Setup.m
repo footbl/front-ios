@@ -7,16 +7,16 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "FTBMatch+Sharing.h"
+
 #import "MatchTableViewCell+Setup.h"
+#import "FTBBet.h"
+#import "FTBMatch+Sharing.h"
+#import "FTBMatch.h"
+#import "FTBTeam.h"
+#import "FTBUser.h"
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
-
-#import "FTBMatch.h"
-#import "FTBBet.h"
-#import "FTBUser.h"
-#import "FTBTeam.h"
 
 #pragma mark MatchTableViewCell (Setup)
 

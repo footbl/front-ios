@@ -9,18 +9,18 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
+
+#import "TransfersViewController.h"
+#import "ErrorHandler.h"
 #import "FootblTabBarController.h"
 #import "FriendsHelper.h"
-#import "ErrorHandler.h"
-#import "LoadingHelper.h"
-#import "NSParagraphStyle+AlignmentCenter.h"
-#import "TransferTableViewCell.h"
-#import "TransfersViewController.h"
-#import "UIImage+Color.h"
-
 #import "FTBClient.h"
 #import "FTBCreditRequest.h"
 #import "FTBUser.h"
+#import "LoadingHelper.h"
+#import "NSParagraphStyle+AlignmentCenter.h"
+#import "TransferTableViewCell.h"
+#import "UIImage+Color.h"
 
 @interface TransfersViewController ()
 

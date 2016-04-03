@@ -6,29 +6,29 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <AudioToolbox/AudioToolbox.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Flurry-iOS-SDK/Flurry.h>
-#import <Tweaks/FBTweakShakeWindow.h>
 #import <GoogleAnalytics/GAI.h>
 #import <SPHipster/SPHipster.h>
 #import <SPNotifier/SPNotifier.h>
+#import <Tweaks/FBTweakShakeWindow.h>
+
 #import "AppDelegate.h"
 #import "ChatHelper.h"
-#import "FriendsHelper.h"
 #import "FootblTabBarController.h"
-#import "ImportImageHelper.h"
-#import "LoadingHelper.h"
-#import "TutorialViewController.h"
-#import "RatingHelper.h"
-#import "SDImageCache+ShippedCache.h"
-
+#import "FriendsHelper.h"
 #import "FTBClient.h"
 #import "FTBGroup.h"
 #import "FTBMatch.h"
+#import "ImportImageHelper.h"
+#import "LoadingHelper.h"
+#import "RatingHelper.h"
+#import "SDImageCache+ShippedCache.h"
+#import "TutorialViewController.h"
 
 #pragma mark AppDelegate
 

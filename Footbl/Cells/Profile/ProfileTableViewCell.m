@@ -7,6 +7,7 @@
 //
 
 #import <StyledPageControl/StyledPageControl.h>
+
 #import "ProfileTableViewCell.h"
 #import "UIView+Frame.h"
 

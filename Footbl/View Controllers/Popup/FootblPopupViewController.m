@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "FootblPopupAnimatedTransition.h"
 #import "FootblPopupViewController.h"
+#import "FootblPopupAnimatedTransition.h"
 
 @interface FootblPopupViewController () <UIViewControllerTransitioningDelegate>
 

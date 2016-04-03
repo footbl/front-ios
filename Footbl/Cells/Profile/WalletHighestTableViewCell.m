@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "NSNumber+Formatter.h"
 #import "WalletHighestTableViewCell.h"
+#import "NSNumber+Formatter.h"
 
 @interface WalletHighestTableViewCell ()
 

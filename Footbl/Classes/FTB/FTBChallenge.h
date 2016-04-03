@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
-#import "FTBModel.h"
 #import "FTBMatch.h"
+#import "FTBModel.h"
 
 @class FTBUser;
 

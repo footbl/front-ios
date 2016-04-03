@@ -7,11 +7,10 @@
 //
 
 #import "TrophyRoomViewController.h"
+#import "FTBTrophy.h"
 #import "TrophyRoomCell.h"
 #import "TrophyRoomPopupViewController.h"
 #import "UINavigationBar+UIProgressView.h"
-
-#import "FTBTrophy.h"
 
 @interface TrophyRoomViewController ()
 

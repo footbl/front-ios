@@ -8,27 +8,27 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVPullToRefresh/SVPullToRefresh.h>
+
+#import "ProfileViewController.h"
 #import "AnonymousViewController.h"
 #import "FavoritesViewController.h"
 #import "FootblTabBarController.h"
-#import "LoadingHelper.h"
+#import "FTBBet.h"
+#import "FTBClient.h"
 #import "FTBMatch+Sharing.h"
+#import "FTBUser.h"
+#import "LoadingHelper.h"
 #import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
-#import "ProfileChampionshipTableViewCell.h"
 #import "ProfileBetsViewController.h"
+#import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
-#import "ProfileViewController.h"
 #import "SettingsViewController.h"
 #import "TransfersHelper.h"
 #import "TransfersViewController.h"
 #import "WalletGraphTableViewCell.h"
 #import "WalletHighestTableViewCell.h"
 #import "WalletTableViewCell.h"
-
-#import "FTBClient.h"
-#import "FTBUser.h"
-#import "FTBBet.h"
 
 @interface ProfileViewController ()
 

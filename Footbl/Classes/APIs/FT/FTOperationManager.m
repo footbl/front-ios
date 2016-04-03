@@ -7,9 +7,10 @@
 //
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+
+#import "FTOperationManager.h"
 #import "ErrorHandler.h"
 #import "FTModel.h"
-#import "FTOperationManager.h"
 #import "FTRequestSerializer.h"
 #import "FTResponseSerializer.h"
 #import "NSURLRequest+FTAuthentication.h"

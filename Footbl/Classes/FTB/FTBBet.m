@@ -7,9 +7,8 @@
 //
 
 #import "FTBBet.h"
-#import "FTBUser.h"
 #import "FTBMatch.h"
-
+#import "FTBUser.h"
 #import "NSNumber+Formatter.h"
 
 @implementation FTBBet

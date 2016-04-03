@@ -7,11 +7,10 @@
 //
 
 #import "FTBMatch.h"
-#import "FTBTeam.h"
 #import "FTBBet.h"
-#import "FTBUser.h"
 #import "FTBClient.h"
-
+#import "FTBTeam.h"
+#import "FTBUser.h"
 #import "NSNumber+Formatter.h"
 
 @implementation FTBMatch

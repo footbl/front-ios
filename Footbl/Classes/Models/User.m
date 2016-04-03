@@ -9,11 +9,12 @@
 #import <CargoBay/CargoBay.h>
 #import <RMStore/RMStore.h>
 #import <TransformerKit/TTTDateTransformers.h>
+
+#import "User.h"
 #import "Bet.h"
 #import "Group.h"
 #import "NSNumber+Formatter.h"
 #import "RatingHelper.h"
-#import "User.h"
 
 NSString * const kUserManagedObjectRepresentationKey = @"kUserManagedObjectRepresentation";
 

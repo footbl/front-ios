@@ -10,8 +10,8 @@
 #import <APAddressBook/APContact.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <SPHipster/SPHipster.h>
-#import "FriendsHelper.h"
 
+#import "FriendsHelper.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
 

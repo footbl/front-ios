@@ -7,13 +7,13 @@
 //
 
 #import <SPHipster/UIView+Frame.h>
+
+#import "RechargeTipPopupViewController.h"
 #import "FootblLabel.h"
 #import "FootblPopupViewController.h"
-#import "RechargeButton.h"
-#import "RechargeTipPopupViewController.h"
-#import "UIImage+Color.h"
-
 #import "FTBUser.h"
+#import "RechargeButton.h"
+#import "UIImage+Color.h"
 
 @interface RechargeTipPopupViewController ()
 

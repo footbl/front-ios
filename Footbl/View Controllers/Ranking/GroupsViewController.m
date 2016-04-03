@@ -8,18 +8,18 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
-#import "AnonymousViewController.h"
-#import "GroupRankingViewController.h"
-#import "GroupsViewController.h"
-#import "GroupTableViewCell.h"
-#import "FootblNavigationController.h"
-#import "NSString+Hex.h"
-#import "UIImage+Text.h"
 
-#import "FTBClient.h"
+#import "GroupsViewController.h"
+#import "AnonymousViewController.h"
+#import "FootblNavigationController.h"
 #import "FTBChampionship.h"
+#import "FTBClient.h"
 #import "FTBGroup.h"
 #import "FTBUser.h"
+#import "GroupRankingViewController.h"
+#import "GroupTableViewCell.h"
+#import "NSString+Hex.h"
+#import "UIImage+Text.h"
 
 @interface GroupsViewController ()
 

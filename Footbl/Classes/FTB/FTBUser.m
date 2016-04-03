@@ -7,11 +7,11 @@
 //
 
 #import "FTBUser.h"
-#import "FTBChampionship.h"
-#import "FTBSeason.h"
-#import "FTBMatch.h"
 #import "FTBBet.h"
+#import "FTBChampionship.h"
 #import "FTBClient.h"
+#import "FTBMatch.h"
+#import "FTBSeason.h"
 #import "NSNumber+Formatter.h"
 
 #pragma mark - FTBHistory

@@ -9,17 +9,17 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/UIView+Frame.h>
 #import <UIAlertView-Blocks/UIActionSheet+Blocks.h>
-#import "ChatTableViewCell.h"
+
 #import "GroupChatViewController.h"
+#import "ChatTableViewCell.h"
 #import "ErrorHandler.h"
+#import "FTBClient.h"
+#import "FTBGroup.h"
+#import "FTBMessage.h"
+#import "FTBUser.h"
 #import "FTImageUploader.h"
 #import "ProfileBetsViewController.h"
 #import "ProfileViewController.h"
-
-#import "FTBClient.h"
-#import "FTBUser.h"
-#import "FTBMessage.h"
-#import "FTBGroup.h"
 
 @interface GroupChatViewController ()
 

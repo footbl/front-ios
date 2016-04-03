@@ -7,13 +7,13 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+
+#import "MyLeaguesViewController.h"
+#import "FTBChampionship.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 #import "GroupChampionshipTableViewCell.h"
 #import "LoadingHelper.h"
-#import "MyLeaguesViewController.h"
-
-#import "FTBClient.h"
-#import "FTBChampionship.h"
-#import "FTBUser.h"
 
 @interface MyLeaguesViewController ()
 

@@ -7,10 +7,10 @@
 //
 
 #import "_FTModel.h"
+#import "FTBConstants.h"
 #import "FTCoreDataStore.h"
 #import "FTOperationManager.h"
 #import "NSManagedObjectContext+FTAddons.h"
-#import "FTBConstants.h"
 
 extern NSString * const kFTRequestParamResourcePathObject;
 extern NSString * const kFTResponseParamIdentifier;

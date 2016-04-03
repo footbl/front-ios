@@ -7,9 +7,11 @@
 //
 
 @import AudioToolbox;
+
 #import <TransformerKit/TTTDateTransformers.h>
-#import "Group.h"
+
 #import "Message.h"
+#import "Group.h"
 #import "User.h"
 
 @interface Message ()

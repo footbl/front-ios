@@ -7,10 +7,11 @@
 //
 
 #import <TransformerKit/TTTDateTransformers.h>
+
+#import "Match.h"
 #import "Bet.h"
 #import "Championship.h"
 #import "NSNumber+Formatter.h"
-#import "Match.h"
 #import "Team.h"
 #import "User.h"
 

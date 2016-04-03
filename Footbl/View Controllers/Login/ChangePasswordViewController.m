@@ -7,12 +7,11 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "FTBClient.h"
 #import "LoadingHelper.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
 #import "UIView+Frame.h"
-
-#import "FTBClient.h"
 
 @interface ChangePasswordViewController () <UITextFieldDelegate>
 

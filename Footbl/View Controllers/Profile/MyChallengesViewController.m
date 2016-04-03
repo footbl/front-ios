@@ -7,10 +7,10 @@
 //
 
 #import "MyChallengesViewController.h"
-#import "MyChallengeCell.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
+#import "MyChallengeCell.h"
 
 @interface MyChallengesViewController ()
 

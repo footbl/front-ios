@@ -7,9 +7,9 @@
 //
 
 #import "NSURLRequest+FTAuthentication.h"
+#import "FTBUser.h"
 #import "NSString+Hex.h"
 #import "NSString+SHA1.h"
-#import "FTBUser.h"
 
 #pragma mark NSURLRequest (FTAuthentication)
 

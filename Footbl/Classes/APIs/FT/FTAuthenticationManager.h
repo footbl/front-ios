@@ -8,6 +8,7 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 #import <Foundation/Foundation.h>
+
 #import "FTBConstants.h"
 
 @class FTBUser;

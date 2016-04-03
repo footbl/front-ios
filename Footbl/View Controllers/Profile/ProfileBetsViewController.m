@@ -7,14 +7,14 @@
 //
 
 #import <SVPullToRefresh/SVPullToRefresh.h>
+
+#import "ProfileBetsViewController.h"
+#import "FTBBet.h"
+#import "FTBClient.h"
+#import "FTBMatch.h"
+#import "FTBUser.h"
 #import "LoadingHelper.h"
 #import "MatchTableViewCell+Setup.h"
-#import "ProfileBetsViewController.h"
-
-#import "FTBClient.h"
-#import "FTBUser.h"
-#import "FTBBet.h"
-#import "FTBMatch.h"
 
 @interface ProfileBetsViewController ()
 

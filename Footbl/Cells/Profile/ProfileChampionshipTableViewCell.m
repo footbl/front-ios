@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "UIView+Frame.h"
 #import "ProfileChampionshipTableViewCell.h"
+#import "UIView+Frame.h"
 
 #pragma mark ProfileChampionshipTableViewCell
 

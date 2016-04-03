@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "AppDelegate.h"
 #import "Championship.h"
+#import "AppDelegate.h"
 
 @interface Championship ()
 

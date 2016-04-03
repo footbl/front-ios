@@ -8,6 +8,7 @@
 
 #import <SDWebImage/SDWebImageManager.h>
 #import <SPHipster/SPHipster.h>
+
 #import "SDImageCache+ShippedCache.h"
 
 #pragma mark SDImageCache (ShippedCache)

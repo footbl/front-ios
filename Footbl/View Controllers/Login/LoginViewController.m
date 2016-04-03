@@ -7,10 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "FTBClient.h"
 #import "NSString+Validations.h"
 #import "UILabel+Shake.h"
-
-#import "FTBClient.h"
 
 @interface LoginViewController ()
 

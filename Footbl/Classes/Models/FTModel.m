@@ -8,8 +8,9 @@
 
 #import <SPHipster/SPLog.h>
 #import <TransformerKit/TTTDateTransformers.h>
-#import "AppDelegate.h"
+
 #import "FTModel.h"
+#import "AppDelegate.h"
 
 #pragma mark FTModel
 

@@ -6,15 +6,14 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import "RechargeViewController.h"
 #import "AskFriendsViewController.h"
 #import "FootblLabel.h"
-#import "NSParagraphStyle+AlignmentCenter.h"
-#import "LoadingHelper.h"
-#import "RechargeViewController.h"
-#import "UIView+Frame.h"
-
 #import "FTBClient.h"
 #import "FTBUser.h"
+#import "LoadingHelper.h"
+#import "NSParagraphStyle+AlignmentCenter.h"
+#import "UIView+Frame.h"
 
 @interface RechargeViewController ()
 

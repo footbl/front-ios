@@ -7,9 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+
 #import "FTBChampionship.h"
-#import "FTBSeason.h"
 #import "FTBClient.h"
+#import "FTBSeason.h"
 
 @interface FTBClientTestCase : XCTestCase
 

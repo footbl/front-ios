@@ -8,8 +8,8 @@
 
 #import <iRate/iRate.h>
 #import <SPHipster/SPHipster.h>
-#import "RatingHelper.h"
 
+#import "RatingHelper.h"
 #import "FTBUser.h"
 
 NSInteger const WalletReference = 105;

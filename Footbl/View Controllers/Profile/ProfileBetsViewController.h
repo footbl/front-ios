@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "TemplateViewController.h"
 #import "MatchTableViewCell.h"
+#import "TemplateViewController.h"
 
 @class FTBUser;
 

@@ -7,8 +7,8 @@
 //
 
 #import "UIImage+Text.h"
-#import "UILabel+Image.h"
 #import "FootblAppearance.h"
+#import "UILabel+Image.h"
 
 @implementation UIImage (Text)
 

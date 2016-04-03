@@ -7,8 +7,8 @@
 //
 
 #import "AFHTTPRequestOperationManager.h"
-#import "FTRequestSerializer.h"
 #import "FTBConstants.h"
+#import "FTRequestSerializer.h"
 
 typedef NS_ENUM(NSUInteger, FTEnvironment) {
     FTEnvironmentDevelopment = 1,

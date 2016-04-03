@@ -7,6 +7,7 @@
 //
 
 #import <SPHipster/SPLog.h>
+
 #import "NSManagedObjectContext+FTAddons.h"
 
 #pragma mark NSManagedObjectContext (FTAddons)

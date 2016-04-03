@@ -2,6 +2,7 @@
 // Make changes to Championship.h instead.
 
 #import <CoreData/CoreData.h>
+
 #import "FTModel.h"
 
 extern const struct ChampionshipAttributes {

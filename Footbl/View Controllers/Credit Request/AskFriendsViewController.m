@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import <FBSDKShareKit/FBSDKShareKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+
 #import "AskFriendsViewController.h"
 #import "AskFriendTableViewCell.h"
 #import "FriendsHelper.h"
-#import "LoadingHelper.h"
-
 #import "FTBClient.h"
 #import "FTBCreditRequest.h"
-#import <FBSDKShareKit/FBSDKShareKit.h>
+#import "LoadingHelper.h"
 
 @interface AskFriendsViewController () <FBSDKAppInviteDialogDelegate>
 

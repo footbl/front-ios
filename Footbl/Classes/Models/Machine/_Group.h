@@ -2,6 +2,7 @@
 // Make changes to Group.h instead.
 
 #import <CoreData/CoreData.h>
+
 #import "FTModel.h"
 
 extern const struct GroupAttributes {

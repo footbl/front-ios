@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+#import "TweaksHelper.h"
 #import "BetsViewController.h"
 #import "DailyBonusPopupViewController.h"
 #import "ForceUpdateViewController.h"
 #import "RatingHelper.h"
 #import "RechargeTipPopupViewController.h"
-#import "TweaksHelper.h"
 
 #pragma mark TweaksHelper
 

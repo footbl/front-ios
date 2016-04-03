@@ -8,13 +8,19 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
+
+#import "MatchesViewController.h"
 #import "BetsViewController.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
+#import "FTBBet.h"
+#import "FTBChampionship.h"
+#import "FTBClient.h"
+#import "FTBMatch.h"
+#import "FTBUser.h"
 #import "LoadingHelper.h"
-#import "MatchTableViewCell+Setup.h"
 #import "MatchesNavigationBarView.h"
-#import "MatchesViewController.h"
+#import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
 #import "RechargeButton.h"
 #import "RechargeViewController.h"
@@ -22,12 +28,6 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "WhatsAppActivity.h"
-
-#import "FTBClient.h"
-#import "FTBChampionship.h"
-#import "FTBMatch.h"
-#import "FTBUser.h"
-#import "FTBBet.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 

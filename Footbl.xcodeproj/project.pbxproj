@@ -80,6 +80,8 @@
 		A36E0C701C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
 		A39897781CB107C100957063 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
 		A39897791CB107CF00957063 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */; };
+		A3BA1F801CB11B270016ABD0 /* sort_all_files_imports.sh in Resources */ = {isa = PBXBuildFile; fileRef = A3BA1F7E1CB11B270016ABD0 /* sort_all_files_imports.sh */; };
+		A3BA1F811CB11B270016ABD0 /* sort_imports.rb in Resources */ = {isa = PBXBuildFile; fileRef = A3BA1F7F1CB11B270016ABD0 /* sort_imports.rb */; };
 		C332A9AB2207A3CC34A7137F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5D5DF36EEC1E74FB497345 /* libPods.a */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -372,6 +374,8 @@
 		A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Image.m"; sourceTree = "<group>"; };
 		A36E0C6D1C9F8A66001ABB35 /* UIImage+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Text.h"; sourceTree = "<group>"; };
 		A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Text.m"; sourceTree = "<group>"; };
+		A3BA1F7E1CB11B270016ABD0 /* sort_all_files_imports.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sort_all_files_imports.sh; sourceTree = "<group>"; };
+		A3BA1F7F1CB11B270016ABD0 /* sort_imports.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sort_imports.rb; sourceTree = "<group>"; };
 		B005579EBA51B58B46344318 /* Pods-FootblTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.qa.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.qa.xcconfig"; sourceTree = "<group>"; };
 		BA5D5DF36EEC1E74FB497345 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEF1B0551EDC989B98DC1AF /* Pods-FootblTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -813,6 +817,15 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		A3BA1F7D1CB11B270016ABD0 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				A3BA1F7E1CB11B270016ABD0 /* sort_all_files_imports.sh */,
+				A3BA1F7F1CB11B270016ABD0 /* sort_imports.rb */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		ED19A3FF190A221B00946490 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1102,6 +1115,7 @@
 				EDB1D46418E1F18B00E0C949 /* Frameworks */,
 				EDB1D46318E1F18B00E0C949 /* Products */,
 				3D817901AA42FF645D926E1F /* Pods */,
+				A3BA1F7D1CB11B270016ABD0 /* Scripts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1379,6 +1393,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED785A60199D0C62002A4DBD /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
+				A3BA1F821CB11BCC0016ABD0 /* Sort Imports */,
 				B79011EE5EE28CAC9B9B95E5 /* Check Pods Manifest.lock */,
 				ED83A99719B1278A0089CC5F /* Set Info.plist values */,
 				ED7859E1199D0C62002A4DBD /* Sources */,
@@ -1503,10 +1518,12 @@
 				117043FE1A8EB45E00521BAB /* Localizable.stringsdict in Resources */,
 				ED785A57199D0C62002A4DBD /* InfoPlist.strings in Resources */,
 				ED7C716919F949310002E6B0 /* match_start.wav in Resources */,
+				A3BA1F801CB11B270016ABD0 /* sort_all_files_imports.sh in Resources */,
 				ED785A58199D0C62002A4DBD /* tutorial_5@2x.png in Resources */,
 				ED7C716619F949310002E6B0 /* match_end.wav in Resources */,
 				ED785A59199D0C62002A4DBD /* tutorial_3_480@2x.png in Resources */,
 				ED7C716319F949310002E6B0 /* get_money.wav in Resources */,
+				A3BA1F811CB11B270016ABD0 /* sort_imports.rb in Resources */,
 				ED785A5A199D0C62002A4DBD /* tutorial_2@2x.png in Resources */,
 				10AF59371B9C662C00168433 /* Main.storyboard in Resources */,
 				ED785A5B199D0C62002A4DBD /* tutorial_4_480@2x.png in Resources */,
@@ -1638,6 +1655,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+		};
+		A3BA1F821CB11BCC0016ABD0 /* Sort Imports */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sort Imports";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\nScripts/sort_all_files_imports.sh";
 		};
 		A903C8981E126D039A7A8C34 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

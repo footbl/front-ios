@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import "FTImageUploader.h"
-#import "FriendsHelper.h"
 #import "Group.h"
+#import "FriendsHelper.h"
+#import "FTImageUploader.h"
 #import "Membership.h"
 #import "User.h"
 
