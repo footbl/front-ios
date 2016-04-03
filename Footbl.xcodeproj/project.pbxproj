@@ -70,6 +70,7 @@
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
+		12FC3A82CA743268EFFC7D66 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6911042CCDF25C6DB5496404 /* libPods-FootblTests.a */; };
 		A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
 		A33E52B21CA8AE4900D9AA0C /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */; };
 		A33E52B31CA8AE4900D9AA0C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
@@ -77,6 +78,9 @@
 		A36E0C6C1C9F7F45001ABB35 /* UILabel+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */; };
 		A36E0C6F1C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
 		A36E0C701C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
+		A39897781CB107C100957063 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
+		A39897791CB107CF00957063 /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */; };
+		C332A9AB2207A3CC34A7137F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5D5DF36EEC1E74FB497345 /* libPods.a */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
 		ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -356,6 +360,7 @@
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		11ABF5BB1AA4EE2100625930 /* Footbl 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Footbl 2.xcdatamodel"; sourceTree = "<group>"; };
+		6911042CCDF25C6DB5496404 /* libPods-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E08490AFBDD175A994D6E79 /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
@@ -710,6 +715,7 @@
 				ED8DB3F41A14C95C00605CCE /* CoreGraphics.framework in Frameworks */,
 				ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */,
 				ED8DB3F71A14C95C00605CCE /* Foundation.framework in Frameworks */,
+				C332A9AB2207A3CC34A7137F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +725,7 @@
 			files = (
 				EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */,
 				EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */,
+				12FC3A82CA743268EFFC7D66 /* libPods-FootblTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,6 +1122,7 @@
 				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
 				BA5D5DF36EEC1E74FB497345 /* libPods.a */,
+				6911042CCDF25C6DB5496404 /* libPods-FootblTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1394,9 +1402,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl App Store" */;
 			buildPhases = (
+				895251E94752433AA4B4E43B /* Check Pods Manifest.lock */,
 				ED8DB3861A14C95C00605CCE /* Sources */,
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
 				ED8DB3F91A14C95C00605CCE /* Resources */,
+				89F6CB3C8239FBBD6832115E /* Embed Pods Frameworks */,
+				BABA7A6B5DF6E1272605D92E /* Copy Pods Resources */,
 				A39897771CB1072D00957063 /* Fabric */,
 			);
 			buildRules = (
@@ -1570,6 +1581,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		895251E94752433AA4B4E43B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		89F6CB3C8239FBBD6832115E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A39897761CB104AD00957063 /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1626,6 +1667,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BABA7A6B5DF6E1272605D92E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDAB280DA31ADC24BDF79917 /* Check Pods Manifest.lock */ = {
@@ -1867,6 +1923,7 @@
 				100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */,
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
 				10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
+				A39897791CB107CF00957063 /* GroupRankingViewController.m in Sources */,
 				102468851BBCB4E000913511 /* MyChallengesViewController.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
@@ -1917,6 +1974,7 @@
 				ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */,
 				ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */,
 				ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */,
+				A39897781CB107C100957063 /* GroupsViewController.m in Sources */,
 				ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2182,10 +2240,11 @@
 		};
 		ED8DB4151A14C95C00605CCE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDE4864F9BBE7E8ADC88E9E9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2207,10 +2266,11 @@
 		};
 		ED8DB4161A14C95C00605CCE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A94E2ED7272E8470E0DF8BA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2231,10 +2291,11 @@
 		};
 		ED8DB4171A14C95C00605CCE /* QA */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E113EDA55184F9B58135E145 /* Pods.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
