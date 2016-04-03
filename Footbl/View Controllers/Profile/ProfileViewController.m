@@ -24,6 +24,9 @@
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
 #import "SettingsViewController.h"
+#import "TableViewDataSource.h"
+#import "TableViewRow.h"
+#import "TableViewSection.h"
 #import "TransfersHelper.h"
 #import "TransfersViewController.h"
 #import "WalletGraphTableViewCell.h"
@@ -32,9 +35,10 @@
 
 @interface ProfileViewController ()
 
-@property (strong, nonatomic) AnonymousViewController *anonymousViewController;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
-@property (assign, nonatomic) NSUInteger nextPage;
+@property (nonatomic, strong) AnonymousViewController *anonymousViewController;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, assign) NSUInteger nextPage;
+@property (nonatomic, strong) TableViewDataSource *dataSource;
 
 @end
 
@@ -91,145 +95,153 @@
     return UPDATE_INTERVAL_NEVER;
 }
 
-- (void)reloadContent {
+- (void)reloadData {
+    [super reloadData];
+    
     if (![[FTBClient client] isAuthenticated]) {
         self.user = nil;
         [self.tableView reloadData];
         return;
     }
     
-    __weak typeof(self) weakSelf = self;
-    [[FTBClient client] user:self.user.identifier success:^(FTBUser *user) {
-        weakSelf.user = user;
-        [weakSelf.tableView reloadData];
-    } failure:nil];
-}
-
-- (void)reloadData {
-    [super reloadData];
-    
-    if (![[FTBClient client] isAuthenticated]) {
-        return;
-    }
-    
     if (!self.user.isMe && !self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
     }
-    
-    [self reloadContent];
-    
-    void(^failure)(NSError *error) = ^(NSError *error) {
-        [self reloadContent];
-        [self.refreshControl endRefreshing];
-        [[ErrorHandler sharedInstance] displayError:error];
-    };
 	
 	__weak typeof(self) weakSelf = self;
 	[[FTBClient client] user:self.user.identifier success:^(FTBUser *user) {
-		[weakSelf reloadContent];
+        weakSelf.user = user;
+        [weakSelf reloadContent];
+		[weakSelf.tableView reloadData];
         [weakSelf.refreshControl endRefreshing];
-	} failure:failure];
+	} failure:^(NSError *error) {
+        [weakSelf.tableView reloadData];
+        [weakSelf.refreshControl endRefreshing];
+        [[ErrorHandler sharedInstance] displayError:error];
+    }];
+}
+
+- (void)reloadContent {
+    __weak typeof(self) weakSelf = self;
+    
+    self.dataSource = [[TableViewDataSource alloc] init];
+    
+    TableViewSection *profileSection = [[TableViewSection alloc] init];
+    [self.dataSource addSection:profileSection];
+    
+    TableViewRow *profileRow = [[TableViewRow alloc] initWithClass:[ProfileTableViewCell class] reuseIdentifier:@"ProfileCell"];
+    profileRow.setup = ^(ProfileTableViewCell *cell, NSIndexPath *indexPath) {
+        cell.nameLabel.text = weakSelf.user.name;
+        cell.usernameLabel.text = weakSelf.user.username;
+        cell.verified = weakSelf.user.isVerified;
+        if (weakSelf.user.isMe) {
+            cell.starImageView.highlightedImage = nil;
+        }
+        cell.aboutText = weakSelf.user.about;
+        
+        if (weakSelf.followers.count >= MAX_FOLLOWERS_COUNT) {
+            cell.followersLabel.text = [NSString stringWithFormat:@"%@+", @(weakSelf.followers.count).shortStringValue];
+        } else if (weakSelf.followers.count > 0) {
+            cell.followersLabel.text = @(weakSelf.followers.count).shortStringValue;
+        } else {
+            cell.followersLabel.text = @"";
+        }
+        [cell.profileImageView sd_setImageWithURL:weakSelf.user.pictureURL placeholderImage:cell.placeholderImage];
+        
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
+        cell.dateLabel.text = [formatter stringFromDate:weakSelf.user.createdAt];
+        
+        FTBUser *me = [FTBUser currentUser];
+        if (!weakSelf.user.isMe && [weakSelf.followers containsObject:me]) {
+            [weakSelf.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        } else {
+            [weakSelf.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        }
+    };
+    profileRow.height = 93;
+    [profileSection addRow:profileRow];
+    
+    TableViewRow *walletRow = [[TableViewRow alloc] initWithClass:[WalletTableViewCell class] reuseIdentifier:@"WalletCell"];
+    walletRow.setup = ^(WalletTableViewCell *cell, NSIndexPath *indexPath) {
+        cell.valueText = weakSelf.user.wallet.walletStringValue;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    };
+    walletRow.height = 67;
+    [profileSection addRow:walletRow];
+    
+    TableViewRow *highestWalletRow = [[TableViewRow alloc] initWithClass:[WalletHighestTableViewCell class] reuseIdentifier:@"WalletHighestCell"];
+    highestWalletRow.setup = ^(WalletHighestTableViewCell *cell, NSIndexPath *indexPath) {
+        if (weakSelf.user) {
+            [cell setHighestValue:weakSelf.user.highestWallet withDate:weakSelf.user.highestWalletDate];
+        } else {
+            [cell setHighestValue:@0 withDate:[NSDate date]];
+        }
+    };
+    highestWalletRow.height = 43;
+    [profileSection addRow:highestWalletRow];
+    
+    if (self.user.history.count >= MINIMUM_HISTORY_COUNT) {
+        TableViewRow *graphRow = [[TableViewRow alloc] initWithClass:[WalletGraphTableViewCell class] reuseIdentifier:@"WalletGraphCell"];
+        graphRow.setup = ^(WalletGraphTableViewCell *cell, NSIndexPath *indexPath) {
+            cell.dataSource = weakSelf.user.history;
+            cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), cell.dataSource];
+        };
+        graphRow.height = 164;
+        [profileSection addRow:graphRow];
+    }
+    
+    TableViewSection *rankingSection = [[TableViewSection alloc] init];
+    rankingSection.headerViewHeight = 10;
+    [self.dataSource addSection:rankingSection];
+    
+    TableViewRow *championshipRow = [[TableViewRow alloc] initWithClass:[ProfileChampionshipTableViewCell class] reuseIdentifier:@"ChampionshipCell"];
+    championshipRow.setup = ^(ProfileChampionshipTableViewCell *cell, NSIndexPath *indexPath) {
+        cell.championshipImageView.image = [UIImage imageNamed:@"world_icon"];
+        cell.nameLabel.text = NSLocalizedString(@"World", @"");
+        if (weakSelf.user.ranking.integerValue > 0) {
+            cell.rankingLabel.text = weakSelf.user.ranking.rankingStringValue;
+        } else {
+            cell.rankingLabel.text = @"";
+        }
+        
+        if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", YES) && weakSelf.user.ranking && weakSelf.user.previousRanking) {
+            cell.rankingProgress = @(weakSelf.user.previousRanking.integerValue - weakSelf.user.ranking.integerValue);
+        } else {
+            cell.rankingProgress = @0;
+        }
+    };
+    championshipRow.height = 67;
+    [rankingSection addRow:championshipRow];
+    
+    TableViewRow *historyRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class] reuseIdentifier:@"Cell"];
+    historyRow.setup = ^(UITableViewCell *cell, NSIndexPath *indexPath) {
+        cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
+        [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
+    };
+    historyRow.height = 50;
+    [rankingSection addRow:historyRow];
+    
+    if (self.user.isMe) {
+        TableViewSection *settingsSection = [[TableViewSection alloc] init];
+        settingsSection.headerViewHeight = 10;
+        [weakSelf.dataSource addSection:settingsSection];
+        
+        TableViewRow *settingsRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class] reuseIdentifier:@"Cell"];
+        settingsRow.setup = ^(UITableViewCell *cell, NSIndexPath *indexPath) {
+            cell.textLabel.text = NSLocalizedString(@"Settings", @"");
+            [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
+        };
+        settingsRow.height = 50;
+        [settingsSection addRow:settingsRow];
+    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case 0:
-            switch (indexPath.row) {
-                case 0: {
-                    ProfileTableViewCell *profileCell = (ProfileTableViewCell *)cell;
-                    profileCell.nameLabel.text = self.user.name;
-                    profileCell.usernameLabel.text = self.user.username;
-                    profileCell.verified = self.user.isVerified;
-                    if (self.user.isMe) {
-                        profileCell.starImageView.highlightedImage = nil;
-                    }
-                    profileCell.aboutText = self.user.about;
-
-                    if (self.followers.count >= MAX_FOLLOWERS_COUNT) {
-                        profileCell.followersLabel.text = [NSString stringWithFormat:@"%@+", @(self.followers.count).shortStringValue];
-                    } else if (self.followers.count > 0) {
-                        profileCell.followersLabel.text = @(self.followers.count).shortStringValue;
-                    } else {
-                        profileCell.followersLabel.text = @"";
-                    }
-                    [profileCell.profileImageView sd_setImageWithURL:self.user.pictureURL placeholderImage:profileCell.placeholderImage];
-                    
-                    NSDateFormatter *formatter = [NSDateFormatter new];
-                    formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
-                    profileCell.dateLabel.text = [formatter stringFromDate:self.user.createdAt];
-					
-					FTBUser *me = [FTBUser currentUser];
-                    if (!self.user.isMe && [self.followers containsObject:me]) {
-                        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                    } else {
-                        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-                    }
-                    break;
-                }
-                case 1: {
-                    WalletTableViewCell *walletCell = (WalletTableViewCell *)cell;
-                    walletCell.valueText = self.user.wallet.walletStringValue;
-                    walletCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
-                }
-                case 2: {
-                    WalletHighestTableViewCell *walletCell = (WalletHighestTableViewCell *)cell;
-                    if (self.user) {
-                        [walletCell setHighestValue:@(self.user.highestWallet.integerValue) withDate:self.user.highestWalletDate];
-                    } else {
-                        [walletCell setHighestValue:@0 withDate:[NSDate date]];
-                    }
-                    break;
-                }
-                case 3: {
-                    WalletGraphTableViewCell *walletCell = (WalletGraphTableViewCell *)cell;
-                    walletCell.dataSource = self.user.history;
-                    walletCell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), walletCell.dataSource];
-                    break;
-                }
-                default:
-                    break;
-            }
-            break;
-        case 1: {
-            switch (indexPath.row) {
-                case 1: {
-                    cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
-                    [self configureCellAppearance:cell atIndexPath:indexPath];
-                    break;
-                }
-                default: {
-                    ProfileChampionshipTableViewCell *championshipCell = (ProfileChampionshipTableViewCell *)cell;
-                    [championshipCell.championshipImageView setImage:[UIImage imageNamed:@"world_icon"]];
-                    championshipCell.nameLabel.text = NSLocalizedString(@"World", @"");
-                    if (self.user.ranking.integerValue > 0) {
-                        championshipCell.rankingLabel.text = self.user.ranking.rankingStringValue;
-                    } else {
-                        championshipCell.rankingLabel.text = @"";
-                    }
-                    
-                    if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", YES) && self.user.ranking && self.user.previousRanking) {
-                        championshipCell.rankingProgress = @(self.user.previousRanking.integerValue - self.user.ranking.integerValue);
-                    } else {
-                        championshipCell.rankingProgress = @(0);
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-        case 2: {
-            [self configureCellAppearance:cell atIndexPath:indexPath];
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = NSLocalizedString(@"Settings", @"");
-                    break;
-                default:
-                    break;
-            }
-        }
-        default:
-            break;
+    TableViewSection *section = [self.dataSource sectionAtIndex:indexPath.section];
+    TableViewRow *row = [section rowAtIndex:indexPath.row];
+    if (row.setup) {
+        row.setup(cell, indexPath);
     }
 }
 
@@ -262,13 +274,10 @@
 
 #pragma mark - UITableView data source
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 10)];
-        view.backgroundColor = [UIColor clearColor];
-        return view;
-    } else if (section == 2) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), 7)];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)aSection {
+    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
+    if (section.headerViewHeight > 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), section.headerViewHeight)];
         view.backgroundColor = [UIColor clearColor];
         return view;
     } else {
@@ -276,72 +285,24 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
-        return 10;
-    } else if (section == 2) {
-        return 10;
-    }
-    
-    return 0;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)aSection {
+    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
+    return section.headerViewHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return self.dataSource.numberOfSections;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 3 + (self.user.history.count >= MINIMUM_HISTORY_COUNT ? 1 : 0);
-        case 1:
-            return 2;
-        case 2:
-            return 1;
-        default:
-            return 1;
-    }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)aSection {
+    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
+    return section.numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"Cell";
-    switch (indexPath.section) {
-        case 0:
-            switch (indexPath.row) {
-                case 0:
-                    identifier = @"ProfileCell";
-                    break;
-                case 1:
-                    identifier = @"WalletCell";
-                    break;
-                case 2:
-                    identifier = @"WalletHighestCell";
-                    break;
-                case 3:
-                    identifier = @"WalletGraphCell";
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case 1:
-            switch (indexPath.row) {
-                case 1:
-                    identifier = @"Cell";
-                    break;
-                default:
-                    identifier = @"ChampionshipCell";
-                    break;
-            }
-            break;
-        case 2:
-            identifier = @"Cell";
-            break;
-        default:
-            break;
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    TableViewSection *section = [self.dataSource sectionAtIndex:indexPath.section];
+    TableViewRow *row = [section rowAtIndex:indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:row.resuseIdentifier forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -349,33 +310,9 @@
 #pragma mark - UITableView delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case 0:
-            switch (indexPath.row) {
-                case 0:
-                    return 93;
-                case 1:
-                    return 67;
-                case 2:
-                    return 43;
-                case 3:
-                    return 164;
-            }
-            break;
-        case 1:
-            switch (indexPath.row) {
-                case 1:
-                    return 50;
-                default:
-                    return 67;
-            }
-        case 2:
-            return 50;
-        default:
-            break;
-    }
-    
-    return 0;
+    TableViewSection *section = [self.dataSource sectionAtIndex:indexPath.section];
+    TableViewRow *row = [section rowAtIndex:indexPath.row];
+    return row.height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

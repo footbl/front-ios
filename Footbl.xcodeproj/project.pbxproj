@@ -100,6 +100,12 @@
 		A3ECBC061CB1C0C1006BD2AF /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC021CB1C0C1006BD2AF /* FTImageUploader.m */; };
 		A3ECBC091CB1C0DB006BD2AF /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC081CB1C0DB006BD2AF /* FootblAppearance.m */; };
 		A3ECBC0A1CB1C0DB006BD2AF /* FootblAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC081CB1C0DB006BD2AF /* FootblAppearance.m */; };
+		A3ECBC0D1CB1C908006BD2AF /* TableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC0C1CB1C908006BD2AF /* TableViewDataSource.m */; };
+		A3ECBC0E1CB1C908006BD2AF /* TableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC0C1CB1C908006BD2AF /* TableViewDataSource.m */; };
+		A3ECBC111CB1C954006BD2AF /* TableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC101CB1C954006BD2AF /* TableViewSection.m */; };
+		A3ECBC121CB1C954006BD2AF /* TableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC101CB1C954006BD2AF /* TableViewSection.m */; };
+		A3ECBC151CB1C961006BD2AF /* TableViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC141CB1C961006BD2AF /* TableViewRow.m */; };
+		A3ECBC161CB1C961006BD2AF /* TableViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC141CB1C961006BD2AF /* TableViewRow.m */; };
 		C332A9AB2207A3CC34A7137F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5D5DF36EEC1E74FB497345 /* libPods.a */; };
 		DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399FE1A1E86B00037F01B /* DailyBonusPopupViewController.m */; };
 		ED3399F51A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3399F41A1E21920037F01B /* RechargeTipPopupViewController.m */; };
@@ -391,6 +397,12 @@
 		A3ECBC021CB1C0C1006BD2AF /* FTImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTImageUploader.m; sourceTree = "<group>"; };
 		A3ECBC071CB1C0DB006BD2AF /* FootblAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblAppearance.h; sourceTree = "<group>"; };
 		A3ECBC081CB1C0DB006BD2AF /* FootblAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblAppearance.m; sourceTree = "<group>"; };
+		A3ECBC0B1CB1C908006BD2AF /* TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewDataSource.h; sourceTree = "<group>"; };
+		A3ECBC0C1CB1C908006BD2AF /* TableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDataSource.m; sourceTree = "<group>"; };
+		A3ECBC0F1CB1C954006BD2AF /* TableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSection.h; sourceTree = "<group>"; };
+		A3ECBC101CB1C954006BD2AF /* TableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewSection.m; sourceTree = "<group>"; };
+		A3ECBC131CB1C961006BD2AF /* TableViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewRow.h; sourceTree = "<group>"; };
+		A3ECBC141CB1C961006BD2AF /* TableViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewRow.m; sourceTree = "<group>"; };
 		B005579EBA51B58B46344318 /* Pods-FootblTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.qa.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.qa.xcconfig"; sourceTree = "<group>"; };
 		BA5D5DF36EEC1E74FB497345 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEF1B0551EDC989B98DC1AF /* Pods-FootblTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -767,6 +779,12 @@
 				A3ECBC001CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m */,
 				A3ECBC011CB1C0C1006BD2AF /* FTImageUploader.h */,
 				A3ECBC021CB1C0C1006BD2AF /* FTImageUploader.m */,
+				A3ECBC0B1CB1C908006BD2AF /* TableViewDataSource.h */,
+				A3ECBC0C1CB1C908006BD2AF /* TableViewDataSource.m */,
+				A3ECBC0F1CB1C954006BD2AF /* TableViewSection.h */,
+				A3ECBC101CB1C954006BD2AF /* TableViewSection.m */,
+				A3ECBC131CB1C961006BD2AF /* TableViewRow.h */,
+				A3ECBC141CB1C961006BD2AF /* TableViewRow.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1710,6 +1728,7 @@
 				ED785A16199D0C62002A4DBD /* SignupViewController.m in Sources */,
 				ED785A18199D0C62002A4DBD /* WalletTableViewCell.m in Sources */,
 				ED785A1C199D0C62002A4DBD /* ChangePasswordViewController.m in Sources */,
+				A3ECBC151CB1C961006BD2AF /* TableViewRow.m in Sources */,
 				ED785A1E199D0C62002A4DBD /* ProfileChampionshipTableViewCell.m in Sources */,
 				102468801BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
 				ED785A20199D0C62002A4DBD /* MatchesViewController.m in Sources */,
@@ -1726,6 +1745,7 @@
 				109FB2DD1B7C385500E67B3C /* FTBBet.m in Sources */,
 				ED785A27199D0C62002A4DBD /* TemplateViewController.m in Sources */,
 				ED785A28199D0C62002A4DBD /* UILabel+Shake.m in Sources */,
+				A3ECBC111CB1C954006BD2AF /* TableViewSection.m in Sources */,
 				A36E0C6B1C9F7F45001ABB35 /* UILabel+Image.m in Sources */,
 				A36E0C6F1C9F8A66001ABB35 /* UIImage+Text.m in Sources */,
 				ED785A2B199D0C62002A4DBD /* RechargeViewController.m in Sources */,
@@ -1734,6 +1754,7 @@
 				ED785A30199D0C62002A4DBD /* SettingsViewController.m in Sources */,
 				ED785A31199D0C62002A4DBD /* FootblNavigationController.m in Sources */,
 				ED785A32199D0C62002A4DBD /* LogsViewController.m in Sources */,
+				A3ECBC0D1CB1C908006BD2AF /* TableViewDataSource.m in Sources */,
 				ED785A33199D0C62002A4DBD /* AskFriendTableViewCell.m in Sources */,
 				A3ECBBF51CB1C0B9006BD2AF /* FeaturedButton.m in Sources */,
 				ED785A34199D0C62002A4DBD /* SettingsTableViewCell.m in Sources */,
@@ -1827,6 +1848,7 @@
 				ED8DB3C61A14C95C00605CCE /* ChangePasswordViewController.m in Sources */,
 				ED8DB3C81A14C95C00605CCE /* ProfileChampionshipTableViewCell.m in Sources */,
 				ED8DB3CA1A14C95C00605CCE /* MatchesViewController.m in Sources */,
+				A3ECBC161CB1C961006BD2AF /* TableViewRow.m in Sources */,
 				ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */,
 				102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
 				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
@@ -1843,6 +1865,7 @@
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */,
 				ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */,
+				A3ECBC121CB1C954006BD2AF /* TableViewSection.m in Sources */,
 				100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */,
 				ED8DB3DA1A14C95C00605CCE /* SettingsViewController.m in Sources */,
 				ED8DB3DB1A14C95C00605CCE /* FootblNavigationController.m in Sources */,
@@ -1851,6 +1874,7 @@
 				EDA4BBEC1A2262A900A41004 /* ChatTableViewCell.m in Sources */,
 				ED8DB3DD1A14C95C00605CCE /* AskFriendTableViewCell.m in Sources */,
 				ED8DB3DE1A14C95C00605CCE /* SettingsTableViewCell.m in Sources */,
+				A3ECBC0E1CB1C908006BD2AF /* TableViewDataSource.m in Sources */,
 				ED8DB3DF1A14C95C00605CCE /* main.m in Sources */,
 				A3ECBBF61CB1C0B9006BD2AF /* FeaturedButton.m in Sources */,
 				10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
