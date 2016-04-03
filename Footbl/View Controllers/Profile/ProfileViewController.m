@@ -287,13 +287,13 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.user.isMe ? 3 : 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 3 + ([self.user.history count] >= MINIMUM_HISTORY_COUNT ? 1 : 0);
+            return 3 + (self.user.history.count >= MINIMUM_HISTORY_COUNT ? 1 : 0);
         case 1:
             return 2;
         case 2:
@@ -333,7 +333,6 @@
                     identifier = @"ChampionshipCell";
                     break;
             }
-            
             break;
         case 2:
             identifier = @"Cell";
