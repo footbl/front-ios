@@ -8,8 +8,13 @@
 
 #import "MyChallengesViewController.h"
 #import "MyChallengeCell.h"
+#import "FTBChallenge.h"
+#import "FTBClient.h"
+#import "FTBUser.h"
 
 @interface MyChallengesViewController ()
+
+@property (nonatomic, strong) NSMutableArray *challenges;
 
 @end
 
@@ -30,6 +35,7 @@
 #pragma mark - Lifecycle
 
 - (void)commomInit {
+    // TODO: Localization missing
     self.title = @"Challenges";
     
     UIImage *image = [UIImage imageNamed:@"tabbar-groups"];
@@ -57,10 +63,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    
+    FTBUser *user = [FTBUser currentUser];
+    [[FTBClient client] challengesForChallenger:user challenged:user page:0 success:^(id challenges) {
+        self.challenges = challenges;
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -70,7 +80,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 10;
+	return self.challenges.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
