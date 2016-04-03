@@ -134,7 +134,7 @@
 }
 
 - (NSString *)myBetValueString {
-	return [self.myBet.bid isEqualToNumber:@0] ? @"-" : self.myBet.bid.walletStringValue;
+	return self.myBet.bid.integerValue == 0 ? @"-" : self.myBet.bid.walletStringValue;
 }
 
 - (NSNumber *)myBetReturn {
@@ -151,7 +151,7 @@
 }
 
 - (NSString *)myBetReturnString {
-	return [self.myBet.bid isEqualToNumber:@0] ? @"-" : @(nearbyint(self.myBetReturn.doubleValue)).walletStringValue;
+	return self.myBet.bid.integerValue == 0 ? @"-" : @(nearbyint(self.myBetReturn.doubleValue)).walletStringValue;
 }
 
 - (NSNumber *)myBetProfit {

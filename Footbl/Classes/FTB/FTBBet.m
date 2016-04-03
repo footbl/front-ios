@@ -34,7 +34,7 @@
 }
 
 - (NSString *)valueString {
-	return [self.bid isEqualToNumber:@0] ? @"-" : self.bid.walletStringValue;
+	return self.bid.integerValue == 0 ? @"-" : self.bid.walletStringValue;
 }
 
 - (NSNumber *)toReturn {
@@ -51,11 +51,11 @@
 }
 
 - (NSString *)toReturnString {
-	return [self.bid isEqualToNumber:@0] ? @"-" : @(nearbyint(self.toReturn.doubleValue)).walletStringValue;
+	return self.bid.integerValue == 0 ? @"-" : @(nearbyint(self.toReturn.doubleValue)).walletStringValue;
 }
 
 - (NSNumber *)reward {
-	if ([self.bid isEqualToNumber:@0] || self.match.status == FTBMatchStatusWaiting) {
+	if (self.bid.integerValue == 0 || self.match.status == FTBMatchStatusWaiting) {
 		return @0;
 	}
 	
@@ -67,7 +67,7 @@
 }
 
 - (NSString *)rewardString {
-	if ([self.bid isEqualToNumber:@0] || self.match.status == FTBMatchStatusWaiting) {
+	if (self.bid.integerValue == 0 || self.match.status == FTBMatchStatusWaiting) {
 		return @"-";
 	}
 	return @(nearbyint(self.reward.doubleValue)).walletStringValue;
