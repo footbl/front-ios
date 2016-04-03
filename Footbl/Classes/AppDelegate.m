@@ -8,7 +8,8 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
-//#import <Crashlytics/Crashlytics.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Flurry-iOS-SDK/Flurry.h>
 #import <Tweaks/FBTweakShakeWindow.h>
@@ -63,7 +64,7 @@
 
     SPLog(@"%@ (%@) v%@", SPGetApplicationName(), NSStringFromBuildType(SPGetBuildType()), SPGetApplicationVersion());
     
-//    [Crashlytics startWithAPIKey:@"ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6"];
+    [Fabric with:@[CrashlyticsKit]];
     [Flurry startSession:@"3TYX4BPG48MS9B89F2VB"];
     
     [[AFNetworkActivityLogger sharedLogger] startLogging];

@@ -9,7 +9,8 @@ pod 'SPHipster', :path => 'Footbl/Pods/SPHipster' #'0.5.3'
 pod 'SPNotifier', :path => 'Footbl/Pods/SPNotifier' #'0.2.2'
 
 # Analytics
-#pod 'CrashlyticsFramework', '2.2.5'
+pod 'Fabric', '1.6.7'
+pod 'Crashlytics', '3.7.0'
 pod 'GoogleAnalytics', '3.14.0'
 pod 'Flurry-iOS-SDK', '7.5.2'
 
@@ -37,6 +38,8 @@ pod 'StyledPageControl', '1.0'
 pod 'SVPullToRefresh', '0.4.1'
 pod 'Tweaks', '1.1.0'
 pod 'UIAlertView-Blocks', '1.0'
+
+link_with 'Footbl', 'Footbl App Store'
 
 target 'FootblTests', :exclusive => true do
     pod 'KIF', '3.0.8'

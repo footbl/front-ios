@@ -70,7 +70,6 @@
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C41A9C122F0058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
-		5C98C85E2F23D2D3BE4566A4 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3189792E68B3083707771523 /* libPods-FootblTests.a */; };
 		A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
 		A33E52B21CA8AE4900D9AA0C /* GroupRankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52AE1CA8AE4900D9AA0C /* GroupRankingViewController.m */; };
 		A33E52B31CA8AE4900D9AA0C /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
@@ -155,7 +154,6 @@
 		ED785A44199D0C62002A4DBD /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		ED785A45199D0C62002A4DBD /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED785A47199D0C62002A4DBD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
-		ED785A48199D0C62002A4DBD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		ED785A49199D0C62002A4DBD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
 		ED785A4A199D0C62002A4DBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		ED785A4F199D0C62002A4DBD /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
@@ -249,7 +247,6 @@
 		ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED8DB3F41A14C95C00605CCE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
-		ED8DB3F51A14C95C00605CCE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46B18E1F18B00E0C949 /* CoreData.framework */; };
 		ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
 		ED8DB3F71A14C95C00605CCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		ED8DB3FA1A14C95C00605CCE /* tutorial_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDDCF23E1934EDA20090D06D /* tutorial_3@2x.png */; };
@@ -276,7 +273,6 @@
 		EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBF91A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
 		EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
-		EDB1D48418E1F18B00E0C949 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D48318E1F18B00E0C949 /* XCTest.framework */; };
 		EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
 		EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
 		EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D48D18E1F18B00E0C949 /* InfoPlist.strings */; };
@@ -360,7 +356,6 @@
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		11ABF5BB1AA4EE2100625930 /* Footbl 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Footbl 2.xcdatamodel"; sourceTree = "<group>"; };
-		3189792E68B3083707771523 /* libPods-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E08490AFBDD175A994D6E79 /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupChatViewController.m; sourceTree = "<group>"; };
@@ -582,7 +577,6 @@
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EDB1D46918E1F18B00E0C949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		EDB1D46B18E1F18B00E0C949 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl App Store-Info.plist"; sourceTree = "<group>"; };
 		EDB1D47118E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB1D47318E1F18B00E0C949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -592,7 +586,6 @@
 		EDB1D47A18E1F18B00E0C949 /* Footbl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Footbl.xcdatamodel; sourceTree = "<group>"; };
 		EDB1D47C18E1F18B00E0C949 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDB1D48318E1F18B00E0C949 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EDB1D48C18E1F18B00E0C949 /* FootblTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
 		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDB1D49018E1F18B00E0C949 /* FootblTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootblTests.m; sourceTree = "<group>"; };
@@ -704,7 +697,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED785A47199D0C62002A4DBD /* CoreGraphics.framework in Frameworks */,
-				ED785A48199D0C62002A4DBD /* CoreData.framework in Frameworks */,
 				ED785A49199D0C62002A4DBD /* UIKit.framework in Frameworks */,
 				ED785A4A199D0C62002A4DBD /* Foundation.framework in Frameworks */,
 				095188328E580BE4F51382C0 /* libPods.a in Frameworks */,
@@ -716,7 +708,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED8DB3F41A14C95C00605CCE /* CoreGraphics.framework in Frameworks */,
-				ED8DB3F51A14C95C00605CCE /* CoreData.framework in Frameworks */,
 				ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */,
 				ED8DB3F71A14C95C00605CCE /* Foundation.framework in Frameworks */,
 			);
@@ -726,10 +717,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDB1D48418E1F18B00E0C949 /* XCTest.framework in Frameworks */,
 				EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */,
 				EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */,
-				5C98C85E2F23D2D3BE4566A4 /* libPods-FootblTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,13 +1111,10 @@
 		EDB1D46418E1F18B00E0C949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EDB1D46B18E1F18B00E0C949 /* CoreData.framework */,
 				EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */,
 				EDB1D46518E1F18B00E0C949 /* Foundation.framework */,
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
-				EDB1D48318E1F18B00E0C949 /* XCTest.framework */,
 				BA5D5DF36EEC1E74FB497345 /* libPods.a */,
-				3189792E68B3083707771523 /* libPods-FootblTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1393,6 +1379,7 @@
 				ED83A99819B127AA0089CC5F /* Remove temporary Info.plist */,
 				3FFE7037C14637329ADA4CD5 /* Embed Pods Frameworks */,
 				A903C8981E126D039A7A8C34 /* Copy Pods Resources */,
+				A39897761CB104AD00957063 /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -1410,6 +1397,7 @@
 				ED8DB3861A14C95C00605CCE /* Sources */,
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
 				ED8DB3F91A14C95C00605CCE /* Resources */,
+				A39897771CB1072D00957063 /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -1581,6 +1569,34 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A39897761CB104AD00957063 /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
+		};
+		A39897771CB1072D00957063 /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
 		A903C8981E126D039A7A8C34 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
