@@ -16,9 +16,10 @@
         self.contentView.backgroundColor = [UIColor ftb_greenGrassColor];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        self.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:30];
+        self.titleLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:17];
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.titleLabel.text = @"Challenge!";
         [self.contentView addSubview:self.titleLabel];
     }

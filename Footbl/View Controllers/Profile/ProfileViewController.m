@@ -21,6 +21,7 @@
 #import "MatchTableViewCell+Setup.h"
 #import "NSNumber+Formatter.h"
 #import "ProfileBetsViewController.h"
+#import "ProfileChallengeTableViewCell.h"
 #import "ProfileChampionshipTableViewCell.h"
 #import "ProfileTableViewCell.h"
 #import "SettingsViewController.h"
@@ -191,6 +192,16 @@
         [profileSection addRow:graphRow];
     }
     
+    if (!self.user.isMe) {
+        TableViewSection *challengeSection = [[TableViewSection alloc] init];
+        challengeSection.headerViewHeight = 10;
+        [self.dataSource addSection:challengeSection];
+        
+        TableViewRow *challengeRow = [[TableViewRow alloc] initWithClass:[ProfileChallengeTableViewCell class] reuseIdentifier:@"ChallengeCell"];
+        challengeRow.height = 50;
+        [challengeSection addRow:challengeRow];
+    }
+    
     TableViewSection *rankingSection = [[TableViewSection alloc] init];
     rankingSection.headerViewHeight = 10;
     [self.dataSource addSection:rankingSection];
@@ -219,6 +230,9 @@
         cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
         [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
     };
+    historyRow.selection = ^(NSIndexPath *indexPath) {
+        [weakSelf betsAction:nil];
+    };
     historyRow.height = 50;
     [rankingSection addRow:historyRow];
     
@@ -231,6 +245,9 @@
         settingsRow.setup = ^(UITableViewCell *cell, NSIndexPath *indexPath) {
             cell.textLabel.text = NSLocalizedString(@"Settings", @"");
             [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
+        };
+        settingsRow.selection = ^(NSIndexPath *indexPath) {
+            [weakSelf settingsAction:nil];
         };
         settingsRow.height = 50;
         [settingsSection addRow:settingsRow];
@@ -316,15 +333,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 && indexPath.row == 1) {
-        [self betsAction:nil];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    } else if (indexPath.section == 2 && indexPath.row == 0) {
-        [self settingsAction:nil];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    } else if (indexPath.section == 2 && indexPath.row == 1) {
-        [self settingsAction:nil];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TableViewSection *section = [self.dataSource sectionAtIndex:indexPath.section];
+    TableViewRow *row = [section rowAtIndex:indexPath.row];
+    if (row.selection) {
+        row.selection(indexPath);
     }
     
     if (self.user.isMe) {
@@ -402,6 +414,7 @@
     [self.tableView registerClass:[ProfileChampionshipTableViewCell class] forCellReuseIdentifier:@"ChampionshipCell"];
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.tableView registerClass:[WalletGraphTableViewCell class] forCellReuseIdentifier:@"WalletGraphCell"];
+    [self.tableView registerClass:[ProfileChallengeTableViewCell class] forCellReuseIdentifier:@"ChallengeCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     
@@ -410,6 +423,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
     
     [TransfersHelper fetchCountWithBlock:^(NSUInteger count) {
         if (count == 0) {
