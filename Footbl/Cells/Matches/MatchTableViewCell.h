@@ -57,7 +57,6 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
 @property (strong, nonatomic) TeamImageView *hostImageView;
-@property (strong, nonatomic) TeamImageView *hostDisabledImageView;
 @property (strong, nonatomic) UIStepper *hostStepper;
 
 // Draw
@@ -71,16 +70,13 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
 @property (strong, nonatomic) TeamImageView *guestImageView;
-@property (strong, nonatomic) TeamImageView *guestDisabledImageView;
 @property (strong, nonatomic) UIStepper *guestStepper;
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 @property (strong, nonatomic) UIButton *shareButton;
 
 @property (strong, nonatomic) UITapGestureRecognizer *guestImageViewGestureRecognizer;
-@property (strong, nonatomic) UITapGestureRecognizer *guestDisabledImageViewGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *hostImageViewGestureRecognizer;
-@property (strong, nonatomic) UITapGestureRecognizer *hostDisabledImageViewGestureRecognizer;
 @property (strong, nonatomic) UITapGestureRecognizer *versusLabelGestureRecognizer;
 
 

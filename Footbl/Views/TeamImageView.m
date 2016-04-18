@@ -13,6 +13,7 @@
 @interface TeamImageView ()
 
 @property (nonatomic, strong) UIImage *originalImage;
+@property (nonatomic, strong) UIColor *disabledColor;
 
 @end
 
@@ -31,29 +32,33 @@
 - (void)setImage:(UIImage *)image {
     self.originalImage = image;
     
-    if ([self.tintColor isEqual:[UIColor clearColor]]) {
+    if (self.isEnabled) {
         [super setImage:image];
     } else {
         [self.operation cancel];
-        
-        self.operation = [image imageWithTintColor:self.tintColor completion:^(UIImage *image) {
+        self.operation = [image imageWithTintColor:self.disabledColor completion:^(UIImage *image) {
             [super setImage:image];
         }];
     }
 }
 
-- (void)setTintColor:(UIColor *)tintColor {
-    [super setTintColor:tintColor];
+- (void)setEnabled:(BOOL)enabled {
+    _enabled = enabled;
     
-    if ([self.tintColor isEqual:[UIColor clearColor]]) {
+    if (enabled) {
         [super setImage:self.originalImage];
     } else {
         [self.operation cancel];
-        
-        self.operation = [self.originalImage imageWithTintColor:self.tintColor completion:^(UIImage *image) {
+        self.operation = [self.originalImage imageWithTintColor:self.disabledColor completion:^(UIImage *image) {
             [super setImage:image];
         }];
     }
+}
+
+- (void)setAlpha:(CGFloat)alpha {
+    [super setAlpha:alpha];
+    
+    self.enabled = (alpha == 1);
 }
 
 #pragma mark - Instance Methods
@@ -61,7 +66,8 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.tintColor = [UIColor clearColor];
+        _enabled = YES;
+        _disabledColor = [UIColor grayColor];
     }
     return self;
 }
@@ -84,62 +90,80 @@
     return queue;
 }
 
++ (NSCache *)cache {
+    static NSCache *cache;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cache = [[NSCache alloc] init];
+        cache.name = @"com.footbl.cache.image";
+    });
+    return cache;
+}
+
 #pragma mark - Instace Methods
 
 - (NSOperation *)imageWithTintColor:(UIColor *)tintColor completion:(void (^)(UIImage *))completion {
-    if (completion) {
-        NSBlockOperation *operation = [[NSBlockOperation alloc] init];
-        __weak typeof(operation) weakOperation = operation;
-        [operation addExecutionBlock:^{
-            CGRect frame = CGRectZero;
-            frame.size = self.size;
-            UIGraphicsBeginImageContextWithOptions(frame.size, NO, self.scale);
-            
-            // Get the graphic context
-            CGContextRef context = UIGraphicsGetCurrentContext();
-            
-            // Draw the image
-            [self drawInRect:frame];
-            
-            // Converting a UIImage to a CGImage flips the image,
-            // so apply a upside-down translation
-            CGContextTranslateCTM(context, 0, self.size.height);
-            CGContextScaleCTM(context, 1.0, -1.0);
-            
-            // Set the fill color space
-            CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-            CGContextSetFillColorSpace(context, colorSpace);
-            
-            // Set the mask to only tint non-transparent pixels
-            CGContextClipToMask(context, frame, self.CGImage);
-            
-            // Set the fill color
-            CGContextSetFillColorWithColor(context, tintColor.CGColor);
-            UIRectFillUsingBlendMode(frame, kCGBlendModeColor);
-            
-            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            
-            // Release memory
-            CGColorSpaceRelease(colorSpace);
-            
-            if (weakOperation.isCancelled) {
-                return;
-            }
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if (!weakOperation.isCancelled) {
-                    completion(image);
-                }
-            }];
-        }];
-        
-        [self.class.queue addOperation:operation];
-        
-        return operation;
+    if (!completion) {
+        return nil;
     }
     
-    return nil;
+    UIImage *cachedImage = [self.class.cache objectForKey:@(self.hash)];
+    if (cachedImage) {
+        completion(cachedImage);
+        return nil;
+    }
+    
+    NSBlockOperation *operation = [[NSBlockOperation alloc] init];
+    __weak typeof(operation) weakOperation = operation;
+    [operation addExecutionBlock:^{
+        CGRect frame = CGRectZero;
+        frame.size = self.size;
+        UIGraphicsBeginImageContextWithOptions(frame.size, NO, self.scale);
+        
+        // Get the graphic context
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        // Draw the image
+        [self drawInRect:frame];
+        
+        // Converting a UIImage to a CGImage flips the image,
+        // so apply a upside-down translation
+        CGContextTranslateCTM(context, 0, self.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        
+        // Set the fill color space
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGContextSetFillColorSpace(context, colorSpace);
+        
+        // Set the mask to only tint non-transparent pixels
+        CGContextClipToMask(context, frame, self.CGImage);
+        
+        // Set the fill color
+        CGContextSetFillColorWithColor(context, tintColor.CGColor);
+        UIRectFillUsingBlendMode(frame, kCGBlendModeColor);
+        
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        // Release memory
+        CGColorSpaceRelease(colorSpace);
+        
+        [self.class.cache setObject:image forKey:@(self.hash)];
+        
+        if (weakOperation.isCancelled) {
+            return;
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if (!weakOperation.isCancelled) {
+                completion(image);
+            }
+        }];
+    }];
+    
+    [self.class.queue addOperation:operation];
+    
+    return operation;
 }
 
 @end

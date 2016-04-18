@@ -35,23 +35,13 @@ static CGFloat kDisabledAlpha = 0.4;
         }];
     };
     void(^setAlphaToHost)(CGFloat alpha) = ^(CGFloat alpha) {
-        setAlphaToViews(@[self.hostNameLabel, self.hostPotLabel], alpha);
-        if (alpha == kDisabledAlpha) {
-            self.hostImageView.alpha = 0;
-        } else {
-            self.hostImageView.alpha = 1;
-        }
+        setAlphaToViews(@[self.hostNameLabel, self.hostPotLabel, self.hostImageView], alpha);
     };
     void(^setAlphaToDraw)(CGFloat alpha) = ^(CGFloat alpha) {
         setAlphaToViews(@[self.drawLabel, self.drawPotLabel, self.versusLabel], alpha);
     };
     void(^setAlphaToGuest)(CGFloat alpha) = ^(CGFloat alpha) {
-        setAlphaToViews(@[self.guestNameLabel, self.guestPotLabel], alpha);
-        if (alpha == kDisabledAlpha) {
-            self.guestImageView.alpha = 0;
-        } else {
-            self.guestImageView.alpha = 1;
-        }
+        setAlphaToViews(@[self.guestNameLabel, self.guestPotLabel, self.guestImageView], alpha);
     };
     
     switch (self.layout) {
@@ -113,9 +103,7 @@ static CGFloat kDisabledAlpha = 0.4;
             // Images
             self.versusLabel.y = 125;
             self.hostImageView.y = self.versusLabel.y;
-            self.hostDisabledImageView.y = self.versusLabel.y;
             self.guestImageView.y = self.versusLabel.y;
-            self.guestDisabledImageView.y = self.versusLabel.y;
             
             // Footer
             self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + 26);
@@ -155,9 +143,7 @@ static CGFloat kDisabledAlpha = 0.4;
             // Images
             self.versusLabel.y = 125 + increment;
             self.hostImageView.y = self.versusLabel.y;
-            self.hostDisabledImageView.y = self.versusLabel.y;
             self.guestImageView.y = self.versusLabel.y;
-            self.guestDisabledImageView.y = self.versusLabel.y;
             
             // Footer
             self.footerLabel.center = CGPointMake(self.footerLabel.center.x, 236 + increment + 2 + 26);
@@ -236,10 +222,10 @@ static CGFloat kDisabledAlpha = 0.4;
     [super prepareForReuse];
     
     [self.hostImageView.operation cancel];
-    [self.hostDisabledImageView.operation cancel];
+    self.hostImageView.enabled = YES;
     
     [self.guestImageView.operation cancel];
-    [self.guestDisabledImageView.operation cancel];
+    self.guestImageView.enabled = YES;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -403,20 +389,10 @@ static CGFloat kDisabledAlpha = 0.4;
         [self.cardContentView addSubview:self.guestNameLabel];
         
         // Images
-		self.hostDisabledImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
-        self.hostDisabledImageView = teamImageView(CGRectMake(12, 130, 96, 96));
-        self.hostDisabledImageView.tintColor = [UIColor grayColor];
-        self.hostDisabledImageView.alpha = kDisabledAlpha;
-        [self.hostDisabledImageView addGestureRecognizer:self.hostDisabledImageViewGestureRecognizer];
         self.hostImageView = teamImageView(CGRectMake(12, 130, 96, 96));
 		self.hostImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
         [self.hostImageView addGestureRecognizer:self.hostImageViewGestureRecognizer];
-        self.guestDisabledImageView = teamImageView(CGRectMake(192, 130, 96, 96));
-        self.guestDisabledImageView.tintColor = [UIColor grayColor];
-        self.guestDisabledImageView.alpha = kDisabledAlpha;
-        self.guestDisabledImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-		self.guestDisabledImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
-        [self.guestDisabledImageView addGestureRecognizer:self.guestDisabledImageViewGestureRecognizer];
+        
         self.guestImageView = teamImageView(CGRectMake(192, 130, 96, 96));
         self.guestImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 		self.guestImageViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureRecognizerHandler:)];
@@ -541,9 +517,9 @@ static CGFloat kDisabledAlpha = 0.4;
         return;
     }
     
-    if (gestureRecognizer.view == self.hostImageView || gestureRecognizer.view == self.hostDisabledImageView) {
+    if (gestureRecognizer.view == self.hostImageView) {
         self.selectionBlock(0);
-    } else if (gestureRecognizer.view == self.guestImageView || gestureRecognizer.view == self.guestDisabledImageView) {
+    } else if (gestureRecognizer.view == self.guestImageView) {
         self.selectionBlock(2);
     } else if (gestureRecognizer.view == self.versusLabel) {
         self.selectionBlock(1);
@@ -646,9 +622,7 @@ static CGFloat kDisabledAlpha = 0.4;
 	self.shareButton.hidden = simpleSelection;
 	
 	self.hostImageViewGestureRecognizer.enabled = !simpleSelection;
-	self.hostDisabledImageViewGestureRecognizer.enabled = !simpleSelection;
 	self.guestImageViewGestureRecognizer.enabled = !simpleSelection;
-	self.guestDisabledImageViewGestureRecognizer.enabled = !simpleSelection;
 	self.versusLabelGestureRecognizer.enabled = !simpleSelection;
 }
 

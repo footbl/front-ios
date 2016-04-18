@@ -10,6 +10,7 @@
 
 @interface TeamImageView : UIImageView
 
+@property (nonatomic, getter=isEnabled) BOOL enabled;
 @property (nonatomic, strong) NSOperation *operation;
 
 @end

@@ -37,9 +37,7 @@
 	
     UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
     [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    [self.hostDisabledImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
     [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
-    [self.guestDisabledImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     
     if (isMe) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
