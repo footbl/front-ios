@@ -102,12 +102,16 @@
 
 #pragma mark - Instace Methods
 
+- (id)key {
+    return @(self.hash);
+}
+
 - (NSOperation *)imageWithTintColor:(UIColor *)tintColor completion:(void (^)(UIImage *))completion {
     if (!completion) {
         return nil;
     }
     
-    UIImage *cachedImage = [self.class.cache objectForKey:@(self.hash)];
+    UIImage *cachedImage = [self.class.cache objectForKey:self.key];
     if (cachedImage) {
         completion(cachedImage);
         return nil;
@@ -116,39 +120,15 @@
     NSBlockOperation *operation = [[NSBlockOperation alloc] init];
     __weak typeof(operation) weakOperation = operation;
     [operation addExecutionBlock:^{
-        CGRect frame = CGRectZero;
-        frame.size = self.size;
-        UIGraphicsBeginImageContextWithOptions(frame.size, NO, self.scale);
+        CIImage *originalImage = [[CIImage alloc] initWithImage:self];
+        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectMono"];
+        [filter setDefaults];
+        [filter setValue:originalImage forKey:kCIInputImageKey];
+        CIImage *outputImage = [filter outputImage];
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        UIImage *image = [UIImage imageWithCIImage:outputImage scale:scale orientation:self.imageOrientation];
         
-        // Get the graphic context
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        // Draw the image
-        [self drawInRect:frame];
-        
-        // Converting a UIImage to a CGImage flips the image,
-        // so apply a upside-down translation
-        CGContextTranslateCTM(context, 0, self.size.height);
-        CGContextScaleCTM(context, 1.0, -1.0);
-        
-        // Set the fill color space
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        CGContextSetFillColorSpace(context, colorSpace);
-        
-        // Set the mask to only tint non-transparent pixels
-        CGContextClipToMask(context, frame, self.CGImage);
-        
-        // Set the fill color
-        CGContextSetFillColorWithColor(context, tintColor.CGColor);
-        UIRectFillUsingBlendMode(frame, kCGBlendModeColor);
-        
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        // Release memory
-        CGColorSpaceRelease(colorSpace);
-        
-        [self.class.cache setObject:image forKey:@(self.hash)];
+        [self.class.cache setObject:image forKey:self.key];
         
         if (weakOperation.isCancelled) {
             return;
