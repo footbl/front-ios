@@ -85,7 +85,7 @@ CGFloat const MARGIN	= 10.0f;
         self.profileNameLabel.hidden = NO;
         self.dateLabel.hidden = NO;
         
-        [self.profileImageView sd_setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"avatarless_user"]];
+        [self.profileImageView sd_setImageWithURL:pictureURL placeholderImage:[UIImage imageNamed:@"FriendsGenericProfilePic"]];
         self.profileNameLabel.text = name;
         
         CGFloat nameWidth = [self.profileNameLabel sizeThatFits:CGSizeMake(self.contentView.width, self.profileNameLabel.height)].width;

@@ -83,7 +83,7 @@
 }
 
 - (UIImage *)placeholderImage {
-    return [UIImage imageNamed:@"avatarless_user"];
+    return [UIImage imageNamed:@"FriendsGenericProfilePic"];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

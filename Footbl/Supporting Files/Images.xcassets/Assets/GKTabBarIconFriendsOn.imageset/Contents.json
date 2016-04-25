@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "avatarless_user.png"
+      "filename" : "GKTabBarIconFriendsOn.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "avatarless_user@2x.png"
+      "filename" : "GKTabBarIconFriendsOn@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "GKTabBarIconFriendsOn@3x.png",
       "scale" : "3x"
     }
   ],

@@ -38,8 +38,8 @@
     // TODO: Localization missing
     self.title = @"Challenges";
     
-    UIImage *image = [UIImage imageNamed:@"tabbar-groups"];
-    UIImage *selectedImage = [UIImage imageNamed:@"tabbar-groups-selected"];
+    UIImage *image = [UIImage imageNamed:@"GKTabBarIconChallengesOff"];
+    UIImage *selectedImage = [UIImage imageNamed:@"GKTabBarIconChallengesOn"];
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
 }
 

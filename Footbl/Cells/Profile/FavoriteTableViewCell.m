@@ -78,7 +78,7 @@
 }
 
 - (UIImage *)placeholderImage {
-    return [UIImage imageNamed:@"avatarless_user"];
+    return [UIImage imageNamed:@"FriendsGenericProfilePic"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
