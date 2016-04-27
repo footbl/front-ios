@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-               BuildableName = "Footbl Development.app"
+               BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
+               BuildableName = "Footbl.app"
                BlueprintName = "Footbl"
                ReferencedContainer = "container:Footbl.xcodeproj">
             </BuildableReference>
@@ -23,7 +23,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl Development.app"
+            BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
@@ -65,8 +65,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl Development.app"
+            BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "QA"
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -84,18 +84,18 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED7859DE199D0C62002A4DBD"
-            BuildableName = "Footbl Development.app"
+            BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
+            BuildableName = "Footbl.app"
             BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "QA"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

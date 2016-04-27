@@ -21,14 +21,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         cloudinary = [CLCloudinary new];
-#if FTB_ENVIRONMENT_PRODUCTION
-		cloudinary.config[@"cloud_name"] = @"hivstsgwo";
-		cloudinary.config[@"api_key"] = @"987722547954377";
-		cloudinary.config[@"api_secret"] = @"JDxfvbY3BWwp3Nvnc-zQS6B-jog";
+#ifdef DEVELOPMENT
+        cloudinary.config[@"cloud_name"] = @"he5zfntay";
+        cloudinary.config[@"api_key"] = @"854175976174894";
+        cloudinary.config[@"api_secret"] = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
 #else
-		cloudinary.config[@"cloud_name"] = @"he5zfntay";
-		cloudinary.config[@"api_key"] = @"854175976174894";
-		cloudinary.config[@"api_secret"] = @"YFawEDfxmujOOGiTUKpAEU5O4eU";
+        cloudinary.config[@"cloud_name"] = @"hivstsgwo";
+        cloudinary.config[@"api_key"] = @"987722547954377";
+        cloudinary.config[@"api_secret"] = @"JDxfvbY3BWwp3Nvnc-zQS6B-jog";
 #endif
     });
     return cloudinary;

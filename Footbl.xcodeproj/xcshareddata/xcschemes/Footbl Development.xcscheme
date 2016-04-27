@@ -16,14 +16,14 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
                BuildableName = "Footbl.app"
-               BlueprintName = "Footbl App Store"
+               BlueprintName = "Footbl"
                ReferencedContainer = "container:Footbl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Development Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
             BuildableName = "Footbl.app"
-            BlueprintName = "Footbl App Store"
+            BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -42,7 +42,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Development Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -57,7 +57,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
             BuildableName = "Footbl.app"
-            BlueprintName = "Footbl App Store"
+            BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -65,7 +65,7 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Development Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -76,16 +76,16 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ED8DB3831A14C95C00605CCE"
             BuildableName = "Footbl.app"
-            BlueprintName = "Footbl App Store"
+            BlueprintName = "Footbl"
             ReferencedContainer = "container:Footbl.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Development Release">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Development Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
