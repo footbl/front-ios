@@ -33,6 +33,7 @@
 #import "WalletGraphTableViewCell.h"
 #import "WalletHighestTableViewCell.h"
 #import "WalletTableViewCell.h"
+#import "BetsViewController.h"
 
 @interface ProfileViewController ()
 
@@ -198,6 +199,11 @@
         [self.dataSource addSection:challengeSection];
         
         TableViewRow *challengeRow = [[TableViewRow alloc] initWithClass:[ProfileChallengeTableViewCell class] reuseIdentifier:@"ChallengeCell"];
+        challengeRow.selection = ^(NSIndexPath *indexPath) {
+            BetsViewController *viewController = [[BetsViewController alloc] init];
+            viewController.challengedUser = weakSelf.user;
+            [weakSelf.navigationController pushViewController:viewController animated:YES];
+        };
         challengeRow.height = 50;
         [challengeSection addRow:challengeRow];
     }

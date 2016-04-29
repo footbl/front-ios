@@ -112,6 +112,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     viewController.championship = championship;
     viewController.navigationBarTitleView = self.navigationBarTitleView;
     viewController.betsViewController = self;
+    viewController.challengedUser = self.challengedUser;
     [self.championshipViewControllers addObject:viewController];
     
     return viewController;
@@ -243,7 +244,13 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [super loadView];
     
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
-    self.navigationController.navigationBarHidden = YES;
+    
+    if (self.challengedUser) {
+        self.title = NSLocalizedString(@"Challenge", @"");
+        self.navigationController.navigationBarHidden = NO;
+    } else {
+        self.navigationController.navigationBarHidden = YES;
+    }
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;

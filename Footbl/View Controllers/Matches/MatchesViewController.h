@@ -8,6 +8,7 @@
 
 #import "TemplateViewController.h"
 
+@class FTBUser;
 @class FTBChampionship;
 @class MatchesNavigationBarView;
 @class BetsViewController;
@@ -15,9 +16,10 @@
 @interface MatchesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) FTBChampionship *championship;
-@property (nonatomic, strong) NSArray *matches;
+@property (nonatomic, copy) NSArray *matches;
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) BetsViewController *betsViewController;
 @property (nonatomic, weak) MatchesNavigationBarView *navigationBarTitleView;
+@property (nonatomic, strong) FTBUser *challengedUser;
 
 @end

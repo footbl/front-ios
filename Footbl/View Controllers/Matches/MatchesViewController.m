@@ -18,6 +18,7 @@
 #import "FTBClient.h"
 #import "FTBMatch.h"
 #import "FTBUser.h"
+#import "FTBChallenge.h"
 #import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchTableViewCell+Setup.h"
@@ -184,14 +185,16 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
             [self reloadWallet];
         };
         
-        FTBBet *myBet = match.myBet;
-        if (myBet && myBet.identifier.length > 0) {
-            FTBBet *newBet = [myBet copy];
-            newBet.bid = @(currentBet);
-            newBet.result = result;
-            [[FTBClient client] updateBet:newBet match:match success:successBlock failure:failure];
-        } else {
-            [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
+        if (!self.challengedUser) {
+            FTBBet *myBet = match.myBet;
+            if (myBet && myBet.identifier.length > 0) {
+                FTBBet *newBet = [myBet copy];
+                newBet.bid = @(currentBet);
+                newBet.result = result;
+                [[FTBClient client] updateBet:newBet match:match success:successBlock failure:failure];
+            } else {
+                [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
+            }
         }
 		
 		[UIView animateWithDuration:FTBAnimationDuration animations:^{
@@ -412,7 +415,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	[super loadView];
 	
 	self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
-	self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = !self.challengedUser;
 	
 	UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
 	[refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];

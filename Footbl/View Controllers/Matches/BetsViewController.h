@@ -8,14 +8,16 @@
 
 #import "TemplateViewController.h"
 
+@class FTBUser;
 @class MatchesNavigationBarView;
 
 @interface BetsViewController : TemplateViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (strong, nonatomic) NSArray *championships;
-@property (strong, nonatomic) UIPageViewController *pageViewController;
-@property (strong, nonatomic) MatchesNavigationBarView *navigationBarTitleView;;
-@property (strong, nonatomic) UILabel *placeholderLabel;
+@property (nonatomic, copy) NSArray *championships;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) MatchesNavigationBarView *navigationBarTitleView;;
+@property (nonatomic, strong) UILabel *placeholderLabel;
+@property (nonatomic, strong) FTBUser *challengedUser;
 
 - (void)reloadWallet;
 - (IBAction)rechargeWalletAction:(id)sender;
