@@ -9,6 +9,7 @@
 #import "MatchesNavigationBarView.h"
 #import "RechargeButton.h"
 #import "UIView+Frame.h"
+#import "ChampionshipsHeaderView.h"
 
 #pragma mark MatchesNavigationBarView
 
@@ -27,9 +28,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
         self.backgroundColor = [UIColor ftb_navigationBarColor];
-        self.clipsToBounds = NO;
         
         NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         paragraphStyle.alignment = NSTextAlignmentCenter;
@@ -38,7 +37,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
                                                   NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                                   NSKernAttributeName : @(-0.15)} mutableCopy];
         
-        self.moneyButton = [[RechargeButton alloc] initWithFrame:CGRectMake(0, 0, 102, self.height - 30)];
+        self.moneyButton = [[RechargeButton alloc] initWithFrame:CGRectMake(0, 0, 102, self.height)];
         [self.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
         [self.moneyButton setImageEdgeInsets:UIEdgeInsetsMake(4, 0, 0, 62)];
         self.moneyButton.adjustsImageWhenDisabled = NO;
@@ -102,37 +101,6 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         rightSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         rightSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:rightSeparatorView];
-        
-        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height - 30, self.width, 30)];
-        self.headerView.backgroundColor = [UIColor clearColor];
-        self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self addSubview:self.headerView];
-        
-        self.headerLabel = [[UILabel alloc] initWithFrame:self.headerView.bounds];
-        self.headerLabel.font = [UIFont fontWithName:kFontNameMedium size:12];
-        self.headerLabel.textColor = [UIColor colorWithRed:0.00/255.f green:169/255.f blue:72./255.f alpha:1.00];
-        self.headerLabel.textAlignment = NSTextAlignmentCenter;
-        [self.headerView addSubview:self.headerLabel];
-        
-        self.headerSliderBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_back"]];
-        self.headerSliderBackImageView.center = CGPointMake(15, self.headerLabel.midY);
-        self.headerSliderBackImageView.hidden = YES;
-        [self.headerView addSubview:self.headerSliderBackImageView];
-        
-        self.headerSliderForwardImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slider_tab_forward"]];
-        self.headerSliderForwardImageView.center = CGPointMake(self.width - 15, self.headerLabel.midY);
-        self.headerSliderForwardImageView.hidden = YES;
-        [self.headerView addSubview:self.headerSliderForwardImageView];
-        
-        UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.headerView.height - 0.5, self.headerView.width, 0.5)];
-        bottomSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
-        bottomSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.headerView addSubview:bottomSeparatorView];
-        
-        UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width, 0.5)];
-        topSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
-        topSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.headerView addSubview:topSeparatorView];
     }
     return self;
 }
@@ -142,7 +110,7 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
 }
 
 - (void)setTitleHidden:(BOOL)titleHidden animated:(BOOL)animated {
-    if (_titleHidden == titleHidden) {
+    if (_titleHidden == titleHidden || self.isHidden) {
         return;
     }
     
@@ -168,8 +136,8 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
             label.alpha = titleHidden ? 0 : 1;
         }
         
-        self.height = titleHidden ? 94 : 110;
-        self.headerView.maxY = self.height;
+        self.height = titleHidden ? 64 : 80;
+        self.championshipsHeaderView.y = self.height;
     } completion:^(BOOL finished) {
         for (UILabel *label in titleLabels) {
             CGRect frame = label.frame;

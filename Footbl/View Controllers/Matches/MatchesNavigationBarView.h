@@ -6,9 +6,10 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class RechargeButton;
+@class ChampionshipsHeaderView;
 
 extern NSString * const kMatchesNavigationBarTitleAnimateKey;
 
@@ -23,11 +24,7 @@ extern NSString * const kMatchesNavigationBarTitleAnimateKey;
 @property (strong, nonatomic) UILabel *returnValueLabel;
 @property (strong, nonatomic) UILabel *profitTitleLabel;
 @property (strong, nonatomic) UILabel *profitValueLabel;
-
-@property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) UILabel *headerLabel;
-@property (strong, nonatomic) UIImageView *headerSliderBackImageView;
-@property (strong, nonatomic) UIImageView *headerSliderForwardImageView;
+@property (nonatomic, weak) ChampionshipsHeaderView *championshipsHeaderView;
 
 @property (assign, nonatomic, getter = isTitleHidden) BOOL titleHidden;
 

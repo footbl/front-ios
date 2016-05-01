@@ -27,6 +27,7 @@
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
 #import "UIView+Frame.h"
+#import "ChampionshipsHeaderView.h"
 
 @interface BetsViewController ()
 
@@ -200,9 +201,9 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 }
 
 - (void)updateHeaderViewWithViewController:(MatchesViewController *)viewController {
-    self.navigationBarTitleView.headerSliderBackImageView.hidden = [viewController.championship isEqual:self.championships.firstObject];
-    self.navigationBarTitleView.headerSliderForwardImageView.hidden = [viewController.championship isEqual:self.championships.lastObject];
-    self.navigationBarTitleView.headerLabel.text = viewController.championship.name;
+    self.championshipsHeaderView.headerSliderBackImageView.hidden = [viewController.championship isEqual:self.championships.firstObject];
+    self.championshipsHeaderView.headerSliderForwardImageView.hidden = [viewController.championship isEqual:self.championships.lastObject];
+    self.championshipsHeaderView.headerLabel.text = viewController.championship.name;
 }
 
 #pragma mark - Delegates & Data sources
@@ -243,14 +244,12 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
-    
     if (self.challengedUser) {
-        self.title = NSLocalizedString(@"Challenge", @"");
-        self.navigationController.navigationBarHidden = NO;
-    } else {
-        self.navigationController.navigationBarHidden = YES;
+        self.title = NSLocalizedString(@"Choose a match", @"");
     }
+    
+    self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
+    self.navigationController.navigationBarHidden = !self.challengedUser;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
@@ -258,12 +257,16 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
-    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 110)];
+    CGFloat titleHeight = self.challengedUser ? 0 : 80;
+    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, titleHeight)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIButton *button = [[UIButton alloc] initWithFrame:self.navigationBarTitleView.moneyButton.frame];
-    [button addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationBarTitleView.moneyButton.superview addSubview:button];
+    self.navigationBarTitleView.hidden = self.challengedUser;
+    [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navigationBarTitleView];
+    
+    self.championshipsHeaderView = [[ChampionshipsHeaderView alloc] initWithFrame:CGRectMake(0, titleHeight, self.view.width, 30)];
+    [self.view addSubview:self.championshipsHeaderView];
+    self.navigationBarTitleView.championshipsHeaderView = self.championshipsHeaderView;
     
     self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, self.view.width - 40, 200)];
     self.placeholderLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
