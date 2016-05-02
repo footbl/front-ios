@@ -11,7 +11,6 @@
 		100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
 		102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */; };
-		102468851BBCB4E000913511 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102468831BBCB4E000913511 /* MyChallengesViewController.m */; };
 		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1089AD701BA10B270078C4E6 /* FTBTrophy.m */; };
 		109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
@@ -37,6 +36,8 @@
 		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; };
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
+		1157A1491CD78BCE00898530 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* MyChallengesViewController.m */; };
+		1157A14C1CD78BFD00898530 /* NewChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
@@ -161,8 +162,6 @@
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		1024687E1BBCB4AA00913511 /* MyChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengeTableViewCell.h; sourceTree = "<group>"; };
 		1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengeTableViewCell.m; sourceTree = "<group>"; };
-		102468821BBCB4E000913511 /* MyChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengesViewController.h; sourceTree = "<group>"; };
-		102468831BBCB4E000913511 /* MyChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengesViewController.m; sourceTree = "<group>"; };
 		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
 		10390DC91B7D7D5B001AA9CE /* FTBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClient.m; sourceTree = "<group>"; };
 		1089AD6F1BA10B270078C4E6 /* FTBTrophy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBTrophy.h; sourceTree = "<group>"; };
@@ -212,6 +211,10 @@
 		10FFD9F81BC0C3090065B215 /* FTBPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPool.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
+		1157A1471CD78BCE00898530 /* MyChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengesViewController.h; sourceTree = "<group>"; };
+		1157A1481CD78BCE00898530 /* MyChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengesViewController.m; sourceTree = "<group>"; };
+		1157A14A1CD78BFD00898530 /* NewChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewChallengeViewController.h; sourceTree = "<group>"; };
+		1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewChallengeViewController.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -573,6 +576,17 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		1157A1461CD78BCE00898530 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				1157A1471CD78BCE00898530 /* MyChallengesViewController.h */,
+				1157A1481CD78BCE00898530 /* MyChallengesViewController.m */,
+				1157A14A1CD78BFD00898530 /* NewChallengeViewController.h */,
+				1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */,
+			);
+			path = Challenges;
+			sourceTree = "<group>";
+		};
 		A33E52A91CA8AE4900D9AA0C /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,8 +809,6 @@
 				10AF593A1B9C6D9A00168433 /* TrophyRoomViewController.m */,
 				10AF59451B9C7ED200168433 /* UserPerformanceViewController.h */,
 				10AF59461B9C7ED200168433 /* UserPerformanceViewController.m */,
-				102468821BBCB4E000913511 /* MyChallengesViewController.h */,
-				102468831BBCB4E000913511 /* MyChallengesViewController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1024,13 +1036,14 @@
 		EDB1D49F18E1F3D800E0C949 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A33E52A91CA8AE4900D9AA0C /* Ranking */,
+				1157A1461CD78BCE00898530 /* Challenges */,
 				ED3A0F4C1988182A00011E91 /* Credit Request */,
 				ED9D0AFC18F31B700061AE42 /* Login */,
 				ED81E82A18EA708E00212D3C /* Matches */,
 				ED81E82818EA707800212D3C /* Navigation */,
 				ED3A0F591988BAD000011E91 /* Popup */,
 				ED81E82B18EA709200212D3C /* Profile */,
+				A33E52A91CA8AE4900D9AA0C /* Ranking */,
 				ED9F07911909C04700C8AC71 /* Settings */,
 				ED81E82618EA705E00212D3C /* Template */,
 				ED9D0AF818F310BA0061AE42 /* Tutorial */,
@@ -1410,7 +1423,6 @@
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
 				10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				A39897791CB107CF00957063 /* GroupRankingViewController.m in Sources */,
-				102468851BBCB4E000913511 /* MyChallengesViewController.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,
@@ -1420,6 +1432,7 @@
 				A3ECBC161CB1C961006BD2AF /* TableViewRow.m in Sources */,
 				ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */,
 				102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
+				1157A1491CD78BCE00898530 /* MyChallengesViewController.m in Sources */,
 				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */,
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,
@@ -1431,6 +1444,7 @@
 				1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				A3ECBC041CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
+				1157A14C1CD78BFD00898530 /* NewChallengeViewController.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */,
 				ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */,

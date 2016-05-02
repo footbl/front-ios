@@ -29,6 +29,7 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "WhatsAppActivity.h"
+#import "NewChallengeViewController.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 
@@ -103,106 +104,112 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	__block NSUInteger cancelBlockId;
 	__block FTBBet *bet = match.myBet;
 	__weak typeof(cell) weakCell = cell;
-	[cell setMatch:match bet:bet viewController:self selectionBlock:^(NSInteger index) {
-		if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
-			[weakCell.cardContentView shake];
-			return;
-		}
-		
+    __weak typeof(self) weakSelf = self;
+    
+    void (^selectionBlock)(NSInteger) = ^(NSInteger index) {
+        if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
+            [weakCell.cardContentView shake];
+            return;
+        }
+        
         FTBUser *user = [FTBUser currentUser];
-		NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
-		NSInteger currentBet = match.myBet.bid.integerValue;
-		FTBMatchResult result = match.myBet.result;
-		
-		switch (index) {
-			case 0: // Host
-				if (result == FTBMatchResultHost) {
-					currentBet++;
-				} else if (currentBet == 0) {
-					currentBet = firstBetValue;
-					result = FTBMatchResultHost;
-				} else if (currentBet == firstBetValue) {
-					currentBet = 0;
-				} else {
-					currentBet--;
-				}
-				break;
-			case 1: // Draw
-				if (result == FTBMatchResultDraw) {
-					currentBet++;
-				} else if (currentBet == 0) {
-					currentBet = firstBetValue;
-					result = FTBMatchResultDraw;
-				} else if (currentBet == firstBetValue) {
-					currentBet = 0;
-				} else {
-					currentBet--;
-				}
-				break;
-			case 2: // Guest
-				if (result == FTBMatchResultGuest) {
-					currentBet++;
-				} else if (currentBet == 0) {
-					currentBet = firstBetValue;
-					result = FTBMatchResultGuest;
-				} else if (currentBet == firstBetValue) {
-					currentBet = 0;
-				} else {
-					currentBet--;
-				}
-				break;
-		}
+        NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
+        NSInteger currentBet = match.myBet.bid.integerValue;
+        FTBMatchResult result = match.myBet.result;
         
-		if (currentBet == 0) {
-			result = FTBMatchResultUnknown;
-		}
-		
-		if (match.myBet.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {
-			if (!weakCell.isStepperSelected) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-				[alert show];
-			}
-			return;
-		}
-		
-		if (match.myBet.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
-			weakCell.stepperUserInteractionEnabled = NO;
-		}
-		
-		if (cancelBlockId) {
-			cancel_block(cancelBlockId);
-		}
+        switch (index) {
+            case 0: // Host
+                if (result == FTBMatchResultHost) {
+                    currentBet++;
+                } else if (currentBet == 0) {
+                    currentBet = firstBetValue;
+                    result = FTBMatchResultHost;
+                } else if (currentBet == firstBetValue) {
+                    currentBet = 0;
+                } else {
+                    currentBet--;
+                }
+                break;
+            case 1: // Draw
+                if (result == FTBMatchResultDraw) {
+                    currentBet++;
+                } else if (currentBet == 0) {
+                    currentBet = firstBetValue;
+                    result = FTBMatchResultDraw;
+                } else if (currentBet == firstBetValue) {
+                    currentBet = 0;
+                } else {
+                    currentBet--;
+                }
+                break;
+            case 2: // Guest
+                if (result == FTBMatchResultGuest) {
+                    currentBet++;
+                } else if (currentBet == 0) {
+                    currentBet = firstBetValue;
+                    result = FTBMatchResultGuest;
+                } else if (currentBet == firstBetValue) {
+                    currentBet = 0;
+                } else {
+                    currentBet--;
+                }
+                break;
+        }
         
-        FTBBlockError failure = ^(NSError *error) {
+        if (currentBet == 0) {
+            result = FTBMatchResultUnknown;
+        }
+        
+        if (match.myBet.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {
+            if (!weakCell.isStepperSelected) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+                [alert show];
+            }
+            return;
+        }
+        
+        if (match.myBet.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
+            weakCell.stepperUserInteractionEnabled = NO;
+        }
+        
+        if (cancelBlockId) {
+            cancel_block(cancelBlockId);
+        }
+        
+        FTBBlockError failureBlock = ^(NSError *error) {
             [[ErrorHandler sharedInstance] displayError:error];
             [UIView animateWithDuration:FTBAnimationDuration delay:FTBAnimationDuration options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+                [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             } completion:nil];
-            [self reloadWallet];
+            [weakSelf reloadWallet];
         };
         
         void(^successBlock)() = ^() {
-            [self reloadWallet];
+            [weakSelf reloadWallet];
         };
         
-        if (!self.challengedUser) {
-            FTBBet *myBet = match.myBet;
-            if (myBet && myBet.identifier.length > 0) {
-                FTBBet *newBet = [myBet copy];
-                newBet.bid = @(currentBet);
-                newBet.result = result;
-                [[FTBClient client] updateBet:newBet match:match success:successBlock failure:failure];
-            } else {
-                [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failure];
-            }
+        FTBBet *myBet = match.myBet;
+        if (myBet && myBet.identifier.length > 0) {
+            FTBBet *newBet = [myBet copy];
+            newBet.bid = @(currentBet);
+            newBet.result = result;
+            [[FTBClient client] updateBet:newBet match:match success:successBlock failure:failureBlock];
+        } else {
+            [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failureBlock];
         }
-		
-		[UIView animateWithDuration:FTBAnimationDuration animations:^{
-			[self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-		}];
-		
-		[self reloadWallet];
-	}];
+        
+        [UIView animateWithDuration:FTBAnimationDuration animations:^{
+            [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        }];
+        
+        [weakSelf reloadWallet];
+    };
+    
+    if (self.challengedUser) {
+        [cell setMatch:match bet:bet viewController:self selectionBlock:nil];
+    } else {
+        [cell setMatch:match bet:bet viewController:self selectionBlock:selectionBlock];
+    }
 }
 
 - (void)reloadWallet {
@@ -395,6 +402,13 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (self.challengedUser) {
+        NewChallengeViewController *viewController = [[NewChallengeViewController alloc] init];
+        viewController.match = self.matches[indexPath.row];
+        viewController.challengedUser = self.challengedUser;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark - View Lifecycle

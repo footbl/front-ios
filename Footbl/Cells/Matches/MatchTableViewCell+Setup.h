@@ -10,9 +10,11 @@
 
 @class FTBBet;
 @class FTBMatch;
+@class FTBChallenge;
 
 @interface MatchTableViewCell (Setup)
 
 - (void)setMatch:(FTBMatch *)match bet:(FTBBet *)bet viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock;
+- (void)setMatch:(FTBMatch *)match challenge:(FTBChallenge *)challenge viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock;
 
 @end

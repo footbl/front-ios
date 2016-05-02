@@ -17,6 +17,7 @@
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
+#import "FTBChallenge.h"
 
 #pragma mark MatchTableViewCell (Setup)
 
@@ -119,6 +120,81 @@
     self.shareBlock = ^(MatchTableViewCell *matchBlockCell) {
         [match shareUsingMatchCell:matchBlockCell viewController:viewController];
     };
+}
+
+- (void)setMatch:(FTBMatch *)match challenge:(FTBChallenge *)challenge viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
+    self.selectionBlock = selectionBlock;
+    
+    self.hostNameLabel.text = match.host.name;
+    self.guestNameLabel.text = match.guest.name;
+    
+    self.hostScoreLabel.text = match.hostScore.stringValue;
+    self.guestScoreLabel.text = match.guestScore.stringValue;
+    
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
+    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+    
+    self.hostPotLabel.text = [@2 potStringValue];
+    self.drawPotLabel.text = [@2 potStringValue];
+    self.guestPotLabel.text = [@2 potStringValue];
+    
+    [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.hostNameLabel, self.guestNameLabel, self.drawLabel]];
+    
+    [self setDateText:match.dateString];
+    
+    FTBMatchResult result = (challenge.bid.integerValue != 0) ? challenge.challengerResult : match.result;
+    
+    switch (result) {
+        case FTBMatchResultHost:
+            self.layout = MatchTableViewCellLayoutHost;
+            break;
+        case FTBMatchResultGuest:
+            self.layout = MatchTableViewCellLayoutGuest;
+            break;
+        case FTBMatchResultDraw:
+            self.layout = MatchTableViewCellLayoutDraw;
+            break;
+        default:
+            self.layout = MatchTableViewCellLayoutNoBet;
+            break;
+    }
+    
+    self.stakeValueLabel.text = match.myBetValueString;
+    self.returnValueLabel.text = match.myBetReturnString;
+    self.profitValueLabel.text = match.myBetProfitString;
+    
+    [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.stakeValueLabel, self.returnValueLabel, self.profitValueLabel]];
+    
+    self.colorScheme = MatchTableViewCellColorSchemeDefault;
+    
+    if (challenge.bid.integerValue > 0) {
+        NSString *text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"$", @""), challenge.bid.shortStringValue];
+        [self setFooterText:text];
+        self.footerLabel.hidden = NO;
+    } else {
+        [self setFooterText:@""];
+        self.footerLabel.hidden = YES;
+    }
+    
+    switch (match.status) {
+        case FTBMatchStatusWaiting:
+            self.liveLabel.text = @"";
+            self.stateLayout = MatchTableViewCellStateLayoutWaiting;
+            break;
+        case FTBMatchStatusLive:
+            self.liveLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Live - %.0lf'", @"Live - {time elapsed}'"), match.elapsed];
+            self.stateLayout = MatchTableViewCellStateLayoutLive;
+            break;
+        case FTBMatchStatusFinished:
+            self.liveLabel.text = NSLocalizedString(@"Final", @"");
+            self.stateLayout = MatchTableViewCellStateLayoutDone;
+            break;
+    }
+    
+    self.shareButton.hidden = YES;
+    
+    self.cardContentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.cardContentView.layer.bounds cornerRadius:4].CGPath;
 }
 
 @end
