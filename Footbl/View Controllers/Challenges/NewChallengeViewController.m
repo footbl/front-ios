@@ -17,6 +17,7 @@
 #import "MatchesNavigationBarView.h"
 #import "RechargeButton.h"
 #import "UIFont+MaxFontSize.h"
+#import "UIView+Frame.h"
 
 @implementation NewChallengeViewController
 
@@ -167,8 +168,16 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(60, 0, 0, 0);
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view addSubview:self.tableView];
+    
+    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
+    self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.navigationBarTitleView];
+    
+    [self reloadWallet];
 }
 
 #pragma mark - Lifecycle

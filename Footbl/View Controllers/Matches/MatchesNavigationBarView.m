@@ -37,67 +37,70 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
                                                   NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:12],
                                                   NSKernAttributeName : @(-0.15)} mutableCopy];
         
-        self.moneyButton = [[RechargeButton alloc] initWithFrame:CGRectMake(0, 0, 102, self.height)];
-        [self.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
-        [self.moneyButton setImageEdgeInsets:UIEdgeInsetsMake(4, 0, 0, 62)];
-        self.moneyButton.adjustsImageWhenDisabled = NO;
-        [self addSubview:self.moneyButton];
-        
-        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 25, 48, 35)];
+        self.walletValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, self.height - 55, 48, 35)];
         self.walletValueLabel.textColor = [UIColor ftb_greenMoneyColor];
         self.walletValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.walletValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.walletValueLabel];
         
-        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 58 , 72, 14)];
+        self.walletTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, self.height - 22, 72, 14)];
         self.walletTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wallet", @"") attributes:titleAttributes];
         [self addSubview:self.walletTitleLabel];
+        
+        UIImage *image = [UIImage imageNamed:@"money_sign"];
+        self.moneyButton = [RechargeButton buttonWithType:UIButtonTypeCustom];
+        [self.moneyButton setImage:image forState:UIControlStateNormal];
+        self.moneyButton.size = image.size;
+        self.moneyButton.midY = self.walletValueLabel.midY;
+        self.moneyButton.midX = self.walletValueLabel.x / 2;
+        self.moneyButton.adjustsImageWhenDisabled = NO;
+        [self addSubview:self.moneyButton];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
         
         CGFloat stakeWidth = 72 + (CGRectGetWidth(frame) - 320) * 0.4;
         
-        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93 + (CGRectGetWidth(frame) - 320) * 0.15, 25, stakeWidth, 35)];
+        self.stakeValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(93 + (CGRectGetWidth(frame) - 320) * 0.15, self.height - 55, stakeWidth, 35)];
         self.stakeValueLabel.textColor = [UIColor ftb_redStakeColor];
         self.stakeValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.stakeValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.stakeValueLabel];
         
-        self.stakeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(91 + (CGRectGetWidth(frame) - 320) * 0.15, 58, stakeWidth, 14)];
+        self.stakeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(91 + (CGRectGetWidth(frame) - 320) * 0.15, self.height - 22, stakeWidth, 14)];
         self.stakeTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Stake", @"") attributes:titleAttributes];
         [self addSubview:self.stakeTitleLabel];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_blueReturnColor];
         
-        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, 25, stakeWidth, 35)];
+        self.returnValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, self.height - 55, stakeWidth, 35)];
         self.returnValueLabel.textColor = [UIColor ftb_blueReturnColor];
         self.returnValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.returnValueLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.returnValueLabel];
         
-        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, 58, stakeWidth, 14)];
+        self.returnTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(159 + (CGRectGetWidth(frame) - 320) * 0.5, self.height - 22, stakeWidth, 14)];
         self.returnTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"To return", @"") attributes:titleAttributes];
         [self addSubview:self.returnTitleLabel];
         
         titleAttributes[NSForegroundColorAttributeName] = [UIColor ftb_greenMoneyColor];
         
-        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 80, 25, 72, 35)];
+        self.profitValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 80, self.height - 55, 72, 35)];
         self.profitValueLabel.textColor = [UIColor ftb_greenMoneyColor];
         self.profitValueLabel.font = [UIFont fontWithName:kFontNameMedium size:self.defaultValueFontSize];
         self.profitValueLabel.textAlignment = NSTextAlignmentCenter;
         self.profitValueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:self.profitValueLabel];
         
-        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 81, 58, 72, 14)];
+        self.profitTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 81, self.height - 22, 72, 14)];
         self.profitTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Profit", @"") attributes:titleAttributes];
         self.profitTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:self.profitTitleLabel];
         
-        UIView *leftSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(89.5, 27, 0.5, 29)];
+        UIView *leftSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(89.5, self.height - 53, 0.5, 29)];
         leftSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         [self addSubview:leftSeparatorView];
         
-        UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 85, 27, 0.5, 29)];
+        UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 85, self.height - 53, 0.5, 29)];
         rightSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
         rightSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:rightSeparatorView];

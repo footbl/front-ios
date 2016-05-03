@@ -18,5 +18,7 @@
 @property (assign, nonatomic) CGFloat midY;
 @property (assign, nonatomic) CGFloat maxX;
 @property (assign, nonatomic) CGFloat maxY;
+@property (assign, nonatomic) CGSize size;
+@property (assign, nonatomic) CGPoint origin;
 
 @end
