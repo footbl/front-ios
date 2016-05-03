@@ -35,6 +35,7 @@
 #pragma mark - Instance Methods
 
 - (instancetype)init {
+    self = [super init];
     if (self) {
         self.title = NSLocalizedString(@"Favorites", @"");
         

@@ -13,13 +13,12 @@
 @interface TeamImageView ()
 
 @property (nonatomic, strong) UIImage *originalImage;
-@property (nonatomic, strong) UIColor *disabledColor;
 
 @end
 
-@interface UIImage (TintColor)
+@interface UIImage (Mono)
 
-- (NSOperation *)imageWithTintColor:(UIColor *)tintColor completion:(void (^)(UIImage *image))completion;
+- (NSOperation *)tonalImage:(void (^)(UIImage *image))completion;
 
 @end
 
@@ -36,7 +35,7 @@
         [super setImage:image];
     } else {
         [self.operation cancel];
-        self.operation = [image imageWithTintColor:self.disabledColor completion:^(UIImage *image) {
+        self.operation = [image tonalImage:^(UIImage *image) {
             [super setImage:image];
         }];
     }
@@ -49,7 +48,7 @@
         [super setImage:self.originalImage];
     } else {
         [self.operation cancel];
-        self.operation = [self.originalImage imageWithTintColor:self.disabledColor completion:^(UIImage *image) {
+        self.operation = [self.originalImage tonalImage:^(UIImage *image) {
             [super setImage:image];
         }];
     }
@@ -67,7 +66,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _enabled = YES;
-        _disabledColor = [UIColor grayColor];
     }
     return self;
 }
@@ -106,7 +104,7 @@
     return @(self.hash);
 }
 
-- (NSOperation *)imageWithTintColor:(UIColor *)tintColor completion:(void (^)(UIImage *))completion {
+- (NSOperation *)tonalImage:(void (^)(UIImage *))completion {
     if (!completion) {
         return nil;
     }
@@ -120,13 +118,11 @@
     NSBlockOperation *operation = [[NSBlockOperation alloc] init];
     __weak typeof(operation) weakOperation = operation;
     [operation addExecutionBlock:^{
-        CIImage *originalImage = [[CIImage alloc] initWithImage:self];
-        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectMono"];
-        [filter setDefaults];
-        [filter setValue:originalImage forKey:kCIInputImageKey];
-        CIImage *outputImage = [filter outputImage];
-        CGFloat scale = [[UIScreen mainScreen] scale];
-        UIImage *image = [UIImage imageWithCIImage:outputImage scale:scale orientation:self.imageOrientation];
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CIImage *inputImage = [[CIImage alloc] initWithImage:self];
+        CIFilter *filter = [CIFilter filterWithName:@"CIPhotoEffectTonal" withInputParameters:@{kCIInputImageKey: inputImage}];
+        CGImageRef CGImage = [context createCGImage:filter.outputImage fromRect:inputImage.extent];
+        UIImage *image = [UIImage imageWithCGImage:CGImage];
         
         [self.class.cache setObject:image forKey:self.key];
         

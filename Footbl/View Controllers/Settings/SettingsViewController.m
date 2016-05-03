@@ -369,7 +369,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 #pragma mark - FBTweakViewControllerDelegate
 
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
-    [self dismissViewControllerAnimated:tweakViewController completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - View Lifecycle

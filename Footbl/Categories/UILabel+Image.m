@@ -15,7 +15,6 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self.layer renderInContext:context];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    CGContextRelease(context);
     UIGraphicsEndImageContext();
     return image;
 }

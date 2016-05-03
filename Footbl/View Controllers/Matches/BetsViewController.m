@@ -260,7 +260,7 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     CGFloat titleHeight = self.challengedUser ? 0 : 80;
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, titleHeight)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.navigationBarTitleView.hidden = self.challengedUser;
+    self.navigationBarTitleView.hidden = !!self.challengedUser;
     [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navigationBarTitleView];
     
