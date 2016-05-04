@@ -30,6 +30,7 @@
 #import "UIView+Shake.h"
 #import "WhatsAppActivity.h"
 #import "NewChallengeViewController.h"
+#import "ChampionshipsHeaderView.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 
@@ -328,7 +329,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 }
 
 - (void)updateInsets {
-    UIEdgeInsets inset = UIEdgeInsetsMake(self.navigationBarTitleView.maxY, 0, 0, 0);
+    UIEdgeInsets inset = UIEdgeInsetsMake(self.navigationBarTitleView.championshipsHeaderView.maxY, 0, 0, 0);
     self.tableView.contentInset = inset;
     self.tableView.scrollIndicatorInsets = inset;
 }
