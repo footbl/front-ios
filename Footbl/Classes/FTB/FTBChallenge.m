@@ -42,4 +42,20 @@
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBMatch class]];
 }
 
+- (BOOL)isEqual:(FTBChallenge *)object {
+    if (self.identifier.length > 0) {
+        return [super isEqual:object];
+    } else {
+        return [object isKindOfClass:[FTBChallenge class]] && [object.match isEqual:self.match];
+    }
+}
+
+- (NSUInteger)hash {
+    if (self.identifier.length > 0) {
+        return [super hash];
+    } else {
+        return self.match.hash;
+    }
+}
+
 @end

@@ -72,6 +72,10 @@
                 break;
         }
         
+        if (10 * currentBet > weakSelf.challengedUser.funds.integerValue) {
+            return;
+        }
+        
         if (currentBet == 0) {
             result = FTBMatchResultUnknown;
         }
