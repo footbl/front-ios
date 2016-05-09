@@ -10,7 +10,7 @@
 		100E6A5B1B7AD7DB0012093B /* FTBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A581B7AD7DB0012093B /* FTBModel.m */; };
 		100E6A601B7ADD620012093B /* FTBChampionship.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A5D1B7ADD620012093B /* FTBChampionship.m */; };
 		100E6A651B7AEC730012093B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 100E6A621B7AEC730012093B /* UIView+Frame.m */; };
-		102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */; };
+		102468811BBCB4AA00913511 /* ChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1024687F1BBCB4AA00913511 /* ChallengeTableViewCell.m */; };
 		10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 10390DC91B7D7D5B001AA9CE /* FTBClient.m */; };
 		1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1089AD701BA10B270078C4E6 /* FTBTrophy.m */; };
 		109AA8FD1B89281F00BB8FB7 /* FTBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */; };
@@ -36,7 +36,7 @@
 		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; };
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
-		1157A1491CD78BCE00898530 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* MyChallengesViewController.m */; };
+		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -160,8 +160,8 @@
 		100E6A5D1B7ADD620012093B /* FTBChampionship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBChampionship.m; sourceTree = "<group>"; };
 		100E6A611B7AEC730012093B /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		100E6A621B7AEC730012093B /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
-		1024687E1BBCB4AA00913511 /* MyChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengeTableViewCell.h; sourceTree = "<group>"; };
-		1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengeTableViewCell.m; sourceTree = "<group>"; };
+		1024687E1BBCB4AA00913511 /* ChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeTableViewCell.h; sourceTree = "<group>"; };
+		1024687F1BBCB4AA00913511 /* ChallengeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeTableViewCell.m; sourceTree = "<group>"; };
 		10390DC81B7D7D5B001AA9CE /* FTBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBClient.h; sourceTree = "<group>"; };
 		10390DC91B7D7D5B001AA9CE /* FTBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClient.m; sourceTree = "<group>"; };
 		1089AD6F1BA10B270078C4E6 /* FTBTrophy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBTrophy.h; sourceTree = "<group>"; };
@@ -211,8 +211,8 @@
 		10FFD9F81BC0C3090065B215 /* FTBPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPool.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
-		1157A1471CD78BCE00898530 /* MyChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengesViewController.h; sourceTree = "<group>"; };
-		1157A1481CD78BCE00898530 /* MyChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengesViewController.m; sourceTree = "<group>"; };
+		1157A1471CD78BCE00898530 /* ChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengesViewController.h; sourceTree = "<group>"; };
+		1157A1481CD78BCE00898530 /* ChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengesViewController.m; sourceTree = "<group>"; };
 		1157A14A1CD78BFD00898530 /* ChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeViewController.h; sourceTree = "<group>"; };
 		1157A14B1CD78BFD00898530 /* ChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeViewController.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -579,8 +579,8 @@
 		1157A1461CD78BCE00898530 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
-				1157A1471CD78BCE00898530 /* MyChallengesViewController.h */,
-				1157A1481CD78BCE00898530 /* MyChallengesViewController.m */,
+				1157A1471CD78BCE00898530 /* ChallengesViewController.h */,
+				1157A1481CD78BCE00898530 /* ChallengesViewController.m */,
 				1157A14A1CD78BFD00898530 /* ChallengeViewController.h */,
 				1157A14B1CD78BFD00898530 /* ChallengeViewController.m */,
 			);
@@ -696,8 +696,8 @@
 				10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */,
 				10AF59491B9C863C00168433 /* UserPerformanceTableViewCell.h */,
 				10AF594A1B9C863C00168433 /* UserPerformanceTableViewCell.m */,
-				1024687E1BBCB4AA00913511 /* MyChallengeTableViewCell.h */,
-				1024687F1BBCB4AA00913511 /* MyChallengeTableViewCell.m */,
+				1024687E1BBCB4AA00913511 /* ChallengeTableViewCell.h */,
+				1024687F1BBCB4AA00913511 /* ChallengeTableViewCell.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1431,8 +1431,8 @@
 				ED8DB3CA1A14C95C00605CCE /* MatchesViewController.m in Sources */,
 				A3ECBC161CB1C961006BD2AF /* TableViewRow.m in Sources */,
 				ED8DB3CB1A14C95C00605CCE /* GroupMembershipTableViewCell.m in Sources */,
-				102468811BBCB4AA00913511 /* MyChallengeTableViewCell.m in Sources */,
-				1157A1491CD78BCE00898530 /* MyChallengesViewController.m in Sources */,
+				102468811BBCB4AA00913511 /* ChallengeTableViewCell.m in Sources */,
+				1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */,
 				109FB2E51B7C3ABA00E67B3C /* FTBChallenge.m in Sources */,
 				ED8DB3CC1A14C95C00605CCE /* AnonymousViewController.m in Sources */,
 				ED8DB3CE1A14C95C00605CCE /* WalletHighestTableViewCell.m in Sources */,

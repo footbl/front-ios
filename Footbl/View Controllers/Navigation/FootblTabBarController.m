@@ -17,7 +17,7 @@
 #import "FTBUser.h"
 #import "GroupsViewController.h"
 #import "MatchesViewController.h"
-#import "MyChallengesViewController.h"
+#import "ChallengesViewController.h"
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
 
@@ -75,7 +75,7 @@
         GroupsViewController *groupsViewController = [[GroupsViewController alloc] init];
         FootblNavigationController *groupsNavigationController = [[FootblNavigationController alloc] initWithRootViewController:groupsViewController];
         
-        MyChallengesViewController *challengesViewController = [MyChallengesViewController instantiateFromStoryboard];
+        ChallengesViewController *challengesViewController = [ChallengesViewController instantiateFromStoryboard];
         FootblNavigationController *challengesNavigationController = [[FootblNavigationController alloc] initWithRootViewController:challengesViewController];
         
         BetsViewController *betsViewController = [[BetsViewController alloc] init];

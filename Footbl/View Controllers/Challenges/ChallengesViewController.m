@@ -1,24 +1,24 @@
 //
-//  MyChallengesViewController.m
+//  ChallengesViewController.m
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 9/30/15.
 //  Copyright © 2015 Footbl. All rights reserved.
 //
 
-#import "MyChallengesViewController.h"
+#import "ChallengesViewController.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
-#import "MyChallengeTableViewCell.h"
+#import "ChallengeTableViewCell.h"
 
-@interface MyChallengesViewController ()
+@interface ChallengesViewController ()
 
 @property (nonatomic, strong) NSMutableArray *challenges;
 
 @end
 
-@implementation MyChallengesViewController
+@implementation ChallengesViewController
 
 #pragma mark - Class Methods
 
@@ -28,7 +28,7 @@
 
 #pragma mark - Instance Methods
 
-- (void)configureCell:(MyChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     
 }
 
@@ -84,7 +84,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	MyChallengeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	ChallengeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	[self configureCell:cell atIndexPath:indexPath];
 	return cell;
 }

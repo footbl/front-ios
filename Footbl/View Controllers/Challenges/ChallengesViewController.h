@@ -1,5 +1,5 @@
 //
-//  MyChallengesViewController.h
+//  ChallengesViewController.h
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 9/30/15.
@@ -8,7 +8,7 @@
 
 #import "TemplateViewController.h"
 
-@interface MyChallengesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ChallengesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
