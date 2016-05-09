@@ -11,7 +11,6 @@
 @interface FootblTabBarController : UITabBarController
 
 @property (assign, nonatomic, getter = isTabBarHidden) BOOL tabBarHidden;
-@property (strong, nonatomic) UIView *tabBarSeparatorView;
 
 - (void)setTabBarHidden:(BOOL)hidden animated:(BOOL)animated;
 

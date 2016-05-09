@@ -20,6 +20,7 @@
 #import "ChallengesViewController.h"
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
+#import "UIView+Frame.h"
 
 @interface FootblTabBarController ()
 
@@ -47,20 +48,7 @@
     _tabBarHidden = hidden;
     
     [UIView animateWithDuration:animated ? FTBAnimationDuration : 0 animations:^{
-        CGRect tabBarFrame = self.tabBar.frame;
-        if (self.isTabBarHidden) {
-            tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) + 0.5;
-        } else {
-            tabBarFrame.origin.y = CGRectGetHeight(self.view.frame) - CGRectGetHeight(tabBarFrame);
-        }
-        CGRect viewControllerFrame = self.selectedViewController.view.frame;
-        viewControllerFrame.size.height = tabBarFrame.origin.y + CGRectGetHeight(tabBarFrame);
-        self.selectedViewController.view.frame = viewControllerFrame;
-        self.tabBar.frame = tabBarFrame;
-        
-        CGRect separatorFrame = self.tabBarSeparatorView.frame;
-        separatorFrame.origin.y = CGRectGetMinY(tabBarFrame) - 0.5;
-        self.tabBarSeparatorView.frame = separatorFrame;
+        self.tabBar.maxY = self.view.height + (hidden ? self.tabBar.height : 0);
     }];
 }
 
@@ -150,13 +138,7 @@
         }
     }];
     
-    self.tabBar.barTintColor = [UIColor ftb_tabBarColor];
     self.tabBar.tintColor = [UIColor ftb_tabBarTintColor];
-    
-    self.tabBarSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.tabBar.frame) - 0.5, CGRectGetWidth(self.tabBar.frame), 0.5)];
-    self.tabBarSeparatorView.backgroundColor = [UIColor ftb_tabBarSeparatorColor];
-    self.tabBarSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    [self.view addSubview:self.tabBarSeparatorView];
 }
 
 @end

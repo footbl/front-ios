@@ -18,12 +18,31 @@
 #import "RechargeButton.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
+#import "FootblTabBarController.h"
 
 @implementation ChallengeViewController
 
 #pragma mark - Instance Methods
 
-- (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[MatchTableViewCell class]]) {
+        [self configureMatchCell:(MatchTableViewCell *)cell atIndexPath:indexPath];
+    } else {
+        [self configureStatusCell:cell atIndexPath:indexPath];
+    }
+}
+
+- (void)configureStatusCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = self.view.backgroundColor;
+    
+    cell.textLabel.text = @"Waiting for oponent";
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    
+    cell.detailTextLabel.text = @"$20 returnee to your wallet";
+    cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)configureMatchCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(cell) weakCell = cell;
     __weak typeof(self) weakSelf = self;
     
@@ -133,6 +152,10 @@
     [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
+- (BOOL)isChallenging {
+    return (self.challengedUser != nil);
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -140,11 +163,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 2;//self.isChallenging ? 1 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MatchTableViewCell *cell = (MatchTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MatchCell" forIndexPath:indexPath];
+    NSString *identifier = indexPath.row == 0 ? @"MatchCell" : @"StatusCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+    }
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -164,6 +191,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    ((FootblTabBarController *)self.tabBarController).tabBarHidden = YES;
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -173,13 +201,23 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(60, 0, 0, 0);
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.allowsSelection = NO;
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.view addSubview:self.tableView];
     
-    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
+    self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, 60)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.navigationBarTitleView];
+    
+    if (self.isChallenging) {
+        self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        self.doneButton.backgroundColor = [UIColor ftb_greenGrassColor];
+        self.doneButton.size = CGSizeMake(self.view.width, 49);
+        self.doneButton.maxY = self.view.height;
+        [self.view addSubview:self.doneButton];
+    }
     
     [self reloadWallet];
 }

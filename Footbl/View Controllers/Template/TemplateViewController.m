@@ -31,7 +31,7 @@
 }
 
 + (instancetype)instantiateFromStoryboard {
-    NSString *storyboardName = [[self class] storyboardName];
+    NSString *storyboardName = [self storyboardName];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     return [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([self class])];
 }
@@ -64,7 +64,6 @@
 - (void)loadView {
     [super loadView];
 	
-	self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor ftb_viewBackgroundColor];
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:self.updateInterval target:self selector:@selector(checkForUpdate) userInfo:nil repeats:YES];
     

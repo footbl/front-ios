@@ -206,6 +206,10 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     self.championshipsHeaderView.headerLabel.text = viewController.championship.name;
 }
 
+- (BOOL)isChallenging {
+    return (self.challengedUser != nil);
+}
+
 #pragma mark - Delegates & Data sources
 
 #pragma mark - UIPageViewControllerDataSource
@@ -244,12 +248,13 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
 - (void)loadView {
     [super loadView];
     
-    if (self.challengedUser) {
+    if (self.isChallenging) {
         self.title = NSLocalizedString(@"Choose a match", @"");
     }
     
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
-    self.navigationController.navigationBarHidden = !self.challengedUser;
+    self.navigationController.navigationBarHidden = !self.isChallenging;
+    self.tabBarController.hidesBottomBarWhenPushed = self.isChallenging;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
@@ -257,10 +262,10 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     
-    CGFloat titleHeight = self.challengedUser ? 0 : 80;
+    CGFloat titleHeight = self.isChallenging ? 0 : 80;
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, titleHeight)];
     self.navigationBarTitleView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.navigationBarTitleView.hidden = !!self.challengedUser;
+    self.navigationBarTitleView.hidden = self.isChallenging;
     [self.navigationBarTitleView.moneyButton addTarget:self action:@selector(rechargeWalletAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.navigationBarTitleView];
     

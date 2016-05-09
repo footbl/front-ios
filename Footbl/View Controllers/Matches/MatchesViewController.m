@@ -329,7 +329,9 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 }
 
 - (void)updateInsets {
-    UIEdgeInsets inset = UIEdgeInsetsMake(self.navigationBarTitleView.championshipsHeaderView.maxY, 0, 0, 0);
+    CGFloat top = self.navigationBarTitleView.championshipsHeaderView.maxY;
+    CGFloat bottom = ((FootblTabBarController *)self.tabBarController).isTabBarHidden ? 0 : self.tabBarController.tabBar.height;
+    UIEdgeInsets inset = UIEdgeInsetsMake(top, 0, bottom, 0);
     self.tableView.contentInset = inset;
     self.tableView.scrollIndicatorInsets = inset;
 }

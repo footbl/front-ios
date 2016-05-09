@@ -95,15 +95,6 @@ NSString * const kMatchesNavigationBarTitleAnimateKey = @"kMatchesNavigationBarT
         self.profitTitleLabel.attributedText = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Profit", @"") attributes:titleAttributes];
         self.profitTitleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:self.profitTitleLabel];
-        
-        UIView *leftSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(89.5, self.height - 53, 0.5, 29)];
-        leftSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
-        [self addSubview:leftSeparatorView];
-        
-        UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) - 85, self.height - 53, 0.5, 29)];
-        rightSeparatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
-        rightSeparatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [self addSubview:rightSeparatorView];
     }
     return self;
 }

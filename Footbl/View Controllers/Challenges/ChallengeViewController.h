@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MatchesNavigationBarView *navigationBarTitleView;
+@property (nonatomic, strong) UIButton *doneButton;
+
 @property (nonatomic, strong) FTBMatch *match;
 @property (nonatomic, strong) FTBUser *challengedUser;
 @property (nonatomic, strong) FTBChallenge *challenge;

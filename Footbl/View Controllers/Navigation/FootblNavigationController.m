@@ -33,24 +33,15 @@
     
     NSDictionary *titleAttributes = @{NSFontAttributeName : [UIFont fontWithName:kFontNameAvenirNextDemiBold size:17],
                                       NSForegroundColorAttributeName : [UIColor ftb_greenGrassColor]};
-    [UINavigationBar appearanceWhenContainedIn:[self class], nil].titleTextAttributes = titleAttributes;
-    [UINavigationBar appearanceWhenContainedIn:[self class], nil].tintColor = [[UIColor ftb_greenGrassColor] colorWithAlphaComponent:0.7];
+    UINavigationBar *appearance = [UINavigationBar appearanceWhenContainedIn:[self class], nil];
+    appearance.titleTextAttributes = titleAttributes;
+    appearance.tintColor = [[UIColor ftb_greenGrassColor] colorWithAlphaComponent:0.7];
     [[UIBarButtonItem appearanceWhenContainedIn:[self class], nil] setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:kFontNameMedium size:17]} forState:UIControlStateNormal];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.navigationBar.frame), CGRectGetWidth(self.navigationBar.frame), 0.5)];
     separatorView.backgroundColor = [UIColor ftb_navigationBarSeparatorColor];
     separatorView.autoresizesSubviews = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self.navigationBar addSubview:separatorView];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
