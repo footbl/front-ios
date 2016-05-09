@@ -29,7 +29,7 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "WhatsAppActivity.h"
-#import "NewChallengeViewController.h"
+#import "ChallengeViewController.h"
 #import "ChampionshipsHeaderView.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
@@ -405,7 +405,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (self.challengedUser) {
-        NewChallengeViewController *viewController = [[NewChallengeViewController alloc] init];
+        ChallengeViewController *viewController = [[ChallengeViewController alloc] init];
         viewController.match = self.matches[indexPath.row];
         viewController.challengedUser = self.challengedUser;
         [self.navigationController pushViewController:viewController animated:YES];

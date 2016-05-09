@@ -13,6 +13,7 @@
 #import "FTBMatch.h"
 #import "FTBSeason.h"
 #import "NSNumber+Formatter.h"
+#import "FTBChallenge.h"
 
 #pragma mark - FTBHistory
 
@@ -36,6 +37,7 @@
 @interface FTBUser ()
 
 @property (nonatomic, strong) NSMutableSet<FTBBet *> *bets;
+@property (nonatomic, strong) NSMutableSet<FTBChallenge *> *challenges;
 
 @end
 
@@ -72,23 +74,60 @@
     return self;
 }
 
-#pragma mark - Helpers
+#pragma mark - Challenges
 
-+ (instancetype)currentUser {
-	return [[FTBClient client] user];
-}
-
-- (NSNumber *)stake {
-    NSInteger stake = 0;
-    for (FTBBet *bet in self.activeBets) {
-        stake += bet.bid.integerValue;
+- (NSMutableSet<FTBChallenge *> *)challenges {
+    if (!_challenges) {
+        _challenges = [[NSMutableSet alloc] init];
     }
-    return @(stake);
+    return _challenges;
 }
 
-- (NSNumber *)funds {
-    return @(self.wallet.integerValue - self.stake.integerValue);
+- (NSSet *)activeChallenges {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match != nil && match.finished == NO && match.elapsed == 0 && bid > 0"];
+    return [self.challenges filteredSetUsingPredicate:predicate];
 }
+
+- (void)addChallenge:(FTBChallenge *)challenge {
+    FTBChallenge *oldChallenge = [self.challenges member:challenge];
+    
+    if (oldChallenge) {
+        [self.challenges removeObject:oldChallenge];
+    }
+    
+    [self.challenges addObject:challenge];
+}
+
+- (void)addChallenges:(NSArray<FTBChallenge *> *)challenges {
+    for (FTBChallenge *challenge in challenges) {
+        [self addChallenge:challenge];
+    }
+}
+
+- (FTBChallenge *)challengeWithIdentifier:(NSString *)identifier {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
+    NSSet *results = [self.challenges filteredSetUsingPredicate:predicate];
+    return results.anyObject;
+}
+
+- (FTBChallenge *)challengeForMatch:(FTBMatch *)match challengedUser:(FTBUser *)challengedUser {
+    for (FTBChallenge *challenge in self.challenges) {
+        if ([challenge.match isEqual:match] && [challenge.challengedUser isEqual:challengedUser]) {
+            return challenge;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)removeChallenge:(FTBChallenge *)challenge {
+    FTBChallenge *oldChallenge = [self.challenges member:challenge];
+    if (oldChallenge) {
+        [self.challenges removeObject:oldChallenge];
+    }
+}
+
+#pragma mark - Bets
 
 - (NSMutableSet<FTBBet *> *)bets {
     if (!_bets) {
@@ -142,6 +181,24 @@
         [self.bets removeObject:oldBet];
         [bet.match updatePotByRemovingBet:oldBet];
     }
+}
+
+#pragma mark - Helpers
+
++ (instancetype)currentUser {
+    return [[FTBClient client] user];
+}
+
+- (NSNumber *)stake {
+    NSInteger stake = 0;
+    for (FTBBet *bet in self.activeBets) {
+        stake += bet.bid.integerValue;
+    }
+    return @(stake);
+}
+
+- (NSNumber *)funds {
+    return @(self.wallet.integerValue - self.stake.integerValue);
 }
 
 - (BOOL)isMe {

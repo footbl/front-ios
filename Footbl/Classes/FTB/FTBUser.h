@@ -10,6 +10,7 @@
 
 @class FTBBet;
 @class FTBMatch;
+@class FTBChallenge;
 
 @interface FTBHistory : FTBModel
 
@@ -48,6 +49,13 @@
 - (FTBBet *)betForMatch:(FTBMatch *)match;
 - (void)removeBet:(FTBBet *)bet;
 - (NSSet<FTBBet *> *)activeBets;
+
+- (void)addChallenge:(FTBChallenge *)challenge;
+- (void)addChallenges:(NSArray<FTBChallenge *> *)challenges;
+- (FTBChallenge *)challengeWithIdentifier:(NSString *)identifier;
+- (FTBChallenge *)challengeForMatch:(FTBMatch *)match challengedUser:(FTBUser *)challengedUser;
+- (void)removeChallenge:(FTBChallenge *)challenge;
+- (NSSet<FTBChallenge *> *)activeChallenges;
 
 + (instancetype)currentUser;
 

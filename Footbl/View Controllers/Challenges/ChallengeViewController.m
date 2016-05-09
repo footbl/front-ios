@@ -1,12 +1,12 @@
 //
-//  NewChallengeViewController.m
+//  ChallengeViewController.m
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 5/2/16.
 //  Copyright © 2016 Footbl. All rights reserved.
 //
 
-#import "NewChallengeViewController.h"
+#import "ChallengeViewController.h"
 #import "MatchTableViewCell.h"
 #import "FTBUser.h"
 #import "FTBMatch.h"
@@ -19,7 +19,7 @@
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
 
-@implementation NewChallengeViewController
+@implementation ChallengeViewController
 
 #pragma mark - Instance Methods
 

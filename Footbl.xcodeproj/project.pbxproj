@@ -37,7 +37,7 @@
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
 		1157A1491CD78BCE00898530 /* MyChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* MyChallengesViewController.m */; };
-		1157A14C1CD78BFD00898530 /* NewChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */; };
+		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
@@ -213,8 +213,8 @@
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
 		1157A1471CD78BCE00898530 /* MyChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChallengesViewController.h; sourceTree = "<group>"; };
 		1157A1481CD78BCE00898530 /* MyChallengesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChallengesViewController.m; sourceTree = "<group>"; };
-		1157A14A1CD78BFD00898530 /* NewChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewChallengeViewController.h; sourceTree = "<group>"; };
-		1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewChallengeViewController.m; sourceTree = "<group>"; };
+		1157A14A1CD78BFD00898530 /* ChallengeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeViewController.h; sourceTree = "<group>"; };
+		1157A14B1CD78BFD00898530 /* ChallengeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeViewController.m; sourceTree = "<group>"; };
 		117044011A8EB45E00521BAB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044031A8EB45F00521BAB /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044041A8EB45F00521BAB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -581,8 +581,8 @@
 			children = (
 				1157A1471CD78BCE00898530 /* MyChallengesViewController.h */,
 				1157A1481CD78BCE00898530 /* MyChallengesViewController.m */,
-				1157A14A1CD78BFD00898530 /* NewChallengeViewController.h */,
-				1157A14B1CD78BFD00898530 /* NewChallengeViewController.m */,
+				1157A14A1CD78BFD00898530 /* ChallengeViewController.h */,
+				1157A14B1CD78BFD00898530 /* ChallengeViewController.m */,
 			);
 			path = Challenges;
 			sourceTree = "<group>";
@@ -1444,7 +1444,7 @@
 				1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				A3ECBC041CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
-				1157A14C1CD78BFD00898530 /* NewChallengeViewController.m in Sources */,
+				1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */,
 				ED8DB3D31A14C95C00605CCE /* UILabel+Shake.m in Sources */,
 				ED8DB3D61A14C95C00605CCE /* RechargeViewController.m in Sources */,
 				ED8DB3D71A14C95C00605CCE /* UIFont+MaxFontSize.m in Sources */,

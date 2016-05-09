@@ -1,5 +1,5 @@
 //
-//  NewChallengeViewController.h
+//  ChallengeViewController.h
 //  Footbl
 //
 //  Created by Leonardo Formaggio on 5/2/16.
@@ -13,7 +13,7 @@
 @class FTBChallenge;
 @class MatchesNavigationBarView;
 
-@interface NewChallengeViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ChallengeViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MatchesNavigationBarView *navigationBarTitleView;
