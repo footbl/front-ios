@@ -590,7 +590,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 
 - (void)createChallengeForMatch:(FTBMatch *)match bid:(NSNumber *)bid result:(FTBMatchResult)result user:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
     NSString *resultString = [[FTBMatch resultJSONTransformer] reverseTransformedValue:@(result)];
-	NSDictionary *parameters = @{@"match": match, @"bid": bid, @"result": resultString, @"user": user.identifier};
+	NSDictionary *parameters = @{@"match": match.identifier, @"bid": bid, @"result": resultString, @"user": user.identifier};
 	[self POST:@"/challenges" parameters:parameters modelClass:[FTBChallenge class] success:success failure:failure];
 }
 

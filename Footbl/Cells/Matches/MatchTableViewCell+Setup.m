@@ -160,9 +160,9 @@
             break;
     }
     
-    self.stakeValueLabel.text = match.myBetValueString;
-    self.returnValueLabel.text = match.myBetReturnString;
-    self.profitValueLabel.text = match.myBetProfitString;
+    self.stakeValueLabel.text = challenge.valueString;
+    self.returnValueLabel.text = challenge.toReturnString;
+    self.profitValueLabel.text = challenge.valueString;
     
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.stakeValueLabel, self.returnValueLabel, self.profitValueLabel]];
     

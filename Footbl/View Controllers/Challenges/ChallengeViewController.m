@@ -6,6 +6,7 @@
 //  Copyright © 2016 Footbl. All rights reserved.
 //
 
+#import "ErrorHandler.h"
 #import "ChallengeViewController.h"
 #import "MatchTableViewCell.h"
 #import "FTBUser.h"
@@ -20,6 +21,16 @@
 #import "UIView+Frame.h"
 #import "FootblTabBarController.h"
 #import "ChallengeStatusTableViewCell.h"
+#import "FTBClient.h"
+#import "LoadingHelper.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
+@interface ChallengeViewController ()
+
+@property (nonatomic, copy) NSNumber *bid;
+@property (nonatomic) FTBMatchResult result;
+
+@end
 
 @implementation ChallengeViewController
 
@@ -47,11 +58,20 @@
     __weak typeof(cell) weakCell = cell;
     __weak typeof(self) weakSelf = self;
     
-    [cell setMatch:self.match challenge:self.challenge viewController:self selectionBlock:^(NSInteger index) {
-        FTBUser *user = [FTBUser currentUser];
+    FTBUser *user = [FTBUser currentUser];
+    FTBChallenge *challenge = self.challenge;
+    if (!challenge && self.bid) {
+        challenge = [[FTBChallenge alloc] init];
+        challenge.challengerUser = user;
+        challenge.bid = self.bid;
+        challenge.challengerResult = self.result;
+        challenge.match = self.match;
+    }
+    
+    [cell setMatch:self.match challenge:challenge viewController:self selectionBlock:^(NSInteger index) {
         NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
-        NSInteger currentBet = weakSelf.challenge.bid.integerValue;
-        FTBMatchResult result = weakSelf.challenge.challengerResult;
+        NSInteger currentBet = weakSelf.bid.integerValue;
+        FTBMatchResult result = weakSelf.result;
         
         switch (index) {
             case 0: // Host
@@ -100,7 +120,7 @@
             result = FTBMatchResultUnknown;
         }
         
-        if (weakSelf.challenge.bid.integerValue < currentBet && (user.funds.integerValue - 1) < 0) {
+        if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue <= 0) {
             if (!weakCell.isStepperSelected) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
                 [alert show];
@@ -108,38 +128,25 @@
             return;
         }
         
-        if (weakSelf.challenge.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
+        if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
             weakCell.stepperUserInteractionEnabled = NO;
         }
         
+        weakSelf.result = result;
+        weakSelf.bid = @(currentBet);
+        
         [weakSelf reloadWallet];
         [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-    } ];
+    }];
 }
 
 - (void)reloadWallet {
-    NSArray *labels = @[self.navigationBarTitleView.walletValueLabel,
-                        self.navigationBarTitleView.stakeValueLabel,
-                        self.navigationBarTitleView.returnValueLabel,
-                        self.navigationBarTitleView.profitValueLabel];
-    
     FTBUser *user = [FTBUser currentUser];
-    if (user) {
-        [UIView animateWithDuration:FTBAnimationDuration animations:^{
-            for (UILabel *label in labels) {
-                label.alpha = 1;
-            }
-        }];
-        self.navigationBarTitleView.walletValueLabel.text = user.wallet.limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
-        self.navigationBarTitleView.profitValueLabel.text = user.profitString;
-    } else {
-        for (UILabel *label in labels) {
-            label.text = @"";
-            label.alpha = 0;
-        }
-    }
+    
+    self.navigationBarTitleView.walletValueLabel.text = user.wallet.limitedWalletStringValue;
+    self.navigationBarTitleView.stakeValueLabel.text = @(user.stake.floatValue + self.bid.floatValue).limitedWalletStringValue;
+    self.navigationBarTitleView.returnValueLabel.text = @(user.toReturn.floatValue + 2 * self.bid.floatValue).stringValue;
+    self.navigationBarTitleView.profitValueLabel.text = user.profitString;
     
     if (user.canRecharge) {
         UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
@@ -149,8 +156,6 @@
     } else {
         [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
     }
-    
-    [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
 - (BOOL)isChallenging {
@@ -160,13 +165,29 @@
 #pragma mark - Actions
 
 - (void)doneAction:(UIButton *)sender {
-    self.challengedUser = nil;
-    [self.tableView reloadData];
+    [[LoadingHelper sharedInstance] showHud];
     
-    [UIView animateWithDuration:0.25 animations:^{
-        sender.y = self.view.height;
-    } completion:^(BOOL finished) {
-        [sender removeFromSuperview];
+    __weak typeof(self) weakSelf = self;
+    [[FTBClient client] createChallengeForMatch:self.match bid:self.bid result:self.result user:self.challengedUser success:^(id object) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        strongSelf.challengedUser = nil;
+        [strongSelf.navigationBarTitleView removeFromSuperview];
+        strongSelf.navigationBarTitleView = nil;
+        strongSelf.tableView.contentInset = UIEdgeInsetsZero;
+        [strongSelf.tableView reloadData];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            strongSelf.doneButton.y = strongSelf.view.height;
+        } completion:^(BOOL finished) {
+            [strongSelf.doneButton removeFromSuperview];
+            strongSelf.doneButton = nil;
+        }];
+        
+        [[LoadingHelper sharedInstance] hideHud];
+    } failure:^(NSError *error) {
+        [[ErrorHandler sharedInstance] displayError:error];
+        [[LoadingHelper sharedInstance] hideHud];
     }];
 }
 

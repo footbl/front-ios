@@ -8,6 +8,7 @@
 
 #import "FTBChallenge.h"
 #import "FTBUser.h"
+#import "NSNumber+Formatter.h"
 
 @implementation FTBChallenge
 
@@ -40,6 +41,27 @@
 
 + (NSValueTransformer *)matchJSONTransformer {
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBMatch class]];
+}
+
+- (NSString *)valueString {
+    return self.bid.integerValue == 0 ? @"-" : self.bid.walletStringValue;
+}
+
+- (NSNumber *)toReturn {
+    switch (self.challengerResult) {
+        case FTBMatchResultHost:
+            return @(self.bid.integerValue * 2);
+        case FTBMatchResultDraw:
+            return @(self.bid.integerValue * 2);
+        case FTBMatchResultGuest:
+            return @(self.bid.integerValue * 2);
+        default:
+            return @0;
+    }
+}
+
+- (NSString *)toReturnString {
+    return self.bid.integerValue == 0 ? @"-" : self.toReturn.walletStringValue;
 }
 
 - (BOOL)isEqual:(FTBChallenge *)object {

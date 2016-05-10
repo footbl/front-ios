@@ -21,4 +21,8 @@
 @property (nonatomic, copy) NSNumber *bid;
 @property (nonatomic, assign, getter=isAccepted) BOOL accepted;
 
+- (NSString *)valueString;
+- (NSNumber *)toReturn;
+- (NSString *)toReturnString;
+
 @end
