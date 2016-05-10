@@ -19,6 +19,7 @@
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
 #import "FootblTabBarController.h"
+#import "ChallengeStatusTableViewCell.h"
 
 @implementation ChallengeViewController
 
@@ -27,19 +28,14 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[MatchTableViewCell class]]) {
         [self configureMatchCell:(MatchTableViewCell *)cell atIndexPath:indexPath];
-    } else {
-        [self configureStatusCell:cell atIndexPath:indexPath];
+    } else if ([cell isKindOfClass:[ChallengeStatusTableViewCell class]]) {
+        [self configureStatusCell:(ChallengeStatusTableViewCell *)cell atIndexPath:indexPath];
     }
 }
 
-- (void)configureStatusCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.backgroundColor = self.view.backgroundColor;
-    
-    cell.textLabel.text = @"Waiting for oponent";
-    cell.textLabel.textAlignment = NSTextAlignmentCenter;
-    
-    cell.detailTextLabel.text = @"$20 returnee to your wallet";
-    cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
+- (void)configureStatusCell:(ChallengeStatusTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.statusLabel.text = @"Waiting for oponent";
+    cell.substatusLabel.text = @"$20 returnee to your wallet";
 }
 
 - (void)configureMatchCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -167,11 +163,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = indexPath.row == 0 ? @"MatchCell" : @"StatusCell";
+    NSString *identifier = indexPath.row == 0 ? @"MatchCell" : @"ChallengeStatusTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-    }
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -179,7 +172,7 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 340;
+    return indexPath.row == 0 ? 340 : 150;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -204,6 +197,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.allowsSelection = NO;
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
+    [self.tableView registerNib:[ChallengeStatusTableViewCell nib] forCellReuseIdentifier:@"ChallengeStatusTableViewCell"];
     [self.view addSubview:self.tableView];
     
     self.navigationBarTitleView = [[MatchesNavigationBarView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, 60)];

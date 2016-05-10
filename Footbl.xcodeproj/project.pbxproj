@@ -40,6 +40,8 @@
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
+		11F9C4401CE214FC00E01A11 /* ChallengeStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */; };
+		11F9C4421CE2151500E01A11 /* ChallengeStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */; };
 		16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
 		6871A1E0936A6B62C15BB86C /* libPods-Footbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F00B6C9B7B0F777C9F3B4212 /* libPods-Footbl.a */; };
 		A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
@@ -221,6 +223,9 @@
 		117044051A8EB46000521BAB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		11F9C43E1CE214FC00E01A11 /* ChallengeStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeStatusTableViewCell.h; sourceTree = "<group>"; };
+		11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeStatusTableViewCell.m; sourceTree = "<group>"; };
+		11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeStatusTableViewCell.xib; sourceTree = "<group>"; };
 		277A0D67BE7CDF368C946A61 /* Pods-Footbl.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development debug.xcconfig"; sourceTree = "<group>"; };
 		3F5844EA526840394D873C30 /* Pods-Footbl.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development release.xcconfig"; sourceTree = "<group>"; };
 		684BA96A106C1CEE0EBAE390 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
@@ -585,6 +590,17 @@
 				1157A14B1CD78BFD00898530 /* ChallengeViewController.m */,
 			);
 			path = Challenges;
+			sourceTree = "<group>";
+		};
+		11F9C43D1CE214BD00E01A11 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				11F9C43E1CE214FC00E01A11 /* ChallengeStatusTableViewCell.h */,
+				11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */,
+				11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */,
+			);
+			name = Challenges;
+			path = Challenge;
 			sourceTree = "<group>";
 		};
 		A33E52A91CA8AE4900D9AA0C /* Ranking */ = {
@@ -1055,6 +1071,7 @@
 		EDB1D4A018E1F3E000E0C949 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				11F9C43D1CE214BD00E01A11 /* Challenges */,
 				ED3A0F601989774E00011E91 /* Credit Request */,
 				ED81E83518EA73F100212D3C /* Groups */,
 				ED81E83618EA73F600212D3C /* Matches */,
@@ -1176,7 +1193,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = FTB;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Footbl;
 				TargetAttributes = {
 					ED8DB3831A14C95C00605CCE = {
@@ -1229,6 +1246,7 @@
 				ED8DB4091A14C95C00605CCE /* InfoPlist.strings in Resources */,
 				ED8DB40A1A14C95C00605CCE /* match_start.wav in Resources */,
 				ED8DB40B1A14C95C00605CCE /* tutorial_5@2x.png in Resources */,
+				11F9C4421CE2151500E01A11 /* ChallengeStatusTableViewCell.xib in Resources */,
 				ED8DB40C1A14C95C00605CCE /* match_end.wav in Resources */,
 				ED8DB40D1A14C95C00605CCE /* tutorial_3_480@2x.png in Resources */,
 				ED8DB40E1A14C95C00605CCE /* get_money.wav in Resources */,
@@ -1463,6 +1481,7 @@
 				10AF593C1B9C6D9A00168433 /* TrophyRoomViewController.m in Sources */,
 				ED8DB3E11A14C95C00605CCE /* NSNumber+Formatter.m in Sources */,
 				A36E0C6C1C9F7F45001ABB35 /* UILabel+Image.m in Sources */,
+				11F9C4401CE214FC00E01A11 /* ChallengeStatusTableViewCell.m in Sources */,
 				ED8DB3E51A14C95C00605CCE /* MatchTableViewCell+Setup.m in Sources */,
 				ED8DB3E61A14C95C00605CCE /* FootblTabBarController.m in Sources */,
 				10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */,
@@ -1781,6 +1800,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1789,6 +1809,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

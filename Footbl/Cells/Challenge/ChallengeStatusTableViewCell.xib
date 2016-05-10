@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChallengeStatusTableViewCell" rowHeight="150" id="VYW-Ap-tDA" customClass="ChallengeStatusTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VYW-Ap-tDA" id="vrh-7j-eBS">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OqK-2p-td6">
+                        <rect key="frame" x="20" y="53" width="280" height="43.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for oponent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUa-Rl-hJc">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="23.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$20 returned to your wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oo8-7P-br7">
+                                <rect key="frame" x="0.0" y="24" width="280" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oo8-7P-br7" secondAttribute="trailing" id="4dC-a2-9Mw"/>
+                            <constraint firstItem="oo8-7P-br7" firstAttribute="leading" secondItem="OqK-2p-td6" secondAttribute="leading" id="7VQ-Nm-bZk"/>
+                            <constraint firstAttribute="trailing" secondItem="TUa-Rl-hJc" secondAttribute="trailing" id="Blx-wT-ImW"/>
+                            <constraint firstItem="TUa-Rl-hJc" firstAttribute="leading" secondItem="OqK-2p-td6" secondAttribute="leading" id="MAr-MS-Oc0"/>
+                            <constraint firstItem="oo8-7P-br7" firstAttribute="top" secondItem="TUa-Rl-hJc" secondAttribute="bottom" id="Y1q-nc-8jX"/>
+                            <constraint firstItem="TUa-Rl-hJc" firstAttribute="top" secondItem="OqK-2p-td6" secondAttribute="top" id="pbN-c9-clq"/>
+                            <constraint firstAttribute="bottom" secondItem="oo8-7P-br7" secondAttribute="bottom" id="une-zi-v7n"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="OqK-2p-td6" secondAttribute="trailing" constant="20" id="5F4-W5-H2b"/>
+                    <constraint firstItem="OqK-2p-td6" firstAttribute="centerY" secondItem="vrh-7j-eBS" secondAttribute="centerY" id="Ilx-GS-qRN"/>
+                    <constraint firstItem="OqK-2p-td6" firstAttribute="leading" secondItem="vrh-7j-eBS" secondAttribute="leading" constant="20" id="pqe-fR-i8a"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.93725490196078431" green="0.95686274509803915" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="statusLabel" destination="TUa-Rl-hJc" id="ekT-ct-Bx8"/>
+                <outlet property="substatusLabel" destination="oo8-7P-br7" id="yDR-Gi-WLm"/>
+            </connections>
+            <point key="canvasLocation" x="211" y="349"/>
+        </tableViewCell>
+    </objects>
+</document>
