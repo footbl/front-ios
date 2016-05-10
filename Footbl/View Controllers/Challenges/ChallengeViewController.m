@@ -34,8 +34,13 @@
 }
 
 - (void)configureStatusCell:(ChallengeStatusTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.statusLabel.text = @"Waiting for oponent";
-    cell.substatusLabel.text = @"$20 returnee to your wallet";
+    if (self.isChallenging) {
+        cell.statusLabel.text = nil;
+        cell.substatusLabel.text = nil;
+    } else {
+        cell.statusLabel.text = @"Waiting for oponent";
+        cell.substatusLabel.text = @"$20 returnee to your wallet";
+    }
 }
 
 - (void)configureMatchCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -152,6 +157,19 @@
     return (self.challengedUser != nil);
 }
 
+#pragma mark - Actions
+
+- (void)doneAction:(UIButton *)sender {
+    self.challengedUser = nil;
+    [self.tableView reloadData];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        sender.y = self.view.height;
+    } completion:^(BOOL finished) {
+        [sender removeFromSuperview];
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -159,7 +177,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;//self.isChallenging ? 1 : 2;
+    return self.isChallenging ? 1 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -206,6 +224,7 @@
     
     if (self.isChallenging) {
         self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.doneButton setTitle:@"Done" forState:UIControlStateNormal];
         self.doneButton.backgroundColor = [UIColor ftb_greenGrassColor];
         self.doneButton.size = CGSizeMake(self.view.width, 49);
