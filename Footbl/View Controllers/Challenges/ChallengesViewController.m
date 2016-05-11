@@ -11,6 +11,8 @@
 #import "FTBClient.h"
 #import "FTBUser.h"
 #import "ChallengeTableViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "FTBTeam.h"
 
 @interface ChallengesViewController ()
 
@@ -29,7 +31,12 @@
 #pragma mark - Instance Methods
 
 - (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    
+    FTBChallenge *challenge = self.challenges[indexPath.row];
+    [cell.userImageView sd_setImageWithURL:challenge.challengedUser.pictureURL];
+    [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL];
+    [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL];
+    cell.stakeLabel.text = challenge.valueString;
+    cell.profitLabel.text = challenge.challengerResult == challenge.match.result ? challenge.valueString : @"-";
 }
 
 #pragma mark - Lifecycle
@@ -65,7 +72,7 @@
     [super viewDidLoad];
     
     FTBUser *user = [FTBUser currentUser];
-    [[FTBClient client] challengesForChallenger:user challenged:user page:0 success:^(id challenges) {
+    [[FTBClient client] challengesForChallenger:user challenged:nil page:0 success:^(id challenges) {
         self.challenges = challenges;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
