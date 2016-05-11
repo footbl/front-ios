@@ -22,6 +22,8 @@
 @class FTBBet;
 @class FTBChallenge;
 
+FOUNDATION_EXTERN const NSUInteger FTBClientPageSize;
+
 @interface FTBClient : AFHTTPSessionManager
 
 @property (nonatomic, strong, readonly) FTBUser *user;
@@ -67,7 +69,7 @@
 #pragma mark - Match
 
 - (void)match:(NSString *)match success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)matchesInChampionship:(FTBChampionship *)championship round:(NSUInteger)round page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)matchesInChampionship:(FTBChampionship *)championship page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - Message
 

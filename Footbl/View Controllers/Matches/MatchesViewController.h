@@ -16,10 +16,10 @@
 @interface MatchesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) FTBChampionship *championship;
-@property (nonatomic, copy) NSArray *matches;
+@property (nonatomic, strong) NSMutableArray *matches;
+@property (nonatomic, strong) FTBUser *challengedUser;
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) BetsViewController *betsViewController;
 @property (nonatomic, weak) MatchesNavigationBarView *navigationBarTitleView;
-@property (nonatomic, strong) FTBUser *challengedUser;
 
 @end

@@ -28,6 +28,7 @@
 #import "FTImageUploader.h"
 #import "NSString+Hex.h"
 
+const NSUInteger FTBClientPageSize                  = 20;
 static NSString * const kUserEmailKey               = @"kUserEmailKey";
 static NSString * const kUserIdentifierKey          = @"kUserIdentifierKey";
 static NSString * const kUserPasswordKey            = @"kUserPasswordKey";
@@ -320,8 +321,8 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self GET:path parameters:nil modelClass:[FTBMatch class] success:success failure:failure];
 }
 
-- (void)matchesInChampionship:(FTBChampionship *)championship round:(NSUInteger)round page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
-	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{/*@"filterByRound": @(round), */@"page": @(page)}];
+- (void)matchesInChampionship:(FTBChampionship *)championship page:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:@{@"page": @(page)}];
 	if (championship.identifier) parameters[@"filterByChampionship"] = championship.identifier;
 	[self GET:@"/matches" parameters:parameters modelClass:[FTBMatch class] success:success failure:failure];
 }

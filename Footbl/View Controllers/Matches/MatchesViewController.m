@@ -8,6 +8,7 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SPHipster/SPHipster.h>
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
 #import "MatchesViewController.h"
 #import "BetsViewController.h"
@@ -37,6 +38,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 @interface MatchesViewController ()
 
 @property (nonatomic, strong) UITableViewController *tableViewController;
+@property (nonatomic) NSUInteger page;
 
 @end
 
@@ -296,6 +298,16 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		[[LoadingHelper sharedInstance] hideHud];
 		[[ErrorHandler sharedInstance] displayError:error];
 	};
+    
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        self.page++;
+        [[FTBClient client] matchesInChampionship:self.championship page:self.page success:^(NSArray *objects) {
+            [self.matches addObjectsFromArray:objects];
+            [self.tableView reloadData];
+            [self.tableView.infiniteScrollingView stopAnimating];
+            self.tableView.showsInfiniteScrolling = (objects.count == FTBClientPageSize);
+        } failure:failure];
+    }];
 	
 	FTBUser *me = [FTBUser currentUser];
 	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
@@ -303,9 +315,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		
         [[FTBClient client] betsForUser:me match:nil activeOnly:NO page:0 success:^(NSArray *bets) {
             
-            [[FTBClient client] matchesInChampionship:self.championship round:0 page:0 success:^(NSArray *objects) {
+            self.page = 0;
+            self.tableView.showsInfiniteScrolling = YES;
+            [[FTBClient client] matchesInChampionship:self.championship page:self.page success:^(NSArray *objects) {
                 NSUInteger previousMatchesCount = self.matches.count;
-                self.matches = objects;
+                self.matches = [[NSMutableArray alloc] initWithArray:objects];
                 [self.tableView reloadData];
                 [self reloadWallet];
                 
