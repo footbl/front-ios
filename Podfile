@@ -41,6 +41,7 @@ target 'Footbl' do
     pod 'SVPullToRefresh', '0.4.1'
     pod 'Tweaks', '1.1.0'
     pod 'UIAlertView-Blocks', '1.0'
+    pod 'SVPullToRefresh', '0.4.1'
 end
 
 target 'FootblTests' do
