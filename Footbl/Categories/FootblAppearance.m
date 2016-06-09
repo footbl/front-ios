@@ -19,6 +19,10 @@ NSString * const kFontNameMedium = @"Avenir-Medium";
 NSString * const kFontNameSystemLight = @"HelveticaNeue-Light";
 NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 
+UIColor *UIColorMake(NSUInteger red, NSUInteger green, NSUInteger blue, CGFloat alpha) {
+    return [UIColor colorWithRed:(red / 255.f) green:(green / 255.f) blue:(blue / 255.f) alpha:alpha];
+}
+
 @implementation UIColor (FootblColor)
 
 + (UIColor *)ftb_viewBackgroundColor {
@@ -26,7 +30,7 @@ NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 }
 
 + (UIColor *)ftb_viewMatchBackgroundColor {
-	return [UIColor colorWithRed:239/255.f green:244/255.f blue:240/255.f alpha:1.00];
+	return UIColorMake(239, 244, 240, 1);
 }
 
 + (UIColor *)ftb_cellBackgroundColor {
@@ -34,15 +38,15 @@ NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 }
 
 + (UIColor *)ftb_cellMatchBackgroundColor {
-	return [UIColor colorWithRed:239/255.f green:244/255.f blue:240/255.f alpha:1.00];
+	return UIColorMake(239, 244, 240, 1);
 }
 
 + (UIColor *)ftb_cellSeparatorColor {
-	return [UIColor colorWithRed:2.0/255.f green:2.0/255.f blue:2.0/255.f alpha:0.15];
+	return UIColorMake(2, 2, 2, 0.15);
 }
 
 + (UIColor *)ftb_cellMatchPotColor {
-	return [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:0.70];
+	return UIColorMake(93, 107, 97, 0.7);
 }
 
 + (UIColor *)ftb_tabBarColor {
@@ -50,7 +54,7 @@ NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 }
 
 + (UIColor *)ftb_tabBarSeparatorColor {
-	return [UIColor colorWithRed:228/255.f green:228/255.f blue:228/255.f alpha:1.00];
+	return UIColorMake(228, 228, 228, 1);
 }
 
 + (UIColor *)ftb_tabBarTintColor {
@@ -62,31 +66,31 @@ NSString * const kFontNameSystemMedium = @"HelveticaNeue-Medium";
 }
 
 + (UIColor *)ftb_navigationBarSeparatorColor {
-	return [UIColor colorWithRed:228/255.f green:228/255.f blue:228/255.f alpha:1.00];
+	return UIColorMake(228, 228, 228, 1);
 }
 
 + (UIColor *)ftb_greenGrassColor {
-    return [UIColor colorWithRed:0.0/255.f green:169/255.f blue:72./255.f alpha:1.00];
+    return UIColorMake(0, 169, 72, 1);
 }
 
 + (UIColor *)ftb_greenLiveColor {
-    return [UIColor colorWithRed:50./255.f green:214/255.f blue:120/255.f alpha:1.00];
+    return UIColorMake(50, 214, 120, 1);
 }
 
 + (UIColor *)ftb_greenMoneyColor {
-    return [UIColor colorWithRed:43./255.f green:202/255.f blue:114/255.f alpha:1.00];
+    return UIColorMake(43, 202, 114, 1);
 }
 
 + (UIColor *)ftb_redStakeColor {
-    return [UIColor colorWithRed:227/255.f green:86./255.f blue:78./255.f alpha:1.00];
+    return UIColorMake(227, 86, 78, 1);
 }
 
 + (UIColor *)ftb_blueReturnColor {
-    return [UIColor colorWithRed:89./255.f green:186/255.f blue:235/255.f alpha:1.00];
+    return UIColorMake(89, 186, 235, 1);
 }
 
 + (UIColor *)ftb_subtitleColor {
-    return [UIColor colorWithRed:156/255.f green:164/255.f blue:158/255.f alpha:1.00];
+    return UIColorMake(156, 164, 158, 1);
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "ChallengeTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "FTBTeam.h"
+#import "FootblAppearance.h"
 
 @interface ChallengesViewController ()
 
@@ -32,7 +33,7 @@
 
 - (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBChallenge *challenge = self.challenges[indexPath.row];
-    [cell.userImageView sd_setImageWithURL:challenge.challengedUser.pictureURL];
+    [cell.userImageView sd_setImageWithURL:challenge.challengedUser.pictureURL placeholderImage:[UIImage imageNamed:@"FriendsGenericProfilePic"]];
     [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL];
     [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL];
     cell.stakeLabel.text = challenge.valueString;

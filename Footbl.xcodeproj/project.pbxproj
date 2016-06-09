@@ -38,6 +38,7 @@
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
+		11D4F4271D09B9BF0038C740 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4F4261D09B9BF0038C740 /* LineView.m */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11EF13ED1CE362A3006D1A2A /* ChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF13EC1CE362A3006D1A2A /* ChallengeTableViewCell.m */; };
 		11F9C4401CE214FC00E01A11 /* ChallengeStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */; };
@@ -221,6 +222,8 @@
 		117044051A8EB46000521BAB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		11D4F4251D09B9BF0038C740 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
+		11D4F4261D09B9BF0038C740 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		11EF13EB1CE362A3006D1A2A /* ChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeTableViewCell.h; sourceTree = "<group>"; };
 		11EF13EC1CE362A3006D1A2A /* ChallengeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeTableViewCell.m; sourceTree = "<group>"; };
 		11F9C43E1CE214FC00E01A11 /* ChallengeStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeStatusTableViewCell.h; sourceTree = "<group>"; };
@@ -665,6 +668,8 @@
 				A3ECBBF21CB1C0B9006BD2AF /* TeamImageView.m */,
 				A3ECBBF31CB1C0B9006BD2AF /* WalletGraphView.h */,
 				A3ECBBF41CB1C0B9006BD2AF /* WalletGraphView.m */,
+				11D4F4251D09B9BF0038C740 /* LineView.h */,
+				11D4F4261D09B9BF0038C740 /* LineView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1391,6 +1396,7 @@
 				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
 				A3ECBC0A1CB1C0DB006BD2AF /* FootblAppearance.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
+				11D4F4271D09B9BF0038C740 /* LineView.m in Sources */,
 				11EF13ED1CE362A3006D1A2A /* ChallengeTableViewCell.m in Sources */,
 				ED8DB3951A14C95C00605CCE /* GroupChampionshipTableViewCell.m in Sources */,
 				ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */,
