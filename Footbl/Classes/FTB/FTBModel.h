@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSDate *createdAt;
 @property (nonatomic, copy) NSDate *updatedAt;
 
++ (NSDateFormatter *)dateFormatter;
 + (NSValueTransformer *)dateJSONTransformer;
 + (instancetype)modelWithJSONDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)JSONDictionary;

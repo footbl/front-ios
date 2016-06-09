@@ -15,23 +15,6 @@
 
 @implementation FTBMatch
 
-+ (NSDateFormatter *)dateFormatter {
-	static NSDateFormatter *dateFormatter;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateStyle = NSDateFormatterShortStyle;
-		dateFormatter.timeStyle = NSDateFormatterShortStyle;
-		dateFormatter.AMSymbol = @"am";
-		dateFormatter.PMSymbol = @"pm";
-		dateFormatter.dateFormat = [@"EEEE, " stringByAppendingString:dateFormatter.dateFormat];
-		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@", y" withString:@""];
-		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@"/y" withString:@""];
-		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@"y" withString:@""];
-	});
-	return dateFormatter;
-}
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"championship": @"championship",
 							   @"guest": @"guest",

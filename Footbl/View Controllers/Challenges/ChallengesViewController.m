@@ -38,6 +38,7 @@
     [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL];
     cell.stakeLabel.text = challenge.valueString;
     cell.profitLabel.text = challenge.challengerResult == challenge.match.result ? challenge.valueString : @"-";
+    cell.dateLabel.text = challenge.match.dateString;
 }
 
 #pragma mark - Lifecycle
