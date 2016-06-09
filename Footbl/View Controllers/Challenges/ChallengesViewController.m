@@ -72,14 +72,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    FTBUser *user = [FTBUser currentUser];
-    [[FTBClient client] challengesForChallenger:user challenged:nil page:0 success:^(id challenges) {
+
+    [[FTBClient client] challengesForChallenger:nil challenged:nil page:0 success:^(id challenges) {
         self.challenges = challenges;
         [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        
-    }];
+    } failure:nil];
 }
 
 #pragma mark - UITableViewDataSource
