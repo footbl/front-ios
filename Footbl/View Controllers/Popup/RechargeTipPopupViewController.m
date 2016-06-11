@@ -6,14 +6,13 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <SPHipster/UIView+Frame.h>
-
 #import "RechargeTipPopupViewController.h"
 #import "FootblLabel.h"
 #import "FootblPopupViewController.h"
 #import "FTBUser.h"
 #import "RechargeButton.h"
 #import "UIImage+Color.h"
+#import "UIView+Frame.h"
 
 @interface RechargeTipPopupViewController ()
 

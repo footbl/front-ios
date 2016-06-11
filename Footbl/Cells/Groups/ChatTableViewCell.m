@@ -7,8 +7,8 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <SPHipster/UIView+Frame.h>
 
+#import "UIView+Frame.h"
 #import "ChatTableViewCell.h"
 #import "NSDate+Utils.h"
 

@@ -53,6 +53,7 @@ PODS:
   - KIF (3.0.8):
     - KIF/XCTest (= 3.0.8)
   - KIF/XCTest (3.0.8)
+  - LDProgressView (1.2.1)
   - Mantle (2.0.3):
     - Mantle/extobjc (= 2.0.3)
   - Mantle/extobjc (2.0.3)
@@ -63,8 +64,17 @@ PODS:
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
-  - SPHipster (0.5.3)
-  - SPNotifier (0.2.2)
+  - SPHipster (0.5.3):
+    - SPHipster/Categories (= 0.5.3)
+    - SPHipster/Core (= 0.5.3)
+    - SPHipster/Extras (= 0.5.3)
+  - SPHipster/Categories (0.5.3):
+    - SPHipster/Core
+  - SPHipster/Core (0.5.3)
+  - SPHipster/Extras (0.5.3):
+    - SPHipster/Core
+  - SPNotifier (0.2.2):
+    - AFNetworking (~> 2.0)
   - StyledPageControl (1.0)
   - SVPullToRefresh (0.4.1)
   - TransformerKit (0.5.3):
@@ -107,12 +117,13 @@ DEPENDENCIES:
   - GoogleAnalytics (= 3.14.0)
   - iRate (= 1.11.3)
   - KIF (= 3.0.8)
+  - LDProgressView (~> 1.2.1)
   - Mantle (~> 2.0.3)
   - MBProgressHUD (= 0.9)
   - RMStore (= 0.6.0)
   - SDWebImage (= 3.7.1)
-  - SPHipster (from `Footbl/Pods/SPHipster`)
-  - SPNotifier (from `Footbl/Pods/SPNotifier`)
+  - SPHipster (= 0.5.3)
+  - SPNotifier (from `https://git.madeatsampa.com/madeatsampa/spnotifier-ios.git`)
   - StyledPageControl (= 1.0)
   - SVPullToRefresh (= 0.4.1)
   - TransformerKit (= 0.5.3)
@@ -120,10 +131,13 @@ DEPENDENCIES:
   - UIAlertView-Blocks (= 1.0)
 
 EXTERNAL SOURCES:
-  SPHipster:
-    :path: Footbl/Pods/SPHipster
   SPNotifier:
-    :path: Footbl/Pods/SPNotifier
+    :git: https://git.madeatsampa.com/madeatsampa/spnotifier-ios.git
+
+CHECKOUT OPTIONS:
+  SPNotifier:
+    :commit: e206f64aa444a221cb510e1058df2ed782516e2c
+    :git: https://git.madeatsampa.com/madeatsampa/spnotifier-ios.git
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: e82c9ba285b37042d86729bff5b14036c4312cd7
@@ -142,18 +156,19 @@ SPEC CHECKSUMS:
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
   KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
+  LDProgressView: f6afc7c30d2a9edf33001515f3189338567a32d2
   Mantle: 8d6b14979a082a9ed4994463eb7a4ff576c94632
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
   RMStore: d6a1fa44111f843a0c24cfc6ee934ae30a4b54ac
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
-  SPHipster: 744973c5b61391102c4ae43248a903be84648aac
-  SPNotifier: fad0ba59e8962cf5c10caecfae6518a2351d93d4
+  SPHipster: bda4f8c802d57ac2750a3724a8c583b5aa21ddb8
+  SPNotifier: c9744adbbb480b3086abbc9ee9c9f1e1d13dabb1
   StyledPageControl: b49f33cb65b99370a78a490fac127b1ca6472fd0
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TransformerKit: ecc75d46d34be4da3370556ee6acbf85d04bf44a
   Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-PODFILE CHECKSUM: e8b5f08265e8b9e335fd2b3d7e5115c2ca095757
+PODFILE CHECKSUM: 869a889771fa21aa64f376292bb1fd04fcbc90b5
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

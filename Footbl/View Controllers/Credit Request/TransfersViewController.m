@@ -8,7 +8,6 @@
 
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import <SPHipster/UIView+Frame.h>
 
 #import "TransfersViewController.h"
 #import "ErrorHandler.h"
@@ -21,6 +20,7 @@
 #import "NSParagraphStyle+AlignmentCenter.h"
 #import "TransferTableViewCell.h"
 #import "UIImage+Color.h"
+#import "UIView+Frame.h"
 
 @interface TransfersViewController ()
 

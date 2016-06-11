@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
-#import <SPHipster/UIView+Frame.h>
-
 #import "DailyBonusPopupViewController.h"
 #import "ErrorHandler.h"
 #import "FootblLabel.h"
@@ -15,6 +13,7 @@
 #import "FTBPrize.h"
 #import "FTBUser.h"
 #import "UIImage+Color.h"
+#import "UIView+Frame.h"
 
 @interface DailyBonusPopupViewController ()
 

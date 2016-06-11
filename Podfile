@@ -1,15 +1,13 @@
-plugin 'cocoapods-no-dev-schemes'
-
 source 'https://github.com/CocoaPods/Specs.git'
-#source 'http://madeatsampa.com/sppodspec.git'
+source 'https://git.madeatsampa.com/madeatsampa/sppodspec.git'
 
 platform :ios, '7.0'
 inhibit_all_warnings!
 
 target 'Footbl' do
     # madeatsampa
-    pod 'SPHipster', :path => 'Footbl/Pods/SPHipster' #'0.5.3'
-    pod 'SPNotifier', :path => 'Footbl/Pods/SPNotifier' #'0.2.2'
+    pod 'SPHipster', '0.5.3'
+    pod 'SPNotifier', :git => 'https://git.madeatsampa.com/madeatsampa/spnotifier-ios.git'
     
     # Analytics
     pod 'Fabric', '1.6.7'
@@ -42,6 +40,7 @@ target 'Footbl' do
     pod 'Tweaks', '1.1.0'
     pod 'UIAlertView-Blocks', '1.0'
     pod 'SVPullToRefresh', '0.4.1'
+    pod 'LDProgressView', '~> 1.2.1'
 end
 
 target 'FootblTests' do

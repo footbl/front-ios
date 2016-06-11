@@ -35,6 +35,7 @@
 		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; };
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		1100DB221D0C6938000C198A /* TrophiesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */; };
+		1127FACF1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
@@ -213,6 +214,8 @@
 		10FFD9F81BC0C3090065B215 /* FTBPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPool.m; sourceTree = "<group>"; };
 		1100DB201D0C6938000C198A /* TrophiesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophiesTableViewCell.h; sourceTree = "<group>"; };
 		1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophiesTableViewCell.m; sourceTree = "<group>"; };
+		1127FACD1D0CB4E8007C7EF6 /* ExperienceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTableViewCell.h; sourceTree = "<group>"; };
+		1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceTableViewCell.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
 		1157A1471CD78BCE00898530 /* ChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengesViewController.h; sourceTree = "<group>"; };
@@ -720,6 +723,8 @@
 				A3ECBBE61CB1BA15006BD2AF /* ProfileChallengeTableViewCell.m */,
 				1100DB201D0C6938000C198A /* TrophiesTableViewCell.h */,
 				1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */,
+				1127FACD1D0CB4E8007C7EF6 /* ExperienceTableViewCell.h */,
+				1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */,
 				10AF593D1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.h */,
 				10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */,
 				10AF59491B9C863C00168433 /* UserPerformanceTableViewCell.h */,
@@ -1159,13 +1164,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
-				737DEE837B40A6333613019A /* 📦 Check Pods Manifest.lock */,
+				737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */,
 				ED8DB3861A14C95C00605CCE /* Sources */,
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
 				ED8DB3F91A14C95C00605CCE /* Resources */,
 				A39897771CB1072D00957063 /* Fabric */,
-				02E3C36B5B1C71BC284E294C /* 📦 Embed Pods Frameworks */,
-				C52C2B7483F9DF9CF83B99E6 /* 📦 Copy Pods Resources */,
+				02E3C36B5B1C71BC284E294C /* [CP] Embed Pods Frameworks */,
+				C52C2B7483F9DF9CF83B99E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1180,12 +1185,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDB1D49718E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "FootblTests" */;
 			buildPhases = (
-				BD62CC3CB0AF3B49FE67488B /* 📦 Check Pods Manifest.lock */,
+				BD62CC3CB0AF3B49FE67488B /* [CP] Check Pods Manifest.lock */,
 				EDB1D47E18E1F18B00E0C949 /* Sources */,
 				EDB1D47F18E1F18B00E0C949 /* Frameworks */,
 				EDB1D48018E1F18B00E0C949 /* Resources */,
-				3FA3FDC384A3E698CD8412F3 /* 📦 Embed Pods Frameworks */,
-				91CE9AD430E99E98088641AA /* 📦 Copy Pods Resources */,
+				3FA3FDC384A3E698CD8412F3 /* [CP] Embed Pods Frameworks */,
+				91CE9AD430E99E98088641AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1277,14 +1282,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02E3C36B5B1C71BC284E294C /* 📦 Embed Pods Frameworks */ = {
+		02E3C36B5B1C71BC284E294C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1292,14 +1297,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3FA3FDC384A3E698CD8412F3 /* 📦 Embed Pods Frameworks */ = {
+		3FA3FDC384A3E698CD8412F3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1307,14 +1312,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		737DEE837B40A6333613019A /* 📦 Check Pods Manifest.lock */ = {
+		737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1322,14 +1327,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		91CE9AD430E99E98088641AA /* 📦 Copy Pods Resources */ = {
+		91CE9AD430E99E98088641AA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1351,14 +1356,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
-		BD62CC3CB0AF3B49FE67488B /* 📦 Check Pods Manifest.lock */ = {
+		BD62CC3CB0AF3B49FE67488B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1366,14 +1371,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		C52C2B7483F9DF9CF83B99E6 /* 📦 Copy Pods Resources */ = {
+		C52C2B7483F9DF9CF83B99E6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1399,6 +1404,7 @@
 				ED8DB3921A14C95C00605CCE /* TemplateTableViewCell.m in Sources */,
 				10AF59401B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m in Sources */,
 				109FB2D31B7C334900E67B3C /* FTBGroup.m in Sources */,
+				1127FACF1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m in Sources */,
 				A3ECBC0A1CB1C0DB006BD2AF /* FootblAppearance.m in Sources */,
 				ED8DB3931A14C95C00605CCE /* GroupAddMemberTableViewCell.m in Sources */,
 				11D4F4271D09B9BF0038C740 /* LineView.m in Sources */,
