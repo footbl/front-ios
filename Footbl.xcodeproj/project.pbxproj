@@ -34,6 +34,7 @@
 		10E2413F1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; };
 		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; };
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
+		1100DB221D0C6938000C198A /* TrophiesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
@@ -210,6 +211,8 @@
 		10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeasonWelcomePopupViewController.m; sourceTree = "<group>"; };
 		10FFD9F71BC0C3090065B215 /* FTBPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBPool.h; sourceTree = "<group>"; };
 		10FFD9F81BC0C3090065B215 /* FTBPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPool.m; sourceTree = "<group>"; };
+		1100DB201D0C6938000C198A /* TrophiesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophiesTableViewCell.h; sourceTree = "<group>"; };
+		1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophiesTableViewCell.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
 		1157A1471CD78BCE00898530 /* ChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengesViewController.h; sourceTree = "<group>"; };
@@ -715,6 +718,8 @@
 				ED32432A192BCD8000F54D57 /* WalletTableViewCell.m */,
 				A3ECBBE51CB1BA15006BD2AF /* ProfileChallengeTableViewCell.h */,
 				A3ECBBE61CB1BA15006BD2AF /* ProfileChallengeTableViewCell.m */,
+				1100DB201D0C6938000C198A /* TrophiesTableViewCell.h */,
+				1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */,
 				10AF593D1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.h */,
 				10AF593E1B9C6DDF00168433 /* TrophyRoomCollectionViewCell.m */,
 				10AF59491B9C863C00168433 /* UserPerformanceTableViewCell.h */,
@@ -1448,6 +1453,7 @@
 				ED8DB3BE1A14C95C00605CCE /* NSString+SHA1.m in Sources */,
 				10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */,
 				A39897791CB107CF00957063 /* GroupRankingViewController.m in Sources */,
+				1100DB221D0C6938000C198A /* TrophiesTableViewCell.m in Sources */,
 				DB5422A11A1FE9540047B816 /* DailyBonusPopupViewController.m in Sources */,
 				ED8DB3BF1A14C95C00605CCE /* SignupViewController.m in Sources */,
 				ED8DB3C11A14C95C00605CCE /* WalletTableViewCell.m in Sources */,

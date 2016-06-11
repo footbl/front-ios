@@ -1,361 +1,361 @@
 [{
     "title": "The Gold Cup",
     "subtitle": "1st place in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "the_gold_cup",
     "progressive": false,
     "progress": 0
 }, {
     "title": "The Silver Cup",
     "subtitle": "2nd place in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "the_silver_cup",
     "progressive": false,
     "progress": 0
 }, {
     "title": "The Bronze Cup",
     "subtitle": "3rd place in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "the_bronze_cup",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Diamond",
     "subtitle": "Top 10 in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "diamond",
     "progressive": false,
     "progress": 0
 }, {
-    "title": "Platinum",
+    "title": "Topaz",
     "subtitle": "Top 100 in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "topaz",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Emerald",
     "subtitle": "Top 2% in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "emerald",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Sapphire",
     "subtitle": "Top 5% in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "sapphire",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Ruby",
     "subtitle": "Top 10% in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "ruby",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Pearl",
     "subtitle": "Top 15% in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "pearl",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Crystal",
     "subtitle": "Top 20% in a Season",
-    "imageName": "footbl_circle",
+    "imageName": "crystal",
     "progressive": false,
     "progress": 0
 }, {
     "title": "All In",
     "subtitle": "Bet all your $ in a single match\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "all_in",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Splash",
     "subtitle": "Bet all your $ in a single match, and make a profit\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "splash",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Gutsy",
     "subtitle": "Bet all your $ in multiple matches\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "gutsy",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Bold",
     "subtitle": "Bet more than $100 in a single match\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "bold",
     "progressive": false,
     "progress": 0
 }, {
     "title": "High Stakes",
     "subtitle": "Bet more than $500 in a single match\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "high_stakes",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Go Big",
     "subtitle": "Bet more than $1,000 in a single match\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "go_big",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Connoisseur",
     "subtitle": "Bet in 3 or more leagues\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "connoiseur",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Global",
     "subtitle": "Bet in 5 or more leagues\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "global",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Driven",
     "subtitle": "Bet in 2 consecutive seasons\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "driven",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Endurer ",
     "subtitle": "Bet in 3 consecutive seasons\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "endurer",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Tenacious",
     "subtitle": "Bet in 10 consecutive seasons\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "tenacious",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Marathoner",
     "subtitle": "Bet in 20 consecutive seasons\n(Bet effective once match is live)",
-    "imageName": "footbl_circle",
+    "imageName": "marathoner",
     "progressive": true,
     "progress": 0
 }, {
-    "title": "Begginers' Luck",
+    "title": "Beginners' Luck",
     "subtitle": "Profit > $10 in a single match",
-    "imageName": "footbl_circle",
+    "imageName": "beginner's_luck",
     "progressive": false,
     "progress": 0
 }, {
-    "title": "Fast Learner ",
+    "title": "Fast Learner",
     "subtitle": "Profit > $100 in a single match",
-    "imageName": "footbl_circle",
+    "imageName": "fast_learner",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Reaper",
     "subtitle": "Profit > $1,000 in a single match",
-    "imageName": "footbl_circle",
+    "imageName": "reaper",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Triple damage",
     "subtitle": "Make a profit in 3 simultaneous matches in the same league",
-    "imageName": "footbl_circle",
+    "imageName": "triple_damage",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Fiver",
     "subtitle": "Make a profit in 5 simultaneous matches in the same league",
-    "imageName": "footbl_circle",
+    "imageName": "fiver",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Broke",
     "subtitle": "Loose all your $ and reach wallet-zero",
-    "imageName": "footbl_circle",
+    "imageName": "broke",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Ribéry",
     "subtitle": "Wallet > $150",
-    "imageName": "footbl_circle",
+    "imageName": "ribery",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Ibrahimović",
     "subtitle": "Wallet > $200",
-    "imageName": "footbl_circle",
+    "imageName": "ibrahimovic",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Robben",
     "subtitle": "Wallet > $500",
-    "imageName": "footbl_circle",
+    "imageName": "robben",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Neymar",
     "subtitle": "Wallet > $1,000",
-    "imageName": "footbl_circle",
+    "imageName": "neymar",
     "progressive": false,
     "progress": 0
 }, {
     "title": "C. Ronaldo",
     "subtitle": "Wallet > $5,000",
-    "imageName": "footbl_circle",
+    "imageName": "cristiano_ronaldo",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Messi",
     "subtitle": "Wallet > $10,000",
-    "imageName": "footbl_circle",
+    "imageName": "messi",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Beggar",
     "subtitle": "Ask $ for friends",
-    "imageName": "footbl_circle",
+    "imageName": "beggar",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Reset",
     "subtitle": "Recharge your wallet",
-    "imageName": "footbl_circle",
+    "imageName": "reset",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Giver",
     "subtitle": "Give money to a friend in need",
-    "imageName": "footbl_circle",
+    "imageName": "giver",
     "progressive": false,
     "progress": 0
 }, {
     "title": "The First",
     "subtitle": "Challange your first opponent",
-    "imageName": "footbl_circle",
+    "imageName": "the_first",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Fighter",
     "subtitle": "Challange three diferent opponents",
-    "imageName": "footbl_circle",
+    "imageName": "fighter",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Attack Mode",
     "subtitle": "Start 5 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "attack_mode",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Why not?",
     "subtitle": "Accept 5 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "why_not",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Bernabéu",
     "subtitle": "Play 10 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "barnabeu",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Maracanã",
     "subtitle": "Play 100 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "maracana",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Wembley",
     "subtitle": "Play 500 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "wembley",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Hat Trick",
     "subtitle": "Win 3 challenges in a row",
-    "imageName": "footbl_circle",
+    "imageName": "hat_trick",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Massacre",
     "subtitle": "Win 6 challenges in a row",
-    "imageName": "footbl_circle",
+    "imageName": "massacre",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Destruction",
     "subtitle": "Win 9 challenges in a row",
-    "imageName": "footbl_circle",
+    "imageName": "destruction",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Zidane",
     "subtitle": "Win 10 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "zidane",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Maradona",
     "subtitle": "Win 50 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "maradona",
     "progressive": true,
     "progress": 0
 }, {
     "title": "The King",
     "subtitle": "Win 100 challenges",
-    "imageName": "footbl_circle",
+    "imageName": "the_king",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Daddy",
     "subtitle": "Win 3 challenges against the same opponent",
-    "imageName": "footbl_circle",
+    "imageName": "daddy",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Avenger",
     "subtitle": "Win 3 revange challenges",
-    "imageName": "footbl_circle",
+    "imageName": "avenger",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Triple downer",
     "subtitle": "Loose 3 challenges in a row",
-    "imageName": "footbl_circle",
+    "imageName": "triple_downer",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Overtime",
     "subtitle": "Tie a challenge\n(no one gets the match outcome right)",
-    "imageName": "footbl_circle",
+    "imageName": "overtime",
     "progressive": false,
     "progress": 0
 }, {
     "title": "Dribbler",
     "subtitle": "Share 3 challenge wins",
-    "imageName": "footbl_circle",
+    "imageName": "dribbler",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Striker",
     "subtitle": "Share 10 challenge wins",
-    "imageName": "footbl_circle",
+    "imageName": "striker",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Playmaker",
     "subtitle": "Create 3 groups",
-    "imageName": "footbl_circle",
+    "imageName": "playmaker",
     "progressive": true,
     "progress": 0
 }, {
-    "title": "Header ",
+    "title": "Header",
     "subtitle": "Share 3 match cards on Facebook",
-    "imageName": "footbl_circle",
+    "imageName": "header",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Bicycle Kick",
     "subtitle": "Share 3 match cards on Twitter",
-    "imageName": "footbl_circle",
+    "imageName": "bicycle_kick",
     "progressive": true,
     "progress": 0
 }, {
     "title": "Goal",
     "subtitle": "Share 10 match cards",
-    "imageName": "footbl_circle",
+    "imageName": "goal",
     "progressive": true,
     "progress": 0
 }]

@@ -14,74 +14,78 @@
 
 @interface TrophyRoomViewController ()
 
-@property (nonatomic, strong) NSArray *trophies;
+@property (nonatomic, copy) NSArray *trophies;
 
 @end
 
 @implementation TrophyRoomViewController
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	
-	self.progressView.progress = 0.25;
-	
-	[self setupTrophies];
+#pragma mark - Class Methods
+
++ (NSString *)storyboardName {
+    return @"Main";
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.progressView.progress = 0.25;
+
+    [self setupTrophies];
 }
 
 #pragma mark - Private
 
 - (void)setupTrophies {
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"trophies" ofType:@"json"];
-	NSData *data = [NSData dataWithContentsOfFile:path];
-	NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-	self.trophies = [MTLJSONAdapter modelsOfClass:[FTBTrophy class] fromJSONArray:array error:nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"trophies" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    self.trophies = [MTLJSONAdapter modelsOfClass:[FTBTrophy class] fromJSONArray:array error:nil];
 }
 
-- (void)configureCell:(TrophyRoomCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	FTBTrophy *trophy = self.trophies[indexPath.row];
-	cell.iconImageView.image = [UIImage imageNamed:trophy.imageName];
-	cell.nameLabel.text = trophy.title;
-	cell.progressView.progress = trophy.progress.floatValue;
-	cell.progressView.hidden = !trophy.isProgressive;
+- (void)configureCollectionViewCell:(TrophyRoomCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    FTBTrophy *trophy = self.trophies[indexPath.row];
+    cell.iconImageView.image = [UIImage imageNamed:trophy.imageName];
+    cell.nameLabel.text = trophy.title;
+    cell.progressView.progress = trophy.progress.floatValue;
+    cell.progressView.hidden = !trophy.isProgressive;
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return 1;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return self.trophies.count;
+    return self.trophies.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	TrophyRoomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-	[self configureCell:cell atIndexPath:indexPath];
-	return cell;
+    TrophyRoomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    [self configureCollectionViewCell:cell atIndexPath:indexPath];
+    return cell;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-	UICollectionReusableView *view = nil;
-	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-		view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
-		UILabel *label = (UILabel *)[view viewWithTag:777];
-		label.text = [NSString stringWithFormat:@"Complete to collect trophies: %ld%% complete", (long)25];
-	}
-	return view;
+    UICollectionReusableView *view = nil;
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+        UILabel *label = (UILabel *)[view viewWithTag:777];
+        label.text = [NSString stringWithFormat:@"Complete to collect trophies: %ld%% complete", (long)25];
+    }
+    return view;
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-	TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
-	viewController.trophy = self.trophies[indexPath.row];
-	[self presentViewController:viewController animated:YES completion:nil];
-	[self setNeedsStatusBarAppearanceUpdate];
+    TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
+    viewController.trophy = self.trophies[indexPath.row];
+    [self presentViewController:viewController animated:YES completion:nil];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 @end

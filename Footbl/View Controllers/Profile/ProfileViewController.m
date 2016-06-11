@@ -34,6 +34,8 @@
 #import "WalletHighestTableViewCell.h"
 #import "WalletTableViewCell.h"
 #import "BetsViewController.h"
+#import "TrophiesTableViewCell.h"
+#import "TrophyRoomViewController.h"
 
 @interface ProfileViewController ()
 
@@ -163,6 +165,14 @@
     };
     profileRow.height = 93;
     [profileSection addRow:profileRow];
+
+    TableViewRow *trophiesRow = [[TableViewRow alloc] initWithClass:[TrophiesTableViewCell class] reuseIdentifier:@"TrophiesCell"];
+    trophiesRow.selection = ^(NSIndexPath *indexPath) {
+        TrophyRoomViewController *viewController = [TrophyRoomViewController instantiateFromStoryboard];
+        [weakSelf.navigationController pushViewController:viewController animated:YES];
+    };
+    trophiesRow.height = 67;
+    [profileSection addRow:trophiesRow];
     
     TableViewRow *walletRow = [[TableViewRow alloc] initWithClass:[WalletTableViewCell class] reuseIdentifier:@"WalletCell"];
     walletRow.setup = ^(WalletTableViewCell *cell, NSIndexPath *indexPath) {
@@ -410,7 +420,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.view.backgroundColor;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.layoutMargins = UIEdgeInsetsZero;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 10)];
@@ -421,6 +432,7 @@
     [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
     [self.tableView registerClass:[WalletGraphTableViewCell class] forCellReuseIdentifier:@"WalletGraphCell"];
     [self.tableView registerClass:[ProfileChallengeTableViewCell class] forCellReuseIdentifier:@"ChallengeCell"];
+    [self.tableView registerClass:[TrophiesTableViewCell class] forCellReuseIdentifier:@"TrophiesCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     

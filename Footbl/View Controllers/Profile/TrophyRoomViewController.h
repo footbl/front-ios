@@ -8,7 +8,7 @@
 
 #import "TemplateViewController.h"
 
-@interface TrophyRoomViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface TrophyRoomViewController : TemplateViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *headerLabel;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
