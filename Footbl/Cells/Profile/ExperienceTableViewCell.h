@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LDProgressView/LDProgressView.h>
 
 @interface ExperienceTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) LDProgressView *progressView;
 
 @end

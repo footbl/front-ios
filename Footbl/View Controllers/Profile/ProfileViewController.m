@@ -36,6 +36,8 @@
 #import "BetsViewController.h"
 #import "TrophiesTableViewCell.h"
 #import "TrophyRoomViewController.h"
+#import "ExperienceTableViewCell.h"
+#import "LineView.h"
 
 @interface ProfileViewController ()
 
@@ -129,10 +131,10 @@
     __weak typeof(self) weakSelf = self;
     
     self.dataSource = [[TableViewDataSource alloc] init];
-    
+
     TableViewSection *profileSection = [[TableViewSection alloc] init];
     [self.dataSource addSection:profileSection];
-    
+
     TableViewRow *profileRow = [[TableViewRow alloc] initWithClass:[ProfileTableViewCell class] reuseIdentifier:@"ProfileCell"];
     profileRow.setup = ^(ProfileTableViewCell *cell, NSIndexPath *indexPath) {
         cell.nameLabel.text = weakSelf.user.name;
@@ -166,13 +168,27 @@
     profileRow.height = 93;
     [profileSection addRow:profileRow];
 
+    TableViewSection *gameSection = [[TableViewSection alloc] init];
+    [self.dataSource addSection:gameSection];
+
+    TableViewRow *experienceRow = [[TableViewRow alloc] initWithClass:[ExperienceTableViewCell class] reuseIdentifier:@"ExperienceCell"];
+    experienceRow.setup = ^(ExperienceTableViewCell *cell, NSIndexPath *indexPath) {
+        cell.progressView.progress = 0.2;
+    };
+    experienceRow.height = 44;
+    [gameSection addRow:experienceRow];
+
     TableViewRow *trophiesRow = [[TableViewRow alloc] initWithClass:[TrophiesTableViewCell class] reuseIdentifier:@"TrophiesCell"];
     trophiesRow.selection = ^(NSIndexPath *indexPath) {
         TrophyRoomViewController *viewController = [TrophyRoomViewController instantiateFromStoryboard];
         [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     trophiesRow.height = 67;
-    [profileSection addRow:trophiesRow];
+    [gameSection addRow:trophiesRow];
+
+    TableViewSection *historySection = [[TableViewSection alloc] init];
+    historySection.headerViewHeight = 10;
+    [self.dataSource addSection:historySection];
     
     TableViewRow *walletRow = [[TableViewRow alloc] initWithClass:[WalletTableViewCell class] reuseIdentifier:@"WalletCell"];
     walletRow.setup = ^(WalletTableViewCell *cell, NSIndexPath *indexPath) {
@@ -180,7 +196,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     };
     walletRow.height = 67;
-    [profileSection addRow:walletRow];
+    [historySection addRow:walletRow];
     
     TableViewRow *highestWalletRow = [[TableViewRow alloc] initWithClass:[WalletHighestTableViewCell class] reuseIdentifier:@"WalletHighestCell"];
     highestWalletRow.setup = ^(WalletHighestTableViewCell *cell, NSIndexPath *indexPath) {
@@ -191,7 +207,7 @@
         }
     };
     highestWalletRow.height = 43;
-    [profileSection addRow:highestWalletRow];
+    [historySection addRow:highestWalletRow];
     
     if (self.user.history.count >= MINIMUM_HISTORY_COUNT) {
         TableViewRow *graphRow = [[TableViewRow alloc] initWithClass:[WalletGraphTableViewCell class] reuseIdentifier:@"WalletGraphCell"];
@@ -200,7 +216,7 @@
             cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), cell.dataSource];
         };
         graphRow.height = 164;
-        [profileSection addRow:graphRow];
+        [historySection addRow:graphRow];
     }
     
     if (!self.user.isMe) {
@@ -433,6 +449,7 @@
     [self.tableView registerClass:[WalletGraphTableViewCell class] forCellReuseIdentifier:@"WalletGraphCell"];
     [self.tableView registerClass:[ProfileChallengeTableViewCell class] forCellReuseIdentifier:@"ChallengeCell"];
     [self.tableView registerClass:[TrophiesTableViewCell class] forCellReuseIdentifier:@"TrophiesCell"];
+    [self.tableView registerClass:[ExperienceTableViewCell class] forCellReuseIdentifier:@"ExperienceCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     
