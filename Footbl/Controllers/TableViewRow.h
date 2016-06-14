@@ -16,6 +16,6 @@
 @property (nonatomic, copy) void (^setup)(__kindof UITableViewCell *, NSIndexPath *);
 @property (nonatomic, copy) void (^selection)(NSIndexPath *);
 
-- (instancetype)initWithClass:(Class)reuseClass reuseIdentifier:(NSString *)reuseIdentifier;
+- (instancetype)initWithClass:(Class)reuseClass;
 
 @end

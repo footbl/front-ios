@@ -10,11 +10,11 @@
 
 @implementation TableViewRow
 
-- (instancetype)initWithClass:(Class)reuseClass reuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithClass:(Class)reuseClass {
     self = [super init];
     if (self) {
         self.resuseClass = reuseClass;
-        self.resuseIdentifier = reuseIdentifier;
+        self.resuseIdentifier = NSStringFromClass(reuseClass);
     }
     return self;
 }

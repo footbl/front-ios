@@ -135,7 +135,7 @@
     TableViewSection *profileSection = [[TableViewSection alloc] init];
     [self.dataSource addSection:profileSection];
 
-    TableViewRow *profileRow = [[TableViewRow alloc] initWithClass:[ProfileTableViewCell class] reuseIdentifier:@"ProfileCell"];
+    TableViewRow *profileRow = [[TableViewRow alloc] initWithClass:[ProfileTableViewCell class]];
     profileRow.setup = ^(ProfileTableViewCell *cell, NSIndexPath *indexPath) {
         cell.nameLabel.text = weakSelf.user.name;
         cell.usernameLabel.text = weakSelf.user.username;
@@ -171,14 +171,14 @@
     TableViewSection *gameSection = [[TableViewSection alloc] init];
     [self.dataSource addSection:gameSection];
 
-    TableViewRow *experienceRow = [[TableViewRow alloc] initWithClass:[ExperienceTableViewCell class] reuseIdentifier:@"ExperienceCell"];
+    TableViewRow *experienceRow = [[TableViewRow alloc] initWithClass:[ExperienceTableViewCell class]];
     experienceRow.setup = ^(ExperienceTableViewCell *cell, NSIndexPath *indexPath) {
         cell.progressView.progress = 0.2;
     };
     experienceRow.height = 44;
     [gameSection addRow:experienceRow];
 
-    TableViewRow *trophiesRow = [[TableViewRow alloc] initWithClass:[TrophiesTableViewCell class] reuseIdentifier:@"TrophiesCell"];
+    TableViewRow *trophiesRow = [[TableViewRow alloc] initWithClass:[TrophiesTableViewCell class]];
     trophiesRow.selection = ^(NSIndexPath *indexPath) {
         TrophyRoomViewController *viewController = [TrophyRoomViewController instantiateFromStoryboard];
         [weakSelf.navigationController pushViewController:viewController animated:YES];
@@ -190,7 +190,7 @@
     historySection.headerViewHeight = 10;
     [self.dataSource addSection:historySection];
     
-    TableViewRow *walletRow = [[TableViewRow alloc] initWithClass:[WalletTableViewCell class] reuseIdentifier:@"WalletCell"];
+    TableViewRow *walletRow = [[TableViewRow alloc] initWithClass:[WalletTableViewCell class]];
     walletRow.setup = ^(WalletTableViewCell *cell, NSIndexPath *indexPath) {
         cell.valueText = weakSelf.user.wallet.walletStringValue;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -198,7 +198,7 @@
     walletRow.height = 67;
     [historySection addRow:walletRow];
     
-    TableViewRow *highestWalletRow = [[TableViewRow alloc] initWithClass:[WalletHighestTableViewCell class] reuseIdentifier:@"WalletHighestCell"];
+    TableViewRow *highestWalletRow = [[TableViewRow alloc] initWithClass:[WalletHighestTableViewCell class]];
     highestWalletRow.setup = ^(WalletHighestTableViewCell *cell, NSIndexPath *indexPath) {
         if (weakSelf.user) {
             [cell setHighestValue:weakSelf.user.highestWallet withDate:weakSelf.user.highestWalletDate];
@@ -210,7 +210,7 @@
     [historySection addRow:highestWalletRow];
     
     if (self.user.history.count >= MINIMUM_HISTORY_COUNT) {
-        TableViewRow *graphRow = [[TableViewRow alloc] initWithClass:[WalletGraphTableViewCell class] reuseIdentifier:@"WalletGraphCell"];
+        TableViewRow *graphRow = [[TableViewRow alloc] initWithClass:[WalletGraphTableViewCell class]];
         graphRow.setup = ^(WalletGraphTableViewCell *cell, NSIndexPath *indexPath) {
             cell.dataSource = weakSelf.user.history;
             cell.roundsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Wallet evolution", @""), cell.dataSource];
@@ -224,7 +224,7 @@
         challengeSection.headerViewHeight = 10;
         [self.dataSource addSection:challengeSection];
         
-        TableViewRow *challengeRow = [[TableViewRow alloc] initWithClass:[ProfileChallengeTableViewCell class] reuseIdentifier:@"ChallengeCell"];
+        TableViewRow *challengeRow = [[TableViewRow alloc] initWithClass:[ProfileChallengeTableViewCell class]];
         challengeRow.selection = ^(NSIndexPath *indexPath) {
             BetsViewController *viewController = [[BetsViewController alloc] init];
             viewController.challengedUser = weakSelf.user;
@@ -238,7 +238,7 @@
     rankingSection.headerViewHeight = 10;
     [self.dataSource addSection:rankingSection];
     
-    TableViewRow *championshipRow = [[TableViewRow alloc] initWithClass:[ProfileChampionshipTableViewCell class] reuseIdentifier:@"ChampionshipCell"];
+    TableViewRow *championshipRow = [[TableViewRow alloc] initWithClass:[ProfileChampionshipTableViewCell class]];
     championshipRow.setup = ^(ProfileChampionshipTableViewCell *cell, NSIndexPath *indexPath) {
         cell.championshipImageView.image = [UIImage imageNamed:@"world_icon"];
         cell.nameLabel.text = NSLocalizedString(@"World", @"");
@@ -257,7 +257,7 @@
     championshipRow.height = 67;
     [rankingSection addRow:championshipRow];
     
-    TableViewRow *historyRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class] reuseIdentifier:@"Cell"];
+    TableViewRow *historyRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class]];
     historyRow.setup = ^(UITableViewCell *cell, NSIndexPath *indexPath) {
         cell.textLabel.text = NSLocalizedString(@"View betting history", @"");
         [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
@@ -271,9 +271,9 @@
     if (self.user.isMe) {
         TableViewSection *settingsSection = [[TableViewSection alloc] init];
         settingsSection.headerViewHeight = 10;
-        [weakSelf.dataSource addSection:settingsSection];
+        [self.dataSource addSection:settingsSection];
         
-        TableViewRow *settingsRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class] reuseIdentifier:@"Cell"];
+        TableViewRow *settingsRow = [[TableViewRow alloc] initWithClass:[UITableViewCell class]];
         settingsRow.setup = ^(UITableViewCell *cell, NSIndexPath *indexPath) {
             cell.textLabel.text = NSLocalizedString(@"Settings", @"");
             [weakSelf configureCellAppearance:cell atIndexPath:indexPath];
@@ -283,6 +283,14 @@
         };
         settingsRow.height = 50;
         [settingsSection addRow:settingsRow];
+    }
+
+    for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.numberOfSections; sectionIndex++) {
+        TableViewSection *section = [self.dataSource sectionAtIndex:sectionIndex];
+        for (NSUInteger rowIndex = 0; rowIndex < section.numberOfRows; rowIndex++) {
+            TableViewRow *row = [section rowAtIndex:rowIndex];
+            [self.tableView registerClass:row.resuseClass forCellReuseIdentifier:row.resuseIdentifier];
+        }
     }
 }
 
@@ -297,26 +305,7 @@
 - (void)configureCellAppearance:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.font = [UIFont fontWithName:kFontNameAvenirNextMedium size:15];
     cell.textLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97./255.f alpha:1.00];
-    
-    NSInteger separatorTag = 1251123;
-    if (![cell.contentView viewWithTag:separatorTag]) {
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goto"]];
-        arrowImageView.center = CGPointMake(CGRectGetWidth(self.tableView.frame) - 20, 25);
-        arrowImageView.tag = separatorTag;
-        [cell.contentView addSubview:arrowImageView];
-        
-        if (indexPath.row == 0 && indexPath.section == 2) {
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 0.5)];
-            separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-            separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            [cell.contentView addSubview:separatorView];
-        }
-
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, CGRectGetWidth(self.tableView.frame), 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [cell.contentView addSubview:separatorView];
-    }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 #pragma mark - Delegates & Data sources
@@ -439,18 +428,7 @@
     self.tableView.layoutMargins = UIEdgeInsetsZero;
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.tableView.allowsMultipleSelection = YES;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 10)];
-    [self.tableView registerClass:[ProfileTableViewCell class] forCellReuseIdentifier:@"ProfileCell"];
-    [self.tableView registerClass:[WalletTableViewCell class] forCellReuseIdentifier:@"WalletCell"];
-    [self.tableView registerClass:[WalletHighestTableViewCell class] forCellReuseIdentifier:@"WalletHighestCell"];
-    [self.tableView registerClass:[ProfileChampionshipTableViewCell class] forCellReuseIdentifier:@"ChampionshipCell"];
-    [self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-    [self.tableView registerClass:[WalletGraphTableViewCell class] forCellReuseIdentifier:@"WalletGraphCell"];
-    [self.tableView registerClass:[ProfileChallengeTableViewCell class] forCellReuseIdentifier:@"ChallengeCell"];
-    [self.tableView registerClass:[TrophiesTableViewCell class] forCellReuseIdentifier:@"TrophiesCell"];
-    [self.tableView registerClass:[ExperienceTableViewCell class] forCellReuseIdentifier:@"ExperienceCell"];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.view addSubview:self.tableView];
     
     [self reloadData];

@@ -63,4 +63,8 @@
     self.progressView.x = 20;
 }
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 @end
