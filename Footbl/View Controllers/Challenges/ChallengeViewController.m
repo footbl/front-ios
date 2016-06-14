@@ -48,15 +48,24 @@
     if (self.isChallenging) {
         cell.statusLabel.text = nil;
         cell.substatusLabel.text = nil;
+    } else if (self.challenge.match.finished) {
+        cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
+        cell.statusLabel.text = @"Challenge declined!";
+        cell.substatusLabel.textColor = [UIColor lightGrayColor];
+        cell.substatusLabel.text = [NSString stringWithFormat:@"$%@ returned to your wallet", self.challenge.bid];
     } else if (self.challenge.waiting) {
+        cell.statusLabel.textColor = [UIColor lightGrayColor];
         cell.statusLabel.text = @"Waiting for oponent";
         cell.substatusLabel.text = nil;
     } else if (self.challenge.accepted) {
+        cell.statusLabel.textColor = [UIColor ftb_greenGrassColor];
         cell.statusLabel.text = @"Challenge accepted!";
         cell.substatusLabel.text = nil;
     } else {
+        cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
         cell.statusLabel.text = @"Challenge declined!";
-        cell.substatusLabel.text = @"$20 returned to your wallet";
+        cell.substatusLabel.textColor = [UIColor lightGrayColor];
+        cell.substatusLabel.text = [NSString stringWithFormat:@"$%@ returned to your wallet", self.challenge.bid];
     }
 }
 
@@ -217,7 +226,13 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? 340 : 150;
+    if (indexPath.row == 0) {
+        return 340;
+    } else if (self.isChallenging) {
+        return 0;
+    } else {
+        return CGRectGetHeight(tableView.frame) - 64 - 340;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -258,9 +273,9 @@
         self.doneButton.size = CGSizeMake(self.view.width, 49);
         self.doneButton.maxY = self.view.height;
         [self.view addSubview:self.doneButton];
+
+        [self reloadWallet];
     }
-    
-    [self reloadWallet];
 }
 
 #pragma mark - Lifecycle
