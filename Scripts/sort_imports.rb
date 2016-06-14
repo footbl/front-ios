@@ -2,57 +2,46 @@
 
 require 'pathname'
 
-def sorted_modules(file)
-	module_import_regex = /^[ \t]*\@import .*$/
-	
-	module_imports = []
+def create_regex(regex)
+	/^(?:#ifdef.*)*?(#{regex})\s*?(?:#endif)*?\s*?$/m
+end
+
+def sorted_from_regex(file, regex)
+	imports = []
 	matches = []
 	
-	file.scan(module_import_regex) do |match|
-		matches.push Regexp.last_match
-		module_imports.push match.strip
+	file.scan(regex) do |match|
+		match_data = Regexp.last_match
+		matches.push match_data
+		imports.push [match_data.to_s, match.first].map(&:strip)
 	end
-	module_imports.sort_by!(&:downcase)
-	module_imports.uniq!
+	imports.sort_by! { |a| a[1].downcase }.map! { |a| a.first }
+	imports.uniq!
 	
-	[module_imports, matches]
+	[imports, matches]
+end
+
+def sorted_modules(file)
+	module_import_regex = create_regex("\@import .*?")
+	sorted_from_regex(file, module_import_regex)
 end
 
 def sorted_lib_imports(file)
-	lib_import_regex = /^[ \t]*\#import <.*$/
-
-	lib_imports = []
-	matches = []
-	
-	file.scan(lib_import_regex) do |match|
-		matches.push Regexp.last_match
-		lib_imports.push match.strip
-	end
-	lib_imports.sort_by!(&:downcase)
-	lib_imports.uniq!
-	
-	[lib_imports, matches]
+	lib_import_regex = create_regex("\#import <.*?$")
+	sorted_from_regex(file, lib_import_regex)
 end
 
 def sorted_regular_imports(file, file_name)
-	import_regex = /^[ \t]*#import \".*$/
-
-	imports = []
-	matches = []
-
-	file.scan(import_regex) do |match|
-		matches.push Regexp.last_match
-		imports.push match.strip
-	end
-	imports.sort_by!(&:downcase)
-	imports.uniq!
+	import_regex = create_regex('#import \".*?$')
+	imports, matches = sorted_from_regex(file, import_regex)
 
 	if file_name.end_with? ".m"
 		header_parts = file_name.split(File::SEPARATOR).last.split('.')
 		header_parts[-1] = 'h'
 		header_name = header_parts.join '.'
 
-		idx = imports.index "\#import \"#{header_name}\""
+		import_str = "\#import \"#{header_name}\""
+		idx = imports.index import_str
 		if idx
 			import = imports.delete_at idx
 			imports.unshift import
@@ -64,6 +53,8 @@ end
 
 ARGV.each do |a|
 	text = File.read(a)
+	
+	next if text.include? "// disable_import_sort"
 	original_text = text.dup
 
 	file_name = File.basename(Pathname a)

@@ -10,6 +10,7 @@
 
 #import "MatchTableViewCell+Setup.h"
 #import "FTBBet.h"
+#import "FTBChallenge.h"
 #import "FTBMatch+Sharing.h"
 #import "FTBMatch.h"
 #import "FTBTeam.h"
@@ -17,7 +18,6 @@
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
-#import "FTBChallenge.h"
 
 #pragma mark MatchTableViewCell (Setup)
 

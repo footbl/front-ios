@@ -9,6 +9,7 @@
 #import <SPHipster/SPHipster.h>
 
 #import "BetsViewController.h"
+#import "ChampionshipsHeaderView.h"
 #import "DailyBonusPopupViewController.h"
 #import "FootblPopupAnimatedTransition.h"
 #import "FTBChampionship.h"
@@ -27,7 +28,6 @@
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
 #import "UIView+Frame.h"
-#import "ChampionshipsHeaderView.h"
 
 @interface BetsViewController ()
 

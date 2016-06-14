@@ -6,14 +6,15 @@
 //  Copyright © 2015 Footbl. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "ChallengesViewController.h"
+#import "ChallengeTableViewCell.h"
+#import "FootblAppearance.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
-#import "FTBUser.h"
-#import "ChallengeTableViewCell.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "FTBTeam.h"
-#import "FootblAppearance.h"
+#import "FTBUser.h"
 
 @interface ChallengesViewController ()
 
@@ -96,5 +97,9 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+}
 
 @end

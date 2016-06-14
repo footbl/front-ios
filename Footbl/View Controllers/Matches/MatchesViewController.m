@@ -12,14 +12,16 @@
 
 #import "MatchesViewController.h"
 #import "BetsViewController.h"
+#import "ChallengeViewController.h"
+#import "ChampionshipsHeaderView.h"
 #import "FootblPopupViewController.h"
 #import "FootblTabBarController.h"
 #import "FTBBet.h"
+#import "FTBChallenge.h"
 #import "FTBChampionship.h"
 #import "FTBClient.h"
 #import "FTBMatch.h"
 #import "FTBUser.h"
-#import "FTBChallenge.h"
 #import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchTableViewCell+Setup.h"
@@ -30,8 +32,6 @@
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
 #import "WhatsAppActivity.h"
-#import "ChallengeViewController.h"
-#import "ChampionshipsHeaderView.h"
 
 static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 

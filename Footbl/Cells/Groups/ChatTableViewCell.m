@@ -8,9 +8,9 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 
-#import "UIView+Frame.h"
 #import "ChatTableViewCell.h"
 #import "NSDate+Utils.h"
+#import "UIView+Frame.h"
 
 CGFloat const MARGIN	= 10.0f;
 

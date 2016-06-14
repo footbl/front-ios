@@ -8,12 +8,12 @@
 
 #import "FTBUser.h"
 #import "FTBBet.h"
+#import "FTBChallenge.h"
 #import "FTBChampionship.h"
 #import "FTBClient.h"
 #import "FTBMatch.h"
 #import "FTBSeason.h"
 #import "NSNumber+Formatter.h"
-#import "FTBChallenge.h"
 
 #pragma mark - FTBHistory
 

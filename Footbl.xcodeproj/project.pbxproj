@@ -1165,6 +1165,7 @@
 			buildConfigurationList = ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
 				737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */,
+				11A246E81D10364800A59D74 /* Sort Imports */,
 				ED8DB3861A14C95C00605CCE /* Sources */,
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
 				ED8DB3F91A14C95C00605CCE /* Resources */,
@@ -1296,6 +1297,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		11A246E81D10364800A59D74 /* Sort Imports */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sort Imports";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\n\necho \"Sorting imports\"\nScripts/sort_all_files_imports.sh";
 		};
 		3FA3FDC384A3E698CD8412F3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

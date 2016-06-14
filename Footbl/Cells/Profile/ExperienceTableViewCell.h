@@ -6,8 +6,8 @@
 //  Copyright © 2016 Footbl. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <LDProgressView/LDProgressView.h>
+#import <UIKit/UIKit.h>
 
 @interface ExperienceTableViewCell : UITableViewCell
 

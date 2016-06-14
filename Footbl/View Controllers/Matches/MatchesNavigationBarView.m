@@ -7,9 +7,9 @@
 //
 
 #import "MatchesNavigationBarView.h"
+#import "ChampionshipsHeaderView.h"
 #import "RechargeButton.h"
 #import "UIView+Frame.h"
-#import "ChampionshipsHeaderView.h"
 
 #pragma mark MatchesNavigationBarView
 

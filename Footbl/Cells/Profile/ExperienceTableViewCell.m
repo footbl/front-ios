@@ -7,8 +7,8 @@
 //
 
 #import "ExperienceTableViewCell.h"
-#import "UIView+Frame.h"
 #import "FootblAppearance.h"
+#import "UIView+Frame.h"
 
 @interface LDProgressView (Footbl)
 

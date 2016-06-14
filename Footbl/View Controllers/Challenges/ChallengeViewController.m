@@ -6,24 +6,24 @@
 //  Copyright © 2016 Footbl. All rights reserved.
 //
 
-#import "ErrorHandler.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
 #import "ChallengeViewController.h"
-#import "MatchTableViewCell.h"
-#import "FTBUser.h"
-#import "FTBMatch.h"
+#import "ChallengeStatusTableViewCell.h"
+#import "ErrorHandler.h"
+#import "FootblTabBarController.h"
 #import "FTBChallenge.h"
+#import "FTBClient.h"
+#import "FTBMatch.h"
+#import "FTBUser.h"
+#import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
 #import "MatchTableViewCell+Setup.h"
+#import "MatchTableViewCell.h"
 #import "NSNumber+Formatter.h"
-#import "MatchesNavigationBarView.h"
 #import "RechargeButton.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
-#import "FootblTabBarController.h"
-#import "ChallengeStatusTableViewCell.h"
-#import "FTBClient.h"
-#import "LoadingHelper.h"
-#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface ChallengeViewController ()
 
