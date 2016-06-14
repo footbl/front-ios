@@ -22,6 +22,11 @@
 @property (nonatomic, assign, getter=isAccepted) BOOL accepted;
 @property (nonatomic, assign, getter=isWaiting) BOOL waiting;
 
+@property (nonatomic, strong, readonly) FTBUser *me;
+@property (nonatomic, strong, readonly) FTBUser *oponent;
+@property (nonatomic, assign) FTBMatchResult myResult;
+@property (nonatomic, assign) FTBMatchResult oponentResult;
+
 - (NSString *)valueString;
 - (NSNumber *)toReturn;
 - (NSString *)toReturnString;

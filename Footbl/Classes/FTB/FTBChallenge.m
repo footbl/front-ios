@@ -88,4 +88,52 @@
     }
 }
 
+- (FTBUser *)me {
+    if ([self.challengedUser isEqual:[FTBUser currentUser]]) {
+        return self.challengedUser;
+    }
+
+    if ([self.challengerUser isEqual:[FTBUser currentUser]]) {
+        return self.challengerUser;
+    }
+
+    return nil;
+}
+
+- (FTBUser *)oponent {
+    if (![self.challengedUser isEqual:[FTBUser currentUser]]) {
+        return self.challengedUser;
+    }
+
+    if (![self.challengerUser isEqual:[FTBUser currentUser]]) {
+        return self.challengerUser;
+    }
+
+    return nil;
+}
+
+- (FTBMatchResult)myResult {
+    if ([self.challengedUser isEqual:[FTBUser currentUser]]) {
+        return self.challengedResult;
+    }
+
+    if ([self.challengerUser isEqual:[FTBUser currentUser]]) {
+        return self.challengerResult;
+    }
+
+    return FTBMatchResultUnknown;
+}
+
+- (FTBMatchResult)oponentResult {
+    if (![self.challengedUser isEqual:[FTBUser currentUser]]) {
+        return self.challengedResult;
+    }
+
+    if (![self.challengerUser isEqual:[FTBUser currentUser]]) {
+        return self.challengerResult;
+    }
+
+    return FTBMatchResultUnknown;
+}
+
 @end

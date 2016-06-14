@@ -43,7 +43,9 @@
 
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
-    
+
+    super.alpha = enabled ? 1 : 0.4;
+
     if (enabled) {
         [super setImage:self.originalImage];
     } else {
