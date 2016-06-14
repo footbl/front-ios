@@ -43,6 +43,14 @@
 	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBMatch class]];
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
+    self = [super initWithDictionary:dictionaryValue error:error];
+    if (self) {
+        self.waiting = !dictionaryValue[@"accepted"];
+    }
+    return self;
+}
+
 - (NSString *)valueString {
     return self.bid.integerValue == 0 ? @"-" : self.bid.walletStringValue;
 }

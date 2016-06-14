@@ -10,6 +10,7 @@
 
 #import "ChallengesViewController.h"
 #import "ChallengeTableViewCell.h"
+#import "ChallengeViewController.h"
 #import "FootblAppearance.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
@@ -99,7 +100,10 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    FTBChallenge *challenge = self.challenges[indexPath.row];
+    ChallengeViewController *viewController = [[ChallengeViewController alloc] init];
+    viewController.challenge = challenge;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

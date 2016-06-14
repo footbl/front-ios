@@ -20,6 +20,7 @@
 @property (nonatomic, strong) FTBMatch *match;
 @property (nonatomic, copy) NSNumber *bid;
 @property (nonatomic, assign, getter=isAccepted) BOOL accepted;
+@property (nonatomic, assign, getter=isWaiting) BOOL waiting;
 
 - (NSString *)valueString;
 - (NSNumber *)toReturn;
