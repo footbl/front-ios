@@ -38,6 +38,7 @@
 #import "TrophyRoomViewController.h"
 #import "ExperienceTableViewCell.h"
 #import "LineView.h"
+#import "UserPerformanceViewController.h"
 
 @interface ProfileViewController ()
 
@@ -174,6 +175,10 @@
     TableViewRow *experienceRow = [[TableViewRow alloc] initWithClass:[ExperienceTableViewCell class]];
     experienceRow.setup = ^(ExperienceTableViewCell *cell, NSIndexPath *indexPath) {
         cell.progressView.progress = 0.2;
+    };
+    experienceRow.selection = ^(NSIndexPath *indexPath) {
+        UserPerformanceViewController *viewController = [UserPerformanceViewController instantiateFromStoryboard];
+        [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     experienceRow.height = 44;
     [gameSection addRow:experienceRow];

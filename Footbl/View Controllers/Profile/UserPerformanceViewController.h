@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Footbl. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TemplateViewController.h"
 
-@interface UserPerformanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface UserPerformanceViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIColor *evenColor;

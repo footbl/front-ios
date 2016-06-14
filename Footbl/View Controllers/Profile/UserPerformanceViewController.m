@@ -18,15 +18,19 @@
 
 @implementation UserPerformanceViewController
 
+#pragma mark - Class Methods
+
++ (NSString *)storyboardName {
+    return @"Main";
+}
+
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	self.evenColor = [UIColor ftb_cellMatchBackgroundColor];
 	self.oddColor = [UIColor whiteColor];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Private

@@ -10,4 +10,8 @@
 
 @implementation UserPerformanceTableViewCell
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 @end
