@@ -29,7 +29,7 @@
         label.text = self.progressTextOverride ? self.progressTextOverride : [NSString stringWithFormat:@"%.0f%%", self.progress*100];
         label.font = [UIFont fontWithName:kFontNameBlack size:10];
         label.textColor = [UIColor whiteColor];
-        [label drawTextInRect:CGRectMake(rect.origin.x + 6, rect.origin.y, rect.size.width-12, rect.size.height)];
+        [label drawTextInRect:CGRectMake(rect.origin.x + 6, rect.origin.y, rect.size.width-12, rect.size.height+1)];
     }
 }
 
