@@ -10,4 +10,11 @@
 
 @implementation ChallengeTableViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.userImageView.clipsToBounds = YES;
+    self.userImageView.layer.cornerRadius = CGRectGetWidth(self.userImageView.frame) / 2;
+}
+
 @end
