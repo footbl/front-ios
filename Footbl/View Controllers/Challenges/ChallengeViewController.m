@@ -75,6 +75,7 @@
     
     FTBUser *user = [FTBUser currentUser];
     FTBChallenge *challenge = self.challenge;
+
     if (!challenge && self.bid) {
         challenge = [[FTBChallenge alloc] init];
         challenge.challengerUser = user;
@@ -82,8 +83,10 @@
         challenge.challengerResult = self.result;
         challenge.match = self.match;
     }
+
+    FTBMatch *match = challenge.match ?: self.match;
     
-    [cell setMatch:challenge.match challenge:challenge viewController:self selectionBlock:^(NSInteger index) {
+    [cell setMatch:match challenge:challenge viewController:self selectionBlock:^(NSInteger index) {
         NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
         NSInteger currentBet = weakSelf.bid.integerValue;
         FTBMatchResult result = weakSelf.result;
@@ -185,18 +188,29 @@
     __weak typeof(self) weakSelf = self;
     [[FTBClient client] createChallengeForMatch:self.match bid:self.bid result:self.result user:self.challengedUser success:^(id object) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        strongSelf.challengedUser = nil;
-        [strongSelf.navigationBarTitleView removeFromSuperview];
-        strongSelf.navigationBarTitleView = nil;
-        strongSelf.tableView.contentInset = UIEdgeInsetsZero;
-        [strongSelf.tableView reloadData];
-        
+
+        FTBChallenge *challenge = [[FTBChallenge alloc] init];
+        challenge.challengerUser = [FTBUser currentUser];
+        challenge.bid = strongSelf.bid;
+        challenge.challengerResult = strongSelf.result;
+        challenge.match = strongSelf.match;
+        challenge.waiting = YES;
+        strongSelf.challenge = challenge;
+
         [UIView animateWithDuration:0.25 animations:^{
             strongSelf.doneButton.y = strongSelf.view.height;
+            strongSelf.navigationBarTitleView.maxY = 0;
+            strongSelf.tableView.contentInset = UIEdgeInsetsZero;
         } completion:^(BOOL finished) {
             [strongSelf.doneButton removeFromSuperview];
             strongSelf.doneButton = nil;
+
+            [strongSelf.navigationBarTitleView removeFromSuperview];
+            strongSelf.navigationBarTitleView = nil;
+
+            strongSelf.challengedUser = nil;
+
+            [strongSelf.tableView reloadData];
         }];
         
         [[LoadingHelper sharedInstance] hideHud];
@@ -243,8 +257,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    ((FootblTabBarController *)self.tabBarController).tabBarHidden = YES;
+
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -276,6 +289,18 @@
 
         [self reloadWallet];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [(FootblTabBarController *)self.tabBarController setTabBarHidden:YES animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    [(FootblTabBarController *)self.tabBarController setTabBarHidden:NO animated:YES];
 }
 
 #pragma mark - Lifecycle

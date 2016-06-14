@@ -419,10 +419,11 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (self.challengedUser) {
+
+    FTBMatch *match = self.matches[indexPath.row];
+    if (self.challengedUser && !match.finished && match.elapsed == 0) {
         ChallengeViewController *viewController = [[ChallengeViewController alloc] init];
-        viewController.match = self.matches[indexPath.row];
+        viewController.match = match;
         viewController.challengedUser = self.challengedUser;
         [self.navigationController pushViewController:viewController animated:YES];
     }
