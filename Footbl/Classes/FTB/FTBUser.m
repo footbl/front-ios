@@ -74,59 +74,6 @@
     return self;
 }
 
-#pragma mark - Challenges
-
-- (NSMutableSet<FTBChallenge *> *)challenges {
-    if (!_challenges) {
-        _challenges = [[NSMutableSet alloc] init];
-    }
-    return _challenges;
-}
-
-- (NSSet *)activeChallenges {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match != nil && match.finished == NO && match.elapsed == 0 && bid > 0"];
-    return [self.challenges filteredSetUsingPredicate:predicate];
-}
-
-- (void)addChallenge:(FTBChallenge *)challenge {
-    FTBChallenge *oldChallenge = [self.challenges member:challenge];
-    
-    if (oldChallenge) {
-        [self.challenges removeObject:oldChallenge];
-    }
-    
-    [self.challenges addObject:challenge];
-}
-
-- (void)addChallenges:(NSArray<FTBChallenge *> *)challenges {
-    for (FTBChallenge *challenge in challenges) {
-        [self addChallenge:challenge];
-    }
-}
-
-- (FTBChallenge *)challengeWithIdentifier:(NSString *)identifier {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
-    NSSet *results = [self.challenges filteredSetUsingPredicate:predicate];
-    return results.anyObject;
-}
-
-- (FTBChallenge *)challengeForMatch:(FTBMatch *)match challengedUser:(FTBUser *)challengedUser {
-    for (FTBChallenge *challenge in self.challenges) {
-        if ([challenge.match isEqual:match] && [challenge.challengedUser isEqual:challengedUser]) {
-            return challenge;
-        }
-    }
-    
-    return nil;
-}
-
-- (void)removeChallenge:(FTBChallenge *)challenge {
-    FTBChallenge *oldChallenge = [self.challenges member:challenge];
-    if (oldChallenge) {
-        [self.challenges removeObject:oldChallenge];
-    }
-}
-
 #pragma mark - Bets
 
 - (NSMutableSet<FTBBet *> *)bets {
