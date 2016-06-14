@@ -31,11 +31,6 @@
         self.walletLabel = [[UILabel alloc] initWithFrame:self.contentView.bounds];
         self.walletLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.walletLabel];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 42.5, CGRectGetWidth(self.contentView.frame), 0.5)];
-        separatorView.backgroundColor = [UIColor colorWithRed:0.83 green:0.85 blue:0.83 alpha:1];
-        separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.contentView addSubview:separatorView];
     }
     return self;
 }
@@ -59,12 +54,6 @@
     }
     [attributedText setAttributes:attributes range:range];
     self.walletLabel.attributedText = attributedText;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
 }
 
 @end

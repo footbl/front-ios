@@ -23,4 +23,8 @@
     return self;
 }
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 @end

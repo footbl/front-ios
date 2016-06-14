@@ -312,21 +312,21 @@
 
 #pragma mark - UITableView data source
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)aSection {
-    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
-    if (section.headerViewHeight > 0) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), section.headerViewHeight)];
-        view.backgroundColor = [UIColor clearColor];
-        return view;
-    } else {
-        return nil;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)aSection {
-    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
-    return section.headerViewHeight;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)aSection {
+//    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
+//    if (section.headerViewHeight > 0) {
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), section.headerViewHeight)];
+//        view.backgroundColor = [UIColor clearColor];
+//        return view;
+//    } else {
+//        return nil;
+//    }
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)aSection {
+//    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
+//    return section.headerViewHeight;
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.numberOfSections;
@@ -400,7 +400,7 @@
     self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
-    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+    UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     tableViewController.refreshControl = self.refreshControl;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -429,6 +429,9 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 10)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), FLT_MIN)];
+    self.tableView.sectionHeaderHeight = 10;
+    self.tableView.sectionFooterHeight = 0;
     [self.view addSubview:self.tableView];
     
     [self reloadData];
