@@ -312,22 +312,6 @@
 
 #pragma mark - UITableView data source
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)aSection {
-//    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
-//    if (section.headerViewHeight > 0) {
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(tableView.frame), section.headerViewHeight)];
-//        view.backgroundColor = [UIColor clearColor];
-//        return view;
-//    } else {
-//        return nil;
-//    }
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)aSection {
-//    TableViewSection *section = [self.dataSource sectionAtIndex:aSection];
-//    return section.headerViewHeight;
-//}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.numberOfSections;
 }
