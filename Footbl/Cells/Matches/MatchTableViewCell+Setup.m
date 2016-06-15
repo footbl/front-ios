@@ -36,10 +36,6 @@
     
     self.hostScoreLabel.text = match.hostScore.stringValue;
     self.guestScoreLabel.text = match.guestScore.stringValue;
-	
-    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
-    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     
     if (isMe) {
         self.hostPotLabel.text = match.earningsPerBetForHost.potStringValue;
@@ -67,6 +63,10 @@
             self.layout = MatchTableViewCellLayoutNoBet;
             break;
     }
+
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
+    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     
     if (isMe) {
         self.stakeValueLabel.text = match.myBetValueString;
@@ -154,10 +154,6 @@
     self.hostScoreLabel.text = match.hostScore.stringValue;
     self.guestScoreLabel.text = match.guestScore.stringValue;
     
-    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
-    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
-    
     self.hostPotLabel.text = [@2 potStringValue];
     self.drawPotLabel.text = [@2 potStringValue];
     self.guestPotLabel.text = [@2 potStringValue];
@@ -182,6 +178,10 @@
             self.layout = MatchTableViewCellLayoutNoBet;
             break;
     }
+
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
+    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     
     self.stakeValueLabel.text = challenge.valueString;
     self.returnValueLabel.text = challenge.toReturnString;
