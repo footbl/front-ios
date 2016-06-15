@@ -128,18 +128,24 @@
 
     if (challenge.challengerResult == FTBMatchResultGuest) {
         self.guestUserImageView.user = challenge.challengerUser;
+        self.guestUserImageView.ringVisible = YES;
     } else if (challenge.challengerResult == FTBMatchResultDraw) {
         self.drawUserImageView.user = challenge.challengerUser;
+        self.drawUserImageView.ringVisible = YES;
     } else if (challenge.challengerResult == FTBMatchResultHost) {
         self.hostUserImageView.user = challenge.challengerUser;
+        self.hostUserImageView.ringVisible = YES;
     }
 
     if (challenge.challengedResult == FTBMatchResultGuest) {
         self.guestUserImageView.user = challenge.challengedUser;
+        self.guestUserImageView.ringVisible = YES;
     } else if (challenge.challengedResult == FTBMatchResultDraw) {
         self.drawUserImageView.user = challenge.challengedUser;
+        self.drawUserImageView.ringVisible = YES;
     } else if (challenge.challengedResult == FTBMatchResultHost) {
         self.hostUserImageView.user = challenge.challengedUser;
+        self.hostUserImageView.ringVisible = YES;
     }
 
     self.hostNameLabel.text = match.host.name;

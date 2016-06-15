@@ -44,7 +44,6 @@
     self.layer.borderColor = user.isMe ? [UIColor ftb_blueReturnColor].CGColor : [UIColor ftb_redStakeColor].CGColor;
     [self sd_setImageWithURL:user.pictureURL placeholderImage:[UIImage imageNamed:@"FriendsGenericProfilePic"]];
     self.hidden = !user;
-    self.ringVisible = user.isMe;
 }
 
 @end
