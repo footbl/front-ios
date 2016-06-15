@@ -9,17 +9,16 @@
 #import <UIKit/UIKit.h>
 
 #import "TeamImageView.h"
+#import "UserImageView.h"
 
 @interface ChallengeTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *userImageView;
+@property (nonatomic, weak) IBOutlet UserImageView *userImageView;
 @property (nonatomic, weak) IBOutlet TeamImageView *hostTeamImageView;
 @property (nonatomic, weak) IBOutlet TeamImageView *guestTeamImageView;
 @property (nonatomic, weak) IBOutlet UILabel *vsLabel;
 @property (nonatomic, weak) IBOutlet UILabel *stakeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *profitLabel;
-
-@property (nonatomic, getter=isRingVisible) BOOL ringVisible;
 
 @end

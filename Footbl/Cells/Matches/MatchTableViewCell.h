@@ -9,6 +9,7 @@
 #import "TemplateTableViewCell.h"
 
 @class TeamImageView;
+@class UserImageView;
 
 typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
     MatchTableViewCellLayoutNoBet,
@@ -52,17 +53,20 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *returnValueLabel;
 @property (strong, nonatomic) UILabel *profitTitleLabel;
 @property (strong, nonatomic) UILabel *profitValueLabel;
+
 // Host
 @property (strong, nonatomic) UILabel *hostScoreLabel;
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
 @property (strong, nonatomic) TeamImageView *hostImageView;
+@property (strong, nonatomic) UserImageView *hostUserImageView;
 @property (strong, nonatomic) UIStepper *hostStepper;
 
 // Draw
 @property (strong, nonatomic) UILabel *drawLabel;
 @property (strong, nonatomic) UILabel *drawPotLabel;
 @property (strong, nonatomic) UILabel *versusLabel;
+@property (strong, nonatomic) UserImageView *drawUserImageView;
 @property (strong, nonatomic) UIStepper *drawStepper;
 
 // Guest
@@ -70,7 +74,9 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
 @property (strong, nonatomic) TeamImageView *guestImageView;
+@property (strong, nonatomic) UserImageView *guestUserImageView;
 @property (strong, nonatomic) UIStepper *guestStepper;
+
 // Footer
 @property (strong, nonatomic) UILabel *footerLabel;
 @property (strong, nonatomic) UIButton *shareButton;

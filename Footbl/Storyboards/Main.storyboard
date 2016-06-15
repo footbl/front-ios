@@ -274,7 +274,7 @@
                                                                 <constraint firstAttribute="height" constant="1" id="NKj-NR-YCK"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendsGenericProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="2vc-KB-Zxm">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FriendsGenericProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="2vc-KB-Zxm" customClass="UserImageView">
                                                             <rect key="frame" x="55" y="10" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="2M4-He-pgc"/>

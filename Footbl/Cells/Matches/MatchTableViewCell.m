@@ -9,8 +9,15 @@
 #import "MatchTableViewCell.h"
 #import "TeamImageView.h"
 #import "UIView+Frame.h"
+#import "UserImageView.h"
 
 #pragma mark MatchTableViewCell
+
+CGPoint CGPointTranslate(CGPoint point, CGFloat tx, CGFloat ty) {
+    point.x += tx;
+    point.y += ty;
+    return point;
+}
 
 @implementation MatchTableViewCell
 
@@ -405,7 +412,20 @@ static CGFloat kDisabledAlpha = 0.4;
         self.versusLabel.userInteractionEnabled = YES;
         self.versusLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.versusLabel addGestureRecognizer:self.versusLabelGestureRecognizer];
-        
+
+        // Challenge
+        self.hostUserImageView = [[UserImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        self.hostUserImageView.hidden = YES;
+        [self.cardContentView addSubview:self.hostUserImageView];
+
+        self.guestUserImageView = [[UserImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        self.guestUserImageView.hidden = YES;
+        [self.cardContentView addSubview:self.guestUserImageView];
+
+        self.drawUserImageView = [[UserImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        self.drawUserImageView.hidden = YES;
+        [self.cardContentView addSubview:self.drawUserImageView];
+
         // Footer
         self.footerLabel = potLabel(CGRectMake(0, 256, self.cardContentView.width, 53));
         self.footerLabel.font = [UIFont fontWithName:self.footerLabel.font.fontName size:18];
@@ -427,6 +447,14 @@ static CGFloat kDisabledAlpha = 0.4;
         self.guestStepper.autoresizingMask = self.guestImageView.autoresizingMask;
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    self.hostUserImageView.center = CGPointTranslate(self.hostImageView.center, 24, 24);
+    self.guestUserImageView.center = CGPointTranslate(self.guestImageView.center, 24, 24);
+    self.drawUserImageView.center = CGPointTranslate(self.versusLabel.center, 24, 24);
 }
 
 - (IBAction)shareAction:(id)sender {

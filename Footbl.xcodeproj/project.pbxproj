@@ -36,6 +36,7 @@
 		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		1100DB221D0C6938000C198A /* TrophiesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */; };
 		1127FACF1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */; };
+		1153A77B1D10CCF8003EC2C5 /* UserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153A77A1D10CCF8003EC2C5 /* UserImageView.m */; };
 		115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */; };
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
@@ -216,6 +217,8 @@
 		1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophiesTableViewCell.m; sourceTree = "<group>"; };
 		1127FACD1D0CB4E8007C7EF6 /* ExperienceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTableViewCell.h; sourceTree = "<group>"; };
 		1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceTableViewCell.m; sourceTree = "<group>"; };
+		1153A7791D10CCF8003EC2C5 /* UserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserImageView.h; sourceTree = "<group>"; };
+		1153A77A1D10CCF8003EC2C5 /* UserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserImageView.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
 		115580A01CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChampionshipsHeaderView.m; sourceTree = "<group>"; };
 		1157A1471CD78BCE00898530 /* ChallengesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengesViewController.h; sourceTree = "<group>"; };
@@ -672,6 +675,8 @@
 				A3ECBBF01CB1C0B9006BD2AF /* RechargeButton.m */,
 				A3ECBBF11CB1C0B9006BD2AF /* TeamImageView.h */,
 				A3ECBBF21CB1C0B9006BD2AF /* TeamImageView.m */,
+				1153A7791D10CCF8003EC2C5 /* UserImageView.h */,
+				1153A77A1D10CCF8003EC2C5 /* UserImageView.m */,
 				A3ECBBF31CB1C0B9006BD2AF /* WalletGraphView.h */,
 				A3ECBBF41CB1C0B9006BD2AF /* WalletGraphView.m */,
 				11D4F4251D09B9BF0038C740 /* LineView.h */,
@@ -1455,6 +1460,7 @@
 				ED8DB3B21A14C95C00605CCE /* FTBMatch+Sharing.m in Sources */,
 				ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */,
 				10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */,
+				1153A77B1D10CCF8003EC2C5 /* UserImageView.m in Sources */,
 				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
 				ED8DB3B61A14C95C00605CCE /* SettingsTextViewController.m in Sources */,

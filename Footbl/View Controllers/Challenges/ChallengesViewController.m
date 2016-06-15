@@ -35,7 +35,6 @@
 
 - (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBChallenge *challenge = self.challenges[indexPath.row];
-    [cell.userImageView sd_setImageWithURL:challenge.challengedUser.pictureURL placeholderImage:[UIImage imageNamed:@"FriendsGenericProfilePic"]];
     [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL];
     [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL];
     cell.stakeLabel.text = challenge.valueString;
@@ -44,7 +43,8 @@
     cell.guestTeamImageView.enabled = challenge.myResult == FTBMatchResultGuest;
     cell.hostTeamImageView.enabled = challenge.myResult == FTBMatchResultHost;
     cell.vsLabel.alpha = challenge.myResult == FTBMatchResultDraw ? 1 : 0.4;
-    cell.ringVisible = challenge.accepted || challenge.match.finished;
+    cell.userImageView.user = challenge.oponent;
+    cell.userImageView.ringVisible = challenge.accepted || challenge.match.finished;
 }
 
 #pragma mark - Lifecycle

@@ -18,6 +18,7 @@
 #import "NSNumber+Formatter.h"
 #import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
+#import "UserImageView.h"
 
 #pragma mark MatchTableViewCell (Setup)
 
@@ -124,7 +125,23 @@
 
 - (void)setMatch:(FTBMatch *)match challenge:(FTBChallenge *)challenge viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
-    
+
+    if (challenge.challengerResult == FTBMatchResultGuest) {
+        self.guestUserImageView.user = challenge.challengerUser;
+    } else if (challenge.challengerResult == FTBMatchResultDraw) {
+        self.drawUserImageView.user = challenge.challengerUser;
+    } else if (challenge.challengerResult == FTBMatchResultHost) {
+        self.hostUserImageView.user = challenge.challengerUser;
+    }
+
+    if (challenge.challengedResult == FTBMatchResultGuest) {
+        self.guestUserImageView.user = challenge.challengedUser;
+    } else if (challenge.challengedResult == FTBMatchResultDraw) {
+        self.drawUserImageView.user = challenge.challengedUser;
+    } else if (challenge.challengedResult == FTBMatchResultHost) {
+        self.hostUserImageView.user = challenge.challengedUser;
+    }
+
     self.hostNameLabel.text = match.host.name;
     self.guestNameLabel.text = match.guest.name;
     
