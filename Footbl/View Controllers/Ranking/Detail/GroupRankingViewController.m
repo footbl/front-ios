@@ -185,17 +185,12 @@
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
-#pragma mark - NSFetchedResultsController delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView reloadData];
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = self.group.name;
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -230,11 +225,6 @@
     if (self.tableView.indexPathForSelectedRow) {
         [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

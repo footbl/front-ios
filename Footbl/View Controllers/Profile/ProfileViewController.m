@@ -376,7 +376,8 @@
 
 - (void)loadView {
     [super loadView];
-    
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"message_inbox"] landscapeImagePhone:nil style:UIBarButtonItemStylePlain target:self action:@selector(transfersAction:)];
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     
