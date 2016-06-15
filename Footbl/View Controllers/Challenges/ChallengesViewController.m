@@ -81,8 +81,7 @@
 #pragma mark - Lifecycle
 
 - (void)commomInit {
-    // TODO: Localization missing
-    self.title = @"Challenges";
+    self.title = NSLocalizedString(@"Challenges", nil);
     
     UIImage *image = [UIImage imageNamed:@"GKTabBarIconChallengesOff"];
     UIImage *selectedImage = [UIImage imageNamed:@"GKTabBarIconChallengesOn"];

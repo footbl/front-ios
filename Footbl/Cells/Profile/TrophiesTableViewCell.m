@@ -18,8 +18,7 @@
         self.placeholderLabel.textColor = [UIColor ftb_cellMatchBackgroundColor];
         self.placeholderLabel.font = [UIFont fontWithName:kFontNameMedium size:21];
         self.placeholderLabel.textAlignment = NSTextAlignmentCenter;
-        // TODO: Missing localization
-        self.placeholderLabel.text = @"Trophy room still empty";
+        self.placeholderLabel.text = NSLocalizedString(@"Trophy room still empty", nil);
         [self.contentView addSubview:self.placeholderLabel];
     }
     return self;
