@@ -46,6 +46,7 @@
 		11EF13ED1CE362A3006D1A2A /* ChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF13EC1CE362A3006D1A2A /* ChallengeTableViewCell.m */; };
 		11F9C4401CE214FC00E01A11 /* ChallengeStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */; };
 		11F9C4421CE2151500E01A11 /* ChallengeStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */; };
+		11FB6A271D118AE00084E93E /* UIViewController+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FB6A261D118AE00084E93E /* UIViewController+Addons.m */; };
 		16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
 		6871A1E0936A6B62C15BB86C /* libPods-Footbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F00B6C9B7B0F777C9F3B4212 /* libPods-Footbl.a */; };
 		A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
@@ -238,6 +239,8 @@
 		11F9C43E1CE214FC00E01A11 /* ChallengeStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeStatusTableViewCell.h; sourceTree = "<group>"; };
 		11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeStatusTableViewCell.m; sourceTree = "<group>"; };
 		11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeStatusTableViewCell.xib; sourceTree = "<group>"; };
+		11FB6A251D118AE00084E93E /* UIViewController+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Addons.h"; sourceTree = "<group>"; };
+		11FB6A261D118AE00084E93E /* UIViewController+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Addons.m"; sourceTree = "<group>"; };
 		277A0D67BE7CDF368C946A61 /* Pods-Footbl.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development debug.xcconfig"; sourceTree = "<group>"; };
 		3F5844EA526840394D873C30 /* Pods-Footbl.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development release.xcconfig"; sourceTree = "<group>"; };
 		684BA96A106C1CEE0EBAE390 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
@@ -1053,6 +1056,8 @@
 				ED2D1C4C1915614200F1BC81 /* UIView+Shake.m */,
 				10B3AF181BB4D7F000E89253 /* UINavigationBar+UIProgressView.h */,
 				10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */,
+				11FB6A251D118AE00084E93E /* UIViewController+Addons.h */,
+				11FB6A261D118AE00084E93E /* UIViewController+Addons.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1528,6 +1533,7 @@
 				EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */,
 				ED8DB3E81A14C95C00605CCE /* WalletGraphTableViewCell.m in Sources */,
 				ED8DB3EC1A14C95C00605CCE /* LoadingHelper.m in Sources */,
+				11FB6A271D118AE00084E93E /* UIViewController+Addons.m in Sources */,
 				ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */,
 				ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */,
 				ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */,

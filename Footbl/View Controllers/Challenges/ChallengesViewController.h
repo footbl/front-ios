@@ -8,8 +8,6 @@
 
 #import "TemplateViewController.h"
 
-@interface ChallengesViewController : TemplateViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@interface ChallengesViewController : UITableViewController
 
 @end

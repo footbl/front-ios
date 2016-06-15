@@ -19,7 +19,6 @@
 // Environment
 #define FB_READ_PERMISSIONS @[@"public_profile", @"user_friends", @"email"]
 #define FT_ENVIRONMENT_IS_PRODUCTION 1
-#define FT_API_PAGE_LIMIT 20
 
 // Updates
 #define UPDATE_INTERVAL 60 * 5

@@ -7,6 +7,7 @@
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVPullToRefresh/UIScrollView+SVInfiniteScrolling.h>
 
 #import "ChallengesViewController.h"
 #import "ChallengeTableViewCell.h"
@@ -16,10 +17,12 @@
 #import "FTBClient.h"
 #import "FTBTeam.h"
 #import "FTBUser.h"
+#import "LoadingHelper.h"
 
 @interface ChallengesViewController ()
 
 @property (nonatomic, strong) NSMutableArray *challenges;
+@property (nonatomic) NSUInteger page;
 
 @end
 
@@ -45,6 +48,34 @@
     cell.vsLabel.alpha = challenge.myResult == FTBMatchResultDraw ? 1 : 0.4;
     cell.userImageView.user = challenge.oponent;
     cell.userImageView.ringVisible = challenge.accepted || challenge.match.finished;
+}
+
+- (void)setupInfiniteScrolling {
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        self.page++;
+        [[FTBClient client] challengesForChallenger:nil challenged:nil page:self.page success:^(NSArray *challenges) {
+            [self.challenges addObjectsFromArray:challenges];
+            [self.tableView reloadData];
+            [self.tableView.infiniteScrollingView stopAnimating];
+            self.tableView.showsInfiniteScrolling = (challenges.count == FTBClientPageSize);
+        } failure:^(NSError *error) {
+            [self.tableView.infiniteScrollingView stopAnimating];
+        }];
+    }];
+}
+
+#pragma mark - Actions
+
+- (IBAction)refreshAction:(id)sender {
+    self.page = 0;
+    [[FTBClient client] challengesForChallenger:nil challenged:nil page:0 success:^(NSArray *challenges) {
+        self.challenges = [[NSMutableArray alloc] initWithArray:challenges];
+        [self.tableView reloadData];
+        self.tableView.showsInfiniteScrolling = (challenges.count == FTBClientPageSize);
+        [self.refreshControl endRefreshing];
+    } failure:^(NSError *error) {
+        [self.refreshControl endRefreshing];
+    }];
 }
 
 #pragma mark - Lifecycle
@@ -79,10 +110,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[FTBClient client] challengesForChallenger:nil challenged:nil page:0 success:^(id challenges) {
-        self.challenges = challenges;
-        [self.tableView reloadData];
-    } failure:nil];
+    [self setupInfiniteScrolling];
+
+    [self.refreshControl beginRefreshing];
+    [self refreshAction:nil];
 }
 
 #pragma mark - UITableViewDataSource

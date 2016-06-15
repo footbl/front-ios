@@ -21,6 +21,7 @@
 #import "ProfileViewController.h"
 #import "TutorialViewController.h"
 #import "UIView+Frame.h"
+#import "UIViewController+Addons.h"
 
 @interface FootblTabBarController ()
 

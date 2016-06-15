@@ -43,7 +43,7 @@
 	__weak typeof(self) weakSelf = self;
     [[FTBClient client] betsForUser:self.user match:nil activeOnly:YES page:0 success:^(NSArray *bets) {
         weakSelf.bets = [[NSMutableArray alloc] initWithArray:bets];
-		weakSelf.tableView.showsInfiniteScrolling = (bets.count == FT_API_PAGE_LIMIT);
+		weakSelf.tableView.showsInfiniteScrolling = (bets.count == FTBClientPageSize);
 		weakSelf.nextPage++;
 		[weakSelf.refreshControl endRefreshing];
         [weakSelf.tableView reloadData];
@@ -67,11 +67,11 @@
             [[LoadingHelper sharedInstance] showHud];
         }
  
-		[[FTBClient client] betsForUser:weakSelf.user match:nil activeOnly:YES page:0 success:^(NSArray *bets) {
+		[[FTBClient client] betsForUser:weakSelf.user match:nil activeOnly:YES page:weakSelf.nextPage success:^(NSArray *bets) {
             [weakSelf.bets addObjectsFromArray:bets];
 			[weakSelf.tableView.infiniteScrollingView stopAnimating];
 			[[LoadingHelper sharedInstance] hideHud];
-			if (bets.count == FT_API_PAGE_LIMIT) {
+			if (bets.count == FTBClientPageSize) {
 				weakSelf.tableView.showsInfiniteScrolling = YES;
 			} else {
 				weakSelf.nextPage++;
