@@ -15,6 +15,10 @@
 
 @implementation TrophyRoomPopupViewController
 
++ (NSString *)storyboardName {
+    return @"Main";
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	

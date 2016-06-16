@@ -11,6 +11,7 @@
 #import "TrophyRoomCollectionViewCell.h"
 #import "TrophyRoomPopupViewController.h"
 #import "UINavigationBar+UIProgressView.h"
+#import "UIViewController+Addons.h"
 
 @interface TrophyRoomViewController ()
 
@@ -82,7 +83,7 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    TrophyRoomPopupViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TrophyRoomPopupViewController"];
+    TrophyRoomPopupViewController *viewController = [TrophyRoomPopupViewController instantiateFromStoryboard];
     viewController.trophy = self.trophies[indexPath.row];
     [self presentViewController:viewController animated:YES completion:nil];
     [self setNeedsStatusBarAppearanceUpdate];

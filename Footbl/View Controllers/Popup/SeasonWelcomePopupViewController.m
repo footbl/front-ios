@@ -7,8 +7,13 @@
 //
 
 #import "SeasonWelcomePopupViewController.h"
+#import "FTBSeason.h"
 
 @implementation SeasonWelcomePopupViewController
+
++ (NSString *)storyboardName {
+    return @"Main";
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
 

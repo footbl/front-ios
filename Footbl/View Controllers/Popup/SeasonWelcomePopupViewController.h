@@ -8,6 +8,10 @@
 
 #import "NewPopupViewController.h"
 
+@class FTBSeason;
+
 @interface SeasonWelcomePopupViewController : NewPopupViewController
+
+@property (nonatomic, strong) FTBSeason *season;
 
 @end

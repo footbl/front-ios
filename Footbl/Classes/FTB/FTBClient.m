@@ -369,7 +369,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self GET:path parameters:nil modelClass:[FTBSeason class] success:success failure:failure];
 }
 
-- (void)seasons:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure {
+- (void)seasons:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure {
 	NSDictionary *parameters = @{@"page": @(page)};
 	[self GET:@"/seasons" parameters:parameters modelClass:[FTBSeason class] success:success failure:failure];
 }

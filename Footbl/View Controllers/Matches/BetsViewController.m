@@ -16,6 +16,7 @@
 #import "FTBClient.h"
 #import "FTBMatch.h"
 #import "FTBPrize.h"
+#import "FTBSeason.h"
 #import "FTBUser.h"
 #import "LoadingHelper.h"
 #import "MatchesNavigationBarView.h"
@@ -25,9 +26,11 @@
 #import "RechargeButton.h"
 #import "RechargeTipPopupViewController.h"
 #import "RechargeViewController.h"
+#import "SeasonWelcomePopupViewController.h"
 #import "UIFont+MaxFontSize.h"
 #import "UILabel+MaxFontSize.h"
 #import "UIView+Frame.h"
+#import "UIViewController+Addons.h"
 
 @interface BetsViewController ()
 
@@ -35,8 +38,9 @@
 
 @end
 
-static NSString * const kPrizeLatestFetch = @"kPrizeLatestFetch";
-static NSUInteger kPrizeFetchInterval = 60 * 5;
+static NSString * const kLastSeasonId       = @"kLastSeasonId";
+static NSString * const kPrizeLatestFetch   = @"kPrizeLatestFetch";
+static NSUInteger kPrizeFetchInterval       = 60 * 5;
 
 #pragma mark BetsViewController
 
@@ -145,23 +149,25 @@ static NSUInteger kPrizeFetchInterval = 60 * 5;
     if (![[FTBClient client] isAuthenticated]) {
         return;
     }
-	
-    __weak typeof(self) weakSelf = self;
-    [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
-		weakSelf.championships = object;
-        
-		[weakSelf reloadScrollView];
-		
-        if (FBTweakValue(@"UX", @"Wallet", @"Recharge Tip", YES) && [RechargeTipPopupViewController shouldBePresented]) {
-            RechargeTipPopupViewController *rechargeTipPopup = [[RechargeTipPopupViewController alloc] init];
-            rechargeTipPopup.selectionBlock = ^{
-                [weakSelf rechargeWalletAction:nil];
-            };
-            
-            FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:rechargeTipPopup];
-            [weakSelf presentViewController:popupViewController animated:YES completion:nil];
-            [weakSelf setNeedsStatusBarAppearanceUpdate];
+
+    [[FTBClient client] seasons:0 success:^(NSArray *seasons) {
+        FTBSeason *season = seasons.firstObject;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *lastSeasonIdentifier = [userDefaults objectForKey:kLastSeasonId];
+        if (![season.identifier isEqualToString:lastSeasonIdentifier]) {
+            [userDefaults setObject:season.identifier forKey:kLastSeasonId];
+            [userDefaults synchronize];
+
+            SeasonWelcomePopupViewController *viewController = [SeasonWelcomePopupViewController instantiateFromStoryboard];
+            viewController.season = season;
+            [self presentViewController:viewController animated:YES completion:nil];
+            [self setNeedsStatusBarAppearanceUpdate];
         }
+    } failure:nil];
+
+    [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
+		self.championships = object;
+		[self reloadScrollView];
     } failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];

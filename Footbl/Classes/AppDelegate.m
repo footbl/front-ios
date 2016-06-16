@@ -107,7 +107,7 @@
 	
     self.footblTabBarController = [[FootblTabBarController alloc] init];
     self.window.rootViewController = self.footblTabBarController;
-	
+
     /*
     [[NSNotificationCenter defaultCenter] addObserverForName:FBSessionDidBecomeOpenActiveSessionNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {

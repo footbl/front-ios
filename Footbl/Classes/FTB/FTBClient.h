@@ -86,7 +86,7 @@ FOUNDATION_EXTERN const NSUInteger FTBClientPageSize;
 #pragma mark - Season
 
 - (void)season:(NSString *)season success:(FTBBlockObject)success failure:(FTBBlockError)failure;
-- (void)seasons:(NSUInteger)page unread:(BOOL)unread success:(FTBBlockObject)success failure:(FTBBlockError)failure;
+- (void)seasons:(NSUInteger)page success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 
 #pragma mark - User
 
