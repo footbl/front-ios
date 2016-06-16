@@ -58,7 +58,6 @@
 		A3ECBBF61CB1C0B9006BD2AF /* FeaturedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBBEC1CB1C0B9006BD2AF /* FeaturedButton.m */; };
 		A3ECBBF81CB1C0B9006BD2AF /* FootblLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBBEE1CB1C0B9006BD2AF /* FootblLabel.m */; };
 		A3ECBBFA1CB1C0B9006BD2AF /* RechargeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBBF01CB1C0B9006BD2AF /* RechargeButton.m */; };
-		A3ECBBFC1CB1C0B9006BD2AF /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBBF21CB1C0B9006BD2AF /* TeamImageView.m */; };
 		A3ECBBFE1CB1C0BA006BD2AF /* WalletGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBBF41CB1C0B9006BD2AF /* WalletGraphView.m */; };
 		A3ECBC041CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC001CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m */; };
 		A3ECBC061CB1C0C1006BD2AF /* FTImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = A3ECBC021CB1C0C1006BD2AF /* FTImageUploader.m */; };
@@ -264,8 +263,6 @@
 		A3ECBBEE1CB1C0B9006BD2AF /* FootblLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootblLabel.m; sourceTree = "<group>"; };
 		A3ECBBEF1CB1C0B9006BD2AF /* RechargeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeButton.h; sourceTree = "<group>"; };
 		A3ECBBF01CB1C0B9006BD2AF /* RechargeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeButton.m; sourceTree = "<group>"; };
-		A3ECBBF11CB1C0B9006BD2AF /* TeamImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamImageView.h; sourceTree = "<group>"; };
-		A3ECBBF21CB1C0B9006BD2AF /* TeamImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamImageView.m; sourceTree = "<group>"; };
 		A3ECBBF31CB1C0B9006BD2AF /* WalletGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletGraphView.h; sourceTree = "<group>"; };
 		A3ECBBF41CB1C0B9006BD2AF /* WalletGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletGraphView.m; sourceTree = "<group>"; };
 		A3ECBBFF1CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootblPopupAnimatedTransition.h; sourceTree = "<group>"; };
@@ -673,8 +670,6 @@
 				A3ECBBEE1CB1C0B9006BD2AF /* FootblLabel.m */,
 				A3ECBBEF1CB1C0B9006BD2AF /* RechargeButton.h */,
 				A3ECBBF01CB1C0B9006BD2AF /* RechargeButton.m */,
-				A3ECBBF11CB1C0B9006BD2AF /* TeamImageView.h */,
-				A3ECBBF21CB1C0B9006BD2AF /* TeamImageView.m */,
 				1153A7791D10CCF8003EC2C5 /* UserImageView.h */,
 				1153A77A1D10CCF8003EC2C5 /* UserImageView.m */,
 				A3ECBBF31CB1C0B9006BD2AF /* WalletGraphView.h */,
@@ -1444,7 +1439,6 @@
 				ED8DB3A31A14C95C00605CCE /* GroupTableViewCell.m in Sources */,
 				ED8DB3A41A14C95C00605CCE /* NSString+Hex.m in Sources */,
 				ED8DB3A51A14C95C00605CCE /* UIImage+Color.m in Sources */,
-				A3ECBBFC1CB1C0B9006BD2AF /* TeamImageView.m in Sources */,
 				ED8DB3A71A14C95C00605CCE /* EditProfileViewController.m in Sources */,
 				10AF59441B9C763200168433 /* TrophyRoomPopupViewController.m in Sources */,
 				ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */,

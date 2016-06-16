@@ -37,14 +37,28 @@
 
 - (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FTBChallenge *challenge = self.challenges[indexPath.row];
-    [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL];
-    [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL];
+    FTBMatchResult myResult = challenge.myResult;
+
+    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
+
+    if (myResult == FTBMatchResultHost) {
+        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
+    }
+
+    if (myResult == FTBMatchResultGuest) {
+        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    }
+
     cell.stakeLabel.text = challenge.valueString;
     cell.profitLabel.text = challenge.challengerResult == challenge.match.result ? challenge.valueString : @"-";
     cell.dateLabel.text = challenge.match.dateString;
-    cell.guestTeamImageView.enabled = challenge.myResult == FTBMatchResultGuest;
-    cell.hostTeamImageView.enabled = challenge.myResult == FTBMatchResultHost;
-    cell.vsLabel.alpha = challenge.myResult == FTBMatchResultDraw ? 1 : 0.4;
+    cell.guestTeamImageView.alpha = myResult == FTBMatchResultGuest ? 1 : 0.4;
+    cell.hostTeamImageView.alpha = myResult == FTBMatchResultHost ? 1 : 0.4;
+    cell.vsLabel.alpha = myResult == FTBMatchResultDraw ? 1 : 0.4;
     cell.userImageView.user = challenge.oponent;
     cell.userImageView.ringVisible = challenge.accepted || challenge.match.finished;
 }

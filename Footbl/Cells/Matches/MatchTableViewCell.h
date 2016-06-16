@@ -8,7 +8,6 @@
 
 #import "TemplateTableViewCell.h"
 
-@class TeamImageView;
 @class UserImageView;
 
 typedef NS_ENUM(NSInteger, MatchTableViewCellLayout) {
@@ -58,7 +57,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *hostScoreLabel;
 @property (strong, nonatomic) UILabel *hostNameLabel;
 @property (strong, nonatomic) UILabel *hostPotLabel;
-@property (strong, nonatomic) TeamImageView *hostImageView;
+@property (strong, nonatomic) UIImageView *hostImageView;
 @property (strong, nonatomic) UserImageView *hostUserImageView;
 @property (strong, nonatomic) UIStepper *hostStepper;
 
@@ -73,7 +72,7 @@ typedef NS_ENUM(NSInteger, MatchTableViewCellColorScheme) {
 @property (strong, nonatomic) UILabel *guestScoreLabel;
 @property (strong, nonatomic) UILabel *guestNameLabel;
 @property (strong, nonatomic) UILabel *guestPotLabel;
-@property (strong, nonatomic) TeamImageView *guestImageView;
+@property (strong, nonatomic) UIImageView *guestImageView;
 @property (strong, nonatomic) UserImageView *guestUserImageView;
 @property (strong, nonatomic) UIStepper *guestStepper;
 

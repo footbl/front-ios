@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSURL *pictureURL;
+@property (nonatomic, copy) NSURL *grayscalePictureURL;
 
 @end

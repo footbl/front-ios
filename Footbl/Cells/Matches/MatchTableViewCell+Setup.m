@@ -16,7 +16,6 @@
 #import "FTBTeam.h"
 #import "FTBUser.h"
 #import "NSNumber+Formatter.h"
-#import "TeamImageView.h"
 #import "UIFont+MaxFontSize.h"
 #import "UserImageView.h"
 
@@ -65,8 +64,18 @@
     }
 
     UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
-    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+
+    if (result == FTBMatchResultHost) {
+        [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+    }
+
+    if (result == FTBMatchResultGuest) {
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    }
     
     if (isMe) {
         self.stakeValueLabel.text = match.myBetValueString;
@@ -180,8 +189,18 @@
     }
 
     UIImage *placeholderImage = [UIImage imageNamed:@"placeholder_escudo"];
-    [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+
+    if (result == FTBMatchResultHost) {
+        [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+    }
+
+    if (result == FTBMatchResultGuest) {
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    }
     
     self.stakeValueLabel.text = challenge.valueString;
     self.returnValueLabel.text = challenge.toReturnString;

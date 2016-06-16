@@ -7,7 +7,6 @@
 //
 
 #import "MatchTableViewCell.h"
-#import "TeamImageView.h"
 #import "UIView+Frame.h"
 #import "UserImageView.h"
 
@@ -225,16 +224,6 @@ static CGFloat kDisabledAlpha = 0.4;
 
 #pragma mark - Instance Methods
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    
-    [self.hostImageView.operation cancel];
-    self.hostImageView.enabled = YES;
-    
-    [self.guestImageView.operation cancel];
-    self.guestImageView.enabled = YES;
-}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -343,8 +332,8 @@ static CGFloat kDisabledAlpha = 0.4;
             return subtitleLabel;
         };
         
-        TeamImageView * (^teamImageView)(CGRect frame) = ^(CGRect frame) {
-            TeamImageView *teamImageView = [[TeamImageView alloc] initWithFrame:frame];
+        UIImageView * (^teamImageView)(CGRect frame) = ^(CGRect frame) {
+            UIImageView *teamImageView = [[UIImageView alloc] initWithFrame:frame];
             teamImageView.contentMode = UIViewContentModeScaleAspectFit;
             teamImageView.userInteractionEnabled = YES;
             [self.cardContentView addSubview:teamImageView];
