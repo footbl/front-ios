@@ -340,7 +340,7 @@
 		ED740E0E19076D22002B2322 /* MatchesNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchesNavigationBarView.h; sourceTree = "<group>"; };
 		ED740E0F19076D22002B2322 /* MatchesNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchesNavigationBarView.m; sourceTree = "<group>"; };
 		ED785A65199D0C63002A4DBD /* Footbl-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl-Info.plist"; sourceTree = "<group>"; };
-		ED785A85199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED785A85199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		ED785A86199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED785A87199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/tutorial_1@2x.png"; sourceTree = "<group>"; };
 		ED785A88199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/tutorial_1_480@2x.png"; sourceTree = "<group>"; };
@@ -352,9 +352,9 @@
 		ED785A8E199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		ED785A8F199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785A90199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = es; path = "es.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
-		ED785A91199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ED785A92199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ED785A93199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ED785A91199DAF91002A4DBD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		ED785A92199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		ED785A93199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		ED785A94199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_1@2x.png"; sourceTree = "<group>"; };
 		ED785A95199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_1_480@2x.png"; sourceTree = "<group>"; };
 		ED785A96199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_2@2x.png"; sourceTree = "<group>"; };
@@ -365,8 +365,8 @@
 		ED785A9B199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		ED785A9C199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785A9D199DAF9A002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = it; path = "it.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
-		ED785A9E199DAF9B002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ED785A9F199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED785A9E199DAF9B002A4DBD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		ED785A9F199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		ED785AA0199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED785AA1199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/tutorial_1@2x.png"; sourceTree = "<group>"; };
 		ED785AA2199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/tutorial_1_480@2x.png"; sourceTree = "<group>"; };
@@ -378,8 +378,8 @@
 		ED785AA8199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		ED785AA9199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785AAA199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fr; path = "fr.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
-		ED785AAB199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ED785AAC199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED785AAB199DAFA2002A4DBD /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		ED785AAC199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		ED785AAD199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ED785AAE199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_1@2x.png"; sourceTree = "<group>"; };
 		ED785AAF199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_1_480@2x.png"; sourceTree = "<group>"; };
@@ -391,7 +391,7 @@
 		ED785AB5199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_4_480@2x.png"; sourceTree = "<group>"; };
 		ED785AB6199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785AB7199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
-		ED785AB8199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ED785AB8199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeaguesViewController.h; sourceTree = "<group>"; };
 		ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLeaguesViewController.m; sourceTree = "<group>"; };
 		ED785ABE199ED2E3002A4DBD /* TransferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferTableViewCell.h; sourceTree = "<group>"; };
@@ -444,7 +444,7 @@
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EDB1D46918E1F18B00E0C949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl App Store-Info.plist"; sourceTree = "<group>"; };
-		EDB1D47118E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EDB1D47118E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDB1D47318E1F18B00E0C949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Footbl-Prefix.pch"; sourceTree = "<group>"; };
 		EDB1D47618E1F18B00E0C949 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -452,7 +452,7 @@
 		EDB1D47C18E1F18B00E0C949 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D48C18E1F18B00E0C949 /* FootblTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
-		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDB1D49018E1F18B00E0C949 /* FootblTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootblTests.m; sourceTree = "<group>"; };
 		EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA1.h"; sourceTree = "<group>"; };
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
@@ -460,9 +460,9 @@
 		EDB1D4AA18E209E500E0C949 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
 		EDB98296192D5FFC00697783 /* NSNumber+Formatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Formatter.h"; sourceTree = "<group>"; };
 		EDB98297192D5FFC00697783 /* NSNumber+Formatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Formatter.m"; sourceTree = "<group>"; };
-		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDB9C6E7192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EDB9C6E8192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EDB9C6E8192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
 		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
 		EDBD2C97192F10CA002C763D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };

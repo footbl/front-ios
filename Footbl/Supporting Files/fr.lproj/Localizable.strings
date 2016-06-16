@@ -4,719 +4,482 @@
   Created by Fernando Saragoça on 4/25/14.
   Copyright (c) 2014 Footbl. All rights reserved. */
 
-/* Facebook request message */
 "Facebook request message" = "Money!";
 
-/* Facebook request title */
 "Facebook request title" = "Money!";
 
-/* My Leagues */
 "My Leagues" = "Mes ligues";
 
-/* Create your group button title */
 "Create your group button title" = "Créer votre propre groupe";
 
-/* Championship: brasileirão */
 "Championship: brasileirão" = "Brasileirão";
 
-/* {number of stakes} stakes and {number of comments} comments */
 "%i stakes and %i comments" = "%1$i mise et %2$i commentaires";
 
-/* Championships */
 "Championships" = "Championnats";
 
-/* Country: brasil */
 "Country: brasil" = "Brésil";
 
-/* Team: Manchester United */
 "Team: Manchester United" = "Man. United";
 
-/* Create your group button subtitle */
 "Create your group button subtitle" = "Pariez et discuter avec vos amis!";
 
-/* Team: Manchester City */
 "Team: Manchester City" = "Man. City";
 
-/* Close tutorial */
 "Close tutorial" = "Fermer le tutoriel";
 
-/* Team: West Bromwich */
 "Team: West Bromwich" = "W. Bromwich";
 
-/* Draw */
 "Draw" = "Nul";
 
-/* Error */
 "Error" = "Erreur";
 
-/* Team: Athletic Bilbao */
 "Team: Athletic Bilbao" = "Athl. Bilbao";
 
-/* Team: Atlético Madrid */
 "Team: Atlético Madrid" = "Atl. Madrid";
 
-/* Find Friends */
 "Find Friends" = "Trouver des amis";
 
-/* Team: Deportivo La Coruna */
 "Team: Deportivo La Coruna" = "D. La Coruna";
 
-/* Groups */
 "Groups" = "Groupes";
 
-/* Log in with Facebook */
 "Log in with Facebook" = "Connexion avec Facebook";
 
-/* Team: Rayo Vallecano */
 "Team: Rayo Vallecano" = "R. Vallecano";
 
-/* Team: Inter Milan */
 "Team: Inter Milan" = "Internazionale";
 
-/* Matches */
 "Matches" = "Matches";
 
-/* Team: Bor. Dortmund */
 "Team: Bor. Dortmund" = "B. Dortmund";
 
-/* New Group */
 "New Group" = "Nouveau groupe";
 
-/* OK */
 "OK" = "OK";
 
-/* Team: Bayer Leverkusen */
 "Team: Bayer Leverkusen" = "B. Leverkusen";
 
-/* Profile */
 "Profile" = "Profil";
 
-/* Team: Bor. Monchengladbach */
 "Team: Bor. Monchengladbach" = "B. Monchen.";
 
-/* Profit */
 "Profit" = "Gain";
 
-/* Team: Bayern Munich */
 "Team: Bayern Munich" = "B. Munich";
 
-/* Team: Eintracht Frankfurt */
 "Team: Eintracht Frankfurt" = "E. Frankfurt";
 
-/* Settings */
 "Settings" = "Paramètres";
 
-/* Team: Hamburger SV */
 "Team: Hamburger SV" = "Hamburger";
 
-/* Sign up */
 "Sign up" = "Inscription";
 
-/* Skip for now */
 "Skip for now" = "Passer pour l’instant";
 
-/* Team: Hannover */
 "Team: Hannover" = "Hannover 96";
 
-/* Stake */
 "Stake" = "Mise";
 
-/* Team: Werder Bremen */
 "Team: Werder Bremen" = "W. Bremen";
 
-/* Team: Evian Tgfc */
 "Team: Evian Tgfc" = "Evian";
 
-/* Teams */
 "Teams" = "Équipes";
 
-/* To return */
 "To return" = "Plus value";
 
-/* Team: Atletico Mineiro */
 "Team: Atletico Mineiro" = "Atlético MG";
 
-/* Tutorial */
 "Tutorial" = "Tutoriel";
 
-/* Team: Atletico Paranaense */
 "Team: Atletico Paranaense" = "Atlético PR";
 
-/* Wallet */
 "Wallet" = "Porte-monnaie";
 
-/* Team: Arsenal Sarandi */
 "Team: Arsenal Sarandi" = "Arsenal Sar.";
 
-/* Build type */
 "Build type" = "Build type";
 
-/* Team: Atletico Rafaela */
 "Team: Atletico Rafaela" = "Atl. Rafaela";
 
-/* Team: Defensa Y Justicia */
 "Team: Defensa Y Justicia" = "Defensa Y J.";
 
-/* Version */
 "Version" = "Version";
 
-/* Team: Newells Ob */
 "Team: Newells Ob" = "Newells O. B.";
 
-/* Now */
 "Now" = "Maintenant";
 
-/* Team: Rosario Central */
 "Team: Rosario Central" = "Rosario Cent.";
 
-/* Or */
 "Or" = "Ou";
 
-/* Group Info */
 "Group Info" = "Infos du groupe";
 
-/* Team: Chicago Fire */
 "Team: Chicago Fire" = "Chicago F.";
 
-/* Group */
 "Group" = "Groupe";
 
-/* Team: Chivas Usa */
 "Team: Chivas Usa" = "Chivas USA";
 
-/* Leave group */
 "Leave group" = "Quitter le groupe";
 
-/* Team: Colorado Rapids */
 "Team: Colorado Rapids" = "Colorado R.";
 
-/* Team: Columbus Crew */
 "Team: Columbus Crew" = "Columbus C.";
 
-/* Live - {time elapsed}' */
 "Live - %.0lf'" = "Direct - %.0lf'";
 
-/* Team: Dc United */
 "Team: Dc United" = "DC United";
 
-/* Logout */
 "Logout" = "Déconnexion";
 
-/* {number of rounds} rounds to end */
 "%i rounds to end" = "%i tours avant la fin";
 
-/* Team: FC Dallas */
 "Team: FC Dallas" = "FC Dallas";
 
-/* Team: Houston Dynamo */
 "Team: Houston Dynamo" = "Houston D.";
 
-/* 1 round to end */
 "1 round to end" = "Dernier tour";
 
-/* Team: Montreal Impact */
 "Team: Montreal Impact" = "Montreal I.";
 
-/* Championship finished */
 "Championship finished" = "Championnat terminé";
 
-/* {number of characters} characters left */
 "%i characters left" = "%i caractères restants";
 
-/* Team: New England Rev */
 "Team: New England Rev" = "N. England R.";
 
-/* Team: N.Y Red Bulls */
 "Team: N.Y Red Bulls" = "NY Red Bulls";
 
-/* 1 character left */
 "1 character left" = "1 caractère restant";
 
-/* Team: Philadelphia Union */
 "Team: Philadelphia Union" = "Philadelphia U.";
 
 "NOTIFICATION_GROUP_ADDED" = "%@ vous a ajouté à un nouveau groupe!";
 
 "NOTIFICATION_ROUND_END" = "Les matchs sont terminés! Afficher les résultats?";
 
-/* Team: Portland Timbers */
 "Team: Portland Timbers" = "Portland T.";
 
 "NOTIFICATION_LEAGUE_END" = "%@ vient de finir. Vérifier votre classement ?";
 
-/* Team: Real Salt Lake */
 "Team: Real Salt Lake" = "R. Salt Lake";
 
-/* Team: Sporting Kansas City */
 "Team: Sporting Kansas City" = "S. Kansas C.";
 
-/* Add photo */
 "Add photo" = "Ajouter une photo";
 
-/* Insert group name */
 "Insert group name" = "Saisissez le nom du groupe";
 
-/* Team: San Jose */
 "Team: San Jose" = "San Jose E.";
 
-/* Team: Seattle Sounders */
 "Team: Seattle Sounders" = "Seattle S.";
 
-/* Next */
 "Next" = "Suivant";
 
-/* Team: Toronto Fc */
 "Team: Toronto Fc" = "Toronto FC";
 
 "NOTIFICATION_ROUND_START" = "Des matches vont commencer… vous voulez parier ?";
 
-/* Add members */
 "Add members" = "Ajouter des membres";
 
-/* Team: Vancouver Whitecaps */
 "Team: Vancouver Whitecaps" = "Vancouver W.";
 
-/* Contacts */
 "Contacts" = "Contacts";
 
-/* Create */
 "Create" = "Créer";
 
-/* Facebook */
 "Facebook" = "Facebook";
 
-/* Footbl */
 "Footbl" = "Footbl";
 
-/* Select league */
 "Select league" = "Choisir une ligue";
 
-/* Type a friend's name */
 "Type a friend's name" = "Tapez le nom d’un ami";
 
-/* Continue */
 "Continue" = "Continuer";
 
-/* Sign up text: email */
 "Sign up text: email" = "Bonjour !\nVeuillez saisir votre e-mail.";
 
-/* Sign up text: password confirmation */
 "Sign up text: password confirmation" = "Merci !\nVeuillez confirmer votre mot de passe.";
 
-/* Sign up text: password */
 "Sign up text: password" = "Fantastique !\nVeuillez saisir un mot de passe.";
 
-/* Sign up text: username */
 "Sign up text: username" = "Presque fini !\nVeuillez saisir votre @username.";
 
-/* Sign up text: email hint */
 "Sign up text: email hint" = "Ça n’a pas l’air d’une adresse e-mail, êtes-vous sûr(e) ?";
 
-/* Sign up text: password confirmation hint */
 "Sign up text: password confirmation hint" = "Les mots de passe ne correspondent pas…bizarre !";
 
-/* Sign up text: password hint */
 "Sign up text: password hint" = "Assurez-vous qu’il comporte au moins 6 caractères.";
 
-/* Login text: welcome back */
 "Login text: welcome back" = "Bienvenue !";
 
-/* Sign in */
 "Sign in" = "Connexion";
 
-/* Sign up text: username hint */
 "Sign up text: username hint" = "Il devrait être de 5 à 20 caractères, en utilisant des lettres, des chiffres ou de soulignement.";
 
-/* Facebook group invitation message */
 "Facebook group invitation message" = "footbl | on parie ?";
 
-/* Facebook group invitation title */
 "Facebook group invitation title" = "Rejoignez mon groupe!";
 
-/* FootblAPI error: unknown error */
 "FootblAPI error: unknown error" = "Erreur inconnue, veuillez vérifier votre connexion et réessayer.";
 
-/* Sign up text: name hint */
 "Sign up text: name hint" = "Ça ne ressemble pas à un nom...";
 
-/* Sign up text: name */
 "Sign up text: name" = "Génial !\nQuel est votre nom ?";
 
-/* Championship: World Cup */
 "Championship: World Cup" = "Monde";
 
-/* Cancel */
 "Cancel" = "Annuler";
 
-/* Import from Facebook */
 "Import from Facebook" = "Importer de Facebook";
 
-/* Import from Library */
 "Import from Library" = "Importer de la bibliothèque";
 
-/* Take photo */
 "Take photo" = "Prendre une photo";
 
-/* Country: International */
 "Country: International" = "International";
 
-/* Since {month format} {year format} */
 "'Since' MMMM YYYY" = "'Depuis le' MMMM YYYY";
 
-/* Betting in 1 league */
 "Betting in 1 league" = "paris dans 1 ligues";
 
-/* Betting in {number of leagues} leagues */
 "Betting in %i leagues" = "paris dans %i ligues";
 
-/* Country: BR */
 "Country: BR" = "Brésil";
 
-/* Highest: {highest funds} in {month format} {year format} */
 "'Highest: %@ in' MMMM YYYY" = "'Record : %@ le' MMMM YYYY";
 
-/* Final */
 "Final" = "Final";
 
-/* Share */
 "Share" = "Partager";
 
-/* {home team} {away team} {bet value} {bet profit} */
 "Share match: finished with bet (draw)" = "C’est un nul !\nfootbl | on parie ?";
 
-/* {bet team} {against team} {bet value} {bet profit} */
 "Share match: finished with bet" = "Bien joué %1$@ !\nfootbl | on parie ?";
 
-/* {home team} {away team} */
 "Share match: finished without bet" = "Bon match !\nfootbl | on parie ?";
 
-/* {home team} {away team} {bet value} */
 "Share match: live with bet (draw)" = "Ça va finir en match nul !\nfootbl | on parie ?";
 
-/* {bet team} {against team} {bet value} */
 "Share match: live with bet" = "Allez %1$@ !\nfootbl | on parie ?";
 
-/* {home team} {away team} */
 "Share match: live without bet" = "Bon match !\nfootbl | on parie ?";
 
-/* {home team} {away team} {bet value} */
 "Share match: waiting with bet (draw)" = "Ça va finir en match nul !\nfootbl | on parie ?";
 
-/* {bet team} {against team} {bet value} */
 "Share match: waiting with bet" = "%1$@, sans aucun doute !\nfootbl | on parie ?";
 
-/* {home team} {away team} */
 "Share match: waiting without bet" = "Sur quelle équipe devrais-je parier ? %1$@ ou %2$@ ?\nfootbl | on parie ?";
 
-/* Cannot update wallet due to wallet balance */
 "Cannot update wallet due to wallet balance" = "Vous pouvez renflouer votre Porte-monnaie uniquement quand il vous reste moins de ฿100";
 
-/* Unit for 1000 (kilo) */
 "k" = "k";
 
-/* Unit for 1000000 (mega) */
 "M" = "M";
 
-/* Ops */
 "Ops" = "Oups";
 
-/* Email placeholder */
 "Email placeholder" = "E-mail";
 
-/* Password placeholder */
 "Password placeholder" = "Mot de passe";
 
-/* Favorites */
 "Favorites" = "Favoris";
 
-/* Featured users title */
 "Featured users title" = "En vedette";
 
-/* Featured users */
 "Featured users" = "Utilisateurs vedettes";
 
-/* Sign up text: about hint */
 "Sign up text: about hint" = "Moins de 70 caractères, s'il vous plaît :)";
 
-/* Sign up text: about */
 "Sign up text: about" = "Pour finir… Qui êtes-vous ?\nDécrivez-vous brièvement ! (ou pas)";
 
-/* Choose from my albums */
 "Choose from my albums" = "Choisir dans mes albums";
 
-/* Sign up text: profile */
 "Sign up text: profile" = "C’est le moment de prendre un selfie.\nOu de choisir une jolie image !";
 
-/* Camera is not available on your device, sorry! */
 "Camera is not available on your device, sorry!" = "Appareil photo n'est pas disponible sur votre appareil, désolé!";
 
-/* Is this correct? */
 "Is this correct?" = "Est-ce exact ?";
 
-/* No */
 "No" = "Non";
 
-/* Yes */
 "Yes" = "Oui";
 
-/* You entered your email as %@ */
 "You entered your email as %@" = "Vous avez saisi votre e-mail %@";
 
-/* About */
 "About" = "À propos";
 
-/* Can't send email message */
 "Can't send email message" = "Pour pouvoir envoyer un e-mail, veuillez paramétrer un compte (Paramètres -> Courrier, Contacts, Calendriers)";
 
-/* Can't send email title */
 "Can't send email title" = "Aucun compte e-mail paramétré";
 
-/* My Account */
 "My Account" = "Mon compte";
 
-/* Sharing text */
 "Sharing text" = "Jetez un œil sur cette application géniale ! ";
 
-/* Sharing URL */
 "Sharing URL" = "https://itunes.apple.com/fr/app/footbl/id881307076?ls=1&mt=8";
 
-/* {application name} {application version} {system version} {device model} {user identifier} */
 "Support email body" = "\n\n\nThe information below will be used to make the support more effective and solve your problem ASAP.\nApp: %@ v%@\nSystem: %@ (%@)\nUser: %@";
 
-/* No comment provided by engineer. */
 "Support email recipient" = "footbl@madeatsampa.com";
 
-/* {application name} */
 "Support email subject" = "Soutenir - %@";
 
-/* Support */
 "Support" = "Assistance";
 
-/* Review on App Store */
 "Review on App Store" = "Avis sur l'App Store";
 
-/* Tell a friend */
 "Tell a friend" = "Dire à un ami";
 
-/* Licenses */
 "Licenses" = "Licences";
 
-/* Change password */
 "Change password" = "Changer le mot de passe";
 
-/* Delete account */
 "Delete account" = "Supprimer le compte";
 
-/* Edit profile */
 "Edit profile" = "Éditer le profil";
 
-/* Update profile picture */
 "Update profile picture" = "Mettre à jour l’image du profil";
 
-/* Change password text: insert new password */
 "Change password text: insert new password" = "\nTapez votre nouveau mot de passe.";
 
-/* Change password text: insert old password */
 "Change password text: insert old password" = "\nTapez votre ancien mot de passe.";
 
-/* Change password text: new password hint */
 "Change password text: new password hint" = "Assurez-vous qu’il comporte au moins 6 caractères.";
 
-/* Change password text: old password hint */
 "Change password text: old password hint" = "Les mots de passe ne correspondent pas…bizarre !";
 
-/* About me */
 "About me" = "À propos de moi";
 
-/* Name */
 "Name" = "Nom";
 
-/* Anonymous user message */
 "Anonymous user message" = "Vous n’êtes pas connecté(e).\nPour voir votre profil ou rejoindre des groupes, vous devez créer un compte ou vous connecter avec Facebook. Tout sera encore plus agréable !";
 
-/* Create my account */
 "Create my account" = "Créer mon compte";
 
-/* Add new members */
 "Add new members" = "Ajouter de nouveaux membres";
 
-/* Anyone can add members */
 "Anyone can add members" = "Tout le monde peut ajouter des membres";
 
-/* $ */
 "$" = "฿";
 
-/* Close */
 "Close" = "Fermer";
 
-/* Get started */
 "Get started" = "Commencer";
 
-/* View tutorial */
 "View tutorial" = "Voir le tutoriel";
 
-/* Delete account confirmation message */
 "Are you sure you want to delete your account?" = "Êtes-vous sûr(e) de vouloir supprimer votre compte ?";
 
-/* Delete account confirmation button */
 "Delete Now" = "Supprimer maintenant";
 
-/* Delete account confirmation title */
 "Sorry to see you go!" = "Désolé de vous voir partir !";
 
-/* Error: authentication error, need to login again */
 "Error: authentication error, need to login again" = "Erreur d’authentification, veuillez vous reconnecter";
 
-/* Error: invalid username or password */
 "Error: invalid username or password" = "E-mail ou mot de passe incorrect";
 
-/* Error: email or username already taken */
 "Error: email or username already taken" = "E-mail ou nom d’utilisateur déjà utilisé";
 
-/* Error: insufient funds */
 "Error: insufient funds" = "Vous êtes à court d’argent ! Renflouez votre porte-monnaie ou annulez quelques paris, si c’est possible.";
 
-/* Copied group sharing code */
 "Copied!" = "Copié !";
 
-/* Copy sharing code */
 "Copy sharing code" = "Copier le code de partage";
 
-/* Create a new group */
 "Create a new group" = "Créer un nouveau groupe";
 
-/* Do you have an invitation code? */
 "Do you have an invitation code?" = "Avez-vous un code d’invitation ?";
 
-/* Insert invitation code */
 "Insert invitation code" = "Saisissez le code d’invitation";
 
-/* Join Group */
 "Join Group" = "Rejoindre un groupe";
 
-/* Paste on WhatsApp, Facebook & Twitter */
 "Paste on WhatsApp, Facebook & Twitter" = "Partager sur WhatsApp, Facebook & Twitter";
 
-/* Legal URL */
 "Legal URL" = "http://footbl.co/terms.html";
 
-/* Everyone */
 "Everyone" = "Tout le monde";
 
-/* Legal */
 "Legal" = "Infos légales";
 
-/* Email already exists.
-Do you want to log in instead? */
 "Email already exists.\nDo you want to log in instead?" = "Cet e-mail existe déjà.\nVoulez-vous plutôt vous connecter ?";
 
-/* Username already taken, please choose another */
 "Username already taken, please choose another" = "Désolé, ce nom d’utilisateur est déjà pris !";
 
-/* And bring friends */
 "And bring friends" = "Et ramener des amis";
 
-/* @{group_share_url} {group_code} */
 "Join my group on Footbl! Access %@ or use the code %@" = "Rejoignez mon groupe sur Footbl ! Allez sur %1$@ ou utilisez le code %2$@.\nfootbl | on parie ?";
 
-/* Share on WhatsApp */
 "Share on WhatsApp" = "Partagez sur WhatsApp";
 
-/* Error: group not found */
 "Error: group not found" = "On n'ai pas trouvé un groupe avec ce code. Êtes-vous sûr que c'est correct?";
 
-/* Not now */
 "Not now" = "Pas maintenant";
 
-/* Share {group_name} on WhatsApp */
 "Share %@ on WhatsApp and bring friends!" = "Partagez sur WhatsApp et ramenez des amis !";
 
-/* Sure */
 "Sure" = "Certainement!";
 
-/* wanna bet? */
 "wanna bet?" = "on parie ?";
 
-/* WhatsApp */
 "WhatsApp" = "WhatsApp";
 
-/* Search */
 "Search" = "Recherche";
 
-/* Loading */
 "Loading" = "Chargement";
 
-/* Last {number of rounds} rounds */
 "Last %lu rounds" = "%lu derniers tours";
 
-/* Wallet evolution */
 "Wallet evolution" = "Evolution du porte-monnaie";
 
-/* Update on App Store */
 "Update on App Store" = "Mettre à jour sur l'App Store";
 
-/* Update available! */
 "Update available!" = "Mise à jour disponible!";
 
-/* Update available text */
 "Update available text" = "Une nouvelle version est disponible au téléchargement!\n\nPour éviter les conflits, il est important que vous mettez à jour l'application - il prend quelques secondes! :)";
 
-/* Group code: {group code} */
 "Group code: %@" = "Code de groupe: %@";
 
-/* Join my group on Footbl! http://footbl.co/dl */
 "Join my group on Footbl! http://footbl.co/dl" = "Rejoignez mon groupe sur Footbl! http://footbl.co/dl";
 
-/* Received from */
 "Received from" = "Reçu de";
 
-/* Send $ */
 "Send $" = "Envoyer ฿";
 
-/* Send to */
 "Send to" = "Envoyer à";
 
-/* Transfers */
 "Transfers" = "Transferts";
 
-/* Not now, thank you! */
 "Not now, thank you!" = "Pas maintenant, merci!";
 
-/* {recharge value} */
 "Buy for %@" = "Acheter pour %@";
 
-/* Ask for friends */
 "Ask for friends" = "Demandez à vos amis";
 
-/* Recharge your wallet
-Make more bets and increase your profit! */
 "Recharge your wallet\nMake more bets and increase your profit!" = "Rechargez votre porte-monnaie\nFaire plus de paris et augmenter vos profits!";
 
-/* Actual amount */
 "Actual amount" = "montant actuel";
 
-/* After recharge */
 "After recharge" = "après recharge";
 
-/* Send */
 "Send" = "Envoyer";
 
-/* Select all */
 "Select all" = "Tout sélectionner";
 
-/* View betting history */
 "View betting history" = "Voir l'historique de paris";
 
-/* Bet history */
 "Bet history" = "Paris";
 
-/* World */
 "World" = "Monde";
 
-/* My Friends */
 "My Friends" = "Mes Amis";
 
-/* Development only */
 "Please restart the app" = "S'il vous plaît redémarrer l'application";
 
 "NOTIFICATION_ROUND_START_2" = "Les matchs sont sur ​​le point de commencer! Voulez-vous revoir vos paris?";
@@ -729,25 +492,16 @@ Make more bets and increase your profit! */
 
 "NOTIFICATION_RECEIVED_CASH" = "%@ vous a envoyé un peu d'argent. Ka-ching!";
 
-/* Leagues placeholder */
 "Leagues placeholder" = "Ajouter de nouvelles ligues sur le Profil > Mes ligues";
 
-/* Join */
 "Join" = "Joindre";
 
-/* Tip!
-
-Recharge your wallet by tapping the + above. */
 "Tip!\n\nRecharge your wallet by tapping the + above." = "Astuce!\n\nRechargez votre porte-monnaie en appuyant sur le + ci-dessus.";
 
-/* Collect Daily Bonus */
 "Collect" = "Recueillir";
 
-/* Come back tomorrow for more
- Enjoy =) */
 "Come back tomorrow for more\nEnjoy =)" = "Revenez demain pour plus\nProfitez =)";
 
-/* Daily bonus! */
 "Daily bonus!" = "Prime quotidienne!";
 
 "NOTIFICATION_GROUP_MESSAGE" = "%@ vous a envoyé un message";
