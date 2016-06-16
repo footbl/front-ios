@@ -65,5 +65,23 @@
 				<string>en los últimos %@ partidos</string>
 			</dict>
 		</dict>
+        <key>Your wallet will reset to $100 %@</key>
+        <dict>
+            <key>NSStringLocalizedFormatKey</key>
+            <string>Your wallet will reset to $100 %#@number_of_days@</string>
+            <key>number_of_days</key>
+            <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>@</string>
+                <key>zero</key>
+                <string>today</string>
+                <key>one</key>
+                <string>tomorrow</string>
+                <key>other</key>
+                <string>in %@ days</string>
+            </dict>
+        </dict>
 	</dict>
 </plist>

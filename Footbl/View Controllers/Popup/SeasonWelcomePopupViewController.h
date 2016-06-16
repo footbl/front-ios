@@ -14,4 +14,10 @@
 
 @property (nonatomic, strong) FTBSeason *season;
 
+@property (nonatomic, weak) IBOutlet UILabel *welcomeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *seasonLabel;
+@property (nonatomic, weak) IBOutlet UILabel *offeredLabel;
+@property (nonatomic, weak) IBOutlet UILabel *walletMessageLabel;
+@property (nonatomic, weak) IBOutlet UIButton *okButton;
+
 @end

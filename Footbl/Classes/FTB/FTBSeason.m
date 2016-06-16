@@ -21,4 +21,20 @@
 	return [super dateJSONTransformer];
 }
 
+- (NSInteger)daysToResetWallet {
+    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay fromDate:[NSDate date] toDate:self.finishAt options:kNilOptions];
+    return components.day;
+}
+
+// TODO: Remove lines below
+
+- (NSString *)title {
+    return @"42";
+}
+
+- (NSDate *)finishAt {
+    return [[NSDate date] dateByAddingTimeInterval:2 * 24 * 60 * 60];
+}
+
 @end

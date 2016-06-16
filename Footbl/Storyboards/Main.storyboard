@@ -500,7 +500,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="offeredLabel" destination="cwo-ns-uK3" id="nWK-QR-Q75"/>
+                        <outlet property="okButton" destination="L4N-zc-AeE" id="ZVv-2J-bHD"/>
                         <outlet property="popupView" destination="Bed-ig-Kck" id="bt2-LQ-rCN"/>
+                        <outlet property="seasonLabel" destination="0Fk-DO-GPT" id="p5u-Fy-0t4"/>
+                        <outlet property="walletMessageLabel" destination="jD7-3t-VqY" id="xip-W2-M7u"/>
+                        <outlet property="welcomeLabel" destination="39I-P7-Dnl" id="wRG-2J-CLs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QUI-5Q-CwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
