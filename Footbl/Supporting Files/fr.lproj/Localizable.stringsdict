@@ -68,7 +68,7 @@
         <key>Your wallet will reset to $100 %@</key>
         <dict>
             <key>NSStringLocalizedFormatKey</key>
-            <string>Your wallet will reset to $100 %#@number_of_days@</string>
+            <string>Votre portefeuille sera remis à $100 %#@number_of_days@</string>
             <key>number_of_days</key>
             <dict>
                 <key>NSStringFormatSpecTypeKey</key>
@@ -76,11 +76,11 @@
                 <key>NSStringFormatValueTypeKey</key>
                 <string>@</string>
                 <key>zero</key>
-                <string>today</string>
+                <string>aujourd'hui</string>
                 <key>one</key>
-                <string>tomorrow</string>
+                <string>demain</string>
                 <key>other</key>
-                <string>in %@ days</string>
+                <string>en %@ jours</string>
             </dict>
         </dict>
 	</dict>
