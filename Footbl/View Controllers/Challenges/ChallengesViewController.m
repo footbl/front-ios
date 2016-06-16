@@ -50,15 +50,16 @@
 }
 
 - (void)setupInfiniteScrolling {
+    __weak typeof(self) weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
-        self.page++;
-        [[FTBClient client] challengesForChallenger:nil challenged:nil page:self.page success:^(NSArray *challenges) {
-            [self.challenges addObjectsFromArray:challenges];
-            [self.tableView reloadData];
-            [self.tableView.infiniteScrollingView stopAnimating];
-            self.tableView.showsInfiniteScrolling = (challenges.count == FTBClientPageSize);
+        weakSelf.page++;
+        [[FTBClient client] challengesForChallenger:nil challenged:nil page:weakSelf.page success:^(NSArray *challenges) {
+            [weakSelf.challenges addObjectsFromArray:challenges];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            weakSelf.tableView.showsInfiniteScrolling = (challenges.count == FTBClientPageSize);
         } failure:^(NSError *error) {
-            [self.tableView.infiniteScrollingView stopAnimating];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
         }];
     }];
 }
