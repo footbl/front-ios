@@ -7,7 +7,6 @@
 //
 
 #import "DailyBonusPopupViewController.h"
-#import "ErrorHandler.h"
 #import "FootblLabel.h"
 #import "FTBClient.h"
 #import "FTBPrize.h"

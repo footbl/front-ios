@@ -10,7 +10,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "TransfersViewController.h"
-#import "ErrorHandler.h"
 #import "FootblTabBarController.h"
 #import "FriendsHelper.h"
 #import "FTBClient.h"

@@ -12,7 +12,6 @@
 
 #import "GroupChatViewController.h"
 #import "ChatTableViewCell.h"
-#import "ErrorHandler.h"
 #import "FTBClient.h"
 #import "FTBGroup.h"
 #import "FTBMessage.h"

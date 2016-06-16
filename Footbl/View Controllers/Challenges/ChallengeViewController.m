@@ -10,7 +10,6 @@
 
 #import "ChallengeViewController.h"
 #import "ChallengeStatusTableViewCell.h"
-#import "ErrorHandler.h"
 #import "FootblTabBarController.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
@@ -50,22 +49,22 @@
         cell.substatusLabel.text = nil;
     } else if (self.challenge.match.finished) {
         cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
-        cell.statusLabel.text = @"Challenge declined!";
+        cell.statusLabel.text = NSLocalizedString(@"Challenge declined!", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
-        cell.substatusLabel.text = [NSString stringWithFormat:@"$%@ returned to your wallet", self.challenge.bid];
+        cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
     } else if (self.challenge.waiting) {
         cell.statusLabel.textColor = [UIColor lightGrayColor];
-        cell.statusLabel.text = @"Waiting for oponent";
+        cell.statusLabel.text = NSLocalizedString(@"Waiting for oponent", nil);
         cell.substatusLabel.text = nil;
     } else if (self.challenge.accepted) {
         cell.statusLabel.textColor = [UIColor ftb_greenGrassColor];
-        cell.statusLabel.text = @"Challenge accepted!";
+        cell.statusLabel.text = NSLocalizedString(@"Challenge accepted!", nil);
         cell.substatusLabel.text = nil;
     } else {
         cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
-        cell.statusLabel.text = @"Challenge declined!";
+        cell.statusLabel.text = NSLocalizedString(@"Challenge declined!", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
-        cell.substatusLabel.text = [NSString stringWithFormat:@"$%@ returned to your wallet", self.challenge.bid];
+        cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
     }
 }
 
@@ -281,7 +280,7 @@
 
         self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.doneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
         self.doneButton.backgroundColor = [UIColor ftb_greenGrassColor];
         self.doneButton.size = CGSizeMake(self.view.width, 49);
         self.doneButton.maxY = self.view.height;

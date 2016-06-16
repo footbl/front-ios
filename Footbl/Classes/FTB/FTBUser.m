@@ -149,7 +149,7 @@
 }
 
 - (BOOL)isMe {
-	return [[FTBUser currentUser] isEqual:self];
+	return [[[self class] currentUser] isEqual:self];
 }
 
 - (BOOL)canRecharge {

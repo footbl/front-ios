@@ -20,7 +20,7 @@
         self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.titleLabel.text = @"Challenge!";
+        self.titleLabel.text = NSLocalizedString(@"Challenge!", nil);
         [self.contentView addSubview:self.titleLabel];
     }
     return self;

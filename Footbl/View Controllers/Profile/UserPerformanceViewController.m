@@ -7,7 +7,6 @@
 //
 
 #import "UserPerformanceViewController.h"
-#import "FootblAppearance.h"
 #import "UserPerformanceTableViewCell.h"
 
 #define EVEN(A) ((A) % 2 == 0)

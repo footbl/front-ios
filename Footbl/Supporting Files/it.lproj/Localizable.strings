@@ -4,347 +4,75 @@
   Created by Fernando Saragoça on 4/25/14.
   Copyright (c) 2014 Footbl. All rights reserved. */
 
-"Facebook request message" = "Money!";
-
-"Facebook request title" = "Money!";
-
-"My Leagues" = "Miei campionati";
-
-"Create your group button title" = "Crea il tuo gruppo";
-
-"Championship: brasileirão" = "Brasileirão";
-
-"%i stakes and %i comments" = "%1$i scommessa e %2$i commenti";
-
-"Championships" = "Campionati";
-
-"Country: brasil" = "Brasile";
-
-"Team: Manchester United" = "Man. United";
-
-"Create your group button subtitle" = "Scommetti e chattare con i tuoi amici!";
-
-"Team: Manchester City" = "Man. City";
-
-"Close tutorial" = "Chiudi tutorial";
-
-"Team: West Bromwich" = "W. Bromwich";
-
-"Draw" = "Pareggio";
-
-"Error" = "Errore";
-
-"Team: Athletic Bilbao" = "Athl. Bilbao";
-
-"Team: Atlético Madrid" = "Atl. Madrid";
-
-"Find Friends" = "Trova amici";
-
-"Team: Deportivo La Coruna" = "D. La Coruna";
-
-"Groups" = "Gruppi";
-
-"Log in with Facebook" = "Accedi con Facebook";
-
-"Team: Rayo Vallecano" = "R. Vallecano";
-
-"Team: Inter Milan" = "Internazionale";
-
-"Matches" = "Partite";
-
-"Team: Bor. Dortmund" = "B. Dortmund";
-
-"New Group" = "Nuovo gruppo";
-
-"OK" = "OK";
-
-"Team: Bayer Leverkusen" = "B. Leverkusen";
-
-"Profile" = "Profilo";
-
-"Team: Bor. Monchengladbach" = "B. Monchen.";
-
-"Profit" = "Profitto";
-
-"Team: Bayern Munich" = "B. Munich";
-
-"Team: Eintracht Frankfurt" = "E. Frankfurt";
-
-"Settings" = "Impostazioni";
-
-"Team: Hamburger SV" = "Hamburger";
-
-"Sign up" = "Iscriviti";
-
-"Skip for now" = "Salta per ora ";
-
-"Team: Hannover" = "Hannover 96";
-
-"Stake" = "Scommessa ";
-
-"Team: Werder Bremen" = "W. Bremen";
-
-"Team: Evian Tgfc" = "Evian";
-
-"Teams" = "Squadre";
-
-"To return" = "Ritorno";
-
-"Team: Atletico Mineiro" = "Atlético MG";
-
-"Tutorial" = "Tutorial";
-
-"Team: Atletico Paranaense" = "Atlético PR";
-
-"Wallet" = "Portafoglio ";
-
-"Team: Arsenal Sarandi" = "Arsenal Sar.";
-
-"Build type" = "Build type";
-
-"Team: Atletico Rafaela" = "Atl. Rafaela";
-
-"Team: Defensa Y Justicia" = "Defensa Y J.";
-
-"Version" = "Versione ";
-
-"Team: Newells Ob" = "Newells O. B.";
-
-"Now" = "Ora";
-
-"Team: Rosario Central" = "Rosario Cent.";
-
-"Or" = "O";
-
-"Group Info" = "Info sul gruppo ";
-
-"Team: Chicago Fire" = "Chicago F.";
-
-"Group" = "Gruppo";
-
-"Team: Chivas Usa" = "Chivas USA";
-
-"Leave group" = "Lascia il gruppo ";
-
-"Team: Colorado Rapids" = "Colorado R.";
-
-"Team: Columbus Crew" = "Columbus C.";
-
-"Live - %.0lf'" = "Live - %.0lf'";
-
-"Team: Dc United" = "DC United";
-
-"Logout" = "Esci";
-
-"%i rounds to end" = "%i turni alla fine";
-
-"Team: FC Dallas" = "FC Dallas";
-
-"Team: Houston Dynamo" = "Houston D.";
-
-"1 round to end" = "Ultimo turno";
-
-"Team: Montreal Impact" = "Montreal I.";
-
-"Championship finished" = "Campionato finito";
+"$" = "฿";
 
 "%i characters left" = "%i caratteri rimasti";
 
-"Team: New England Rev" = "N. England R.";
+"%i rounds to end" = "%i turni alla fine";
 
-"Team: N.Y Red Bulls" = "NY Red Bulls";
-
-"1 character left" = "1 carattere rimasto";
-
-"Team: Philadelphia Union" = "Philadelphia U.";
-
-"NOTIFICATION_GROUP_ADDED" = "%@ ti ha aggiunto a un nuovo gruppo!";
-
-"NOTIFICATION_ROUND_END" = "Partite sono finite! Controlla i risultati?";
-
-"Team: Portland Timbers" = "Portland T.";
-
-"NOTIFICATION_LEAGUE_END" = "%@ è appena finito Controlla la tua classifica?";
-
-"Team: Real Salt Lake" = "R. Salt Lake";
-
-"Team: Sporting Kansas City" = "S. Kansas C.";
-
-"Add photo" = "Aggiungi foto";
-
-"Insert group name" = "Inserisci il nome del gruppo ";
-
-"Team: San Jose" = "San Jose E.";
-
-"Team: Seattle Sounders" = "Seattle S.";
-
-"Next" = "Prossimo";
-
-"Team: Toronto Fc" = "Toronto FC";
-
-"NOTIFICATION_ROUND_START" = "Le partite stanno per iniziare… vuoi scommettere?";
-
-"Add members" = "Aggiungi membri";
-
-"Team: Vancouver Whitecaps" = "Vancouver W.";
-
-"Contacts" = "Contatti";
-
-"Create" = "Crea";
-
-"Facebook" = "Facebook";
-
-"Footbl" = "Footbl";
-
-"Select league" = "Seleziona campionato";
-
-"Type a friend's name" = "Digita il nome di un amico ";
-
-"Continue" = "Continua";
-
-"Sign up text: email" = "Ciao!\nInserisci il tuo indirizzo email.";
-
-"Sign up text: password confirmation" = "Grazie!\nTi preghiamo di confermare la tua password.";
-
-"Sign up text: password" = "Impressionante!\nSi prega di digitare una password.";
-
-"Sign up text: username" = "Quasi finito!\nPer favore inseriasci la tua @username.";
-
-"Sign up text: email hint" = "Questo non sembra essere un indirizzo email... sei sicuro di questo? ";
-
-"Sign up text: password confirmation hint" = "Le password non corrispondono... strano! ";
-
-"Sign up text: password hint" = "Assicurati che sia di almeno 6 caratteri. ";
-
-"Login text: welcome back" = "Bentornato!";
-
-"Sign in" = "Accedi  ";
-
-"Sign up text: username hint" = "Dovrebbe essere da 5 a 20 caratteri, usando lettere, numeri o underscore.";
-
-"Facebook group invitation message" = "footbl | Vuoi scommettere?";
-
-"Facebook group invitation title" = "Unisciti al mio gruppo!";
-
-"FootblAPI error: unknown error" = "Errore sconosciuto, controlla la connessione e riprova. ";
-
-"Sign up text: name hint" = "Questo non mi sembra un nome... ";
-
-"Sign up text: name" = "Bello!\nQual è il tuo nome?";
-
-"Championship: World Cup" = "Mondo";
-
-"Cancel" = "Annulla";
-
-"Import from Facebook" = "Importa da Facebook";
-
-"Import from Library" = "Importa da Libreria ";
-
-"Take photo" = "Scatta foto ";
-
-"Country: International" = "Internazionale";
-
-"'Since' MMMM YYYY" = "'Dal' MMMM YYYY";
-
-"Betting in 1 league" = "scommesse in 1 campionati";
-
-"Betting in %i leagues" = "scommesse in %i campionati";
-
-"Country: BR" = "Brasile";
+"%i stakes and %i comments" = "%1$i scommessa e %2$i commenti";
 
 "'Highest: %@ in' MMMM YYYY" = "'Più alto: %@ il' MMMM YYYY";
 
-"Final" = "Finale";
+"'Since' MMMM YYYY" = "'Dal' MMMM YYYY";
 
-"Share" = "Condividi   ";
+"1 character left" = "1 carattere rimasto";
 
-"Share match: finished with bet (draw)" = "È un pareggio!\nfootbl | Vuoi scommettere?";
-
-"Share match: finished with bet" = "Benissimo, %1$@!\nfootbl | Vuoi scommettere?";
-
-"Share match: finished without bet" = "Buona partita!\nfootbl | Vuoi scommettere?";
-
-"Share match: live with bet (draw)" = "Sarà un pareggio\nfootbl | Vuoi scommettere?";
-
-"Share match: live with bet" = "Forza %1$@!\nfootbl | Vuoi scommettere?";
-
-"Share match: live without bet" = "Buona partita!\nfootbl | Vuoi scommettere?";
-
-"Share match: waiting with bet (draw)" = "Sarà un pareggio\nfootbl | Vuoi scommettere?";
-
-"Share match: waiting with bet" = "%1$@,di sicuro!\n";
-
-"Share match: waiting without bet" = "Su quale squadra dovrei scommettere? %1$@ or %2$@?\nfootbl | Vuoi scommettere?";
-
-"Cannot update wallet due to wallet balance" = "Puoi ricaricare solo il vostro portafoglio quando hai meno di ฿100 disponibile";
-
-"k" = "k";
-
-"M" = "M";
-
-"Ops" = "Oops";
-
-"Email placeholder" = "Email";
-
-"Password placeholder" = "Password";
-
-"Favorites" = "Preferiti";
-
-"Featured users title" = "In evidenza";
-
-"Featured users" = "Utenti preferiti";
-
-"Sign up text: about hint" = "Meno di 70 caratteri, per favore :) ";
-
-"Sign up text: about" = "Infine... Chi sei?\nBrevemente descriviti! (o no)";
-
-"Choose from my albums" = "Scegli tra i miei album";
-
-"Sign up text: profile" = "È tempo di selfie.\nOppure scegli una bella foto!";
-
-"Camera is not available on your device, sorry!" = "La fotocamera non è disponibile sul dispositivo, mi dispiace!";
-
-"Is this correct?" = "È corretto? ";
-
-"No" = "No";
-
-"Yes" = "Sì";
-
-"You entered your email as %@" = "Hai inserito la tua email come %@";
+"1 round to end" = "Ultimo turno";
 
 "About" = "Riguardo a";
+
+"About me" = "Su di me";
+
+"Actual amount" = "valore attualle";
+
+"Add members" = "Aggiungi membri";
+
+"Add new members" = "Aggiungi membri";
+
+"Add photo" = "Aggiungi foto";
+
+"After recharge" = "dopo la ricarica";
+
+"And bring friends" = "E porta degli amici";
+
+"Anonymous user message" = "Non sei registrato.\nPer visualizzare il tuo profilo o partecipare in gruppo è necessario creare un account o accedere con Facebook. Le cose andranno ancora meglio!";
+
+"Anyone can add members" = "Chiunque può aggiungere membri";
+
+"Are you sure you want to delete your account?" = "Sei sicuro di voler eliminare il tuo account?";
+
+"Around Me" = "Vicino a me";
+
+"Ask for friends" = "Chiedere agli amici";
+
+"Bet history" = "Scommesse";
+
+"Betting in %i leagues" = "scommesse in %i campionati";
+
+"Betting in 1 league" = "scommesse in 1 campionati";
+
+"Build type" = "Build type";
+
+"Buy for %@" = "Comprare per %@";
+
+"Camera is not available on your device, sorry!" = "La fotocamera non è disponibile sul dispositivo, mi dispiace!";
 
 "Can't send email message" = "Per poter inviare una e-mail , si prega di impostare un account (Impostazioni -> Posta, contatti, calendari )";
 
 "Can't send email title" = "Nessun account e-mail configurato";
 
-"My Account" = "Il mio account";
+"Cancel" = "Annulla";
 
-"Sharing text" = "Prova questa bellissima app! ";
+"Cannot update wallet due to wallet balance" = "Puoi ricaricare solo il vostro portafoglio quando hai meno di ฿100 disponibile";
 
-"Sharing URL" = "https://itunes.apple.com/it/app/footbl/id881307076?ls=1&mt=8";
+"Challenges" = "Sfide";
 
-"Support email body" = "\n\n\nThe information below will be used to make the support more effective and solve your problem ASAP.\nApp: %@ v%@\nSystem: %@ (%@)\nUser: %@";
+"Championship finished" = "Campionato finito";
 
-"Support email recipient" = "footbl@madeatsampa.com";
-
-"Support email subject" = "Sostenere - %@";
-
-"Support" = "Assistenza";
-
-"Review on App Store" = "Fai la recensione su App Store";
-
-"Tell a friend" = "Dillo ad un amico ";
-
-"Licenses" = "Licenze";
+"Championships" = "Campionati";
 
 "Change password" = "Cambia password";
-
-"Delete account" = "Elimina account";
-
-"Edit profile" = "Modifica profilo";
-
-"Update profile picture" = "Aggiorna l'immagine del profilo ";
 
 "Change password text: insert new password" = "\nDigitare la nuova password.";
 
@@ -354,192 +82,377 @@
 
 "Change password text: old password hint" = "Le password non corrispondono... strano!";
 
-"About me" = "Su di me";
+"Chat" = "Dialogo";
 
-"Name" = "Nome";
+"Chat placeholder" = "Chatta con i tuoi amici!";
 
-"Anonymous user message" = "Non sei registrato.\nPer visualizzare il tuo profilo o partecipare in gruppo è necessario creare un account o accedere con Facebook. Le cose andranno ancora meglio!";
-
-"Create my account" = "Crea il mio account";
-
-"Add new members" = "Aggiungi membri";
-
-"Anyone can add members" = "Chiunque può aggiungere membri";
-
-"$" = "฿";
+"Choose from my albums" = "Scegli tra i miei album";
 
 "Close" = "Chiudi";
 
-"Get started" = "Inizia";
-
-"View tutorial" = "Guarda Tutorial ";
-
-"Are you sure you want to delete your account?" = "Sei sicuro di voler eliminare il tuo account?";
-
-"Delete Now" = "Elimina ora";
-
-"Sorry to see you go!" = "Mi dispiace vederti andare via! ";
-
-"Error: authentication error, need to login again" = "Errore di autenticazione, effettua il login nuovo";
-
-"Error: invalid username or password" = "E-mail o password non validi";
-
-"Error: email or username already taken" = "Email o nome utente già adottato";
-
-"Error: insufient funds" = "Hai finito i soldi! Ricarica il portafoglio o annulla un paio di puntate, se possibile.";
-
-"Copied!" = "Copiato!";
-
-"Copy sharing code" = "Copia il codice di condivisione";
-
-"Create a new group" = "Crea un nuovo gruppo";
-
-"Do you have an invitation code?" = "Hai un codice di invito?";
-
-"Insert invitation code" = "Inserisci il codice di invito ";
-
-"Join Group" = "Iscriviti al gruppo";
-
-"Paste on WhatsApp, Facebook & Twitter" = "Condividi su WhatsApp, Facebook & Twitter";
-
-"Legal URL" = "http://footbl.co/terms.html";
-
-"Everyone" = "Tutti";
-
-"Legal" = "Informazioni legali";
-
-"Email already exists.\nDo you want to log in instead?" = "L'email esiste già.\nVuoi accedere invece?";
-
-"Username already taken, please choose another" = "Spiacenti, il nome utente è già stato preso! ";
-
-"And bring friends" = "E porta degli amici";
-
-"Join my group on Footbl! Access %@ or use the code %@" = "Unisciti al mio gruppo su Footbl! Accedi %1$@ o usa il codice %2$@.\nfootbl | Vuoi scommettere?";
-
-"Share on WhatsApp" = "Condividi su WhatsApp";
-
-"Error: group not found" = "Non abbiamo trovato un gruppo con questo codice. Sei sicuro che sia corretta?";
-
-"Not now" = "Non ora";
-
-"Share %@ on WhatsApp and bring friends!" = "Condividi su WhatsApp e porta degli amici!";
-
-"Sure" = "Certo!";
-
-"wanna bet?" = "vuoi scommettere?";
-
-"WhatsApp" = "WhatsApp";
-
-"Search" = "Cerca";
-
-"Loading" = "Carico";
-
-"Last %lu rounds" = "Ultimi %lu giri";
-
-"Wallet evolution" = "Evoluzione del portafoglio";
-
-"Update on App Store" = "Aggiorna su App Store";
-
-"Update available!" = "Aggiornamento disponibile!";
-
-"Update available text" = "Una nuova versione è pronto per il download!\n\nPer evitare conflitti, è importante che si aggiorna l'applicazione - ci vogliono solo pochi secondi! :)";
-
-"Group code: %@" = "Codice di gruppo: %@";
-
-"Join my group on Footbl! http://footbl.co/dl" = "Unisciti al mio gruppo su Footbl! http://footbl.co/dl";
-
-"Received from" = "Ricevuto da";
-
-"Send $" = "Inviare ฿";
-
-"Send to" = "Inviare ad";
-
-"Transfers" = "Trasferimenti";
-
-"Not now, thank you!" = "Non ora, grazie!";
-
-"Buy for %@" = "Comprare per %@";
-
-"Ask for friends" = "Chiedere agli amici";
-
-"Recharge your wallet\nMake more bets and increase your profit!" = "Ricarica il tuo portafoglio\nRendere più scommesse e aumentare il vostro profitto!";
-
-"Actual amount" = "valore attualle";
-
-"After recharge" = "dopo la ricarica";
-
-"Send" = "Inviare";
-
-"Select all" = "Seleziona tutto";
-
-"View betting history" = "Visualizza cronologia scommesse";
-
-"Bet history" = "Scommesse";
-
-"World" = "Mondo";
-
-"My Friends" = "Miei Amici";
-
-"Please restart the app" = "Riavviare l'applicazione";
-
-"NOTIFICATION_ROUND_START_2" = "Partite stanno per cominciare! Volete rivedere le vostre scommesse?";
-
-"NOTIFICATION_OVER_0" = "Partite sono finite! Hai fatto $0 perché non hai scommesso =(";
-
-"NOTIFICATION_NEED_CASH" = "Hai bisogno di più soldi per avere più divertimento? Chiedi amici adesso!";
-
-"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ ha bisogno di qualche soldo! Ti senti generoso?";
-
-"NOTIFICATION_RECEIVED_CASH" = "%@ ti ha inviato qualche soldo. Ka-ching!";
-
-"Leagues placeholder" = "Aggiungere nuove leghe su Profilo > Campionati";
-
-"Join" = "Aderire";
-
-"Tip!\n\nRecharge your wallet by tapping the + above." = "Suggerimento!\n\nRicarica il tuo portafoglio toccando il + sopra.";
+"Close tutorial" = "Chiudi tutorial";
 
 "Collect" = "Prendilo";
 
 "Come back tomorrow for more\nEnjoy =)" = "Torna domani per più\nDivertirsi =)";
 
+"Contacts" = "Contatti";
+
+"Continue" = "Continua";
+
+"Copied!" = "Copiato!";
+
+"Copy sharing code" = "Copia il codice di condivisione";
+
+"Country: BR" = "Brasile";
+
+"Country: International" = "Internazionale";
+
+"Country: brasil" = "Brasile";
+
+"Create" = "Crea";
+
+"Create a new group" = "Crea un nuovo gruppo";
+
+"Create my account" = "Crea il mio account";
+
+"Create your group button subtitle" = "Scommetti e chattare con i tuoi amici!";
+
+"Create your group button title" = "Crea il tuo gruppo";
+
 "Daily bonus!" = "Bonus giornaliero!";
-
-"NOTIFICATION_GROUP_MESSAGE" = "%@ ti ha inviato un messaggio";
-
-"Chat" = "Dialogo";
-
-"Facebook friends" = "Amici da Facebook";
-
-"Footbl users" = "Utenti da Footbl";
-
-"Load more" = "Caricari più";
-
-"Ranking" = "Ranking";
-
-"Chat placeholder" = "Chatta con i tuoi amici!";
-
-"Around Me" = "Vicino a me";
 
 "Delete" = "Elimina";
 
-"Notifications" = "Notifiche";
+"Delete Now" = "Elimina ora";
 
-"Top" = "Top";
+"Delete account" = "Elimina account";
+
+"Do you have an invitation code?" = "Hai un codice di invito?";
+
+"Draw" = "Pareggio";
+
+"Edit profile" = "Modifica profilo";
+
+"Email already exists.\nDo you want to log in instead?" = "L'email esiste già.\nVuoi accedere invece?";
+
+"Email placeholder" = "Email";
+
+"Error" = "Errore";
+
+"Error: authentication error, need to login again" = "Errore di autenticazione, effettua il login nuovo";
+
+"Error: email or username already taken" = "Email o nome utente già adottato";
+
+"Error: group not found" = "Non abbiamo trovato un gruppo con questo codice. Sei sicuro che sia corretta?";
+
+"Error: insufient funds" = "Hai finito i soldi! Ricarica il portafoglio o annulla un paio di puntate, se possibile.";
+
+"Error: invalid username or password" = "E-mail o password non validi";
+
+"Everyone" = "Tutti";
+
+"Facebook" = "Facebook";
+
+"Facebook friends" = "Amici da Facebook";
+
+"Facebook group invitation message" = "footbl | Vuoi scommettere?";
+
+"Facebook group invitation title" = "Unisciti al mio gruppo!";
+
+"Facebook request message" = "Money!";
+
+"Facebook request title" = "Money!";
+
+"Favorites" = "Preferiti";
+
+"Featured users" = "Utenti preferiti";
+
+"Featured users title" = "In evidenza";
+
+"Final" = "Finale";
+
+"Find Friends" = "Trova amici";
+
+"Footbl" = "Footbl";
+
+"Footbl users" = "Utenti da Footbl";
+
+"FootblAPI error: unknown error" = "Errore sconosciuto, controlla la connessione e riprova. ";
+
+"Get started" = "Inizia";
+
+"Group" = "Gruppo";
+
+"Group Info" = "Info sul gruppo ";
+
+"Group code: %@" = "Codice di gruppo: %@";
+
+"Groups" = "Gruppi";
+
+"Import from Facebook" = "Importa da Facebook";
+
+"Import from Library" = "Importa da Libreria ";
+
+"Insert group name" = "Inserisci il nome del gruppo ";
+
+"Insert invitation code" = "Inserisci il codice di invito ";
+
+"Is this correct?" = "È corretto? ";
+
+"Join" = "Aderire";
+
+"Join Group" = "Iscriviti al gruppo";
+
+"Join my group on Footbl! Access %@ or use the code %@" = "Unisciti al mio gruppo su Footbl! Accedi %1$@ o usa il codice %2$@.\nfootbl | Vuoi scommettere?";
+
+"Join my group on Footbl! http://footbl.co/dl" = "Unisciti al mio gruppo su Footbl! http://footbl.co/dl";
+
+"Last %lu rounds" = "Ultimi %lu giri";
+
+"Leagues placeholder" = "Aggiungere nuove leghe su Profilo > Campionati";
+
+"Leave group" = "Lascia il gruppo ";
+
+"Legal" = "Informazioni legali";
+
+"Legal URL" = "http://footbl.co/terms.html";
+
+"Licenses" = "Licenze";
+
+"Live - %.0lf'" = "Live - %.0lf'";
+
+"Load more" = "Caricari più";
+
+"Loading" = "Carico";
+
+"Log in with Facebook" = "Accedi con Facebook";
+
+"Login text: welcome back" = "Bentornato!";
+
+"Logout" = "Esci";
+
+"M" = "M";
+
+"Matches" = "Partite";
+
+"My Account" = "Il mio account";
+
+"My Friends" = "Miei Amici";
+
+"My Leagues" = "Miei campionati";
+
+"NOTIFICATION_GROUP_ADDED" = "%@ ti ha aggiunto a un nuovo gruppo!";
+
+"NOTIFICATION_GROUP_MESSAGE" = "%@ ti ha inviato un messaggio";
+
+"NOTIFICATION_LEAGUE_END" = "%@ è appena finito Controlla la tua classifica?";
+
+"NOTIFICATION_NEED_CASH" = "Hai bisogno di più soldi per avere più divertimento? Chiedi amici adesso!";
+
+"NOTIFICATION_OVER_0" = "Partite sono finite! Hai fatto $0 perché non hai scommesso =(";
+
+"NOTIFICATION_RECEIVED_CASH" = "%@ ti ha inviato qualche soldo. Ka-ching!";
+
+"NOTIFICATION_ROUND_END" = "Partite sono finite! Controlla i risultati?";
+
+"NOTIFICATION_ROUND_START" = "Le partite stanno per iniziare… vuoi scommettere?";
+
+"NOTIFICATION_ROUND_START_2" = "Partite stanno per cominciare! Volete rivedere le vostre scommesse?";
+
+"NOTIFICATION_SOMEONE_NEED_CASH" = "%@ ha bisogno di qualche soldo! Ti senti generoso?";
+
+"Name" = "Nome";
+
+"New Group" = "Nuovo gruppo";
+
+"Next" = "Prossimo";
+
+"No" = "No";
 
 "No friends asked you for cash" = "Nessuno ti ha chiesto per soldi";
 
 "No friends sent you cash" = "Nessuno ha mandato i soldi";
 
+"Not now" = "Non ora";
+
+"Not now, thank you!" = "Non ora, grazie!";
+
+"Notifications" = "Notifiche";
+
+"Now" = "Ora";
+
+"OK" = "OK";
+
+"Ops" = "Oops";
+
+"Or" = "O";
+
+"Password placeholder" = "Password";
+
+"Paste on WhatsApp, Facebook & Twitter" = "Condividi su WhatsApp, Facebook & Twitter";
+
+"Please restart the app" = "Riavviare l'applicazione";
+
+"Profile" = "Profilo";
+
+"Profit" = "Profitto";
+
+"Ranking" = "Ranking";
+
+"Received from" = "Ricevuto da";
+
+"Recharge your wallet\nMake more bets and increase your profit!" = "Ricarica il tuo portafoglio\nRendere più scommesse e aumentare il vostro profitto!";
+
+"Review on App Store" = "Fai la recensione su App Store";
+
+"Search" = "Cerca";
+
+"Select all" = "Seleziona tutto";
+
+"Select league" = "Seleziona campionato";
+
+"Send" = "Inviare";
+
+"Send $" = "Inviare ฿";
+
+"Send to" = "Inviare ad";
+
+"Settings" = "Impostazioni";
+
+"Share" = "Condividi   ";
+
+"Share %@ on WhatsApp and bring friends!" = "Condividi su WhatsApp e porta degli amici!";
+
+"Share match: finished with bet" = "Benissimo, %1$@!\nfootbl | Vuoi scommettere?";
+
+"Share match: finished with bet (draw)" = "È un pareggio!\nfootbl | Vuoi scommettere?";
+
+"Share match: finished without bet" = "Buona partita!\nfootbl | Vuoi scommettere?";
+
+"Share match: live with bet" = "Forza %1$@!\nfootbl | Vuoi scommettere?";
+
+"Share match: live with bet (draw)" = "Sarà un pareggio\nfootbl | Vuoi scommettere?";
+
+"Share match: live without bet" = "Buona partita!\nfootbl | Vuoi scommettere?";
+
+"Share match: waiting with bet" = "%1$@,di sicuro!\n";
+
+"Share match: waiting with bet (draw)" = "Sarà un pareggio\nfootbl | Vuoi scommettere?";
+
+"Share match: waiting without bet" = "Su quale squadra dovrei scommettere? %1$@ or %2$@?\nfootbl | Vuoi scommettere?";
+
+"Share on WhatsApp" = "Condividi su WhatsApp";
+
+"Sharing URL" = "https://itunes.apple.com/it/app/footbl/id881307076?ls=1&mt=8";
+
+"Sharing text" = "Prova questa bellissima app! ";
+
+"Sign in" = "Accedi  ";
+
+"Sign up" = "Iscriviti";
+
+"Sign up text: about" = "Infine... Chi sei?\nBrevemente descriviti! (o no)";
+
+"Sign up text: about hint" = "Meno di 70 caratteri, per favore :) ";
+
+"Sign up text: email" = "Ciao!\nInserisci il tuo indirizzo email.";
+
+"Sign up text: email hint" = "Questo non sembra essere un indirizzo email... sei sicuro di questo? ";
+
+"Sign up text: name" = "Bello!\nQual è il tuo nome?";
+
+"Sign up text: name hint" = "Questo non mi sembra un nome... ";
+
+"Sign up text: password" = "Impressionante!\nSi prega di digitare una password.";
+
+"Sign up text: password confirmation" = "Grazie!\nTi preghiamo di confermare la tua password.";
+
+"Sign up text: password confirmation hint" = "Le password non corrispondono... strano! ";
+
+"Sign up text: password hint" = "Assicurati che sia di almeno 6 caratteri. ";
+
+"Sign up text: profile" = "È tempo di selfie.\nOppure scegli una bella foto!";
+
+"Sign up text: username" = "Quasi finito!\nPer favore inseriasci la tua @username.";
+
+"Sign up text: username hint" = "Dovrebbe essere da 5 a 20 caratteri, usando lettere, numeri o underscore.";
+
+"Skip for now" = "Salta per ora ";
+
+"Sorry to see you go!" = "Mi dispiace vederti andare via! ";
+
+"Stake" = "Scommessa ";
+
+"Support" = "Assistenza";
+
+"Support email body" = "\n\n\nThe information below will be used to make the support more effective and solve your problem ASAP.\nApp: %@ v%@\nSystem: %@ (%@)\nUser: %@";
+
+"Support email recipient" = "footbl@madeatsampa.com";
+
+"Support email subject" = "Sostenere - %@";
+
+"Sure" = "Certo!";
+
+"Take photo" = "Scatta foto ";
+
+"Teams" = "Squadre";
+
+"Tell a friend" = "Dillo ad un amico ";
+
 "These friends need some cash:" = "Questi amici hanno bisogno di soldi:";
 
 "These friends sent you some cash (✓):" = "Questi amici inviare denaro (✓):";
 
-"You need more cash!" = "Hai bisogno di più soldi!";
+"Tip!\n\nRecharge your wallet by tapping the + above." = "Suggerimento!\n\nRicarica il tuo portafoglio toccando il + sopra.";
+
+"To return" = "Ritorno";
+
+"Top" = "Top";
+
+"Transfers" = "Trasferimenti";
+
+"Trophy room still empty" = "Sala dei trofei è vuota";
+
+"Tutorial" = "Tutorial";
+
+"Type a friend's name" = "Digita il nome di un amico ";
+
+"Update available text" = "Una nuova versione è pronto per il download!\n\nPer evitare conflitti, è importante che si aggiorna l'applicazione - ci vogliono solo pochi secondi! :)";
+
+"Update available!" = "Aggiornamento disponibile!";
 
 "Update bonus!" = "Bonus di aggiornamento";
 
+"Update on App Store" = "Aggiorna su App Store";
+
+"Update profile picture" = "Aggiorna l'immagine del profilo ";
+
+"Username already taken, please choose another" = "Spiacenti, il nome utente è già stato preso! ";
+
+"Version" = "Versione ";
+
+"View betting history" = "Visualizza cronologia scommesse";
+
+"View tutorial" = "Guarda Tutorial ";
+
+"Wallet" = "Portafoglio ";
+
+"Wallet evolution" = "Evoluzione del portafoglio";
+
 "We hope you like this update\nMake it count!" = "Speriamo che vi piaccia questo aggiornamento\nFare buon uso";
 
-"Challenges" = "Sfide";
+"WhatsApp" = "WhatsApp";
 
-"Trophy room still empty" = "Sala dei trofei è vuota";
+"World" = "Mondo";
+
+"Yes" = "Sì";
+
+"You entered your email as %@" = "Hai inserito la tua email come %@";
+
+"You need more cash!" = "Hai bisogno di più soldi!";
+
+"k" = "k";
+
+"wanna bet?" = "vuoi scommettere?";
+

@@ -12,7 +12,6 @@
 #import "ChallengesViewController.h"
 #import "ChallengeTableViewCell.h"
 #import "ChallengeViewController.h"
-#import "FootblAppearance.h"
 #import "FTBChallenge.h"
 #import "FTBClient.h"
 #import "FTBTeam.h"

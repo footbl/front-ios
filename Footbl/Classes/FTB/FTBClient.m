@@ -93,7 +93,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
         NSArray *responseSerializers = @[[AFJSONResponseSerializer serializer], [AFHTTPResponseSerializer serializer]];
         AFCompoundResponseSerializer *responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
         
-        client = [[FTBClient alloc] initWithBaseURL:URL];
+        client = [[self alloc] initWithBaseURL:URL];
         client.requestSerializer = requestSerializer;
         client.responseSerializer = responseSerializer;
         

@@ -7,7 +7,6 @@
 //
 
 #import "TrophiesTableViewCell.h"
-#import "FootblAppearance.h"
 
 @implementation TrophiesTableViewCell
 
