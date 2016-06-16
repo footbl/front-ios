@@ -6,6 +6,8 @@
 
 "$" = "฿";
 
+"$%@ returned to your wallet" = "$%@ regresaron a su cartera";
+
 "%i characters left" = "%i caracteres restantes";
 
 "%i rounds to end" = "%i rondas para acabar";
@@ -66,6 +68,12 @@
 
 "Cannot update wallet due to wallet balance" = "Solo puedes recargar tu Cartera cuando tengas menos de ฿100 disponibles";
 
+"Challenge accepted!" = "¡Desafío aceptado!";
+
+"Challenge declined!" = "Desafío declinó!";
+
+"Challenge!" = "Desafío!";
+
 "Challenges" = "Desafíos";
 
 "Championship finished" = "Campeonato terminado";
@@ -85,6 +93,8 @@
 "Chat" = "Chat ";
 
 "Chat placeholder" = "Chatea con tus amigos!";
+
+"Choose a match" = "Elija un partido";
 
 "Choose from my albums" = "Seleccionar de mis álbumes";
 
@@ -129,6 +139,8 @@
 "Delete account" = "Eliminar cuenta";
 
 "Do you have an invitation code?" = "¿Tienes un código de invitación?";
+
+"Done" = "Hecho";
 
 "Draw" = "Empate";
 
@@ -179,6 +191,8 @@
 "Footbl users" = "Usuarios de Footbl";
 
 "FootblAPI error: unknown error" = "Error desconocido, por favor, comprueba tu conexión y vuelve a probar.";
+
+"Friends" = "Amigos";
 
 "Get started" = "Comenzar";
 
@@ -435,6 +449,8 @@
 "View betting history" = "Ver el historial de apuestas";
 
 "View tutorial" = "Ver instrucciones";
+
+"Waiting for opponent" = "Esperando a un oponente";
 
 "Wallet" = "Cartera";
 

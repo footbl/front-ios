@@ -54,7 +54,7 @@
         cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
     } else if (self.challenge.waiting) {
         cell.statusLabel.textColor = [UIColor lightGrayColor];
-        cell.statusLabel.text = NSLocalizedString(@"Waiting for oponent", nil);
+        cell.statusLabel.text = NSLocalizedString(@"Waiting for opponent", nil);
         cell.substatusLabel.text = nil;
     } else if (self.challenge.accepted) {
         cell.statusLabel.textColor = [UIColor ftb_greenGrassColor];
