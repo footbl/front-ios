@@ -130,7 +130,6 @@
 		ED8DB3EC1A14C95C00605CCE /* LoadingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED115ED71932B5FD00F5A722 /* LoadingHelper.m */; };
 		ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE66165196F56E900C8F5E1 /* BetsViewController.m */; };
 		ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDF974E1981E7FB00B97F15 /* RatingHelper.m */; };
-		ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */; };
 		ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E913819253F1200BDE434 /* ImportImageHelper.m */; };
 		ED8DB3F41A14C95C00605CCE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */; };
 		ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
@@ -463,8 +462,6 @@
 		EDB9C6E6192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDB9C6E7192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EDB9C6E8192A8181002A913D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDImageCache+ShippedCache.h"; sourceTree = "<group>"; };
-		EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDImageCache+ShippedCache.m"; sourceTree = "<group>"; };
 		EDBD2C97192F10CA002C763D /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		EDBD2C98192F10CA002C763D /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		EDBD2C9A192F149C002C763D /* FavoriteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteTableViewCell.h; sourceTree = "<group>"; };
@@ -1036,8 +1033,6 @@
 				EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */,
 				EDAF0E9B191AB8FE005218FB /* NSString+Validations.h */,
 				EDAF0E9C191AB8FE005218FB /* NSString+Validations.m */,
-				EDBC848218EDE90900CCC01A /* SDImageCache+ShippedCache.h */,
-				EDBC848318EDE90900CCC01A /* SDImageCache+ShippedCache.m */,
 				ED4F3B271975882400869E85 /* UIFont+MaxFontSize.h */,
 				ED4F3B281975882400869E85 /* UIFont+MaxFontSize.m */,
 				EDE555B9198012390051AAF5 /* UIImage+Color.h */,
@@ -1536,7 +1531,6 @@
 				11FB6A271D118AE00084E93E /* UIViewController+Addons.m in Sources */,
 				ED8DB3ED1A14C95C00605CCE /* BetsViewController.m in Sources */,
 				ED8DB3EF1A14C95C00605CCE /* RatingHelper.m in Sources */,
-				ED8DB3F11A14C95C00605CCE /* SDImageCache+ShippedCache.m in Sources */,
 				A39897781CB107C100957063 /* GroupsViewController.m in Sources */,
 				ED8DB3F21A14C95C00605CCE /* ImportImageHelper.m in Sources */,
 			);

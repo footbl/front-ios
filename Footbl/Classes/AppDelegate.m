@@ -27,7 +27,6 @@
 #import "ImportImageHelper.h"
 #import "LoadingHelper.h"
 #import "RatingHelper.h"
-#import "SDImageCache+ShippedCache.h"
 #import "TutorialViewController.h"
 
 #pragma mark AppDelegate
@@ -102,27 +101,11 @@
 #else
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 #endif
-    // Override point for customization after application launch.
+
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    /*
-    NSError *error = nil;
-    [[SDImageCache sharedImageCache] importImagesFromPath:[[[NSBundle mainBundle] pathForResource:@"Cache" ofType:@""] stringByAppendingPathComponent:@"Images"] error:&error];
-    if (error) {
-        SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-    */
-    
-    /* Import cached images
-    [[SDImageCache sharedImageCache] downloadCachedImages];
-    */
 	
-//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//	UINavigationController *navigationController = [storyboard instantiateInitialViewController];
-//	self.window.rootViewController = navigationController;
-	
-    self.footblTabBarController = [FootblTabBarController new];
+    self.footblTabBarController = [[FootblTabBarController alloc] init];
     self.window.rootViewController = self.footblTabBarController;
 	
     /*
@@ -145,7 +128,8 @@
     }];
     
     [FBSession openActiveSessionWithReadPermissions:FB_READ_PERMISSIONS allowLoginUI:NO completionHandler:nil];
-*/
+     */
+    
     return YES;
 }
 
@@ -220,9 +204,9 @@
 #pragma mark - APNS
 
 - (void)handleRemoteNotification:(NSDictionary *)notification {
-	NSString *key = [[[notification objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"loc-key"];
+	NSString *key = notification[@"aps"][@"alert"][@"loc-key"];
 	if ([key isEqualToString:@"NOTIFICATION_GROUP_MESSAGE"]) {
-		NSString *room = [[[[notification objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"loc-args"] lastObject];
+		NSString *room = [notification[@"aps"][@"alert"][@"loc-args"] lastObject];
 		[[FTBClient client] messagesForRoom:room page:0 unread:YES success:^(NSArray *messages) {
 			if (messages.count > 0) {
 				AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
