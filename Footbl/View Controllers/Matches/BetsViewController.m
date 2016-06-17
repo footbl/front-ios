@@ -183,7 +183,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
                 label.alpha = 1;
             }
         }];
-        self.navigationBarTitleView.walletValueLabel.text = user.wallet.limitedWalletStringValue;
+        self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
         self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
         self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
         self.navigationBarTitleView.profitValueLabel.text = user.profitString;

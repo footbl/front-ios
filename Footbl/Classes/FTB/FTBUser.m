@@ -68,7 +68,6 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
-        self.wallet = @(_funds.integerValue + _stake.integerValue);
         self.country = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:self.ISOCountryCode];
     }
     return self;
@@ -136,24 +135,16 @@
     return [[FTBClient client] user];
 }
 
-- (NSNumber *)stake {
-    NSInteger stake = 0;
-    for (FTBBet *bet in self.activeBets) {
-        stake += bet.bid.integerValue;
-    }
-    return @(stake);
-}
-
-- (NSNumber *)funds {
-    return @(self.wallet.integerValue - self.stake.integerValue);
-}
-
 - (BOOL)isMe {
 	return [[[self class] currentUser] isEqual:self];
 }
 
+- (NSNumber *)wallet {
+    return @(self.funds.integerValue + self.stake.integerValue);
+}
+
 - (BOOL)canRecharge {
-	return (self.totalWallet.integerValue < 100);
+	return (self.wallet.integerValue < 100);
 }
 
 - (NSNumber *)toReturn {
@@ -190,24 +181,20 @@
 	return started ? @(nearbyint(self.profit.doubleValue)).limitedWalletStringValue : @"-";
 }
 
-- (NSNumber *)totalWallet {
-    return self.wallet;
-}
-
 - (NSNumber *)highestWallet {
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
 	FTBHistory *history = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
 	if (history) {
-		return @(MAX(self.totalWallet.floatValue, history.funds.floatValue));
+		return @(MAX(self.wallet.floatValue, history.funds.floatValue));
 	}
 	
-	return self.totalWallet;
+	return self.wallet;
 }
 
 - (NSDate *)highestWalletDate {
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"funds" ascending:NO];
 	FTBHistory *wallet = [self.history sortedArrayUsingDescriptors:@[descriptor]].firstObject;
-	if (wallet && wallet.funds.floatValue > self.totalWallet.floatValue) {
+	if (wallet && wallet.funds.floatValue > self.wallet.floatValue) {
         return wallet.date;
 	}
 	

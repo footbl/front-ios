@@ -228,7 +228,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 				label.alpha = 1;
 			}
 		}];
-		self.navigationBarTitleView.walletValueLabel.text = user.wallet.limitedWalletStringValue;
+		self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
 		self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
 		self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
 		self.navigationBarTitleView.profitValueLabel.text = user.profitString;
