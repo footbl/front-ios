@@ -67,14 +67,16 @@
 
     if (result == FTBMatchResultHost) {
         [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    } else {
-        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
-    }
-
-    if (result == FTBMatchResultGuest) {
-        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
-    } else {
         [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else if (result == FTBMatchResultGuest) {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+    } else if (result == FTBMatchResultDraw) {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     }
     
     if (isMe) {
@@ -192,14 +194,16 @@
 
     if (result == FTBMatchResultHost) {
         [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
-    } else {
-        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
-    }
-
-    if (result == FTBMatchResultGuest) {
-        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
-    } else {
         [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else if (result == FTBMatchResultGuest) {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+    } else if (result == FTBMatchResultDraw) {
+        [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else {
+        [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
+        [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
     }
     
     self.stakeValueLabel.text = challenge.valueString;

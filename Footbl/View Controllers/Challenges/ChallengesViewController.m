@@ -43,14 +43,16 @@
 
     if (myResult == FTBMatchResultHost) {
         [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL placeholderImage:placeholderImage];
-    } else {
-        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
-    }
-
-    if (myResult == FTBMatchResultGuest) {
-        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
-    } else {
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else if (myResult == FTBMatchResultGuest) {
+        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
+    } else if (myResult == FTBMatchResultDraw) {
+        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
+        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+    } else {
+        [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL placeholderImage:placeholderImage];
+        [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
     }
 
     cell.stakeLabel.text = challenge.valueString;
