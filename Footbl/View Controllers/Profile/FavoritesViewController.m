@@ -65,8 +65,10 @@
 - (void)reloadData {
     [super reloadData];
 	
-	[[FTBClient client] userFollowing:self.user success:^(id object) {
-		[self.refreshControl endRefreshing];
+	[[FTBClient client] userFollowing:self.user success:^(NSArray *users) {
+        self.favorites = [[NSMutableArray alloc] initWithArray:users];
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
 	} failure:^(NSError *error) {
 		[self.refreshControl endRefreshing];
 		[[ErrorHandler sharedInstance] displayError:error];
