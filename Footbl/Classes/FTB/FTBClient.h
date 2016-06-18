@@ -90,6 +90,7 @@ FOUNDATION_EXTERN const NSUInteger FTBClientPageSize;
 
 #pragma mark - User
 
+- (void)me:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)createUserWithPassword:(NSString *)password success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)followUser:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;
 - (void)userFollowers:(FTBUser *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure;

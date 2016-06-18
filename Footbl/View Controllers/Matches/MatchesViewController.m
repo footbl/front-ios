@@ -311,8 +311,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
         } failure:failure];
     }];
 	
-	FTBUser *me = [FTBUser currentUser];
-	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
+	[[FTBClient client] me:^(FTBUser *me) {
         self.page = 0;
         self.tableView.showsInfiniteScrolling = YES;
         [[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {

@@ -409,6 +409,10 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	[self GET:path parameters:nil modelClass:[FTBUser class] success:success failure:failure];
 }
 
+- (void)me:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    [self user:@"me" success:success failure:failure];
+}
+
 - (void)user:(NSString *)user success:(FTBBlockObject)success failure:(FTBBlockError)failure {
     __weak typeof(self) weakSelf = self;
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user];
