@@ -9,13 +9,13 @@
 #import "ExperienceTableViewCell.h"
 #import "UIView+Frame.h"
 
-@interface LDProgressView (Footbl)
+@interface FTBProgressView : LDProgressView
 
-@property (nonatomic, copy, readonly) NSString *progressTextOverride;
+@property (nonatomic, copy) NSString *progressTextOverride;
 
 @end
 
-@implementation LDProgressView (Footbl)
+@implementation FTBProgressView
 
 @dynamic progressTextOverride;
 
@@ -25,7 +25,7 @@
         label.adjustsFontSizeToFitWidth = YES;
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = NSTextAlignmentRight;
-        label.text = self.progressTextOverride ? self.progressTextOverride : [NSString stringWithFormat:@"%.0f%%", self.progress*100];
+        label.text = self.progressTextOverride;
         label.font = [UIFont fontWithName:kFontNameBlack size:10];
         label.textColor = [UIColor whiteColor];
         [label drawTextInRect:CGRectMake(rect.origin.x + 6, rect.origin.y, rect.size.width-12, rect.size.height+1)];
@@ -39,7 +39,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.progressView = [[LDProgressView alloc] init];
+        self.progressView = [[FTBProgressView alloc] init];
         self.progressView.color = [UIColor ftb_greenMoneyColor];
         self.progressView.background = [UIColor ftb_cellMatchBackgroundColor];
         self.progressView.showBackgroundInnerShadow = @NO;
