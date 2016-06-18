@@ -180,7 +180,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FTBUser *member = self.members[indexPath.row];
-    ProfileViewController *profileViewController = [ProfileViewController new];
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
     profileViewController.user = member;
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
@@ -195,7 +195,7 @@
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];

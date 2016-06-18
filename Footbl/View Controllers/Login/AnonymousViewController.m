@@ -47,7 +47,7 @@
 //                        [[LoadingHelper sharedInstance] hideHud];
 //                    } failure:^(NSError *error) {
 //                        [[LoadingHelper sharedInstance] hideHud];
-//                        SignupViewController *signupViewController = [SignupViewController new];
+//                        SignupViewController *signupViewController = [[SignupViewController alloc] init];
 //                        signupViewController.email = result[@"email"];
 //                        signupViewController.name = result[@"name"];
 //                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
@@ -75,7 +75,7 @@
 }
 
 - (IBAction)loginAction:(UIButton *)sender {
-    LoginViewController *loginViewController = [LoginViewController new];
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
     loginViewController.completionBlock = ^(){
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -84,7 +84,7 @@
 }
 
 - (IBAction)signupAction:(UIButton *)sender {
-    SignupViewController *signupViewController = [SignupViewController new];
+    SignupViewController *signupViewController = [[SignupViewController alloc] init];
     signupViewController.completionBlock = ^(){
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -131,7 +131,7 @@
                                      NSForegroundColorAttributeName : [UIColor colorWithRed:122/255.f green:135/255.f blue:126/255.f alpha:1.00],
                                      NSKernAttributeName : @(-0.36)};
     
-    NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
     if ([text rangeOfString:@"\n"].location != NSNotFound) {
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[text componentsSeparatedByString:@"\n"].firstObject attributes:headerAttributes]];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];

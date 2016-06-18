@@ -87,11 +87,11 @@
             viewControllersSetupBlock();
         } else {
             if (!navigationController) {
-                navigationController = [FootblNavigationController new];
+                navigationController = [[FootblNavigationController alloc] init];
                 [self presentViewController:navigationController animated:NO completion:nil];
             }
             
-            AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
+            AuthenticationViewController *authenticationViewController = [[AuthenticationViewController alloc] init];
             [navigationController setViewControllers:@[authenticationViewController] animated:YES];
             authenticationViewController.completionBlock = ^{
                 viewControllersSetupBlock();
@@ -100,11 +100,11 @@
         }
     };
     
-    self.viewControllers = @[[UIViewController new]];
+    self.viewControllers = @[[[UIViewController alloc] init]];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         if ([TutorialViewController shouldPresentTutorial]) {
-            TutorialViewController *tutorialViewController = [TutorialViewController new];
+            TutorialViewController *tutorialViewController = [[TutorialViewController alloc] init];
             FootblNavigationController *tutorialNavigationController = [[FootblNavigationController alloc] initWithRootViewController:tutorialViewController];
             [self presentViewController:tutorialNavigationController animated:NO completion:nil];
             [tutorialViewController setCompletionBlock:^{
@@ -117,7 +117,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kFTNotificationAuthenticationChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         if (![[FTBClient client] isAuthenticated]) {
-            AuthenticationViewController *authenticationViewController = [AuthenticationViewController new];
+            AuthenticationViewController *authenticationViewController = [[AuthenticationViewController alloc] init];
             FootblNavigationController *navigationController = [[FootblNavigationController alloc] initWithRootViewController:authenticationViewController];
             [self presentViewController:navigationController animated:YES completion:^{
                 [(UINavigationController *)self.selectedViewController popToRootViewControllerAnimated:NO];
@@ -135,7 +135,7 @@
             viewController = viewController.presentedViewController;
         }
         if (![viewController isKindOfClass:[ForceUpdateViewController class]]) {
-            [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
+            [viewController presentViewController:[[ForceUpdateViewController alloc] init] animated:YES completion:nil];
         }
     }];
     

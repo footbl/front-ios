@@ -337,7 +337,7 @@ static NSUInteger const kChatForceUpdateTimeInterval = 30;
     }
     
     if (!(previousMessage && [previousMessage.user isEqual:message.user] && abs([message.createdAt timeIntervalSinceDate:previousMessage.createdAt] < kChatSectionMaximumTimeInterval))) {
-        ProfileViewController *profileViewController = [ProfileViewController new];
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
         profileViewController.user = message.user;
         [self.navigationController pushViewController:profileViewController animated:YES];
     }

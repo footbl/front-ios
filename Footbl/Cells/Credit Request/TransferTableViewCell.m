@@ -23,19 +23,19 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.tintColor = [UIColor ftb_greenMoneyColor];
         
-        self.profileImageView = [UIImageView new];
+        self.profileImageView = [[UIImageView alloc] init];
         self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImageView.clipsToBounds = YES;
         [self.contentView addSubview:self.profileImageView];
         
-        self.nameLabel = [UILabel new];
+        self.nameLabel = [[UILabel alloc] init];
         self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.nameLabel.font = [UIFont fontWithName:kFontNameMedium size:16];
         self.nameLabel.textAlignment = NSTextAlignmentLeft;
         self.nameLabel.textColor = [UIColor colorWithRed:93./255.f green:107/255.f blue:97/255.f alpha:1.00];
         [self.contentView addSubview:self.nameLabel];
         
-        self.valueLabel = [UILabel new];
+        self.valueLabel = [[UILabel alloc] init];
         self.valueLabel.font = [UIFont fontWithName:kFontNameAvenirNextRegular size:24];
         self.valueLabel.textAlignment = NSTextAlignmentRight;
         self.valueLabel.textColor = [[UIColor ftb_cellMatchPotColor] colorWithAlphaComponent:1.0];

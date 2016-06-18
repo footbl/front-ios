@@ -118,7 +118,7 @@
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.title = NSLocalizedString(@"My Leagues", @"");
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];

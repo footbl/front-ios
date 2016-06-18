@@ -26,7 +26,7 @@
     static ChatHelper *chatHelper;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        chatHelper = [self new];
+        chatHelper = [[self alloc] init];
     });
     return chatHelper;
 }

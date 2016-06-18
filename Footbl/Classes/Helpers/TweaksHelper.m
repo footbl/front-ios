@@ -27,7 +27,7 @@
         while (viewController.presentedViewController) {
             viewController = viewController.presentedViewController;
         }
-        [viewController presentViewController:[ForceUpdateViewController new] animated:YES completion:nil];
+        [viewController presentViewController:[[ForceUpdateViewController alloc] init] animated:YES completion:nil];
     });
     
     FBTweakAction(@"Actions", @"Review on App Store", @"Show alert", ^{
@@ -37,7 +37,7 @@
     FBTweakAction(@"Actions", @"Recharge tip", @"Show popup", ^{
         UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         [viewController dismissViewControllerAnimated:YES completion:^{
-            RechargeTipPopupViewController *rechargeTipPopup = [RechargeTipPopupViewController new];
+            RechargeTipPopupViewController *rechargeTipPopup = [[RechargeTipPopupViewController alloc] init];
             rechargeTipPopup.selectionBlock = ^{
                 UITabBarController *tabBarController = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
                 BetsViewController *betsViewController = [[tabBarController.viewControllers[1] viewControllers] firstObject];
@@ -52,7 +52,7 @@
     FBTweakAction(@"Actions", @"Daily Bonus", @"Show popup", ^{
         UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
         [viewController dismissViewControllerAnimated:YES completion:^{
-            DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
+            DailyBonusPopupViewController *dailyBonusPopup = [[DailyBonusPopupViewController alloc] init];
             FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:dailyBonusPopup];
             [viewController presentViewController:popupViewController animated:YES completion:nil];
             [viewController setNeedsStatusBarAppearanceUpdate];

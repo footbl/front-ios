@@ -54,7 +54,7 @@ static const NSString *kSectionIdentifier = @"identifier";
             self.dataSource = nil;
             
             //Caches kFTResponseParamIdentifier from users in a set
-            NSMutableArray *userIDs = [NSMutableArray new];
+            NSMutableArray *userIDs = [[NSMutableArray alloc] init];
             for (NSDictionary *user in friends) {
                 [userIDs addObject:user[@"identifier"]];
             }
@@ -77,7 +77,7 @@ static const NSString *kSectionIdentifier = @"identifier";
 
 - (NSMutableArray *)globalSearch {
     if (!_globalSearch) {
-        _globalSearch = [NSMutableArray new];
+        _globalSearch = [[NSMutableArray alloc] init];
     }
     
     return _globalSearch;
@@ -85,7 +85,7 @@ static const NSString *kSectionIdentifier = @"identifier";
 
 - (NSMutableArray *)sectionsData {
     if (!_sectionsData) {
-        _sectionsData = [NSMutableArray new];
+        _sectionsData = [[NSMutableArray alloc] init];
     }
     
     return  _sectionsData;
@@ -94,7 +94,7 @@ static const NSString *kSectionIdentifier = @"identifier";
 #pragma mark - Instance Methods
 
 - (IBAction)featuredAction:(id)sender {
-    [self.navigationController pushViewController:[FeaturedViewController new] animated:YES];
+    [self.navigationController pushViewController:[[FeaturedViewController alloc] init] animated:YES];
 }
 
 - (void)configureCell:(FavoriteTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -180,7 +180,7 @@ static const NSString *kSectionIdentifier = @"identifier";
 	[[LoadingHelper sharedInstance] showHud];
 	[[FTBClient client] user:userRepresentation[@"identifier"] success:^(FTBUser *user) {
 		[[LoadingHelper sharedInstance] hideHud];
-		ProfileViewController *profileViewController = [ProfileViewController new];
+		ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
 		profileViewController.user = user;
 		[self.navigationController pushViewController:profileViewController animated:YES];
 	} failure:^(NSError *error) {
@@ -255,7 +255,7 @@ static const NSString *kSectionIdentifier = @"identifier";
     self.searchBar.clipsToBounds = YES;
     self.searchBar.placeholder = NSLocalizedString(@"Type a friend's name", @"");
     self.searchBar.delegate = self;
-    self.searchBar.backgroundImage = [UIImage new];
+    self.searchBar.backgroundImage = [[UIImage alloc] init];
     self.tableView.tableHeaderView = self.searchBar;
     
     self.shouldShowKeyboard = NO;

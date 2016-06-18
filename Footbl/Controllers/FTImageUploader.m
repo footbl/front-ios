@@ -20,7 +20,7 @@
     static CLCloudinary *cloudinary;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        cloudinary = [CLCloudinary new];
+        cloudinary = [[CLCloudinary alloc] init];
 #ifdef DEVELOPMENT
         cloudinary.config[@"cloud_name"] = @"he5zfntay";
         cloudinary.config[@"api_key"] = @"854175976174894";

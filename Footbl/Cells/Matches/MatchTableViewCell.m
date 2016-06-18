@@ -594,7 +594,7 @@ static CGFloat kDisabledAlpha = 0.4;
     });
     
     self.dateLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", dateText] attributes:attributes];
-    CGSize size = [dateText boundingRectWithSize:CGSizeMake(INT_MAX, INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:[NSStringDrawingContext new]].size;
+    CGSize size = [dateText boundingRectWithSize:CGSizeMake(INT_MAX, INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:[[NSStringDrawingContext alloc] init]].size;
     CGRect frame = self.dateLabel.frame;
     frame.size.width = roundf(size.width) + 30;
     CGPoint center = self.dateLabel.center;

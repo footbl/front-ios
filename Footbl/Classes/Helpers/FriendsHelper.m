@@ -33,7 +33,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     static id _sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [self new];
+        _sharedInstance = [[self alloc] init];
     });
     return _sharedInstance;
 }
@@ -42,7 +42,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 - (NSMutableDictionary *)cache {
     if (!_cache) {
-        _cache = [NSMutableDictionary new];
+        _cache = [[NSMutableDictionary alloc] init];
     }
     return _cache;
 }
@@ -69,9 +69,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         [self getContactsWithCompletionBlock:^(NSArray *contacts) {
             if ([[FTBClient client] isAuthenticated]) {
                 __block NSInteger operationsCount = 0;
-                __block NSMutableArray *searchResults = [NSMutableArray new];
-				__block NSMutableSet *resultSet = [NSMutableSet new];
-				__block NSMutableArray *result = [NSMutableArray new];
+                __block NSMutableArray *searchResults = [[NSMutableArray alloc] init];
+				__block NSMutableSet *resultSet = [[NSMutableSet alloc] init];
+				__block NSMutableArray *result = [[NSMutableArray alloc] init];
 				
                 void(^finishedBlock)(id response) = ^(id response) {
                     operationsCount--;
@@ -141,7 +141,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 - (void)getContactsWithCompletionBlock:(void (^)(NSArray *contacts))completionBlock {
     if ([APAddressBook access] == APAddressBookAccessGranted) {
-        APAddressBook *addressBook = [APAddressBook new];
+        APAddressBook *addressBook = [[APAddressBook alloc] init];
         addressBook.fieldsMask = APContactFieldEmails | APContactFieldFirstName | APContactFieldLastName | APContactFieldThumbnail | APContactFieldCompositeName;
         addressBook.filterBlock = ^BOOL(APContact *contact) {
             return contact.emails.count > 0 && (contact.firstName.length > 0 || contact.lastName.length > 0);
@@ -175,7 +175,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 }
 
 - (void)startRequestWithGraphPath:(NSString *)graphPath completionBlock:(void (^)(id result, NSError *error))completionBlock {
-    [self startRequestWithGraphPath:graphPath resultArray:[NSMutableArray new] completionBlock:completionBlock];
+    [self startRequestWithGraphPath:graphPath resultArray:[[NSMutableArray alloc] init] completionBlock:completionBlock];
 }
 
 - (void)getFbFriendsWithCompletionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
@@ -221,14 +221,14 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
     NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	FTBUser *me = [FTBUser currentUser];
     
-    __block NSMutableArray *searchResults = [NSMutableArray new];
+    __block NSMutableArray *searchResults = [[NSMutableArray alloc] init];
     void(^finishedBlock)(id response) = ^(id response) {
         if (response && [response isKindOfClass:[NSArray class]]) {
             [searchResults addObjectsFromArray:response];
         }
         
-        NSMutableSet *resultSet = [NSMutableSet new];
-        NSMutableArray *result = [NSMutableArray new];
+        NSMutableSet *resultSet = [[NSMutableSet alloc] init];
+        NSMutableArray *result = [[NSMutableArray alloc] init];
         for (FTBUser *user in searchResults) {
             // Checks against being the own user, user already in the array and user already in the existing users passed in
             if (![resultSet containsObject:user.identifier] && ![user.identifier isEqualToString:me.identifier] && ![users containsObject:user.identifier]) {

@@ -94,7 +94,7 @@ CGFloat const MARGIN	= 10.0f;
         self.dateLabel.frame = CGRectMake(dateOriginX, self.profileNameLabel.y, self.contentView.width - dateOriginX, self.profileNameLabel.height);
         
         if (date) {
-            NSDateFormatter *formatter = [NSDateFormatter new];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             if (date.isToday) {
                 formatter.dateStyle = NSDateFormatterNoStyle;
             } else {

@@ -17,7 +17,7 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
 #pragma mark - Instance Methods
 
 - (NSString *)walletStringValue {
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     return [formatter stringFromNumber:self];
@@ -45,7 +45,7 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
     if (number >= 10) {
         return [NSString stringWithFormat:@"%i%@", (int)number, unit];
     } else {
-        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
         formatter.maximumFractionDigits = 1;
         formatter.minimumFractionDigits = 0;
@@ -56,7 +56,7 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
 }
 
 - (NSString *)rankingStringValue {
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
     formatter.usesSignificantDigits = YES;
     formatter.usesGroupingSeparator = YES;
@@ -70,7 +70,7 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
 }
 
 - (NSString *)potStringValue {
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.formatterBehavior = [NSNumberFormatter defaultFormatterBehavior];
     formatter.maximumFractionDigits = 2;
     formatter.minimumFractionDigits = 2;

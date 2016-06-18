@@ -60,13 +60,13 @@
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-	return [PopupTransitioningHide new];
+	return [[PopupTransitioningHide alloc] init];
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
 																  presentingController:(UIViewController *)presenting
 																	  sourceController:(UIViewController *)source {
-	return [PopupTransitioningShow new];
+	return [[PopupTransitioningShow alloc] init];
 }
 
 @end

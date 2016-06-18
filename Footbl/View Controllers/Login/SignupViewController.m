@@ -337,7 +337,7 @@
     }
     
     if (text && [text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
-        NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
         if ([text rangeOfString:@"\n"].location != NSNotFound) {
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[text componentsSeparatedByString:@"\n"].firstObject attributes:[self informationTitleTextAttributes]]];
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];

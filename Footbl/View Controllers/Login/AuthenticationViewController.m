@@ -50,7 +50,7 @@
 //                        self.view.userInteractionEnabled = YES;
 //                        if (self.completionBlock) self.completionBlock();
 //                    } failure:^(NSError *error) {
-//                        SignupViewController *signupViewController = [SignupViewController new];
+//                        SignupViewController *signupViewController = [[SignupViewController alloc] init];
 //                        signupViewController.email = result[@"email"];
 //                        signupViewController.name = result[@"name"];
 //                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
@@ -87,7 +87,7 @@
     
     [self setSubviewsHidden:YES animated:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        LoginViewController *loginViewController = [LoginViewController new];
+        LoginViewController *loginViewController = [[LoginViewController alloc] init];
         loginViewController.completionBlock = self.completionBlock;
         [self.navigationController pushViewController:loginViewController animated:NO];
         [sender setTitleColor:normalColor forState:UIControlStateNormal];
@@ -100,7 +100,7 @@
     
     [self setSubviewsHidden:YES animated:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FTBAnimationDuration * 1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        SignupViewController *signupViewController = [SignupViewController new];
+        SignupViewController *signupViewController = [[SignupViewController alloc] init];
         signupViewController.completionBlock = self.completionBlock;
         [self.navigationController pushViewController:signupViewController animated:NO];
         [sender setTitleColor:normalColor forState:UIControlStateNormal];

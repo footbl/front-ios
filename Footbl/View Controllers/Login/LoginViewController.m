@@ -253,7 +253,7 @@ static NSString * kCachedEmailKey = @"kCachedEmailKey";
     
     NSString *text = NSLocalizedString(@"Login text: welcome back", @"");
     if (text) {
-        NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
         if ([text rangeOfString:@"\n"].location != NSNotFound) {
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[text componentsSeparatedByString:@"\n"].firstObject attributes:[self informationTitleTextAttributes]]];
             [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];

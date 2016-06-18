@@ -255,7 +255,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.headerImageView.userInteractionEnabled = YES;
-    self.selectedFriendsSet = [NSMutableSet new];
+    self.selectedFriendsSet = [[NSMutableSet alloc] init];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 58)];
     titleLabel.textColor = [UIColor whiteColor];
@@ -287,7 +287,7 @@
     self.searchBar.clipsToBounds = YES;
     self.searchBar.placeholder = NSLocalizedString(@"Type a friend's name", @"");
     self.searchBar.delegate = self;
-    self.searchBar.backgroundImage = [UIImage new];
+    self.searchBar.backgroundImage = [[UIImage alloc] init];
     self.tableView.tableHeaderView = self.searchBar;
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame) - 118, CGRectGetWidth(self.view.frame), 0.5)];

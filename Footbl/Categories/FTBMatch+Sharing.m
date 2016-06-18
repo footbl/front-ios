@@ -74,7 +74,7 @@
 			break;
 	}
 	
-	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[screenshot, text] applicationActivities:@[[WhatsAppActivity new]]];
+	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[screenshot, text] applicationActivities:@[[[WhatsAppActivity alloc] init]]];
 	activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint];
 	[viewController presentViewController:activityViewController animated:YES completion:nil];
 }

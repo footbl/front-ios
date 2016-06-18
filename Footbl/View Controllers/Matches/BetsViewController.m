@@ -75,7 +75,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     }
     
     if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[RechargeViewController new]];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
         [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
         [self setNeedsStatusBarAppearanceUpdate];
         return;
@@ -312,7 +312,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
             [prizes enumerateObjectsUsingBlock:^(FTBPrize *prize, NSUInteger idx, BOOL *stop) {
                 if (prize.type == FTBPrizeTypeDaily || prize.type == FTBPrizeTypeUpdate) {
                     *stop = YES;
-                    DailyBonusPopupViewController *dailyBonusPopup = [DailyBonusPopupViewController new];
+                    DailyBonusPopupViewController *dailyBonusPopup = [[DailyBonusPopupViewController alloc] init];
                     dailyBonusPopup.prize = prize;
                     FootblPopupViewController *popupViewController = [[FootblPopupViewController alloc] initWithRootViewController:dailyBonusPopup];
                     [self presentViewController:popupViewController animated:YES completion:nil];

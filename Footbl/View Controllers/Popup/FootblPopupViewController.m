@@ -42,13 +42,13 @@
 #pragma mark - UIViewController transition delegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    FootblPopupAnimatedTransition *animatedTransition = [FootblPopupAnimatedTransition new];
+    FootblPopupAnimatedTransition *animatedTransition = [[FootblPopupAnimatedTransition alloc] init];
     animatedTransition.presenting = NO;
     return animatedTransition;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    FootblPopupAnimatedTransition *animatedTransition = [FootblPopupAnimatedTransition new];
+    FootblPopupAnimatedTransition *animatedTransition = [[FootblPopupAnimatedTransition alloc] init];
     animatedTransition.presenting = YES;
     return animatedTransition;
 }

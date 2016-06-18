@@ -119,7 +119,7 @@
     [self.tableView registerClass:[GroupTableViewCell class] forCellReuseIdentifier:@"GroupCell"];
     [self.view addSubview:self.tableView];
     
-    self.anonymousViewController = [AnonymousViewController new];
+    self.anonymousViewController = [[AnonymousViewController alloc] init];
     
     [self reloadData];
     

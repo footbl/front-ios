@@ -47,11 +47,11 @@
 }
 
 - (IBAction)featuredAction:(id)sender {
-    [self.navigationController pushViewController:[FeaturedViewController new] animated:YES];
+    [self.navigationController pushViewController:[[FeaturedViewController alloc] init] animated:YES];
 }
 
 - (IBAction)searchAction:(id)sender {
-    [self.navigationController pushViewController:[ProfileSearchViewController new] animated:YES];
+    [self.navigationController pushViewController:[[ProfileSearchViewController alloc] init] animated:YES];
 }
 
 - (void)configureCell:(FavoriteTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -107,7 +107,7 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ProfileViewController *profileViewController = [ProfileViewController new];
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
     profileViewController.user = self.favorites[indexPath.row];
     [self.navigationController pushViewController:profileViewController animated:YES];
 }
@@ -125,7 +125,7 @@
         self.navigationItem.rightBarButtonItem = searchButtonItem;
     }
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];

@@ -83,7 +83,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	}
 	
 	if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[RechargeViewController new]];
+		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
 		[self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
 		[self setNeedsStatusBarAppearanceUpdate];
 		return;

@@ -110,8 +110,8 @@
     textAttributes[NSFontAttributeName] = [UIFont fontWithName:kFontNameMedium size:25];
     textAttributes[NSKernAttributeName] = @(0.1);
     
-    NSMutableAttributedString *walletText = [NSMutableAttributedString new];
-    NSMutableAttributedString *stakeText = [NSMutableAttributedString new];
+    NSMutableAttributedString *walletText = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString *stakeText = [[NSMutableAttributedString alloc] init];
     
     [walletText appendAttributedString:[[NSAttributedString alloc] initWithString:[[@([self userWallet]) stringValue] stringByAppendingString:@"\n"] attributes:textAttributes]];
     textAttributes[NSForegroundColorAttributeName] = [UIColor ftb_redStakeColor];
@@ -291,7 +291,7 @@
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.clipsToBounds = NO;
     
-    self.pendingTransfers = [NSMutableArray new];
+    self.pendingTransfers = [[NSMutableArray alloc] init];
     
     CGFloat hintHeight = 30;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 100 + hintHeight)];
@@ -331,7 +331,7 @@
     separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [headerView addSubview:separatorView];
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];

@@ -18,7 +18,7 @@
     [super setText:text];
     
     if ((self.firstLineFont || self.firstLineTextColor) && [text rangeOfString:@"\n"].location != NSNotFound) {
-        NSMutableDictionary *textAttributes = [NSMutableDictionary new];
+        NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
         
         NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         paragraphStyle.alignment = self.textAlignment;
@@ -40,7 +40,7 @@
         }
         
         NSString *firstLine = [[text componentsSeparatedByString:@"\n"].firstObject stringByAppendingString:@"\n"];
-        NSMutableAttributedString *attributedString = [NSMutableAttributedString new];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] init];
         [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:firstLine attributes:textAttributes]];
         
         NSString *secondLine = [text stringByReplacingOccurrencesOfString:firstLine withString:@"" options:0 range:NSMakeRange(0, firstLine.length)];

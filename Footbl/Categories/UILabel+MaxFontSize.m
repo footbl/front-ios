@@ -16,10 +16,10 @@
 
 - (CGFloat)maxFontSizeToFitBounds {
     UIFont *font = self.font;
-    CGSize size = [self.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame), INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:[NSStringDrawingContext new]].size;
+    CGSize size = [self.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame), INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:[[NSStringDrawingContext alloc] init]].size;
     while (size.height > CGRectGetHeight(self.frame)) {
         font = [UIFont fontWithName:font.fontName size:font.pointSize - 0.5];
-        size = [self.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame), INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:[NSStringDrawingContext new]].size;
+        size = [self.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.frame), INT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:[[NSStringDrawingContext alloc] init]].size;
     }
     return font.pointSize;
 }

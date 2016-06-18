@@ -29,7 +29,7 @@
     static id sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [self new];
+        sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
@@ -74,7 +74,7 @@
 - (void)importFromGalleryWithCompletionBlock:(void (^)(UIImage *image, NSError *error))completionBlock {
     self.cameraCompletionBlock = completionBlock;
     
-    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.allowsEditing = YES;
     imagePickerController.delegate = self;
@@ -93,7 +93,7 @@
     
     self.cameraCompletionBlock = completionBlock;
     
-    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     imagePickerController.showsCameraControls = YES;
     imagePickerController.allowsEditing = YES;

@@ -79,23 +79,23 @@
 }
 
 - (IBAction)betsAction:(id)sender {
-    ProfileBetsViewController *betsViewController = [ProfileBetsViewController new];
+    ProfileBetsViewController *betsViewController = [[ProfileBetsViewController alloc] init];
     betsViewController.user = self.user;
     [self.navigationController pushViewController:betsViewController animated:YES];
 }
 
 - (IBAction)favoritesAction:(id)sender {
-    FavoritesViewController *favoritesViewController = [FavoritesViewController new];
+    FavoritesViewController *favoritesViewController = [[FavoritesViewController alloc] init];
     favoritesViewController.user = self.user;
     [self.navigationController pushViewController:favoritesViewController animated:YES];
 }
 
 - (IBAction)settingsAction:(id)sender {
-    [self.navigationController pushViewController:[SettingsViewController new] animated:YES];
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
 }
 
 - (IBAction)transfersAction:(id)sender {
-    [self.navigationController pushViewController:[TransfersViewController new] animated:YES];
+    [self.navigationController pushViewController:[[TransfersViewController alloc] init] animated:YES];
 }
 
 - (NSTimeInterval)updateInterval {
@@ -155,7 +155,7 @@
         }
         [cell.profileImageView sd_setImageWithURL:weakSelf.user.pictureURL placeholderImage:cell.placeholderImage];
         
-        NSDateFormatter *formatter = [NSDateFormatter new];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = NSLocalizedString(@"'Since' MMMM YYYY", @"Since {month format} {year format}");
         cell.dateLabel.text = [formatter stringFromDate:weakSelf.user.createdAt];
         
@@ -385,9 +385,9 @@
 		[[FTBClient client] userFollowing:self.user success:nil failure:nil];
     }
     
-    self.anonymousViewController = [AnonymousViewController new];
+    self.anonymousViewController = [[AnonymousViewController alloc] init];
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];

@@ -55,7 +55,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (NSArray *)dataSource {
     if (!_dataSource) {
-        NSMutableArray *licenses = [NSMutableArray new];
+        NSMutableArray *licenses = [[NSMutableArray alloc] init];
         NSArray *pods = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Pods-acknowledgements" ofType:@"plist"]][@"PreferenceSpecifiers"];
         for (NSInteger i = 0; i < [pods count] - 1; i++) {
             if (i == 0) {
@@ -141,7 +141,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                           ]}];
         
         if (SPGetBuildType() != SPBuildTypeAppStore) {
-            NSMutableArray *logs = [NSMutableArray new];
+            NSMutableArray *logs = [[NSMutableArray alloc] init];
             NSString *logsFolder = SPLogFilePath();
             for (NSString *logFile in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:logsFolder error:nil]) {
                 if ([logFile.lowercaseString rangeOfString:@"ds_store"].location != NSNotFound) {
@@ -176,7 +176,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)changePasswordAction:(id)sender {
 	FTBUser *user = [FTBUser currentUser];
-    ChangePasswordViewController *changePasswordViewController = [ChangePasswordViewController new];
+    ChangePasswordViewController *changePasswordViewController = [[ChangePasswordViewController alloc] init];
     if (user.facebookId.length > 0) {
         changePasswordViewController.oldPassword = @"";
     }
@@ -192,7 +192,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)updateAccountAction:(id)sender {
-    EditProfileViewController *editProfileViewController = [EditProfileViewController new];
+    EditProfileViewController *editProfileViewController = [[EditProfileViewController alloc] init];
     FootblNavigationController *navigationViewController = [[FootblNavigationController alloc] initWithRootViewController:editProfileViewController];
     [self presentViewController:navigationViewController animated:YES completion:nil];
 }
@@ -219,7 +219,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 - (void)supportAction:(id)sender {
     if ([MFMailComposeViewController canSendMail]) {
 		FTBUser *user = [FTBUser currentUser];
-        MFMailComposeViewController *picker = [MFMailComposeViewController new];
+        MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         [picker setMailComposeDelegate:self];
         [picker setToRecipients:@[NSLocalizedString(@"Support email recipient", @"")]];
         [picker setSubject:[NSString stringWithFormat:NSLocalizedString(@"Support email subject", @"{application name}"), SPGetApplicationName()]];
@@ -237,7 +237,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 
 - (void)openLogs:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    LogsViewController *textViewController = [LogsViewController new];
+    LogsViewController *textViewController = [[LogsViewController alloc] init];
     textViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
     NSString *text = [[NSString alloc] initWithContentsOfFile:[SPLogFilePath() stringByAppendingPathComponent:textViewController.title] encoding:NSUTF8StringEncoding error:nil];
     text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
@@ -252,7 +252,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 }
 
 - (void)viewTutorialAction:(id)sender {
-    TutorialViewController *tutorialViewController = [TutorialViewController new];
+    TutorialViewController *tutorialViewController = [[TutorialViewController alloc] init];
     FootblNavigationController *tutorialNavigationController = [[FootblNavigationController alloc] initWithRootViewController:tutorialViewController];
     [self presentViewController:tutorialNavigationController animated:YES completion:^{
        [tutorialViewController.getStartedButton setTitle:NSLocalizedString(@"Close", @"") forState:UIControlStateNormal]; 
@@ -335,14 +335,14 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ((SettingsType)[self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTypeKey] integerValue]) {
         case SettingsTypeMore: {
-            SettingsViewController *settingsViewController = [SettingsViewController new];
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
             settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
             settingsViewController.dataSource = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey];
             [self.navigationController pushViewController:settingsViewController animated:YES];
             break;
         }
         case SettingsTypeInfo: {
-            SettingsTextViewController *textViewController = [SettingsTextViewController new];
+            SettingsTextViewController *textViewController = [[SettingsTextViewController alloc] init];
             textViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
             textViewController.text = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey];
             [self.navigationController pushViewController:textViewController animated:YES];
@@ -350,7 +350,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
         }
         case SettingsTypeAction:
         case SettingsTypeActionDestructive: {
-            SettingsViewController *settingsViewController = [SettingsViewController new];
+            SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
             settingsViewController.title = self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceTitleKey];
             SEL selector = NSSelectorFromString(self.dataSource[indexPath.section][kSettingsDataSourceItemsKey][indexPath.row][kSettingsDataSourceExtraKey]);
 #pragma clang diagnostic push

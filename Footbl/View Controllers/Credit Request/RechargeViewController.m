@@ -30,7 +30,7 @@
 #pragma mark - Instance Methods
 
 - (IBAction)askFriendsAction:(id)sender {
-    [self.navigationController pushViewController:[AskFriendsViewController new] animated:YES];
+    [self.navigationController pushViewController:[[AskFriendsViewController alloc] init] animated:YES];
 }
 
 - (IBAction)rechargeAction:(id)sender {

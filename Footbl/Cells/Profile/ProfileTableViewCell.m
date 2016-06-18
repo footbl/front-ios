@@ -99,7 +99,7 @@
         UIView *gradientView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(opaqueView.frame), 0, self.usernameLabel.x - CGRectGetMaxX(opaqueView.frame), self.contentView.height)];
         gradientView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
-        CAGradientLayer *gradientLayer = [CAGradientLayer new];
+        CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
         gradientLayer.colors = @[(id)self.contentView.backgroundColor.CGColor, (id)[self.contentView.backgroundColor colorWithAlphaComponent:0].CGColor];
         gradientLayer.frame = CGRectMake(0, 0, gradientView.width, 93);
         gradientLayer.startPoint = CGPointMake(0, 0);
@@ -160,7 +160,7 @@
         gradientView = [[UIView alloc] initWithFrame:CGRectMake(self.starImageView.x - 10, 0, self.contentView.width - self.starImageView.x + 10, self.contentView.height)];
         gradientView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
         
-        gradientLayer = [CAGradientLayer new];
+        gradientLayer = [[CAGradientLayer alloc] init];
         gradientLayer.colors = @[(id)[self.contentView.backgroundColor colorWithAlphaComponent:0].CGColor, (id)self.contentView.backgroundColor.CGColor];
         gradientLayer.frame = CGRectMake(0, 0, gradientView.width, 93);
         gradientLayer.startPoint = CGPointMake(0, 0);

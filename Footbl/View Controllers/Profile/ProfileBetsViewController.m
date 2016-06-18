@@ -126,7 +126,7 @@
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.title = NSLocalizedString(@"Bet history", @"");
     
-    self.refreshControl = [UIRefreshControl new];
+    self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
     
     UITableViewController *tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
