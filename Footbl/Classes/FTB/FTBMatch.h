@@ -9,13 +9,11 @@
 #import "FTBConstants.h"
 #import "FTBModel.h"
 
-@class FTBChampionship;
 @class FTBTeam;
 @class FTBBet;
 
 @interface FTBMatch : FTBModel
 
-@property (nonatomic, copy) FTBChampionship *championship;
 @property (nonatomic, copy) FTBTeam *guest;
 @property (nonatomic, copy) FTBTeam *host;
 @property (nonatomic, copy) FTBTeam *winner;

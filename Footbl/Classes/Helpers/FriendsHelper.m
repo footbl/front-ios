@@ -66,65 +66,69 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 - (void)reloadFriendsWithCompletionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
     static NSString * kCacheKey = @"friends";
     [self getFbFriendsWithCompletionBlock:^(NSArray *fbFriends, NSError *error) {
-        [self getContactsWithCompletionBlock:^(NSArray *contacts) {
-            if ([[FTBClient client] isAuthenticated]) {
-                __block NSInteger operationsCount = 0;
-                __block NSMutableArray *searchResults = [[NSMutableArray alloc] init];
-				__block NSMutableSet *resultSet = [[NSMutableSet alloc] init];
-				__block NSMutableArray *result = [[NSMutableArray alloc] init];
-				
-                void(^finishedBlock)(id response) = ^(id response) {
-                    operationsCount--;
-                    if (response && [response isKindOfClass:[NSArray class]]) {
-                        [searchResults addObjectsFromArray:response];
-                    }
-                    
-                    if (operationsCount == 0) {
-						FTBUser *me = [FTBUser currentUser];
-                        for (NSDictionary *user in searchResults) {
-							NSString *identifier = user[@"identifier"];
-                            if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier]) {
-                                [resultSet addObject:identifier];
-                                [result addObject:user];
-                            }
+        if (error) {
+            completionBlock(fbFriends, error);
+        } else {
+            [self getContactsWithCompletionBlock:^(NSArray *contacts) {
+                if ([[FTBClient client] isAuthenticated]) {
+                    __block NSInteger operationsCount = 0;
+                    __block NSMutableArray *searchResults = [[NSMutableArray alloc] init];
+                    __block NSMutableSet *resultSet = [[NSMutableSet alloc] init];
+                    __block NSMutableArray *result = [[NSMutableArray alloc] init];
+
+                    void(^finishedBlock)(id response) = ^(id response) {
+                        operationsCount--;
+                        if (response && [response isKindOfClass:[NSArray class]]) {
+                            [searchResults addObjectsFromArray:response];
                         }
-                        [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
-                        self.cache[kCacheKey] = @{@"data" : result, @"updatedAt" : [NSDate date]};
-                        if (completionBlock) completionBlock(result, nil);
+
+                        if (operationsCount == 0) {
+                            FTBUser *me = [FTBUser currentUser];
+                            for (NSDictionary *user in searchResults) {
+                                NSString *identifier = user[@"identifier"];
+                                if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier]) {
+                                    [resultSet addObject:identifier];
+                                    [result addObject:user];
+                                }
+                            }
+                            [result sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+                            self.cache[kCacheKey] = @{@"data" : result, @"updatedAt" : [NSDate date]};
+                            if (completionBlock) completionBlock(result, nil);
+                        }
+                    };
+
+                    if (contacts) {
+                        NSArray *emails = [contacts valueForKeyPath:@"emails"];
+                        for (int i = 0; i < emails.count; i += 100) {
+                            operationsCount++;
+                            NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
+                            [[FTBClient client] usersWithEmails:range facebookIds:nil usernames:nil names:nil page:0 success:^(id object) {
+                                finishedBlock(object);
+                            } failure:^(NSError *error) {
+                                SPLogError(@"%@", error);
+                                finishedBlock(@[]);
+                            }];
+                        }
                     }
-                };
-				
-				if (contacts) {
-					NSArray *emails = [contacts valueForKeyPath:@"emails"];
-					for (int i = 0; i < emails.count; i += 100) {
-						operationsCount++;
-						NSArray *range = [emails objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(emails.count - i, 100))]];
-						[[FTBClient client] usersWithEmails:range facebookIds:nil usernames:nil names:nil page:0 success:^(id object) {
-							finishedBlock(object);
-						} failure:^(NSError *error) {
-							SPLogError(@"%@", error);
-							finishedBlock(@[]);
-						}];
-					}
-				}
-				
-                if (fbFriends) {
-					NSArray *fbIds = [fbFriends valueForKeyPath:@"id"];
-                    for (int i = 0; i < fbIds.count; i += 100) {
-                        operationsCount++;
-                        NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
-						[[FTBClient client] usersWithEmails:nil facebookIds:range usernames:nil names:nil page:0 success:^(id object) {
-                            finishedBlock(object);
-                        } failure:^(NSError *error) {
-                            SPLogError(@"%@", error);
-                            finishedBlock(@[]);
-                        }];
+
+                    if (fbFriends) {
+                        NSArray *fbIds = [fbFriends valueForKeyPath:@"id"];
+                        for (int i = 0; i < fbIds.count; i += 100) {
+                            operationsCount++;
+                            NSArray *range = [fbIds objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, MIN(fbIds.count - i, 100))]];
+                            [[FTBClient client] usersWithEmails:nil facebookIds:range usernames:nil names:nil page:0 success:^(id object) {
+                                finishedBlock(object);
+                            } failure:^(NSError *error) {
+                                SPLogError(@"%@", error);
+                                finishedBlock(@[]);
+                            }];
+                        }
                     }
+                } else {
+                    if (completionBlock) completionBlock(@[], nil);
                 }
-            } else {
-                if (completionBlock) completionBlock(@[], nil);
-            }
-        }];
+            }];
+        }
     }];
 }
 
@@ -184,7 +188,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         if (completionBlock) completionBlock(self.cache[kCacheKey][@"data"], nil);
         return;
     }
-    
+
     [self startRequestWithGraphPath:@"me/friends?fields=name,picture.type(normal)" completionBlock:^(id result, NSError *error) {
         if (error) {
             if (completionBlock) completionBlock(nil, error);
@@ -201,7 +205,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         if (completionBlock) completionBlock(self.cache[kCacheKey][@"data"], nil);
         return;
     }
-    
+
     [self startRequestWithGraphPath:@"me/invitable_friends?fields=name,last_name,first_name,picture.type(normal)" completionBlock:^(id result, NSError *error) {
         if (error) {
             if (completionBlock) completionBlock(nil, error);
@@ -219,14 +223,14 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 
 - (void)searchFriendsWithQuery:(NSString *)searchText existingUsers:(NSSet *)users completionBlock:(void (^)(NSArray *friends, NSError *error))completionBlock {
     NSString *trimmedSearchText = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	FTBUser *me = [FTBUser currentUser];
-    
+    FTBUser *me = [FTBUser currentUser];
+
     __block NSMutableArray *searchResults = [[NSMutableArray alloc] init];
     void(^finishedBlock)(id response) = ^(id response) {
         if (response && [response isKindOfClass:[NSArray class]]) {
             [searchResults addObjectsFromArray:response];
         }
-        
+
         NSMutableSet *resultSet = [[NSMutableSet alloc] init];
         NSMutableArray *result = [[NSMutableArray alloc] init];
         for (FTBUser *user in searchResults) {
@@ -240,7 +244,7 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
         if (completionBlock) completionBlock(result, nil);
     };
     
-	[[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:@[trimmedSearchText] names:@[trimmedSearchText] page:0 success:^(id object) {
+    [[FTBClient client] usersWithEmails:@[trimmedSearchText] facebookIds:nil usernames:@[trimmedSearchText] names:@[trimmedSearchText] page:0 success:^(id object) {
         finishedBlock(object);
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);

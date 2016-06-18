@@ -16,8 +16,7 @@
 @implementation FTBMatch
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{@"championship": @"championship",
-							   @"guest": @"guest",
+	NSDictionary *keyPaths = @{@"guest": @"guest",
 							   @"host": @"host",
 							   @"round": @"round",
 							   @"date": @"date",
