@@ -112,7 +112,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
     if (bet.match) {
         match = bet.match;
     }
-    
+
     void (^selectionBlock)(NSInteger) = ^(NSInteger index) {
         if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
             [weakCell.cardContentView shake];
@@ -204,10 +204,8 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
         } else {
             [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failureBlock];
         }
-        
-//        [UIView animateWithDuration:FTBAnimationDuration animations:^{
-            [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-//        }];
+
+        [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
 
         [weakSelf reloadWallet];
     };

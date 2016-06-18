@@ -164,6 +164,10 @@
     return NO;
 }
 
+- (NSNumber *)jackpot {
+    return @(self.drawPot.integerValue + self.hostPot.integerValue + self.guestPot.integerValue);
+}
+
 - (void)updatePotByAddingBet:(FTBBet *)bet {
     switch (bet.result) {
         case FTBMatchResultDraw:

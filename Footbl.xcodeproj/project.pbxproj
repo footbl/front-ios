@@ -385,8 +385,6 @@
 		ED785AB6199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5@2x.png"; sourceTree = "<group>"; };
 		ED785AB7199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = de; path = "de.lproj/tutorial_5_480@2x.png"; sourceTree = "<group>"; };
 		ED785AB8199DAFA8002A4DBD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLeaguesViewController.h; sourceTree = "<group>"; };
-		ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLeaguesViewController.m; sourceTree = "<group>"; };
 		ED785ABE199ED2E3002A4DBD /* TransferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferTableViewCell.h; sourceTree = "<group>"; };
 		ED785ABF199ED2E3002A4DBD /* TransferTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferTableViewCell.m; sourceTree = "<group>"; };
 		ED7C0FB21959BA3300275685 /* WhatsAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsAppAPI.h; sourceTree = "<group>"; };
@@ -907,8 +905,6 @@
 			children = (
 				ED19A408190AF85800946490 /* LogsViewController.h */,
 				ED19A409190AF85800946490 /* LogsViewController.m */,
-				ED785AB9199E5343002A4DBD /* MyLeaguesViewController.h */,
-				ED785ABA199E5343002A4DBD /* MyLeaguesViewController.m */,
 				ED493D2C190DB40000A7869B /* SettingsTextViewController.h */,
 				ED493D2D190DB40000A7869B /* SettingsTextViewController.m */,
 				ED9F07921909C05900C8AC71 /* SettingsViewController.h */,

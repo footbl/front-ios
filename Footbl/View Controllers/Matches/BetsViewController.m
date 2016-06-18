@@ -162,7 +162,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     } failure:nil];
 
     [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
-		self.championships = object;
+        self.championships = object;
 		[self reloadScrollView];
     } failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
