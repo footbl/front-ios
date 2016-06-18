@@ -100,12 +100,7 @@
 }
 
 - (NSNumber *)earningsPerBetForHost {
-	float sumOfBets = self.hostPot.floatValue;
-    FTBBet *bet = self.myBet;
-	if (bet.result == FTBMatchResultHost) {
-        sumOfBets -= bet.bid.integerValue;
-	}
-	return @(MAX(1, self.jackpot.floatValue / MAX(1, sumOfBets)));
+	return @(MAX(1, self.jackpot.floatValue / MAX(1, self.hostPot.floatValue)));
 }
 
 - (NSNumber *)earningsPerBetForDraw {
