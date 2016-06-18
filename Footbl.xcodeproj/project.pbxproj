@@ -33,7 +33,6 @@
 		10B3AF1B1BB4D7F000E89253 /* UINavigationBar+UIProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */; };
 		10E2413F1BB87DAA00D1482C /* trophies.json in Resources */ = {isa = PBXBuildFile; fileRef = 10E2413D1BB87DAA00D1482C /* trophies.json */; };
 		10E241431BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */; };
-		10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FFD9F81BC0C3090065B215 /* FTBPool.m */; };
 		1100DB221D0C6938000C198A /* TrophiesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */; };
 		1127FACF1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */; };
 		1153A77B1D10CCF8003EC2C5 /* UserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153A77A1D10CCF8003EC2C5 /* UserImageView.m */; };
@@ -210,8 +209,6 @@
 		10E2413D1BB87DAA00D1482C /* trophies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trophies.json; sourceTree = "<group>"; };
 		10E241401BB8BE0F00D1482C /* SeasonWelcomePopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeasonWelcomePopupViewController.h; sourceTree = "<group>"; };
 		10E241411BB8BE0F00D1482C /* SeasonWelcomePopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeasonWelcomePopupViewController.m; sourceTree = "<group>"; };
-		10FFD9F71BC0C3090065B215 /* FTBPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBPool.h; sourceTree = "<group>"; };
-		10FFD9F81BC0C3090065B215 /* FTBPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBPool.m; sourceTree = "<group>"; };
 		1100DB201D0C6938000C198A /* TrophiesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophiesTableViewCell.h; sourceTree = "<group>"; };
 		1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophiesTableViewCell.m; sourceTree = "<group>"; };
 		1127FACD1D0CB4E8007C7EF6 /* ExperienceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTableViewCell.h; sourceTree = "<group>"; };
@@ -576,8 +573,6 @@
 				10390DC91B7D7D5B001AA9CE /* FTBClient.m */,
 				109AA8FF1B89290300BB8FB7 /* FTBConstants.h */,
 				109AA8FA1B89281F00BB8FB7 /* FTBConstants.m */,
-				10FFD9F71BC0C3090065B215 /* FTBPool.h */,
-				10FFD9F81BC0C3090065B215 /* FTBPool.m */,
 			);
 			path = FTB;
 			sourceTree = "<group>";
@@ -1453,7 +1448,6 @@
 				115580A11CD6CB4A00BEC4CE /* ChampionshipsHeaderView.m in Sources */,
 				ED8DB3B21A14C95C00605CCE /* FTBMatch+Sharing.m in Sources */,
 				ED8DB3B31A14C95C00605CCE /* NSString+Validations.m in Sources */,
-				10FFD9FA1BC0C3140065B215 /* FTBPool.m in Sources */,
 				1153A77B1D10CCF8003EC2C5 /* UserImageView.m in Sources */,
 				ED3399F71A1E21920037F01B /* RechargeTipPopupViewController.m in Sources */,
 				ED8DB3B41A14C95C00605CCE /* UILabel+MaxFontSize.m in Sources */,
