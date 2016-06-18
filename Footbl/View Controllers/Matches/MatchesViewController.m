@@ -108,6 +108,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	__block FTBBet *bet = match.myBet;
 	__weak typeof(cell) weakCell = cell;
     __weak typeof(self) weakSelf = self;
+
+    if (bet.match) {
+        match = bet.match;
+    }
     
     void (^selectionBlock)(NSInteger) = ^(NSInteger index) {
         if (match.isBetSyncing || match.status != FTBMatchStatusWaiting) {
@@ -201,10 +205,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
             [[FTBClient client] betInMatch:match bid:@(currentBet) result:result success:successBlock failure:failureBlock];
         }
         
-        [UIView animateWithDuration:FTBAnimationDuration animations:^{
+//        [UIView animateWithDuration:FTBAnimationDuration animations:^{
             [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-        }];
-        
+//        }];
+
         [weakSelf reloadWallet];
     };
     
@@ -311,26 +315,21 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	
 	FTBUser *me = [FTBUser currentUser];
 	[[FTBClient client] user:me.identifier success:^(FTBUser *user) {
-		[self reloadWallet];
-		
-        [[FTBClient client] betsForUser:me match:nil activeOnly:NO page:0 success:^(NSArray *bets) {
+        self.page = 0;
+        self.tableView.showsInfiniteScrolling = YES;
+        [[FTBClient client] matchesInChampionship:self.championship page:0 success:^(NSArray *objects) {
+            NSUInteger previousMatchesCount = self.matches.count;
+            self.matches = [[NSMutableArray alloc] initWithArray:objects];
+            [self.tableView reloadData];
+            [self reloadWallet];
             
-            self.page = 0;
-            self.tableView.showsInfiniteScrolling = YES;
-            [[FTBClient client] matchesInChampionship:self.championship page:self.page success:^(NSArray *objects) {
-                NSUInteger previousMatchesCount = self.matches.count;
-                self.matches = [[NSMutableArray alloc] initWithArray:objects];
-                [self.tableView reloadData];
-                [self reloadWallet];
-                
-                if (previousMatchesCount == 0 && objects.count > 0) {
-                    [self scrollToFirstActiveMatchAnimated:NO];
-                }
-                
-				[self.tableViewController.refreshControl endRefreshing];
-				[[LoadingHelper sharedInstance] hideHud];
-			} failure:failure];
-		} failure:failure];
+            if (previousMatchesCount == 0 && objects.count > 0) {
+                [self scrollToFirstActiveMatchAnimated:NO];
+            }
+            
+            [self.tableViewController.refreshControl endRefreshing];
+            [[LoadingHelper sharedInstance] hideHud];
+        } failure:failure];
 	} failure:failure];
 }
 
@@ -465,8 +464,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self.tableView registerClass:[MatchTableViewCell class] forCellReuseIdentifier:@"MatchCell"];
-	
-	[self reloadWallet];
+
 	[self reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -475,16 +473,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[self reloadWallet];
-	[self.tableView reloadData];
-	
 	[self updateInsets];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	
-	[self reloadWallet];
 }
 
 - (void)dealloc {

@@ -37,7 +37,6 @@
 @interface FTBUser ()
 
 @property (nonatomic, strong) NSMutableSet<FTBBet *> *bets;
-@property (nonatomic, strong) NSMutableSet<FTBChallenge *> *challenges;
 
 @end
 
@@ -68,6 +67,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
+        self.wallet = @(_funds.integerValue + _stake.integerValue);
         self.country = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:self.ISOCountryCode];
     }
     return self;
@@ -83,17 +83,12 @@
 }
 
 - (NSSet *)activeBets {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match != nil && match.finished == NO && match.elapsed == 0 && bid > 0"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match != nil && match.finished == NO && bid > 0"];
     return [self.bets filteredSetUsingPredicate:predicate];
 }
 
 - (void)addBet:(FTBBet *)bet {
-    FTBBet *oldBet = [self.bets member:bet];
-    
-    if (oldBet) {
-        [self.bets removeObject:oldBet];
-        [bet.match updatePotByRemovingBet:oldBet];
-    }
+    [self removeBet:bet];
     
     [self.bets addObject:bet];
     [bet.match updatePotByAddingBet:bet];
@@ -107,18 +102,12 @@
 
 - (FTBBet *)betWithIdentifier:(NSString *)identifier {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", identifier];
-    NSSet *results = [self.bets filteredSetUsingPredicate:predicate];
-    return results.anyObject;
+    return [self.bets filteredSetUsingPredicate:predicate].anyObject;
 }
 
 - (FTBBet *)betForMatch:(FTBMatch *)match {
-    for (FTBBet *bet in self.bets) {
-        if ([bet.match isEqual:match]) {
-            return bet;
-        }
-    }
-    
-    return nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"match == %@", match];
+    return [self.bets filteredSetUsingPredicate:predicate].anyObject;
 }
 
 - (void)removeBet:(FTBBet *)bet {
@@ -139,8 +128,12 @@
 	return [[[self class] currentUser] isEqual:self];
 }
 
-- (NSNumber *)wallet {
-    return @(self.funds.integerValue + self.stake.integerValue);
+- (NSNumber *)funds {
+    return @(self.wallet.integerValue - self.stake.integerValue);
+}
+
+- (NSNumber *)stake {
+    return [self.activeBets valueForKeyPath:@"@sum.bid"];
 }
 
 - (BOOL)canRecharge {

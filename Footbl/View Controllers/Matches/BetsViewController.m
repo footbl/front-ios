@@ -84,8 +84,6 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     [[LoadingHelper sharedInstance] showHud];
 	
 	[[FTBClient client] rechargeUser:user.identifier success:^(id object) {
-        [self reloadWallet];
-        [self performSelector:@selector(reloadWallet) withObject:nil afterDelay:1];
         [[LoadingHelper sharedInstance] hideHud];
     } failure:^(NSError *error) {
         SPLogError(@"%@", error);
@@ -143,8 +141,6 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
 
 - (void)reloadData {
     [super reloadData];
-    
-    [self reloadWallet];
 
     if (![[FTBClient client] isAuthenticated]) {
         return;
@@ -171,39 +167,6 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     } failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];
-}
-
-- (void)reloadWallet {
-	FTBUser *user = [FTBUser currentUser];
-    NSArray *labels = @[self.navigationBarTitleView.walletValueLabel, self.navigationBarTitleView.stakeValueLabel, self.navigationBarTitleView.returnValueLabel, self.navigationBarTitleView.profitValueLabel];
-	
-    if (user) {
-        [UIView animateWithDuration:FTBAnimationDuration animations:^{
-            for (UILabel *label in labels) {
-                label.alpha = 1;
-            }
-        }];
-        self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
-        self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
-        self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
-        self.navigationBarTitleView.profitValueLabel.text = user.profitString;
-    } else {
-        for (UILabel *label in labels) {
-            label.text = @"";
-            label.alpha = 0;
-        }
-    }
-    
-    if (user.canRecharge) {
-        UIImage *rechargeImage = [UIImage imageNamed:@"btn_recharge_money"];
-        if ([self.navigationBarTitleView.moneyButton imageForState:UIControlStateNormal] != rechargeImage) {
-            [self.navigationBarTitleView.moneyButton setImage:rechargeImage forState:UIControlStateNormal];
-        }
-    } else {
-        [self.navigationBarTitleView.moneyButton setImage:[UIImage imageNamed:@"money_sign"] forState:UIControlStateNormal];
-    }
-    
-    [UIFont setMaxFontSizeToFitBoundsInLabels:labels];
 }
 
 - (void)updateHeaderViewWithViewController:(MatchesViewController *)viewController {
@@ -299,9 +262,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self reloadWallet];
-	
-	FTBUser *user = [FTBUser currentUser];
+    FTBUser *user = [FTBUser currentUser];
     if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && user.canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;

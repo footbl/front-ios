@@ -441,6 +441,7 @@ static CGFloat kDisabledAlpha = 0.4;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
+    self.cardContentView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.cardContentView.layer.bounds cornerRadius:4].CGPath;
     self.hostUserImageView.center = CGPointTranslate(self.hostImageView.center, 24, 24);
     self.guestUserImageView.center = CGPointTranslate(self.guestImageView.center, 24, 24);
     self.drawUserImageView.center = CGPointTranslate(self.versusLabel.center, 24, 24);

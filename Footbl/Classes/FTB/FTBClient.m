@@ -413,10 +413,14 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     __weak typeof(self) weakSelf = self;
 	NSString *path = [NSString stringWithFormat:@"/users/%@", user];
 	[self GET:path parameters:nil modelClass:[FTBUser class] success:^(FTBUser *object) {
-		if ([user isEqualToString:weakSelf.user.identifier]) {
-			[weakSelf.user mergeValuesForKeysFromModel:object];
-		}
-		if (success) success(object);
+        if (object.isMe) {
+            [weakSelf.user mergeValuesForKeysFromModel:object];
+        }
+
+        [self myBets:^(NSArray<FTBBet *> *bets) {
+            [self.user addBets:bets];
+            if (success) success(object);
+        } failure:failure];
 	} failure:failure];
 }
 
@@ -549,13 +553,23 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 	if (match.identifier) parameters[@"filterByMatch"] = match.identifier;
 	if (user.identifier) parameters[@"filterByUser"] = user.identifier;
     if (active) parameters[@"filterByNotEmpty"] = @YES;
-    __weak typeof(self) weakSelf = self;
-	[self GET:@"/bets" parameters:parameters modelClass:[FTBBet class] success:^(NSArray *bets) {
-        if (user.isMe) {
-            [weakSelf.user addBets:bets];
+	[self GET:@"/bets" parameters:parameters modelClass:[FTBBet class] success:success failure:failure];
+}
+
+- (void)myBets:(FTBBlockObject)success failure:(FTBBlockError)failure {
+    __block NSUInteger page = 0;
+    __block NSMutableSet<FTBBet *> *myBets = [[NSMutableSet alloc] init];
+    FTBBlockObject successBlock = ^(NSArray<FTBBet *> *bets) {
+        [myBets addObjectsFromArray:bets];
+        if (bets.count < FTBClientPageSize) {
+            if (success) success(myBets);
+        } else {
+            page += 1;
+            [self betsForUser:self.user match:nil activeOnly:NO page:page success:successBlock failure:failure];
         }
-        if (success) success(bets);
-    } failure:failure];
+    };
+
+    [self betsForUser:self.user match:nil activeOnly:NO page:0 success:successBlock failure:failure];
 }
 
 - (void)updateBet:(FTBBet *)bet match:(FTBMatch *)match success:(FTBBlockObject)success failure:(FTBBlockError)failure {

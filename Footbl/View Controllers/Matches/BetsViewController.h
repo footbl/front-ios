@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UILabel *placeholderLabel;
 @property (nonatomic, strong) FTBUser *challengedUser;
 
-- (void)reloadWallet;
 - (IBAction)rechargeWalletAction:(id)sender;
 
 @end
