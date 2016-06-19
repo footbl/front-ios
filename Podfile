@@ -50,7 +50,7 @@ end
 post_install do |installer_representation|
     installer_representation.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-            if target.name == 'Tweaks' && config.name.include?('Development')
+            if target.name == 'Tweaks' && (config.name.include?('Development') || config.name.include?('Beta'))
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1']
             end
         end

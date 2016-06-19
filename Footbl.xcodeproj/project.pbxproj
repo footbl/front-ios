@@ -158,6 +158,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development debug.xcconfig"; sourceTree = "<group>"; };
 		100E6A571B7AD7DB0012093B /* FTBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBModel.h; sourceTree = "<group>"; };
 		100E6A581B7AD7DB0012093B /* FTBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBModel.m; sourceTree = "<group>"; };
 		100E6A5C1B7ADD620012093B /* FTBChampionship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBChampionship.h; sourceTree = "<group>"; };
@@ -213,6 +214,8 @@
 		1100DB211D0C6938000C198A /* TrophiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophiesTableViewCell.m; sourceTree = "<group>"; };
 		1127FACD1D0CB4E8007C7EF6 /* ExperienceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExperienceTableViewCell.h; sourceTree = "<group>"; };
 		1127FACE1D0CB4E8007C7EF6 /* ExperienceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExperienceTableViewCell.m; sourceTree = "<group>"; };
+		1142774B1D162DD700A6DC62 /* Footbl Beta-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Footbl Beta-Info.plist"; sourceTree = "<group>"; };
+		1142774C1D162DD700A6DC62 /* Footbl Development-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Footbl Development-Info.plist"; sourceTree = "<group>"; };
 		1153A7791D10CCF8003EC2C5 /* UserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserImageView.h; sourceTree = "<group>"; };
 		1153A77A1D10CCF8003EC2C5 /* UserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserImageView.m; sourceTree = "<group>"; };
 		1155809F1CD6CB4A00BEC4CE /* ChampionshipsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChampionshipsHeaderView.h; sourceTree = "<group>"; };
@@ -236,9 +239,11 @@
 		11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeStatusTableViewCell.xib; sourceTree = "<group>"; };
 		11FB6A251D118AE00084E93E /* UIViewController+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Addons.h"; sourceTree = "<group>"; };
 		11FB6A261D118AE00084E93E /* UIViewController+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Addons.m"; sourceTree = "<group>"; };
-		277A0D67BE7CDF368C946A61 /* Pods-Footbl.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development debug.xcconfig"; sourceTree = "<group>"; };
-		3F5844EA526840394D873C30 /* Pods-Footbl.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development release.xcconfig"; sourceTree = "<group>"; };
-		684BA96A106C1CEE0EBAE390 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
+		1381AA58B41F91130C55CD7E /* Pods-Footbl.beta release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.beta release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.beta release.xcconfig"; sourceTree = "<group>"; };
+		39CC48D7136FB6F3333A5D4A /* Pods-Footbl.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development debug.xcconfig"; sourceTree = "<group>"; };
+		42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta release.xcconfig"; sourceTree = "<group>"; };
+		524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
+		8D58B4E47AEAA88C0AF80318 /* Pods-Footbl.beta debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.beta debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.beta debug.xcconfig"; sourceTree = "<group>"; };
 		98EE709448D6004A2861B73E /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GroupChatViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -274,9 +279,11 @@
 		A3ECBC101CB1C954006BD2AF /* TableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewSection.m; sourceTree = "<group>"; };
 		A3ECBC131CB1C961006BD2AF /* TableViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewRow.h; sourceTree = "<group>"; };
 		A3ECBC141CB1C961006BD2AF /* TableViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewRow.m; sourceTree = "<group>"; };
+		A9E5B0177C8FA9E8D534E6C6 /* Pods-Footbl.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development release.xcconfig"; sourceTree = "<group>"; };
 		AF00F90CA42CC96BA18B32DC /* Pods-FootblTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.release.xcconfig"; sourceTree = "<group>"; };
 		B6344F3EA5C0FDB529947A34 /* Pods-Footbl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.debug.xcconfig"; sourceTree = "<group>"; };
 		B89F57784995188F140B19B6 /* libPods-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta debug.xcconfig"; sourceTree = "<group>"; };
 		EC418367CD3A1C3E46F86CB3 /* Pods-Footbl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.release.xcconfig"; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
@@ -434,7 +441,6 @@
 		EDB1D46518E1F18B00E0C949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDB1D46718E1F18B00E0C949 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EDB1D46918E1F18B00E0C949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Footbl App Store-Info.plist"; sourceTree = "<group>"; };
 		EDB1D47118E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		EDB1D47318E1F18B00E0C949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Footbl-Prefix.pch"; sourceTree = "<group>"; };
@@ -510,7 +516,6 @@
 		EDEFC64818E48C25006DD33D /* MatchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchTableViewCell.h; sourceTree = "<group>"; };
 		EDEFC64918E48C25006DD33D /* MatchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchTableViewCell.m; sourceTree = "<group>"; };
 		F00B6C9B7B0F777C9F3B4212 /* libPods-Footbl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Footbl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F95385B58829D5639C016AF9 /* Pods-FootblTests.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -677,13 +682,17 @@
 			isa = PBXGroup;
 			children = (
 				B6344F3EA5C0FDB529947A34 /* Pods-Footbl.debug.xcconfig */,
-				277A0D67BE7CDF368C946A61 /* Pods-Footbl.development debug.xcconfig */,
 				EC418367CD3A1C3E46F86CB3 /* Pods-Footbl.release.xcconfig */,
-				3F5844EA526840394D873C30 /* Pods-Footbl.development release.xcconfig */,
 				98EE709448D6004A2861B73E /* Pods-FootblTests.debug.xcconfig */,
-				F95385B58829D5639C016AF9 /* Pods-FootblTests.development debug.xcconfig */,
 				AF00F90CA42CC96BA18B32DC /* Pods-FootblTests.release.xcconfig */,
-				684BA96A106C1CEE0EBAE390 /* Pods-FootblTests.development release.xcconfig */,
+				39CC48D7136FB6F3333A5D4A /* Pods-Footbl.development debug.xcconfig */,
+				8D58B4E47AEAA88C0AF80318 /* Pods-Footbl.beta debug.xcconfig */,
+				A9E5B0177C8FA9E8D534E6C6 /* Pods-Footbl.development release.xcconfig */,
+				1381AA58B41F91130C55CD7E /* Pods-Footbl.beta release.xcconfig */,
+				08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */,
+				CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */,
+				524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */,
+				42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -964,17 +973,18 @@
 		EDB1D46E18E1F18B00E0C949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				10E2413D1BB87DAA00D1482C /* trophies.json */,
 				EDDCF25A193541A40090D06D /* Constants.h */,
-				EDB1D46F18E1F18B00E0C949 /* Footbl App Store-Info.plist */,
-				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
+				10E2413D1BB87DAA00D1482C /* trophies.json */,
+				EDB1D47318E1F18B00E0C949 /* main.m */,
 				EDB1D47518E1F18B00E0C949 /* Footbl-Prefix.pch */,
+				1142774B1D162DD700A6DC62 /* Footbl Beta-Info.plist */,
+				1142774C1D162DD700A6DC62 /* Footbl Development-Info.plist */,
+				ED785A65199D0C63002A4DBD /* Footbl-Info.plist */,
+				ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */,
 				EDB1D47C18E1F18B00E0C949 /* Images.xcassets */,
 				EDB1D47018E1F18B00E0C949 /* InfoPlist.strings */,
 				ED19A407190ACF8700946490 /* Localizable.strings */,
 				117044021A8EB45E00521BAB /* Localizable.stringsdict */,
-				EDB1D47318E1F18B00E0C949 /* main.m */,
-				ED42F7241A013224004F3CD2 /* Pods-acknowledgements.plist */,
 				ED7C715F19F949310002E6B0 /* Sounds */,
 				EDDCF22A1934ED530090D06D /* Tutorial */,
 			);
@@ -1730,6 +1740,154 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		114277451D16285400A6DC62 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = "Beta Debug";
+		};
+		114277461D16285400A6DC62 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D58B4E47AEAA88C0AF80318 /* Pods-Footbl.beta debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEVELOPMENT=1",
+				);
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl Beta-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = co.footbl.footbl1;
+				PRODUCT_NAME = Footbl;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Beta Debug";
+		};
+		114277471D16285400A6DC62 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = "Beta Debug";
+		};
+		114277481D16286C00A6DC62 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Beta Release";
+		};
+		114277491D16286C00A6DC62 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1381AA58B41F91130C55CD7E /* Pods-Footbl.beta release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEVELOPMENT=1",
+				);
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl Beta-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = co.footbl.footbl1;
+				PRODUCT_NAME = Footbl;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Beta Release";
+		};
+		1142774A1D16286C00A6DC62 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = "Beta Release";
+		};
 		114BD5A71CD1121500A8A39C /* Development Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1767,7 +1925,7 @@
 		};
 		114BD5A81CD1121500A8A39C /* Development Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 277A0D67BE7CDF368C946A61 /* Pods-Footbl.development debug.xcconfig */;
+			baseConfigurationReference = 39CC48D7136FB6F3333A5D4A /* Pods-Footbl.development debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Development";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1778,7 +1936,7 @@
 					"$(inherited)",
 					"DEVELOPMENT=1",
 				);
-				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl-Info.plist";
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl Development-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl.development;
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
@@ -1787,7 +1945,7 @@
 		};
 		114BD5A91CD1121500A8A39C /* Development Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F95385B58829D5639C016AF9 /* Pods-FootblTests.development debug.xcconfig */;
+			baseConfigurationReference = 08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1840,7 +1998,7 @@
 		};
 		114BD5AB1CD1122200A8A39C /* Development Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F5844EA526840394D873C30 /* Pods-Footbl.development release.xcconfig */;
+			baseConfigurationReference = A9E5B0177C8FA9E8D534E6C6 /* Pods-Footbl.development release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Development";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1851,7 +2009,7 @@
 					"$(inherited)",
 					"DEVELOPMENT=1",
 				);
-				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl-Info.plist";
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl Development-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl.development;
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
@@ -1860,7 +2018,7 @@
 		};
 		114BD5AC1CD1122200A8A39C /* Development Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 684BA96A106C1CEE0EBAE390 /* Pods-FootblTests.development release.xcconfig */;
+			baseConfigurationReference = 524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1887,7 +2045,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$CONFIGURATION_BUILD_DIR/AFNetworkActivityLogger\"",
@@ -1931,7 +2089,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Leonardo Formaggio (T4TQ8UQC4T)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl App Store-Info.plist";
+				INFOPLIST_FILE = "Footbl/Supporting Files/Footbl-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.Footbl;
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
@@ -2052,8 +2210,10 @@
 			buildConfigurations = (
 				ED8DB4151A14C95C00605CCE /* Debug */,
 				114BD5A81CD1121500A8A39C /* Development Debug */,
+				114277461D16285400A6DC62 /* Beta Debug */,
 				ED8DB4161A14C95C00605CCE /* Release */,
 				114BD5AB1CD1122200A8A39C /* Development Release */,
+				114277491D16286C00A6DC62 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2063,8 +2223,10 @@
 			buildConfigurations = (
 				EDB1D49218E1F18B00E0C949 /* Debug */,
 				114BD5A71CD1121500A8A39C /* Development Debug */,
+				114277451D16285400A6DC62 /* Beta Debug */,
 				EDB1D49318E1F18B00E0C949 /* Release */,
 				114BD5AA1CD1122200A8A39C /* Development Release */,
+				114277481D16286C00A6DC62 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2074,8 +2236,10 @@
 			buildConfigurations = (
 				EDB1D49818E1F18B00E0C949 /* Debug */,
 				114BD5A91CD1121500A8A39C /* Development Debug */,
+				114277471D16285400A6DC62 /* Beta Debug */,
 				EDB1D49918E1F18B00E0C949 /* Release */,
 				114BD5AC1CD1122200A8A39C /* Development Release */,
+				1142774A1D16286C00A6DC62 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
