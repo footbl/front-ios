@@ -28,6 +28,7 @@
 #import "NSNumber+Formatter.h"
 #import "RechargeButton.h"
 #import "RechargeViewController.h"
+#import "SVInfiniteScrollingView+Addons.h"
 #import "UIFont+MaxFontSize.h"
 #import "UIView+Frame.h"
 #import "UIView+Shake.h"
@@ -344,6 +345,10 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
     UIEdgeInsets inset = UIEdgeInsetsMake(top, 0, bottom, 0);
     self.tableView.contentInset = inset;
     self.tableView.scrollIndicatorInsets = inset;
+    self.tableView.infiniteScrollingView.originalBottomInset = bottom;
+    BOOL showsInfiniteScrolling = self.tableView.showsInfiniteScrolling;
+    self.tableView.showsInfiniteScrolling = NO;
+    self.tableView.showsInfiniteScrolling = showsInfiniteScrolling;
 }
 
 #pragma mark - Delegates & Data sources

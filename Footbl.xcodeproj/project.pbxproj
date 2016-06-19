@@ -40,6 +40,7 @@
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
+		119CDD461D17488E0022730C /* SVInfiniteScrollingView+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */; };
 		11D4F4271D09B9BF0038C740 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4F4261D09B9BF0038C740 /* LineView.m */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
 		11EF13ED1CE362A3006D1A2A /* ChallengeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF13EC1CE362A3006D1A2A /* ChallengeTableViewCell.m */; };
@@ -230,6 +231,8 @@
 		117044051A8EB46000521BAB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		119CDD441D17488E0022730C /* SVInfiniteScrollingView+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVInfiniteScrollingView+Addons.h"; sourceTree = "<group>"; };
+		119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVInfiniteScrollingView+Addons.m"; sourceTree = "<group>"; };
 		11D4F4251D09B9BF0038C740 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
 		11D4F4261D09B9BF0038C740 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		11EF13EB1CE362A3006D1A2A /* ChallengeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeTableViewCell.h; sourceTree = "<group>"; };
@@ -1049,6 +1052,8 @@
 				10B3AF191BB4D7F000E89253 /* UINavigationBar+UIProgressView.m */,
 				11FB6A251D118AE00084E93E /* UIViewController+Addons.h */,
 				11FB6A261D118AE00084E93E /* UIViewController+Addons.m */,
+				119CDD441D17488E0022730C /* SVInfiniteScrollingView+Addons.h */,
+				119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1507,6 +1512,7 @@
 				109FB2D91B7C366D00E67B3C /* FTBMessage.m in Sources */,
 				10390DCC1B7D7D5B001AA9CE /* FTBClient.m in Sources */,
 				A3ECBBFA1CB1C0B9006BD2AF /* RechargeButton.m in Sources */,
+				119CDD461D17488E0022730C /* SVInfiniteScrollingView+Addons.m in Sources */,
 				1089AD721BA10B270078C4E6 /* FTBTrophy.m in Sources */,
 				A3ECBC041CB1C0C1006BD2AF /* FootblPopupAnimatedTransition.m in Sources */,
 				109FB2DF1B7C385500E67B3C /* FTBBet.m in Sources */,
