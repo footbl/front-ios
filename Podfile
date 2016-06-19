@@ -14,6 +14,7 @@ target 'Footbl' do
     pod 'Crashlytics', '3.7.0'
     pod 'GoogleAnalytics', '3.14.0'
     pod 'Flurry-iOS-SDK', '7.5.2'
+    pod 'HockeySDK', '~> 4.0.1'
     
     # Networking
     pod 'AFNetworking', '2.4.1'

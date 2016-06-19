@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Footbl. All rights reserved.
 //
 
+@import HockeySDK;
+
 #import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <Crashlytics/Crashlytics.h>
@@ -76,7 +78,11 @@
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-43860362-8"];
     
     [[RatingHelper sharedInstance] run];
-    
+
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"1ffd3e5620e04fcf852774a281d42d0f"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+
     static NSString *kVersionKey = @"kVersionKey";
     static NSString *kFirstRunKey = @"kFirstRunKey";
     BOOL newRelease = NO;

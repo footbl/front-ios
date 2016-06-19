@@ -49,6 +49,9 @@ PODS:
   - Flurry-iOS-SDK/FlurrySDK (7.5.2)
   - FXKeychain (1.5.2)
   - GoogleAnalytics (3.14.0)
+  - HockeySDK (4.0.1):
+    - HockeySDK/AllFeaturesLib (= 4.0.1)
+  - HockeySDK/AllFeaturesLib (4.0.1)
   - iRate (1.11.3)
   - KIF (3.0.8):
     - KIF/XCTest (= 3.0.8)
@@ -115,6 +118,7 @@ DEPENDENCIES:
   - Flurry-iOS-SDK (= 7.5.2)
   - FXKeychain (= 1.5.2)
   - GoogleAnalytics (= 3.14.0)
+  - HockeySDK (~> 4.0.1)
   - iRate (= 1.11.3)
   - KIF (= 3.0.8)
   - LDProgressView (~> 1.2.1)
@@ -154,6 +158,7 @@ SPEC CHECKSUMS:
   Flurry-iOS-SDK: 8c87c4eab6008184ad9f63afabd79ec0d109c82e
   FXKeychain: 1a711bddc04a2bd69850dcfe297b8a43027a9980
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
+  HockeySDK: 1b69a82782f6a3d4a1c0b1f04dca4bca83fc8c82
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
   KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
   LDProgressView: f6afc7c30d2a9edf33001515f3189338567a32d2
@@ -169,6 +174,6 @@ SPEC CHECKSUMS:
   Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-PODFILE CHECKSUM: d4a3a9748f95a2fbe031481b9a7bf19cacfb84b8
+PODFILE CHECKSUM: cf0aa882d1cf0d217a77668727822dcfd5c39df0
 
 COCOAPODS: 1.0.1

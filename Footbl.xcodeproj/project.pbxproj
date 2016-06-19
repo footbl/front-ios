@@ -1166,6 +1166,7 @@
 			buildConfigurationList = ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
 				737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */,
+				110F95591D1640D100779C58 /* HockeyApp */,
 				11A246E81D10364800A59D74 /* Sort Imports */,
 				ED8DB3861A14C95C00605CCE /* Sources */,
 				ED8DB3F31A14C95C00605CCE /* Frameworks */,
@@ -1298,6 +1299,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		110F95591D1640D100779C58 /* HockeyApp */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = HockeyApp;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n    \"$FILE\"\nfi";
 		};
 		11A246E81D10364800A59D74 /* Sort Imports */ = {
 			isa = PBXShellScriptBuildPhase;
