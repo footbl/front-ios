@@ -288,6 +288,7 @@
     [super loadView];
     
     self.title = NSLocalizedString(@"Transfers", @"");
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.view.clipsToBounds = NO;
     
