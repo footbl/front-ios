@@ -122,7 +122,8 @@
 
 - (void)loadView {
     [super loadView];
-    
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor ftb_viewMatchBackgroundColor];
     self.title = NSLocalizedString(@"Bet history", @"");
     
