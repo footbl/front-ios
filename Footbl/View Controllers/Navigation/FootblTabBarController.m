@@ -140,6 +140,7 @@
     }];
     
     self.tabBar.tintColor = [UIColor ftb_tabBarTintColor];
+    self.tabBar.barTintColor = [UIColor ftb_tabBarColor];
 }
 
 @end
