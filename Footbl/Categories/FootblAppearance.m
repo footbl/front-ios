@@ -62,7 +62,7 @@ UIColor *UIColorMake(NSUInteger red, NSUInteger green, NSUInteger blue, CGFloat 
 }
 
 + (UIColor *)ftb_navigationBarColor {
-	return [UIColor colorWithWhite:1.00 alpha:FBTweakValue(@"UI", @"Navigation Bar", @"Alpha", 0.95, 0.8, 1.0)];
+	return [UIColor colorWithWhite:1.00 alpha:0.98];
 }
 
 + (UIColor *)ftb_navigationBarSeparatorColor {
