@@ -24,7 +24,7 @@
     } else if (self.type == FTBGroupTypeFriends) {
         image = [UIImage imageNamed:@"icon-group-friends"];
     } else {
-        NSString *code = [[FTBUser currentUser] ISOCountryCode];
+        NSString *code = [FTBUser currentUser].ISOCountryCode;
         image = [UIImage imageWithText:code size:CGSizeMake(60, 60)] ?: [UIImage imageNamed:@"generic_group"];
     }
     return image;

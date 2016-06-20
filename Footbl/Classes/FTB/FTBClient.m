@@ -380,7 +380,7 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
     CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     parameters[@"password"] = password ?: [NSString randomHexStringWithLength:20];
-    parameters[@"country"] = info.subscriberCellularProvider.isoCountryCode ?: @"BR";
+    parameters[@"country"] = info.subscriberCellularProvider.isoCountryCode.uppercaseString ?: @"BR";
 	[self POST:@"/users" parameters:parameters modelClass:[FTBUser class] success:^(NSString *identifier) {
 		[FXKeychain defaultKeychain][kUserIdentifierKey] = identifier;
 		[FXKeychain defaultKeychain][kUserPasswordKey] = password;
