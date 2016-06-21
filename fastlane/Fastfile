@@ -30,7 +30,7 @@ platform :ios do
       api_token: '4479ee5e69634b46a3e78fdd299967f0'
     )
 
-    reset_git_repo
+    clean_build_artifacts
     push_to_git_remote(
       local_branch: 'development',
       remote_branch: 'development'
