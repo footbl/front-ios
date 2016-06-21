@@ -56,7 +56,7 @@
 #pragma mark - View Lifecycle
 
 - (BOOL)prefersStatusBarHidden {
-    return FBTweakValue(@"UI", @"Popup", @"Hide status bar", NO);
+    return NO;
 }
 
 - (void)loadView {

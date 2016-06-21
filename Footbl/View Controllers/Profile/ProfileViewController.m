@@ -253,7 +253,7 @@
             cell.rankingLabel.text = @"";
         }
         
-        if (FBTweakValue(@"UX", @"Profile", @"Rank Progress", YES) && weakSelf.user.ranking && weakSelf.user.previousRanking) {
+        if (weakSelf.user.ranking && weakSelf.user.previousRanking) {
             cell.rankingProgress = @(weakSelf.user.previousRanking.integerValue - weakSelf.user.ranking.integerValue);
         } else {
             cell.rankingProgress = @0;

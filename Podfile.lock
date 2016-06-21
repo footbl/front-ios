@@ -93,7 +93,6 @@ PODS:
     - TransformerKit/Core
   - TransformerKit/String (0.5.3):
     - TransformerKit/Core
-  - Tweaks (1.1.0)
   - UIAlertView-Blocks (1.0)
 
 DEPENDENCIES:
@@ -120,7 +119,6 @@ DEPENDENCIES:
   - StyledPageControl (= 1.0)
   - SVPullToRefresh (= 0.4.1)
   - TransformerKit (= 0.5.3)
-  - Tweaks (= 1.1.0)
   - UIAlertView-Blocks (= 1.0)
 
 EXTERNAL SOURCES:
@@ -157,9 +155,8 @@ SPEC CHECKSUMS:
   StyledPageControl: b49f33cb65b99370a78a490fac127b1ca6472fd0
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TransformerKit: ecc75d46d34be4da3370556ee6acbf85d04bf44a
-  Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-PODFILE CHECKSUM: 5caa4ed9a28e14b737de4af4ce9b8b5b9eab8c45
+PODFILE CHECKSUM: 0229b0d8c788d71d922f023ac12eb3bb5f97d6b9
 
 COCOAPODS: 1.0.1

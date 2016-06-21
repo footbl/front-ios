@@ -36,7 +36,6 @@ target 'Footbl' do
     pod 'MBProgressHUD', '0.9'
     pod 'StyledPageControl', '1.0'
     pod 'SVPullToRefresh', '0.4.1'
-    pod 'Tweaks', '1.1.0'
     pod 'UIAlertView-Blocks', '1.0'
     pod 'LDProgressView', '~> 1.2.1'
 

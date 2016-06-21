@@ -73,14 +73,12 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
         [alert show];
         return;
     }
-    
-    if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
-        [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
-        [self setNeedsStatusBarAppearanceUpdate];
-        return;
-    }
-    
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
+    [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
+    [self setNeedsStatusBarAppearanceUpdate];
+
+    /*
     [[LoadingHelper sharedInstance] showHud];
 	
 	[[FTBClient client] rechargeUser:user.identifier success:^(id object) {
@@ -90,6 +88,7 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
         [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
     }];
+     */
 }
 
 - (NSTimeInterval)updateInterval {
@@ -266,12 +265,12 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     [super viewWillAppear:animated];
     
     FTBUser *user = [FTBUser currentUser];
-    if (FBTweakValue(@"UX", @"Wallet", @"Glowing Button", YES) && user.canRecharge) {
+    if (user.canRecharge) {
         self.navigationBarTitleView.moneyButton.numberOfAnimations = 3;
         self.navigationBarTitleView.moneyButton.animating = YES;
     }
     
-    if (FBTweakValue(@"UX", @"Wallet", @"Daily Bonus", YES) && (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval)) {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch] || fabs([[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] objectForKey:kPrizeLatestFetch]]) > kPrizeFetchInterval) {
 		[[FTBClient client] prizesForUser:user page:0 unread:YES success:^(NSArray *prizes) {
             [prizes enumerateObjectsUsingBlock:^(FTBPrize *prize, NSUInteger idx, BOOL *stop) {
                 if (prize.type == FTBPrizeTypeDaily || prize.type == FTBPrizeTypeUpdate) {

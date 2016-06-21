@@ -82,14 +82,12 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		[alert show];
 		return;
 	}
-	
-	if (FBTweakValue(@"UX", @"Profile", @"Transfers", YES)) {
-		UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
-		[self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
-		[self setNeedsStatusBarAppearanceUpdate];
-		return;
-	}
-	
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[RechargeViewController alloc] init]];
+    [self presentViewController:[[FootblPopupViewController alloc] initWithRootViewController:navigationController] animated:YES completion:nil];
+    [self setNeedsStatusBarAppearanceUpdate];
+
+    /*
 	[[LoadingHelper sharedInstance] showHud];
 	
 	[[FTBClient client] rechargeUser:user.identifier success:^(id object) {
@@ -101,6 +99,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 		[[LoadingHelper sharedInstance] hideHud];
 		[[ErrorHandler sharedInstance] displayError:error];
 	}];
+     */
 }
 
 - (void)configureCell:(MatchTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

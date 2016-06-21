@@ -62,11 +62,7 @@ static CGFloat kMaxValueToShortTextFormat = 999999;
     formatter.usesGroupingSeparator = YES;
     formatter.numberStyle = NSNumberFormatterCurrencyStyle;
     formatter.currencySymbol = @"#";
-    if (FBTweakValue(@"Values", @"Profile", @"Ranking", 0, 0, HUGE_VAL)) {
-        return [formatter stringFromNumber:@(FBTweakValue(@"Values", @"Profile", @"Ranking", 0, 0, HUGE_VAL))];
-    } else {
-        return [formatter stringFromNumber:self];
-    }
+    return [formatter stringFromNumber:self];
 }
 
 - (NSString *)potStringValue {

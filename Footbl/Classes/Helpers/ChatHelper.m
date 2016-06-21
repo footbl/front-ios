@@ -63,9 +63,8 @@
     } else {
         self.tabBarItem.badgeValue = unreadCount.stringValue;
     }
-    if (FBTweakValue(@"UX", @"Group", @"Chat badge (icon)", YES)) {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount.integerValue];
-    }
+
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:unreadCount.integerValue];
 }
 
 @end

@@ -162,7 +162,7 @@ static CGFloat kDisabledAlpha = 0.4;
         self.liveHeaderView.backgroundColor = [UIColor ftb_greenLiveColor];
         self.footerLabel.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     } else if (self.stateLayout == MatchTableViewCellStateLayoutDone) {
-        self.liveHeaderView.backgroundColor = [UIColor colorWithWhite:FBTweakValue(@"UI", @"Match", @"Border (Gray)", 0.7, 0.55, 0.8) alpha:1.0];
+        self.liveHeaderView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     }
     self.cardContentView.layer.borderColor = self.liveHeaderView.backgroundColor.CGColor;
     
@@ -195,7 +195,7 @@ static CGFloat kDisabledAlpha = 0.4;
 - (void)setColorScheme:(MatchTableViewCellColorScheme)colorScheme {
     _colorScheme = colorScheme;
     
-    if (FBTweakValue(@"UI", @"Match", @"Highlight only profit", FT_ENABLE_HIGHLIGHT_ONLY_PROFIT)) {
+    if (FT_ENABLE_HIGHLIGHT_ONLY_PROFIT) {
         UIColor *grayColor = [UIColor colorWithRed:110/255.f green:130/255.f blue:119/255.f alpha:0.4];
         
         switch (self.colorScheme) {
@@ -546,7 +546,7 @@ static CGFloat kDisabledAlpha = 0.4;
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
 	if (!self.simpleSelection) {
-		if (FBTweakValue(@"UX", @"Match", @"Tap & Hold", FT_ENABLE_TAP_AND_HOLD)) {
+		if (FT_ENABLE_TAP_AND_HOLD) {
 			self.stepperUserInteractionEnabled = YES;
 			
 			self.hostStepper.userInteractionEnabled = YES;

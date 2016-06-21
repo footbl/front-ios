@@ -88,7 +88,6 @@
 		ED8DB3A81A14C95C00605CCE /* WhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7C0FB61959C76900275685 /* WhatsAppActivity.m */; };
 		ED8DB3A91A14C95C00605CCE /* TransfersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3A0F4E1988187200011E91 /* TransfersViewController.m */; };
 		ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9D0B0118F31D8F0061AE42 /* AuthenticationViewController.m */; };
-		ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555C01980240E0051AAF5 /* TweaksHelper.m */; };
 		ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C9B192F149C002C763D /* FavoriteTableViewCell.m */; };
 		ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */; };
 		ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */; };
@@ -514,8 +513,6 @@
 		EDE555BA198012390051AAF5 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		EDE555BC198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+AlignmentCenter.h"; sourceTree = "<group>"; };
 		EDE555BD198015690051AAF5 /* NSParagraphStyle+AlignmentCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+AlignmentCenter.m"; sourceTree = "<group>"; };
-		EDE555BF1980240E0051AAF5 /* TweaksHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweaksHelper.h; sourceTree = "<group>"; };
-		EDE555C01980240E0051AAF5 /* TweaksHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweaksHelper.m; sourceTree = "<group>"; };
 		EDE6615E196EDC2900C8F5E1 /* ProfileSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSearchViewController.h; sourceTree = "<group>"; };
 		EDE6615F196EDC2900C8F5E1 /* ProfileSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSearchViewController.m; sourceTree = "<group>"; };
 		EDE66164196F56E900C8F5E1 /* BetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetsViewController.h; sourceTree = "<group>"; };
@@ -1135,8 +1132,6 @@
 				EDDF974E1981E7FB00B97F15 /* RatingHelper.m */,
 				EDA4BBF71A238CA200A41004 /* TransfersHelper.h */,
 				EDA4BBF81A238CA200A41004 /* TransfersHelper.m */,
-				EDE555BF1980240E0051AAF5 /* TweaksHelper.h */,
-				EDE555C01980240E0051AAF5 /* TweaksHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1543,7 +1538,6 @@
 				ED8DB3AA1A14C95C00605CCE /* AuthenticationViewController.m in Sources */,
 				109FB2C71B7C29AB00E67B3C /* FTBTeam.m in Sources */,
 				EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */,
-				ED8DB3AE1A14C95C00605CCE /* TweaksHelper.m in Sources */,
 				ED8DB3AF1A14C95C00605CCE /* FavoriteTableViewCell.m in Sources */,
 				ED8DB3B01A14C95C00605CCE /* NSParagraphStyle+AlignmentCenter.m in Sources */,
 				ED8DB3B11A14C95C00605CCE /* ProfileSearchViewController.m in Sources */,

@@ -53,7 +53,7 @@ NSInteger const WalletReference = 105;
 
 - (BOOL)iRateShouldPromptForRating {
 	FTBUser *user = [FTBUser currentUser];
-    if ((user.funds.integerValue + user.stake.integerValue) >= WalletReference && FBTweakValue(@"UX", @"Footbl", @"Review on App Store", FT_ENABLE_REVIEW_ON_APP_STORE)) {
+    if ((user.funds.integerValue + user.stake.integerValue) >= WalletReference && FT_ENABLE_REVIEW_ON_APP_STORE) {
         return YES;
     }
     return NO;

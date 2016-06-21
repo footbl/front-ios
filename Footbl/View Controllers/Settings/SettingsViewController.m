@@ -9,9 +9,6 @@
 @import MessageUI;
 
 #import <SPHipster/SPHipster.h>
-#import <Tweaks/FBTweak.h>
-#import <Tweaks/FBTweakInline.h>
-#import <Tweaks/FBTweakViewController.h>
 
 #import "SettingsViewController.h"
 #import "AuthenticationViewController.h"
@@ -34,7 +31,7 @@ typedef NS_ENUM(NSInteger, SettingsType) {
     SettingsTypeMore
 };
 
-@interface SettingsViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate, FBTweakViewControllerDelegate>
+@interface SettingsViewController () <MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -157,11 +154,7 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
                                                                                                kSettingsDataSourceValueKey : @"",
                                                                                                kSettingsDataSourceTypeKey : @(SettingsTypeMore),
                                                                                                kSettingsDataSourceExtraKey : @[@{kSettingsDataSourceTitleKey : @"Logs",
-                                                                                                                                 kSettingsDataSourceItemsKey : logs}]},
-                                                                                             @{kSettingsDataSourceTitleKey : @"Tweaks",
-                                                                                               kSettingsDataSourceValueKey : @"",
-                                                                                               kSettingsDataSourceTypeKey : @(SettingsTypeAction),
-                                                                                               kSettingsDataSourceExtraKey : NSStringFromSelector(@selector(tweaksAction:))}
+                                                                                                                                 kSettingsDataSourceItemsKey : logs}]}
                                                                                              ]}];
         }
     }
@@ -243,12 +236,6 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
     text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\n"];
     textViewController.text = text;
     [self.navigationController pushViewController:textViewController animated:YES];
-}
-
-- (void)tweaksAction:(id)sender {
-    FBTweakViewController *tweakViewController = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
-    tweakViewController.tweaksDelegate = self;
-    [self presentViewController:tweakViewController animated:YES completion:nil];
 }
 
 - (void)viewTutorialAction:(id)sender {
@@ -364,12 +351,6 @@ NSString * const kChangelogUrlString = @"https://rink.hockeyapp.net/apps/5ab6b43
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             break;
     }
-}
-
-#pragma mark - FBTweakViewControllerDelegate
-
-- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - View Lifecycle

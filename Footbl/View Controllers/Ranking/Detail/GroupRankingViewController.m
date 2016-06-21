@@ -140,7 +140,7 @@
     
     [cell.profileImageView sd_setImageWithURL:user.pictureURL placeholderImage:cell.placeholderImage];
     
-    if (FBTweakValue(@"UI", @"Group", @"Medals", FT_ENABLE_MEDALS)) {
+    if (FT_ENABLE_MEDALS) {
         switch (indexPath.row) {
             case 0:
                 cell.medalImageView.image = [UIImage imageNamed:@"groups_medal_gold"];
