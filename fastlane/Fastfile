@@ -15,12 +15,14 @@ platform :ios do
 
   desc "Submit a new Beta Build to HockeyApp"
   lane :beta do
-    gym(scheme: "Footbl Beta")
+    gym(
+      scheme: "Footbl Beta",
+      export_method: 'ad-hoc',
+      use_legacy_build_api: true,
+    )
 
     hockey(
-      api_token: '...',
-      ipa: './app.ipa',
-      notes: "Changelog"
+      api_token: '4479ee5e69634b46a3e78fdd299967f0'
     )
   end
 
