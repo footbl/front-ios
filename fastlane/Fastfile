@@ -16,6 +16,8 @@ platform :ios do
   desc "Submit a new Beta Build to HockeyApp"
   lane :beta do
     ensure_git_status_clean
+    increment_build_number build_number: number_of_commits
+    commit_version_bump
 
     gym(
       clean: false,
@@ -29,9 +31,10 @@ platform :ios do
     )
 
     reset_git_repo
-    increment_build_number build_number: number_of_commits
-    commit_version_bump
-    push_to_git_remote(branch: 'development')
+    push_to_git_remote(
+      local_branch: 'development',
+      remote_branch: 'development'
+    )
   end
 
   desc "Deploy a new version to the App Store"
