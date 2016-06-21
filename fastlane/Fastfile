@@ -15,6 +15,9 @@ platform :ios do
 
   desc "Submit a new Beta Build to HockeyApp"
   lane :beta do
+    increment_build_number build_number: number_of_commits
+    commit_version_bump
+
     gym(
       scheme: "Footbl Beta",
       export_method: 'ad-hoc',
