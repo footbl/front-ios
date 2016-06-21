@@ -28,19 +28,16 @@ target 'Footbl' do
     
     # Utilities
     pod 'APAddressBook', '0.1.4'
-    pod 'CargoBay', '2.1.0'
     pod 'Cloudinary', '1.0.12'
     pod 'FBSDKCoreKit', '4.10.1'
     pod 'FBSDKShareKit', '4.10.1'
     pod 'FBSDKLoginKit', '4.10.1'
     pod 'iRate', '1.11.3'
     pod 'MBProgressHUD', '0.9'
-    pod 'RMStore', '0.6.0'
     pod 'StyledPageControl', '1.0'
     pod 'SVPullToRefresh', '0.4.1'
     pod 'Tweaks', '1.1.0'
     pod 'UIAlertView-Blocks', '1.0'
-    pod 'SVPullToRefresh', '0.4.1'
     pod 'LDProgressView', '~> 1.2.1'
 
     target 'FootblTests' do

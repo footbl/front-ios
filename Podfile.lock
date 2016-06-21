@@ -32,8 +32,6 @@ PODS:
   - Bolts/AppLinks (1.6.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.6.0)
-  - CargoBay (2.1.0):
-    - AFNetworking (~> 2.2)
   - Cloudinary (1.0.12)
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
@@ -58,9 +56,6 @@ PODS:
     - Mantle/extobjc (= 2.0.3)
   - Mantle/extobjc (2.0.3)
   - MBProgressHUD (0.9)
-  - RMStore (0.6.0):
-    - RMStore/Core (= 0.6.0)
-  - RMStore/Core (0.6.0)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -105,7 +100,6 @@ DEPENDENCIES:
   - AFNetworkActivityLogger (= 2.0.3)
   - AFNetworking (= 2.4.1)
   - APAddressBook (= 0.1.4)
-  - CargoBay (= 2.1.0)
   - Cloudinary (= 1.0.12)
   - Crashlytics (= 3.7.0)
   - Fabric (= 1.6.7)
@@ -120,7 +114,6 @@ DEPENDENCIES:
   - LDProgressView (~> 1.2.1)
   - Mantle (~> 2.0.3)
   - MBProgressHUD (= 0.9)
-  - RMStore (= 0.6.0)
   - SDWebImage (= 3.7.1)
   - SPHipster (= 0.5.3)
   - SPNotifier (from `https://git.madeatsampa.com/madeatsampa/spnotifier-ios.git`)
@@ -144,7 +137,6 @@ SPEC CHECKSUMS:
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
   APAddressBook: 927c6c7ee68b0d345ee04e9e403ba60ab6c273cb
   Bolts: f52a250053bb517ca874523c3913776359ab3def
-  CargoBay: 3afad56937d51596f081e38d2a7829835fefab06
   Cloudinary: b9f023dbe33b0f55d0d783a5398cd23e491debe2
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
@@ -159,7 +151,6 @@ SPEC CHECKSUMS:
   LDProgressView: f6afc7c30d2a9edf33001515f3189338567a32d2
   Mantle: 8d6b14979a082a9ed4994463eb7a4ff576c94632
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
-  RMStore: d6a1fa44111f843a0c24cfc6ee934ae30a4b54ac
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
   SPHipster: bda4f8c802d57ac2750a3724a8c583b5aa21ddb8
   SPNotifier: c9744adbbb480b3086abbc9ee9c9f1e1d13dabb1
@@ -169,6 +160,6 @@ SPEC CHECKSUMS:
   Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-PODFILE CHECKSUM: 149038a699d3d50731ae61b89eb69715c97787cf
+PODFILE CHECKSUM: 5caa4ed9a28e14b737de4af4ce9b8b5b9eab8c45
 
 COCOAPODS: 1.0.1
