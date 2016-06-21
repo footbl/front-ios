@@ -42,10 +42,10 @@ target 'Footbl' do
     pod 'UIAlertView-Blocks', '1.0'
     pod 'SVPullToRefresh', '0.4.1'
     pod 'LDProgressView', '~> 1.2.1'
-end
 
-target 'FootblTests' do
-    pod 'KIF', '3.0.8'
+    target 'FootblTests' do
+        inherit! :search_paths
+    end
 end
 
 post_install do |installer_representation|

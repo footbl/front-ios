@@ -40,6 +40,8 @@
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
+		119802DB1D18CFD4001D44F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 119802D31D18CFD4001D44F1 /* InfoPlist.strings */; };
+		119802E81D18CFDF001D44F1 /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */; };
 		119CDD461D17488E0022730C /* SVInfiniteScrollingView+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */; };
 		11D4F4271D09B9BF0038C740 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4F4261D09B9BF0038C740 /* LineView.m */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -47,9 +49,8 @@
 		11F9C4401CE214FC00E01A11 /* ChallengeStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F9C43F1CE214FC00E01A11 /* ChallengeStatusTableViewCell.m */; };
 		11F9C4421CE2151500E01A11 /* ChallengeStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F9C4411CE2151500E01A11 /* ChallengeStatusTableViewCell.xib */; };
 		11FB6A271D118AE00084E93E /* UIViewController+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FB6A261D118AE00084E93E /* UIViewController+Addons.m */; };
-		16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
+		5CAFFAF675BF18DA4321403F /* libPods-FootblTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89F57784995188F140B19B6 /* libPods-FootblTests.a */; };
 		6871A1E0936A6B62C15BB86C /* libPods-Footbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F00B6C9B7B0F777C9F3B4212 /* libPods-Footbl.a */; };
-		A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */; };
 		A36E0C6C1C9F7F45001ABB35 /* UILabel+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6A1C9F7F45001ABB35 /* UILabel+Image.m */; };
 		A36E0C701C9F8A66001ABB35 /* UIImage+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = A36E0C6E1C9F8A66001ABB35 /* UIImage+Text.m */; };
 		A39897781CB107C100957063 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E52B01CA8AE4900D9AA0C /* GroupsViewController.m */; };
@@ -153,13 +154,19 @@
 		EDA4BBF11A2269C700A41004 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBEE1A2269C700A41004 /* NSDate+Utils.m */; };
 		EDA4BBF61A22C17C00A41004 /* ChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF31A22C17C00A41004 /* ChatHelper.m */; };
 		EDA4BBFB1A238CA200A41004 /* TransfersHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA4BBF81A238CA200A41004 /* TransfersHelper.m */; };
-		EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46518E1F18B00E0C949 /* Foundation.framework */; };
-		EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB1D46918E1F18B00E0C949 /* UIKit.framework */; };
-		EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D48D18E1F18B00E0C949 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		119802C91D18CF9A001D44F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDB1D45A18E1F18B00E0C949 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED8DB3831A14C95C00605CCE;
+			remoteInfo = Footbl;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development debug.xcconfig"; sourceTree = "<group>"; };
 		100E6A571B7AD7DB0012093B /* FTBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBModel.h; sourceTree = "<group>"; };
 		100E6A581B7AD7DB0012093B /* FTBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBModel.m; sourceTree = "<group>"; };
 		100E6A5C1B7ADD620012093B /* FTBChampionship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBChampionship.h; sourceTree = "<group>"; };
@@ -231,6 +238,15 @@
 		117044051A8EB46000521BAB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		119802C41D18CF9A001D44F1 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		119802D41D18CFD4001D44F1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802D51D18CFD4001D44F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802D61D18CFD4001D44F1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802D71D18CFD4001D44F1 /* FootblTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
+		119802D81D18CFD4001D44F1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802D91D18CFD4001D44F1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802DA1D18CFD4001D44F1 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
 		119CDD441D17488E0022730C /* SVInfiniteScrollingView+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVInfiniteScrollingView+Addons.h"; sourceTree = "<group>"; };
 		119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVInfiniteScrollingView+Addons.m"; sourceTree = "<group>"; };
 		11D4F4251D09B9BF0038C740 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
@@ -243,11 +259,14 @@
 		11FB6A251D118AE00084E93E /* UIViewController+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Addons.h"; sourceTree = "<group>"; };
 		11FB6A261D118AE00084E93E /* UIViewController+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Addons.m"; sourceTree = "<group>"; };
 		1381AA58B41F91130C55CD7E /* Pods-Footbl.beta release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.beta release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.beta release.xcconfig"; sourceTree = "<group>"; };
+		354DE5B2852A950F6990E5F1 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
 		39CC48D7136FB6F3333A5D4A /* Pods-Footbl.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development debug.xcconfig"; sourceTree = "<group>"; };
-		42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta release.xcconfig"; sourceTree = "<group>"; };
-		524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development release.xcconfig"; sourceTree = "<group>"; };
+		3B4337711D2EE488610F264C /* Pods-FootblTests.beta debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta debug.xcconfig"; sourceTree = "<group>"; };
+		55E94C86C45B07875C560E47 /* Pods-FootblTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.release.xcconfig"; sourceTree = "<group>"; };
+		585B150DFB6DEC59D4489EBE /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8D58B4E47AEAA88C0AF80318 /* Pods-Footbl.beta debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.beta debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.beta debug.xcconfig"; sourceTree = "<group>"; };
-		98EE709448D6004A2861B73E /* Pods-FootblTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9511BAC5967B1BC5866D19ED /* Pods-FootblTests.development debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.development debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.development debug.xcconfig"; sourceTree = "<group>"; };
+		A145F18DF071D34EAB148D41 /* Pods-FootblTests.beta release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta release.xcconfig"; sourceTree = "<group>"; };
 		A33E52AB1CA8AE4900D9AA0C /* GroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupChatViewController.h; sourceTree = "<group>"; };
 		A33E52AC1CA8AE4900D9AA0C /* GroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GroupChatViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A33E52AD1CA8AE4900D9AA0C /* GroupRankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupRankingViewController.h; sourceTree = "<group>"; };
@@ -283,10 +302,9 @@
 		A3ECBC131CB1C961006BD2AF /* TableViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewRow.h; sourceTree = "<group>"; };
 		A3ECBC141CB1C961006BD2AF /* TableViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewRow.m; sourceTree = "<group>"; };
 		A9E5B0177C8FA9E8D534E6C6 /* Pods-Footbl.development release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.development release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.development release.xcconfig"; sourceTree = "<group>"; };
-		AF00F90CA42CC96BA18B32DC /* Pods-FootblTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.release.xcconfig"; sourceTree = "<group>"; };
 		B6344F3EA5C0FDB529947A34 /* Pods-Footbl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.debug.xcconfig"; sourceTree = "<group>"; };
 		B89F57784995188F140B19B6 /* libPods-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FootblTests.beta debug.xcconfig"; path = "Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests.beta debug.xcconfig"; sourceTree = "<group>"; };
+		B9397D705E8DFABEE02301AE /* libPods-Footbl-FootblTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Footbl-FootblTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC418367CD3A1C3E46F86CB3 /* Pods-Footbl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Footbl.release.xcconfig"; path = "Pods/Target Support Files/Pods-Footbl/Pods-Footbl.release.xcconfig"; sourceTree = "<group>"; };
 		ED115ED61932B5FD00F5A722 /* LoadingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHelper.h; sourceTree = "<group>"; };
 		ED115ED71932B5FD00F5A722 /* LoadingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHelper.m; sourceTree = "<group>"; };
@@ -450,10 +468,8 @@
 		EDB1D47618E1F18B00E0C949 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EDB1D47718E1F18B00E0C949 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EDB1D47C18E1F18B00E0C949 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDB1D48C18E1F18B00E0C949 /* FootblTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
 		EDB1D48E18E1F18B00E0C949 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; lineEnding = 0; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
-		EDB1D49018E1F18B00E0C949 /* FootblTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootblTests.m; sourceTree = "<group>"; };
 		EDB1D4A618E1FB8000E0C949 /* NSString+SHA1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA1.h"; sourceTree = "<group>"; };
 		EDB1D4A718E1FB8000E0C949 /* NSString+SHA1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SHA1.m"; sourceTree = "<group>"; };
 		EDB1D4A918E209E500E0C949 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
@@ -522,6 +538,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		119802C11D18CF9A001D44F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CAFFAF675BF18DA4321403F /* libPods-FootblTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED8DB3F31A14C95C00605CCE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,16 +554,6 @@
 				ED8DB3F61A14C95C00605CCE /* UIKit.framework in Frameworks */,
 				ED8DB3F71A14C95C00605CCE /* Foundation.framework in Frameworks */,
 				6871A1E0936A6B62C15BB86C /* libPods-Footbl.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EDB1D47F18E1F18B00E0C949 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDB1D48618E1F18B00E0C949 /* UIKit.framework in Frameworks */,
-				EDB1D48518E1F18B00E0C949 /* Foundation.framework in Frameworks */,
-				16767F0A6D8487917E4D3CB8 /* libPods-FootblTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +614,24 @@
 				1157A14B1CD78BFD00898530 /* ChallengeViewController.m */,
 			);
 			path = Challenges;
+			sourceTree = "<group>";
+		};
+		119802C51D18CF9A001D44F1 /* FootblTests */ = {
+			isa = PBXGroup;
+			children = (
+				119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */,
+				119802D21D18CFD4001D44F1 /* Supporting Files */,
+			);
+			path = FootblTests;
+			sourceTree = "<group>";
+		};
+		119802D21D18CFD4001D44F1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				119802D31D18CFD4001D44F1 /* InfoPlist.strings */,
+				119802D71D18CFD4001D44F1 /* FootblTests-Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		11F9C43D1CE214BD00E01A11 /* Challenges */ = {
@@ -686,16 +718,16 @@
 			children = (
 				B6344F3EA5C0FDB529947A34 /* Pods-Footbl.debug.xcconfig */,
 				EC418367CD3A1C3E46F86CB3 /* Pods-Footbl.release.xcconfig */,
-				98EE709448D6004A2861B73E /* Pods-FootblTests.debug.xcconfig */,
-				AF00F90CA42CC96BA18B32DC /* Pods-FootblTests.release.xcconfig */,
 				39CC48D7136FB6F3333A5D4A /* Pods-Footbl.development debug.xcconfig */,
 				8D58B4E47AEAA88C0AF80318 /* Pods-Footbl.beta debug.xcconfig */,
 				A9E5B0177C8FA9E8D534E6C6 /* Pods-Footbl.development release.xcconfig */,
 				1381AA58B41F91130C55CD7E /* Pods-Footbl.beta release.xcconfig */,
-				08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */,
-				CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */,
-				524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */,
-				42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */,
+				585B150DFB6DEC59D4489EBE /* Pods-FootblTests.debug.xcconfig */,
+				9511BAC5967B1BC5866D19ED /* Pods-FootblTests.development debug.xcconfig */,
+				3B4337711D2EE488610F264C /* Pods-FootblTests.beta debug.xcconfig */,
+				55E94C86C45B07875C560E47 /* Pods-FootblTests.release.xcconfig */,
+				354DE5B2852A950F6990E5F1 /* Pods-FootblTests.development release.xcconfig */,
+				A145F18DF071D34EAB148D41 /* Pods-FootblTests.beta release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -930,6 +962,7 @@
 			children = (
 				EDB1D46D18E1F18B00E0C949 /* Footbl */,
 				EDB1D48A18E1F18B00E0C949 /* FootblTests */,
+				119802C51D18CF9A001D44F1 /* FootblTests */,
 				EDB1D46418E1F18B00E0C949 /* Frameworks */,
 				EDB1D46318E1F18B00E0C949 /* Products */,
 				A3BA1F7D1CB11B270016ABD0 /* Scripts */,
@@ -940,8 +973,8 @@
 		EDB1D46318E1F18B00E0C949 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */,
 				ED8DB4181A14C95C00605CCE /* Footbl.app */,
+				119802C41D18CF9A001D44F1 /* FootblTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -954,6 +987,7 @@
 				EDB1D46918E1F18B00E0C949 /* UIKit.framework */,
 				F00B6C9B7B0F777C9F3B4212 /* libPods-Footbl.a */,
 				B89F57784995188F140B19B6 /* libPods-FootblTests.a */,
+				B9397D705E8DFABEE02301AE /* libPods-Footbl-FootblTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -997,7 +1031,6 @@
 		EDB1D48A18E1F18B00E0C949 /* FootblTests */ = {
 			isa = PBXGroup;
 			children = (
-				EDB1D49018E1F18B00E0C949 /* FootblTests.m */,
 				109FB2AF1B7C19E800E67B3C /* FTBClientTestCase.m */,
 				EDB1D48B18E1F18B00E0C949 /* Supporting Files */,
 			);
@@ -1166,10 +1199,33 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		119802C31D18CF9A001D44F1 /* FootblTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 119802CB1D18CF9A001D44F1 /* Build configuration list for PBXNativeTarget "FootblTests" */;
+			buildPhases = (
+				F8F2628A9ABED837909AC149 /* [CP] Check Pods Manifest.lock */,
+				119802C01D18CF9A001D44F1 /* Sources */,
+				119802C11D18CF9A001D44F1 /* Frameworks */,
+				119802C21D18CF9A001D44F1 /* Resources */,
+				F2CE0995440D45500AC23929 /* [CP] Embed Pods Frameworks */,
+				A511369F15E2EE54BEAE811A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				119802CA1D18CF9A001D44F1 /* PBXTargetDependency */,
+			);
+			name = FootblTests;
+			productName = FootblTests;
+			productReference = 119802C41D18CF9A001D44F1 /* FootblTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ED8DB3831A14C95C00605CCE /* Footbl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl" */;
 			buildPhases = (
+				A4AAA6D70C46B5A9CD8EAE01 /* [CP] Check Pods Manifest.lock */,
+				7DFF01E6E715122D3B08525F /* [CP] Check Pods Manifest.lock */,
 				737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */,
 				110F95591D1640D100779C58 /* HockeyApp */,
 				11A246E81D10364800A59D74 /* Sort Imports */,
@@ -1179,6 +1235,8 @@
 				A39897771CB1072D00957063 /* Fabric */,
 				02E3C36B5B1C71BC284E294C /* [CP] Embed Pods Frameworks */,
 				C52C2B7483F9DF9CF83B99E6 /* [CP] Copy Pods Resources */,
+				22D5D6EB97697CB4E343409B /* 📦 Embed Pods Frameworks */,
+				5A49D6A98784AB7A386AB9BC /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1188,26 +1246,6 @@
 			productName = Footbl;
 			productReference = ED8DB4181A14C95C00605CCE /* Footbl.app */;
 			productType = "com.apple.product-type.application";
-		};
-		EDB1D48118E1F18B00E0C949 /* FootblTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EDB1D49718E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "FootblTests" */;
-			buildPhases = (
-				BD62CC3CB0AF3B49FE67488B /* [CP] Check Pods Manifest.lock */,
-				EDB1D47E18E1F18B00E0C949 /* Sources */,
-				EDB1D47F18E1F18B00E0C949 /* Frameworks */,
-				EDB1D48018E1F18B00E0C949 /* Resources */,
-				3FA3FDC384A3E698CD8412F3 /* [CP] Embed Pods Frameworks */,
-				91CE9AD430E99E98088641AA /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = FootblTests;
-			productName = FootblTests;
-			productReference = EDB1D48218E1F18B00E0C949 /* FootblTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1219,11 +1257,12 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Footbl;
 				TargetAttributes = {
+					119802C31D18CF9A001D44F1 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = ED8DB3831A14C95C00605CCE;
+					};
 					ED8DB3831A14C95C00605CCE = {
 						DevelopmentTeam = RA987XKNQ2;
-					};
-					EDB1D48118E1F18B00E0C949 = {
-						TestTargetID = ED7859DE199D0C62002A4DBD;
 					};
 				};
 			};
@@ -1245,12 +1284,20 @@
 			projectRoot = "";
 			targets = (
 				ED8DB3831A14C95C00605CCE /* Footbl */,
-				EDB1D48118E1F18B00E0C949 /* FootblTests */,
+				119802C31D18CF9A001D44F1 /* FootblTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		119802C21D18CF9A001D44F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				119802DB1D18CFD4001D44F1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED8DB3F91A14C95C00605CCE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1276,14 +1323,6 @@
 				ED8DB40F1A14C95C00605CCE /* tutorial_2@2x.png in Resources */,
 				10AF59381B9C662C00168433 /* Main.storyboard in Resources */,
 				ED8DB4101A14C95C00605CCE /* tutorial_4_480@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EDB1D48018E1F18B00E0C949 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDB1D48F18E1F18B00E0C949 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1333,19 +1372,34 @@
 			shellPath = /bin/sh;
 			shellScript = "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\n\necho \"Sorting imports\"\nScripts/sort_all_files_imports.sh";
 		};
-		3FA3FDC384A3E698CD8412F3 /* [CP] Embed Pods Frameworks */ = {
+		22D5D6EB97697CB4E343409B /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5A49D6A98784AB7A386AB9BC /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		737DEE837B40A6333613019A /* [CP] Check Pods Manifest.lock */ = {
@@ -1363,19 +1417,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		91CE9AD430E99E98088641AA /* [CP] Copy Pods Resources */ = {
+		7DFF01E6E715122D3B08525F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A39897771CB1072D00957063 /* Fabric */ = {
@@ -1392,7 +1446,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" ea711e6d0ffbc4e02fd2b6f82c766ce9a2458ec6 ff0b6bace26e4e466df5dbf46615abb623b55511f21bc385ce80d9154ebab252";
 		};
-		BD62CC3CB0AF3B49FE67488B /* [CP] Check Pods Manifest.lock */ = {
+		A4AAA6D70C46B5A9CD8EAE01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1405,6 +1459,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A511369F15E2EE54BEAE811A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C52C2B7483F9DF9CF83B99E6 /* [CP] Copy Pods Resources */ = {
@@ -1422,9 +1491,47 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Footbl/Pods-Footbl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F2CE0995440D45500AC23929 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FootblTests/Pods-FootblTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8F2628A9ABED837909AC149 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		119802C01D18CF9A001D44F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				119802E81D18CFDF001D44F1 /* FTBClientTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ED8DB3861A14C95C00605CCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1551,15 +1658,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EDB1D47E18E1F18B00E0C949 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A33CDC211CB0520000590C7E /* FTBClientTestCase.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		119802CA1D18CF9A001D44F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED8DB3831A14C95C00605CCE /* Footbl */;
+			targetProxy = 119802C91D18CF9A001D44F1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		117044021A8EB45E00521BAB /* Localizable.stringsdict */ = {
@@ -1574,6 +1681,19 @@
 			);
 			name = Localizable.stringsdict;
 			path = .;
+			sourceTree = "<group>";
+		};
+		119802D31D18CFD4001D44F1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				119802D41D18CFD4001D44F1 /* de */,
+				119802D51D18CFD4001D44F1 /* en */,
+				119802D61D18CFD4001D44F1 /* es */,
+				119802D81D18CFD4001D44F1 /* fr */,
+				119802D91D18CFD4001D44F1 /* it */,
+				119802DA1D18CFD4001D44F1 /* pt */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		ED19A407190ACF8700946490 /* Localizable.strings */ = {
@@ -1816,26 +1936,6 @@
 			};
 			name = "Beta Debug";
 		};
-		114277471D16285400A6DC62 /* Beta Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD8F75E958FB8DB3809DF014 /* Pods-FootblTests.beta debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = "Beta Debug";
-		};
 		114277481D16286C00A6DC62 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1863,7 +1963,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1886,26 +1985,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = co.footbl.footbl1;
 				PRODUCT_NAME = Footbl;
 				WRAPPER_EXTENSION = app;
-			};
-			name = "Beta Release";
-		};
-		1142774A1D16286C00A6DC62 /* Beta Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42A45474DF66CFC9E61A641F /* Pods-FootblTests.beta release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = "Beta Release";
 		};
@@ -1964,26 +2043,6 @@
 			};
 			name = "Development Debug";
 		};
-		114BD5A91CD1121500A8A39C /* Development Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08D75539B62BEFAFD5777E7B /* Pods-FootblTests.development debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = "Development Debug";
-		};
 		114BD5AA1CD1122200A8A39C /* Development Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2011,7 +2070,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2037,25 +2095,122 @@
 			};
 			name = "Development Release";
 		};
-		114BD5AC1CD1122200A8A39C /* Development Release */ = {
+		119802CC1D18CF9A001D44F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 524607361AAF37B2BA2AC057 /* Pods-FootblTests.development release.xcconfig */;
+			baseConfigurationReference = 585B150DFB6DEC59D4489EBE /* Pods-FootblTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+			};
+			name = Debug;
+		};
+		119802CD1D18CF9A001D44F1 /* Development Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9511BAC5967B1BC5866D19ED /* Pods-FootblTests.development debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+			};
+			name = "Development Debug";
+		};
+		119802CE1D18CF9A001D44F1 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B4337711D2EE488610F264C /* Pods-FootblTests.beta debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+			};
+			name = "Beta Debug";
+		};
+		119802CF1D18CF9A001D44F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55E94C86C45B07875C560E47 /* Pods-FootblTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+			};
+			name = Release;
+		};
+		119802D01D18CF9A001D44F1 /* Development Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 354DE5B2852A950F6990E5F1 /* Pods-FootblTests.development release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
 			};
 			name = "Development Release";
+		};
+		119802D11D18CF9A001D44F1 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A145F18DF071D34EAB148D41 /* Pods-FootblTests.beta release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.madeatsampa.FootblTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl.app/Footbl";
+			};
+			name = "Beta Release";
 		};
 		ED8DB4151A14C95C00605CCE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2183,49 +2338,22 @@
 			};
 			name = Release;
 		};
-		EDB1D49818E1F18B00E0C949 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98EE709448D6004A2861B73E /* Pods-FootblTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		EDB1D49918E1F18B00E0C949 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF00F90CA42CC96BA18B32DC /* Pods-FootblTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Footbl/Supporting Files/Footbl-Prefix.pch";
-				INFOPLIST_FILE = "FootblTests/Supporting Files/FootblTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.madeatsampa.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Footbl Development.app/Footbl Development";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		119802CB1D18CF9A001D44F1 /* Build configuration list for PBXNativeTarget "FootblTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				119802CC1D18CF9A001D44F1 /* Debug */,
+				119802CD1D18CF9A001D44F1 /* Development Debug */,
+				119802CE1D18CF9A001D44F1 /* Beta Debug */,
+				119802CF1D18CF9A001D44F1 /* Release */,
+				119802D01D18CF9A001D44F1 /* Development Release */,
+				119802D11D18CF9A001D44F1 /* Beta Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ED8DB4141A14C95C00605CCE /* Build configuration list for PBXNativeTarget "Footbl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2248,19 +2376,6 @@
 				EDB1D49318E1F18B00E0C949 /* Release */,
 				114BD5AA1CD1122200A8A39C /* Development Release */,
 				114277481D16286C00A6DC62 /* Beta Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EDB1D49718E1F18B00E0C949 /* Build configuration list for PBXNativeTarget "FootblTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EDB1D49818E1F18B00E0C949 /* Debug */,
-				114BD5A91CD1121500A8A39C /* Development Debug */,
-				114277471D16285400A6DC62 /* Beta Debug */,
-				EDB1D49918E1F18B00E0C949 /* Release */,
-				114BD5AC1CD1122200A8A39C /* Development Release */,
-				1142774A1D16286C00A6DC62 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -53,9 +53,6 @@ PODS:
     - HockeySDK/AllFeaturesLib (= 4.0.1)
   - HockeySDK/AllFeaturesLib (4.0.1)
   - iRate (1.11.3)
-  - KIF (3.0.8):
-    - KIF/XCTest (= 3.0.8)
-  - KIF/XCTest (3.0.8)
   - LDProgressView (1.2.1)
   - Mantle (2.0.3):
     - Mantle/extobjc (= 2.0.3)
@@ -120,7 +117,6 @@ DEPENDENCIES:
   - GoogleAnalytics (= 3.14.0)
   - HockeySDK (~> 4.0.1)
   - iRate (= 1.11.3)
-  - KIF (= 3.0.8)
   - LDProgressView (~> 1.2.1)
   - Mantle (~> 2.0.3)
   - MBProgressHUD (= 0.9)
@@ -160,7 +156,6 @@ SPEC CHECKSUMS:
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   HockeySDK: 1b69a82782f6a3d4a1c0b1f04dca4bca83fc8c82
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
-  KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
   LDProgressView: f6afc7c30d2a9edf33001515f3189338567a32d2
   Mantle: 8d6b14979a082a9ed4994463eb7a4ff576c94632
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
@@ -174,6 +169,6 @@ SPEC CHECKSUMS:
   Tweaks: fea40672d34a7185051b7786be0d587cd76d253c
   UIAlertView-Blocks: 7904744fca618afbd2ec646608924f5e69d5acd1
 
-PODFILE CHECKSUM: cf0aa882d1cf0d217a77668727822dcfd5c39df0
+PODFILE CHECKSUM: 149038a699d3d50731ae61b89eb69715c97787cf
 
 COCOAPODS: 1.0.1
