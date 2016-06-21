@@ -15,18 +15,23 @@ platform :ios do
 
   desc "Submit a new Beta Build to HockeyApp"
   lane :beta do
-    increment_build_number build_number: number_of_commits
-    commit_version_bump
+    ensure_git_status_clean
 
     gym(
+      clean: false,
       scheme: "Footbl Beta",
       export_method: 'ad-hoc',
-      use_legacy_build_api: true,
+      use_legacy_build_api: true
     )
 
     hockey(
       api_token: '4479ee5e69634b46a3e78fdd299967f0'
     )
+
+    reset_git_repo
+    increment_build_number build_number: number_of_commits
+    commit_version_bump
+    push_to_git_remote(branch: 'development')
   end
 
   desc "Deploy a new version to the App Store"
