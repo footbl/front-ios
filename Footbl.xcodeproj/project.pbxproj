@@ -40,8 +40,6 @@
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
-		119802DB1D18CFD4001D44F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 119802D31D18CFD4001D44F1 /* InfoPlist.strings */; };
-		119802E81D18CFDF001D44F1 /* FTBClientTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */; };
 		119CDD461D17488E0022730C /* SVInfiniteScrollingView+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */; };
 		11D4F4271D09B9BF0038C740 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4F4261D09B9BF0038C740 /* LineView.m */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -239,14 +237,6 @@
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		119802C41D18CF9A001D44F1 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		119802D41D18CFD4001D44F1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802D51D18CFD4001D44F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802D61D18CFD4001D44F1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802D71D18CFD4001D44F1 /* FootblTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FootblTests-Info.plist"; sourceTree = "<group>"; };
-		119802D81D18CFD4001D44F1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802D91D18CFD4001D44F1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802DA1D18CFD4001D44F1 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBClientTestCase.m; sourceTree = "<group>"; };
 		119CDD441D17488E0022730C /* SVInfiniteScrollingView+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVInfiniteScrollingView+Addons.h"; sourceTree = "<group>"; };
 		119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVInfiniteScrollingView+Addons.m"; sourceTree = "<group>"; };
 		11D4F4251D09B9BF0038C740 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
@@ -616,24 +606,6 @@
 			path = Challenges;
 			sourceTree = "<group>";
 		};
-		119802C51D18CF9A001D44F1 /* FootblTests */ = {
-			isa = PBXGroup;
-			children = (
-				119802DE1D18CFDF001D44F1 /* FTBClientTestCase.m */,
-				119802D21D18CFD4001D44F1 /* Supporting Files */,
-			);
-			path = FootblTests;
-			sourceTree = "<group>";
-		};
-		119802D21D18CFD4001D44F1 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				119802D31D18CFD4001D44F1 /* InfoPlist.strings */,
-				119802D71D18CFD4001D44F1 /* FootblTests-Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		11F9C43D1CE214BD00E01A11 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,7 +934,6 @@
 			children = (
 				EDB1D46D18E1F18B00E0C949 /* Footbl */,
 				EDB1D48A18E1F18B00E0C949 /* FootblTests */,
-				119802C51D18CF9A001D44F1 /* FootblTests */,
 				EDB1D46418E1F18B00E0C949 /* Frameworks */,
 				EDB1D46318E1F18B00E0C949 /* Products */,
 				A3BA1F7D1CB11B270016ABD0 /* Scripts */,
@@ -1294,7 +1265,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				119802DB1D18CFD4001D44F1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,7 +1498,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				119802E81D18CFDF001D44F1 /* FTBClientTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1681,19 +1650,6 @@
 			);
 			name = Localizable.stringsdict;
 			path = .;
-			sourceTree = "<group>";
-		};
-		119802D31D18CFD4001D44F1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				119802D41D18CFD4001D44F1 /* de */,
-				119802D51D18CFD4001D44F1 /* en */,
-				119802D61D18CFD4001D44F1 /* es */,
-				119802D81D18CFD4001D44F1 /* fr */,
-				119802D91D18CFD4001D44F1 /* it */,
-				119802DA1D18CFD4001D44F1 /* pt */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		ED19A407190ACF8700946490 /* Localizable.strings */ = {
