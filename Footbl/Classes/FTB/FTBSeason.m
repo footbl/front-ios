@@ -13,8 +13,13 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	NSDictionary *keyPaths = @{@"sponsor": @"sponsor",
 							   @"gift": @"gift",
+                               @"startAt": @"startAt",
 							   @"finishAt": @"finishAt"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
+}
+
++ (NSValueTransformer *)startAtJSONTransformer {
+    return [super dateJSONTransformer];
 }
 
 + (NSValueTransformer *)finishAtJSONTransformer {
@@ -25,16 +30,6 @@
     NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:NSCalendarUnitDay fromDate:[NSDate date] toDate:self.finishAt options:kNilOptions];
     return components.day;
-}
-
-// TODO: Remove lines below
-
-- (NSString *)title {
-    return @"42";
-}
-
-- (NSDate *)finishAt {
-    return [[NSDate date] dateByAddingTimeInterval:2 * 24 * 60 * 60];
 }
 
 @end

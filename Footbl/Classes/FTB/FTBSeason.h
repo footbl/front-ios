@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *sponsor;
 @property (nonatomic, copy) NSString *gift;
+@property (nonatomic, copy) NSDate *startAt;
 @property (nonatomic, copy) NSDate *finishAt;
 
 @property (nonatomic, readonly) NSInteger daysToResetWallet;
