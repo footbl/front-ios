@@ -161,10 +161,12 @@ static NSUInteger kPrizeFetchInterval       = 60 * 5;
     } failure:nil];
 
     [[FTBClient client] championships:0 success:^(NSArray<FTBChampionship *> *object) {
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO comparator:^NSComparisonResult(FTBChampionship *obj1, FTBChampionship *obj2) {
-            return [@([obj1.name isEqualToString:@"Série A"]) compare:@([obj2.name isEqualToString:@"Série A"])];
+        // TODO: Remove this filter
+        NSArray *allowedChampionships = @[@"Série A", @"MLS"];
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(FTBChampionship * _Nonnull obj, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [allowedChampionships containsObject:obj.name];
         }];
-        self.championships = [object sortedArrayUsingDescriptors:@[sortDescriptor]];
+        self.championships = [object filteredArrayUsingPredicate:predicate];
 		[self reloadScrollView];
     } failure:^(NSError *error) {
 		[[ErrorHandler sharedInstance] displayError:error];
