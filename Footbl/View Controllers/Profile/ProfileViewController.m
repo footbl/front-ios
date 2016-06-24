@@ -169,9 +169,6 @@
     profileRow.height = 93;
     [profileSection addRow:profileRow];
 
-    TableViewSection *gameSection = [[TableViewSection alloc] init];
-    [self.dataSource addSection:gameSection];
-
     TableViewRow *experienceRow = [[TableViewRow alloc] initWithClass:[ExperienceTableViewCell class]];
     experienceRow.setup = ^(ExperienceTableViewCell *cell, NSIndexPath *indexPath) {
         cell.progressView.progress = 0.2;
@@ -181,7 +178,7 @@
         [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     experienceRow.height = 44;
-    [gameSection addRow:experienceRow];
+    [profileSection addRow:experienceRow];
 
     TableViewRow *trophiesRow = [[TableViewRow alloc] initWithClass:[TrophiesTableViewCell class]];
     trophiesRow.selection = ^(NSIndexPath *indexPath) {
@@ -189,7 +186,7 @@
         [weakSelf.navigationController pushViewController:viewController animated:YES];
     };
     trophiesRow.height = 67;
-    [gameSection addRow:trophiesRow];
+    [profileSection addRow:trophiesRow];
 
     TableViewSection *historySection = [[TableViewSection alloc] init];
     historySection.headerViewHeight = 10;
