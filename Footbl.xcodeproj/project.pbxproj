@@ -40,6 +40,7 @@
 		1157A1491CD78BCE00898530 /* ChallengesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A1481CD78BCE00898530 /* ChallengesViewController.m */; };
 		1157A14C1CD78BFD00898530 /* ChallengeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157A14B1CD78BFD00898530 /* ChallengeViewController.m */; };
 		117044001A8EB45E00521BAB /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 117044021A8EB45E00521BAB /* Localizable.stringsdict */; };
+		1185FE271D1CBE180019C8C8 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1185FE261D1CBE180019C8C8 /* FacebookHelper.m */; };
 		119CDD461D17488E0022730C /* SVInfiniteScrollingView+Addons.m in Sources */ = {isa = PBXBuildFile; fileRef = 119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */; };
 		11D4F4271D09B9BF0038C740 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D4F4261D09B9BF0038C740 /* LineView.m */; };
 		11D7E7C61A9C12340058473E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDB1D47C18E1F18B00E0C949 /* Images.xcassets */; };
@@ -235,6 +236,8 @@
 		117044051A8EB46000521BAB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044061A8EB46000521BAB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		117044071A8EB46100521BAB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		1185FE251D1CBE180019C8C8 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
+		1185FE261D1CBE180019C8C8 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 		119802C41D18CF9A001D44F1 /* FootblTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FootblTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		119CDD441D17488E0022730C /* SVInfiniteScrollingView+Addons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVInfiniteScrollingView+Addons.h"; sourceTree = "<group>"; };
 		119CDD451D17488E0022730C /* SVInfiniteScrollingView+Addons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVInfiniteScrollingView+Addons.m"; sourceTree = "<group>"; };
@@ -1132,6 +1135,8 @@
 				EDDF974E1981E7FB00B97F15 /* RatingHelper.m */,
 				EDA4BBF71A238CA200A41004 /* TransfersHelper.h */,
 				EDA4BBF81A238CA200A41004 /* TransfersHelper.m */,
+				1185FE251D1CBE180019C8C8 /* FacebookHelper.h */,
+				1185FE261D1CBE180019C8C8 /* FacebookHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1520,6 +1525,7 @@
 				ED8DB3971A14C95C00605CCE /* FavoritesViewController.m in Sources */,
 				A3ECBBF81CB1C0B9006BD2AF /* FootblLabel.m in Sources */,
 				ED8DB3981A14C95C00605CCE /* FriendsHelper.m in Sources */,
+				1185FE271D1CBE180019C8C8 /* FacebookHelper.m in Sources */,
 				109FB2EB1B7C3D6700E67B3C /* FTBCreditRequest.m in Sources */,
 				ED8DB3991A14C95C00605CCE /* TransferTableViewCell.m in Sources */,
 				ED8DB39C1A14C95C00605CCE /* FeaturedViewController.m in Sources */,
@@ -2023,6 +2029,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

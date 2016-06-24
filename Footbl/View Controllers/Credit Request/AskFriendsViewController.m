@@ -100,12 +100,6 @@
 - (IBAction)sendAction:(id)sender {
     NSMutableArray *ids = [[self.selectedFriendsSet.allObjects valueForKeyPath:@"id"] mutableCopy];
     [self sendInviteToFootblUsers:ids];
-    
-    // TODO: Handle Facebook login
-//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *fbSession, FBSessionState status, NSError *error) {
-//        session = fbSession;
-//        runBlock();
-//    }];
 }
 
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -113,21 +107,18 @@
 }
 
 - (void)reloadData {
-    // TODO: Handle Facebook login
-//    [[LoadingHelper sharedInstance] showHud];
-//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-//        [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
-//            self.friendsSet = [NSSet setWithArray:friends];
-//            [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
-//                self.invitableFriendsSet = [NSSet setWithArray:friends];
-//                self.dataSource = nil;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.tableView reloadData];
-//                    [[LoadingHelper sharedInstance] hideHud];
-//                });
-//            }];
-//        }];
-//    }];
+    [[LoadingHelper sharedInstance] showHud];
+    [[FriendsHelper sharedInstance] getFbFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+        self.friendsSet = [NSSet setWithArray:friends];
+        [[FriendsHelper sharedInstance] getFbInvitableFriendsWithCompletionBlock:^(NSArray *friends, NSError *error) {
+            self.invitableFriendsSet = [NSSet setWithArray:friends];
+            self.dataSource = nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [[LoadingHelper sharedInstance] hideHud];
+            });
+        }];
+    }];
 }
 
 - (void)configureCell:(AskFriendTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

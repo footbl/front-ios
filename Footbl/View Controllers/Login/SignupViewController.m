@@ -8,6 +8,7 @@
 
 #import "SignupViewController.h"
 #import "AuthenticationViewController.h"
+#import "FacebookHelper.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
 #import "ImportImageHelper.h"
@@ -207,15 +208,14 @@
 }
 
 - (IBAction)importFromFacebookAction:(id)sender {
-    // TODO: Handle Facebook login
-//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-//        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
-//            if (image) {
-//                [self.profileImageButton setImage:image forState:UIControlStateNormal];
-//                self.profileImage = image;
-//            }
-//        }];
-//    }];
+    [FacebookHelper performAuthenticatedAction:^(NSError *error) {
+        [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+            if (image) {
+                [self.profileImageButton setImage:image forState:UIControlStateNormal];
+                self.profileImage = image;
+            }
+        }];
+    }];
 }
 
 - (IBAction)importFromPhotoLibraryAction:(id)sender {
@@ -594,16 +594,6 @@
     [self.view addSubview:self.activityIndicatorView];
     
     [self reloadTextField];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

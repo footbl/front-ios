@@ -53,22 +53,15 @@
     
     self.isLoading = YES;
     
-    if (self.members.count == 0) {
-        [[LoadingHelper sharedInstance] showHud];
-    }
-    
-    
     FTBBlockObject success = ^(id object) {
         self.members = [[NSMutableArray alloc] initWithArray:object];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
         self.isLoading = NO;
     };
     
     FTBBlockError failure = ^(NSError *error) {
         [self.refreshControl endRefreshing];
-        [[LoadingHelper sharedInstance] hideHud];
         [[ErrorHandler sharedInstance] displayError:error];
         self.isLoading = NO;
     };

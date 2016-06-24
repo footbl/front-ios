@@ -10,6 +10,8 @@
 #import <SPHipster/SPHipster.h>
 
 #import "AuthenticationViewController.h"
+#import "FacebookHelper.h"
+#import "FootblNavigationController.h"
 #import "FTBClient.h"
 #import "ImportImageHelper.h"
 #import "LoginViewController.h"
@@ -31,54 +33,63 @@
 #pragma mark - Instance Methods
 
 - (IBAction)facebookAction:(id)sender {
-    // TODO: Handle Facebook login
-//    [[FTAuthenticationManager sharedManager] authenticateFacebookWithCompletion:^(FBSession *session, FBSessionState status, NSError *error) {
-//        if (error) {
-//            SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
-//            [[ErrorHandler sharedInstance] displayError:error];
-//        } else {
-//            self.view.userInteractionEnabled = NO;
-//            [self setSubviewsHidden:YES animated:YES];
-//            [UIView animateWithDuration:FTBAnimationDuration animations:^{
-//                self.activityIndicatorView.alpha = 1;
-//                [self.activityIndicatorView startAnimating];
-//            }];
-//            
-//            [[FBRequest requestForGraphPath:@"me?fields=id,name,email,picture"] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//                if (result) {
-//                    [[FTAuthenticationManager sharedManager] loginWithFacebookToken:[FBSession activeSession].accessTokenData.accessToken success:^(id response) {
-//                        self.view.userInteractionEnabled = YES;
-//                        if (self.completionBlock) self.completionBlock();
-//                    } failure:^(NSError *error) {
-//                        SignupViewController *signupViewController = [[SignupViewController alloc] init];
-//                        signupViewController.email = result[@"email"];
-//                        signupViewController.name = result[@"name"];
-//                        signupViewController.password = FBAuthenticationManagerGeneratePasswordWithId(result[@"id"]);
-//                        signupViewController.passwordConfirmation = signupViewController.password;
-//                        signupViewController.completionBlock = self.completionBlock;
-//                        if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
-//                            [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
-//                                if (image) {
-//                                    signupViewController.profileImage = image;
-//                                }
-//                            }];
-//                        }
-//                        signupViewController.fbToken = [FBSession activeSession].accessTokenData.accessToken;
-//                        [self.navigationController pushViewController:signupViewController animated:NO];
-//                        self.view.userInteractionEnabled = YES;
-//                    }];
-//                } else {
-//                    self.view.userInteractionEnabled = YES;
-//                    [self setSubviewsHidden:NO animated:YES];
-//                    [UIView animateWithDuration:FTBAnimationDuration animations:^{
-//                        self.activityIndicatorView.alpha = 0;
-//                    } completion:^(BOOL finished) {
-//                        [self.activityIndicatorView stopAnimating];
-//                    }];
-//                }
-//            }];
-//        }
-//    }];
+    [FacebookHelper performAuthenticatedAction:^(NSError *error) {
+        if (error) {
+            SPLogError(@"Facebook error %@, %@", error, [error userInfo]);
+            [[ErrorHandler sharedInstance] displayError:error];
+        } else {
+            self.view.userInteractionEnabled = NO;
+            [self setSubviewsHidden:YES animated:YES];
+            [UIView animateWithDuration:FTBAnimationDuration animations:^{
+                self.activityIndicatorView.alpha = 1;
+                [self.activityIndicatorView startAnimating];
+            }];
+
+            FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=id,name,email,picture" parameters:nil];
+            [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, NSDictionary *result, NSError *error) {
+                if (result) {
+                    [[FTBClient client] usersWithEmails:@[result[@"email"]] facebookIds:@[result[@"id"]] usernames:nil names:nil page:0 success:^(NSArray<FTBUser *> *users) {
+                        if (users.count > 0) {
+                            [[FTBClient client] loginWithEmail:result[@"email"] password:result[@"id"] success:^(FTBUser *user) {
+                                self.view.userInteractionEnabled = YES;
+                                if (self.completionBlock) self.completionBlock();
+                            } failure:^(NSError *error) {
+                                [[ErrorHandler sharedInstance] displayError:error];
+                            }];
+                        } else {
+                            SignupViewController *signupViewController = [[SignupViewController alloc] init];
+                            signupViewController.email = result[@"email"];
+                            signupViewController.name = result[@"name"];
+                            signupViewController.password = result[@"id"];
+                            signupViewController.passwordConfirmation = result[@"id"];
+                            if (![result[@"picture"][@"data"][@"is_silhouette"] boolValue]) {
+                                [[ImportImageHelper sharedInstance] importImageFromFacebookWithCompletionBlock:^(UIImage *image, NSError *error) {
+                                    if (image) {
+                                        signupViewController.profileImage = image;
+                                    }
+                                }];
+                            }
+                            signupViewController.completionBlock = self.completionBlock;
+
+                            FootblNavigationController *navigationViewController = [[FootblNavigationController alloc] initWithRootViewController:signupViewController];
+                            [self presentViewController:navigationViewController animated:YES completion:nil];
+                            self.view.userInteractionEnabled = YES;
+                        }
+                    } failure:^(NSError *error) {
+                        [[ErrorHandler sharedInstance] displayError:error];
+                    }];
+                } else {
+                    self.view.userInteractionEnabled = YES;
+                    [self setSubviewsHidden:NO animated:YES];
+                    [UIView animateWithDuration:FTBAnimationDuration animations:^{
+                        self.activityIndicatorView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [self.activityIndicatorView stopAnimating];
+                    }];
+                }
+            }];
+        }
+    }];
 }
 
 - (IBAction)loginAction:(UIButton *)sender {

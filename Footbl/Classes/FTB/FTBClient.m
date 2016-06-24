@@ -436,10 +436,10 @@ FTBBlockFailure FTBMakeBlockFailure(NSString *method, NSString *path, NSDictiona
 				success:(FTBBlockObject)success
 				failure:(FTBBlockError)failure {
 	NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-	if (emails) parameters[@"filterByEmail"] = emails;
-	if (facebookIds) parameters[@"facebookIds"] = facebookIds;
-	if (usernames) parameters[@"filterByUsername"] = usernames;
-	if (names) parameters[@"filterByName"] = names;
+	if (emails.count > 0) parameters[@"filterByEmail"] = [emails componentsJoinedByString:@","];
+	if (facebookIds.count > 0) parameters[@"facebookIds"] = [facebookIds componentsJoinedByString:@","];
+	if (usernames.count > 0) parameters[@"filterByUsername"] = [usernames componentsJoinedByString:@","];
+	if (names.count > 0) parameters[@"filterByName"] = [names componentsJoinedByString:@","];
 	parameters[@"page"] = @(page);
 	[self GET:@"/users" parameters:parameters modelClass:[FTBUser class] success:success failure:failure];
 }

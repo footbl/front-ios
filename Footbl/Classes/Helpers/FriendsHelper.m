@@ -12,6 +12,7 @@
 #import <SPHipster/SPHipster.h>
 
 #import "FriendsHelper.h"
+#import "FacebookHelper.h"
 #import "FTBClient.h"
 #import "FTBUser.h"
 
@@ -83,11 +84,9 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
                         }
 
                         if (operationsCount == 0) {
-                            FTBUser *me = [FTBUser currentUser];
-                            for (NSDictionary *user in searchResults) {
-                                NSString *identifier = user[@"identifier"];
-                                if (![resultSet containsObject:identifier] && ![identifier isEqualToString:me.identifier]) {
-                                    [resultSet addObject:identifier];
+                            for (FTBUser *user in searchResults) {
+                                if (![resultSet containsObject:user.identifier] && !user.isMe) {
+                                    [resultSet addObject:user.identifier];
                                     [result addObject:user];
                                 }
                             }
@@ -162,19 +161,21 @@ static CGFloat kCacheExpirationInterval = 60 * 5; // 5 minutes
 #pragma mark Facebook
 
 - (void)startRequestWithGraphPath:(NSString *)graphPath resultArray:(NSMutableArray *)resultArray completionBlock:(void (^)(id result, NSError *error))completionBlock {
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:nil];
-    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        if (error) {
-            SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            completionBlock(nil, error);
-        } else if (result[@"paging"][@"next"] && [result[@"data"] count] > 0) {
-            NSString *nextPath = [@"me" stringByAppendingPathComponent:[result[@"paging"][@"next"] lastPathComponent]];
-            [resultArray addObjectsFromArray:result[@"data"]];
-            [self startRequestWithGraphPath:nextPath resultArray:resultArray completionBlock:completionBlock];
-        } else {
-            [resultArray addObjectsFromArray:result[@"data"]];
-            if (completionBlock) completionBlock(resultArray, nil);
-        }
+    [FacebookHelper performAuthenticatedAction:^(NSError *error) {
+        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:nil];
+        [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+            if (error) {
+                SPLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                completionBlock(nil, error);
+            } else if (result[@"paging"][@"next"] && [result[@"data"] count] > 0) {
+                NSString *nextPath = [@"me" stringByAppendingPathComponent:[result[@"paging"][@"next"] lastPathComponent]];
+                [resultArray addObjectsFromArray:result[@"data"]];
+                [self startRequestWithGraphPath:nextPath resultArray:resultArray completionBlock:completionBlock];
+            } else {
+                [resultArray addObjectsFromArray:result[@"data"]];
+                if (completionBlock) completionBlock(resultArray, nil);
+            }
+        }];
     }];
 }
 
