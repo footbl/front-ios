@@ -62,7 +62,7 @@
     cell.hostTeamImageView.alpha = myResult == FTBMatchResultHost ? 1 : 0.4;
     cell.vsLabel.alpha = myResult == FTBMatchResultDraw ? 1 : 0.4;
     cell.userImageView.user = challenge.oponent;
-    cell.userImageView.ringVisible = challenge.accepted || challenge.match.finished;
+    cell.userImageView.ringVisible = challenge.accepted || !challenge.challengerUser.isMe;
 }
 
 - (void)setupInfiniteScrolling {
