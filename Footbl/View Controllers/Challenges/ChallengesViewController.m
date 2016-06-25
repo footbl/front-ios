@@ -57,7 +57,7 @@
 
     cell.stakeLabel.text = challenge.accepted ? challenge.valueString : challenge.match.finished ? @"-" : @"?";
     cell.stakeLabel.textColor = challenge.match.finished ? [UIColor lightGrayColor] : [UIColor ftb_redStakeColor];
-    cell.profitLabel.text = challenge.challengerResult == challenge.match.result ? challenge.valueString : @"-";
+    cell.profitLabel.text = challenge.accepted ? challenge.valueString : @"-";
     cell.dateLabel.text = challenge.match.dateString;
     cell.guestTeamImageView.alpha = myResult == FTBMatchResultGuest ? 1 : 0.4;
     cell.hostTeamImageView.alpha = myResult == FTBMatchResultHost ? 1 : 0.4;
