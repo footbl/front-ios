@@ -39,10 +39,12 @@
     FTBTeam *guest = [[FTBTeam alloc] init];
     guest.name = @"Corinthians";
     guest.pictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/pxaj6hxamzuakwzz9q8t.png"];
+    guest.grayscalePictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/e_grayscale/pxaj6hxamzuakwzz9q8t.png"];
 
     FTBTeam *host = [[FTBTeam alloc] init];
     host.name = @"Palmeiras";
     host.pictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/p2rwvgnninadpvdjefnc.png"];
+    host.grayscalePictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/e_grayscale/p2rwvgnninadpvdjefnc.png"];
 
     FTBUser *me = [FTBUser currentUser];
 
@@ -81,7 +83,7 @@
                         challenge.bid = @10;
                         challenge.challengerUser = user;
                         challenge.challengerResult = FTBMatchResultHost;
-                        challenge.challengedUser = [user isEqual:me] ? opponent : me;
+                        challenge.challengedUser = user.isMe ? opponent : me;
 
                         if (accepted.boolValue) {
                             challenge.challengedResult = FTBMatchResultGuest;
