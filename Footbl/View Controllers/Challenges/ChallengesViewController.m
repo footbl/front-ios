@@ -55,7 +55,7 @@
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
     }
 
-    cell.stakeLabel.text = challenge.valueString;
+    cell.stakeLabel.text = challenge.accepted ? challenge.valueString : challenge.match.finished ? @"-" : @"?";
     cell.profitLabel.text = challenge.challengerResult == challenge.match.result ? challenge.valueString : @"-";
     cell.dateLabel.text = challenge.match.dateString;
     cell.guestTeamImageView.alpha = myResult == FTBMatchResultGuest ? 1 : 0.4;
