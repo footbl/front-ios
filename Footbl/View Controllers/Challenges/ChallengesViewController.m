@@ -33,6 +33,70 @@
     return @"Main";
 }
 
+- (NSMutableArray<FTBChallenge *> *)createChallenges {
+    NSMutableArray *challenges = [[NSMutableArray alloc] init];
+
+    FTBTeam *guest = [[FTBTeam alloc] init];
+    guest.name = @"Corinthians";
+    guest.pictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/pxaj6hxamzuakwzz9q8t.png"];
+
+    FTBTeam *host = [[FTBTeam alloc] init];
+    host.name = @"Palmeiras";
+    host.pictureURL = [NSURL URLWithString:@"http://res.cloudinary.com/hqsehn3vw/image/upload/p2rwvgnninadpvdjefnc.png"];
+
+    FTBUser *me = [FTBUser currentUser];
+
+    FTBUser *opponent = [[FTBUser alloc] init];
+    opponent.pictureURL = [NSURL URLWithString:@"https://pbs.twimg.com/profile_images/378800000483764274/ebce94fb34c055f3dc238627a576d251_400x400.jpeg"];
+    opponent.identifier = @"123";
+
+    NSDate *date = [NSDate date];
+
+    for (FTBUser *user in @[me, opponent]) {
+        for (NSNumber *elapsed in @[@0, @42]) {
+            for (NSNumber *accepted in @[@NO, @YES]) {
+                for (NSNumber *finished in @[@NO, @YES]) {
+                    for (NSNumber *result in @[@(FTBMatchResultGuest), @(FTBMatchResultHost), @(FTBMatchResultDraw), @(FTBMatchResultUnknown)]) {
+                        FTBMatch *match = [[FTBMatch alloc] init];
+                        match.finished = finished.boolValue;
+                        match.elapsed = elapsed.doubleValue;
+                        match.guest = guest;
+                        match.host = host;
+                        match.result = result.integerValue;
+                        match.date = date;
+                        match.guestScore = (match.result == FTBMatchResultGuest) ? @1 : @0;
+                        match.hostScore = (match.result == FTBMatchResultHost) ? @1 : @0;
+
+                        if (match.finished && match.elapsed > 0) {
+                            continue;
+                        }
+
+                        if (!match.finished && match.elapsed == 0 && match.result != FTBMatchResultUnknown) {
+                            continue;
+                        }
+
+                        FTBChallenge *challenge = [[FTBChallenge alloc] init];
+                        challenge.match = match;
+                        challenge.accepted = accepted.boolValue;
+                        challenge.bid = @10;
+                        challenge.challengerUser = user;
+                        challenge.challengerResult = FTBMatchResultHost;
+                        challenge.challengedUser = [user isEqual:me] ? opponent : me;
+
+                        if (accepted.boolValue) {
+                            challenge.challengedResult = FTBMatchResultGuest;
+                        }
+
+                        [challenges addObject:challenge];
+                    }
+                }
+            }
+        }
+    }
+
+    return challenges;
+}
+
 #pragma mark - Instance Methods
 
 - (void)configureCell:(ChallengeTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -95,6 +159,22 @@
     }];
 }
 
+- (void)test:(id)sender {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
+    self.challenges = [self createChallenges];
+    self.tableView.showsInfiniteScrolling = NO;
+    self.refreshControl.enabled = NO;
+    [self.tableView reloadData];
+}
+
+- (void)done:(id)sender {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Test" style:UIBarButtonItemStylePlain target:self action:@selector(test:)];
+    self.tableView.showsInfiniteScrolling = YES;
+    self.refreshControl.enabled = YES;
+    [self.refreshControl beginRefreshing];
+    [self refreshAction:nil];
+}
+
 #pragma mark - Lifecycle
 
 - (void)commomInit {
@@ -125,6 +205,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Test" style:UIBarButtonItemStylePlain target:self action:@selector(test:)];
 
     [self setupInfiniteScrolling];
 
