@@ -193,20 +193,32 @@
     if (result == FTBMatchResultHost) {
         [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
         [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+        self.hostImageView.alpha = 1;
+        self.guestImageView.alpha = 0.4;
+        self.versusLabel.alpha = 0.4;
     } else if (result == FTBMatchResultGuest) {
         [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
         [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+        self.hostImageView.alpha = 0.4;
+        self.guestImageView.alpha = 1;
+        self.versusLabel.alpha = 0.4;
     } else if (result == FTBMatchResultDraw) {
         [self.hostImageView sd_setImageWithURL:match.host.grayscalePictureURL placeholderImage:placeholderImage];
         [self.guestImageView sd_setImageWithURL:match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+        self.hostImageView.alpha = 0.4;
+        self.guestImageView.alpha = 0.4;
+        self.versusLabel.alpha = 1;
     } else {
         [self.hostImageView sd_setImageWithURL:match.host.pictureURL placeholderImage:placeholderImage];
         [self.guestImageView sd_setImageWithURL:match.guest.pictureURL placeholderImage:placeholderImage];
+        self.hostImageView.alpha = 1;
+        self.guestImageView.alpha = 1;
+        self.versusLabel.alpha = 1;
     }
     
     self.stakeValueLabel.text = challenge.valueString;
     self.returnValueLabel.text = challenge.toReturnString;
-    self.profitValueLabel.text = challenge.valueString;
+    self.profitValueLabel.text = challenge.rewardString;
     
     [UIFont setMaxFontSizeToFitBoundsInLabels:@[self.stakeValueLabel, self.returnValueLabel, self.profitValueLabel]];
     
