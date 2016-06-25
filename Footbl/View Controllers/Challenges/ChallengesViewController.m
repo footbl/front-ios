@@ -128,6 +128,8 @@
     cell.vsLabel.alpha = myResult == FTBMatchResultDraw ? 1 : 0.4;
     cell.userImageView.user = challenge.oponent;
     cell.userImageView.ringVisible = challenge.accepted || !challenge.challengerUser.isMe;
+    cell.topLineView.backgroundColor = (challenge.match.elapsed > 0) ? [UIColor ftb_greenLiveColor] : [UIColor ftb_cellSeparatorColor];
+    cell.bottomLineView.backgroundColor = (challenge.match.elapsed > 0) ? [UIColor ftb_greenLiveColor] : [UIColor ftb_cellSeparatorColor];
 }
 
 - (void)setupInfiniteScrolling {

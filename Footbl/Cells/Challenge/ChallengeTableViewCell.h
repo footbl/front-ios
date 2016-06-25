@@ -19,5 +19,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *vsLabel;
 @property (nonatomic, weak) IBOutlet UILabel *stakeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *profitLabel;
+@property (nonatomic, weak) IBOutlet UIView *topLineView;
+@property (nonatomic, weak) IBOutlet UIView *bottomLineView;
 
 @end
