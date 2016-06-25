@@ -110,24 +110,34 @@
     if (myResult == FTBMatchResultHost) {
         [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL placeholderImage:placeholderImage];
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+        cell.hostTeamImageView.alpha = 1;
+        cell.guestTeamImageView.alpha = 0.4;
+        cell.vsLabel.alpha = 0.4;
     } else if (myResult == FTBMatchResultGuest) {
         [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
+        cell.hostTeamImageView.alpha = 0.4;
+        cell.guestTeamImageView.alpha = 1;
+        cell.vsLabel.alpha = 0.4;
     } else if (myResult == FTBMatchResultDraw) {
         [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.grayscalePictureURL placeholderImage:placeholderImage];
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.grayscalePictureURL placeholderImage:placeholderImage];
+        cell.hostTeamImageView.alpha = 0.4;
+        cell.guestTeamImageView.alpha = 0.4;
+        cell.vsLabel.alpha = 1;
     } else {
         [cell.hostTeamImageView sd_setImageWithURL:challenge.match.host.pictureURL placeholderImage:placeholderImage];
         [cell.guestTeamImageView sd_setImageWithURL:challenge.match.guest.pictureURL placeholderImage:placeholderImage];
+        cell.hostTeamImageView.alpha = 1;
+        cell.guestTeamImageView.alpha = 1;
+        cell.vsLabel.alpha = 1;
     }
 
     cell.stakeLabel.text = challenge.accepted ? challenge.valueString : challenge.match.finished ? @"-" : @"?";
     cell.stakeLabel.textColor = challenge.match.finished ? [UIColor lightGrayColor] : [UIColor ftb_redStakeColor];
-    cell.profitLabel.text = challenge.accepted ? challenge.valueString : @"-";
+    cell.profitLabel.text = challenge.accepted ? challenge.rewardString : @"-";
+    cell.profitLabel.textColor = challenge.match.finished ? [UIColor lightGrayColor] : [UIColor ftb_greenMoneyColor];
     cell.dateLabel.text = challenge.match.dateString;
-    cell.guestTeamImageView.alpha = myResult == FTBMatchResultGuest ? 1 : 0.4;
-    cell.hostTeamImageView.alpha = myResult == FTBMatchResultHost ? 1 : 0.4;
-    cell.vsLabel.alpha = myResult == FTBMatchResultDraw ? 1 : 0.4;
     cell.userImageView.user = challenge.oponent;
     cell.userImageView.ringVisible = challenge.accepted || !challenge.challengerUser.isMe;
     cell.topLineView.backgroundColor = (challenge.match.elapsed > 0) ? [UIColor ftb_greenLiveColor] : [UIColor ftb_cellSeparatorColor];

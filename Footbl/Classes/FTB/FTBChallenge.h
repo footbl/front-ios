@@ -30,5 +30,7 @@
 - (NSString *)valueString;
 - (NSNumber *)toReturn;
 - (NSString *)toReturnString;
+- (NSNumber *)reward;
+- (NSString *)rewardString;
 
 @end

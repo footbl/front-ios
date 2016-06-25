@@ -72,6 +72,25 @@
     return self.bid.integerValue == 0 ? @"-" : self.toReturn.walletStringValue;
 }
 
+- (NSNumber *)reward {
+    if (self.bid.integerValue == 0 || self.match.status == FTBMatchStatusWaiting) {
+        return @0;
+    }
+
+    if (self.myResult == self.match.result) {
+        return @(self.toReturn.floatValue - self.bid.integerValue);
+    } else {
+        return @(-self.bid.integerValue);
+    }
+}
+
+- (NSString *)rewardString {
+    if (self.bid.integerValue == 0 || self.match.status == FTBMatchStatusWaiting) {
+        return @"-";
+    }
+    return @(nearbyint(self.reward.doubleValue)).walletStringValue;
+}
+
 - (BOOL)isEqual:(FTBChallenge *)object {
     if (self.identifier.length > 0) {
         return [super isEqual:object];
