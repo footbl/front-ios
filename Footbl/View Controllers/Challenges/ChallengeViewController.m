@@ -47,24 +47,44 @@
     if (self.isChallenging) {
         cell.statusLabel.text = nil;
         cell.substatusLabel.text = nil;
-    } else if (self.challenge.match.finished) {
+    } else if (self.challenge.waiting && !self.challenge.challengerUser.isMe) {
+        cell.statusLabel.text = nil;
+        cell.substatusLabel.text = nil;
+    } else if ((self.challenge.match.finished || self.challenge.match.elapsed > 0) && self.challenge.waiting) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
         cell.statusLabel.text = NSLocalizedString(@"Challenge declined!", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
         cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
-    } else if (self.challenge.waiting) {
+    } else if (!self.challenge.match.finished && self.challenge.match.elapsed == 0 && self.challenge.waiting) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor lightGrayColor];
         cell.statusLabel.text = NSLocalizedString(@"Waiting for opponent", nil);
         cell.substatusLabel.text = nil;
-    } else if (self.challenge.accepted) {
+    } else if (!self.challenge.match.finished && self.challenge.match.elapsed == 0 && self.challenge.accepted) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor ftb_greenGrassColor];
         cell.statusLabel.text = NSLocalizedString(@"Challenge accepted!", nil);
         cell.substatusLabel.text = nil;
-    } else {
-        cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
-        cell.statusLabel.text = NSLocalizedString(@"Challenge declined!", nil);
+    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
+        cell.statusLabel.textColor = [UIColor lightGrayColor];
+        cell.statusLabel.text = NSLocalizedString(@"No winner", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
         cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
+    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult == self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:42];
+        cell.statusLabel.textColor = [UIColor ftb_blueReturnColor];
+        cell.statusLabel.text = NSLocalizedString(@"You WIN!", nil);
+        cell.substatusLabel.text = nil;
+    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult == self.challenge.match.result) {
+        cell.statusLabel.font = [cell.statusLabel.font fontWithSize:42];
+        cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
+        cell.statusLabel.text = NSLocalizedString(@"You LOSE!", nil);
+        cell.substatusLabel.text = nil;
+    } else {
+        cell.statusLabel.text = nil;
+        cell.substatusLabel.text = nil;
     }
 }
 

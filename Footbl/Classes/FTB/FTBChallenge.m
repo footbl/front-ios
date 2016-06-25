@@ -46,7 +46,9 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
-        self.waiting = !dictionaryValue[@"accepted"];
+        if (self.match.elapsed == 0 && !self.match.finished) {
+            self.waiting = !dictionaryValue[@"accepted"];
+        }
     }
     return self;
 }

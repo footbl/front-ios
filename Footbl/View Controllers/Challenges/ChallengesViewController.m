@@ -56,40 +56,47 @@
 
     for (FTBUser *user in @[me, opponent]) {
         for (NSNumber *elapsed in @[@0, @42]) {
-            for (NSNumber *accepted in @[@NO, @YES]) {
-                for (NSNumber *finished in @[@NO, @YES]) {
-                    for (NSNumber *result in @[@(FTBMatchResultGuest), @(FTBMatchResultHost), @(FTBMatchResultDraw), @(FTBMatchResultUnknown)]) {
-                        FTBMatch *match = [[FTBMatch alloc] init];
-                        match.finished = finished.boolValue;
-                        match.elapsed = elapsed.doubleValue;
-                        match.guest = guest;
-                        match.host = host;
-                        match.result = result.integerValue;
-                        match.date = date;
-                        match.guestScore = (match.result == FTBMatchResultGuest) ? @1 : @0;
-                        match.hostScore = (match.result == FTBMatchResultHost) ? @1 : @0;
+            for (NSNumber *waiting in @[@NO, @YES]) {
+                for (NSNumber *accepted in @[@NO, @YES]) {
+                    for (NSNumber *finished in @[@NO, @YES]) {
+                        for (NSNumber *result in @[@(FTBMatchResultGuest), @(FTBMatchResultHost), @(FTBMatchResultDraw), @(FTBMatchResultUnknown)]) {
+                            FTBMatch *match = [[FTBMatch alloc] init];
+                            match.finished = finished.boolValue;
+                            match.elapsed = elapsed.doubleValue;
+                            match.guest = guest;
+                            match.host = host;
+                            match.result = result.integerValue;
+                            match.date = date;
+                            match.guestScore = (match.result == FTBMatchResultGuest) ? @1 : @0;
+                            match.hostScore = (match.result == FTBMatchResultHost) ? @1 : @0;
 
-                        if (match.finished && match.elapsed > 0) {
-                            continue;
+                            if (match.finished && match.elapsed > 0) {
+                                continue;
+                            }
+
+                            if (!match.finished && match.elapsed == 0 && match.result != FTBMatchResultUnknown) {
+                                continue;
+                            }
+
+                            if (waiting.boolValue && (accepted.boolValue || finished.boolValue || elapsed.integerValue > 0)) {
+                                continue;
+                            }
+
+                            FTBChallenge *challenge = [[FTBChallenge alloc] init];
+                            challenge.match = match;
+                            challenge.accepted = accepted.boolValue;
+                            challenge.waiting = waiting.boolValue;
+                            challenge.bid = @10;
+                            challenge.challengerUser = user;
+                            challenge.challengerResult = FTBMatchResultHost;
+                            challenge.challengedUser = user.isMe ? opponent : me;
+
+                            if (accepted.boolValue) {
+                                challenge.challengedResult = FTBMatchResultGuest;
+                            }
+
+                            [challenges addObject:challenge];
                         }
-
-                        if (!match.finished && match.elapsed == 0 && match.result != FTBMatchResultUnknown) {
-                            continue;
-                        }
-
-                        FTBChallenge *challenge = [[FTBChallenge alloc] init];
-                        challenge.match = match;
-                        challenge.accepted = accepted.boolValue;
-                        challenge.bid = @10;
-                        challenge.challengerUser = user;
-                        challenge.challengerResult = FTBMatchResultHost;
-                        challenge.challengedUser = user.isMe ? opponent : me;
-
-                        if (accepted.boolValue) {
-                            challenge.challengedResult = FTBMatchResultGuest;
-                        }
-
-                        [challenges addObject:challenge];
                     }
                 }
             }
