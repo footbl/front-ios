@@ -199,6 +199,34 @@
     return (self.challengedUser != nil);
 }
 
+- (BOOL)isBeenChallenged {
+    return !self.challenge.challengerUser.isMe && !self.challenge.accepted;
+}
+
+- (void)setAcceptButtonVisible:(BOOL)visible completion:(void (^)(void))completion {
+    [UIView animateWithDuration:0.25 animations:^{
+        if (visible) {
+            self.acceptButton.maxY = self.view.height;
+        } else {
+            self.acceptButton.y = self.view.height;
+        }
+    } completion:^(BOOL finished) {
+        if (completion) completion();
+    }];
+}
+
+- (void)setDeclineButtonVisible:(BOOL)visible completion:(void (^)(void))completion {
+    [UIView animateWithDuration:0.25 animations:^{
+        if (visible) {
+            self.declineButton.maxY = self.view.height;
+        } else {
+            self.declineButton.y = self.view.height;
+        }
+    } completion:^(BOOL finished) {
+        if (completion) completion();
+    }];
+}
+
 #pragma mark - Actions
 
 - (void)doneAction:(UIButton *)sender {
@@ -236,6 +264,20 @@
     } failure:^(NSError *error) {
         [[ErrorHandler sharedInstance] displayError:error];
         [[LoadingHelper sharedInstance] hideHud];
+    }];
+}
+
+- (void)acceptAction:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    [self setAcceptButtonVisible:NO completion:^{
+        [weakSelf setDeclineButtonVisible:YES completion:nil];
+    }];
+}
+
+- (void)declineAction:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    [self setDeclineButtonVisible:NO completion:^{
+        [weakSelf setAcceptButtonVisible:YES completion:nil];
     }];
 }
 
@@ -301,12 +343,31 @@
         self.doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.doneButton setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+        self.doneButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
         self.doneButton.backgroundColor = [UIColor ftb_greenGrassColor];
         self.doneButton.size = CGSizeMake(self.view.width, 49);
         self.doneButton.maxY = self.view.height;
         [self.view addSubview:self.doneButton];
 
         [self reloadWallet];
+    } else if (!self.challenge.challengerUser.isMe) {
+        self.declineButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.declineButton addTarget:self action:@selector(declineAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.declineButton setTitle:NSLocalizedString(@"Decline", nil) forState:UIControlStateNormal];
+        self.declineButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
+        self.declineButton.backgroundColor = [UIColor ftb_redStakeColor];
+        self.declineButton.size = CGSizeMake(self.view.width, 49);
+        self.declineButton.maxY = self.view.height;
+        [self.view addSubview:self.declineButton];
+
+        self.acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.acceptButton addTarget:self action:@selector(acceptAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.acceptButton setTitle:NSLocalizedString(@"Accept", nil) forState:UIControlStateNormal];
+        self.acceptButton.titleLabel.font = [UIFont fontWithName:kFontNameMedium size:17];
+        self.acceptButton.backgroundColor = [UIColor ftb_greenMoneyColor];
+        self.acceptButton.size = CGSizeMake(self.view.width, 49);
+        self.acceptButton.y = self.view.height;
+        [self.view addSubview:self.acceptButton];
     }
 }
 
