@@ -106,75 +106,105 @@
     FTBMatch *match = challenge.match ?: self.match;
     
     [cell setMatch:match challenge:challenge viewController:self selectionBlock:^(NSInteger index) {
-        NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
-        NSInteger currentBet = weakSelf.bid.integerValue;
-        FTBMatchResult result = weakSelf.result;
-        
-        switch (index) {
-            case 0: // Host
-                if (result == FTBMatchResultHost) {
-                    currentBet++;
-                } else if (currentBet == 0) {
-                    currentBet = firstBetValue;
-                    result = FTBMatchResultHost;
-                } else if (currentBet == firstBetValue) {
-                    currentBet = 0;
-                } else {
-                    currentBet--;
-                }
-                break;
-            case 1: // Draw
-                if (result == FTBMatchResultDraw) {
-                    currentBet++;
-                } else if (currentBet == 0) {
-                    currentBet = firstBetValue;
-                    result = FTBMatchResultDraw;
-                } else if (currentBet == firstBetValue) {
-                    currentBet = 0;
-                } else {
-                    currentBet--;
-                }
-                break;
-            case 2: // Guest
-                if (result == FTBMatchResultGuest) {
-                    currentBet++;
-                } else if (currentBet == 0) {
-                    currentBet = firstBetValue;
-                    result = FTBMatchResultGuest;
-                } else if (currentBet == firstBetValue) {
-                    currentBet = 0;
-                } else {
-                    currentBet--;
-                }
-                break;
-        }
-        
-        if (10 * currentBet > weakSelf.challengedUser.funds.integerValue) {
-            return;
-        }
-        
-        if (currentBet == 0) {
-            result = FTBMatchResultUnknown;
-        }
-        
-        if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue <= 0) {
-            if (!weakCell.isStepperSelected) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
-                [alert show];
+        if (weakSelf.isChallenging) {
+            NSUInteger firstBetValue = MAX(floor((user.funds.integerValue + user.stake.integerValue) / 100), 1);
+            NSInteger currentBet = weakSelf.bid.integerValue;
+            FTBMatchResult result = weakSelf.result;
+
+            switch (index) {
+                case 0: // Host
+                    if (result == FTBMatchResultHost) {
+                        currentBet++;
+                    } else if (currentBet == 0) {
+                        currentBet = firstBetValue;
+                        result = FTBMatchResultHost;
+                    } else if (currentBet == firstBetValue) {
+                        currentBet = 0;
+                    } else {
+                        currentBet--;
+                    }
+                    break;
+                case 1: // Draw
+                    if (result == FTBMatchResultDraw) {
+                        currentBet++;
+                    } else if (currentBet == 0) {
+                        currentBet = firstBetValue;
+                        result = FTBMatchResultDraw;
+                    } else if (currentBet == firstBetValue) {
+                        currentBet = 0;
+                    } else {
+                        currentBet--;
+                    }
+                    break;
+                case 2: // Guest
+                    if (result == FTBMatchResultGuest) {
+                        currentBet++;
+                    } else if (currentBet == 0) {
+                        currentBet = firstBetValue;
+                        result = FTBMatchResultGuest;
+                    } else if (currentBet == firstBetValue) {
+                        currentBet = 0;
+                    } else {
+                        currentBet--;
+                    }
+                    break;
             }
-            return;
+
+            if (10 * currentBet > weakSelf.challengedUser.funds.integerValue) {
+                return;
+            }
+
+            if (currentBet == 0) {
+                result = FTBMatchResultUnknown;
+            }
+
+            if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue <= 0) {
+                if (!weakCell.isStepperSelected) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"") message:NSLocalizedString(@"Error: insufient funds", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"") otherButtonTitles:nil];
+                    [alert show];
+                }
+                return;
+            }
+
+            if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
+                weakCell.stepperUserInteractionEnabled = NO;
+            }
+            
+            weakSelf.result = result;
+            weakSelf.bid = @(currentBet);
+            
+            [weakSelf reloadWallet];
+            [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+        } else {
+            FTBMatchResult previousResult = weakSelf.challenge.challengedResult;
+            FTBMatchResult result = FTBMatchResultUnknown;
+            if (index == 0) {
+                result = FTBMatchResultHost;
+            } else if (index == 1) {
+                result = FTBMatchResultDraw;
+            } else if (index == 2) {
+                result = FTBMatchResultGuest;
+            }
+
+            if (result != previousResult) {
+                if (result != weakSelf.challenge.challengerResult) {
+                    weakSelf.challenge.challengedResult = result;
+                    [weakSelf setAcceptButtonVisible:YES completion:nil];
+                }
+            } else {
+                weakSelf.challenge.challengedResult = FTBMatchResultUnknown;
+                [weakSelf setDeclineButtonVisible:YES completion:nil];
+            }
+
+            [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
         }
-        
-        if (weakSelf.bid.integerValue < currentBet && user.funds.integerValue < 1 && weakCell.isStepperSelected) {
-            weakCell.stepperUserInteractionEnabled = NO;
-        }
-        
-        weakSelf.result = result;
-        weakSelf.bid = @(currentBet);
-        
-        [weakSelf reloadWallet];
-        [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
     }];
+
+    if (self.isBeingChallenged) {
+        cell.simpleSelection = NO;
+    } else if (!self.isChallenging) {
+        cell.stepperUserInteractionEnabled = NO;
+    }
 }
 
 - (void)reloadWallet {
@@ -199,32 +229,56 @@
     return (self.challengedUser != nil);
 }
 
-- (BOOL)isBeenChallenged {
+- (BOOL)isBeingChallenged {
     return !self.challenge.challengerUser.isMe && !self.challenge.accepted;
 }
 
 - (void)setAcceptButtonVisible:(BOOL)visible completion:(void (^)(void))completion {
-    [UIView animateWithDuration:0.25 animations:^{
-        if (visible) {
-            self.acceptButton.maxY = self.view.height;
-        } else {
-            self.acceptButton.y = self.view.height;
-        }
-    } completion:^(BOOL finished) {
-        if (completion) completion();
-    }];
+    void (^animation)() = ^{
+        self.acceptButton.hidden = NO;
+        [UIView animateWithDuration:0.25 animations:^{
+            if (visible) {
+                self.acceptButton.maxY = self.view.height;
+            } else {
+                self.acceptButton.y = self.view.height;
+            }
+        } completion:^(BOOL finished) {
+            self.acceptButton.hidden = !visible;
+            if (completion) completion();
+        }];
+    };
+
+    if (self.declineButton.hidden) {
+        animation();
+    } else {
+        [self setDeclineButtonVisible:NO completion:^{
+            animation();
+        }];
+    }
 }
 
 - (void)setDeclineButtonVisible:(BOOL)visible completion:(void (^)(void))completion {
-    [UIView animateWithDuration:0.25 animations:^{
-        if (visible) {
-            self.declineButton.maxY = self.view.height;
-        } else {
-            self.declineButton.y = self.view.height;
-        }
-    } completion:^(BOOL finished) {
-        if (completion) completion();
-    }];
+    void (^animation)() = ^{
+        self.declineButton.hidden = NO;
+        [UIView animateWithDuration:0.25 animations:^{
+            if (visible) {
+                self.declineButton.maxY = self.view.height;
+            } else {
+                self.declineButton.y = self.view.height;
+            }
+        } completion:^(BOOL finished) {
+            self.declineButton.hidden = !visible;
+            if (completion) completion();
+        }];
+    };
+
+    if (self.acceptButton.hidden) {
+        animation();
+    } else {
+        [self setAcceptButtonVisible:NO completion:^{
+            animation();
+        }];
+    }
 }
 
 #pragma mark - Actions
@@ -268,16 +322,22 @@
 }
 
 - (void)acceptAction:(id)sender {
-    __weak typeof(self) weakSelf = self;
-    [self setAcceptButtonVisible:NO completion:^{
-        [weakSelf setDeclineButtonVisible:YES completion:nil];
+    [[LoadingHelper sharedInstance] showHud];
+    [[FTBClient client] acceptChallenge:self.challenge success:^(id object) {
+        [self setAcceptButtonVisible:NO completion:nil];
+        [[LoadingHelper sharedInstance] hideHud];
+    } failure:^(NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
     }];
 }
 
 - (void)declineAction:(id)sender {
-    __weak typeof(self) weakSelf = self;
-    [self setDeclineButtonVisible:NO completion:^{
-        [weakSelf setAcceptButtonVisible:YES completion:nil];
+    [[LoadingHelper sharedInstance] showHud];
+    [[FTBClient client] rejectChallenge:self.challenge success:^(id object) {
+        [self setDeclineButtonVisible:NO completion:nil];
+        [[LoadingHelper sharedInstance] hideHud];
+    } failure:^(NSError *error) {
+        [[LoadingHelper sharedInstance] hideHud];
     }];
 }
 
@@ -367,6 +427,7 @@
         self.acceptButton.backgroundColor = [UIColor ftb_greenMoneyColor];
         self.acceptButton.size = CGSizeMake(self.view.width, 49);
         self.acceptButton.y = self.view.height;
+        self.acceptButton.hidden = YES;
         [self.view addSubview:self.acceptButton];
     }
 }

@@ -135,6 +135,10 @@
 - (void)setMatch:(FTBMatch *)match challenge:(FTBChallenge *)challenge viewController:(UIViewController *)viewController selectionBlock:(void (^)(NSInteger index))selectionBlock {
     self.selectionBlock = selectionBlock;
 
+    self.hostUserImageView.user = nil;
+    self.drawUserImageView.user = nil;
+    self.guestUserImageView.user = nil;
+
     if (challenge.challengerResult == FTBMatchResultGuest) {
         self.guestUserImageView.user = challenge.challengerUser;
         self.guestUserImageView.ringVisible = YES;
