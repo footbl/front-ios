@@ -203,7 +203,7 @@
     if (self.isBeingChallenged) {
         cell.simpleSelection = NO;
     } else if (!self.isChallenging) {
-        cell.stepperUserInteractionEnabled = NO;
+        cell.selectionBlock = nil;
     }
 }
 
