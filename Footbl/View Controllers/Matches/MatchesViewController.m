@@ -231,7 +231,7 @@ static CGFloat kScrollMinimumVelocityToToggleTabBar = 180.f;
 			}
 		}];
 		self.navigationBarTitleView.walletValueLabel.text = user.funds.limitedWalletStringValue;
-		self.navigationBarTitleView.stakeValueLabel.text = user.stake.limitedWalletStringValue;
+        self.navigationBarTitleView.stakeValueLabel.text = user.stakeString;
 		self.navigationBarTitleView.returnValueLabel.text = user.toReturnString;
 		self.navigationBarTitleView.profitValueLabel.text = user.profitString;
 	} else {
