@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSInteger const WalletReference;
+FOUNDATION_EXPORT NSInteger const WalletReference;
 
 @interface RatingHelper : NSObject
 
