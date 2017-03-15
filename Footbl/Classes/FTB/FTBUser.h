@@ -54,6 +54,7 @@
 
 - (BOOL)isMe;
 - (BOOL)canRecharge;
+- (NSString *)stakeString;
 - (NSNumber *)toReturn;
 - (NSString *)toReturnString;
 - (NSNumber *)profit;
