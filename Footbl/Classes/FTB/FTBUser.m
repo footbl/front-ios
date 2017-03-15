@@ -136,17 +136,16 @@
     return [self.activeBets valueForKeyPath:@"@sum.bid"];
 }
 
+- (NSString *)stakeString {
+    return self.stake.integerValue > 0 ? @(nearbyint(self.stake.doubleValue)).limitedWalletStringValue : @"-";
+}
+
 - (BOOL)canRecharge {
 	return (self.wallet.integerValue < 100);
 }
 
 - (NSNumber *)toReturn {
-	float toReturn = 0;
-    for (FTBBet *bet in self.activeBets) {
-        toReturn += bet.toReturn.floatValue;
-    }
-	
-	return @(toReturn);
+	return [self.activeBets valueForKeyPath:@"@sum.toReturn"];
 }
 
 - (NSString *)toReturnString {
