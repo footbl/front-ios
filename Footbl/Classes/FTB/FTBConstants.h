@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *const FTBBaseURL;
-NSString *const FTBSignatureKey;
+FOUNDATION_EXPORT NSString *const FTBBaseURL;
+FOUNDATION_EXPORT NSString *const FTBSignatureKey;
 
 typedef void (^FTBBlockObject)(id object);
 typedef void (^FTBBlockError)(NSError *error);
