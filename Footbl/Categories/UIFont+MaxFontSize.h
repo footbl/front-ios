@@ -10,6 +10,6 @@
 
 @interface UIFont (MaxFontSize)
 
-+ (void)setMaxFontSizeToFitBoundsInLabels:(NSArray *)labels;
++ (void)setMaxFontSizeToFitBoundsInLabels:(NSArray<UILabel *> *)labels;
 
 @end
