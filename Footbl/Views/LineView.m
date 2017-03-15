@@ -17,6 +17,8 @@
 
 @implementation LineView
 
+@synthesize attribute = _attribute;
+
 - (NSInteger)attribute {
     if (_attribute == 0) {
         _attribute = NSLayoutAttributeHeight;
