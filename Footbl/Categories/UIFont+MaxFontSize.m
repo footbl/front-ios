@@ -17,16 +17,16 @@
 
 #pragma mark - Class Methods
 
-+ (void)setMaxFontSizeToFitBoundsInLabels:(NSArray *)labels {
++ (void)setMaxFontSizeToFitBoundsInLabels:(NSArray<UILabel *> *)labels {
     if (labels.count == 0) {
         return;
     }
     
     NSNumber *originalSize = objc_getAssociatedObject(labels.firstObject, @selector(setMaxFontSizeToFitBoundsInLabels:));
-    NSString *fontName = [labels.firstObject font].fontName;
+    NSString *fontName = labels.firstObject.font.fontName;
     
     if (!originalSize) {
-        originalSize = @([labels.firstObject font].pointSize);
+        originalSize = @(labels.firstObject.font.pointSize);
         objc_setAssociatedObject(labels.firstObject, @selector(setMaxFontSizeToFitBoundsInLabels:), originalSize, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
