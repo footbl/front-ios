@@ -10,33 +10,39 @@
 #import "FTBUser.h"
 #import "NSNumber+Formatter.h"
 
+@interface FTBChallenge ()
+
+@property (nonatomic) BOOL accepted;
+
+@end
+
 @implementation FTBChallenge
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-	NSDictionary *keyPaths = @{@"challengerUser": @"challenger.user",
-							   @"challengedUser": @"challenged.user",
-							   @"challengerResult": @"challenger.result",
-							   @"challengedResult": @"challenged.result",
+	NSDictionary *keyPaths = @{@"sender": @"challenger.user",
+							   @"recipient": @"challenged.user",
+							   @"senderResult": @"challenger.result",
+							   @"recipientResult": @"challenged.result",
 							   @"match": @"match",
 							   @"bid": @"bid",
 							   @"accepted": @"accepted"};
 	return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
 }
 
-+ (NSValueTransformer *)challengerUserJSONTransformer {
-	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
++ (NSValueTransformer *)senderJSONTransformer {
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
 }
 
-+ (NSValueTransformer *)challengedUserJSONTransformer {
-	return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
++ (NSValueTransformer *)recipientJSONTransformer {
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[FTBUser class]];
 }
 
-+ (NSValueTransformer *)challengerResultJSONTransformer {
-	return [FTBMatch resultJSONTransformer];
++ (NSValueTransformer *)senderResultJSONTransformer {
+    return [FTBMatch resultJSONTransformer];
 }
 
-+ (NSValueTransformer *)challengedResultJSONTransformer {
-	return [FTBMatch resultJSONTransformer];
++ (NSValueTransformer *)recipientResultJSONTransformer {
+    return [FTBMatch resultJSONTransformer];
 }
 
 + (NSValueTransformer *)matchJSONTransformer {
@@ -46,8 +52,12 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
     self = [super initWithDictionary:dictionaryValue error:error];
     if (self) {
-        if (self.match.elapsed == 0 && !self.match.finished) {
-            self.waiting = !dictionaryValue[@"accepted"];
+        if (dictionaryValue[@"accepted"]) {
+            self.status = self.accepted ? FTBChallengeStatusAccepted : FTBChallengeStatusRejected;
+        } else if (self.match.started) {
+            self.status = FTBChallengeStatusRejected;
+        } else {
+            self.status = FTBChallengeStatusWaiting;
         }
     }
     return self;
@@ -58,7 +68,7 @@
 }
 
 - (NSNumber *)toReturn {
-    switch (self.challengerResult) {
+    switch (self.senderResult) {
         case FTBMatchResultHost:
             return @(self.bid.integerValue * 2);
         case FTBMatchResultDraw:
@@ -81,8 +91,10 @@
 
     if (self.myResult == self.match.result) {
         return @(self.toReturn.floatValue - self.bid.integerValue);
-    } else {
+    } else if (self.oponentResult == self.match.result) {
         return @(-self.bid.integerValue);
+    } else {
+        return @0;
     }
 }
 
@@ -110,48 +122,48 @@
 }
 
 - (FTBUser *)me {
-    if ([self.challengedUser isEqual:[FTBUser currentUser]]) {
-        return self.challengedUser;
+    if (self.recipient.isMe) {
+        return self.recipient;
     }
 
-    if ([self.challengerUser isEqual:[FTBUser currentUser]]) {
-        return self.challengerUser;
+    if (self.sender.isMe) {
+        return self.sender;
     }
 
     return nil;
 }
 
 - (FTBUser *)oponent {
-    if (![self.challengedUser isEqual:[FTBUser currentUser]]) {
-        return self.challengedUser;
+    if (self.recipient.isMe) {
+        return self.sender;
     }
 
-    if (![self.challengerUser isEqual:[FTBUser currentUser]]) {
-        return self.challengerUser;
+    if (self.sender.isMe) {
+        return self.recipient;
     }
 
     return nil;
 }
 
 - (FTBMatchResult)myResult {
-    if ([self.challengedUser isEqual:[FTBUser currentUser]]) {
-        return self.challengedResult;
+    if (self.recipient.isMe) {
+        return self.recipientResult;
     }
 
-    if ([self.challengerUser isEqual:[FTBUser currentUser]]) {
-        return self.challengerResult;
+    if (self.sender.isMe) {
+        return self.senderResult;
     }
 
     return FTBMatchResultUnknown;
 }
 
 - (FTBMatchResult)oponentResult {
-    if (![self.challengedUser isEqual:[FTBUser currentUser]]) {
-        return self.challengedResult;
+    if (self.recipient.isMe) {
+        return self.senderResult;
     }
 
-    if (![self.challengerUser isEqual:[FTBUser currentUser]]) {
-        return self.challengerResult;
+    if (self.sender.isMe) {
+        return self.recipientResult;
     }
 
     return FTBMatchResultUnknown;
