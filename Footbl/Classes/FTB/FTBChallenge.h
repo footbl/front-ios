@@ -9,18 +9,23 @@
 #import "FTBMatch.h"
 #import "FTBModel.h"
 
+typedef NS_ENUM(NSUInteger, FTBChallengeStatus) {
+    FTBChallengeStatusWaiting,
+    FTBChallengeStatusAccepted,
+    FTBChallengeStatusRejected
+};
+
 @class FTBUser;
 
 @interface FTBChallenge : FTBModel
 
-@property (nonatomic, strong) FTBUser *challengerUser;
-@property (nonatomic, strong) FTBUser *challengedUser;
-@property (nonatomic, assign) FTBMatchResult challengerResult;
-@property (nonatomic, assign) FTBMatchResult challengedResult;
+@property (nonatomic, strong) FTBUser *sender;
+@property (nonatomic, strong) FTBUser *recipient;
+@property (nonatomic, assign) FTBMatchResult senderResult;
+@property (nonatomic, assign) FTBMatchResult recipientResult;
 @property (nonatomic, strong) FTBMatch *match;
 @property (nonatomic, copy) NSNumber *bid;
-@property (nonatomic, assign, getter=isAccepted) BOOL accepted;
-@property (nonatomic, assign, getter=isWaiting) BOOL waiting;
+@property (nonatomic, assign) FTBChallengeStatus status;
 
 @property (nonatomic, strong, readonly) FTBUser *me;
 @property (nonatomic, strong, readonly) FTBUser *oponent;
