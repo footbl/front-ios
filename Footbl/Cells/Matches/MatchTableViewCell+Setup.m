@@ -139,25 +139,25 @@
     self.drawUserImageView.user = nil;
     self.guestUserImageView.user = nil;
 
-    if (challenge.challengerResult == FTBMatchResultGuest) {
-        self.guestUserImageView.user = challenge.challengerUser;
+    if (challenge.senderResult == FTBMatchResultGuest) {
+        self.guestUserImageView.user = challenge.sender;
         self.guestUserImageView.ringVisible = YES;
-    } else if (challenge.challengerResult == FTBMatchResultDraw) {
-        self.drawUserImageView.user = challenge.challengerUser;
+    } else if (challenge.senderResult == FTBMatchResultDraw) {
+        self.drawUserImageView.user = challenge.sender;
         self.drawUserImageView.ringVisible = YES;
-    } else if (challenge.challengerResult == FTBMatchResultHost) {
-        self.hostUserImageView.user = challenge.challengerUser;
+    } else if (challenge.senderResult == FTBMatchResultHost) {
+        self.hostUserImageView.user = challenge.sender;
         self.hostUserImageView.ringVisible = YES;
     }
 
-    if (challenge.challengedResult == FTBMatchResultGuest) {
-        self.guestUserImageView.user = challenge.challengedUser;
+    if (challenge.recipientResult == FTBMatchResultGuest) {
+        self.guestUserImageView.user = challenge.recipient;
         self.guestUserImageView.ringVisible = YES;
-    } else if (challenge.challengedResult == FTBMatchResultDraw) {
-        self.drawUserImageView.user = challenge.challengedUser;
+    } else if (challenge.recipientResult == FTBMatchResultDraw) {
+        self.drawUserImageView.user = challenge.recipient;
         self.drawUserImageView.ringVisible = YES;
-    } else if (challenge.challengedResult == FTBMatchResultHost) {
-        self.hostUserImageView.user = challenge.challengedUser;
+    } else if (challenge.recipientResult == FTBMatchResultHost) {
+        self.hostUserImageView.user = challenge.recipient;
         self.hostUserImageView.ringVisible = YES;
     }
 
@@ -175,7 +175,7 @@
     
     [self setDateText:match.dateString];
     
-    FTBMatchResult result = (challenge.bid.integerValue != 0) ? challenge.challengerResult : match.result;
+    FTBMatchResult result = (challenge.bid.integerValue != 0) ? challenge.senderResult : match.result;
     
     switch (result) {
         case FTBMatchResultHost:
