@@ -69,6 +69,10 @@
     return self;
 }
 
+- (BOOL)started {
+    return self.finished || self.elapsed > 0;
+}
+
 - (FTBTeam *)winner {
     switch (self.result) {
         case FTBMatchResultGuest:
@@ -85,9 +89,9 @@
 }
 
 - (FTBMatchStatus)status {
-	if (self.elapsed) {
+	if (self.elapsed > 0) {
 		return FTBMatchStatusLive;
-	} else if (self.isFinished) {
+	} else if (self.finished) {
 		return FTBMatchStatusFinished;
 	} else {
 		return FTBMatchStatusWaiting;
