@@ -47,37 +47,37 @@
     if (self.isChallenging) {
         cell.statusLabel.text = nil;
         cell.substatusLabel.text = nil;
-    } else if (self.challenge.waiting && !self.challenge.challengerUser.isMe) {
-        cell.statusLabel.text = nil;
-        cell.substatusLabel.text = nil;
-    } else if ((self.challenge.match.finished || self.challenge.match.elapsed > 0) && self.challenge.waiting) {
+    } else if (self.challenge.status == FTBChallengeStatusRejected) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
         cell.statusLabel.text = NSLocalizedString(@"Challenge declined!", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
         cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
-    } else if (!self.challenge.match.finished && self.challenge.match.elapsed == 0 && self.challenge.waiting) {
+    } else if (self.challenge.status == FTBChallengeStatusWaiting && !self.challenge.sender.isMe) {
+        cell.statusLabel.text = nil;
+        cell.substatusLabel.text = nil;
+    } else if (self.challenge.status == FTBChallengeStatusWaiting) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor lightGrayColor];
         cell.statusLabel.text = NSLocalizedString(@"Waiting for opponent", nil);
         cell.substatusLabel.text = nil;
-    } else if (!self.challenge.match.finished && self.challenge.match.elapsed == 0 && self.challenge.accepted) {
+    } else if (self.challenge.status == FTBChallengeStatusAccepted && !self.challenge.match.started) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor ftb_greenGrassColor];
         cell.statusLabel.text = NSLocalizedString(@"Challenge accepted!", nil);
         cell.substatusLabel.text = nil;
-    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
+    } else if (self.challenge.status == FTBChallengeStatusAccepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:17];
         cell.statusLabel.textColor = [UIColor lightGrayColor];
         cell.statusLabel.text = NSLocalizedString(@"No winner", nil);
         cell.substatusLabel.textColor = [UIColor lightGrayColor];
         cell.substatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$%@ returned to your wallet", nil), self.challenge.bid];
-    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult == self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
+    } else if (self.challenge.status == FTBChallengeStatusAccepted && self.challenge.match.finished && self.challenge.myResult == self.challenge.match.result && self.challenge.oponentResult != self.challenge.match.result) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:42];
         cell.statusLabel.textColor = [UIColor ftb_blueReturnColor];
         cell.statusLabel.text = NSLocalizedString(@"You WIN!", nil);
         cell.substatusLabel.text = nil;
-    } else if (self.challenge.accepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult == self.challenge.match.result) {
+    } else if (self.challenge.status == FTBChallengeStatusAccepted && self.challenge.match.finished && self.challenge.myResult != self.challenge.match.result && self.challenge.oponentResult == self.challenge.match.result) {
         cell.statusLabel.font = [cell.statusLabel.font fontWithSize:42];
         cell.statusLabel.textColor = [UIColor ftb_redStakeColor];
         cell.statusLabel.text = NSLocalizedString(@"You LOSE!", nil);
@@ -97,9 +97,9 @@
 
     if (!challenge && self.bid) {
         challenge = [[FTBChallenge alloc] init];
-        challenge.challengerUser = user;
+        challenge.sender = user;
         challenge.bid = self.bid;
-        challenge.challengerResult = self.result;
+        challenge.senderResult = self.result;
         challenge.match = self.match;
     }
 
@@ -176,7 +176,7 @@
             [weakSelf reloadWallet];
             [weakSelf configureCell:[weakSelf.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
         } else {
-            FTBMatchResult previousResult = weakSelf.challenge.challengedResult;
+            FTBMatchResult previousResult = weakSelf.challenge.recipientResult;
             FTBMatchResult result = FTBMatchResultUnknown;
             if (index == 0) {
                 result = FTBMatchResultHost;
@@ -187,12 +187,12 @@
             }
 
             if (result != previousResult) {
-                if (result != weakSelf.challenge.challengerResult) {
-                    weakSelf.challenge.challengedResult = result;
+                if (result != weakSelf.challenge.senderResult) {
+                    weakSelf.challenge.recipientResult = result;
                     [weakSelf setAcceptButtonVisible:YES completion:nil];
                 }
             } else {
-                weakSelf.challenge.challengedResult = FTBMatchResultUnknown;
+                weakSelf.challenge.recipientResult = FTBMatchResultUnknown;
                 [weakSelf setDeclineButtonVisible:YES completion:nil];
             }
 
@@ -230,7 +230,7 @@
 }
 
 - (BOOL)isBeingChallenged {
-    return !self.challenge.challengerUser.isMe && !self.challenge.accepted;
+    return !self.challenge.sender.isMe && self.challenge.status == FTBChallengeStatusWaiting;
 }
 
 - (void)setAcceptButtonVisible:(BOOL)visible completion:(void (^)(void))completion {
@@ -291,11 +291,11 @@
         __strong typeof(weakSelf) strongSelf = weakSelf;
 
         FTBChallenge *challenge = [[FTBChallenge alloc] init];
-        challenge.challengerUser = [FTBUser currentUser];
+        challenge.sender = [FTBUser currentUser];
         challenge.bid = strongSelf.bid;
-        challenge.challengerResult = strongSelf.result;
+        challenge.senderResult = strongSelf.result;
         challenge.match = strongSelf.match;
-        challenge.waiting = YES;
+        challenge.status = FTBChallengeStatusWaiting;
         strongSelf.challenge = challenge;
 
         [UIView animateWithDuration:0.25 animations:^{
@@ -410,7 +410,7 @@
         [self.view addSubview:self.doneButton];
 
         [self reloadWallet];
-    } else if (!self.challenge.challengerUser.isMe) {
+    } else if (!self.challenge.sender.isMe && self.challenge.status == FTBChallengeStatusWaiting) {
         self.declineButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.declineButton addTarget:self action:@selector(declineAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.declineButton setTitle:NSLocalizedString(@"Decline", nil) forState:UIControlStateNormal];
