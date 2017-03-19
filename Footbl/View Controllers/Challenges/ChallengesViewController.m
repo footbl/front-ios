@@ -56,47 +56,54 @@
 
     for (FTBUser *user in @[me, opponent]) {
         for (NSNumber *elapsed in @[@0, @42]) {
-            for (NSNumber *waiting in @[@NO, @YES]) {
-                for (NSNumber *accepted in @[@NO, @YES]) {
-                    for (NSNumber *finished in @[@NO, @YES]) {
-                        for (NSNumber *result in @[@(FTBMatchResultGuest), @(FTBMatchResultHost), @(FTBMatchResultDraw), @(FTBMatchResultUnknown)]) {
-                            FTBMatch *match = [[FTBMatch alloc] init];
-                            match.finished = finished.boolValue;
-                            match.elapsed = elapsed.doubleValue;
-                            match.guest = guest;
-                            match.host = host;
-                            match.result = result.integerValue;
-                            match.date = date;
-                            match.guestScore = (match.result == FTBMatchResultGuest) ? @1 : @0;
-                            match.hostScore = (match.result == FTBMatchResultHost) ? @1 : @0;
+            for (NSNumber *status in @[@(FTBChallengeStatusWaiting), @(FTBChallengeStatusAccepted), @(FTBChallengeStatusRejected)]) {
+                for (NSNumber *finished in @[@NO, @YES]) {
+                    for (NSNumber *result in @[@(FTBMatchResultGuest), @(FTBMatchResultHost), @(FTBMatchResultDraw), @(FTBMatchResultUnknown)]) {
+                        NSTimeInterval interval = finished.boolValue ? - 180 * 60 : - elapsed.integerValue * 60;
 
-                            if (match.finished && match.elapsed > 0) {
-                                continue;
-                            }
+                        FTBMatch *match = [[FTBMatch alloc] init];
+                        match.finished = finished.boolValue;
+                        match.elapsed = elapsed.doubleValue;
+                        match.guest = guest;
+                        match.host = host;
+                        match.result = result.integerValue;
+                        match.date = [date dateByAddingTimeInterval:interval];
+                        match.guestScore = (match.result == FTBMatchResultGuest) ? @1 : @0;
+                        match.hostScore = (match.result == FTBMatchResultHost) ? @1 : @0;
 
-                            if (!match.finished && match.elapsed == 0 && match.result != FTBMatchResultUnknown) {
-                                continue;
-                            }
-
-                            if (waiting.boolValue && (accepted.boolValue || finished.boolValue || elapsed.integerValue > 0)) {
-                                continue;
-                            }
-
-                            FTBChallenge *challenge = [[FTBChallenge alloc] init];
-                            challenge.match = match;
-                            challenge.accepted = accepted.boolValue;
-                            challenge.waiting = waiting.boolValue;
-                            challenge.bid = @10;
-                            challenge.challengerUser = user;
-                            challenge.challengerResult = FTBMatchResultHost;
-                            challenge.challengedUser = user.isMe ? opponent : me;
-
-                            if (accepted.boolValue) {
-                                challenge.challengedResult = FTBMatchResultGuest;
-                            }
-
-                            [challenges addObject:challenge];
+                        if (match.finished && match.elapsed > 0) {
+                            continue;
                         }
+
+                        if (match.finished && match.result == FTBMatchResultUnknown) {
+                            continue;
+                        }
+
+                        if (match.elapsed > 0 && match.result == FTBMatchResultUnknown) {
+                            continue;
+                        }
+
+                        if (!match.finished && match.elapsed == 0 && match.result != FTBMatchResultUnknown) {
+                            continue;
+                        }
+
+                        FTBChallenge *challenge = [[FTBChallenge alloc] init];
+                        challenge.match = match;
+                        challenge.status = status.integerValue;
+                        challenge.bid = @10;
+                        challenge.sender = user;
+                        challenge.senderResult = user.isMe ? FTBMatchResultHost : FTBMatchResultGuest;
+                        challenge.recipient = user.isMe ? opponent : me;
+
+                        if (challenge.status == FTBChallengeStatusAccepted) {
+                            challenge.recipientResult = user.isMe ? FTBMatchResultGuest : FTBMatchResultHost;
+                        }
+
+                        if (challenge.status == FTBChallengeStatusWaiting && match.started) {
+                            continue;
+                        }
+
+                        [challenges addObject:challenge];
                     }
                 }
             }
@@ -140,13 +147,13 @@
         cell.vsLabel.alpha = 1;
     }
 
-    cell.stakeLabel.text = challenge.accepted ? challenge.valueString : challenge.match.finished ? @"-" : @"?";
+    cell.stakeLabel.text = challenge.status == FTBChallengeStatusAccepted ? challenge.valueString : challenge.status == FTBChallengeStatusWaiting ? @"?" : @"-";
     cell.stakeLabel.textColor = challenge.match.finished ? [UIColor lightGrayColor] : [UIColor ftb_redStakeColor];
-    cell.profitLabel.text = challenge.accepted ? challenge.rewardString : @"-";
+    cell.profitLabel.text = challenge.status == FTBChallengeStatusAccepted ? challenge.rewardString : challenge.status == FTBChallengeStatusWaiting ? @"?" : @"-";
     cell.profitLabel.textColor = challenge.match.finished ? [UIColor lightGrayColor] : [UIColor ftb_greenMoneyColor];
     cell.dateLabel.text = challenge.match.dateString;
     cell.userImageView.user = challenge.oponent;
-    cell.userImageView.ringVisible = challenge.accepted || !challenge.challengerUser.isMe;
+    cell.userImageView.ringVisible = challenge.status == FTBChallengeStatusAccepted || !challenge.sender.isMe;
     cell.topLineView.backgroundColor = (challenge.match.elapsed > 0) ? [UIColor ftb_greenLiveColor] : [UIColor ftb_cellSeparatorColor];
     cell.bottomLineView.backgroundColor = (challenge.match.elapsed > 0) ? [UIColor ftb_greenLiveColor] : [UIColor ftb_cellSeparatorColor];
 }
@@ -200,7 +207,7 @@
 
 - (void)commomInit {
     self.title = NSLocalizedString(@"Challenges", nil);
-    
+
     UIImage *image = [UIImage imageNamed:@"GKTabBarIconChallengesOff"];
     UIImage *selectedImage = [UIImage imageNamed:@"GKTabBarIconChallengesOn"];
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:self.title image:image selectedImage:selectedImage];
@@ -238,17 +245,17 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.challenges.count;
+    return self.challenges.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	ChallengeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	[self configureCell:cell atIndexPath:indexPath];
-	return cell;
+    ChallengeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
