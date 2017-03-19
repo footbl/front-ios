@@ -33,6 +33,7 @@
 
 + (NSValueTransformer *)resultJSONTransformer;
 
+- (BOOL)started;
 - (FTBBet *)myBet;
 - (FTBMatchStatus)status;
 - (NSString *)dateString;
